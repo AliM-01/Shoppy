@@ -3,9 +3,10 @@ using System.Threading.Tasks;
 using _0_Framework.Application.ErrorMessages;
 using _0_Framework.Application.Extensions;
 using _0_Framework.Application.Wrappers;
+using _0_Framework.Infrastructure.GenericRepository;
+using Microsoft.EntityFrameworkCore;
 using SM.Application.Contracts.ProductCategory.Interfaces;
 using SM.Application.Contracts.ProductCategory.Models;
-using SM.Domain.ProductCategoryAgg;
 
 namespace SM.Application.ProductCategory
 {
@@ -13,9 +14,9 @@ namespace SM.Application.ProductCategory
     {
         #region Ctor
 
-        private readonly IProductCategoryRepository _productCategoryRepository;
+        private readonly IGenericRepository<Domain.ProductCategory.ProductCategory> _productCategoryRepository;
 
-        public ProductCategoryApplication(IProductCategoryRepository productCategoryRepository)
+        public ProductCategoryApplication(IGenericRepository<Domain.ProductCategory.ProductCategory> productCategoryRepository)
         {
             _productCategoryRepository = productCategoryRepository;
         }
@@ -33,16 +34,16 @@ namespace SM.Application.ProductCategory
 
         #region GetDetails
 
-        public async Task<OperationResult<Domain.ProductCategoryAgg.ProductCategory>> GetDetails(long id)
+        public async Task<OperationResult<Domain.ProductCategory.ProductCategory>> GetDetails(long id)
         {
-            var operation = new OperationResult<Domain.ProductCategoryAgg.ProductCategory>();
+            var operation = new OperationResult<Domain.ProductCategory.ProductCategory>();
 
-            var productCategory = await _productCategoryRepository.GetByIdAsync(id);
+            var productCategory = await _productCategoryRepository.GetEntityById(id);
 
             if (productCategory is null)
                 return operation.Failed(ApplicationErrorMessage.RecordNotFoundMessage);
 
-            return new OperationResult<Domain.ProductCategoryAgg.ProductCategory>().Succedded(productCategory);
+            return new OperationResult<Domain.ProductCategory.ProductCategory>().Succedded(productCategory);
         }
 
         #endregion
@@ -53,17 +54,24 @@ namespace SM.Application.ProductCategory
         {
             var operation = new OperationResult();
 
-            if (await _productCategoryRepository.ExistsAsync(x => x.Title == command.Title))
+            if (await _productCategoryRepository.GetQuery()
+                .AnyAsync(x => x.Title == command.Title))
                 return operation.Failed(ApplicationErrorMessage.IsDuplicatedMessage);
 
-            var slug = command.Title.ToSlug();
+            var productCategory = new Domain.ProductCategory.ProductCategory
+            {
+                Title = command.Title,
+                Description = command.Description,
+                ImagePath = command.ImagePath,
+                ImageAlt = command.ImageAlt,
+                ImageTitle = command.ImageTitle,
+                MetaKeywords = command.MetaKeywords,
+                MetaDescription = command.MetaDescription,
+                Slug = command.Title.ToSlug()
+            };
 
-            var productCategory = new Domain.ProductCategoryAgg.ProductCategory(command.Title, command.Description,
-                command.ImagePath, command.ImageAlt, command.ImageTitle,
-                command.MetaKeywords, command.MetaDescription, slug);
-
-            await _productCategoryRepository.CreateAsync(productCategory);
-            await _productCategoryRepository.SaveChangesAsync();
+            await _productCategoryRepository.InsertEntity(productCategory);
+            await _productCategoryRepository.SaveChanges();
 
             return operation.Succedded();
         }
@@ -75,21 +83,26 @@ namespace SM.Application.ProductCategory
         public async Task<OperationResult> Edit(EditProductCategoryModel command)
         {
             var operation = new OperationResult();
-            var productCategory = await _productCategoryRepository.GetByIdAsync(command.Id);
+            var productCategory = await _productCategoryRepository.GetEntityById(command.Id);
 
             if (productCategory is null)
                 return operation.Failed(ApplicationErrorMessage.RecordNotFoundMessage);
 
-            if (await _productCategoryRepository.ExistsAsync(x => x.Title == command.Title && x.Id != command.Id))
+            if (await _productCategoryRepository.GetQuery()
+                .AnyAsync(x => x.Title == command.Title && x.Id != command.Id))
                 return operation.Failed(ApplicationErrorMessage.IsDuplicatedMessage);
 
-            var slug = command.Title.ToSlug();
+            productCategory.Title = command.Title;
+            productCategory.Description = command.Description;
+            productCategory.ImagePath = command.ImagePath;
+            productCategory.ImageAlt = command.ImageAlt;
+            productCategory.ImageTitle = command.ImageTitle;
+            productCategory.MetaKeywords = command.MetaKeywords;
+            productCategory.MetaDescription = command.MetaDescription;
+            productCategory.Slug = command.Title.ToSlug();
 
-            productCategory.Edit(command.Title, command.Description,
-                command.ImagePath, command.ImageAlt, command.ImageTitle,
-                command.MetaKeywords, command.MetaDescription, slug);
-
-            await _productCategoryRepository.SaveChangesAsync();
+            _productCategoryRepository.UpdateEntity(productCategory);
+            await _productCategoryRepository.SaveChanges();
 
             return operation.Succedded();
         }

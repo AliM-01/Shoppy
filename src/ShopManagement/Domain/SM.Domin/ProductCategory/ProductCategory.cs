@@ -1,9 +1,9 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using _0_Framework.Domain;
 
-namespace SM.Application.Contracts.ProductCategory.Models
+namespace SM.Domain.ProductCategory
 {
-    public class CreateProductCategoryModel
+    public class ProductCategory : BaseEntity
     {
         [Display(Name = "عنوان")]
         [Required(ErrorMessage = DomainErrorMessage.RequiredMessage)]
@@ -38,5 +38,9 @@ namespace SM.Application.Contracts.ProductCategory.Models
         [Required(ErrorMessage = DomainErrorMessage.RequiredMessage)]
         [MaxLength(100, ErrorMessage = DomainErrorMessage.MaxLengthMessage)]
         public string MetaDescription { get; set; }
+
+        [Display(Name = "عنوان لینک")]
+        [Required(ErrorMessage = DomainErrorMessage.RequiredMessage)]
+        public string Slug { get; set; }
     }
 }

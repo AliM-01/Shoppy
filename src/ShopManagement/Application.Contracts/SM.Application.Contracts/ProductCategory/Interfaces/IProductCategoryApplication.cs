@@ -9,7 +9,7 @@ namespace SM.Application.Contracts.ProductCategory.Interfaces
     {
         Task<OperationResult<List<ProductCategoryViewModel>>> Filter(FilterProductCategoryModel filter);
 
-        Task<OperationResult<Domain.ProductCategoryAgg.ProductCategory>> GetDetails(long id);
+        Task<OperationResult<Domain.ProductCategory.ProductCategory>> GetDetails(long id);
 
         Task<OperationResult> Create(CreateProductCategoryModel command);
 
