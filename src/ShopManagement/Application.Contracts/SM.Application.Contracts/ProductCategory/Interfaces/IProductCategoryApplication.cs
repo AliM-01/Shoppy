@@ -1,17 +1,18 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
+using _0_Framework.Application.Wrappers;
 using SM.Application.Contracts.ProductCategory.Models;
 
 namespace SM.Application.Contracts.ProductCategory.Interfaces
 {
     public interface IProductCategoryApplication
     {
-        Task<List<ProductCategoryViewModel>> Filter(FilterProductCategoryModel filter);
+        Task<OperationResult<List<ProductCategoryViewModel>>> Filter(FilterProductCategoryModel filter);
 
-        Task<Domain.ProductCategoryAgg.ProductCategory> GetDetails(long id);
+        Task<OperationResult<Domain.ProductCategoryAgg.ProductCategory>> GetDetails(long id);
 
-        Task Create(CreateProductCategoryModel command);
+        Task<OperationResult> Create(CreateProductCategoryModel command);
 
-        Task Edit(EditProductCategoryModel command);
+        Task<OperationResult> Edit(EditProductCategoryModel command);
     }
 }
