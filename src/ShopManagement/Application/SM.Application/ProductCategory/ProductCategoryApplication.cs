@@ -1,11 +1,9 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 using _0_Framework.Application.ErrorMessages;
-using _0_Framework.Application.Extensions;
 using _0_Framework.Application.Wrappers;
-using _0_Framework.Infrastructure.GenericRepository;
+using _0_Framework.Domain.IGenericRepository;
 using AutoMapper;
-using Microsoft.EntityFrameworkCore;
 using SM.Application.Contracts.ProductCategory.Interfaces;
 using SM.Application.Contracts.ProductCategory.Models;
 
@@ -57,8 +55,7 @@ namespace SM.Application.ProductCategory
         {
             var operation = new OperationResult();
 
-            if (await _productCategoryRepository.GetQuery()
-                .AnyAsync(x => x.Title == command.Title))
+            if (_productCategoryRepository.Exists(x => x.Title == command.Title))
                 return operation.Failed(ApplicationErrorMessage.IsDuplicatedMessage);
 
             var productCategory =
@@ -82,13 +79,12 @@ namespace SM.Application.ProductCategory
             if (productCategory is null)
                 return operation.Failed(ApplicationErrorMessage.RecordNotFoundMessage);
 
-            if (await _productCategoryRepository.GetQuery()
-                .AnyAsync(x => x.Title == command.Title && x.Id != command.Id))
+            if (_productCategoryRepository.Exists(x => x.Title == command.Title && x.Id != command.Id))
                 return operation.Failed(ApplicationErrorMessage.IsDuplicatedMessage);
 
             _mapper.Map(command, productCategory);
 
-            _productCategoryRepository.UpdateEntity(productCategory);
+            _productCategoryRepository.Update(productCategory);
             await _productCategoryRepository.SaveChanges();
 
             return operation.Succedded();

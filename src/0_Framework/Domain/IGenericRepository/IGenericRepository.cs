@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Threading.Tasks;
-using _0_Framework.Domain;
 
-namespace _0_Framework.Infrastructure.GenericRepository
+namespace _0_Framework.Domain.IGenericRepository
 {
     public interface IGenericRepository<TEntity> : IAsyncDisposable where TEntity : BaseEntity
     {
@@ -16,11 +16,13 @@ namespace _0_Framework.Infrastructure.GenericRepository
 
         Task<TEntity> GetEntityById(long entityId);
 
-        void UpdateEntity(TEntity entity);
+        void Update(TEntity entity);
 
-        Task SoftDeleteEntity(long entityId);
+        Task SoftDelete(long entityId);
 
-        Task FullyDeleteEntity(long entityId);
+        Task FullDelete(long entityId);
+
+        bool Exists(Expression<Func<TEntity, bool>> expression);
 
         Task SaveChanges();
     }

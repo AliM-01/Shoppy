@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Threading.Tasks;
 using _0_Framework.Domain;
+using _0_Framework.Domain.IGenericRepository;
 using Microsoft.EntityFrameworkCore;
 
 namespace _0_Framework.Infrastructure.GenericRepository
@@ -24,7 +26,7 @@ namespace _0_Framework.Infrastructure.GenericRepository
         }
 
         #endregion
-
+        
         #region CRUD
 
         #region Create
@@ -57,7 +59,7 @@ namespace _0_Framework.Infrastructure.GenericRepository
 
         #region Update
 
-        public void UpdateEntity(TEntity entity)
+        public void Update(TEntity entity)
         {
             entity.LastUpdateDate = DateTime.Now;
             _dbSet.Update(entity);
@@ -67,20 +69,29 @@ namespace _0_Framework.Infrastructure.GenericRepository
 
         #region Delete
          
-        public async Task SoftDeleteEntity(long entityId)
+        public async Task SoftDelete(long entityId)
         {
             TEntity entity = await GetEntityById(entityId);
             entity.IsDeleted = true;
-            UpdateEntity(entity);
+            Update(entity);
         }
 
-        public async Task FullyDeleteEntity(long entityId)
+        public async Task FullDelete(long entityId)
         {
             TEntity entity = await GetEntityById(entityId);
             _context.Remove(entity);
         }
 
         #endregion
+
+        #endregion
+
+        #region Exists
+
+        public bool Exists(Expression<Func<TEntity, bool>> expression)
+        {
+            return _dbSet.Any(expression);
+        }
 
         #endregion
 
