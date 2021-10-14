@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using _0_Framework.Application.Wrappers;
 using SM.Application.Contracts.ProductCategory.Models;
 
@@ -7,7 +6,7 @@ namespace SM.Application.Contracts.ProductCategory.Interfaces
 {
     public interface IProductCategoryApplication
     {
-        Task<OperationResult<List<ProductCategoryViewModel>>> Filter(FilterProductCategoryModel filter);
+        Task<OperationResult<FilterProductCategoryModel>> Filter(FilterProductCategoryModel filter);
 
         Task<OperationResult<Domain.ProductCategory.ProductCategory>> GetDetails(long id);
 

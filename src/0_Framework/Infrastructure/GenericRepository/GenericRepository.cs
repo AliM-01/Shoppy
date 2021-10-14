@@ -52,7 +52,7 @@ namespace _0_Framework.Infrastructure.GenericRepository
 
         public async Task<TEntity> GetEntityById(long entityId)
         {
-            return await _dbSet.SingleOrDefaultAsync(s => s.Id == entityId);
+            return await _dbSet.AsNoTracking().SingleOrDefaultAsync(s => s.Id == entityId);
         }
 
         #endregion 
@@ -108,7 +108,7 @@ namespace _0_Framework.Infrastructure.GenericRepository
 
         public IQueryable<TEntity> GetQuery()
         {
-            return _dbSet.AsQueryable();
+            return _dbSet.AsNoTracking().AsQueryable();
         }
 
         #endregion

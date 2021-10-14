@@ -1,9 +1,11 @@
-﻿using System.Collections.Generic;
+﻿using System.Linq;
 using System.Threading.Tasks;
 using _0_Framework.Application.ErrorMessages;
+using _0_Framework.Application.Models.Paging;
 using _0_Framework.Application.Wrappers;
 using _0_Framework.Domain.IGenericRepository;
 using AutoMapper;
+using Microsoft.EntityFrameworkCore;
 using SM.Application.Contracts.ProductCategory.Interfaces;
 using SM.Application.Contracts.ProductCategory.Models;
 
@@ -26,9 +28,34 @@ namespace SM.Application.ProductCategory
 
         #region Filter
 
-        public async Task<OperationResult<List<ProductCategoryViewModel>>> Filter(FilterProductCategoryModel filter)
+        public async Task<OperationResult<FilterProductCategoryModel>> Filter(FilterProductCategoryModel filter)
         {
-            throw new System.NotImplementedException();
+            var query = _productCategoryRepository.GetQuery()
+                .OrderByDescending(p => p.LastUpdateDate).AsQueryable();
+
+            var operation = new OperationResult<FilterProductCategoryModel>();
+
+            #region filter
+
+            if (!string.IsNullOrEmpty(filter.Title))
+                query = query.Where(s => EF.Functions.Like(s.Title, $"%{filter.Title}%"));
+
+            #endregion filter
+
+            #region paging
+
+            var pager = Pager.Build(filter.PageId, await query.CountAsync(), filter.TakePage, filter.ShownPages);
+            var filteredEntities = await query.Paging(pager)
+                .Select(product =>
+                    _mapper.Map(product, new ProductCategoryViewModel()))
+                .ToListAsync();
+
+            #endregion paging
+
+            if (filteredEntities is null)
+                return operation.Failed(ApplicationErrorMessage.RecordNotFoundMessage);
+
+            return operation.Succedded(filter.SetEntities(filteredEntities).SetPaging(pager));
         }
 
         #endregion
