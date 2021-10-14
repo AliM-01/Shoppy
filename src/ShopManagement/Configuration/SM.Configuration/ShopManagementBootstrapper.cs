@@ -9,7 +9,7 @@ using SM.Infrastructure.Persistence.Context;
 
 namespace SM.Configuration
 {
-    public class ShopManagementBootstrapper
+    public static class ShopManagementBootstrapper
     {
         public static void Configure(IServiceCollection services, string connectionString)
         {
