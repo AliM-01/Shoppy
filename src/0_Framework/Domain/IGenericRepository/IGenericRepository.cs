@@ -6,7 +6,8 @@ using System.Threading.Tasks;
 
 namespace _0_Framework.Domain.IGenericRepository
 {
-    public interface IGenericRepository<TEntity> : IAsyncDisposable where TEntity : BaseEntity
+    public interface IGenericRepository<TEntity> : IAsyncDisposable 
+        where TEntity : BaseEntity
     {
         IQueryable<TEntity> GetQuery();
 
