@@ -4,6 +4,7 @@ using _0_Framework.Application.ErrorMessages;
 using _0_Framework.Application.Extensions;
 using _0_Framework.Application.Wrappers;
 using _0_Framework.Infrastructure.GenericRepository;
+using AutoMapper;
 using Microsoft.EntityFrameworkCore;
 using SM.Application.Contracts.ProductCategory.Interfaces;
 using SM.Application.Contracts.ProductCategory.Models;
@@ -15,10 +16,12 @@ namespace SM.Application.ProductCategory
         #region Ctor
 
         private readonly IGenericRepository<Domain.ProductCategory.ProductCategory> _productCategoryRepository;
+        private readonly IMapper _mapper;
 
-        public ProductCategoryApplication(IGenericRepository<Domain.ProductCategory.ProductCategory> productCategoryRepository)
+        public ProductCategoryApplication(IGenericRepository<Domain.ProductCategory.ProductCategory> productCategoryRepository, IMapper mapper)
         {
             _productCategoryRepository = productCategoryRepository;
+            _mapper = mapper;
         }
 
         #endregion
@@ -58,18 +61,9 @@ namespace SM.Application.ProductCategory
                 .AnyAsync(x => x.Title == command.Title))
                 return operation.Failed(ApplicationErrorMessage.IsDuplicatedMessage);
 
-            var productCategory = new Domain.ProductCategory.ProductCategory
-            {
-                Title = command.Title,
-                Description = command.Description,
-                ImagePath = command.ImagePath,
-                ImageAlt = command.ImageAlt,
-                ImageTitle = command.ImageTitle,
-                MetaKeywords = command.MetaKeywords,
-                MetaDescription = command.MetaDescription,
-                Slug = command.Title.ToSlug()
-            };
-
+            var productCategory =
+                _mapper.Map(command, new Domain.ProductCategory.ProductCategory());
+            
             await _productCategoryRepository.InsertEntity(productCategory);
             await _productCategoryRepository.SaveChanges();
 
@@ -92,14 +86,7 @@ namespace SM.Application.ProductCategory
                 .AnyAsync(x => x.Title == command.Title && x.Id != command.Id))
                 return operation.Failed(ApplicationErrorMessage.IsDuplicatedMessage);
 
-            productCategory.Title = command.Title;
-            productCategory.Description = command.Description;
-            productCategory.ImagePath = command.ImagePath;
-            productCategory.ImageAlt = command.ImageAlt;
-            productCategory.ImageTitle = command.ImageTitle;
-            productCategory.MetaKeywords = command.MetaKeywords;
-            productCategory.MetaDescription = command.MetaDescription;
-            productCategory.Slug = command.Title.ToSlug();
+            _mapper.Map(command, productCategory);
 
             _productCategoryRepository.UpdateEntity(productCategory);
             await _productCategoryRepository.SaveChanges();
