@@ -7,7 +7,7 @@ using SM.Application.ProductCategory;
 using SM.Domain.ProductCategory;
 using SM.Infrastructure.Persistence.Context;
 
-namespace SM.Configuration
+namespace SM.Infrastructure.Configuration
 {
     public static class ShopManagementBootstrapper
     {
