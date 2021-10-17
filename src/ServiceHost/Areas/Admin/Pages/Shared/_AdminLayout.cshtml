@@ -192,86 +192,26 @@
         <!-- End Header -->
         <!-- Begin Page Content -->
         <div class="page-content d-flex align-items-stretch">
-            <div class="compact-light-sidebar has-shadow">
+            <div class="default-sidebar">
                 <!-- Begin Side Navbar -->
                 <nav class="side-navbar box-scroll sidebar-scroll">
                     <!-- Begin Main Navigation -->
                     <ul class="list-unstyled">
                         <li class="active">
-                            <a href="#dropdown-db" aria-expanded="true" data-toggle="collapse"><i class="la la-columns"></i></a>
+                            <a href="#dropdown-db" aria-expanded="false" data-toggle="collapse"><i class="la la-shopping-cart"></i><span>فروشگاه</span></a>
                             <ul id="dropdown-db" class="collapse list-unstyled show pt-0">
-                                <li><a href="db-default.html">پیش فرض</a></li>
-                                <li><a class="active" href="db-clean.html">ساده</a></li>
-                                <li><a href="db-compact.html">فشرده</a></li>
-                                <li><a href="db-modern.html">مدرن</a></li>
-                                <li><a href="db-social.html">اجتماعی</a></li>
-                                <li><a href="db-smarthome.html">خانه هوشمند</a></li>
-                                <li><a href="db-all.html">همه</a></li>
+                                <li><a href="#">محصولات</a></li>
+                                <li><a href="#">دسته بندی محصولات</a></li>
                             </ul>
                         </li>
-                        <li>
-                            <a href="#dropdown-app" aria-expanded="false" data-toggle="collapse"><i class="la la-puzzle-piece"></i></a>
-                            <ul id="dropdown-app" class="collapse list-unstyled pt-0">
-                                <li><a href="app-calendar.html">تقویم</a></li>
-                                <li><a href="app-chat.html">چـت</a></li>
-                                <li><a href="app-mail.html">ایمیل</a></li>
-                                <li><a href="app-contact.html">تماس</a></li>
-                            </ul>
-                        </li>
-                        <li><a href="components-widgets.html"><i class="la la-spinner"></i></a></li>
+                        <li><a href="#"><i class="la la-cogs"></i><span>تنظیمات سایت</span></a></li>
                     </ul>
-                    <span class="sidebar-separator"></span>
-                    <ul class="list-unstyled">
-                        <li>
-                            <a href="#dropdown-ui" aria-expanded="false" data-toggle="collapse"><i class="la la-share-alt"></i></a>
-                            <ul id="dropdown-ui" class="collapse list-unstyled pt-0">
-                                <li><a href="components-buttons.html">دکمه ها</a></li>
-                                <li><a href="components-alerts.html">هشدارها</a></li>
-                                <li><a href="components-modal.html">مدُال</a></li>
-                                <li><a href="components-notifications.html">اعلان ها</a></li>
-                                <li><a href="components-timeline.html">خط زمانی</a></li>
-                                <li><a href="components-progress.html">پیش روندها</a></li>
-                                <li><a href="components-tabs.html">تب ها</a></li>
-                                <li><a href="components-charts.html">چارت جاوا اسکریپت</a></li>
-                                <li><a href="components-accordion.html">آکاردئون</a></li>
-                                <li><a href="components-popover.html">پاپ آپ</a></li>
-                                <li><a href="components-tooltip.html">راهنمایی</a></li>
-                                <li><a href="components-scrollable.html">اسکرول شدنی</a></li>
-                            </ul>
-                        </li>
-                        <li>
-                            <a href="#dropdown-icons" aria-expanded="false" data-toggle="collapse"><i class="la la-font"></i></a>
-                            <ul id="dropdown-icons" class="collapse list-unstyled pt-0">
-                                <li><a href="icons-lineawesome.html">Line Awesome</a></li>
-                                <li><a href="icons-themify.html">Themify</a></li>
-                                <li><a href="icons-ionicons.html">Ionicons</a></li>
-                                <li><a href="icons-meteocons.html">Meteocons</a></li>
-                            </ul>
-                        </li>
-                        <li>
-                            <a href="#dropdown-forms" aria-expanded="false" data-toggle="collapse"><i class="la la-list-alt"></i></a>
-                            <ul id="dropdown-forms" class="collapse list-unstyled pt-0">
-                                <li><a href="forms-basic.html">فرم پایه</a></li>
-                                <li><a href="forms-validation.html">فرم اعتبار سنجی</a></li>
-                                <li><a href="forms-wizard.html">فرم مرحله ای</a></li>
-                                <li><a href="forms-select.html">انتخابی بوت استرپ</a></li>
-                            </ul>
-                        </li>
-                        <li>
-                            <a href="#dropdown-tables" aria-expanded="false" data-toggle="collapse"><i class="la la-th-large"></i><span></span></a>
-                            <ul id="dropdown-tables" class="collapse list-unstyled pt-0">
-                                <li><a href="tables-basic.html">پایه</a></li>
-                                <li><a href="tables-datatables.html">جداول داده</a></li>
-                                <li><a href="tables-tabledit.html">جداول خام</a></li>
-                            </ul>
-                        </li>
-                        <li><a href="maps-leaflet.html"><i class="la la-map"></i></a></li>
-                    </ul>
+                    <!-- End Main Navigation -->
                 </nav>
                 <!-- End Side Navbar -->
             </div>
             <!-- End Left Sidebar -->
-            <div class="content-inner compact">
+            <div class="content-inner">
                 <div class="container-fluid">
 
                     @RenderBody()
@@ -578,9 +518,6 @@
     <script src="/AdminAssets/assets/vendors/js/noty/noty.min.js"></script>
     <script src="/AdminAssets/assets/vendors/js/chart/chart.min.js"></script>
     <script src="/AdminAssets/assets/vendors/js/owl-carousel/owl.carousel.min.js"></script>
-    <script src="/AdminAssets/assets/vendors/js/calendar/moment.min.js"></script>
-    <script src="/AdminAssets/assets/vendors/js/calendar/fullcalendar.min.js"></script>
-    <script src="/AdminAssets/assets/vendors/js/calendar/locale/fa.js"></script>
     <script src="/AdminAssets/assets/vendors/js/leaflet/leaflet.min.js"></script>
     <script src="/AdminAssets/assets/vendors/js/app/app.min.js"></script>
     <script src="/AdminAssets/assets/js/dashboard/db-clean.js"></script>

@@ -21,4 +21,8 @@
     <ProjectReference Include="..\ShopManagement\Infrastructure\SM.Infrastructure.Shared\SM.Infrastructure.Shared.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Areas\Admin\Pages\Shop\ProductCategory\" />
+  </ItemGroup>
+
 </Project>
