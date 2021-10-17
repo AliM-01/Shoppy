@@ -6,19 +6,7 @@
 	// Auto Hide
 	// ------------------------------------------------------ //	
 
-	$(function () {
-		$('#sorting-table').DataTable({
-			"lengthMenu": [
-				[5, 10, 15, -1],
-				[5, 10, 15, "All"]
-			],
-			"order": [
-				[3, "desc"]
-			]
-		});
-	});
-
-	$(function () {
+    $(function () {
 		$('#export-table').DataTable({
 			dom: 'Bfrtip',
 			buttons: {
@@ -62,7 +50,7 @@
 						columns: ':not(.no-print)'
 					},
 					footer: true,
-					autoPrint: true
+					autoPrint: false
 				}],
 				dom: {
 					container: {

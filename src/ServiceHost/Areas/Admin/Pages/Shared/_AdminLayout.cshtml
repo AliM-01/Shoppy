@@ -17,10 +17,6 @@
 
     <link rel="stylesheet" href="/AdminAssets/assets/vendors/css/base/bootstrap.min.css">
     <link rel="stylesheet" href="/AdminAssets/assets/vendors/css/base/seenboard-1.0.css">
-    <link rel="stylesheet" href="/AdminAssets/assets/css/animate/animate.min.css">
-    <link rel="stylesheet" href="/AdminAssets/assets/css/owl-carousel/owl.carousel.min.css">
-    <link rel="stylesheet" href="/AdminAssets/assets/css/owl-carousel/owl.theme.min.css">
-    <link rel="stylesheet" href="/AdminAssets/assets/css/leaflet/leaflet.css">
     @await RenderSectionAsync("Styles", required: false)
 
 </head>
@@ -201,7 +197,7 @@
                             <a href="#dropdown-db" aria-expanded="false" data-toggle="collapse"><i class="la la-shopping-cart"></i><span>فروشگاه</span></a>
                             <ul id="dropdown-db" class="collapse list-unstyled show pt-0">
                                 <li><a href="#">محصولات</a></li>
-                                <li><a href="#">دسته بندی محصولات</a></li>
+                                <li><a href="/admin/shop/productCategory">دسته بندی محصولات</a></li>
                             </ul>
                         </li>
                         <li><a href="#"><i class="la la-cogs"></i><span>تنظیمات سایت</span></a></li>
@@ -516,11 +512,7 @@
     <script src="/AdminAssets/assets/vendors/js/base/core.min.js"></script>
     <script src="/AdminAssets/assets/vendors/js/nicescroll/nicescroll.min.js"></script>
     <script src="/AdminAssets/assets/vendors/js/noty/noty.min.js"></script>
-    <script src="/AdminAssets/assets/vendors/js/chart/chart.min.js"></script>
-    <script src="/AdminAssets/assets/vendors/js/owl-carousel/owl.carousel.min.js"></script>
-    <script src="/AdminAssets/assets/vendors/js/leaflet/leaflet.min.js"></script>
     <script src="/AdminAssets/assets/vendors/js/app/app.min.js"></script>
-    <script src="/AdminAssets/assets/js/dashboard/db-clean.js"></script>
     @await RenderSectionAsync("Scripts", required: false)
 </body>
 </html>

@@ -1,0 +1,104 @@
+﻿@page
+@model ServiceHost.Areas.Admin.Pages.Shop.ProductCategory.IndexModel
+@{
+}
+
+@section Styles
+{
+    <link rel="stylesheet" href="/AdminAssets/assets/css/datatables/datatables.min.css">
+}
+
+@section Scripts
+{
+    <script src="/AdminAssets/assets/vendors/js/datatables/datatables.js"></script>
+    <script src="/AdminAssets/assets/vendors/js/datatables/dataTables.buttons.min.js"></script>
+    <script src="/AdminAssets/assets/vendors/js/datatables/jszip.min.js"></script>
+    <script src="/AdminAssets/assets/vendors/js/datatables/buttons.html5.min.js"></script>
+    <script src="/AdminAssets/assets/vendors/js/datatables/pdfmake.min.js"></script>
+    <script src="/AdminAssets/assets/vendors/js/datatables/vfs_fonts.js"></script>
+    <script src="/AdminAssets/assets/vendors/js/datatables/buttons.print.min.js"></script>
+
+    <script src="/AdminAssets/assets/js/components/tables/tables.js"></script>
+}
+
+<div class="row">
+    <div class="page-header">
+        <div class="d-flex align-items-center">
+            <h2 class="page-header-title">دسته بندی محصولات</h2>
+            <div>
+                <ul class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="#"><i class="ti ti-home"></i></a></li>
+                    <li class="breadcrumb-item active">دسته بندی محصولات</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- End Page Header -->
+<div class="row">
+    <div class="col-xl-12">
+        <!-- Export -->
+        <div class="widget has-shadow">
+            <div class="widget-header bordered no-actions d-flex align-items-center justify-content-between">
+                <h4 class="float-right">جدول</h4>
+                <a href="#" class="btn btn-primary">content</a>
+            </div>
+            <div class="widget-body">
+                <div class="table-responsive">
+                    <table id="export-table" class="table mb-0">
+                        <thead>
+                            <tr>
+                                <th>شماره سفارش</th>
+                                <th>نام مشتری</th>
+                                <th>کشور</th>
+                                <th>تاریخ خرید</th>
+                                <th><span style="width:100px;">وضعیت پرداختی</span></th>
+                                <th>مجموع سفارش</th>
+                                <th>تنظیمات</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><span class="text-primary">4554-01-IR</span></td>
+                                <td>احسان دلشاد</td>
+                                <td>ایران</td>
+                                <td>1397/01/20</td>
+                                <td><span style="width:100px;"><span class="badge-text badge-text-small info">پرداخت شده</span></span></td>
+                                <td>تومان 1,590,000</td>
+                                <td class="td-actions">
+                                    <a href="#"><i class="la la-edit edit"></i></a>
+                                    <a href="#"><i class="la la-close delete"></i></a>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><span class="text-primary">4554-02-IR</span></td>
+                                <td>محمد نوری</td>
+                                <td>ایران</td>
+                                <td>1397/01/20</td>
+                                <td><span style="width:100px;"><span class="badge-text badge-text-small info">پرداخت شده</span></span></td>
+                                <td>تومان 1,390,000</td>
+                                <td class="td-actions">
+                                    <a href="#"><i class="la la-edit edit"></i></a>
+                                    <a href="#"><i class="la la-close delete"></i></a>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><span class="text-primary">1589-01-IR</span></td>
+                                <td>اسماعیل اصلانی</td>
+                                <td>ایران</td>
+                                <td>1397/02/10</td>
+                                <td><span style="width:100px;"><span class="badge-text badge-text-small danger">منقضی شده</span></span></td>
+                                <td>تومان 2,490,000</td>
+                                <td class="td-actions">
+                                    <a href="#"><i class="la la-edit edit"></i></a>
+                                    <a href="#"><i class="la la-close delete"></i></a>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <!-- End Export -->
+    </div>
+</div>
