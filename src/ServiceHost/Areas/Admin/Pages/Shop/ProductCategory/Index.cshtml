@@ -48,52 +48,30 @@
                     <table id="export-table" class="table mb-0">
                         <thead>
                             <tr>
-                                <th>شماره سفارش</th>
-                                <th>نام مشتری</th>
-                                <th>کشور</th>
-                                <th>تاریخ خرید</th>
+                                <th>#</th>
+                                <th>تصویر</th>
+                                <th>عنوان</th>
+                                <th>تاریخ ایجاد</th>
                                 <th><span style="width:100px;">وضعیت پرداختی</span></th>
-                                <th>مجموع سفارش</th>
-                                <th>تنظیمات</th>
                             </tr>
                         </thead>
                         <tbody>
-                            <tr>
-                                <td><span class="text-primary">4554-01-IR</span></td>
-                                <td>احسان دلشاد</td>
-                                <td>ایران</td>
-                                <td>1397/01/20</td>
-                                <td><span style="width:100px;"><span class="badge-text badge-text-small info">پرداخت شده</span></span></td>
-                                <td>تومان 1,590,000</td>
-                                <td class="td-actions">
-                                    <a href="#"><i class="la la-edit edit"></i></a>
-                                    <a href="#"><i class="la la-close delete"></i></a>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td><span class="text-primary">4554-02-IR</span></td>
-                                <td>محمد نوری</td>
-                                <td>ایران</td>
-                                <td>1397/01/20</td>
-                                <td><span style="width:100px;"><span class="badge-text badge-text-small info">پرداخت شده</span></span></td>
-                                <td>تومان 1,390,000</td>
-                                <td class="td-actions">
-                                    <a href="#"><i class="la la-edit edit"></i></a>
-                                    <a href="#"><i class="la la-close delete"></i></a>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td><span class="text-primary">1589-01-IR</span></td>
-                                <td>اسماعیل اصلانی</td>
-                                <td>ایران</td>
-                                <td>1397/02/10</td>
-                                <td><span style="width:100px;"><span class="badge-text badge-text-small danger">منقضی شده</span></span></td>
-                                <td>تومان 2,490,000</td>
-                                <td class="td-actions">
-                                    <a href="#"><i class="la la-edit edit"></i></a>
-                                    <a href="#"><i class="la la-close delete"></i></a>
-                                </td>
-                            </tr>
+
+                            @foreach (var category in Model.ProductCategories)
+                            {
+                                <tr>
+                                    <td>@category.Id</td>
+                                    <td>
+                                        <img src="@category.ImagePath" alt="@category.Title" width="100" height="100"/>
+                                    </td>
+                                    <td>@category.Title</td>
+                                    <td>@category.CreationDate</td>
+                                    <td class="td-actions">
+                                        <a href="#"><i class="la la-edit edit"></i></a>
+                                        <a href="#"><i class="la la-close delete"></i></a>
+                                    </td>
+                                </tr>
+                            }
                         </tbody>
                     </table>
                 </div>

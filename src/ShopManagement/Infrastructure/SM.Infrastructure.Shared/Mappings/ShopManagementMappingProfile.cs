@@ -9,6 +9,14 @@ namespace SM.Infrastructure.Shared.Mappings
     {
         public ShopManagementMappingProfile()
         {
+            #region Product Category
+
+            CreateMap<ProductCategory, ProductCategoryViewModel>()
+                .ForMember(dest => dest.CreationDate,
+                    opt => opt.MapFrom(src => src.CreationDate.Year.ToString()));
+
+            #endregion
+
             #region Create Product Category
 
             CreateMap<CreateProductCategoryModel, ProductCategory>()

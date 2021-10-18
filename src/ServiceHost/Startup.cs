@@ -26,10 +26,11 @@ namespace ServiceHost
 
             ShopManagementBootstrapper.Configure(services, connectionString);
 
-            services.AddAutoMapper(expression => expression.AddProfiles(new List<Profile>
-            {
-                new ShopManagementMappingProfile()
-            }));
+            services.AddAutoMapper(typeof(Startup));
+
+            services.AddAutoMapper((serviceProvider, automapper) => {
+                automapper.AddProfile(new ShopManagementMappingProfile());
+            }, typeof(Startup).Assembly);
 
             services.AddRazorPages();
         }
