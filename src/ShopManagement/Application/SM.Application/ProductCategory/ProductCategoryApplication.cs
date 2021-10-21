@@ -28,19 +28,12 @@ namespace SM.Application.ProductCategory
 
         #region Filter
 
-        public async Task<OperationResult<List<ProductCategoryViewModel>>> Filter(FilterProductCategoryModel filter)
+        public async Task<OperationResult<List<ProductCategoryViewModel>>> GetAll()
         {
             var query = _productCategoryRepository.GetQuery()
                 .OrderByDescending(p => p.LastUpdateDate).AsQueryable();
 
             var operation = new OperationResult<List<ProductCategoryViewModel>>();
-
-            #region filter
-
-            if (!string.IsNullOrEmpty(filter.Title))
-                query = query.Where(s => EF.Functions.Like(s.Title, $"%{filter.Title}%"));
-
-            #endregion filter
 
             var filteredEntities = await query
                 .Select(product =>

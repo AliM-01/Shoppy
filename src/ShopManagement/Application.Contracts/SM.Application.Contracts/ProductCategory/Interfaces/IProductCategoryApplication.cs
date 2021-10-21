@@ -7,7 +7,7 @@ namespace SM.Application.Contracts.ProductCategory.Interfaces
 {
     public interface IProductCategoryApplication
     {
-        Task<OperationResult<List<ProductCategoryViewModel>>> Filter(FilterProductCategoryModel filter);
+        Task<OperationResult<List<ProductCategoryViewModel>>> GetAll();
 
         Task<OperationResult<Domain.ProductCategory.ProductCategory>> GetDetails(long id);
 

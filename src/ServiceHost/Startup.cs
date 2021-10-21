@@ -26,8 +26,6 @@ namespace ServiceHost
 
             ShopManagementBootstrapper.Configure(services, connectionString);
 
-            services.AddAutoMapper(typeof(Startup));
-
             services.AddAutoMapper((serviceProvider, automapper) => {
                 automapper.AddProfile(new ShopManagementMappingProfile());
             }, typeof(Startup).Assembly);
@@ -48,16 +46,15 @@ namespace ServiceHost
             }
 
             app.UseHttpsRedirection();
+
             app.UseStaticFiles();
 
             app.UseRouting();
 
-            app.UseAuthorization();
-
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapRazorPages();
-                endpoints.MapDefaultControllerRoute();
+                endpoints.MapControllers();
             });
         }
     }

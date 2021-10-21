@@ -7,7 +7,7 @@
 	// ------------------------------------------------------ //	
 
     $(function () {
-		$('#export-table').DataTable({
+		$('#jquery-data-table').DataTable({
 			dom: 'Bfrtip',
 			buttons: {
 				buttons: [{
@@ -54,7 +54,7 @@
 				}],
 				dom: {
 					container: {
-						className: 'dt-buttons'
+						className: 'dt-buttons mb-2'
 					},
 					button: {
 						className: 'btn btn-primary'

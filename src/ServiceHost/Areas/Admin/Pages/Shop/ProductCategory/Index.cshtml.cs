@@ -17,25 +17,11 @@ namespace ServiceHost.Areas.Admin.Pages.Shop.ProductCategory
             _productCategoryApplication = productCategoryApplication;
         }
 
-        public async Task OnGet(FilterProductCategoryModel filter)
+        public async Task OnGet()
         {
-            var filteredResult = await _productCategoryApplication.Filter(filter);
+            var filteredResult = await _productCategoryApplication.GetAll();
 
-            var t = new List<ProductCategoryViewModel>();
-
-            for (int i = 0; i < 25; i++)
-            {
-                t.Add(new ProductCategoryViewModel
-                {
-                    Title = i.ToString(),
-                    CreationDate = "re",
-                    Id = i,
-                    ImagePath = "fd",
-                    ProductsCount = 0
-                });
-            }
-
-            ProductCategories = t;
+            ProductCategories = filteredResult.Data;
         }
     }
 }
