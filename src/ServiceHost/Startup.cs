@@ -6,7 +6,7 @@ using Microsoft.Extensions.Hosting;
 using Newtonsoft.Json;
 using SM.Infrastructure.Configuration;
 using SM.Infrastructure.Shared.Mappings;
-using System.Reflection;
+using ServiceHost.Extensions.Startup;
 
 namespace ServiceHost
 {
@@ -29,14 +29,15 @@ namespace ServiceHost
                 automapper.AddProfile(new ShopManagementMappingProfile());
             }, typeof(Startup).Assembly);
 
-            //services.AddControllers().AddNewtonsoftJson(options =>
-            //{
-            //    options.SerializerSettings.NullValueHandling = NullValueHandling.Include;
-            //    options.SerializerSettings.MaxDepth = int.MaxValue;
-            //    options.SerializerSettings.Formatting = Formatting.Indented;
-            //    options.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore;
-            //});
-            services.AddControllers();
+            services.AddSwaggerExtension();
+
+            services.AddControllers().AddNewtonsoftJson(options =>
+            {
+                options.SerializerSettings.NullValueHandling = NullValueHandling.Include;
+                options.SerializerSettings.MaxDepth = int.MaxValue;
+                options.SerializerSettings.Formatting = Formatting.Indented;
+                options.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore;
+            });
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
@@ -47,7 +48,6 @@ namespace ServiceHost
             }
             else
             {
-                app.UseExceptionHandler("/Error");
                 app.UseHsts();
             }
 
@@ -57,9 +57,10 @@ namespace ServiceHost
 
             app.UseRouting();
 
+            app.UseSwaggerExtension();
+
             app.UseEndpoints(endpoints =>
             {
-                endpoints.MapRazorPages();
                 endpoints.MapControllers();
             });
         }
