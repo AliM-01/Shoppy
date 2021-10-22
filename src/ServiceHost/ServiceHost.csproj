@@ -19,11 +19,17 @@
 	  </PackageReference>
 
 	  <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="5.0.2" />
+
+	  <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\ShopManagement\Infrastructure\SM.Infrastructure.Configuration\SM.Infrastructure.Configuration.csproj" />
     <ProjectReference Include="..\ShopManagement\Infrastructure\SM.Infrastructure.Shared\SM.Infrastructure.Shared.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="wwwroot\" />
   </ItemGroup>
 
 </Project>

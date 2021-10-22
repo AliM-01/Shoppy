@@ -1,13 +1,12 @@
-using System.Collections.Generic;
-using System.Reflection;
-using AutoMapper;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Newtonsoft.Json;
 using SM.Infrastructure.Configuration;
 using SM.Infrastructure.Shared.Mappings;
+using System.Reflection;
 
 namespace ServiceHost
 {
@@ -30,7 +29,14 @@ namespace ServiceHost
                 automapper.AddProfile(new ShopManagementMappingProfile());
             }, typeof(Startup).Assembly);
 
-            services.AddRazorPages();
+            //services.AddControllers().AddNewtonsoftJson(options =>
+            //{
+            //    options.SerializerSettings.NullValueHandling = NullValueHandling.Include;
+            //    options.SerializerSettings.MaxDepth = int.MaxValue;
+            //    options.SerializerSettings.Formatting = Formatting.Indented;
+            //    options.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore;
+            //});
+            services.AddControllers();
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
