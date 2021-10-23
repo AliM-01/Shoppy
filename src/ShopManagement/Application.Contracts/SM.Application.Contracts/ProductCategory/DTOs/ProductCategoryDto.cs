@@ -2,7 +2,7 @@
 
 namespace SM.Application.Contracts.ProductCategory.Models
 {
-    public class ProductCategoryViewModel
+    public class ProductCategoryDto
     {
         public long Id { get; set; }
 

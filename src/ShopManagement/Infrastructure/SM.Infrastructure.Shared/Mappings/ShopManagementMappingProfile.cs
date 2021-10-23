@@ -11,7 +11,7 @@ namespace SM.Infrastructure.Shared.Mappings
         {
             #region Product Category
 
-            CreateMap<ProductCategory, ProductCategoryViewModel>()
+            CreateMap<ProductCategory, ProductCategoryDto>()
                 .ForMember(dest => dest.CreationDate,
                     opt => opt.MapFrom(src => src.CreationDate.Year.ToString()));
 
@@ -19,7 +19,7 @@ namespace SM.Infrastructure.Shared.Mappings
 
             #region Create Product Category
 
-            CreateMap<CreateProductCategoryModel, ProductCategory>()
+            CreateMap<CreateProductCategoryDto, ProductCategory>()
                            .ForMember(dest => dest.Slug,
                                opt => opt.MapFrom(src => src.Title.ToSlug()));
 
@@ -27,7 +27,7 @@ namespace SM.Infrastructure.Shared.Mappings
 
             #region Edit Product Category
 
-            CreateMap<EditProductCategoryModel, ProductCategory>()
+            CreateMap<EditProductCategoryDto, ProductCategory>()
                 .ForMember(dest => dest.Id,
                     opt => opt.Ignore())
                 .ForMember(dest => dest.Slug,

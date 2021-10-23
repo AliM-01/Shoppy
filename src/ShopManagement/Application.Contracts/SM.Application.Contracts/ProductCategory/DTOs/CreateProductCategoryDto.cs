@@ -3,7 +3,7 @@ using _0_Framework.Domain;
 
 namespace SM.Application.Contracts.ProductCategory.Models
 {
-    public class CreateProductCategoryModel
+    public class CreateProductCategoryDto
     {
         [Display(Name = "عنوان")]
         [Required(ErrorMessage = DomainErrorMessage.RequiredMessage)]

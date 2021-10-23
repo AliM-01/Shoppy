@@ -1,6 +1,6 @@
 ﻿namespace SM.Application.Contracts.ProductCategory.Models
 {
-    public class EditProductCategoryModel : CreateProductCategoryModel
+    public class EditProductCategoryDto : CreateProductCategoryDto
     {
         public long Id { get; set; }
     }

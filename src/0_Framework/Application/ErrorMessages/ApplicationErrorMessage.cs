@@ -4,7 +4,9 @@
     {
         public const string OperationSucceddedMessage = "عملیات با موفقیت انجام شد";
         
-        public const string OperationFailedMessage = "عملیات با خطا مواجه شد. لطفا دوباره تلاش بفرمایید";
+        public const string UnknownErrorMessage = "عملیات با خطا مواجه شد. لطفا دوباره تلاش بفرمایید";
+        
+        public const string FilteredRecordsNotFoundMessage = "رکوردی با این فیلتر بندی پیدا نشد. لطفا دوباره امتحان کنید";
         
         public const string RecordNotFoundMessage = "رکوردی با اطلاعات درخواست شده یافت نشد. لطفا دوباره تلاش بفرمایید";
         

@@ -1,3 +1,4 @@
+using MediatR;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
@@ -21,6 +22,8 @@ namespace ServiceHost
 
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddMediatR(typeof(Startup).Assembly);
+
             var connectionString = Configuration.GetConnectionString("DefaultConnection");
 
             ShopManagementBootstrapper.Configure(services, connectionString);
