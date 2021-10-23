@@ -4,7 +4,7 @@ using System.Reflection;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.OpenApi.Models;
 
-namespace ServiceHost.Extensions.Startup
+namespace Shoppy.WebApi.Extensions.Startup
 {
     public static class ServiceExtensions
     {

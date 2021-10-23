@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Builder;
 
-namespace ServiceHost.Extensions.Startup
+namespace Shoppy.WebApi.Extensions.Startup
 {
     public static class AppExtensions
     {

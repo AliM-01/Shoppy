@@ -7,9 +7,9 @@ using Microsoft.Extensions.Hosting;
 using Newtonsoft.Json;
 using SM.Infrastructure.Configuration;
 using SM.Infrastructure.Shared.Mappings;
-using ServiceHost.Extensions.Startup;
+using Shoppy.WebApi.Extensions.Startup;
 
-namespace ServiceHost
+namespace Shoppy.WebApi
 {
     public class Startup
     {

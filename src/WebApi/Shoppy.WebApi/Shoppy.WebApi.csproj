@@ -5,7 +5,7 @@
 	</PropertyGroup>
 
 	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
-		<DocumentationFile>ServiceHost.xml</DocumentationFile>
+		<DocumentationFile>Shoppy.WebApi.xml</DocumentationFile>
 		<NoWarn>1701;1702;1591</NoWarn>
 	</PropertyGroup>
 
@@ -28,12 +28,12 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <Folder Include="wwwroot\" />
+		<ProjectReference Include="..\..\Modules\ShopManagement\Infrastructure\SM.Infrastructure.Configuration\SM.Infrastructure.Configuration.csproj" />
+		<ProjectReference Include="..\..\Modules\ShopManagement\Infrastructure\SM.Infrastructure.Shared\SM.Infrastructure.Shared.csproj" />
 	</ItemGroup>
 
 	<ItemGroup>
-	  <ProjectReference Include="..\ShopManagement\Infrastructure\SM.Infrastructure.Configuration\SM.Infrastructure.Configuration.csproj" />
-	  <ProjectReference Include="..\ShopManagement\Infrastructure\SM.Infrastructure.Shared\SM.Infrastructure.Shared.csproj" />
+	  <Folder Include="wwwroot\" />
 	</ItemGroup>
 
 
