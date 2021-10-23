@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <doc>
     <assembly>
-        <name>Shoppy.WebApi</name>
+        <name>Shoppy.Admin.WebApi</name>
     </assembly>
     <members>
         <member name="M:Shoppy.WebApi.Controllers.InfoController.Get">

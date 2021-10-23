@@ -1,18 +1,18 @@
-using System;
-using System.IO;
-using System.Reflection;
-using _0_Framework.Presentation.Extensions.Startup;
-using MediatR;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using System;
+using System.IO;
+using System.Reflection;
+using _0_Framework.Presentation.Extensions.Startup;
+using MediatR;
 using Newtonsoft.Json;
 using SM.Infrastructure.Configuration;
 using SM.Infrastructure.Shared.Mappings;
 
-namespace Shoppy.WebApi
+namespace Shoppy.Admin.WebApi
 {
     public class Startup
     {
@@ -59,7 +59,7 @@ namespace Shoppy.WebApi
             var xmlFile = Assembly.GetExecutingAssembly().GetName().Name + ".xml";
             var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
 
-            services.AddSwaggerExtension("Shoppy.WebApi", xmlPath);
+            services.AddSwaggerExtension("Shoppy.Admin.WebApi", xmlPath);
 
             #endregion
 
@@ -97,7 +97,7 @@ namespace Shoppy.WebApi
 
             app.UseRouting();
 
-            app.UseSwaggerExtension("Shoppy.WebApi");
+            app.UseSwaggerExtension("Shoppy.Admin.WebApi");
 
             app.UseEndpoints(endpoints =>
             {

@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 
-namespace Shoppy.WebApi.Controllers.Base
+namespace _0_Framework.Presentation
 {
     [ApiController]
     public abstract class BaseApiController : ControllerBase
