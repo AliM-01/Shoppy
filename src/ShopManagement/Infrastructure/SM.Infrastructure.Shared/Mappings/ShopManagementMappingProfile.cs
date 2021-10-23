@@ -1,6 +1,6 @@
 ﻿using _0_Framework.Application.Extensions;
 using AutoMapper;
-using SM.Application.Contracts.ProductCategory.Models;
+using SM.Application.Contracts.ProductCategory.DTOs;
 using SM.Domain.ProductCategory;
 
 namespace SM.Infrastructure.Shared.Mappings

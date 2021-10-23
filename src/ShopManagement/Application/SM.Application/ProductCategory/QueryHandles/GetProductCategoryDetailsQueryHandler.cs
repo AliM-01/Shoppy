@@ -6,7 +6,7 @@ using _0_Framework.Domain.IGenericRepository;
 using Ardalis.GuardClauses;
 using AutoMapper;
 using MediatR;
-using SM.Application.Contracts.ProductCategory.Models;
+using SM.Application.Contracts.ProductCategory.DTOs;
 using SM.Application.Contracts.ProductCategory.Queries;
 
 namespace SM.Application.ProductCategory.QueryHandles

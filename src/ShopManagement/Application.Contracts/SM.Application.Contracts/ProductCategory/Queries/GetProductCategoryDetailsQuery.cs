@@ -1,6 +1,6 @@
 ﻿using _0_Framework.Application.Wrappers;
 using MediatR;
-using SM.Application.Contracts.ProductCategory.Models;
+using SM.Application.Contracts.ProductCategory.DTOs;
 
 namespace SM.Application.Contracts.ProductCategory.Queries
 {

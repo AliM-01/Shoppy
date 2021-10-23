@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using _0_Framework.Domain;
 
-namespace SM.Application.Contracts.ProductCategory.Models
+namespace SM.Application.Contracts.ProductCategory.DTOs
 {
     public class CreateProductCategoryDto
     {

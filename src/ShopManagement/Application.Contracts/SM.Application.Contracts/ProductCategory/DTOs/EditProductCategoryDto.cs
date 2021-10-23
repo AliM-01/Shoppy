@@ -1,4 +1,4 @@
-﻿namespace SM.Application.Contracts.ProductCategory.Models
+﻿namespace SM.Application.Contracts.ProductCategory.DTOs
 {
     public class EditProductCategoryDto : CreateProductCategoryDto
     {

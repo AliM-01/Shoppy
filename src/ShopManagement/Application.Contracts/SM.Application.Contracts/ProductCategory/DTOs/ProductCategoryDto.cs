@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace SM.Application.Contracts.ProductCategory.Models
+namespace SM.Application.Contracts.ProductCategory.DTOs
 {
     public class ProductCategoryDto
     {
