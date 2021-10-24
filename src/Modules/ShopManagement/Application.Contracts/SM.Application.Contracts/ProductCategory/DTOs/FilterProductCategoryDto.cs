@@ -12,7 +12,6 @@ namespace SM.Application.Contracts.ProductCategory.DTOs
 
         [JsonProperty("productTitle")]
         [Display(Name = "عنوان")]
-        [Required(ErrorMessage = DomainErrorMessage.RequiredMessage)]
         [MaxLength(100, ErrorMessage = DomainErrorMessage.MaxLengthMessage)]
         public string Title { get; set; }
 

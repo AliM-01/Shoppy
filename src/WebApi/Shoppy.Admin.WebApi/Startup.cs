@@ -6,9 +6,12 @@ using Microsoft.Extensions.Hosting;
 using System;
 using System.IO;
 using System.Reflection;
+using _0_Framework.Application.Behaviours;
 using _0_Framework.Presentation.Extensions.Startup;
+using FluentValidation;
 using MediatR;
 using Newtonsoft.Json;
+using SM.Application;
 using SM.Infrastructure.Configuration;
 using SM.Infrastructure.Shared.Mappings;
 
@@ -31,12 +34,6 @@ namespace Shoppy.Admin.WebApi
 
         public void ConfigureServices(IServiceCollection services)
         {
-            #region MediatR
-
-            services.AddMediatR(typeof(Startup).Assembly);
-
-            #endregion
-
             #region Configuring Modules
 
             var connectionString = Configuration.GetConnectionString("DefaultConnection");
@@ -45,11 +42,18 @@ namespace Shoppy.Admin.WebApi
 
             #endregion
 
+            services.AddMediatR(typeof(Startup),
+                typeof(ISMAssemblyMarker));
+
+            services.AddMediatR(AppDomain.CurrentDomain.GetAssemblies());
+            services.AddValidatorsFromAssembly(Assembly.GetExecutingAssembly());
+            services.AddTransient(typeof(IPipelineBehavior<,>), typeof(ValidationBehavior<,>));
+
             #region AutoMapper
 
-            services.AddAutoMapper((serviceProvider, automapper) =>
+            services.AddAutoMapper((serviceProvider, autoMapper) =>
             {
-                automapper.AddProfile(new ShopManagementMappingProfile());
+                autoMapper.AddProfile(new ShopManagementMappingProfile());
             }, typeof(Startup).Assembly);
 
             #endregion

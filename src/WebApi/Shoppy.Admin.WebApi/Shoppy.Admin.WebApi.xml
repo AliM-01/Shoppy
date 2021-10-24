@@ -4,9 +4,9 @@
         <name>Shoppy.Admin.WebApi</name>
     </assembly>
     <members>
-        <member name="M:Shoppy.WebApi.Controllers.InfoController.Get">
+        <member name="M:Shoppy.Admin.WebApi.Controllers.ProductCategoryController.FilterProductCategories(SM.Application.Contracts.ProductCategory.DTOs.FilterProductCategoryDto)">
             <summary>
-                دریافت اسلایدر ها (کش شده)
+               فیلتر دسته بندی محصولات
             </summary>
             <response code="200">Success</response>
         </member>
