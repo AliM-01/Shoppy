@@ -4,11 +4,5 @@
         <name>Shoppy.WebApi</name>
     </assembly>
     <members>
-        <member name="M:Shoppy.WebApi.Controllers.InfoController.Get">
-            <summary>
-                دریافت اسلایدر ها (کش شده)
-            </summary>
-            <response code="200">Success</response>
-        </member>
     </members>
 </doc>

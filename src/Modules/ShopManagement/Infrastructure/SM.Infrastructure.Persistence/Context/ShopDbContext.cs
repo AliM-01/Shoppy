@@ -1,6 +1,7 @@
 ﻿using _0_Framework.Infrastructure.Context;
 using Microsoft.EntityFrameworkCore;
 using SM.Domain.ProductCategory;
+using SM.Infrastructure.Persistence.Mappings;
 
 namespace SM.Infrastructure.Persistence.Context
 {
@@ -19,6 +20,10 @@ namespace SM.Infrastructure.Persistence.Context
         protected override void OnModelCreating(ModelBuilder builder)
         {
             builder.ApplySharedDbContextOnModelCreatingConfiguration();
+
+            var assembly = typeof(ShopDbContext).Assembly;
+            builder.ApplyConfigurationsFromAssembly(assembly);
+
             base.OnModelCreating(builder);
         }
 
