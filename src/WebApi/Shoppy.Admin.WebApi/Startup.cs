@@ -9,6 +9,7 @@ using System.IO;
 using System.Reflection;
 using _0_Framework.Application.Behaviours;
 using _0_Framework.Presentation.Extensions.Startup;
+using AutoMapper;
 using FluentValidation;
 using MediatR;
 using Newtonsoft.Json;
@@ -43,18 +44,22 @@ namespace Shoppy.Admin.WebApi
 
             #endregion
 
+            #region Mediator And FluentValidation
+
             services.AddMediatorAndFluentValidationExtension(new List<Type>
             {
                 typeof(Startup),
                 typeof(ISMAssemblyMarker)
             });
 
+            #endregion
+
             #region AutoMapper
 
-            services.AddAutoMapper((serviceProvider, autoMapper) =>
+            services.AddAutoMapperExtension(typeof(Startup), new List<Type>
             {
-                autoMapper.AddProfile(new ShopManagementMappingProfile());
-            }, typeof(Startup).Assembly);
+                typeof(ShopManagementMappingProfile)
+            });
 
             #endregion
 

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Reflection;
 using _0_Framework.Application.Behaviours;
+using AutoMapper;
 using FluentValidation;
 using MediatR;
 using Microsoft.Extensions.DependencyInjection;
@@ -17,6 +18,18 @@ namespace _0_Framework.Presentation.Extensions.Startup
 
             services.AddValidatorsFromAssembly(Assembly.GetExecutingAssembly());
             services.AddTransient(typeof(IPipelineBehavior<,>), typeof(ValidationBehavior<,>));
+        }
+
+        public static void AddAutoMapperExtension(this IServiceCollection services,
+             Type mainAssembly, List<Type> mappingProfiles)
+        {
+            services.AddAutoMapper((serviceProvider, autoMapper) =>
+            {
+                foreach (var profile in mappingProfiles)
+                {
+                    autoMapper.AddProfile(profile);
+                }
+            }, mainAssembly.Assembly);
         }
 
         public static void AddSwaggerExtension(this IServiceCollection services, string title, string xmlPath)
