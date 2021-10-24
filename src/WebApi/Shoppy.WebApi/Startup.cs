@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Reflection;
 using _0_Framework.Presentation.Extensions.Startup;
@@ -9,6 +10,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Newtonsoft.Json;
+using SM.Application;
 using SM.Infrastructure.Configuration;
 using SM.Infrastructure.Shared.Mappings;
 
@@ -31,12 +33,6 @@ namespace Shoppy.WebApi
 
         public void ConfigureServices(IServiceCollection services)
         {
-            #region MediatR
-
-            services.AddMediatR(typeof(Startup).Assembly);
-
-            #endregion
-
             #region Configuring Modules
 
             var connectionString = Configuration.GetConnectionString("DefaultConnection");
@@ -45,11 +41,17 @@ namespace Shoppy.WebApi
 
             #endregion
 
+            services.AddMediatorAndFluentValidationExtension(new List<Type>
+            {
+                typeof(Startup),
+                typeof(ISMAssemblyMarker)
+            });
+
             #region AutoMapper
 
-            services.AddAutoMapper((serviceProvider, automapper) =>
+            services.AddAutoMapper((serviceProvider, autoMapper) =>
             {
-                automapper.AddProfile(new ShopManagementMappingProfile());
+                autoMapper.AddProfile(new ShopManagementMappingProfile());
             }, typeof(Startup).Assembly);
 
             #endregion
@@ -59,7 +61,7 @@ namespace Shoppy.WebApi
             var xmlFile = Assembly.GetExecutingAssembly().GetName().Name + ".xml";
             var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
 
-            services.AddSwaggerExtension("Shoppy.WebApi", xmlPath);
+            services.AddSwaggerExtension("Shoppy.Admin.WebApi", xmlPath);
 
             #endregion
 
@@ -97,7 +99,7 @@ namespace Shoppy.WebApi
 
             app.UseRouting();
 
-            app.UseSwaggerExtension("Shoppy.WebApi");
+            app.UseSwaggerExtension("Shoppy.Admin.WebApi");
 
             app.UseEndpoints(endpoints =>
             {

@@ -4,6 +4,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Reflection;
 using _0_Framework.Application.Behaviours;
@@ -42,12 +43,11 @@ namespace Shoppy.Admin.WebApi
 
             #endregion
 
-            services.AddMediatR(typeof(Startup),
-                typeof(ISMAssemblyMarker));
-
-            services.AddMediatR(AppDomain.CurrentDomain.GetAssemblies());
-            services.AddValidatorsFromAssembly(Assembly.GetExecutingAssembly());
-            services.AddTransient(typeof(IPipelineBehavior<,>), typeof(ValidationBehavior<,>));
+            services.AddMediatorAndFluentValidationExtension(new List<Type>
+            {
+                typeof(Startup),
+                typeof(ISMAssemblyMarker)
+            });
 
             #region AutoMapper
 
