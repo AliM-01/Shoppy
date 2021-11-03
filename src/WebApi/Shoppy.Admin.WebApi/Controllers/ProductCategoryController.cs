@@ -15,7 +15,7 @@ namespace Shoppy.Admin.WebApi.Controllers
         ///    فیلتر دسته بندی محصولات
         /// </summary>
         /// <response code="200">Success</response>
-        [HttpGet(ApiEndpoints.ProductCategory.GetSliders)]
+        [HttpGet(ApiEndpoints.ProductCategory.FilterProductCategories)]
         public async Task<IActionResult> FilterProductCategories([FromQuery] FilterProductCategoryDto filter)
         {
             var res = await Mediator.Send(new FilterProductCategoriesQuery(filter));

@@ -8,7 +8,7 @@
         {
             private const string ProductCategoryRoute = BaseRoute + "/product-category";
 
-            public const string GetSliders = ProductCategoryRoute + "/get-sliders";
+            public const string FilterProductCategories = ProductCategoryRoute + "/filter-product-categories";
         }
     }
 }
