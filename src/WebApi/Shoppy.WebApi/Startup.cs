@@ -101,6 +101,13 @@ namespace Shoppy.WebApi
 
             app.UseStaticFiles();
 
+            app.UseCors(options =>
+            {
+                options.AllowAnyHeader()
+                    .AllowAnyMethod()
+                    .AllowAnyOrigin();
+            });
+
             app.UseRouting();
 
             app.UseSwaggerExtension("Shoppy.Admin.WebApi");

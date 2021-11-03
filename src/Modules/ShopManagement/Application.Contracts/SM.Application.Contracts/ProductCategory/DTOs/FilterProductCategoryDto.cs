@@ -15,7 +15,7 @@ namespace SM.Application.Contracts.ProductCategory.DTOs
         [MaxLength(100, ErrorMessage = DomainErrorMessage.MaxLengthMessage)]
         public string Title { get; set; }
 
-        [JsonProperty("products")]
+        [JsonProperty("productCategories")]
         public IEnumerable<ProductCategoryDto> ProductCategories { get; set; }
 
         #endregion Properties

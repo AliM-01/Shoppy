@@ -1,7 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Threading;
-using System.Threading.Tasks;
-using _0_Framework.Application.Wrappers;
+﻿using _0_Framework.Application.Wrappers;
 using MediatR;
 using SM.Application.Contracts.ProductCategory.DTOs;
 
