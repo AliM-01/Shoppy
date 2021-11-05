@@ -6,9 +6,12 @@
 
         public static class ProductCategory
         {
-            private const string ProductCategoryRoute = BaseRoute + "/product-category";
+            private const string BaseProductCategoryRoute = BaseRoute + "/product-category";
 
-            public const string FilterProductCategories = ProductCategoryRoute + "/filter-product-categories";
+            public const string FilterProductCategories = BaseProductCategoryRoute + "/filter-product-categories";
+        
+            public const string CreateProductCategory = BaseProductCategoryRoute + "/create-product-category";
+
         }
     }
 }

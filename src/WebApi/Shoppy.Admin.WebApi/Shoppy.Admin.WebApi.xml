@@ -10,5 +10,11 @@
             </summary>
             <response code="200">Success</response>
         </member>
+        <member name="M:Shoppy.Admin.WebApi.Controllers.ProductCategoryController.CreateProductCategory(SM.Application.Contracts.ProductCategory.DTOs.CreateProductCategoryDto)">
+            <summary>
+               ایجاد دسته بندی محصول
+            </summary>
+            <response code="200">Success</response>
+        </member>
     </members>
 </doc>
