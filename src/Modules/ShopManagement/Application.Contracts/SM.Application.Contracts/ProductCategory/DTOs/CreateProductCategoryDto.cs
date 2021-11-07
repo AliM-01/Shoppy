@@ -1,5 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using _0_Framework.Domain;
+using Microsoft.AspNetCore.Http;
 
 namespace SM.Application.Contracts.ProductCategory.DTOs
 {
@@ -16,8 +17,7 @@ namespace SM.Application.Contracts.ProductCategory.DTOs
         public string Description { get; set; }
 
         [Display(Name = "تصویر")]
-        [Required(ErrorMessage = DomainErrorMessage.RequiredMessage)]
-        public string ImagePath { get; set; }
+        public IFormFile ImageFile { get; set; }
 
         [Display(Name = "جزییات تصویر")]
         [Required(ErrorMessage = DomainErrorMessage.RequiredMessage)]

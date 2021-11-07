@@ -1,7 +1,10 @@
-﻿using System.Threading;
+﻿using System;
+using System.IO;
+using System.Threading;
 using System.Threading.Tasks;
 using _0_Framework.Application.ErrorMessages;
 using _0_Framework.Application.Exceptions;
+using _0_Framework.Application.Utilities.ImageRelated;
 using _0_Framework.Application.Wrappers;
 using _0_Framework.Domain.IGenericRepository;
 using Ardalis.GuardClauses;
@@ -37,6 +40,11 @@ namespace SM.Application.ProductCategory.CommandHandles
                 throw new ApiException(ApplicationErrorMessage.IsDuplicatedMessage);
 
             _mapper.Map(request, productCategory);
+
+            var imagePath = Guid.NewGuid().ToString("N") + Path.GetExtension(request.ProductCategory.ImageFile.FileName);
+
+            request.ProductCategory.ImageFile.AddImageToServer(imagePath, "wwwroot/product_category/original/", 200, 200, "wwwroot/product_category/thumbnail/", productCategory.ImagePath);
+            productCategory.ImagePath = imagePath;
 
             _productCategoryRepository.Update(productCategory);
             await _productCategoryRepository.SaveChanges();

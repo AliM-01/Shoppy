@@ -1,7 +1,10 @@
-﻿using System.Threading;
+﻿using System;
+using System.IO;
+using System.Threading;
 using System.Threading.Tasks;
 using _0_Framework.Application.ErrorMessages;
 using _0_Framework.Application.Exceptions;
+using _0_Framework.Application.Utilities.ImageRelated;
 using _0_Framework.Application.Wrappers;
 using _0_Framework.Domain.IGenericRepository;
 using Ardalis.GuardClauses;
@@ -33,6 +36,11 @@ namespace SM.Application.ProductCategory.CommandHandles
 
             var productCategory =
                 _mapper.Map(request.ProductCategory, new Domain.ProductCategory.ProductCategory());
+
+            var imagePath = Guid.NewGuid().ToString("N") + Path.GetExtension(request.ProductCategory.ImageFile.FileName);
+
+            request.ProductCategory.ImageFile.AddImageToServer(imagePath, "wwwroot/product_category/original/", 200, 200, "wwwroot/product_category/thumbnail/");
+            productCategory.ImagePath = imagePath;
 
             await _productCategoryRepository.InsertEntity(productCategory);
             await _productCategoryRepository.SaveChanges();
