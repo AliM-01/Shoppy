@@ -6,6 +6,8 @@
         
         public const string UnknownErrorMessage = "عملیات با خطا مواجه شد. لطفا دوباره تلاش بفرمایید";
         
+        public const string RecordDeletedMessage = "رکورد مورد نظر با موفقیت حذف شد";
+        
         public const string FilteredRecordsNotFoundMessage = "رکوردی با این فیلتر بندی پیدا نشد. لطفا دوباره امتحان کنید";
         
         public const string RecordNotFoundMessage = "رکوردی با اطلاعات درخواست شده یافت نشد. لطفا دوباره تلاش بفرمایید";
