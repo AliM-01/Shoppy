@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Builder;
+﻿using _0_Framework.Presentation.Middlewares;
+using Microsoft.AspNetCore.Builder;
 
 namespace _0_Framework.Presentation.Extensions.Startup
 {
@@ -8,6 +9,11 @@ namespace _0_Framework.Presentation.Extensions.Startup
         {
             app.UseSwagger();
             app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", title));
+        }
+
+        public static void UseErrorHandlingMiddleware(this IApplicationBuilder app)
+        {
+            app.UseMiddleware<ErrorHandlerMiddleware>();
         }
     }
 }
