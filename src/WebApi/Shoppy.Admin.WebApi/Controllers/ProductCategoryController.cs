@@ -35,5 +35,17 @@ namespace Shoppy.Admin.WebApi.Controllers
 
             return JsonApiResult.Success(res);
         }
+
+        /// <summary>
+        ///    حذف دسته بندی محصول
+        /// </summary>
+        /// <response code="200">Success</response>
+        [HttpDelete(ApiEndpoints.ProductCategory.DeleteProductCategory)]
+        public async Task<IActionResult> DeleteProductCategory([FromRoute] long id)
+        {
+            var res = await Mediator.Send(new DeleteProductCategoryCommand(id));
+
+            return JsonApiResult.Success(res);
+        }
     }
 }

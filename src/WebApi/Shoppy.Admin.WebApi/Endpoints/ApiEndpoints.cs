@@ -11,7 +11,8 @@
             public const string FilterProductCategories = BaseProductCategoryRoute + "/filter-product-categories";
         
             public const string CreateProductCategory = BaseProductCategoryRoute + "/create-product-category";
-
+            
+            public const string DeleteProductCategory = BaseProductCategoryRoute + "/delete-product-category/{id}";
         }
     }
 }
