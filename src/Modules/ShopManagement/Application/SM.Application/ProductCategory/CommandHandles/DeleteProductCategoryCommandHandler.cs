@@ -1,4 +1,5 @@
 ﻿using SM.Application.Contracts.ProductCategory.Commands;
+using System.IO;
 
 namespace SM.Application.ProductCategory.CommandHandles;
 
@@ -21,6 +22,9 @@ public class DeleteProductCategoryCommandHandler : IRequestHandler<DeleteProduct
 
         if (productCategory is null)
             throw new NotFoundApiException();
+
+        File.Delete($"wwwroot/product_category/original/{productCategory.ImagePath}");
+        File.Delete($"wwwroot/product_category/thumbnail/{productCategory.ImagePath}");
 
         await _productCategoryRepository.FullDelete(productCategory.Id);
         await _productCategoryRepository.SaveChanges();

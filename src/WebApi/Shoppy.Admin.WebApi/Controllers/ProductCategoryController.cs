@@ -24,7 +24,7 @@ public class ProductCategoryController : BaseApiController
     /// </summary>
     /// <response code="200">Success</response>
     [HttpPost(ApiEndpoints.ProductCategory.CreateProductCategory)]
-    public async Task<IActionResult> CreateProductCategory([FromBody] CreateProductCategoryDto createRequest)
+    public async Task<IActionResult> CreateProductCategory([FromForm] CreateProductCategoryDto createRequest)
     {
         var res = await Mediator.Send(new CreateProductCategoryCommand(createRequest));
 

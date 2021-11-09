@@ -27,4 +27,8 @@
 		<ProjectReference Include="..\..\Modules\ShopManagement\Infrastructure\SM.Infrastructure.Shared\SM.Infrastructure.Shared.csproj" />
 	</ItemGroup>
 
+	<ItemGroup>
+	  <Folder Include="wwwroot\product_category\" />
+	</ItemGroup>
+
 </Project>
