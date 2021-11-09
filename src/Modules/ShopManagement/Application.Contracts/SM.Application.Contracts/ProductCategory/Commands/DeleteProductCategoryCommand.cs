@@ -1,15 +1,10 @@
-﻿using _0_Framework.Application.Wrappers;
-using MediatR;
-
-namespace SM.Application.Contracts.ProductCategory.Commands
+﻿namespace SM.Application.Contracts.ProductCategory.Commands;
+public class DeleteProductCategoryCommand : IRequest<Response<string>>
 {
-    public class DeleteProductCategoryCommand : IRequest<Response<string>>
+    public DeleteProductCategoryCommand(long productCategoryId)
     {
-        public DeleteProductCategoryCommand(long productCategoryId)
-        {
-            ProductCategoryId = productCategoryId;
-        }
-
-        public long ProductCategoryId { get; set; }
+        ProductCategoryId = productCategoryId;
     }
+
+    public long ProductCategoryId { get; set; }
 }

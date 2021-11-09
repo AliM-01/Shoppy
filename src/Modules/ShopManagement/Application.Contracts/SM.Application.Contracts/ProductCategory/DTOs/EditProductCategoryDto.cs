@@ -1,7 +1,6 @@
-﻿namespace SM.Application.Contracts.ProductCategory.DTOs
+﻿namespace SM.Application.Contracts.ProductCategory.DTOs;
+
+public class EditProductCategoryDto : CreateProductCategoryDto
 {
-    public class EditProductCategoryDto : CreateProductCategoryDto
-    {
-        public long Id { get; set; }
-    }
+    public long Id { get; set; }
 }

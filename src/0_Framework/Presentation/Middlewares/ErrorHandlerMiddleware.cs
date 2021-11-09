@@ -1,77 +1,74 @@
-﻿using System;
+﻿using _0_Framework.Application.Exceptions;
+using _0_Framework.Application.Wrappers;
+using Microsoft.AspNetCore.Http;
 using System.Collections.Generic;
 using System.Net;
 using System.Text.Json;
-using System.Threading.Tasks;
-using _0_Framework.Application.Exceptions;
-using _0_Framework.Application.Wrappers;
-using Microsoft.AspNetCore.Http;
 
-namespace _0_Framework.Presentation.Middlewares
+namespace _0_Framework.Presentation.Middlewares;
+
+public class ErrorHandlerMiddleware
 {
-    public class ErrorHandlerMiddleware
+    private readonly RequestDelegate _next;
+
+    public ErrorHandlerMiddleware(RequestDelegate next)
     {
-        private readonly RequestDelegate _next;
+        _next = next;
+    }
 
-        public ErrorHandlerMiddleware(RequestDelegate next)
+    public async Task Invoke(HttpContext context)
+    {
+        try
         {
-            _next = next;
+            await _next(context);
         }
-
-        public async Task Invoke(HttpContext context)
+        catch (Exception error)
         {
-            try
+            var response = context.Response;
+            response.ContentType = "application/json";
+            var status = "error";
+            var errors = new List<string>();
+            var responseModel = new Response<string>() { Status = "error", Message = error?.Message };
+
+            errors.Add(error.Message);
+
+            switch (error)
             {
-                await _next(context);
+                case ApiException e:
+                    // custom application error
+                    response.StatusCode = (int)HttpStatusCode.BadRequest;
+                    responseModel.Message = e.Message;
+                    errors.Add(e.Message);
+                    break;
+
+                case NotFoundApiException e:
+                    // custom not-found application error
+                    status = "not-found";
+                    response.StatusCode = (int)HttpStatusCode.NotFound;
+                    responseModel.Message = e.Message;
+                    errors.Add(e.Message);
+                    break;
+
+                case ValidationException e:
+                    // custom application error
+                    response.StatusCode = (int)HttpStatusCode.BadRequest;
+                    errors.AddRange(e.Errors);
+                    break;
+
+                default:
+                    // unhandled error
+                    response.StatusCode = (int)HttpStatusCode.InternalServerError;
+                    break;
             }
-            catch (Exception error)
+
+            var result = JsonSerializer.Serialize(new
             {
-                var response = context.Response;
-                response.ContentType = "application/json";
-                var status = "error";
-                var errors = new List<string>();
-                var responseModel = new Response<string>() { Status = "error", Message = error?.Message };
+                status = status,
+                message = responseModel.Message,
+                errors = errors
+            });
 
-                errors.Add(error.Message);
-
-                switch (error)
-                {
-                    case ApiException e:
-                        // custom application error
-                        response.StatusCode = (int)HttpStatusCode.BadRequest;
-                        responseModel.Message = e.Message;
-                        errors.Add(e.Message);
-                        break;
-
-                    case NotFoundApiException e:
-                        // custom not-found application error
-                        status = "not-found";
-                        response.StatusCode = (int)HttpStatusCode.NotFound;
-                        responseModel.Message = e.Message;
-                        errors.Add(e.Message);
-                        break;
-
-                    case ValidationException e:
-                        // custom application error
-                        response.StatusCode = (int)HttpStatusCode.BadRequest;
-                        errors.AddRange(e.Errors);
-                        break;
-
-                    default:
-                        // unhandled error
-                        response.StatusCode = (int)HttpStatusCode.InternalServerError;
-                        break;
-                }
-
-                var result = JsonSerializer.Serialize(new
-                {
-                    status = status,
-                    message = responseModel.Message,
-                    errors = errors
-                });
-
-                await response.WriteAsync(result);
-            }
+            await response.WriteAsync(result);
         }
     }
 }

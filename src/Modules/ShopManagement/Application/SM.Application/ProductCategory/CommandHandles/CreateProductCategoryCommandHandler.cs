@@ -1,51 +1,42 @@
-﻿using System;
-using System.IO;
-using System.Threading;
-using System.Threading.Tasks;
-using _0_Framework.Application.ErrorMessages;
-using _0_Framework.Application.Exceptions;
+﻿
 using _0_Framework.Application.Utilities.ImageRelated;
-using _0_Framework.Application.Wrappers;
-using _0_Framework.Domain.IGenericRepository;
-using Ardalis.GuardClauses;
 using AutoMapper;
-using MediatR;
 using SM.Application.Contracts.ProductCategory.Commands;
+using System.IO;
 
-namespace SM.Application.ProductCategory.CommandHandles
+namespace SM.Application.ProductCategory.CommandHandles;
+
+public class CreateProductCategoryCommandHandler : IRequestHandler<CreateProductCategoryCommand, Response<string>>
 {
-    public class CreateProductCategoryCommandHandler : IRequestHandler<CreateProductCategoryCommand, Response<string>>
+    #region Ctor
+
+    private readonly IGenericRepository<Domain.ProductCategory.ProductCategory> _productCategoryRepository;
+    private readonly IMapper _mapper;
+
+    public CreateProductCategoryCommandHandler(IGenericRepository<Domain.ProductCategory.ProductCategory> productCategoryRepository, IMapper mapper)
     {
-        #region Ctor
+        _productCategoryRepository = Guard.Against.Null(productCategoryRepository, nameof(_productCategoryRepository));
+        _mapper = Guard.Against.Null(mapper, nameof(_mapper));
+    }
 
-        private readonly IGenericRepository<Domain.ProductCategory.ProductCategory> _productCategoryRepository;
-        private readonly IMapper _mapper;
+    #endregion
 
-        public CreateProductCategoryCommandHandler(IGenericRepository<Domain.ProductCategory.ProductCategory> productCategoryRepository, IMapper mapper)
-        {
-            _productCategoryRepository = Guard.Against.Null(productCategoryRepository, nameof(_productCategoryRepository));
-            _mapper = Guard.Against.Null(mapper, nameof(_mapper));
-        }
+    public async Task<Response<string>> Handle(CreateProductCategoryCommand request, CancellationToken cancellationToken)
+    {
+        if (_productCategoryRepository.Exists(x => x.Title == request.ProductCategory.Title))
+            throw new ApiException(ApplicationErrorMessage.IsDuplicatedMessage);
 
-        #endregion
+        var productCategory =
+            _mapper.Map(request.ProductCategory, new Domain.ProductCategory.ProductCategory());
 
-        public async Task<Response<string>> Handle(CreateProductCategoryCommand request, CancellationToken cancellationToken)
-        {
-            if (_productCategoryRepository.Exists(x => x.Title == request.ProductCategory.Title))
-                throw new ApiException(ApplicationErrorMessage.IsDuplicatedMessage);
+        var imagePath = Guid.NewGuid().ToString("N") + Path.GetExtension(request.ProductCategory.ImageFile.FileName);
 
-            var productCategory =
-                _mapper.Map(request.ProductCategory, new Domain.ProductCategory.ProductCategory());
+        request.ProductCategory.ImageFile.AddImageToServer(imagePath, "wwwroot/product_category/original/", 200, 200, "wwwroot/product_category/thumbnail/");
+        productCategory.ImagePath = imagePath;
 
-            var imagePath = Guid.NewGuid().ToString("N") + Path.GetExtension(request.ProductCategory.ImageFile.FileName);
+        await _productCategoryRepository.InsertEntity(productCategory);
+        await _productCategoryRepository.SaveChanges();
 
-            request.ProductCategory.ImageFile.AddImageToServer(imagePath, "wwwroot/product_category/original/", 200, 200, "wwwroot/product_category/thumbnail/");
-            productCategory.ImagePath = imagePath;
-
-            await _productCategoryRepository.InsertEntity(productCategory);
-            await _productCategoryRepository.SaveChanges();
-
-            return new Response<string>(ApplicationErrorMessage.OperationSucceddedMessage);
-        }
+        return new Response<string>(ApplicationErrorMessage.OperationSucceddedMessage);
     }
 }

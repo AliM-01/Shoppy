@@ -1,55 +1,45 @@
-﻿using System;
-using System.IO;
-using System.Threading;
-using System.Threading.Tasks;
-using _0_Framework.Application.ErrorMessages;
-using _0_Framework.Application.Exceptions;
-using _0_Framework.Application.Utilities.ImageRelated;
-using _0_Framework.Application.Wrappers;
-using _0_Framework.Domain.IGenericRepository;
-using Ardalis.GuardClauses;
+﻿using _0_Framework.Application.Utilities.ImageRelated;
 using AutoMapper;
-using MediatR;
 using SM.Application.Contracts.ProductCategory.Commands;
+using System.IO;
 
-namespace SM.Application.ProductCategory.CommandHandles
+namespace SM.Application.ProductCategory.CommandHandles;
+
+public class EditProductCategoryCommandHandler : IRequestHandler<EditProductCategoryCommand, Response<string>>
 {
-    public class EditProductCategoryCommandHandler : IRequestHandler<EditProductCategoryCommand, Response<string>>
+    #region Ctor
+
+    private readonly IGenericRepository<Domain.ProductCategory.ProductCategory> _productCategoryRepository;
+    private readonly IMapper _mapper;
+
+    public EditProductCategoryCommandHandler(IGenericRepository<Domain.ProductCategory.ProductCategory> productCategoryRepository, IMapper mapper)
     {
-        #region Ctor
+        _productCategoryRepository = Guard.Against.Null(productCategoryRepository, nameof(_productCategoryRepository));
+        _mapper = Guard.Against.Null(mapper, nameof(_mapper));
+    }
 
-        private readonly IGenericRepository<Domain.ProductCategory.ProductCategory> _productCategoryRepository;
-        private readonly IMapper _mapper;
+    #endregion
 
-        public EditProductCategoryCommandHandler(IGenericRepository<Domain.ProductCategory.ProductCategory> productCategoryRepository, IMapper mapper)
-        {
-            _productCategoryRepository = Guard.Against.Null(productCategoryRepository, nameof(_productCategoryRepository));
-            _mapper = Guard.Against.Null(mapper, nameof(_mapper));
-        }
+    public async Task<Response<string>> Handle(EditProductCategoryCommand request, CancellationToken cancellationToken)
+    {
+        var productCategory = await _productCategoryRepository.GetEntityById(request.ProductCategory.Id);
 
-        #endregion
+        if (productCategory is null)
+            throw new NotFoundApiException();
 
-        public async Task<Response<string>> Handle(EditProductCategoryCommand request, CancellationToken cancellationToken)
-        {
-            var productCategory = await _productCategoryRepository.GetEntityById(request.ProductCategory.Id);
+        if (_productCategoryRepository.Exists(x => x.Title == request.ProductCategory.Title && x.Id != request.ProductCategory.Id))
+            throw new ApiException(ApplicationErrorMessage.IsDuplicatedMessage);
 
-            if (productCategory is null)
-                throw new NotFoundApiException();
+        _mapper.Map(request, productCategory);
 
-            if (_productCategoryRepository.Exists(x => x.Title == request.ProductCategory.Title && x.Id != request.ProductCategory.Id))
-                throw new ApiException(ApplicationErrorMessage.IsDuplicatedMessage);
+        var imagePath = Guid.NewGuid().ToString("N") + Path.GetExtension(request.ProductCategory.ImageFile.FileName);
 
-            _mapper.Map(request, productCategory);
+        request.ProductCategory.ImageFile.AddImageToServer(imagePath, "wwwroot/product_category/original/", 200, 200, "wwwroot/product_category/thumbnail/", productCategory.ImagePath);
+        productCategory.ImagePath = imagePath;
 
-            var imagePath = Guid.NewGuid().ToString("N") + Path.GetExtension(request.ProductCategory.ImageFile.FileName);
+        _productCategoryRepository.Update(productCategory);
+        await _productCategoryRepository.SaveChanges();
 
-            request.ProductCategory.ImageFile.AddImageToServer(imagePath, "wwwroot/product_category/original/", 200, 200, "wwwroot/product_category/thumbnail/", productCategory.ImagePath);
-            productCategory.ImagePath = imagePath;
-
-            _productCategoryRepository.Update(productCategory);
-            await _productCategoryRepository.SaveChanges();
-
-            return new Response<string>();
-        }
+        return new Response<string>();
     }
 }

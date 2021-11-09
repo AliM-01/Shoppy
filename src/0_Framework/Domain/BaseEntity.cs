@@ -1,17 +1,14 @@
-﻿using System;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 
-namespace _0_Framework.Domain
+namespace _0_Framework.Domain;
+public abstract class BaseEntity
 {
-    public abstract class BaseEntity
-    {
-        [Key]
-        public long Id { get; set; }
+    [Key]
+    public long Id { get; set; }
 
-        public bool IsDeleted { get; set; }
+    public bool IsDeleted { get; set; }
 
-        public DateTime CreationDate { get; set; } = DateTime.Now;
+    public DateTime CreationDate { get; set; } = DateTime.Now;
 
-        public DateTime LastUpdateDate { get; set; } = DateTime.Now;
-    }
+    public DateTime LastUpdateDate { get; set; } = DateTime.Now;
 }

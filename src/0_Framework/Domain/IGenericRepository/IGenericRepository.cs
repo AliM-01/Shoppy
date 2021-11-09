@@ -1,30 +1,27 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
-using System.Threading.Tasks;
 
-namespace _0_Framework.Domain.IGenericRepository
-{
-    public interface IGenericRepository<TEntity> : IAsyncDisposable 
+namespace _0_Framework.Domain.IGenericRepository;
+
+public interface IGenericRepository<TEntity> : IAsyncDisposable
         where TEntity : BaseEntity
-    {
-        IQueryable<TEntity> GetQuery();
+{
+    IQueryable<TEntity> GetQuery();
 
-        Task InsertEntity(TEntity entity);
+    Task InsertEntity(TEntity entity);
 
-        Task InsertRangeEntity(List<TEntity> entities);
+    Task InsertRangeEntity(List<TEntity> entities);
 
-        Task<TEntity> GetEntityById(long entityId);
+    Task<TEntity> GetEntityById(long entityId);
 
-        void Update(TEntity entity);
+    void Update(TEntity entity);
 
-        Task SoftDelete(long entityId);
+    Task SoftDelete(long entityId);
 
-        Task FullDelete(long entityId);
+    Task FullDelete(long entityId);
 
-        bool Exists(Expression<Func<TEntity, bool>> expression);
+    bool Exists(Expression<Func<TEntity, bool>> expression);
 
-        Task SaveChanges();
-    }
+    Task SaveChanges();
 }

@@ -1,62 +1,51 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using System.Threading;
-using System.Threading.Tasks;
-using _0_Framework.Application.ErrorMessages;
-using _0_Framework.Application.Exceptions;
-using _0_Framework.Application.Models.Paging;
-using _0_Framework.Application.Wrappers;
-using _0_Framework.Domain.IGenericRepository;
-using Ardalis.GuardClauses;
+﻿using _0_Framework.Application.Models.Paging;
 using AutoMapper;
-using MediatR;
 using Microsoft.EntityFrameworkCore;
 using SM.Application.Contracts.ProductCategory.DTOs;
 using SM.Application.Contracts.ProductCategory.Queries;
+using System.Linq;
 
-namespace SM.Application.ProductCategory.QueryHandles
+namespace SM.Application.ProductCategory.QueryHandles;
+public class FilterProductCategoriesQueryHandler : IRequestHandler<FilterProductCategoriesQuery, Response<FilterProductCategoryDto>>
 {
-    public class FilterProductCategoriesQueryHandler : IRequestHandler<FilterProductCategoriesQuery, Response<FilterProductCategoryDto>>
+    #region Ctor
+
+    private readonly IGenericRepository<Domain.ProductCategory.ProductCategory> _productCategoryRepository;
+    private readonly IMapper _mapper;
+
+    public FilterProductCategoriesQueryHandler(IGenericRepository<Domain.ProductCategory.ProductCategory> productCategoryRepository, IMapper mapper)
     {
-        #region Ctor
+        _productCategoryRepository = Guard.Against.Null(productCategoryRepository, nameof(_productCategoryRepository));
+        _mapper = Guard.Against.Null(mapper, nameof(_mapper));
+    }
 
-        private readonly IGenericRepository<Domain.ProductCategory.ProductCategory> _productCategoryRepository;
-        private readonly IMapper _mapper;
+    #endregion
 
-        public FilterProductCategoriesQueryHandler(IGenericRepository<Domain.ProductCategory.ProductCategory> productCategoryRepository, IMapper mapper)
-        {
-            _productCategoryRepository = Guard.Against.Null(productCategoryRepository, nameof(_productCategoryRepository));
-            _mapper = Guard.Against.Null(mapper, nameof(_mapper));
-        }
+    public async Task<Response<FilterProductCategoryDto>> Handle(FilterProductCategoriesQuery request, CancellationToken cancellationToken)
+    {
+        var query = _productCategoryRepository.GetQuery()
+            .OrderByDescending(p => p.LastUpdateDate).AsQueryable();
 
-        #endregion
+        #region filter
 
-        public async Task<Response<FilterProductCategoryDto>> Handle(FilterProductCategoriesQuery request, CancellationToken cancellationToken)
-        {
-            var query = _productCategoryRepository.GetQuery()
-                .OrderByDescending(p => p.LastUpdateDate).AsQueryable();
+        if (!string.IsNullOrEmpty(request.Filter.Title))
+            query = query.Where(s => EF.Functions.Like(s.Title, $"%{request.Filter.Title}%"));
 
-            #region filter
+        #endregion filter
 
-            if (!string.IsNullOrEmpty(request.Filter.Title))
-                query = query.Where(s => EF.Functions.Like(s.Title, $"%{request.Filter.Title}%"));
+        #region paging
 
-            #endregion filter
+        var pager = Pager.Build(request.Filter.PageId, await query.CountAsync(cancellationToken), request.Filter.TakePage, request.Filter.ShownPages);
+        var filteredEntities = await query.Paging(pager)
+            .Select(product =>
+                _mapper.Map(product, new ProductCategoryDto()))
+            .ToListAsync(cancellationToken);
 
-            #region paging
+        #endregion paging
 
-            var pager = Pager.Build(request.Filter.PageId, await query.CountAsync(cancellationToken), request.Filter.TakePage, request.Filter.ShownPages);
-            var filteredEntities = await query.Paging(pager)
-                .Select(product =>
-                    _mapper.Map(product, new ProductCategoryDto()))
-                .ToListAsync(cancellationToken);
+        if (filteredEntities is null)
+            throw new ApiException(ApplicationErrorMessage.FilteredRecordsNotFoundMessage);
 
-            #endregion paging
-
-            if (filteredEntities is null)
-                throw new ApiException(ApplicationErrorMessage.FilteredRecordsNotFoundMessage);
-
-            return new Response<FilterProductCategoryDto>(request.Filter.SetEntities(filteredEntities).SetPaging(pager));
-        }
+        return new Response<FilterProductCategoryDto>(request.Filter.SetEntities(filteredEntities).SetPaging(pager));
     }
 }

@@ -3,38 +3,36 @@ using AutoMapper;
 using SM.Application.Contracts.ProductCategory.DTOs;
 using SM.Domain.ProductCategory;
 
-namespace SM.Infrastructure.Shared.Mappings
+namespace SM.Infrastructure.Shared.Mappings;
+public class ShopManagementMappingProfile : Profile
 {
-    public class ShopManagementMappingProfile : Profile
+    public ShopManagementMappingProfile()
     {
-        public ShopManagementMappingProfile()
-        {
-            #region Product Category
+        #region Product Category
 
-            CreateMap<ProductCategory, ProductCategoryDto>()
-                .ForMember(dest => dest.CreationDate,
-                    opt => opt.MapFrom(src => src.CreationDate.Year.ToString()));
+        CreateMap<ProductCategory, ProductCategoryDto>()
+            .ForMember(dest => dest.CreationDate,
+                opt => opt.MapFrom(src => src.CreationDate.Year.ToString()));
 
-            #endregion
+        #endregion
 
-            #region Create Product Category
+        #region Create Product Category
 
-            CreateMap<CreateProductCategoryDto, ProductCategory>()
-                           .ForMember(dest => dest.Slug,
-                               opt => opt.MapFrom(src => src.Title.ToSlug()));
+        CreateMap<CreateProductCategoryDto, ProductCategory>()
+                       .ForMember(dest => dest.Slug,
+                           opt => opt.MapFrom(src => src.Title.ToSlug()));
 
-            #endregion
+        #endregion
 
-            #region Edit Product Category
+        #region Edit Product Category
 
-            CreateMap<EditProductCategoryDto, ProductCategory>()
-                .ForMember(dest => dest.Id,
-                    opt => opt.Ignore())
-                .ForMember(dest => dest.Slug,
-                    opt => opt.MapFrom(src => src.Title.ToSlug()));
+        CreateMap<EditProductCategoryDto, ProductCategory>()
+            .ForMember(dest => dest.Id,
+                opt => opt.Ignore())
+            .ForMember(dest => dest.Slug,
+                opt => opt.MapFrom(src => src.Title.ToSlug()));
 
-            #endregion
+        #endregion
 
-        }
     }
 }

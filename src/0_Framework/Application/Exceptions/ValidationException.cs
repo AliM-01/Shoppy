@@ -1,6 +1,5 @@
-﻿using System;
+﻿using FluentValidation.Results;
 using System.Collections.Generic;
-using FluentValidation.Results;
 
 namespace _0_Framework.Application.Exceptions
 {

@@ -1,6 +1,4 @@
-﻿namespace SM.Application
+﻿namespace SM.Application;
+public interface ISMAssemblyMarker
 {
-    public interface ISMAssemblyMarker
-    {
-    }
 }

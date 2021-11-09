@@ -6,8 +6,8 @@ using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using SM.Infrastructure.Persistence.Context;
 
-namespace SM.Infrastructure.Persistence.Migrations
-{
+namespace SM.Infrastructure.Persistence.Migrations;
+
     [DbContext(typeof(ShopDbContext))]
     partial class ShopDbContextModelSnapshot : ModelSnapshot
     {
@@ -80,4 +80,3 @@ namespace SM.Infrastructure.Persistence.Migrations
 #pragma warning restore 612, 618
         }
     }
-}

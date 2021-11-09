@@ -1,16 +1,13 @@
-﻿using _0_Framework.Application.Wrappers;
-using MediatR;
-using SM.Application.Contracts.ProductCategory.DTOs;
+﻿using SM.Application.Contracts.ProductCategory.DTOs;
 
-namespace SM.Application.Contracts.ProductCategory.Commands
+namespace SM.Application.Contracts.ProductCategory.Commands;
+
+public class CreateProductCategoryCommand : IRequest<Response<string>>
 {
-    public class CreateProductCategoryCommand : IRequest<Response<string>>
+    public CreateProductCategoryCommand(CreateProductCategoryDto productCategory)
     {
-        public CreateProductCategoryCommand(CreateProductCategoryDto productCategory)
-        {
-            ProductCategory = productCategory;
-        }
-
-        public CreateProductCategoryDto ProductCategory { get; set; }
+        ProductCategory = productCategory;
     }
+
+    public CreateProductCategoryDto ProductCategory { get; set; }
 }
