@@ -5,8 +5,6 @@ namespace _0_Framework.Application.Exceptions;
 
 public class NotFoundApiException : Exception
 {
-    public NotFoundApiException() : base() { }
-
     public NotFoundApiException(string message = ApplicationErrorMessage.RecordNotFoundMessage) : base(message) { }
 
     public NotFoundApiException(string message, params object[] args)
