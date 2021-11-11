@@ -15,7 +15,7 @@ public class UpdateProductNotInStockCommandHandler : IRequestHandler<UpdateProdu
 
     #endregion
 
-    public async Task<Response<string>> Handle(UpdateProductIsInStockCommand request, CancellationToken cancellationToken)
+    public async Task<Response<string>> Handle(UpdateProductNotInStockCommand request, CancellationToken cancellationToken)
     {
         var product = await _productRepository.GetEntityById(request.ProductId);
 

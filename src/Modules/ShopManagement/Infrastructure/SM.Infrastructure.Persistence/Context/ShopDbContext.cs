@@ -1,5 +1,6 @@
 ﻿using _0_Framework.Infrastructure.Context;
 using Microsoft.EntityFrameworkCore;
+using SM.Domain.Product;
 using SM.Domain.ProductCategory;
 
 namespace SM.Infrastructure.Persistence.Context;
@@ -12,6 +13,7 @@ public class ShopDbContext : DbContext
     #endregion
 
     public DbSet<ProductCategory> ProductCategories { get; set; }
+    public DbSet<Product> Products { get; set; }
 
     #region On Model Creating
 
