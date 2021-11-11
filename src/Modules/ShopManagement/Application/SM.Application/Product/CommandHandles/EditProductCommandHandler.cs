@@ -1,5 +1,6 @@
 ﻿using _0_Framework.Application.Utilities.ImageRelated;
 using AutoMapper;
+using Microsoft.EntityFrameworkCore;
 using SM.Application.Contracts.ProductCategory.Commands;
 using System.IO;
 
@@ -22,7 +23,8 @@ public class EditProductCommandHandler : IRequestHandler<EditProductCommand, Res
 
     public async Task<Response<string>> Handle(EditProductCommand request, CancellationToken cancellationToken)
     {
-        var Product = await _productRepository.GetEntityById(request.Product.Id);
+        var Product = await _productRepository.GetQuery().Include(p => p.Category)
+            .AsNoTracking().FirstOrDefaultAsync(s => s.Id == request.Product.Id);
 
         if (Product is null)
             throw new NotFoundApiException();

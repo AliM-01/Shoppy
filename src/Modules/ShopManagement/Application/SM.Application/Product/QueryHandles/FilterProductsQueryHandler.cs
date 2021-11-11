@@ -22,14 +22,14 @@ public class FilterProductCategoriesQueryHandler : IRequestHandler<FilterProduct
 
     public async Task<Response<FilterProductDto>> Handle(FilterProductsQuery request, CancellationToken cancellationToken)
     {
-        var query = _productRepository.GetQuery()
+        var query = _productRepository.GetQuery().Include(p => p.Category)
             .OrderByDescending(p => p.LastUpdateDate).AsQueryable();
 
         #region filter
 
         if (!string.IsNullOrEmpty(request.Filter.Search))
             query = query.Where(s => EF.Functions.Like(s.Title, $"%{request.Filter.Search}%") ||
-            s.Code == request.Filter.Search ||
+            EF.Functions.Like(s.Code, $"%{request.Filter.Search}%") ||
             s.CategoryId == Convert.ToInt64(request.Filter.Search));
 
         #endregion filter

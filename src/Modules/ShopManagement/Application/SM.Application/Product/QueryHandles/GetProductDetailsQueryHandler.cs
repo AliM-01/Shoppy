@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Microsoft.EntityFrameworkCore;
 using SM.Application.Contracts.Product.DTOs;
 using SM.Application.Contracts.Product.Queries;
 
@@ -20,7 +21,8 @@ public class GetProductDetailsQueryHandler : IRequestHandler<GetProductDetailsQu
 
     public async Task<Response<EditProductDto>> Handle(GetProductDetailsQuery request, CancellationToken cancellationToken)
     {
-        var Product = await _productRepository.GetEntityById(request.Id);
+        var Product = await _productRepository.GetQuery().Include(p => p.Category)
+            .AsNoTracking().FirstOrDefaultAsync(s => s.Id == request.Id);
 
         if (Product is null)
             throw new NotFoundApiException();
