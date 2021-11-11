@@ -1,7 +1,11 @@
-﻿namespace SM.Domain.ProductCategory;
+﻿using System.Collections.Generic;
+
+namespace SM.Domain.ProductCategory;
 
 public class ProductCategory : BaseEntity
 {
+    #region Properties
+
     [Display(Name = "عنوان")]
     public string Title { get; set; }
 
@@ -25,4 +29,11 @@ public class ProductCategory : BaseEntity
 
     [Display(Name = "عنوان لینک")]
     public string Slug { get; set; }
+
+    #endregion
+
+    #region Relations
+    public ICollection<Product.Product> Products { get; set; }
+
+    #endregion
 }
