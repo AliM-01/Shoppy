@@ -1,8 +1,7 @@
 ﻿namespace SM.Application.Contracts.Product.Queries;
-
-public class ProductNotInStockQuery : IRequest<Response<string>>
+public class UpdateProductIsInStockCommand : IRequest<Response<string>>
 {
-    public ProductNotInStockQuery(long productId)
+    public UpdateProductIsInStockCommand(long productId)
     {
         ProductId = productId;
     }
