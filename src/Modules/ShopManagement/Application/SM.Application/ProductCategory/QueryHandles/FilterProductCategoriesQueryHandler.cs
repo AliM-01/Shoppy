@@ -1,5 +1,4 @@
-﻿using _0_Framework.Application.Models.Paging;
-using AutoMapper;
+﻿using AutoMapper;
 using Microsoft.EntityFrameworkCore;
 using SM.Application.Contracts.ProductCategory.DTOs;
 using SM.Application.Contracts.ProductCategory.Queries;
@@ -35,8 +34,7 @@ public class FilterProductCategoriesQueryHandler : IRequestHandler<FilterProduct
 
         #region paging
 
-        var pager = Pager.Build(request.Filter.PageId, await query.CountAsync(cancellationToken), request.Filter.TakePage, request.Filter.ShownPages);
-        var filteredEntities = await query.Paging(pager)
+        var filteredEntities = await query
             .Select(product =>
                 _mapper.Map(product, new ProductCategoryDto()))
             .ToListAsync(cancellationToken);
@@ -46,6 +44,8 @@ public class FilterProductCategoriesQueryHandler : IRequestHandler<FilterProduct
         if (filteredEntities is null)
             throw new ApiException(ApplicationErrorMessage.FilteredRecordsNotFoundMessage);
 
-        return new Response<FilterProductCategoryDto>(request.Filter.SetEntities(filteredEntities).SetPaging(pager));
+        request.Filter.ProductCategories = filteredEntities;
+
+        return new Response<FilterProductCategoryDto>(request.Filter);
     }
 }

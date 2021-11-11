@@ -16,6 +16,12 @@
             </summary>
             <response code="200">Success</response>
         </member>
+        <member name="M:Shoppy.Admin.WebApi.Controllers.ProductCategoryController.EditProductCategory(SM.Application.Contracts.ProductCategory.DTOs.EditProductCategoryDto)">
+            <summary>
+               ویرایش دسته بندی محصول
+            </summary>
+            <response code="200">Success</response>
+        </member>
         <member name="M:Shoppy.Admin.WebApi.Controllers.ProductCategoryController.DeleteProductCategory(System.Int64)">
             <summary>
                حذف دسته بندی محصول
