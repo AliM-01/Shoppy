@@ -20,6 +20,18 @@ public class ProductCategoryController : BaseApiController
     }
 
     /// <summary>
+    ///    دریافت جزییات دسته بندی محصول
+    /// </summary>
+    /// <response code="200">Success</response>
+    [HttpGet(ApiEndpoints.ProductCategory.GetProductCategoryDetails)]
+    public async Task<IActionResult> GetProductCategoryDetails([FromRoute] long id)
+    {
+        var res = await Mediator.Send(new GetProductCategoryDetailsQuery(id));
+
+        return JsonApiResult.Success(res);
+    }
+
+    /// <summary>
     ///    ایجاد دسته بندی محصول
     /// </summary>
     /// <response code="200">Success</response>
