@@ -32,10 +32,13 @@ public class EditProductCategoryCommandHandler : IRequestHandler<EditProductCate
 
         _mapper.Map(request, productCategory);
 
-        var imagePath = Guid.NewGuid().ToString("N") + Path.GetExtension(request.ProductCategory.ImageFile.FileName);
+        if (request.ProductCategory.ImageFile != null)
+        {
+            var imagePath = Guid.NewGuid().ToString("N") + Path.GetExtension(request.ProductCategory.ImageFile.FileName);
 
-        request.ProductCategory.ImageFile.AddImageToServer(imagePath, "wwwroot/product_category/original/", 200, 200, "wwwroot/product_category/thumbnail/", productCategory.ImagePath);
-        productCategory.ImagePath = imagePath;
+            request.ProductCategory.ImageFile.AddImageToServer(imagePath, "wwwroot/product_category/original/", 200, 200, "wwwroot/product_category/thumbnail/", productCategory.ImagePath);
+            productCategory.ImagePath = imagePath;
+        }
 
         _productCategoryRepository.Update(productCategory);
         await _productCategoryRepository.SaveChanges();

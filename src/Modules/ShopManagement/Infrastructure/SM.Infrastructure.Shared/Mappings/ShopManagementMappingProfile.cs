@@ -26,8 +26,12 @@ public class ShopManagementMappingProfile : Profile
 
         #region Edit Product Category
 
+        CreateMap<ProductCategory, EditProductCategoryDto>();
+
         CreateMap<EditProductCategoryDto, ProductCategory>()
             .ForMember(dest => dest.Id,
+                opt => opt.Ignore())
+            .ForMember(dest => dest.ImagePath,
                 opt => opt.Ignore())
             .ForMember(dest => dest.Slug,
                 opt => opt.MapFrom(src => src.Title.ToSlug()));
