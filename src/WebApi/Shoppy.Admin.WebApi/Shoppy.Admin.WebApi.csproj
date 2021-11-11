@@ -28,7 +28,7 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <Folder Include="wwwroot\product_category\" />
+	  <Folder Include="wwwroot\product_category\NewFolder\" />
 	</ItemGroup>
 
 </Project>
