@@ -32,6 +32,18 @@ public class ProductCategoryController : BaseApiController
     }
 
     /// <summary>
+    ///    ویرایش دسته بندی محصول
+    /// </summary>
+    /// <response code="200">Success</response>
+    [HttpPut(ApiEndpoints.ProductCategory.EditProductCategory)]
+    public async Task<IActionResult> EditProductCategory([FromForm] EditProductCategoryDto editRequest)
+    {
+        var res = await Mediator.Send(new EditProductCategoryCommand(editRequest));
+
+        return JsonApiResult.Success(res);
+    }
+
+    /// <summary>
     ///    حذف دسته بندی محصول
     /// </summary>
     /// <response code="200">Success</response>
