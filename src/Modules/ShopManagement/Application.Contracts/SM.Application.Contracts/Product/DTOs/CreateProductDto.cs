@@ -1,18 +1,45 @@
 ﻿using Microsoft.AspNetCore.Http;
 
-namespace SM.Application.Contracts.ProductCategory.DTOs;
-public class CreateProductCategoryDto
+namespace SM.Application.Contracts.Product.DTOs;
+
+public class CreateProductDto
 {
+    [Display(Name = "شناسه دسته بندی")]
+    [JsonProperty("categoryId")]
+    [Required(ErrorMessage = DomainErrorMessage.RequiredMessage)]
+    public long CategoryId { get; set; }
+
     [Display(Name = "عنوان")]
     [JsonProperty("title")]
     [Required(ErrorMessage = DomainErrorMessage.RequiredMessage)]
     [MaxLength(100, ErrorMessage = DomainErrorMessage.MaxLengthMessage)]
     public string Title { get; set; }
 
+    [Display(Name = "کد")]
+    [JsonProperty("code")]
+    [Required(ErrorMessage = DomainErrorMessage.RequiredMessage)]
+    [MaxLength(100, ErrorMessage = DomainErrorMessage.MaxLengthMessage)]
+    public string Code { get; set; }
+
+    [Display(Name = "قیمت")]
+    [JsonProperty("unitPrice")]
+    [Required(ErrorMessage = DomainErrorMessage.RequiredMessage)]
+    public double UnitPrice { get; set; }
+
+    [Display(Name = "وضعیت موجودی")]
+    [JsonProperty("isInStock")]
+    [Required(ErrorMessage = DomainErrorMessage.RequiredMessage)]
+    public bool IsInStock { get; set; } = true;
+
+    [Display(Name = "توضیح کوتاه")]
+    [JsonProperty("shortDescription")]
+    [Required(ErrorMessage = DomainErrorMessage.RequiredMessage)]
+    [MaxLength(150, ErrorMessage = DomainErrorMessage.MaxLengthMessage)]
+    public string ShortDescription { get; set; }
+
     [Display(Name = "توضیحات")]
     [JsonProperty("description")]
     [Required(ErrorMessage = DomainErrorMessage.RequiredMessage)]
-    [MaxLength(200, ErrorMessage = DomainErrorMessage.MaxLengthMessage)]
     public string Description { get; set; }
 
     [Display(Name = "تصویر")]
@@ -22,13 +49,13 @@ public class CreateProductCategoryDto
     [Display(Name = "جزییات تصویر")]
     [JsonProperty("imageAlt")]
     [Required(ErrorMessage = DomainErrorMessage.RequiredMessage)]
-    [MaxLength(100, ErrorMessage = DomainErrorMessage.MaxLengthMessage)]
+    [MaxLength(200, ErrorMessage = DomainErrorMessage.MaxLengthMessage)]
     public string ImageAlt { get; set; }
 
     [Display(Name = "عنوان تصویر")]
     [JsonProperty("imageTitle")]
     [Required(ErrorMessage = DomainErrorMessage.RequiredMessage)]
-    [MaxLength(100, ErrorMessage = DomainErrorMessage.MaxLengthMessage)]
+    [MaxLength(200, ErrorMessage = DomainErrorMessage.MaxLengthMessage)]
     public string ImageTitle { get; set; }
 
     [Display(Name = "کلمات کلیدی")]
@@ -42,4 +69,5 @@ public class CreateProductCategoryDto
     [Required(ErrorMessage = DomainErrorMessage.RequiredMessage)]
     [MaxLength(100, ErrorMessage = DomainErrorMessage.MaxLengthMessage)]
     public string MetaDescription { get; set; }
+
 }
