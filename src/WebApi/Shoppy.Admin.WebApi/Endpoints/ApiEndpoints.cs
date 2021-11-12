@@ -21,5 +21,7 @@ public static class ApiEndpoints
     public static class Product
     {
         private const string BaseProductRoute = BaseRoute + "/product";
+
+        public const string FilterProducts = BaseProductRoute + "/filter-products";
     }
 }
