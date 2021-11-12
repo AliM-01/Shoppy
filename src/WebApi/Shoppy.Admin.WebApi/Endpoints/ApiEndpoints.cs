@@ -26,5 +26,8 @@ public static class ApiEndpoints
 
         public const string GetProductDetails = BaseProductRoute + "/{id}";
 
+        public const string CreateProduct = BaseProductRoute + "/create-product";
+
+
     }
 }

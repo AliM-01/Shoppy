@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Shoppy.Admin.WebApi.Endpoints;
+using SM.Application.Contracts.Product.Commands;
 using SM.Application.Contracts.Product.DTOs;
 using SM.Application.Contracts.Product.Queries;
 
@@ -27,6 +28,18 @@ public class ProductController : BaseApiController
     public async Task<IActionResult> GetProductDetails([FromRoute] long id)
     {
         var res = await Mediator.Send(new GetProductDetailsQuery(id));
+
+        return JsonApiResult.Success(res);
+    }
+
+    /// <summary>
+    ///    ایجاد محصول
+    /// </summary>
+    /// <response code="200">Success</response>
+    [HttpPost(ApiEndpoints.Product.CreateProduct)]
+    public async Task<IActionResult> CreateProduct([FromForm] CreateProductDto createRequest)
+    {
+        var res = await Mediator.Send(new CreateProductCommand(createRequest));
 
         return JsonApiResult.Success(res);
     }
