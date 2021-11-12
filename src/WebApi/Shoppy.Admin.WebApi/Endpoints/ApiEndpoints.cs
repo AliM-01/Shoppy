@@ -34,6 +34,6 @@ public static class ApiEndpoints
 
         public const string UpdateProductIsInStock = BaseProductRoute + "/update-product-is-in-stock/{id}";
 
-
+        public const string UpdateProductNotInStock = BaseProductRoute + "/update-product-not-in-stock/{id}";
     }
 }

@@ -79,4 +79,16 @@ public class ProductController : BaseApiController
 
         return JsonApiResult.Success(res);
     }
+
+    /// <summary>
+    ///    ثبت نا موجودی محصول
+    /// </summary>
+    /// <response code="200">Success</response>
+    [HttpDelete(ApiEndpoints.Product.UpdateProductNotInStock)]
+    public async Task<IActionResult> UpdateProductNotInStock([FromRoute] long id)
+    {
+        var res = await Mediator.Send(new UpdateProductNotInStockCommand(id));
+
+        return JsonApiResult.Success(res);
+    }
 }
