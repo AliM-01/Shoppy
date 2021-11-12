@@ -30,5 +30,8 @@ public static class ApiEndpoints
 
         public const string EditProduct = BaseProductRoute + "/edit-product";
 
+        public const string DeleteProduct = BaseProductRoute + "/delete-product/{id}";
+
+
     }
 }

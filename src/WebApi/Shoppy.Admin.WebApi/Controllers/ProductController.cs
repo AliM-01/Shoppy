@@ -55,4 +55,16 @@ public class ProductController : BaseApiController
 
         return JsonApiResult.Success(res);
     }
+
+    /// <summary>
+    ///    حذف محصول
+    /// </summary>
+    /// <response code="200">Success</response>
+    [HttpDelete(ApiEndpoints.Product.DeleteProduct)]
+    public async Task<IActionResult> DeleteProduct([FromRoute] long id)
+    {
+        var res = await Mediator.Send(new DeleteProductCommand(id));
+
+        return JsonApiResult.Success(res);
+    }
 }
