@@ -72,7 +72,7 @@ public class ProductController : BaseApiController
     ///    ثبت موجودی محصول
     /// </summary>
     /// <response code="200">Success</response>
-    [HttpDelete(ApiEndpoints.Product.UpdateProductIsInStock)]
+    [HttpPut(ApiEndpoints.Product.UpdateProductIsInStock)]
     public async Task<IActionResult> UpdateProductIsInStock([FromRoute] long id)
     {
         var res = await Mediator.Send(new UpdateProductIsInStockCommand(id));
