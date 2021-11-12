@@ -1,6 +1,6 @@
 ﻿using SM.Application.Contracts.Product.DTOs;
 
-namespace SM.Application.Contracts.ProductCategory.Queries;
+namespace SM.Application.Contracts.Product.Queries;
 
 public class FilterProductsQuery : IRequest<Response<FilterProductDto>>
 {
