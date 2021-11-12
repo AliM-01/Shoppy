@@ -17,4 +17,9 @@ public static class ApiEndpoints
 
         public const string DeleteProductCategory = BaseProductCategoryRoute + "/delete-product-category/{id}";
     }
+
+    public static class Product
+    {
+        private const string BaseProductRoute = BaseRoute + "/product";
+    }
 }
