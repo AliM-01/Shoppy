@@ -32,6 +32,8 @@ public static class ApiEndpoints
 
         public const string DeleteProduct = BaseProductRoute + "/delete-product/{id}";
 
+        public const string UpdateProductIsInStock = BaseProductRoute + "/update-product-is-in-stock/{id}";
+
 
     }
 }
