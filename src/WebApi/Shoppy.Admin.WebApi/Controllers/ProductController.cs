@@ -43,4 +43,16 @@ public class ProductController : BaseApiController
 
         return JsonApiResult.Success(res);
     }
+
+    /// <summary>
+    ///    ویرایش محصول
+    /// </summary>
+    /// <response code="200">Success</response>
+    [HttpPut(ApiEndpoints.Product.EditProduct)]
+    public async Task<IActionResult> EditProduct([FromForm] EditProductDto editRequest)
+    {
+        var res = await Mediator.Send(new EditProductCommand(editRequest));
+
+        return JsonApiResult.Success(res);
+    }
 }

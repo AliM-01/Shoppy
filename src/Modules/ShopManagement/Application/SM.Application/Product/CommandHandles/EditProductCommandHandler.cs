@@ -1,7 +1,7 @@
 ﻿using _0_Framework.Application.Utilities.ImageRelated;
 using AutoMapper;
 using Microsoft.EntityFrameworkCore;
-using SM.Application.Contracts.ProductCategory.Commands;
+using SM.Application.Contracts.Product.Commands;
 using System.IO;
 
 namespace SM.Application.Product.CommandHandles;

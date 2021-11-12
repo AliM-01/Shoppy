@@ -1,6 +1,6 @@
 ﻿using SM.Application.Contracts.Product.DTOs;
 
-namespace SM.Application.Contracts.ProductCategory.Commands;
+namespace SM.Application.Contracts.Product.Commands;
 
 public class EditProductCommand : IRequest<Response<string>>
 {

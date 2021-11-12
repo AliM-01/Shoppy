@@ -34,9 +34,27 @@
             </summary>
             <response code="200">Success</response>
         </member>
-        <member name="M:Shoppy.Admin.WebApi.Controllers.ProductController.FilterProductCategories(SM.Application.Contracts.Product.DTOs.FilterProductDto)">
+        <member name="M:Shoppy.Admin.WebApi.Controllers.ProductController.FilterProducts(SM.Application.Contracts.Product.DTOs.FilterProductDto)">
             <summary>
                فیلتر محصولات
+            </summary>
+            <response code="200">Success</response>
+        </member>
+        <member name="M:Shoppy.Admin.WebApi.Controllers.ProductController.GetProductDetails(System.Int64)">
+            <summary>
+               دریافت جزییات محصول
+            </summary>
+            <response code="200">Success</response>
+        </member>
+        <member name="M:Shoppy.Admin.WebApi.Controllers.ProductController.CreateProduct(SM.Application.Contracts.Product.DTOs.CreateProductDto)">
+            <summary>
+               ایجاد محصول
+            </summary>
+            <response code="200">Success</response>
+        </member>
+        <member name="M:Shoppy.Admin.WebApi.Controllers.ProductController.EditProduct(SM.Application.Contracts.Product.DTOs.EditProductDto)">
+            <summary>
+               ویرایش محصول
             </summary>
             <response code="200">Success</response>
         </member>

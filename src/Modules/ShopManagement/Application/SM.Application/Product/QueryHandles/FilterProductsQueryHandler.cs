@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using Microsoft.EntityFrameworkCore;
 using SM.Application.Contracts.Product.DTOs;
+using SM.Application.Contracts.Product.Queries;
 using System.Linq;
 
 namespace SM.Application.Product.QueryHandles;

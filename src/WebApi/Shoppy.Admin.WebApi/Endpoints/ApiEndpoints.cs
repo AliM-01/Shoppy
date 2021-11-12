@@ -13,7 +13,7 @@ public static class ApiEndpoints
 
         public const string CreateProductCategory = BaseProductCategoryRoute + "/create-product-category";
 
-        public const string EditProductCategory = BaseProductCategoryRoute + "/edit-product-category/{id}";
+        public const string EditProductCategory = BaseProductCategoryRoute + "/edit-product-category";
 
         public const string DeleteProductCategory = BaseProductCategoryRoute + "/delete-product-category/{id}";
     }
@@ -28,6 +28,7 @@ public static class ApiEndpoints
 
         public const string CreateProduct = BaseProductRoute + "/create-product";
 
+        public const string EditProduct = BaseProductRoute + "/edit-product";
 
     }
 }
