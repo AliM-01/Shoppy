@@ -6,7 +6,7 @@ public class CreateProductDto
 {
     [Display(Name = "شناسه دسته بندی")]
     [JsonProperty("categoryId")]
-    [Required(ErrorMessage = DomainErrorMessage.RequiredMessage)]
+    [Range(1, 10000, ErrorMessage = DomainErrorMessage.RequiredMessage)]
     public long CategoryId { get; set; }
 
     [Display(Name = "عنوان")]
