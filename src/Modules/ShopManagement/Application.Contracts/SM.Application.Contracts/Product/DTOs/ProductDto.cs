@@ -24,4 +24,9 @@ public class ProductDto
     [Display(Name = "عنوان دسته بندی")]
     [JsonProperty("category")]
     public string CategoryTitle { get; set; }
+
+    [Display(Name = "تاریخ ثبت")]
+    [JsonProperty("creationDate")]
+    public string CreationDate { get; set; }
+
 }

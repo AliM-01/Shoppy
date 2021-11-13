@@ -58,5 +58,23 @@
             </summary>
             <response code="200">Success</response>
         </member>
+        <member name="M:Shoppy.Admin.WebApi.Controllers.ProductController.DeleteProduct(System.Int64)">
+            <summary>
+               حذف محصول
+            </summary>
+            <response code="200">Success</response>
+        </member>
+        <member name="M:Shoppy.Admin.WebApi.Controllers.ProductController.UpdateProductIsInStock(System.Int64)">
+            <summary>
+               ثبت موجودی محصول
+            </summary>
+            <response code="200">Success</response>
+        </member>
+        <member name="M:Shoppy.Admin.WebApi.Controllers.ProductController.UpdateProductNotInStock(System.Int64)">
+            <summary>
+               ثبت نا موجودی محصول
+            </summary>
+            <response code="200">Success</response>
+        </member>
     </members>
 </doc>
