@@ -32,7 +32,7 @@ public class EditProductCommandHandler : IRequestHandler<EditProductCommand, Res
         if (_productRepository.Exists(x => x.Title == request.Product.Title && x.Id != request.Product.Id))
             throw new ApiException(ApplicationErrorMessage.IsDuplicatedMessage);
 
-        _mapper.Map(request, Product);
+        _mapper.Map(request.Product, Product);
 
         if (request.Product.ImageFile != null)
         {

@@ -29,7 +29,7 @@ public class FilterProductCategoriesQueryHandler : IRequestHandler<FilterProduct
 
         if (!string.IsNullOrEmpty(request.Filter.Search))
             query = query.Where(s => EF.Functions.Like(s.Title, $"%{request.Filter.Search}%") ||
-            EF.Functions.Like(s.Code, $"%{request.Filter.Search}%") ||
+           s.Code.Contains(request.Filter.Search) ||
             s.CategoryId == Convert.ToInt64(request.Filter.Search));
 
         #endregion filter

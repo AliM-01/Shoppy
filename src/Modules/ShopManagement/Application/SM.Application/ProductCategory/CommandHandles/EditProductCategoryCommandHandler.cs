@@ -30,7 +30,7 @@ public class EditProductCategoryCommandHandler : IRequestHandler<EditProductCate
         if (_productCategoryRepository.Exists(x => x.Title == request.ProductCategory.Title && x.Id != request.ProductCategory.Id))
             throw new ApiException(ApplicationErrorMessage.IsDuplicatedMessage);
 
-        _mapper.Map(request, productCategory);
+        _mapper.Map(request.ProductCategory, productCategory);
 
         if (request.ProductCategory.ImageFile != null)
         {
