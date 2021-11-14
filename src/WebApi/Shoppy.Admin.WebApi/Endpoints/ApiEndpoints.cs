@@ -7,6 +7,8 @@ public static class ApiEndpoints
     {
         private const string BaseProductCategoryRoute = BaseRoute + "/product-category";
 
+        public const string GetProductCategoriesList = BaseProductCategoryRoute + "/get-list";
+
         public const string FilterProductCategories = BaseProductCategoryRoute + "/filter-product-categories";
 
         public const string GetProductCategoryDetails = BaseProductCategoryRoute + "/{id}";

@@ -8,6 +8,18 @@ namespace Shoppy.Admin.WebApi.Controllers;
 public class ProductCategoryController : BaseApiController
 {
     /// <summary>
+    ///    دریافت لیست دسته بندی محصولات
+    /// </summary>
+    /// <response code="200">Success</response>
+    [HttpGet(ApiEndpoints.ProductCategory.GetProductCategoriesList)]
+    public async Task<IActionResult> GetProductCategoriesList()
+    {
+        var res = await Mediator.Send(new GetProductCategoriesListQuery());
+
+        return JsonApiResult.Success(res);
+    }
+
+    /// <summary>
     ///    فیلتر دسته بندی محصولات
     /// </summary>
     /// <response code="200">Success</response>

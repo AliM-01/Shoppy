@@ -4,6 +4,12 @@
         <name>Shoppy.Admin.WebApi</name>
     </assembly>
     <members>
+        <member name="M:Shoppy.Admin.WebApi.Controllers.ProductCategoryController.GetProductCategoriesList">
+            <summary>
+               دریافت لیست دسته بندی محصولات
+            </summary>
+            <response code="200">Success</response>
+        </member>
         <member name="M:Shoppy.Admin.WebApi.Controllers.ProductCategoryController.FilterProductCategories(SM.Application.Contracts.ProductCategory.DTOs.FilterProductCategoryDto)">
             <summary>
                فیلتر دسته بندی محصولات

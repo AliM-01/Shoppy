@@ -6,7 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 
 namespace SM.Application.ProductCategory.QueryHandles;
-public class GetProductCategoriesListQueryHandler : IRequestHandler<GetProductCategoriesListQuery, Response<IEnumerable<ProductCategoryDto>>>
+public class GetProductCategoriesListQueryHandler : IRequestHandler<GetProductCategoriesListQuery, Response<IEnumerable<ProductCategoryForSelectListDto>>>
 {
     #region Ctor
 
@@ -21,7 +21,7 @@ public class GetProductCategoriesListQueryHandler : IRequestHandler<GetProductCa
 
     #endregion
 
-    public async Task<Response<IEnumerable<ProductCategoryDto>>> Handle(GetProductCategoriesListQuery request, CancellationToken cancellationToken)
+    public async Task<Response<IEnumerable<ProductCategoryForSelectListDto>>> Handle(GetProductCategoriesListQuery request, CancellationToken cancellationToken)
     {
         var query = _productCategoryRepository.GetQuery()
             .OrderByDescending(p => p.LastUpdateDate).AsQueryable();
@@ -29,8 +29,11 @@ public class GetProductCategoriesListQueryHandler : IRequestHandler<GetProductCa
         #region paging
 
         var filteredEntities = await query
-            .Select(product =>
-                _mapper.Map(product, new ProductCategoryDto()))
+            .Select(product => new ProductCategoryForSelectListDto
+            {
+                Id = product.Id,
+                Title = product.Title
+            })
             .ToListAsync(cancellationToken);
 
         #endregion paging
@@ -38,6 +41,6 @@ public class GetProductCategoriesListQueryHandler : IRequestHandler<GetProductCa
         if (filteredEntities is null)
             throw new ApiException(ApplicationErrorMessage.RecordNotFoundMessage);
 
-        return new Response<IEnumerable<ProductCategoryDto>>(filteredEntities);
+        return new Response<IEnumerable<ProductCategoryForSelectListDto>>(filteredEntities);
     }
 }

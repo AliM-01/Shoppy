@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace SM.Application.Contracts.ProductCategory.Queries;
 
-public class GetProductCategoriesListQuery : IRequest<Response<IEnumerable<ProductCategoryDto>>>
+public class GetProductCategoriesListQuery : IRequest<Response<IEnumerable<ProductCategoryForSelectListDto>>>
 {
     public GetProductCategoriesListQuery()
     {
