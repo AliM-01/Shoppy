@@ -21,6 +21,10 @@ public class ProductDto
     [JsonProperty("imagePath")]
     public string ImagePath { get; set; }
 
+    [Display(Name = "وضعیت موجودی")]
+    [JsonProperty("isInStock")]
+    public bool IsInStock { get; set; }
+
     [Display(Name = "عنوان دسته بندی")]
     [JsonProperty("category")]
     public string CategoryTitle { get; set; }
