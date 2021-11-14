@@ -20,7 +20,7 @@ public static class SharedDbContextOnModelCreatingConfiguration
 
         foreach (var entityType in builder.Model.GetEntityTypes())
         {
-            var isDeleteProperty = entityType.FindProperty("IsDelete");
+            var isDeleteProperty = entityType.FindProperty("IsDeleted");
             if (isDeleteProperty != null && isDeleteProperty.ClrType == typeof(bool))
             {
                 var parameter = Expression.Parameter(entityType.ClrType, "p");
