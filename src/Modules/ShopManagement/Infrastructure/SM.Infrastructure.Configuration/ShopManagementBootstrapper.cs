@@ -5,6 +5,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using SM.Domain.Product;
 using SM.Domain.ProductCategory;
+using SM.Domain.ProductPicture;
 using SM.Infrastructure.Persistence.Context;
 
 namespace SM.Infrastructure.Configuration;
@@ -15,6 +16,7 @@ public static class ShopManagementBootstrapper
     {
         services.AddScoped<IGenericRepository<ProductCategory>, GenericRepository<ShopDbContext, ProductCategory>>();
         services.AddScoped<IGenericRepository<Product>, GenericRepository<ShopDbContext, Product>>();
+        services.AddScoped<IGenericRepository<ProductPicture>, GenericRepository<ShopDbContext, ProductPicture>>();
 
         services.AddMediatR(typeof(ShopManagementBootstrapper).Assembly);
 
