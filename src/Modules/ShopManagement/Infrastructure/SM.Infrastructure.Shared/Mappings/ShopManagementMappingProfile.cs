@@ -61,8 +61,10 @@ public class ShopManagementMappingProfile : Profile
         #region Create Product
 
         CreateMap<CreateProductDto, Product>()
-                       .ForMember(dest => dest.Slug,
-                           opt => opt.MapFrom(src => src.Title.ToSlug()));
+                .ForMember(dest => dest.Slug,
+                     opt => opt.MapFrom(src => src.Title.ToSlug()))
+                .ForMember(dest => dest.Code,
+                     opt => opt.MapFrom(src => GenerateProductCode.GenerateCode()));
 
         #endregion
 
@@ -74,6 +76,8 @@ public class ShopManagementMappingProfile : Profile
             .ForMember(dest => dest.Id,
                 opt => opt.Ignore())
             .ForMember(dest => dest.ImagePath,
+                opt => opt.Ignore())
+            .ForMember(dest => dest.Code,
                 opt => opt.Ignore())
             .ForMember(dest => dest.Slug,
                 opt => opt.MapFrom(src => src.Title.ToSlug()));

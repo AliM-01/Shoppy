@@ -15,12 +15,6 @@ public class CreateProductDto
     [MaxLength(100, ErrorMessage = DomainErrorMessage.MaxLengthMessage)]
     public string Title { get; set; }
 
-    [Display(Name = "کد")]
-    [JsonProperty("code")]
-    [Required(ErrorMessage = DomainErrorMessage.RequiredMessage)]
-    [MaxLength(100, ErrorMessage = DomainErrorMessage.MaxLengthMessage)]
-    public string Code { get; set; }
-
     [Display(Name = "قیمت")]
     [JsonProperty("unitPrice")]
     [Required(ErrorMessage = DomainErrorMessage.RequiredMessage)]
