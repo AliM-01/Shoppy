@@ -1,4 +1,6 @@
-﻿namespace SM.Domain.Product;
+﻿using System.ComponentModel.DataAnnotations.Schema;
+
+namespace SM.Domain.Product;
 public class Product : BaseEntity
 {
     #region Properties
@@ -43,9 +45,10 @@ public class Product : BaseEntity
 
     #region Relations
 
-    public long CategoryId { get; set; }
+    public long? CategoryId { get; set; }
 
-    public ProductCategory.ProductCategory Category { get; set; }
+    [ForeignKey(nameof(CategoryId))]
+    public virtual ProductCategory.ProductCategory Category { get; set; }
 
     #endregion
 }

@@ -16,7 +16,9 @@ public class ShopManagementMappingProfile : Profile
 
         CreateMap<ProductCategory, ProductCategoryDto>()
             .ForMember(dest => dest.CreationDate,
-                opt => opt.MapFrom(src => src.CreationDate.ToShamsi()));
+                opt => opt.MapFrom(src => src.CreationDate.ToShamsi()))
+            .ForMember(dest => dest.ProductsCount,
+                opt => opt.MapFrom(src => src.Products.Count));
 
         #endregion
 
@@ -50,7 +52,9 @@ public class ShopManagementMappingProfile : Profile
 
         CreateMap<Product, ProductDto>()
             .ForMember(dest => dest.CreationDate,
-                opt => opt.MapFrom(src => src.CreationDate.ToShamsi()));
+                opt => opt.MapFrom(src => src.CreationDate.ToShamsi()))
+            .ForMember(dest => dest.CategoryTitle,
+                opt => opt.MapFrom(src => src.Category.Title));
 
         #endregion
 

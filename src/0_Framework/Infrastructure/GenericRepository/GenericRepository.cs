@@ -58,6 +58,7 @@ public class GenericRepository<TContext, TEntity> : IGenericRepository<TEntity>
 
     public void Update(TEntity entity)
     {
+        _context.Entry(entity).State = EntityState.Modified;
         entity.LastUpdateDate = DateTime.Now;
         _dbSet.Update(entity);
     }

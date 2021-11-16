@@ -21,7 +21,8 @@ public class GetProductDetailsQueryHandler : IRequestHandler<GetProductDetailsQu
 
     public async Task<Response<EditProductDto>> Handle(GetProductDetailsQuery request, CancellationToken cancellationToken)
     {
-        var Product = await _productRepository.GetQuery().Include(p => p.Category)
+        var Product = await _productRepository.GetQuery()
+            .Include(p => p.Category)
             .AsNoTracking().FirstOrDefaultAsync(s => s.Id == request.Id);
 
         if (Product is null)

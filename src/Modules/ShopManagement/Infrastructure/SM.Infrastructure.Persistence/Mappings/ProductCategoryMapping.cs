@@ -20,8 +20,8 @@ public class ProductCategoryMapping : IEntityTypeConfiguration<ProductCategory>
         builder.Property(x => x.Slug).IsRequired();
 
 
-        builder.HasMany(x => x.Products)
-            .WithOne(x => x.Category)
-            .HasForeignKey(x => x.CategoryId);
+        //builder.HasMany(x => x.Products)
+        //    .WithOne(x => x.Category)
+        //    .HasForeignKey(x => x.CategoryId).IsRequired();
     }
 }

@@ -33,7 +33,7 @@ public class ProductCategory : BaseEntity
     #endregion
 
     #region Relations
-    public ICollection<Product.Product> Products { get; set; }
+    public virtual ICollection<Product.Product> Products { get; set; }
 
     #endregion
 }

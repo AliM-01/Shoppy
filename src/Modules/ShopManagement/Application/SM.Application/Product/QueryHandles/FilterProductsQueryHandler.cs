@@ -22,7 +22,8 @@ public class FilterProductCategoriesQueryHandler : IRequestHandler<FilterProduct
 
     public async Task<Response<FilterProductDto>> Handle(FilterProductsQuery request, CancellationToken cancellationToken)
     {
-        var query = _productRepository.GetQuery().Include(p => p.Category)
+        var query = _productRepository.GetQuery()
+            .Include(p => p.Category)
             .OrderByDescending(p => p.LastUpdateDate).AsQueryable();
 
         #region filter
