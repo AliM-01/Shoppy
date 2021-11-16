@@ -30,7 +30,10 @@ public class FilterProductCategoriesQueryHandler : IRequestHandler<FilterProduct
 
         if (!string.IsNullOrEmpty(request.Filter.Search))
             query = query.Where(s => EF.Functions.Like(s.Title, $"%{request.Filter.Search}%") ||
-           s.Code.Contains(request.Filter.Search));
+             EF.Functions.Like(s.Code, $"%{request.Filter.Search}%"));
+
+        if (request.Filter.CategoryId != 0)
+            query = query.Where(s => s.CategoryId == request.Filter.CategoryId);
 
         #endregion filter
 
