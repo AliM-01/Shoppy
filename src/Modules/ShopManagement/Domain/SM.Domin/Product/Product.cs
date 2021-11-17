@@ -1,4 +1,4 @@
-﻿using System.ComponentModel.DataAnnotations.Schema;
+﻿using System.Collections.Generic;
 
 namespace SM.Domain.Product;
 public class Product : BaseEntity
@@ -47,8 +47,10 @@ public class Product : BaseEntity
 
     public long? CategoryId { get; set; }
 
-    [ForeignKey(nameof(CategoryId))]
     public virtual ProductCategory.ProductCategory Category { get; set; }
+
+    public virtual ICollection<ProductPicture.ProductPicture> ProductPictures { get; set; }
+
 
     #endregion
 }

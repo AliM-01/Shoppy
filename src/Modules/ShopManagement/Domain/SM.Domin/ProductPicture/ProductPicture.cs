@@ -17,7 +17,9 @@ public class ProductPicture : BaseEntity
 
     #region Relations
 
-    public long ProductId { get; set; }
+    public long? ProductId { get; set; }
+
+    public virtual Product.Product Product { get; set; }
 
     #endregion
 }

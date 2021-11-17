@@ -21,8 +21,12 @@ public class ProductMapping : IEntityTypeConfiguration<Product>
         builder.Property(x => x.MetaDescription).HasMaxLength(100).IsRequired();
         builder.Property(x => x.Slug).IsRequired();
 
-        //builder.HasOne(x => x.Category)
-        //    .WithMany(x => x.Products)
-        //    .HasForeignKey(x => x.CategoryId).IsRequired();
+        builder.HasMany(x => x.ProductPictures)
+            .WithOne(x => x.Product)
+            .HasForeignKey(x => x.ProductId);
+
+        builder.HasOne(x => x.Category)
+            .WithMany(x => x.Products)
+            .HasForeignKey(x => x.CategoryId);
     }
 }
