@@ -2,8 +2,10 @@
 using AutoMapper;
 using SM.Application.Contracts.Product.DTOs;
 using SM.Application.Contracts.ProductCategory.DTOs;
+using SM.Application.Contracts.ProductPicture.DTOs;
 using SM.Domain.Product;
 using SM.Domain.ProductCategory;
+using SM.Domain.ProductPicture;
 
 namespace SM.Infrastructure.Shared.Mappings;
 public class ShopManagementMappingProfile : Profile
@@ -81,6 +83,36 @@ public class ShopManagementMappingProfile : Profile
                 opt => opt.Ignore())
             .ForMember(dest => dest.Slug,
                 opt => opt.MapFrom(src => src.Title.ToSlug()));
+
+        #endregion
+
+        #endregion
+
+        #region Product Picture
+
+        #region Product Picture Dto
+
+        CreateMap<ProductPicture, ProductPictureDto>()
+            .ForMember(dest => dest.CreationDate,
+                opt => opt.MapFrom(src => src.CreationDate.ToShamsi()));
+
+        #endregion
+
+        #region Create Product Picture
+
+        CreateMap<CreateProductPictureDto, ProductPicture>();
+
+        #endregion
+
+        #region Edit Product Picture
+
+        CreateMap<ProductPicture, EditProductPictureDto>();
+
+        CreateMap<EditProductPictureDto, ProductPicture>()
+            .ForMember(dest => dest.Id,
+                opt => opt.Ignore())
+            .ForMember(dest => dest.ImagePath,
+                opt => opt.Ignore());
 
         #endregion
 
