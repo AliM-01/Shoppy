@@ -51,5 +51,7 @@ public static class ApiEndpoints
 
         public const string EditProductPicture = BaseProductPictureRoute + "/edit-product-picture";
 
+        public const string RemoveProductPicture = BaseProductPictureRoute + "/remove-product-picture/{id}";
+
     }
 }

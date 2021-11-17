@@ -54,4 +54,16 @@ public class ProductPictureController : BaseApiController
 
         return JsonApiResult.Success(res);
     }
+
+    /// <summary>
+    ///    حذف تصویر محصول
+    /// </summary>
+    /// <response code="200">Success</response>
+    [HttpDelete(ApiEndpoints.ProductPicture.RemoveProductPicture)]
+    public async Task<IActionResult> RemoveProductPicture([FromRoute] long id)
+    {
+        var res = await Mediator.Send(new RemoveProductPictureCommand(id));
+
+        return JsonApiResult.Success(res);
+    }
 }
