@@ -56,13 +56,25 @@ public class ProductPictureController : BaseApiController
     }
 
     /// <summary>
-    ///    حذف تصویر محصول
+    ///    غیر فعال کردن تصویر محصول
     /// </summary>
     /// <response code="200">Success</response>
     [HttpDelete(ApiEndpoints.ProductPicture.RemoveProductPicture)]
     public async Task<IActionResult> RemoveProductPicture([FromRoute] long id)
     {
         var res = await Mediator.Send(new RemoveProductPictureCommand(id));
+
+        return JsonApiResult.Success(res);
+    }
+
+    /// <summary>
+    ///    فعال کردن تصویر محصول
+    /// </summary>
+    /// <response code="200">Success</response>
+    [HttpPut(ApiEndpoints.ProductPicture.RestoreProductPicture)]
+    public async Task<IActionResult> RestoreProductPicture([FromRoute] long id)
+    {
+        var res = await Mediator.Send(new RestoreProductPictureCommand(id));
 
         return JsonApiResult.Success(res);
     }
