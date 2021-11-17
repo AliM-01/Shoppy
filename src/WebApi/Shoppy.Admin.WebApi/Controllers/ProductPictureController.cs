@@ -17,4 +17,16 @@ public class ProductPictureController : BaseApiController
 
         return JsonApiResult.Success(res);
     }
+
+    /// <summary>
+    ///    دریافت جزییات تصویر محصول
+    /// </summary>
+    /// <response code="200">Success</response>
+    [HttpGet(ApiEndpoints.ProductPicture.GetProductPictureDetails)]
+    public async Task<IActionResult> GetProductPictureDetails([FromRoute] long id)
+    {
+        var res = await Mediator.Send(new GetProductPictureDetailsQuery(id));
+
+        return JsonApiResult.Success(res);
+    }
 }

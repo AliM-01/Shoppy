@@ -45,5 +45,7 @@ public static class ApiEndpoints
 
         public const string FilterProductPictures = BaseProductPictureRoute + "/filter-product-pictures";
 
+        public const string GetProductPictureDetails = BaseProductPictureRoute + "/{id}";
+
     }
 }
