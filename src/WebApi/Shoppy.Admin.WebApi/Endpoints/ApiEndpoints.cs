@@ -49,5 +49,7 @@ public static class ApiEndpoints
 
         public const string CreateProductPicture = BaseProductPictureRoute + "/create-product-picture";
 
+        public const string EditProductPicture = BaseProductPictureRoute + "/edit-product-picture";
+
     }
 }

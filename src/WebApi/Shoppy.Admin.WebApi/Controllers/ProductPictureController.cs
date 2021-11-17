@@ -42,4 +42,16 @@ public class ProductPictureController : BaseApiController
 
         return JsonApiResult.Success(res);
     }
+
+    /// <summary>
+    ///    ویرایش تصویر محصول
+    /// </summary>
+    /// <response code="200">Success</response>
+    [HttpPut(ApiEndpoints.ProductPicture.EditProductPicture)]
+    public async Task<IActionResult> EditProductPicture([FromForm] EditProductPictureDto editRequest)
+    {
+        var res = await Mediator.Send(new EditProductPictureCommand(editRequest));
+
+        return JsonApiResult.Success(res);
+    }
 }
