@@ -47,5 +47,7 @@ public static class ApiEndpoints
 
         public const string GetProductPictureDetails = BaseProductPictureRoute + "/{id}";
 
+        public const string CreateProductPicture = BaseProductPictureRoute + "/create-product-picture";
+
     }
 }

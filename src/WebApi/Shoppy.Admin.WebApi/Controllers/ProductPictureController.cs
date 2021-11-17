@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Shoppy.Admin.WebApi.Endpoints;
+using SM.Application.Contracts.ProductPicture.Commands;
 using SM.Application.Contracts.ProductPicture.DTOs;
 using SM.Application.Contracts.ProductPicture.Queries;
 
@@ -26,6 +27,18 @@ public class ProductPictureController : BaseApiController
     public async Task<IActionResult> GetProductPictureDetails([FromRoute] long id)
     {
         var res = await Mediator.Send(new GetProductPictureDetailsQuery(id));
+
+        return JsonApiResult.Success(res);
+    }
+
+    /// <summary>
+    ///    ایجاد تصویر محصول
+    /// </summary>
+    /// <response code="200">Success</response>
+    [HttpPost(ApiEndpoints.ProductPicture.CreateProductPicture)]
+    public async Task<IActionResult> CreateProductPicture([FromForm] CreateProductPictureDto createRequest)
+    {
+        var res = await Mediator.Send(new CreateProductPictureCommand(createRequest));
 
         return JsonApiResult.Success(res);
     }
