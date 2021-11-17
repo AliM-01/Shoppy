@@ -38,4 +38,10 @@ public static class ApiEndpoints
 
         public const string UpdateProductNotInStock = BaseProductRoute + "/update-product-not-in-stock/{id}";
     }
+
+    public static class ProductPicture
+    {
+        private const string BaseProductPictureRoute = BaseRoute + "/product-picture";
+
+    }
 }
