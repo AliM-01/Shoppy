@@ -43,17 +43,11 @@ public static class ApiEndpoints
     {
         private const string BaseProductPictureRoute = BaseRoute + "/product-picture";
 
-        public const string FilterProductPictures = BaseProductPictureRoute + "/filter-product-pictures";
-
-        public const string GetProductPictureDetails = BaseProductPictureRoute + "/{id}";
+        public const string GetProductPictures = BaseProductPictureRoute + "/{productId}";
 
         public const string CreateProductPicture = BaseProductPictureRoute + "/create-product-picture";
 
-        public const string EditProductPicture = BaseProductPictureRoute + "/edit-product-picture";
-
         public const string RemoveProductPicture = BaseProductPictureRoute + "/remove-product-picture/{id}";
-
-        public const string RestoreProductPicture = BaseProductPictureRoute + "/restore-product-picture/{id}";
 
     }
 }

@@ -82,21 +82,21 @@
             </summary>
             <response code="200">Success</response>
         </member>
-        <member name="M:Shoppy.Admin.WebApi.Controllers.ProductPictureController.FilterProductPictures(SM.Application.Contracts.ProductPicture.DTOs.FilterProductPictureDto)">
+        <member name="M:Shoppy.Admin.WebApi.Controllers.ProductPictureController.GetProductPictures(System.Int64)">
             <summary>
-               فیلتر تصاویر محصولات
-            </summary>
-            <response code="200">Success</response>
-        </member>
-        <member name="M:Shoppy.Admin.WebApi.Controllers.ProductPictureController.GetProductPictureDetails(System.Int64)">
-            <summary>
-               دریافت جزییات تصویر محصول
+               دریافت تصاویر محصولات
             </summary>
             <response code="200">Success</response>
         </member>
         <member name="M:Shoppy.Admin.WebApi.Controllers.ProductPictureController.CreateProductPicture(SM.Application.Contracts.ProductPicture.DTOs.CreateProductPictureDto)">
             <summary>
                ایجاد تصویر محصول
+            </summary>
+            <response code="200">Success</response>
+        </member>
+        <member name="M:Shoppy.Admin.WebApi.Controllers.ProductPictureController.RemoveProductPicture(System.Int64)">
+            <summary>
+               غیر فعال کردن تصویر محصول
             </summary>
             <response code="200">Success</response>
         </member>

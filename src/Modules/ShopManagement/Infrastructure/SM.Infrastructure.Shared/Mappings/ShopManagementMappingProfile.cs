@@ -104,18 +104,6 @@ public class ShopManagementMappingProfile : Profile
 
         #endregion
 
-        #region Edit Product Picture
-
-        CreateMap<ProductPicture, EditProductPictureDto>();
-
-        CreateMap<EditProductPictureDto, ProductPicture>()
-            .ForMember(dest => dest.Id,
-                opt => opt.Ignore())
-            .ForMember(dest => dest.ImagePath,
-                opt => opt.Ignore());
-
-        #endregion
-
         #endregion
 
     }
