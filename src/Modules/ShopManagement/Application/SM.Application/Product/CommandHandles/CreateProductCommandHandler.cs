@@ -26,15 +26,15 @@ public class CreateProductCommandHandler : IRequestHandler<CreateProductCommand,
         if (_productRepository.Exists(x => x.Title == request.Product.Title))
             throw new ApiException(ApplicationErrorMessage.IsDuplicatedMessage);
 
-        var Product =
+        var product =
             _mapper.Map(request.Product, new Domain.Product.Product());
 
         var imagePath = Guid.NewGuid().ToString("N") + Path.GetExtension(request.Product.ImageFile.FileName);
 
         request.Product.ImageFile.AddImageToServer(imagePath, "wwwroot/product/original/", 150, 150, "wwwroot/product/thumbnail/");
-        Product.ImagePath = imagePath;
+        product.ImagePath = imagePath;
 
-        await _productRepository.InsertEntity(Product);
+        await _productRepository.InsertEntity(product);
         await _productRepository.SaveChanges();
 
         return new Response<string>(ApplicationErrorMessage.OperationSucceddedMessage);

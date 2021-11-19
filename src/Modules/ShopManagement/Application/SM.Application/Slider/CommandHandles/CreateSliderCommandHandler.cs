@@ -23,15 +23,15 @@ public class CreateSliderCommandHandler : IRequestHandler<CreateSliderCommand, R
 
     public async Task<Response<string>> Handle(CreateSliderCommand request, CancellationToken cancellationToken)
     {
-        var Slider =
+        var slider =
             _mapper.Map(request.Slider, new Domain.Slider.Slider());
 
         var imagePath = Guid.NewGuid().ToString("N") + Path.GetExtension(request.Slider.ImageFile.FileName);
 
         request.Slider.ImageFile.AddImageToServer(imagePath, "wwwroot/slider/original/", 200, 200, "wwwroot/slider/thumbnail/");
-        Slider.ImagePath = imagePath;
+        slider.ImagePath = imagePath;
 
-        await _sliderRepository.InsertEntity(Slider);
+        await _sliderRepository.InsertEntity(slider);
         await _sliderRepository.SaveChanges();
 
         return new Response<string>(ApplicationErrorMessage.OperationSucceddedMessage);

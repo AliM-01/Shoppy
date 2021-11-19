@@ -21,14 +21,14 @@ public class GetProductDetailsQueryHandler : IRequestHandler<GetProductDetailsQu
 
     public async Task<Response<EditProductDto>> Handle(GetProductDetailsQuery request, CancellationToken cancellationToken)
     {
-        var Product = await _productRepository.GetQuery()
+        var product = await _productRepository.GetQuery()
             .Include(p => p.Category)
             .AsNoTracking().FirstOrDefaultAsync(s => s.Id == request.Id);
 
-        if (Product is null)
+        if (product is null)
             throw new NotFoundApiException();
 
-        var mappedProduct = _mapper.Map<EditProductDto>(Product);
+        var mappedProduct = _mapper.Map<EditProductDto>(product);
 
         return new Response<EditProductDto>(mappedProduct);
     }

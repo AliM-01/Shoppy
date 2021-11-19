@@ -23,29 +23,29 @@ public class EditProductCommandHandler : IRequestHandler<EditProductCommand, Res
 
     public async Task<Response<string>> Handle(EditProductCommand request, CancellationToken cancellationToken)
     {
-        var Product = await _productRepository.GetQuery()
+        var product = await _productRepository.GetQuery()
             .Include(p => p.Category)
             .FirstOrDefaultAsync(s => s.Id == request.Product.Id);
 
-        if (Product is null)
+        if (product is null)
             throw new NotFoundApiException();
 
         if (_productRepository.Exists(x => x.Title == request.Product.Title && x.Id != request.Product.Id))
             throw new ApiException(ApplicationErrorMessage.IsDuplicatedMessage);
 
-        _mapper.Map(request.Product, Product);
+        _mapper.Map(request.Product, product);
 
         if (request.Product.ImageFile != null)
         {
             var imagePath = Guid.NewGuid().ToString("N") + Path.GetExtension(request.Product.ImageFile.FileName);
 
-            request.Product.ImageFile.AddImageToServer(imagePath, "wwwroot/product/original/", 200, 200, "wwwroot/product/thumbnail/", Product.ImagePath);
-            Product.ImagePath = imagePath;
+            request.Product.ImageFile.AddImageToServer(imagePath, "wwwroot/product/original/", 200, 200, "wwwroot/product/thumbnail/", product.ImagePath);
+            product.ImagePath = imagePath;
         }
 
-        Product.CategoryId = request.Product.CategoryId;
+        product.CategoryId = request.Product.CategoryId;
 
-        _productRepository.Update(Product);
+        _productRepository.Update(product);
         await _productRepository.SaveChanges();
 
         return new Response<string>();
