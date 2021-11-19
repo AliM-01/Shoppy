@@ -39,7 +39,7 @@ public class EditProductCommandHandler : IRequestHandler<EditProductCommand, Res
         {
             var imagePath = Guid.NewGuid().ToString("N") + Path.GetExtension(request.Product.ImageFile.FileName);
 
-            request.Product.ImageFile.AddImageToServer(imagePath, "wwwroot/product/original/", 200, 200, "wwwroot/product/thumbnail/", product.ImagePath);
+            request.Product.ImageFile.AddImageToServer(imagePath, PathExtension.ProductImage, 200, 200, PathExtension.ProductThumbnailImage, product.ImagePath);
             product.ImagePath = imagePath;
         }
 

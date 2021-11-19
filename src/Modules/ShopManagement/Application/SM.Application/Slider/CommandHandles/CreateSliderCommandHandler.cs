@@ -28,7 +28,8 @@ public class CreateSliderCommandHandler : IRequestHandler<CreateSliderCommand, R
 
         var imagePath = Guid.NewGuid().ToString("N") + Path.GetExtension(request.Slider.ImageFile.FileName);
 
-        request.Slider.ImageFile.AddImageToServer(imagePath, "wwwroot/slider/original/", 200, 200, "wwwroot/slider/thumbnail/");
+        request.Slider.ImageFile.AddImageToServer(imagePath, PathExtension.SliderImage,
+            200, 200, PathExtension.SliderThumbnailImage);
         slider.ImagePath = imagePath;
 
         await _sliderRepository.InsertEntity(slider);

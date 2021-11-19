@@ -1,4 +1,5 @@
-﻿using SM.Application.Contracts.Product.Commands;
+﻿using _0_Framework.Application.Utilities.ImageRelated;
+using SM.Application.Contracts.Product.Commands;
 using System.IO;
 
 namespace SM.Application.ProductCategory.CommandHandles;
@@ -23,8 +24,8 @@ public class DeleteProductCommandHandler : IRequestHandler<DeleteProductCommand,
         if (product is null)
             throw new NotFoundApiException();
 
-        File.Delete($"wwwroot/product/original/{product.ImagePath}");
-        File.Delete($"wwwroot/product/thumbnail/{product.ImagePath}");
+        File.Delete(PathExtension.ProductImage + product.ImagePath);
+        File.Delete(PathExtension.ProductThumbnailImage + product.ImagePath);
 
         await _productRepository.SoftDelete(product.Id);
         await _productRepository.SaveChanges();

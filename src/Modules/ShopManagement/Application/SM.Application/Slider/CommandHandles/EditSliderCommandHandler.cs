@@ -33,7 +33,8 @@ public class EditSliderCommandHandler : IRequestHandler<EditSliderCommand, Respo
         {
             var imagePath = Guid.NewGuid().ToString("N") + Path.GetExtension(request.Slider.ImageFile.FileName);
 
-            request.Slider.ImageFile.AddImageToServer(imagePath, "wwwroot/slider/original/", 200, 200, "wwwroot/slider/thumbnail/", Slider.ImagePath);
+            request.Slider.ImageFile.AddImageToServer(imagePath, PathExtension.SliderImage,
+                200, 200, PathExtension.SliderThumbnailImage, slider.ImagePath);
             slider.ImagePath = imagePath;
         }
 

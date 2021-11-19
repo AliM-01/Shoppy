@@ -31,7 +31,7 @@ public class CreateProductCommandHandler : IRequestHandler<CreateProductCommand,
 
         var imagePath = Guid.NewGuid().ToString("N") + Path.GetExtension(request.Product.ImageFile.FileName);
 
-        request.Product.ImageFile.AddImageToServer(imagePath, "wwwroot/product/original/", 150, 150, "wwwroot/product/thumbnail/");
+        request.Product.ImageFile.AddImageToServer(imagePath, PathExtension.ProductImage, 150, 150, PathExtension.ProductThumbnailImage);
         product.ImagePath = imagePath;
 
         await _productRepository.InsertEntity(product);
