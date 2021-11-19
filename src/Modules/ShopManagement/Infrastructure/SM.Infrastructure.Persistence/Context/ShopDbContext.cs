@@ -3,6 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using SM.Domain.Product;
 using SM.Domain.ProductCategory;
 using SM.Domain.ProductPicture;
+using SM.Domain.Slider;
 
 namespace SM.Infrastructure.Persistence.Context;
 public class ShopDbContext : DbContext
@@ -14,9 +15,11 @@ public class ShopDbContext : DbContext
     #endregion
 
     public DbSet<ProductCategory> ProductCategories { get; set; }
+
     public DbSet<Product> Products { get; set; }
 
     public DbSet<ProductPicture> ProductPicture { get; set; }
+    public DbSet<Slider> Sliders { get; set; }
 
     #region On Model Creating
 

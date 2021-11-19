@@ -40,7 +40,7 @@ public class CreateSliderDto
     [Display(Name = "متن لینک")]
     [JsonProperty("btnText")]
     [Required(ErrorMessage = DomainErrorMessage.RequiredMessage)]
-    [MaxLength(35, ErrorMessage = DomainErrorMessage.MaxLengthMessage)]
+    [MaxLength(50, ErrorMessage = DomainErrorMessage.MaxLengthMessage)]
     public string BtnText { get; set; }
 
 }
