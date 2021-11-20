@@ -52,4 +52,28 @@ public class SliderController : BaseApiController
 
         return JsonApiResult.Success(res);
     }
+
+    /// <summary>
+    ///    غیر فعال کردن اسلایدر
+    /// </summary>
+    /// <response code="200">Success</response>
+    [HttpDelete(ApiEndpoints.Slider.RemoveSlider)]
+    public async Task<IActionResult> RemoveSlider([FromRoute] long id)
+    {
+        var res = await Mediator.Send(new RemoveSliderCommand(id));
+
+        return JsonApiResult.Success(res);
+    }
+
+    /// <summary>
+    ///    فعال کردن اسلایدر
+    /// </summary>
+    /// <response code="200">Success</response>
+    [HttpDelete(ApiEndpoints.Slider.RestoreSlider)]
+    public async Task<IActionResult> RestoreSlider([FromRoute] long id)
+    {
+        var res = await Mediator.Send(new RestoreSliderCommand(id));
+
+        return JsonApiResult.Success(res);
+    }
 }
