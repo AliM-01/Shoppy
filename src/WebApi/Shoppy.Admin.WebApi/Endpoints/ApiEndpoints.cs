@@ -55,17 +55,17 @@ public static class ApiEndpoints
     {
         private const string BaseSliderRoute = BaseRoute + "/slider";
 
-        public const string GetProductCategoriesList = BaseSliderRoute + "/get-list";
+        public const string GetSlidersList = BaseSliderRoute + "/get-list";
 
-        public const string GetProductCategoryDetails = BaseSliderRoute + "/{id}";
+        public const string GetSliderDetails = BaseSliderRoute + "/{id}";
 
-        public const string CreateProductCategory = BaseSliderRoute + "/create-slider";
+        public const string CreateSlider = BaseSliderRoute + "/create-slider";
 
-        public const string EditProductCategory = BaseSliderRoute + "/edit-slider";
+        public const string EditSlider = BaseSliderRoute + "/edit-slider";
 
-        public const string RemoveProductCategory = BaseSliderRoute + "/remove-slider/{id}";
+        public const string RemoveSlider = BaseSliderRoute + "/remove-slider/{id}";
 
-        public const string RestoreProductCategory = BaseSliderRoute + "/restore-slider/{id}";
+        public const string RestoreSlider = BaseSliderRoute + "/restore-slider/{id}";
     }
 
 }
