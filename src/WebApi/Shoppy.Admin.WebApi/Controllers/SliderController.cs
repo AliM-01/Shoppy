@@ -40,4 +40,16 @@ public class SliderController : BaseApiController
 
         return JsonApiResult.Success(res);
     }
+
+    /// <summary>
+    ///    ویرایش اسلایدر
+    /// </summary>
+    /// <response code="200">Success</response>
+    [HttpPut(ApiEndpoints.Slider.EditSlider)]
+    public async Task<IActionResult> EditSlider([FromForm] EditSliderDto editRequest)
+    {
+        var res = await Mediator.Send(new EditSliderCommand(editRequest));
+
+        return JsonApiResult.Success(res);
+    }
 }
