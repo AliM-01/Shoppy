@@ -3,9 +3,11 @@ using AutoMapper;
 using SM.Application.Contracts.Product.DTOs;
 using SM.Application.Contracts.ProductCategory.DTOs;
 using SM.Application.Contracts.ProductPicture.DTOs;
+using SM.Application.Contracts.Slider.DTOs;
 using SM.Domain.Product;
 using SM.Domain.ProductCategory;
 using SM.Domain.ProductPicture;
+using SM.Domain.Slider;
 
 namespace SM.Infrastructure.Shared.Mappings;
 public class ShopManagementMappingProfile : Profile
@@ -101,6 +103,36 @@ public class ShopManagementMappingProfile : Profile
         #region Create Product Picture
 
         CreateMap<CreateProductPictureDto, ProductPicture>();
+
+        #endregion
+
+        #endregion
+
+        #region Slider
+
+        #region Slider Dto
+
+        CreateMap<Slider, SliderDto>()
+            .ForMember(dest => dest.CreationDate,
+                opt => opt.MapFrom(src => src.CreationDate.ToShamsi()));
+
+        #endregion
+
+        #region Create Slider
+
+        CreateMap<CreateSliderDto, Slider>();
+
+        #endregion
+
+        #region Edit Slider
+
+        CreateMap<Slider, EditSliderDto>();
+
+        CreateMap<EditSliderDto, Slider>()
+            .ForMember(dest => dest.Id,
+                opt => opt.Ignore())
+            .ForMember(dest => dest.ImagePath,
+                opt => opt.Ignore());
 
         #endregion
 
