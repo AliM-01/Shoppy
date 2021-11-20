@@ -50,4 +50,22 @@ public static class ApiEndpoints
         public const string RemoveProductPicture = BaseProductPictureRoute + "/remove-product-picture/{id}";
 
     }
+
+    public static class Slider
+    {
+        private const string BaseSliderRoute = BaseRoute + "/slider";
+
+        public const string GetProductCategoriesList = BaseSliderRoute + "/get-list";
+
+        public const string GetProductCategoryDetails = BaseSliderRoute + "/{id}";
+
+        public const string CreateProductCategory = BaseSliderRoute + "/create-slider";
+
+        public const string EditProductCategory = BaseSliderRoute + "/edit-slider";
+
+        public const string RemoveProductCategory = BaseSliderRoute + "/remove-slider/{id}";
+
+        public const string RestoreProductCategory = BaseSliderRoute + "/restore-slider/{id}";
+    }
+
 }
