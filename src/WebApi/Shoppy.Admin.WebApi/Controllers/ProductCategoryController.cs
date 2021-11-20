@@ -1,6 +1,4 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using Shoppy.Admin.WebApi.Endpoints;
-using SM.Application.Contracts.ProductCategory.Commands;
+﻿using SM.Application.Contracts.ProductCategory.Commands;
 using SM.Application.Contracts.ProductCategory.DTOs;
 using SM.Application.Contracts.ProductCategory.Queries;
 

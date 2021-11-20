@@ -1,6 +1,4 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using Shoppy.Admin.WebApi.Endpoints;
-using SM.Application.Contracts.ProductPicture.Commands;
+﻿using SM.Application.Contracts.ProductPicture.Commands;
 using SM.Application.Contracts.ProductPicture.DTOs;
 using SM.Application.Contracts.ProductPicture.Queries;
 
