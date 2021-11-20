@@ -1,4 +1,6 @@
-﻿using SM.Application.Contracts.Slider.Queries;
+﻿using SM.Application.Contracts.Slider.Commands;
+using SM.Application.Contracts.Slider.DTOs;
+using SM.Application.Contracts.Slider.Queries;
 
 namespace Shoppy.Admin.WebApi.Controllers;
 public class SliderController : BaseApiController
@@ -23,6 +25,18 @@ public class SliderController : BaseApiController
     public async Task<IActionResult> GetSliderDetails([FromRoute] long id)
     {
         var res = await Mediator.Send(new GetSliderDetailsQuery(id));
+
+        return JsonApiResult.Success(res);
+    }
+
+    /// <summary>
+    ///    ایجاد اسلایدر
+    /// </summary>
+    /// <response code="200">Success</response>
+    [HttpPost(ApiEndpoints.Slider.CreateSlider)]
+    public async Task<IActionResult> CreateSlider([FromForm] CreateSliderDto createRequest)
+    {
+        var res = await Mediator.Send(new CreateSliderCommand(createRequest));
 
         return JsonApiResult.Success(res);
     }
