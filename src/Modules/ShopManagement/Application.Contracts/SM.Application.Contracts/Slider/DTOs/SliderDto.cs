@@ -5,9 +5,11 @@ public class SliderDto
     public long Id { get; set; }
 
     [Display(Name = "عنوان")]
+    [JsonProperty("heading")]
     public string Heading { get; set; }
 
     [Display(Name = "متن")]
+    [JsonProperty("text")]
     public string Text { get; set; }
 
     [Display(Name = "تصویر")]
