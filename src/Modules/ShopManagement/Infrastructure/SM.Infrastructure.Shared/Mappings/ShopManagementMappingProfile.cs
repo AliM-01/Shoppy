@@ -114,7 +114,9 @@ public class ShopManagementMappingProfile : Profile
 
         CreateMap<Slider, SliderDto>()
             .ForMember(dest => dest.CreationDate,
-                opt => opt.MapFrom(src => src.CreationDate.ToShamsi()));
+                opt => opt.MapFrom(src => src.CreationDate.ToShamsi()))
+            .ForMember(dest => dest.IsRemoved,
+                opt => opt.MapFrom(src => src.IsDeleted));
 
         #endregion
 

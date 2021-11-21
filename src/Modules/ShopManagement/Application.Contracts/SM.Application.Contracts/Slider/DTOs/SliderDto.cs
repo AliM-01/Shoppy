@@ -12,6 +12,10 @@ public class SliderDto
     [JsonProperty("text")]
     public string Text { get; set; }
 
+    [Display(Name = "وضعیت فعال بودن")]
+    [JsonProperty("isRemoved")]
+    public string IsRemoved { get; set; }
+
     [Display(Name = "تصویر")]
     [JsonProperty("imagePath")]
     public string ImagePath { get; set; }
