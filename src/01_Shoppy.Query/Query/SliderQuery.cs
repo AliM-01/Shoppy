@@ -19,10 +19,12 @@ public class SliderQuery : ISliderQuery
 
     #endregion
 
-    public async Task<IEnumerable<SliderQueryModel>> GetSliders()
+    public async Task<Response<IEnumerable<SliderQueryModel>>> GetSliders()
     {
-        return await _context.Sliders
+        var sliders = await _context.Sliders
             .Select(slider => _mapper.Map(slider, new SliderQueryModel()))
             .ToListAsync();
+
+        return new Response<IEnumerable<SliderQueryModel>>(sliders);
     }
 }

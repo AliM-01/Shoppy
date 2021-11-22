@@ -2,5 +2,5 @@
 
 public interface ISliderQuery
 {
-    Task<IEnumerable<SliderQueryModel>> GetSliders();
+    Task<Response<IEnumerable<SliderQueryModel>>> GetSliders();
 }
