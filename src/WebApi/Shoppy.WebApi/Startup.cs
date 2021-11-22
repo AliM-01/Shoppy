@@ -8,7 +8,6 @@ using Newtonsoft.Json;
 using SM.Application;
 using SM.Infrastructure.Configuration;
 using SM.Infrastructure.Shared.Mappings;
-using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Reflection;
@@ -63,7 +62,7 @@ public class Startup
         var xmlFile = Assembly.GetExecutingAssembly().GetName().Name + ".xml";
         var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
 
-        services.AddSwaggerExtension("Shoppy.Admin.WebApi", xmlPath);
+        services.AddSwaggerExtension("Shoppy.WebApi", xmlPath);
 
         #endregion
 
