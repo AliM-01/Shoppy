@@ -14,5 +14,15 @@ public class SliderController : BaseApiController
 
     #endregion
 
+    /// <summary>
+    ///    دریافت اسلایدر ها
+    /// </summary>
+    /// <response code="200">Success</response>
+    [HttpGet(ApiEndpoints.Slider.GetSliders)]
+    public async Task<IActionResult> GetSliders()
+    {
+        var res = await _sliderQuery.GetSliders();
 
+        return JsonApiResult.Success(res);
+    }
 }

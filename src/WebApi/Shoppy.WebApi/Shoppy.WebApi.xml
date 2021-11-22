@@ -4,5 +4,11 @@
         <name>Shoppy.WebApi</name>
     </assembly>
     <members>
+        <member name="M:Shoppy.Admin.WebApi.Controllers.SliderController.GetSliders">
+            <summary>
+               دریافت اسلایدر ها
+            </summary>
+            <response code="200">Success</response>
+        </member>
     </members>
 </doc>
