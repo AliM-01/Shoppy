@@ -17,18 +17,19 @@
 		<PackageReference Include="Microsoft.AspNetCore.Mvc.Versioning" Version="5.0.0" />
 		<PackageReference Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" Version="6.0.0" />
 		<PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="6.0.0" />
+		<PackageReference Include="Ardalis.GuardClauses" Version="3.3.0" />
 
 		<PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
 	</ItemGroup>
 
 	<ItemGroup>
+		<ProjectReference Include="..\..\01_Shoppy.Query\01_Shoppy.Query.csproj" />
 		<ProjectReference Include="..\..\0_Framework\0_Framework.csproj" />
 		<ProjectReference Include="..\..\Modules\ShopManagement\Infrastructure\SM.Infrastructure.Configuration\SM.Infrastructure.Configuration.csproj" />
 		<ProjectReference Include="..\..\Modules\ShopManagement\Infrastructure\SM.Infrastructure.Shared\SM.Infrastructure.Shared.csproj" />
 	</ItemGroup>
 
 	<ItemGroup>
-	  <Folder Include="Controllers\" />
 	  <Folder Include="wwwroot\" />
 	</ItemGroup>
 
