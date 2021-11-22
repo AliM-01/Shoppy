@@ -1,4 +1,5 @@
 ﻿using _0_Framework.Application.Extensions;
+using _01_Shoppy.Query.Contracts.Slider;
 using AutoMapper;
 using SM.Application.Contracts.Product.DTOs;
 using SM.Application.Contracts.ProductCategory.DTOs;
@@ -135,6 +136,12 @@ public class ShopManagementMappingProfile : Profile
                 opt => opt.Ignore())
             .ForMember(dest => dest.ImagePath,
                 opt => opt.Ignore());
+
+        #endregion
+
+        #region Slider Query Model
+
+        CreateMap<Slider, SliderQueryModel>();
 
         #endregion
 

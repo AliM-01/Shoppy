@@ -1,4 +1,5 @@
 ﻿using _01_Shoppy.Query.Contracts.Slider;
+using AutoMapper;
 using SM.Infrastructure.Persistence.Context;
 
 namespace _01_Shoppy.Query.Query;
@@ -8,10 +9,12 @@ public class SliderQuery : ISliderQuery
     #region Ctor
 
     private readonly ShopDbContext _context;
+    private readonly IMapper _mapper;
 
-    public SliderQuery(ShopDbContext context)
+    public SliderQuery(ShopDbContext context, IMapper mapper)
     {
-        _context = context;
+        _context = Guard.Against.Null(context, nameof(_context));
+        _mapper = Guard.Against.Null(mapper, nameof(_mapper));
     }
 
     #endregion
@@ -19,16 +22,7 @@ public class SliderQuery : ISliderQuery
     public async Task<IEnumerable<SliderQueryModel>> GetSliders()
     {
         return await _context.Sliders
-            .Select(x => new SliderQueryModel
-            {
-                Id = x.Id,
-                Heading = x.Heading,
-                Text = x.Text,
-                BtnLink = x.BtnLink,
-                BtnText = x.BtnText,
-                ImageAlt = x.ImageAlt,
-                ImagePath = x.ImagePath,
-                ImageTitle = x.ImageTitle
-            }).ToListAsync();
+            .Select(slider => _mapper.Map(slider, new SliderQueryModel()))
+            .ToListAsync();
     }
 }
