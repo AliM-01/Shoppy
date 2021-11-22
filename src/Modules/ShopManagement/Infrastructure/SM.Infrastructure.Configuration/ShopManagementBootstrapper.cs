@@ -1,5 +1,7 @@
 ﻿using _0_Framework.Domain.IGenericRepository;
 using _0_Framework.Infrastructure.GenericRepository;
+using _01_Shoppy.Query.Contracts.Slider;
+using _01_Shoppy.Query.Query;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
@@ -21,6 +23,8 @@ public static class ShopManagementBootstrapper
         services.AddScoped<IGenericRepository<Slider>, GenericRepository<ShopDbContext, Slider>>();
 
         services.AddMediatR(typeof(ShopManagementBootstrapper).Assembly);
+
+        services.AddScoped<ISliderQuery, SliderQuery>();
 
         services.AddDbContext<ShopDbContext>(options =>
             options.UseSqlServer(connectionString));
