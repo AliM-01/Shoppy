@@ -1,13 +1,15 @@
 ﻿namespace Shoppy.WebApi.Endpoints;
 public static class ApiEndpoints
 {
-    public const string BaseRoute = "api";
+    public const string AdminBaseRoute = "api";
+    
+    public const string BaseRoute = "api/admin";
 
     #region Admin
 
     public static class AdminProductCategory
     {
-        private const string BaseProductCategoryRoute = BaseRoute + "/product-category";
+        private const string BaseProductCategoryRoute = AdminBaseRoute + "/product-category";
 
         public const string GetProductCategoriesList = BaseProductCategoryRoute + "/get-list";
 
@@ -24,7 +26,7 @@ public static class ApiEndpoints
 
     public static class AdminProduct
     {
-        private const string BaseProductRoute = BaseRoute + "/product";
+        private const string BaseProductRoute = AdminBaseRoute + "/product";
 
         public const string FilterProducts = BaseProductRoute + "/filter-products";
 
@@ -43,7 +45,7 @@ public static class ApiEndpoints
 
     public static class AdminProductPicture
     {
-        private const string BaseProductPictureRoute = BaseRoute + "/product-picture";
+        private const string BaseProductPictureRoute = AdminBaseRoute + "/product-picture";
 
         public const string GetProductPictures = BaseProductPictureRoute + "/{productId}";
 
@@ -55,7 +57,7 @@ public static class ApiEndpoints
 
     public static class AdminSlider
     {
-        private const string BaseSliderRoute = BaseRoute + "/slider";
+        private const string BaseSliderRoute = AdminBaseRoute + "/slider";
 
         public const string GetSlidersList = BaseSliderRoute + "/get-list";
 
