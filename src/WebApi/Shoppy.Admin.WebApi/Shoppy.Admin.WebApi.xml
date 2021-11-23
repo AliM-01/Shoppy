@@ -4,133 +4,133 @@
         <name>Shoppy.Admin.WebApi</name>
     </assembly>
     <members>
-        <member name="M:Shoppy.Admin.WebApi.Controllers.ProductCategoryController.GetProductCategoriesList">
+        <member name="M:Shoppy.Admin.WebApi.Controllers.AdminProductCategoryController.GetProductCategoriesList">
             <summary>
                دریافت لیست دسته بندی محصولات
             </summary>
             <response code="200">Success</response>
         </member>
-        <member name="M:Shoppy.Admin.WebApi.Controllers.ProductCategoryController.FilterProductCategories(SM.Application.Contracts.ProductCategory.DTOs.FilterProductCategoryDto)">
+        <member name="M:Shoppy.Admin.WebApi.Controllers.AdminProductCategoryController.FilterProductCategories(SM.Application.Contracts.ProductCategory.DTOs.FilterProductCategoryDto)">
             <summary>
                فیلتر دسته بندی محصولات
             </summary>
             <response code="200">Success</response>
         </member>
-        <member name="M:Shoppy.Admin.WebApi.Controllers.ProductCategoryController.GetProductCategoryDetails(System.Int64)">
+        <member name="M:Shoppy.Admin.WebApi.Controllers.AdminProductCategoryController.GetProductCategoryDetails(System.Int64)">
             <summary>
                دریافت جزییات دسته بندی محصول
             </summary>
             <response code="200">Success</response>
         </member>
-        <member name="M:Shoppy.Admin.WebApi.Controllers.ProductCategoryController.CreateProductCategory(SM.Application.Contracts.ProductCategory.DTOs.CreateProductCategoryDto)">
+        <member name="M:Shoppy.Admin.WebApi.Controllers.AdminProductCategoryController.CreateProductCategory(SM.Application.Contracts.ProductCategory.DTOs.CreateProductCategoryDto)">
             <summary>
                ایجاد دسته بندی محصول
             </summary>
             <response code="200">Success</response>
         </member>
-        <member name="M:Shoppy.Admin.WebApi.Controllers.ProductCategoryController.EditProductCategory(SM.Application.Contracts.ProductCategory.DTOs.EditProductCategoryDto)">
+        <member name="M:Shoppy.Admin.WebApi.Controllers.AdminProductCategoryController.EditProductCategory(SM.Application.Contracts.ProductCategory.DTOs.EditProductCategoryDto)">
             <summary>
                ویرایش دسته بندی محصول
             </summary>
             <response code="200">Success</response>
         </member>
-        <member name="M:Shoppy.Admin.WebApi.Controllers.ProductCategoryController.DeleteProductCategory(System.Int64)">
+        <member name="M:Shoppy.Admin.WebApi.Controllers.AdminProductCategoryController.DeleteProductCategory(System.Int64)">
             <summary>
                حذف دسته بندی محصول
             </summary>
             <response code="200">Success</response>
         </member>
-        <member name="M:Shoppy.Admin.WebApi.Controllers.ProductController.FilterProducts(SM.Application.Contracts.Product.DTOs.FilterProductDto)">
+        <member name="M:Shoppy.Admin.WebApi.Controllers.AdminProductController.FilterProducts(SM.Application.Contracts.Product.DTOs.FilterProductDto)">
             <summary>
                فیلتر محصولات
             </summary>
             <response code="200">Success</response>
         </member>
-        <member name="M:Shoppy.Admin.WebApi.Controllers.ProductController.GetProductDetails(System.Int64)">
+        <member name="M:Shoppy.Admin.WebApi.Controllers.AdminProductController.GetProductDetails(System.Int64)">
             <summary>
                دریافت جزییات محصول
             </summary>
             <response code="200">Success</response>
         </member>
-        <member name="M:Shoppy.Admin.WebApi.Controllers.ProductController.CreateProduct(SM.Application.Contracts.Product.DTOs.CreateProductDto)">
+        <member name="M:Shoppy.Admin.WebApi.Controllers.AdminProductController.CreateProduct(SM.Application.Contracts.Product.DTOs.CreateProductDto)">
             <summary>
                ایجاد محصول
             </summary>
             <response code="200">Success</response>
         </member>
-        <member name="M:Shoppy.Admin.WebApi.Controllers.ProductController.EditProduct(SM.Application.Contracts.Product.DTOs.EditProductDto)">
+        <member name="M:Shoppy.Admin.WebApi.Controllers.AdminProductController.EditProduct(SM.Application.Contracts.Product.DTOs.EditProductDto)">
             <summary>
                ویرایش محصول
             </summary>
             <response code="200">Success</response>
         </member>
-        <member name="M:Shoppy.Admin.WebApi.Controllers.ProductController.DeleteProduct(System.Int64)">
+        <member name="M:Shoppy.Admin.WebApi.Controllers.AdminProductController.DeleteProduct(System.Int64)">
             <summary>
                حذف محصول
             </summary>
             <response code="200">Success</response>
         </member>
-        <member name="M:Shoppy.Admin.WebApi.Controllers.ProductController.UpdateProductIsInStock(System.Int64)">
+        <member name="M:Shoppy.Admin.WebApi.Controllers.AdminProductController.UpdateProductIsInStock(System.Int64)">
             <summary>
                ثبت موجودی محصول
             </summary>
             <response code="200">Success</response>
         </member>
-        <member name="M:Shoppy.Admin.WebApi.Controllers.ProductController.UpdateProductNotInStock(System.Int64)">
+        <member name="M:Shoppy.Admin.WebApi.Controllers.AdminProductController.UpdateProductNotInStock(System.Int64)">
             <summary>
                ثبت نا موجودی محصول
             </summary>
             <response code="200">Success</response>
         </member>
-        <member name="M:Shoppy.Admin.WebApi.Controllers.ProductPictureController.GetProductPictures(System.Int64)">
+        <member name="M:Shoppy.Admin.WebApi.Controllers.AdminProductPictureController.GetProductPictures(System.Int64)">
             <summary>
                دریافت تصاویر محصولات
             </summary>
             <response code="200">Success</response>
         </member>
-        <member name="M:Shoppy.Admin.WebApi.Controllers.ProductPictureController.CreateProductPicture(SM.Application.Contracts.ProductPicture.DTOs.CreateProductPictureDto)">
+        <member name="M:Shoppy.Admin.WebApi.Controllers.AdminProductPictureController.CreateProductPicture(SM.Application.Contracts.ProductPicture.DTOs.CreateProductPictureDto)">
             <summary>
                ایجاد تصویر محصول
             </summary>
             <response code="200">Success</response>
         </member>
-        <member name="M:Shoppy.Admin.WebApi.Controllers.ProductPictureController.RemoveProductPicture(System.Int64)">
+        <member name="M:Shoppy.Admin.WebApi.Controllers.AdminProductPictureController.RemoveProductPicture(System.Int64)">
             <summary>
                غیر فعال کردن تصویر محصول
             </summary>
             <response code="200">Success</response>
         </member>
-        <member name="M:Shoppy.Admin.WebApi.Controllers.SliderController.GetSlidersList">
+        <member name="M:Shoppy.Admin.WebApi.Controllers.AdminSliderController.GetSlidersList">
             <summary>
                دریافت لیست اسلایدر ها
             </summary>
             <response code="200">Success</response>
         </member>
-        <member name="M:Shoppy.Admin.WebApi.Controllers.SliderController.GetSliderDetails(System.Int64)">
+        <member name="M:Shoppy.Admin.WebApi.Controllers.AdminSliderController.GetSliderDetails(System.Int64)">
             <summary>
                دریافت جزییات اسلایدر
             </summary>
             <response code="200">Success</response>
         </member>
-        <member name="M:Shoppy.Admin.WebApi.Controllers.SliderController.CreateSlider(SM.Application.Contracts.Slider.DTOs.CreateSliderDto)">
+        <member name="M:Shoppy.Admin.WebApi.Controllers.AdminSliderController.CreateSlider(SM.Application.Contracts.Slider.DTOs.CreateSliderDto)">
             <summary>
                ایجاد اسلایدر
             </summary>
             <response code="200">Success</response>
         </member>
-        <member name="M:Shoppy.Admin.WebApi.Controllers.SliderController.EditSlider(SM.Application.Contracts.Slider.DTOs.EditSliderDto)">
+        <member name="M:Shoppy.Admin.WebApi.Controllers.AdminSliderController.EditSlider(SM.Application.Contracts.Slider.DTOs.EditSliderDto)">
             <summary>
                ویرایش اسلایدر
             </summary>
             <response code="200">Success</response>
         </member>
-        <member name="M:Shoppy.Admin.WebApi.Controllers.SliderController.RemoveSlider(System.Int64)">
+        <member name="M:Shoppy.Admin.WebApi.Controllers.AdminSliderController.RemoveSlider(System.Int64)">
             <summary>
                غیر فعال کردن اسلایدر
             </summary>
             <response code="200">Success</response>
         </member>
-        <member name="M:Shoppy.Admin.WebApi.Controllers.SliderController.RestoreSlider(System.Int64)">
+        <member name="M:Shoppy.Admin.WebApi.Controllers.AdminSliderController.RestoreSlider(System.Int64)">
             <summary>
                فعال کردن اسلایدر
             </summary>

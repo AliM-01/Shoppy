@@ -3,7 +3,7 @@ public static class ApiEndpoints
 {
     public const string BaseRoute = "api";
 
-    public static class ProductCategory
+    public static class AdminProductCategory
     {
         private const string BaseProductCategoryRoute = BaseRoute + "/product-category";
 
@@ -20,7 +20,7 @@ public static class ApiEndpoints
         public const string DeleteProductCategory = BaseProductCategoryRoute + "/delete-product-category/{id}";
     }
 
-    public static class Product
+    public static class AdminProduct
     {
         private const string BaseProductRoute = BaseRoute + "/product";
 
@@ -39,7 +39,7 @@ public static class ApiEndpoints
         public const string UpdateProductNotInStock = BaseProductRoute + "/update-product-not-in-stock/{id}";
     }
 
-    public static class ProductPicture
+    public static class AdminProductPicture
     {
         private const string BaseProductPictureRoute = BaseRoute + "/product-picture";
 
@@ -51,7 +51,7 @@ public static class ApiEndpoints
 
     }
 
-    public static class Slider
+    public static class AdminSlider
     {
         private const string BaseSliderRoute = BaseRoute + "/slider";
 
