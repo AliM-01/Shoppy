@@ -2,7 +2,7 @@
 using SM.Application.Contracts.Slider.DTOs;
 using SM.Application.Contracts.Slider.Queries;
 
-namespace Shoppy.Admin.WebApi.Controllers;
+namespace Shoppy.WebApi.Controllers;
 public class AdminSliderController : BaseApiController
 {
     /// <summary>

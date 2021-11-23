@@ -2,7 +2,7 @@
 using SM.Application.Contracts.ProductPicture.DTOs;
 using SM.Application.Contracts.ProductPicture.Queries;
 
-namespace Shoppy.Admin.WebApi.Controllers;
+namespace Shoppy.WebApi.Controllers;
 public class AdminProductPictureController : BaseApiController
 {
     /// <summary>

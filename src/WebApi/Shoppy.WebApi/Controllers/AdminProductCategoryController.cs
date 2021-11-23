@@ -2,7 +2,7 @@
 using SM.Application.Contracts.ProductCategory.DTOs;
 using SM.Application.Contracts.ProductCategory.Queries;
 
-namespace Shoppy.Admin.WebApi.Controllers;
+namespace Shoppy.WebApi.Controllers;
 public class AdminProductCategoryController : BaseApiController
 {
     /// <summary>

@@ -1,3 +1,4 @@
+
 using _0_Framework.Presentation.Extensions.Startup;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -13,6 +14,7 @@ using System.IO;
 using System.Reflection;
 
 namespace Shoppy.WebApi;
+
 public class Startup
 {
     #region Ctor
@@ -94,6 +96,7 @@ public class Startup
             app.UseHsts();
         }
 
+        app.UseErrorHandlingMiddleware();
         app.UseHttpsRedirection();
 
         app.UseStaticFiles();
@@ -107,7 +110,7 @@ public class Startup
 
         app.UseRouting();
 
-        app.UseSwaggerExtension("Shoppy.Admin.WebApi");
+        app.UseSwaggerExtension("Shoppy.WebApi");
 
         app.UseEndpoints(endpoints =>
         {

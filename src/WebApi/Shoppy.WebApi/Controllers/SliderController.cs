@@ -1,6 +1,6 @@
 ﻿using _01_Shoppy.Query.Contracts.Slider;
 
-namespace Shoppy.Admin.WebApi.Controllers;
+namespace Shoppy.WebApi.Controllers;
 public class SliderController : BaseApiController
 {
     #region Ctor 
