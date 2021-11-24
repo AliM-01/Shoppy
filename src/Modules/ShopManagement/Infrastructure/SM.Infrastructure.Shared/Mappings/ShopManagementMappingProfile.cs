@@ -1,4 +1,5 @@
 ﻿using _0_Framework.Application.Extensions;
+using _01_Shoppy.Query.Contracts.ProductCategory;
 using _01_Shoppy.Query.Contracts.Slider;
 using AutoMapper;
 using SM.Application.Contracts.Product.DTOs;
@@ -46,6 +47,12 @@ public class ShopManagementMappingProfile : Profile
                 opt => opt.Ignore())
             .ForMember(dest => dest.Slug,
                 opt => opt.MapFrom(src => src.Title.ToSlug()));
+
+        #endregion
+
+        #region Product Category Query Model
+
+        CreateMap<ProductCategory, ProductCategoryQueryModel>();
 
         #endregion
 
