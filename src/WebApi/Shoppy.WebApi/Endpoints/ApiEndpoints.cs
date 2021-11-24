@@ -2,7 +2,7 @@
 public static class ApiEndpoints
 {
     public const string AdminBaseRoute = "api";
-    
+
     public const string BaseRoute = "api/admin";
 
     #region Admin
@@ -81,6 +81,13 @@ public static class ApiEndpoints
         private const string BaseSliderRoute = BaseRoute + "/slider";
 
         public const string GetSliders = BaseSliderRoute + "/get-list";
+    }
+
+    public static class ProductCategory
+    {
+        private const string BaseProductCategoryRoute = BaseRoute + "/product-category";
+
+        public const string GetProductCategories = BaseProductCategoryRoute + "/get-list";
     }
 
     #endregion
