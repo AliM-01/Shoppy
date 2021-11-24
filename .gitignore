@@ -361,5 +361,3 @@ MigrationBackup/
 
 # Fody - auto-generated XML schema
 FodyWeavers.xsd
-/src/01_Shoppy.Query/Query/SliderQuery.cs
-/src/01_Shoppy.Query/Contracts/ProductCategory/ProductCategoryQueryModel.cs
