@@ -5,6 +5,8 @@ using SM.Application.Contracts.ProductCategory.Queries;
 namespace Shoppy.WebApi.Controllers;
 public class AdminProductCategoryController : BaseApiController
 {
+    #region Get ProductCategories List
+
     /// <summary>
     ///    دریافت لیست دسته بندی محصولات
     /// </summary>
@@ -16,6 +18,10 @@ public class AdminProductCategoryController : BaseApiController
 
         return JsonApiResult.Success(res);
     }
+
+    #endregion
+
+    #region Filter Product Categories
 
     /// <summary>
     ///    فیلتر دسته بندی محصولات
@@ -29,6 +35,10 @@ public class AdminProductCategoryController : BaseApiController
         return JsonApiResult.Success(res);
     }
 
+    #endregion
+
+    #region Get ProductCategory Details
+
     /// <summary>
     ///    دریافت جزییات دسته بندی محصول
     /// </summary>
@@ -40,6 +50,24 @@ public class AdminProductCategoryController : BaseApiController
 
         return JsonApiResult.Success(res);
     }
+
+    #endregion
+
+    #region
+
+
+
+    #endregion
+
+    #region
+
+
+
+    #endregion
+
+
+
+
 
     /// <summary>
     ///    ایجاد دسته بندی محصول

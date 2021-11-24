@@ -1,9 +1,9 @@
 ﻿namespace Shoppy.WebApi.Endpoints;
 public static class ApiEndpoints
 {
-    public const string AdminBaseRoute = "api";
+    public const string AdminBaseRoute = "api/admin";
 
-    public const string BaseRoute = "api/admin";
+    public const string BaseRoute = "api";
 
     #region Admin
 

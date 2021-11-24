@@ -136,6 +136,12 @@
             </summary>
             <response code="200">Success</response>
         </member>
+        <member name="M:Shoppy.WebApi.Controllers.ProductCategoryController.GetProductCategorys">
+            <summary>
+               دریافت دسته بندی های محصولات 
+            </summary>
+            <response code="200">Success</response>
+        </member>
         <member name="M:Shoppy.WebApi.Controllers.SliderController.GetSliders">
             <summary>
                دریافت اسلایدر ها
