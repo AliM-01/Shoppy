@@ -14,7 +14,7 @@
 
 	<ItemGroup>
     <ProjectReference Include="..\0_Framework\0_Framework.csproj" />
-    <ProjectReference Include="..\Modules\ShopManagement\Infrastructure\SM.Infrastructure.Persistence\SM.Infrastructure.Persistence.csproj" />
+    <ProjectReference Include="..\Modules\ShopModule\Infrastructure\SM.Infrastructure.Persistence\SM.Infrastructure.Persistence.csproj" />
   </ItemGroup>
 
 </Project>
