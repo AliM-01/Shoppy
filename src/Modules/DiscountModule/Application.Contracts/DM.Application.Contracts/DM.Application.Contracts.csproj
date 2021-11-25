@@ -15,10 +15,4 @@
 	  <ProjectReference Include="..\..\Domain\DM.Domain\DM.Domain.csproj" />
 	</ItemGroup>
 
-
-	<ItemGroup>
-	  <Folder Include="CustomerDiscount\Commands\" />
-	  <Folder Include="CustomerDiscount\Queries\" />
-	</ItemGroup>
-
 </Project>
