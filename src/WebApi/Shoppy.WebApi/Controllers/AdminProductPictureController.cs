@@ -5,6 +5,8 @@ using SM.Application.Contracts.ProductPicture.Queries;
 namespace Shoppy.WebApi.Controllers;
 public class AdminProductPictureController : BaseApiController
 {
+    #region Get Product Pictures
+
     /// <summary>
     ///    دریافت تصاویر محصولات
     /// </summary>
@@ -16,6 +18,10 @@ public class AdminProductPictureController : BaseApiController
 
         return JsonApiResult.Success(res);
     }
+
+    #endregion
+
+    #region Create Product Picture
 
     /// <summary>
     ///    ایجاد تصویر محصول
@@ -29,6 +35,10 @@ public class AdminProductPictureController : BaseApiController
         return JsonApiResult.Success(res);
     }
 
+    #endregion
+
+    #region Remove Product Picture
+
     /// <summary>
     ///    غیر فعال کردن تصویر محصول
     /// </summary>
@@ -40,4 +50,6 @@ public class AdminProductPictureController : BaseApiController
 
         return JsonApiResult.Success(res);
     }
+
+    #endregion
 }

@@ -53,21 +53,7 @@ public class AdminProductCategoryController : BaseApiController
 
     #endregion
 
-    #region
-
-
-
-    #endregion
-
-    #region
-
-
-
-    #endregion
-
-
-
-
+    #region Create Product Category
 
     /// <summary>
     ///    ایجاد دسته بندی محصول
@@ -81,6 +67,10 @@ public class AdminProductCategoryController : BaseApiController
         return JsonApiResult.Success(res);
     }
 
+    #endregion
+
+    #region Edit Product Category
+
     /// <summary>
     ///    ویرایش دسته بندی محصول
     /// </summary>
@@ -93,6 +83,10 @@ public class AdminProductCategoryController : BaseApiController
         return JsonApiResult.Success(res);
     }
 
+    #endregion
+
+    #region Delete Product Category
+
     /// <summary>
     ///    حذف دسته بندی محصول
     /// </summary>
@@ -104,4 +98,6 @@ public class AdminProductCategoryController : BaseApiController
 
         return JsonApiResult.Success(res);
     }
+
+    #endregion
 }

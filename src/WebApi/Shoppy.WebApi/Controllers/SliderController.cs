@@ -14,6 +14,8 @@ public class SliderController : BaseApiController
 
     #endregion
 
+    #region Get Sliders
+
     /// <summary>
     ///    دریافت اسلایدر ها
     /// </summary>
@@ -25,4 +27,6 @@ public class SliderController : BaseApiController
 
         return JsonApiResult.Success(res);
     }
+
+    #endregion
 }

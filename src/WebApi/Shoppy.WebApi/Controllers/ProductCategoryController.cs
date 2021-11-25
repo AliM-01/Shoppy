@@ -14,6 +14,8 @@ public class ProductCategoryController : BaseApiController
 
     #endregion
 
+    #region Get Product Categories
+
     /// <summary>
     ///    دریافت دسته بندی های محصولات 
     /// </summary>
@@ -25,4 +27,6 @@ public class ProductCategoryController : BaseApiController
 
         return JsonApiResult.Success(res);
     }
+
+    #endregion
 }

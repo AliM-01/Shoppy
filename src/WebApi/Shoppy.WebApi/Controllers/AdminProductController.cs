@@ -6,6 +6,8 @@ namespace Shoppy.WebApi.Controllers;
 
 public class AdminProductController : BaseApiController
 {
+    #region Filter Products
+
     /// <summary>
     ///    فیلتر محصولات
     /// </summary>
@@ -17,6 +19,10 @@ public class AdminProductController : BaseApiController
 
         return JsonApiResult.Success(res);
     }
+
+    #endregion
+
+    #region Get Product Details
 
     /// <summary>
     ///    دریافت جزییات محصول
@@ -30,6 +36,10 @@ public class AdminProductController : BaseApiController
         return JsonApiResult.Success(res);
     }
 
+    #endregion
+
+    #region Create Product
+
     /// <summary>
     ///    ایجاد محصول
     /// </summary>
@@ -41,6 +51,10 @@ public class AdminProductController : BaseApiController
 
         return JsonApiResult.Success(res);
     }
+
+    #endregion
+
+    #region Edit Product
 
     /// <summary>
     ///    ویرایش محصول
@@ -54,6 +68,10 @@ public class AdminProductController : BaseApiController
         return JsonApiResult.Success(res);
     }
 
+    #endregion
+
+    #region Delete Product
+
     /// <summary>
     ///    حذف محصول
     /// </summary>
@@ -65,6 +83,10 @@ public class AdminProductController : BaseApiController
 
         return JsonApiResult.Success(res);
     }
+
+    #endregion
+
+    #region Update Product Is In Stock
 
     /// <summary>
     ///    ثبت موجودی محصول
@@ -78,6 +100,10 @@ public class AdminProductController : BaseApiController
         return JsonApiResult.Success(res);
     }
 
+    #endregion
+
+    #region Update Product Not In Stock
+
     /// <summary>
     ///    ثبت نا موجودی محصول
     /// </summary>
@@ -89,4 +115,6 @@ public class AdminProductController : BaseApiController
 
         return JsonApiResult.Success(res);
     }
+
+    #endregion
 }

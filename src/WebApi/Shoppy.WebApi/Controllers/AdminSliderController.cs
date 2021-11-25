@@ -5,6 +5,8 @@ using SM.Application.Contracts.Slider.Queries;
 namespace Shoppy.WebApi.Controllers;
 public class AdminSliderController : BaseApiController
 {
+    #region Get Sliders List
+
     /// <summary>
     ///    دریافت لیست اسلایدر ها
     /// </summary>
@@ -16,6 +18,10 @@ public class AdminSliderController : BaseApiController
 
         return JsonApiResult.Success(res);
     }
+
+    #endregion
+
+    #region Get Slider Details
 
     /// <summary>
     ///    دریافت جزییات اسلایدر
@@ -29,6 +35,10 @@ public class AdminSliderController : BaseApiController
         return JsonApiResult.Success(res);
     }
 
+    #endregion
+
+    #region Create Slider
+
     /// <summary>
     ///    ایجاد اسلایدر
     /// </summary>
@@ -40,6 +50,10 @@ public class AdminSliderController : BaseApiController
 
         return JsonApiResult.Success(res);
     }
+
+    #endregion
+
+    #region Edit Slider
 
     /// <summary>
     ///    ویرایش اسلایدر
@@ -53,6 +67,10 @@ public class AdminSliderController : BaseApiController
         return JsonApiResult.Success(res);
     }
 
+    #endregion
+
+    #region Remove Slider
+
     /// <summary>
     ///    غیر فعال کردن اسلایدر
     /// </summary>
@@ -65,6 +83,10 @@ public class AdminSliderController : BaseApiController
         return JsonApiResult.Success(res);
     }
 
+    #endregion
+
+    #region Restore Slider
+
     /// <summary>
     ///    فعال کردن اسلایدر
     /// </summary>
@@ -76,4 +98,6 @@ public class AdminSliderController : BaseApiController
 
         return JsonApiResult.Success(res);
     }
+
+    #endregion
 }
