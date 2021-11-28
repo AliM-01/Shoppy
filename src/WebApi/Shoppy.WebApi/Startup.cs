@@ -58,7 +58,7 @@ public class Startup
 
         services.AddAutoMapperExtension(typeof(Startup), new List<Type>
             {
-                typeof(ShopManagementMappingProfile),
+                typeof(ShopModuleMappingProfile),
                 typeof(DiscountModuleMappingProfile)
             });
 

@@ -12,9 +12,9 @@ using SM.Domain.ProductPicture;
 using SM.Domain.Slider;
 
 namespace SM.Infrastructure.Shared.Mappings;
-public class ShopManagementMappingProfile : Profile
+public class ShopModuleMappingProfile : Profile
 {
-    public ShopManagementMappingProfile()
+    public ShopModuleMappingProfile()
     {
         #region Product Category
 
