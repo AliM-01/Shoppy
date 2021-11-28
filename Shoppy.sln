@@ -55,6 +55,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DM.Infrastructure.Persisten
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DM.Infrastructure.Configuration", "src\Modules\DiscountModule\Infrastructure\DM.Infrastructure.Configuration\DM.Infrastructure.Configuration.csproj", "{3E4CD681-AA84-47B4-9C3F-FB833594ADD4}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DM.Infrastructure.Shared", "src\Modules\DiscountModule\Infrastructure\DM.Infrastructure.Shared\DM.Infrastructure.Shared.csproj", "{FA285CDF-6C6B-4514-B51C-743EA73A13A3}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -117,6 +119,10 @@ Global
 		{3E4CD681-AA84-47B4-9C3F-FB833594ADD4}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3E4CD681-AA84-47B4-9C3F-FB833594ADD4}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3E4CD681-AA84-47B4-9C3F-FB833594ADD4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FA285CDF-6C6B-4514-B51C-743EA73A13A3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FA285CDF-6C6B-4514-B51C-743EA73A13A3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FA285CDF-6C6B-4514-B51C-743EA73A13A3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FA285CDF-6C6B-4514-B51C-743EA73A13A3}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -144,6 +150,7 @@ Global
 		{24A09201-8EF8-43EE-B0D5-AFD99204AC93} = {4DE0AEF5-1F31-4C8C-A390-810DB0C2278A}
 		{17112D1D-EFC2-46A6-A9F2-062E1212132E} = {E2D8DB07-6E85-4FC1-8234-7CE00853FAD7}
 		{3E4CD681-AA84-47B4-9C3F-FB833594ADD4} = {E2D8DB07-6E85-4FC1-8234-7CE00853FAD7}
+		{FA285CDF-6C6B-4514-B51C-743EA73A13A3} = {E2D8DB07-6E85-4FC1-8234-7CE00853FAD7}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {615EA258-FFB2-45B7-9D73-B482C4E29616}
