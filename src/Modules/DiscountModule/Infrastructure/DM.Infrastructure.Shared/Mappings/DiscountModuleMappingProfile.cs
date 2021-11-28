@@ -14,7 +14,11 @@ public class DiscountModuleMappingProfile : Profile
 
         CreateMap<CustomerDiscount, CustomerDiscountDto>()
             .ForMember(dest => dest.CreationDate,
-                opt => opt.MapFrom(src => src.CreationDate.ToShamsi()));
+                opt => opt.MapFrom(src => src.CreationDate.ToShamsi()))
+            .ForMember(dest => dest.StartDate,
+                opt => opt.MapFrom(src => src.StartDate.ToDetailedShamsi()))
+            .ForMember(dest => dest.EndDate,
+                opt => opt.MapFrom(src => src.EndDate.ToDetailedShamsi()));
 
         #endregion
 
@@ -30,8 +34,6 @@ public class DiscountModuleMappingProfile : Profile
 
         CreateMap<EditCustomerDiscountDto, CustomerDiscount>()
             .ForMember(dest => dest.Id,
-                opt => opt.Ignore())
-            .ForMember(dest => dest.ImagePath,
                 opt => opt.Ignore());
 
         #endregion
