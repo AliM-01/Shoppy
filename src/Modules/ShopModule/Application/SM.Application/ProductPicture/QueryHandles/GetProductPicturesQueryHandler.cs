@@ -26,14 +26,21 @@ public class GetProductPicturesQueryHandler : IRequestHandler<GetProductPictures
 
     public async Task<Response<IEnumerable<ProductPictureDto>>> Handle(GetProductPicturesQuery request, CancellationToken cancellationToken)
     {
-        var product = await _productPictureRepository.GetEntityById(request.ProductId);
+        var product = await _productRepository.GetEntityById(request.ProductId);
 
         if (product is null)
             throw new NotFoundApiException();
 
+        bool anyProductPictures = await _productPictureRepository
+            .GetQuery().AnyAsync(p => p.ProductId == request.ProductId);
+
+        if (!anyProductPictures)
+            throw new NoContentApiException();
+
         var productPictures = await
             _productPictureRepository
             .GetQuery()
+            .Include(p => p.Product)
             .Where(p => p.ProductId == request.ProductId)
             .OrderByDescending(p => p.LastUpdateDate)
             .Select(productPicture =>
