@@ -17,9 +17,4 @@
 		<ProjectReference Include="..\..\Application.Contracts\DM.Application.Contracts\DM.Application.Contracts.csproj" />
 		<ProjectReference Include="..\..\Domain\DM.Domain\DM.Domain.csproj" />
 	</ItemGroup>
-
-	<ItemGroup>
-	  <Folder Include="CustomerDiscount\CommandHandles\" />
-	  <Folder Include="CustomerDiscount\QueryHandles\" />
-	</ItemGroup>
 </Project>
