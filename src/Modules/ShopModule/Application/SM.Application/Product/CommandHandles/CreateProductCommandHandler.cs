@@ -11,11 +11,15 @@ public class CreateProductCommandHandler : IRequestHandler<CreateProductCommand,
     #region Ctor
 
     private readonly IGenericRepository<Domain.Product.Product> _productRepository;
+    private readonly IGenericRepository<Domain.ProductPicture.ProductPicture> _productPictureRepository;
+
     private readonly IMapper _mapper;
 
-    public CreateProductCommandHandler(IGenericRepository<Domain.Product.Product> productRepository, IMapper mapper)
+    public CreateProductCommandHandler(IGenericRepository<Domain.Product.Product> productRepository,
+            IGenericRepository<Domain.ProductPicture.ProductPicture> productPictureRepository, IMapper mapper)
     {
         _productRepository = Guard.Against.Null(productRepository, nameof(_productRepository));
+        _productPictureRepository = Guard.Against.Null(productPictureRepository, nameof(_productPictureRepository));
         _mapper = Guard.Against.Null(mapper, nameof(_mapper));
     }
 
@@ -31,11 +35,23 @@ public class CreateProductCommandHandler : IRequestHandler<CreateProductCommand,
 
         var imagePath = Guid.NewGuid().ToString("N") + Path.GetExtension(request.Product.ImageFile.FileName);
 
-        request.Product.ImageFile.AddImageToServer(imagePath, PathExtension.ProductImage, 150, 150, PathExtension.ProductThumbnailImage);
+        request.Product.ImageFile.AddImageToServer(imagePath, PathExtension.ProductImage, 200, 200, PathExtension.ProductThumbnailImage);
         product.ImagePath = imagePath;
 
         await _productRepository.InsertEntity(product);
         await _productRepository.SaveChanges();
+
+        request.Product.ImageFile.AddImageToServer(imagePath, PathExtension.ProductPictureImage, 150, 150, PathExtension.ProductPictureThumbnailImage);
+
+        await _productPictureRepository.InsertEntity(new Domain.ProductPicture.ProductPicture
+        {
+            ProductId = product.Id,
+            ImageAlt = product.ImageAlt,
+            ImagePath = imagePath,
+            ImageTitle = product.ImageTitle
+        });
+        await _productPictureRepository.SaveChanges();
+
 
         return new Response<string>(ApplicationErrorMessage.OperationSucceddedMessage);
     }
