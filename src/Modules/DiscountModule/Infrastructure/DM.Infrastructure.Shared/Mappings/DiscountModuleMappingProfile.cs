@@ -24,17 +24,29 @@ public class DiscountModuleMappingProfile : Profile
 
         #region Create Customer Discount
 
-        CreateMap<CreateCustomerDiscountDto, CustomerDiscount>();
+        CreateMap<CreateCustomerDiscountDto, CustomerDiscount>()
+            .ForMember(dest => dest.StartDate,
+                opt => opt.MapFrom(src => src.StartDate.ToMiladi()))
+            .ForMember(dest => dest.EndDate,
+                opt => opt.MapFrom(src => src.EndDate.ToMiladi()));
 
         #endregion
 
         #region Edit Customer Discount
 
-        CreateMap<CustomerDiscount, EditCustomerDiscountDto>();
+        CreateMap<CustomerDiscount, EditCustomerDiscountDto>()
+            .ForMember(dest => dest.StartDate,
+                opt => opt.MapFrom(src => src.StartDate.ToDetailedShamsi()))
+            .ForMember(dest => dest.EndDate,
+                opt => opt.MapFrom(src => src.EndDate.ToDetailedShamsi()));
 
         CreateMap<EditCustomerDiscountDto, CustomerDiscount>()
             .ForMember(dest => dest.Id,
-                opt => opt.Ignore());
+                opt => opt.Ignore())
+            .ForMember(dest => dest.StartDate,
+                opt => opt.MapFrom(src => src.StartDate.ToMiladi()))
+            .ForMember(dest => dest.EndDate,
+                opt => opt.MapFrom(src => src.EndDate.ToMiladi()));
 
         #endregion
 
