@@ -14,7 +14,7 @@ using SM.Infrastructure.Persistence.Context;
 
 namespace SM.Infrastructure.Configuration;
 
-public static class ShopManagementBootstrapper
+public static class ShopModuletBootstrapper
 {
     public static void Configure(IServiceCollection services, string connectionString)
     {
@@ -23,7 +23,7 @@ public static class ShopManagementBootstrapper
         services.AddScoped<IGenericRepository<ProductPicture>, GenericRepository<ShopDbContext, ProductPicture>>();
         services.AddScoped<IGenericRepository<Slider>, GenericRepository<ShopDbContext, Slider>>();
 
-        services.AddMediatR(typeof(ShopManagementBootstrapper).Assembly);
+        services.AddMediatR(typeof(ShopModuletBootstrapper).Assembly);
 
         services.AddScoped<ISliderQuery, SliderQuery>();
         services.AddScoped<IProductCategoryQuery, ProductCategoryQuery>();

@@ -37,7 +37,7 @@ public class Startup
 
         var connectionString = Configuration.GetConnectionString("DefaultConnection");
 
-        ShopManagementBootstrapper.Configure(services, connectionString);
+        ShopModuletBootstrapper.Configure(services, connectionString);
         DiscountModuleBootstrapper.Configure(services, connectionString);
 
         #endregion
