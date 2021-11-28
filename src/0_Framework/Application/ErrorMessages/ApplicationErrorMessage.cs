@@ -11,5 +11,7 @@ public class ApplicationErrorMessage
 
     public const string RecordNotFoundMessage = "رکوردی با اطلاعات درخواست شده یافت نشد. لطفا دوباره تلاش بفرمایید";
 
+    public const string NoContentMessage = "اطلاعاتی یافت نشد";
+
     public const string IsDuplicatedMessage = "امکان ثبت رکورد تکراری وجود ندارد. لطفا دوباره تلاش بفرمایید";
 }

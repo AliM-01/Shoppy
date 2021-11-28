@@ -44,6 +44,12 @@ public class ErrorHandlerMiddleware
                     response.StatusCode = (int)HttpStatusCode.NotFound;
                     break;
 
+                case NoContentApiException e:
+                    // custom no-content application error
+                    status = "no-content";
+                    response.StatusCode = (int)HttpStatusCode.NoContent;
+                    break;
+
                 case ValidationException e:
                     // custom application error
                     response.StatusCode = (int)HttpStatusCode.BadRequest;
