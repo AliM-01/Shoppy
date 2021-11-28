@@ -1,5 +1,6 @@
 
 using _0_Framework.Presentation.Extensions.Startup;
+using DM.Infrastructure.Configuration;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
@@ -37,6 +38,7 @@ public class Startup
         var connectionString = Configuration.GetConnectionString("DefaultConnection");
 
         ShopManagementBootstrapper.Configure(services, connectionString);
+        DiscountModuleBootstrapper.Configure(services, connectionString);
 
         #endregion
 

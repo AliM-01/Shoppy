@@ -25,6 +25,7 @@
 
 	<ItemGroup>
 		<ProjectReference Include="..\..\0_Framework\0_Framework.csproj" />
+		<ProjectReference Include="..\..\Modules\DiscountModule\Infrastructure\DM.Infrastructure.Configuration\DM.Infrastructure.Configuration.csproj" />
 		<ProjectReference Include="..\..\Modules\ShopModule\Infrastructure\SM.Infrastructure.Configuration\SM.Infrastructure.Configuration.csproj" />
 		<ProjectReference Include="..\..\Modules\ShopModule\Infrastructure\SM.Infrastructure.Shared\SM.Infrastructure.Shared.csproj" />
 	</ItemGroup>
