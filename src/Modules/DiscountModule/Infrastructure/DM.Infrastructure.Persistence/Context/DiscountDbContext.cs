@@ -1,4 +1,5 @@
 ﻿using _0_Framework.Infrastructure.Context;
+using DM.Domain.CustomerDiscount;
 using Microsoft.EntityFrameworkCore;
 
 namespace SM.Infrastructure.Persistence.Context;
@@ -9,6 +10,9 @@ public class DiscountDbContext : DbContext
     public DiscountDbContext(DbContextOptions<DiscountDbContext> options) : base(options) { }
 
     #endregion
+
+    public DbSet<CustomerDiscount> CustomerDiscounts { get; set; }
+
 
     #region On Model Creating
 
