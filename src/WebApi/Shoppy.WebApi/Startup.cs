@@ -47,7 +47,8 @@ public class Startup
         services.AddMediatorAndFluentValidationExtension(new List<Type>
             {
                 typeof(Startup),
-                typeof(ISMAssemblyMarker)
+                typeof(ISMAssemblyMarker),
+                typeof(IDMAssemblyMarker)
             });
 
         #endregion
