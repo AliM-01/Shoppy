@@ -25,6 +25,10 @@ public class EditCustomerDiscountCommandHandler : IRequestHandler<EditCustomerDi
         if (customerDiscount is null)
             throw new NotFoundApiException();
 
+        if (_customerDiscountRepository.Exists(x => x.ProductId == request.CustomerDiscount.ProductId
+        && x.Rate == request.CustomerDiscount.Rate))
+            throw new ApiException(ApplicationErrorMessage.IsDuplicatedMessage);
+
         _mapper.Map(request.CustomerDiscount, customerDiscount);
 
         _customerDiscountRepository.Update(customerDiscount);

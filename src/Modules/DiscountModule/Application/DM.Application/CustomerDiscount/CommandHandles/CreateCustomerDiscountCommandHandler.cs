@@ -20,6 +20,10 @@ public class CreateCustomerDiscountCommandHandler : IRequestHandler<CreateCustom
 
     public async Task<Response<string>> Handle(CreateCustomerDiscountCommand request, CancellationToken cancellationToken)
     {
+        if (_customerDiscountRepository.Exists(x => x.ProductId == request.CustomerDiscount.ProductId
+         && x.Rate == request.CustomerDiscount.Rate))
+            throw new ApiException(ApplicationErrorMessage.IsDuplicatedMessage);
+
         var customerDiscount =
             _mapper.Map(request.CustomerDiscount, new Domain.CustomerDiscount.CustomerDiscount());
 
