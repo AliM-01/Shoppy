@@ -1,4 +1,5 @@
 ﻿using _01_Shoppy.Query.Contracts.Slider;
+using Shoppy.WebApi.Endpoints.Main.Shop;
 
 namespace Shoppy.WebApi.Controllers.Main.Shop;
 public class SliderController : BaseApiController
@@ -20,7 +21,7 @@ public class SliderController : BaseApiController
     ///    دریافت اسلایدر ها
     /// </summary>
     /// <response code="200">Success</response>
-    [HttpGet(ApiEndpoints.Slider.GetSliders)]
+    [HttpGet(MainShopApiEndpoints.Slider.GetSliders)]
     public async Task<IActionResult> GetSliders()
     {
         var res = await _sliderQuery.GetSliders();

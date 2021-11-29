@@ -1,4 +1,5 @@
 ﻿using _01_Shoppy.Query.Contracts.ProductCategory;
+using Shoppy.WebApi.Endpoints.Main.Shop;
 
 namespace Shoppy.WebApi.Controllers.Main.Shop;
 public class ProductCategoryController : BaseApiController
@@ -20,7 +21,7 @@ public class ProductCategoryController : BaseApiController
     ///    دریافت دسته بندی های محصولات 
     /// </summary>
     /// <response code="200">Success</response>
-    [HttpGet(ApiEndpoints.ProductCategory.GetProductCategories)]
+    [HttpGet(MainShopApiEndpoints.ProductCategory.GetProductCategories)]
     public async Task<IActionResult> GetProductCategorys()
     {
         var res = await _productCategoryQuery.GetProductCategories();
