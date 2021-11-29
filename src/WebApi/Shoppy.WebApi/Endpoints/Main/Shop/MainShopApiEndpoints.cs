@@ -1,10 +1,7 @@
-﻿namespace Shoppy.WebApi.Endpoints;
-public static class ApiEndpoints
+﻿namespace Shoppy.WebApi.Endpoints.Main.Shop;
+
+public static class MainShopApiEndpoints
 {
-    #region Main
-
-    #region Shop
-
     public static class Slider
     {
         private const string BaseSliderRoute = BaseApiEndpointRoutes.BaseRoute + "/slider";
@@ -18,8 +15,4 @@ public static class ApiEndpoints
 
         public const string GetProductCategories = BaseProductCategoryRoute + "/get-list";
     }
-
-    #endregion
-
-    #endregion
 }
