@@ -1,15 +1,13 @@
 ﻿namespace Shoppy.WebApi.Endpoints;
 public static class ApiEndpoints
 {
-    public const string AdminBaseRoute = "api/admin";
-
-    public const string BaseRoute = "api";
-
     #region Admin
+
+    #region Shop
 
     public static class AdminProductCategory
     {
-        private const string BaseProductCategoryRoute = AdminBaseRoute + "/product-category";
+        private const string BaseProductCategoryRoute = BaseApiEndpointRoutes.AdminBaseRoute + "/product-category";
 
         public const string GetProductCategoriesList = BaseProductCategoryRoute + "/get-list";
 
@@ -26,7 +24,7 @@ public static class ApiEndpoints
 
     public static class AdminProduct
     {
-        private const string BaseProductRoute = AdminBaseRoute + "/product";
+        private const string BaseProductRoute = BaseApiEndpointRoutes.AdminBaseRoute + "/product";
 
         public const string FilterProducts = BaseProductRoute + "/filter-products";
 
@@ -45,7 +43,7 @@ public static class ApiEndpoints
 
     public static class AdminProductPicture
     {
-        private const string BaseProductPictureRoute = AdminBaseRoute + "/product-picture";
+        private const string BaseProductPictureRoute = BaseApiEndpointRoutes.AdminBaseRoute + "/product-picture";
 
         public const string GetProductPictures = BaseProductPictureRoute + "/{productId}";
 
@@ -57,7 +55,7 @@ public static class ApiEndpoints
 
     public static class AdminSlider
     {
-        private const string BaseSliderRoute = AdminBaseRoute + "/slider";
+        private const string BaseSliderRoute = BaseApiEndpointRoutes.AdminBaseRoute + "/slider";
 
         public const string GetSlidersList = BaseSliderRoute + "/get-list";
 
@@ -74,21 +72,27 @@ public static class ApiEndpoints
 
     #endregion
 
+    #endregion
+
     #region Main
+
+    #region Shop
 
     public static class Slider
     {
-        private const string BaseSliderRoute = BaseRoute + "/slider";
+        private const string BaseSliderRoute = BaseApiEndpointRoutes.BaseRoute + "/slider";
 
         public const string GetSliders = BaseSliderRoute + "/get-list";
     }
 
     public static class ProductCategory
     {
-        private const string BaseProductCategoryRoute = BaseRoute + "/product-category";
+        private const string BaseProductCategoryRoute = BaseApiEndpointRoutes.BaseRoute + "/product-category";
 
         public const string GetProductCategories = BaseProductCategoryRoute + "/get-list";
     }
+
+    #endregion
 
     #endregion
 }
