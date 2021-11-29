@@ -1,6 +1,6 @@
 ﻿using _01_Shoppy.Query.Contracts.ProductCategory;
 
-namespace Shoppy.WebApi.Controllers;
+namespace Shoppy.WebApi.Controllers.Main.Shop;
 public class ProductCategoryController : BaseApiController
 {
     #region Ctor 

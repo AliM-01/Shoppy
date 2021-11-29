@@ -2,7 +2,7 @@
 using SM.Application.Contracts.ProductPicture.DTOs;
 using SM.Application.Contracts.ProductPicture.Queries;
 
-namespace Shoppy.WebApi.Controllers;
+namespace Shoppy.WebApi.Controllers.Admin.Shop;
 public class AdminProductPictureController : BaseApiController
 {
     #region Get Product Pictures

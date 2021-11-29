@@ -2,7 +2,7 @@
 using SM.Application.Contracts.ProductCategory.DTOs;
 using SM.Application.Contracts.ProductCategory.Queries;
 
-namespace Shoppy.WebApi.Controllers;
+namespace Shoppy.WebApi.Controllers.Admin.Shop;
 public class AdminProductCategoryController : BaseApiController
 {
     #region Get ProductCategories List

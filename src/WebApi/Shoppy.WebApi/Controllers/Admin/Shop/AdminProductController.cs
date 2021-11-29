@@ -2,7 +2,7 @@
 using SM.Application.Contracts.Product.DTOs;
 using SM.Application.Contracts.Product.Queries;
 
-namespace Shoppy.WebApi.Controllers;
+namespace Shoppy.WebApi.Controllers.Admin.Shop;
 
 public class AdminProductController : BaseApiController
 {
