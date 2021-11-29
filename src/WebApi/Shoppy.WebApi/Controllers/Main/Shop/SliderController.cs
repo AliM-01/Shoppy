@@ -1,5 +1,4 @@
 ﻿using _01_Shoppy.Query.Contracts.Slider;
-using Shoppy.WebApi.Endpoints.Main.Shop;
 
 namespace Shoppy.WebApi.Controllers.Main.Shop;
 public class SliderController : BaseApiController

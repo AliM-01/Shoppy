@@ -1,5 +1,4 @@
-﻿using Shoppy.WebApi.Endpoints.Admin.Shop;
-using SM.Application.Contracts.Slider.Commands;
+﻿using SM.Application.Contracts.Slider.Commands;
 using SM.Application.Contracts.Slider.DTOs;
 using SM.Application.Contracts.Slider.Queries;
 
