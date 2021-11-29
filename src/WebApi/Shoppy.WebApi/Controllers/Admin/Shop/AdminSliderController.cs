@@ -1,4 +1,5 @@
-﻿using SM.Application.Contracts.Slider.Commands;
+﻿using Shoppy.WebApi.Endpoints.Admin.Shop;
+using SM.Application.Contracts.Slider.Commands;
 using SM.Application.Contracts.Slider.DTOs;
 using SM.Application.Contracts.Slider.Queries;
 
@@ -11,7 +12,7 @@ public class AdminSliderController : BaseApiController
     ///    دریافت لیست اسلایدر ها
     /// </summary>
     /// <response code="200">Success</response>
-    [HttpGet(ApiEndpoints.AdminSlider.GetSlidersList)]
+    [HttpGet(AdminShopApiEndpoints.Slider.GetSlidersList)]
     public async Task<IActionResult> GetSlidersList()
     {
         var res = await Mediator.Send(new GetSlidersListQuery());
@@ -27,7 +28,7 @@ public class AdminSliderController : BaseApiController
     ///    دریافت جزییات اسلایدر
     /// </summary>
     /// <response code="200">Success</response>
-    [HttpGet(ApiEndpoints.AdminSlider.GetSliderDetails)]
+    [HttpGet(AdminShopApiEndpoints.Slider.GetSliderDetails)]
     public async Task<IActionResult> GetSliderDetails([FromRoute] long id)
     {
         var res = await Mediator.Send(new GetSliderDetailsQuery(id));
@@ -43,7 +44,7 @@ public class AdminSliderController : BaseApiController
     ///    ایجاد اسلایدر
     /// </summary>
     /// <response code="200">Success</response>
-    [HttpPost(ApiEndpoints.AdminSlider.CreateSlider)]
+    [HttpPost(AdminShopApiEndpoints.Slider.CreateSlider)]
     public async Task<IActionResult> CreateSlider([FromForm] CreateSliderDto createRequest)
     {
         var res = await Mediator.Send(new CreateSliderCommand(createRequest));
@@ -59,7 +60,7 @@ public class AdminSliderController : BaseApiController
     ///    ویرایش اسلایدر
     /// </summary>
     /// <response code="200">Success</response>
-    [HttpPut(ApiEndpoints.AdminSlider.EditSlider)]
+    [HttpPut(AdminShopApiEndpoints.Slider.EditSlider)]
     public async Task<IActionResult> EditSlider([FromForm] EditSliderDto editRequest)
     {
         var res = await Mediator.Send(new EditSliderCommand(editRequest));
@@ -75,7 +76,7 @@ public class AdminSliderController : BaseApiController
     ///    غیر فعال کردن اسلایدر
     /// </summary>
     /// <response code="200">Success</response>
-    [HttpDelete(ApiEndpoints.AdminSlider.RemoveSlider)]
+    [HttpDelete(AdminShopApiEndpoints.Slider.RemoveSlider)]
     public async Task<IActionResult> RemoveSlider([FromRoute] long id)
     {
         var res = await Mediator.Send(new RemoveSliderCommand(id));
@@ -91,7 +92,7 @@ public class AdminSliderController : BaseApiController
     ///    فعال کردن اسلایدر
     /// </summary>
     /// <response code="200">Success</response>
-    [HttpDelete(ApiEndpoints.AdminSlider.RestoreSlider)]
+    [HttpDelete(AdminShopApiEndpoints.Slider.RestoreSlider)]
     public async Task<IActionResult> RestoreSlider([FromRoute] long id)
     {
         var res = await Mediator.Send(new RestoreSliderCommand(id));

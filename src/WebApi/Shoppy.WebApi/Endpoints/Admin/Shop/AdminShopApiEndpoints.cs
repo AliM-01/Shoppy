@@ -2,7 +2,7 @@
 
 public static class AdminShopApiEndpoints
 {
-    public static class AdminProductCategory
+    public static class ProductCategory
     {
         private const string BaseProductCategoryRoute = BaseApiEndpointRoutes.AdminBaseRoute + "/product-category";
 
@@ -19,7 +19,7 @@ public static class AdminShopApiEndpoints
         public const string DeleteProductCategory = BaseProductCategoryRoute + "/delete-product-category/{id}";
     }
 
-    public static class AdminProduct
+    public static class Product
     {
         private const string BaseProductRoute = BaseApiEndpointRoutes.AdminBaseRoute + "/product";
 
@@ -38,7 +38,7 @@ public static class AdminShopApiEndpoints
         public const string UpdateProductNotInStock = BaseProductRoute + "/update-product-not-in-stock/{id}";
     }
 
-    public static class AdminProductPicture
+    public static class ProductPicture
     {
         private const string BaseProductPictureRoute = BaseApiEndpointRoutes.AdminBaseRoute + "/product-picture";
 
@@ -50,7 +50,7 @@ public static class AdminShopApiEndpoints
 
     }
 
-    public static class AdminSlider
+    public static class Slider
     {
         private const string BaseSliderRoute = BaseApiEndpointRoutes.AdminBaseRoute + "/slider";
 

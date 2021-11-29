@@ -1,4 +1,5 @@
-﻿using SM.Application.Contracts.Product.Commands;
+﻿using Shoppy.WebApi.Endpoints.Admin.Shop;
+using SM.Application.Contracts.Product.Commands;
 using SM.Application.Contracts.Product.DTOs;
 using SM.Application.Contracts.Product.Queries;
 
@@ -12,7 +13,7 @@ public class AdminProductController : BaseApiController
     ///    فیلتر محصولات
     /// </summary>
     /// <response code="200">Success</response>
-    [HttpGet(ApiEndpoints.AdminProduct.FilterProducts)]
+    [HttpGet(AdminShopApiEndpoints.Product.FilterProducts)]
     public async Task<IActionResult> FilterProducts([FromQuery] FilterProductDto filter)
     {
         var res = await Mediator.Send(new FilterProductsQuery(filter));
@@ -28,7 +29,7 @@ public class AdminProductController : BaseApiController
     ///    دریافت جزییات محصول
     /// </summary>
     /// <response code="200">Success</response>
-    [HttpGet(ApiEndpoints.AdminProduct.GetProductDetails)]
+    [HttpGet(AdminShopApiEndpoints.Product.GetProductDetails)]
     public async Task<IActionResult> GetProductDetails([FromRoute] long id)
     {
         var res = await Mediator.Send(new GetProductDetailsQuery(id));
@@ -44,7 +45,7 @@ public class AdminProductController : BaseApiController
     ///    ایجاد محصول
     /// </summary>
     /// <response code="200">Success</response>
-    [HttpPost(ApiEndpoints.AdminProduct.CreateProduct)]
+    [HttpPost(AdminShopApiEndpoints.Product.CreateProduct)]
     public async Task<IActionResult> CreateProduct([FromForm] CreateProductDto createRequest)
     {
         var res = await Mediator.Send(new CreateProductCommand(createRequest));
@@ -60,7 +61,7 @@ public class AdminProductController : BaseApiController
     ///    ویرایش محصول
     /// </summary>
     /// <response code="200">Success</response>
-    [HttpPut(ApiEndpoints.AdminProduct.EditProduct)]
+    [HttpPut(AdminShopApiEndpoints.Product.EditProduct)]
     public async Task<IActionResult> EditProduct([FromForm] EditProductDto editRequest)
     {
         var res = await Mediator.Send(new EditProductCommand(editRequest));
@@ -76,7 +77,7 @@ public class AdminProductController : BaseApiController
     ///    حذف محصول
     /// </summary>
     /// <response code="200">Success</response>
-    [HttpDelete(ApiEndpoints.AdminProduct.DeleteProduct)]
+    [HttpDelete(AdminShopApiEndpoints.Product.DeleteProduct)]
     public async Task<IActionResult> DeleteProduct([FromRoute] long id)
     {
         var res = await Mediator.Send(new DeleteProductCommand(id));
@@ -92,7 +93,7 @@ public class AdminProductController : BaseApiController
     ///    ثبت موجودی محصول
     /// </summary>
     /// <response code="200">Success</response>
-    [HttpPut(ApiEndpoints.AdminProduct.UpdateProductIsInStock)]
+    [HttpPut(AdminShopApiEndpoints.Product.UpdateProductIsInStock)]
     public async Task<IActionResult> UpdateProductIsInStock([FromRoute] long id)
     {
         var res = await Mediator.Send(new UpdateProductIsInStockCommand(id));
@@ -108,7 +109,7 @@ public class AdminProductController : BaseApiController
     ///    ثبت نا موجودی محصول
     /// </summary>
     /// <response code="200">Success</response>
-    [HttpDelete(ApiEndpoints.AdminProduct.UpdateProductNotInStock)]
+    [HttpDelete(AdminShopApiEndpoints.Product.UpdateProductNotInStock)]
     public async Task<IActionResult> UpdateProductNotInStock([FromRoute] long id)
     {
         var res = await Mediator.Send(new UpdateProductNotInStockCommand(id));

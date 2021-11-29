@@ -1,4 +1,5 @@
-﻿using SM.Application.Contracts.ProductPicture.Commands;
+﻿using Shoppy.WebApi.Endpoints.Admin.Shop;
+using SM.Application.Contracts.ProductPicture.Commands;
 using SM.Application.Contracts.ProductPicture.DTOs;
 using SM.Application.Contracts.ProductPicture.Queries;
 
@@ -11,7 +12,7 @@ public class AdminProductPictureController : BaseApiController
     ///    دریافت تصاویر محصولات
     /// </summary>
     /// <response code="200">Success</response>
-    [HttpGet(ApiEndpoints.AdminProductPicture.GetProductPictures)]
+    [HttpGet(AdminShopApiEndpoints.ProductPicture.GetProductPictures)]
     public async Task<IActionResult> GetProductPictures([FromRoute] long productId)
     {
         var res = await Mediator.Send(new GetProductPicturesQuery(productId));
@@ -27,7 +28,7 @@ public class AdminProductPictureController : BaseApiController
     ///    ایجاد تصویر محصول
     /// </summary>
     /// <response code="200">Success</response>
-    [HttpPost(ApiEndpoints.AdminProductPicture.CreateProductPicture)]
+    [HttpPost(AdminShopApiEndpoints.ProductPicture.CreateProductPicture)]
     public async Task<IActionResult> CreateProductPicture([FromForm] CreateProductPictureDto createRequest)
     {
         var res = await Mediator.Send(new CreateProductPictureCommand(createRequest));
@@ -43,7 +44,7 @@ public class AdminProductPictureController : BaseApiController
     ///    غیر فعال کردن تصویر محصول
     /// </summary>
     /// <response code="200">Success</response>
-    [HttpDelete(ApiEndpoints.AdminProductPicture.RemoveProductPicture)]
+    [HttpDelete(AdminShopApiEndpoints.ProductPicture.RemoveProductPicture)]
     public async Task<IActionResult> RemoveProductPicture([FromRoute] long id)
     {
         var res = await Mediator.Send(new RemoveProductPictureCommand(id));

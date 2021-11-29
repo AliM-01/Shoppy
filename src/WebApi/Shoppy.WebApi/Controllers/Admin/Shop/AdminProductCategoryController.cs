@@ -1,4 +1,5 @@
-﻿using SM.Application.Contracts.ProductCategory.Commands;
+﻿using Shoppy.WebApi.Endpoints.Admin.Shop;
+using SM.Application.Contracts.ProductCategory.Commands;
 using SM.Application.Contracts.ProductCategory.DTOs;
 using SM.Application.Contracts.ProductCategory.Queries;
 
@@ -11,7 +12,7 @@ public class AdminProductCategoryController : BaseApiController
     ///    دریافت لیست دسته بندی محصولات
     /// </summary>
     /// <response code="200">Success</response>
-    [HttpGet(ApiEndpoints.AdminProductCategory.GetProductCategoriesList)]
+    [HttpGet(AdminShopApiEndpoints.ProductCategory.GetProductCategoriesList)]
     public async Task<IActionResult> GetProductCategoriesList()
     {
         var res = await Mediator.Send(new GetProductCategoriesListQuery());
@@ -27,7 +28,7 @@ public class AdminProductCategoryController : BaseApiController
     ///    فیلتر دسته بندی محصولات
     /// </summary>
     /// <response code="200">Success</response>
-    [HttpGet(ApiEndpoints.AdminProductCategory.FilterProductCategories)]
+    [HttpGet(AdminShopApiEndpoints.ProductCategory.FilterProductCategories)]
     public async Task<IActionResult> FilterProductCategories([FromQuery] FilterProductCategoryDto filter)
     {
         var res = await Mediator.Send(new FilterProductCategoriesQuery(filter));
@@ -43,7 +44,7 @@ public class AdminProductCategoryController : BaseApiController
     ///    دریافت جزییات دسته بندی محصول
     /// </summary>
     /// <response code="200">Success</response>
-    [HttpGet(ApiEndpoints.AdminProductCategory.GetProductCategoryDetails)]
+    [HttpGet(AdminShopApiEndpoints.ProductCategory.GetProductCategoryDetails)]
     public async Task<IActionResult> GetProductCategoryDetails([FromRoute] long id)
     {
         var res = await Mediator.Send(new GetProductCategoryDetailsQuery(id));
@@ -59,7 +60,7 @@ public class AdminProductCategoryController : BaseApiController
     ///    ایجاد دسته بندی محصول
     /// </summary>
     /// <response code="200">Success</response>
-    [HttpPost(ApiEndpoints.AdminProductCategory.CreateProductCategory)]
+    [HttpPost(AdminShopApiEndpoints.ProductCategory.CreateProductCategory)]
     public async Task<IActionResult> CreateProductCategory([FromForm] CreateProductCategoryDto createRequest)
     {
         var res = await Mediator.Send(new CreateProductCategoryCommand(createRequest));
@@ -75,7 +76,7 @@ public class AdminProductCategoryController : BaseApiController
     ///    ویرایش دسته بندی محصول
     /// </summary>
     /// <response code="200">Success</response>
-    [HttpPut(ApiEndpoints.AdminProductCategory.EditProductCategory)]
+    [HttpPut(AdminShopApiEndpoints.ProductCategory.EditProductCategory)]
     public async Task<IActionResult> EditProductCategory([FromForm] EditProductCategoryDto editRequest)
     {
         var res = await Mediator.Send(new EditProductCategoryCommand(editRequest));
@@ -91,7 +92,7 @@ public class AdminProductCategoryController : BaseApiController
     ///    حذف دسته بندی محصول
     /// </summary>
     /// <response code="200">Success</response>
-    [HttpDelete(ApiEndpoints.AdminProductCategory.DeleteProductCategory)]
+    [HttpDelete(AdminShopApiEndpoints.ProductCategory.DeleteProductCategory)]
     public async Task<IActionResult> DeleteProductCategory([FromRoute] long id)
     {
         var res = await Mediator.Send(new DeleteProductCategoryCommand(id));
