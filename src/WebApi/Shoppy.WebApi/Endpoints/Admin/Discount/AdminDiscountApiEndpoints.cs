@@ -16,6 +16,8 @@ public static class AdminDiscountApiEndpoints
 
         public const string EditCustomerDiscount = BaseCustomerDiscountRoute + "/edit-customer-discount";
 
+        public const string RemoveCustomerDiscount = BaseCustomerDiscountRoute + "/delete-product-category/{id}";
+
     }
 
 }
