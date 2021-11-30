@@ -14,6 +14,8 @@ public static class AdminDiscountApiEndpoints
 
         public const string CreateCustomerDiscount = BaseCustomerDiscountRoute + "/create-customer-discount";
 
+        public const string EditCustomerDiscount = BaseCustomerDiscountRoute + "/edit-customer-discount";
+
     }
 
 }
