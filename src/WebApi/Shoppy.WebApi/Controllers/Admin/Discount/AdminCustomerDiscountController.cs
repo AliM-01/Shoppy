@@ -21,4 +21,20 @@ public class AdminCustomerDiscountController : BaseApiController
 
     #endregion
 
+    #region Get CustomerDiscount Details
+
+    /// <summary>
+    ///    دریافت تخفیف مشتری
+    /// </summary>
+    /// <response code="200">Success</response>
+    [HttpGet(AdminDiscountApiEndpoints.CustomerDiscount.GetCustomerDiscountDetails)]
+    public async Task<IActionResult> GetCustomerDiscountDetails([FromRoute] long id)
+    {
+        var res = await Mediator.Send(new GetCustomerDiscountDetailsQuery(id));
+
+        return JsonApiResult.Success(res);
+    }
+
+    #endregion
+
 }

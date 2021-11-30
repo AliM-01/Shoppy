@@ -9,6 +9,9 @@ public static class AdminDiscountApiEndpoints
         private const string BaseCustomerDiscountRoute = BaseAdminDiscountRoute + "/customer-discount";
 
         public const string FilterCustomerDiscounts = BaseCustomerDiscountRoute + "/filter-discounts";
+
+        public const string GetCustomerDiscountDetails = BaseCustomerDiscountRoute + "/{id}";
+
     }
 
 }
