@@ -4,6 +4,18 @@
         <name>Shoppy.WebApi</name>
     </assembly>
     <members>
+        <member name="M:Shoppy.WebApi.Controllers.Admin.Discount.AdminCustomerDiscountController.FilterCustomerDiscounts(DM.Application.Contracts.CustomerDiscount.DTOs.FilterCustomerDiscountDto)">
+            <summary>
+               فیلتر تخفیفات مشتری
+            </summary>
+            <response code="200">Success</response>
+        </member>
+        <member name="M:Shoppy.WebApi.Controllers.Admin.Discount.AdminCustomerDiscountController.GetCustomerDiscountDetails(System.Int64)">
+            <summary>
+               دریافت تخفیف مشتری
+            </summary>
+            <response code="200">Success</response>
+        </member>
         <member name="M:Shoppy.WebApi.Controllers.Admin.Shop.AdminProductCategoryController.GetProductCategoriesList">
             <summary>
                دریافت لیست دسته بندی محصولات
