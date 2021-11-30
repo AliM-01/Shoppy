@@ -1,4 +1,5 @@
-﻿using DM.Application.Contracts.CustomerDiscount.DTOs;
+﻿using DM.Application.Contracts.CustomerDiscount.Commands;
+using DM.Application.Contracts.CustomerDiscount.DTOs;
 using DM.Application.Contracts.CustomerDiscount.Queries;
 
 namespace Shoppy.WebApi.Controllers.Admin.Discount;
@@ -31,6 +32,22 @@ public class AdminCustomerDiscountController : BaseApiController
     public async Task<IActionResult> GetCustomerDiscountDetails([FromRoute] long id)
     {
         var res = await Mediator.Send(new GetCustomerDiscountDetailsQuery(id));
+
+        return JsonApiResult.Success(res);
+    }
+
+    #endregion
+
+    #region Create Customer Discount
+
+    /// <summary>
+    ///    ایجاد تخفیف مشتری
+    /// </summary>
+    /// <response code="200">Success</response>
+    [HttpPost(AdminDiscountApiEndpoints.CustomerDiscount.CreateCustomerDiscount)]
+    public async Task<IActionResult> CreateCustomerDiscount([FromForm] CreateCustomerDiscountDto createRequest)
+    {
+        var res = await Mediator.Send(new CreateCustomerDiscountCommand(createRequest));
 
         return JsonApiResult.Success(res);
     }
