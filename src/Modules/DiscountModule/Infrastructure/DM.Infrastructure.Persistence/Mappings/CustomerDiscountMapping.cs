@@ -10,6 +10,7 @@ public class CustomerDiscountMapping : IEntityTypeConfiguration<CustomerDiscount
         builder.ToTable("CustomerDiscounts");
         builder.HasKey(x => x.Id);
 
+        builder.Property(x => x.ProductId).IsRequired();
         builder.Property(x => x.Rate).IsRequired();
         builder.Property(x => x.Description).HasMaxLength(250).IsRequired();
         builder.Property(x => x.StartDate).IsRequired();
