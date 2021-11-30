@@ -45,11 +45,11 @@ public class FilterCustomerDiscountsQueryHandler : IRequestHandler<FilterCustome
 
         var filteredEntities = await query
             .Select(discount =>
-                _mapper.Map(discount, new CustomerDiscountDto
-                {
-                    Product = products.FirstOrDefault(x => x.Id == discount.ProductId).Title
-                }))
+                _mapper.Map(discount, new CustomerDiscountDto()))
             .ToListAsync(cancellationToken);
+
+        filteredEntities.ForEach(discount =>
+            discount.Product = products.FirstOrDefault(x => x.Id == discount.ProductId)?.Title);
 
         #endregion paging
 
