@@ -38,14 +38,14 @@ public class AdminCustomerDiscountController : BaseApiController
 
     #endregion
 
-    #region Create Customer Discount
+    #region Define Customer Discount
 
     /// <summary>
     ///    ایجاد تخفیف مشتری
     /// </summary>
     /// <response code="200">Success</response>
-    [HttpPost(AdminDiscountApiEndpoints.CustomerDiscount.CreateCustomerDiscount)]
-    public async Task<IActionResult> CreateCustomerDiscount([FromForm] DefineCustomerDiscountDto createRequest)
+    [HttpPost(AdminDiscountApiEndpoints.CustomerDiscount.DefineCustomerDiscount)]
+    public async Task<IActionResult> DefineCustomerDiscount([FromForm] DefineCustomerDiscountDto createRequest)
     {
         var res = await Mediator.Send(new DefineCustomerDiscountCommand(createRequest));
 
