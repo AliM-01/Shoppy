@@ -1,5 +1,5 @@
 ﻿namespace DM.Application.Contracts.CustomerDiscount.DTOs;
-public class CreateCustomerDiscountDto
+public class DefineCustomerDiscountDto
 {
     [Display(Name = "شناسه محصول")]
     [JsonProperty("productId")]

@@ -3,14 +3,14 @@ using DM.Application.Contracts.CustomerDiscount.Commands;
 
 namespace DM.Application.CustomerDiscount.CommandHandles;
 
-public class CreateCustomerDiscountCommandHandler : IRequestHandler<CreateCustomerDiscountCommand, Response<string>>
+public class DefineCustomerDiscountCommandHandler : IRequestHandler<DefineCustomerDiscountCommand, Response<string>>
 {
     #region Ctor
 
     private readonly IGenericRepository<Domain.CustomerDiscount.CustomerDiscount> _customerDiscountRepository;
     private readonly IMapper _mapper;
 
-    public CreateCustomerDiscountCommandHandler(IGenericRepository<Domain.CustomerDiscount.CustomerDiscount> customerDiscountRepository, IMapper mapper)
+    public DefineCustomerDiscountCommandHandler(IGenericRepository<Domain.CustomerDiscount.CustomerDiscount> customerDiscountRepository, IMapper mapper)
     {
         _customerDiscountRepository = Guard.Against.Null(customerDiscountRepository, nameof(_customerDiscountRepository));
         _mapper = Guard.Against.Null(mapper, nameof(_mapper));
@@ -18,7 +18,7 @@ public class CreateCustomerDiscountCommandHandler : IRequestHandler<CreateCustom
 
     #endregion
 
-    public async Task<Response<string>> Handle(CreateCustomerDiscountCommand request, CancellationToken cancellationToken)
+    public async Task<Response<string>> Handle(DefineCustomerDiscountCommand request, CancellationToken cancellationToken)
     {
         if (_customerDiscountRepository.Exists(x => x.ProductId == request.CustomerDiscount.ProductId
          && x.Rate == request.CustomerDiscount.Rate))

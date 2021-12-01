@@ -45,9 +45,9 @@ public class AdminCustomerDiscountController : BaseApiController
     /// </summary>
     /// <response code="200">Success</response>
     [HttpPost(AdminDiscountApiEndpoints.CustomerDiscount.CreateCustomerDiscount)]
-    public async Task<IActionResult> CreateCustomerDiscount([FromForm] CreateCustomerDiscountDto createRequest)
+    public async Task<IActionResult> CreateCustomerDiscount([FromForm] DefineCustomerDiscountDto createRequest)
     {
-        var res = await Mediator.Send(new CreateCustomerDiscountCommand(createRequest));
+        var res = await Mediator.Send(new DefineCustomerDiscountCommand(createRequest));
 
         return JsonApiResult.Success(res);
     }

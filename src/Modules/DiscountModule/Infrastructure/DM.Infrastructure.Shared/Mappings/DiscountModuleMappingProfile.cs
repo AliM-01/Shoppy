@@ -27,7 +27,7 @@ public class DiscountModuleMappingProfile : Profile
 
         #region Create Customer Discount
 
-        CreateMap<CreateCustomerDiscountDto, CustomerDiscount>()
+        CreateMap<DefineCustomerDiscountDto, CustomerDiscount>()
             .ForMember(dest => dest.StartDate,
                 opt => opt.MapFrom(src => src.StartDate.ToMiladi()))
             .ForMember(dest => dest.EndDate,
