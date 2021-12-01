@@ -41,7 +41,7 @@ public class AdminCustomerDiscountController : BaseApiController
     #region Define Customer Discount
 
     /// <summary>
-    ///    ایجاد تخفیف مشتری
+    ///    تعریف تخفیف مشتری
     /// </summary>
     /// <response code="200">Success</response>
     [HttpPost(AdminDiscountApiEndpoints.CustomerDiscount.DefineCustomerDiscount)]
