@@ -16,6 +16,24 @@
             </summary>
             <response code="200">Success</response>
         </member>
+        <member name="M:Shoppy.WebApi.Controllers.Admin.Discount.AdminCustomerDiscountController.DefineCustomerDiscount(DM.Application.Contracts.CustomerDiscount.DTOs.DefineCustomerDiscountDto)">
+            <summary>
+               ایجاد تخفیف مشتری
+            </summary>
+            <response code="200">Success</response>
+        </member>
+        <member name="M:Shoppy.WebApi.Controllers.Admin.Discount.AdminCustomerDiscountController.EditCustomerDiscount(DM.Application.Contracts.CustomerDiscount.DTOs.EditCustomerDiscountDto)">
+            <summary>
+               ویرایش تخفیف مشتری
+            </summary>
+            <response code="200">Success</response>
+        </member>
+        <member name="M:Shoppy.WebApi.Controllers.Admin.Discount.AdminCustomerDiscountController.RemoveCustomerDiscount(System.Int64)">
+            <summary>
+               حذف تخفیف مشتری
+            </summary>
+            <response code="200">Success</response>
+        </member>
         <member name="M:Shoppy.WebApi.Controllers.Admin.Shop.AdminProductCategoryController.GetProductCategoriesList">
             <summary>
                دریافت لیست دسته بندی محصولات

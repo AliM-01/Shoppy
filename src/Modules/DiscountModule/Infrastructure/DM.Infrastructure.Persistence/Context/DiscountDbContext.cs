@@ -23,6 +23,10 @@ public class DiscountDbContext : DbContext
         var assembly = typeof(DiscountDbContext).Assembly;
         builder.ApplyConfigurationsFromAssembly(assembly);
 
+        //  Is Discount Expired Query Filter
+        builder.Entity<CustomerDiscount>().HasQueryFilter(b =>
+                EF.Property<DateTime>(b, "StartDate") < DateTime.Now || EF.Property<DateTime>(b, "EndDate") >= DateTime.Now);
+
         base.OnModelCreating(builder);
     }
 
