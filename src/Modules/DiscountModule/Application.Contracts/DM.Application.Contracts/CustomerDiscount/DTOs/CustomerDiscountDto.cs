@@ -29,8 +29,8 @@ public class CustomerDiscountDto
     public string Description { get; set; }
 
     [Display(Name = "وضعیت فعال بودن")]
-    [JsonProperty("isRemoved")]
-    public string IsRemoved { get; set; }
+    [JsonProperty("isExpired")]
+    public string IsExpired { get; set; }
 
     [Display(Name = "تاریخ ثبت")]
     [JsonProperty("creationDate")]
