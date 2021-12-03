@@ -17,12 +17,12 @@ public class RemoveCustomerDiscountCommandHandler : IRequestHandler<RemoveCustom
 
     public async Task<Response<string>> Handle(RemoveCustomerDiscountCommand request, CancellationToken cancellationToken)
     {
-        var CustomerDiscount = await _customerDiscountRepository.GetEntityById(request.CustomerDiscountId);
+        var customerDiscount = await _customerDiscountRepository.GetEntityById(request.CustomerDiscountId);
 
-        if (CustomerDiscount is null)
+        if (customerDiscount is null)
             throw new NotFoundApiException();
 
-        await _customerDiscountRepository.SoftDelete(CustomerDiscount.Id);
+        await _customerDiscountRepository.FullDelete(customerDiscount.Id);
         await _customerDiscountRepository.SaveChanges();
 
         return new Response<string>(ApplicationErrorMessage.RecordDeletedMessage);

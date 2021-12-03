@@ -22,7 +22,7 @@ namespace _0_Framework.Application.Extensions
             var pc = new PersianCalendar();
             return pc.GetYear(value) + "/" + pc.GetMonth(value).ToString("00") + "/" +
                    pc.GetDayOfMonth(value).ToString("00") + " " +
-                   pc.GetHour(value) + " : " + pc.GetMinute(value);
+                   pc.GetHour(value) + " : " + pc.GetMinute(value) + " : " + pc.GetSecond(value);
         }
 
         #endregion
@@ -35,9 +35,11 @@ namespace _0_Framework.Application.Extensions
             var year = Convert.ToInt32(persianDate.Substring(0, 4));
             var month = Convert.ToInt32(persianDate.Substring(5, 2));
             var day = Convert.ToInt32(persianDate.Substring(8, 2));
+            var hour = Convert.ToInt32(persianDate.Substring(11, 2));
+            var minute = Convert.ToInt32(persianDate.Substring(14, 2));
+            var seconds = Convert.ToInt32(persianDate.Substring(17, 2));
 
-            var miladyDateTime = new DateTime(year, month, day,
-                new System.Globalization.PersianCalendar());
+            var miladyDateTime = new DateTime(year, month, day, hour, minute, seconds, new PersianCalendar());
 
             return miladyDateTime;
         }
