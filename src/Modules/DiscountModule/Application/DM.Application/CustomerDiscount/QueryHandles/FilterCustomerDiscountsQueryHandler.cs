@@ -39,6 +39,15 @@ public class FilterCustomerDiscountsQueryHandler : IRequestHandler<FilterCustome
         if (request.Filter.ProductId != 0)
             query = query.Where(s => s.ProductId == request.Filter.ProductId);
 
+        if (!string.IsNullOrEmpty(request.Filter.ProductTitle))
+        {
+            List<long> filteredProductIds = await _productRepository.GetQuery()
+                .Where(s => EF.Functions.Like(s.Title, $"%{request.Filter.ProductTitle}%"))
+                .Select(x => x.Id).ToListAsync();
+
+            query = query.Where(s => filteredProductIds.Contains(s.ProductId));
+        }
+
         #endregion filter
 
         #region paging
