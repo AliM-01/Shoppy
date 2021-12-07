@@ -25,7 +25,7 @@ public class GetCustomerDiscountQueryHandler : IRequestHandler<GetCustomerDiscou
         if (customerDiscount is null)
             throw new NotFoundApiException();
 
-        var mappedCustomerDiscount = _mapper.Map<EditCustomerDiscountDto>(CustomerDiscount);
+        var mappedCustomerDiscount = _mapper.Map<EditCustomerDiscountDto>(customerDiscount);
 
         return new Response<EditCustomerDiscountDto>(mappedCustomerDiscount);
     }
