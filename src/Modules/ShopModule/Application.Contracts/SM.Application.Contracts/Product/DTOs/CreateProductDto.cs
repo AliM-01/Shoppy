@@ -28,7 +28,7 @@ public class CreateProductDto
     [Display(Name = "توضیح کوتاه")]
     [JsonProperty("shortDescription")]
     [Required(ErrorMessage = DomainErrorMessage.RequiredMessage)]
-    [MaxLength(150, ErrorMessage = DomainErrorMessage.MaxLengthMessage)]
+    [MaxLength(250, ErrorMessage = DomainErrorMessage.MaxLengthMessage)]
     public string ShortDescription { get; set; }
 
     [Display(Name = "توضیحات")]

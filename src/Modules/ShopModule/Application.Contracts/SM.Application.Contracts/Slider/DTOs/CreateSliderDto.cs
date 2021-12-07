@@ -6,13 +6,13 @@ public class CreateSliderDto
     [Display(Name = "عنوان")]
     [JsonProperty("heading")]
     [Required(ErrorMessage = DomainErrorMessage.RequiredMessage)]
-    [MaxLength(50, ErrorMessage = DomainErrorMessage.MaxLengthMessage)]
+    [MaxLength(100, ErrorMessage = DomainErrorMessage.MaxLengthMessage)]
     public string Heading { get; set; }
 
     [Display(Name = "متن")]
     [JsonProperty("text")]
     [Required(ErrorMessage = DomainErrorMessage.RequiredMessage)]
-    [MaxLength(150, ErrorMessage = DomainErrorMessage.MaxLengthMessage)]
+    [MaxLength(250, ErrorMessage = DomainErrorMessage.MaxLengthMessage)]
     public string Text { get; set; }
 
     [Display(Name = "تصویر")]

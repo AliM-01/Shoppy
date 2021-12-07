@@ -24,6 +24,6 @@ public class DefineCustomerDiscountDto
     [Display(Name = "توضیحات")]
     [JsonProperty("description")]
     [Required(ErrorMessage = DomainErrorMessage.RequiredMessage)]
-    [MaxLength(150, ErrorMessage = DomainErrorMessage.MaxLengthMessage)]
+    [MaxLength(250, ErrorMessage = DomainErrorMessage.MaxLengthMessage)]
     public string Description { get; set; }
 }

@@ -12,8 +12,8 @@ public class ProductMapping : IEntityTypeConfiguration<Product>
 
         builder.Property(x => x.Title).HasMaxLength(100).IsRequired();
         builder.Property(x => x.Code).HasMaxLength(15).IsRequired();
-        builder.Property(x => x.ShortDescription).HasMaxLength(150).IsRequired();
-        builder.Property(x => x.Description).HasMaxLength(250).IsRequired();
+        builder.Property(x => x.ShortDescription).HasMaxLength(250).IsRequired();
+        builder.Property(x => x.Description).HasMaxLength(2500).IsRequired();
         builder.Property(x => x.ImagePath).IsRequired();
         builder.Property(x => x.ImageAlt).HasMaxLength(100).IsRequired();
         builder.Property(x => x.ImageTitle).HasMaxLength(100).IsRequired();

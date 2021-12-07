@@ -10,8 +10,8 @@ public class SliderMapping : IEntityTypeConfiguration<Slider>
         builder.ToTable("Sliders");
         builder.HasKey(x => x.Id);
 
-        builder.Property(x => x.Heading).HasMaxLength(50).IsRequired();
-        builder.Property(x => x.Text).HasMaxLength(150).IsRequired();
+        builder.Property(x => x.Heading).HasMaxLength(100).IsRequired();
+        builder.Property(x => x.Text).HasMaxLength(250).IsRequired();
         builder.Property(x => x.ImagePath).IsRequired();
         builder.Property(x => x.ImageAlt).HasMaxLength(100).IsRequired();
         builder.Property(x => x.ImageTitle).HasMaxLength(100).IsRequired();
