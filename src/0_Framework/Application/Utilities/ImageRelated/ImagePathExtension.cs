@@ -17,7 +17,7 @@ public static class PathExtension
     #region Product
 
     public static string ProductImage =
-        Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/product/original/");
+        Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/product/original/").ToString();
 
     public static string ProductThumbnailImage =
         Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/product/thumbnail/");

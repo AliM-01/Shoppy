@@ -1,7 +1,6 @@
 ﻿using AutoMapper;
 using DM.Application.Contracts.CustomerDiscount.DTOs;
 using DM.Application.Contracts.CustomerDiscount.Queries;
-using Microsoft.EntityFrameworkCore;
 using SM.Domain.Product;
 
 namespace DM.Application.CustomerDiscount.QueryHandles;

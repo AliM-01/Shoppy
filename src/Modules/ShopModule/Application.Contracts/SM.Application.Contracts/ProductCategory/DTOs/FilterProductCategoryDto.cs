@@ -1,5 +1,4 @@
-﻿using _0_Framework.Domain;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 
 namespace SM.Application.Contracts.ProductCategory.DTOs;
 public class FilterProductCategoryDto
