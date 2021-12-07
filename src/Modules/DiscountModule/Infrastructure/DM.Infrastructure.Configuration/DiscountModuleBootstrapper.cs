@@ -13,6 +13,7 @@ public static class DiscountModuleBootstrapper
     public static void Configure(IServiceCollection services, string connectionString)
     {
         services.AddScoped<IGenericRepository<CustomerDiscount>, GenericRepository<DiscountDbContext, CustomerDiscount>>();
+        services.AddScoped<IGenericRepository<ColleagueDiscount>, GenericRepository<DiscountDbContext, ColleagueDiscount>>();
 
         services.AddMediatR(typeof(DiscountModuleBootstrapper).Assembly);
 
