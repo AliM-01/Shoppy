@@ -34,6 +34,12 @@
             </summary>
             <response code="200">Success</response>
         </member>
+        <member name="M:Shoppy.WebApi.Controllers.Admin.Discount.AdminCustomerDiscountController.CheckProductHasCustomerDiscount(System.Int64)">
+            <summary>
+               چک کردن وجود تخفیف برای محصول
+            </summary>
+            <response code="200">Success</response>
+        </member>
         <member name="M:Shoppy.WebApi.Controllers.Admin.Shop.AdminProductCategoryController.GetProductCategoriesList">
             <summary>
                دریافت لیست دسته بندی محصولات

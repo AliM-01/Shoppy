@@ -92,7 +92,7 @@ public class AdminCustomerDiscountController : BaseApiController
     ///    چک کردن وجود تخفیف برای محصول
     /// </summary>
     /// <response code="200">Success</response>
-    [HttpDelete(AdminDiscountApiEndpoints.CustomerDiscount.CheckProductHasCustomerDiscount)]
+    [HttpGet(AdminDiscountApiEndpoints.CustomerDiscount.CheckProductHasCustomerDiscount)]
     public async Task<IActionResult> CheckProductHasCustomerDiscount([FromRoute] long productId)
     {
         var res = await Mediator.Send(new CheckProductHasCustomerDiscountQuery(productId));
