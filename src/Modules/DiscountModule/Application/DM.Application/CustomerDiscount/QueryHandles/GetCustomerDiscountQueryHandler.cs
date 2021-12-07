@@ -20,9 +20,9 @@ public class GetCustomerDiscountQueryHandler : IRequestHandler<GetCustomerDiscou
 
     public async Task<Response<EditCustomerDiscountDto>> Handle(GetCustomerDiscountDetailsQuery request, CancellationToken cancellationToken)
     {
-        var CustomerDiscount = await _CustomerDiscountRepository.GetEntityById(request.Id);
+        var customerDiscount = await _CustomerDiscountRepository.GetEntityById(request.Id);
 
-        if (CustomerDiscount is null)
+        if (customerDiscount is null)
             throw new NotFoundApiException();
 
         var mappedCustomerDiscount = _mapper.Map<EditCustomerDiscountDto>(CustomerDiscount);
