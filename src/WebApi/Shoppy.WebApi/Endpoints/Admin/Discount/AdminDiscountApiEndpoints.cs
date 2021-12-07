@@ -18,6 +18,8 @@ public static class AdminDiscountApiEndpoints
 
         public const string RemoveCustomerDiscount = BaseCustomerDiscountRoute + "/remove-customer-discount/{id}";
 
+        public const string CheckProductHasCustomerDiscount = BaseCustomerDiscountRoute + "/check-product-has-customer-discount/{productId}";
+
     }
 
 }

@@ -85,4 +85,20 @@ public class AdminCustomerDiscountController : BaseApiController
     }
 
     #endregion
+
+    #region Check Product Has Customer Discount
+
+    /// <summary>
+    ///    چک کردن وجود تخفیف برای محصول
+    /// </summary>
+    /// <response code="200">Success</response>
+    [HttpDelete(AdminDiscountApiEndpoints.CustomerDiscount.CheckProductHasCustomerDiscount)]
+    public async Task<IActionResult> CheckProductHasCustomerDiscount([FromRoute] long productId)
+    {
+        var res = await Mediator.Send(new CheckProductHasCustomerDiscountQuery(productId));
+
+        return JsonApiResult.Success(res);
+    }
+
+    #endregion
 }
