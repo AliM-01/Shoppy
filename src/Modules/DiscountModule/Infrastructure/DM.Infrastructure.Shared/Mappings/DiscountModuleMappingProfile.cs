@@ -2,6 +2,7 @@
 using AutoMapper;
 using DM.Application.Contracts.ColleagueDiscount.DTOs;
 using DM.Application.Contracts.CustomerDiscount.DTOs;
+using DM.Domain.ColleagueDiscount;
 using DM.Domain.CustomerDiscount;
 
 namespace DM.Infrastructure.Shared.Mappings;

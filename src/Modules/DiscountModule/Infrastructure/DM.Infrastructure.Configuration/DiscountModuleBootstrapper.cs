@@ -1,5 +1,6 @@
 ﻿using _0_Framework.Domain.IGenericRepository;
 using _0_Framework.Infrastructure.GenericRepository;
+using DM.Domain.ColleagueDiscount;
 using DM.Domain.CustomerDiscount;
 using MediatR;
 using Microsoft.EntityFrameworkCore;

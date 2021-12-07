@@ -1,4 +1,4 @@
-﻿namespace DM.Domain.CustomerDiscount;
+﻿namespace DM.Domain.ColleagueDiscount;
 
 public class ColleagueDiscount : BaseEntity
 {
