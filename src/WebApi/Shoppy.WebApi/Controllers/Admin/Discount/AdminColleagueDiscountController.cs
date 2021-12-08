@@ -73,13 +73,45 @@ public class AdminColleagueDiscountController : BaseApiController
     #region Remove Colleague Discount
 
     /// <summary>
-    ///    حذف تخفیف مشتری
+    ///    غیر فعال تخفیف همکار
     /// </summary>
     /// <response code="200">Success</response>
     [HttpDelete(AdminDiscountApiEndpoints.ColleagueDiscount.RemoveColleagueDiscount)]
     public async Task<IActionResult> RemoveColleagueDiscount([FromRoute] long id)
     {
         var res = await Mediator.Send(new RemoveColleagueDiscountCommand(id));
+
+        return JsonApiResult.Success(res);
+    }
+
+    #endregion
+
+    #region Restore Colleague Discount
+
+    /// <summary>
+    ///    فعال کردن تخفیف همکار
+    /// </summary>
+    /// <response code="200">Success</response>
+    [HttpPut(AdminDiscountApiEndpoints.ColleagueDiscount.RestoreColleagueDiscount)]
+    public async Task<IActionResult> RestoreColleagueDiscount([FromRoute] long id)
+    {
+        var res = await Mediator.Send(new RestoreColleagueDiscountCommand(id));
+
+        return JsonApiResult.Success(res);
+    }
+
+    #endregion
+
+    #region Delete Colleague Discount
+
+    /// <summary>
+    ///    حذف تخفیف همکار
+    /// </summary>
+    /// <response code="200">Success</response>
+    [HttpPut(AdminDiscountApiEndpoints.ColleagueDiscount.DeleteColleagueDiscount)]
+    public async Task<IActionResult> DeleteColleagueDiscount([FromRoute] long id)
+    {
+        var res = await Mediator.Send(new DeleteColleagueDiscountCommand(id));
 
         return JsonApiResult.Success(res);
     }
