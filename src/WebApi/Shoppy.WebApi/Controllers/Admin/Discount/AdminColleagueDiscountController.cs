@@ -1,4 +1,5 @@
-﻿using DM.Application.Contracts.ColleagueDiscount.DTOs;
+﻿using DM.Application.Contracts.ColleagueDiscount.Commands;
+using DM.Application.Contracts.ColleagueDiscount.DTOs;
 using DM.Application.Contracts.ColleagueDiscount.Queries;
 
 namespace Shoppy.WebApi.Controllers.Admin.Discount;
@@ -31,6 +32,22 @@ public class AdminColleagueDiscountController : BaseApiController
     public async Task<IActionResult> GetColleagueDiscountDetails([FromRoute] long id)
     {
         var res = await Mediator.Send(new GetColleagueDiscountDetailsQuery(id));
+
+        return JsonApiResult.Success(res);
+    }
+
+    #endregion
+
+    #region Define Colleague Discount
+
+    /// <summary>
+    ///    تعریف تخفیف همکار
+    /// </summary>
+    /// <response code="200">Success</response>
+    [HttpPost(AdminDiscountApiEndpoints.ColleagueDiscount.DefineColleagueDiscount)]
+    public async Task<IActionResult> DefineColleagueDiscount([FromForm] DefineColleagueDiscountDto createRequest)
+    {
+        var res = await Mediator.Send(new DefineColleagueDiscountCommand(createRequest));
 
         return JsonApiResult.Success(res);
     }
