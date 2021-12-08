@@ -1,6 +1,7 @@
 ﻿using DM.Application.Contracts.ColleagueDiscount.Commands;
 using DM.Application.Contracts.ColleagueDiscount.DTOs;
 using DM.Application.Contracts.ColleagueDiscount.Queries;
+using Shoppy.WebApi.Endpoints.Admin;
 
 namespace Shoppy.WebApi.Controllers.Admin.Discount;
 

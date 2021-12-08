@@ -1,4 +1,4 @@
-﻿namespace Shoppy.WebApi.Endpoints.Main.Shop;
+﻿namespace Shoppy.WebApi.Endpoints.Main;
 
 public static class MainShopApiEndpoints
 {

@@ -1,5 +1,6 @@
 
 using _0_Framework.Presentation.Extensions.Startup;
+using DM.Application;
 using DM.Infrastructure.Configuration;
 using DM.Infrastructure.Shared.Mappings;
 using Microsoft.AspNetCore.Builder;
