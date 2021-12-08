@@ -22,4 +22,11 @@ public static class AdminDiscountApiEndpoints
 
     }
 
+
+    public static class ColleagueDiscount
+    {
+        private const string BaseColleagueDiscountRoute = BaseAdminDiscountRoute + "/colleague-discount";
+
+    }
+
 }
