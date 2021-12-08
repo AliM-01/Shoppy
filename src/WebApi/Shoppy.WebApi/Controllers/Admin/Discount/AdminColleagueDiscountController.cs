@@ -54,4 +54,20 @@ public class AdminColleagueDiscountController : BaseApiController
 
     #endregion
 
+    #region Edit Colleague Discount
+
+    /// <summary>
+    ///    ویرایش تخفیف مشتری
+    /// </summary>
+    /// <response code="200">Success</response>
+    [HttpPut(AdminDiscountApiEndpoints.ColleagueDiscount.EditColleagueDiscount)]
+    public async Task<IActionResult> EditColleagueDiscount([FromForm] EditColleagueDiscountDto editRequest)
+    {
+        var res = await Mediator.Send(new EditColleagueDiscountCommand(editRequest));
+
+        return JsonApiResult.Success(res);
+    }
+
+    #endregion
+
 }
