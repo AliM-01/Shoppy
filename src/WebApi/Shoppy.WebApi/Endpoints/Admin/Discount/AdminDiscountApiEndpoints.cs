@@ -35,6 +35,8 @@ public static class AdminDiscountApiEndpoints
 
         public const string EditColleagueDiscount = BaseColleagueDiscountRoute + "/edit-colleague-discount";
 
+        public const string RemoveColleagueDiscount = BaseColleagueDiscountRoute + "/remove-colleague-discount/{id}";
+
     }
 
 }
