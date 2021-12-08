@@ -1,4 +1,4 @@
-﻿namespace SM.Application;
+﻿namespace DM.Application;
 public interface IDMAssemblyMarker
 {
 }
