@@ -27,6 +27,8 @@ public static class AdminDiscountApiEndpoints
     {
         private const string BaseColleagueDiscountRoute = BaseAdminDiscountRoute + "/colleague-discount";
 
+        public const string FilterColleagueDiscounts = BaseColleagueDiscountRoute + "/filter-discounts";
+
     }
 
 }
