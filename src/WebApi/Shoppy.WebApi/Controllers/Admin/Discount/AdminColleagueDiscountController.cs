@@ -118,4 +118,19 @@ public class AdminColleagueDiscountController : BaseApiController
 
     #endregion
 
+    #region Check Product Has Colleague Discount
+
+    /// <summary>
+    ///    چک کردن وجود تخفیف برای محصول
+    /// </summary>
+    /// <response code="200">Success</response>
+    [HttpGet(AdminDiscountApiEndpoints.ColleagueDiscount.CheckProductHasColleagueDiscount)]
+    public async Task<IActionResult> CheckProductHasColleagueDiscount([FromRoute] long productId)
+    {
+        var res = await Mediator.Send(new CheckProductHasColleagueDiscountQuery(productId));
+
+        return JsonApiResult.Success(res);
+    }
+
+    #endregion
 }
