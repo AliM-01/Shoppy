@@ -31,9 +31,9 @@ public class CheckProductHasCustomerDiscountQueryHandler : IRequestHandler<Check
 
         if (existsCustomerDiscount)
             return new Response<CheckProductHasCustomerDiscountResponseDto>(
-                new CheckProductHasCustomerDiscountResponseDto { ExistsCustomerDiscount = false });
+                new CheckProductHasCustomerDiscountResponseDto { ExistsCustomerDiscount = true });
 
         return new Response<CheckProductHasCustomerDiscountResponseDto>(
-                new CheckProductHasCustomerDiscountResponseDto { ExistsCustomerDiscount = true });
+                new CheckProductHasCustomerDiscountResponseDto { ExistsCustomerDiscount = false });
     }
 }
