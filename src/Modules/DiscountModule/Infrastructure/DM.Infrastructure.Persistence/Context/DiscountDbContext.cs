@@ -29,9 +29,6 @@ public class DiscountDbContext : DbContext
         builder.Entity<CustomerDiscount>().HasQueryFilter(b =>
                 EF.Property<DateTime>(b, "StartDate") < DateTime.Now || EF.Property<DateTime>(b, "EndDate") >= DateTime.Now);
 
-        // Colleague Discount Is Active Query Filter
-        builder.Entity<ColleagueDiscount>().HasQueryFilter(b => b.IsActive);
-
         base.OnModelCreating(builder);
     }
 
