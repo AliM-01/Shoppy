@@ -1,14 +1,13 @@
 ﻿using IM.Application.Contracts.Inventory.DTOs;
-using System.Collections.Generic;
 
 namespace IM.Application.Contracts.Inventory.Commands;
 
 public class ReduceInventoryCommand : IRequest<Response<string>>
 {
-    public ReduceInventoryCommand(List<ReduceInventoryDto> inventories)
+    public ReduceInventoryCommand(ReduceInventoryDto inventory)
     {
-        Inventories = inventories;
+        Inventory = inventory;
     }
 
-    public List<ReduceInventoryDto> Inventories { get; set; }
+    public ReduceInventoryDto Inventory { get; set; }
 }
