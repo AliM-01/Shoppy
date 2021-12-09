@@ -1,9 +1,10 @@
-﻿using DM.Application.Contracts.CustomerDiscount.Queries;
+﻿using DM.Application.Contracts.CustomerDiscount.DTOs;
+using DM.Application.Contracts.CustomerDiscount.Queries;
 using SM.Domain.Product;
 
 namespace DM.Application.CustomerDiscount.QueryHandles;
 
-public class CheckProductHasCustomerDiscountQueryHandler : IRequestHandler<CheckProductHasCustomerDiscountQuery, Response<object>>
+public class CheckProductHasCustomerDiscountQueryHandler : IRequestHandler<CheckProductHasCustomerDiscountQuery, Response<CheckProductHasCustomerDiscountResponseDto>>
 {
     #region Ctor
 
@@ -19,7 +20,7 @@ public class CheckProductHasCustomerDiscountQueryHandler : IRequestHandler<Check
 
     #endregion
 
-    public async Task<Response<object>> Handle(CheckProductHasCustomerDiscountQuery request, CancellationToken cancellationToken)
+    public async Task<Response<CheckProductHasCustomerDiscountResponseDto>> Handle(CheckProductHasCustomerDiscountQuery request, CancellationToken cancellationToken)
     {
         var product = await _productRepository.GetEntityById(request.ProductId);
 
@@ -29,14 +30,10 @@ public class CheckProductHasCustomerDiscountQueryHandler : IRequestHandler<Check
         bool existsCustomerDiscount = _customerDiscountRepository.Exists(x => x.ProductId == request.ProductId);
 
         if (existsCustomerDiscount)
-            return new Response<object>(new
-            {
-                existsCustomerDiscount = true
-            });
+            return new Response<CheckProductHasCustomerDiscountResponseDto>(
+                new CheckProductHasCustomerDiscountResponseDto { ExistsCustomerDiscount = false });
 
-        return new Response<object>(new
-        {
-            existsCustomerDiscount = false
-        });
+        return new Response<CheckProductHasCustomerDiscountResponseDto>(
+                new CheckProductHasCustomerDiscountResponseDto { ExistsCustomerDiscount = true });
     }
 }

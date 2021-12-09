@@ -1,6 +1,8 @@
-﻿namespace DM.Application.Contracts.CustomerDiscount.Queries;
+﻿using DM.Application.Contracts.CustomerDiscount.DTOs;
 
-public class CheckProductHasCustomerDiscountQuery : IRequest<Response<object>>
+namespace DM.Application.Contracts.CustomerDiscount.Queries;
+
+public class CheckProductHasCustomerDiscountQuery : IRequest<Response<CheckProductHasCustomerDiscountResponseDto>>
 {
     public CheckProductHasCustomerDiscountQuery(long productId)
     {
