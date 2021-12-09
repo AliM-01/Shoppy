@@ -130,6 +130,12 @@
             </summary>
             <response code="200">Success</response>
         </member>
+        <member name="M:Shoppy.WebApi.Controllers.Admin.Shop.AdminProductController.ExistsProductId(System.Int64)">
+            <summary>
+               چک کردن وجود شناسه محصول
+            </summary>
+            <response code="200">Success</response>
+        </member>
         <member name="M:Shoppy.WebApi.Controllers.Admin.Shop.AdminProductController.GetProductDetails(System.Int64)">
             <summary>
                دریافت جزییات محصول

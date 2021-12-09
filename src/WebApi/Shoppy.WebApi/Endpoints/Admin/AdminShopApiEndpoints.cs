@@ -29,6 +29,8 @@ public static class AdminShopApiEndpoints
 
         public const string GetProductDetails = BaseProductRoute + "/{id}";
 
+        public const string ExistsProductId = BaseProductRoute + "/exists/{id}";
+
         public const string CreateProduct = BaseProductRoute + "/create";
 
         public const string EditProduct = BaseProductRoute + "/edit";

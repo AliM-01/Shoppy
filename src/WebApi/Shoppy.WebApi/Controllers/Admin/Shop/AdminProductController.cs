@@ -22,6 +22,22 @@ public class AdminProductController : BaseApiController
 
     #endregion
 
+    #region Exists Product Id
+
+    /// <summary>
+    ///    چک کردن وجود شناسه محصول
+    /// </summary>
+    /// <response code="200">Success</response>
+    [HttpGet(AdminShopApiEndpoints.Product.ExistsProductId)]
+    public async Task<IActionResult> ExistsProductId([FromRoute] long id)
+    {
+        var res = await Mediator.Send(new ExistsProductIdQuery(id));
+
+        return JsonApiResult.Success(res);
+    }
+
+    #endregion
+
     #region Get Product Details
 
     /// <summary>
