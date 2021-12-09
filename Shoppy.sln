@@ -69,6 +69,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Infrastructure", "Infrastru
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IM.Domain", "src\Modules\InventoryModule\Domain\IM.Domain\IM.Domain.csproj", "{14CD4E94-DC05-43CE-ACC0-7AE8785AB9C3}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IM.Application.Contracts", "src\Modules\InventoryModule\Application.Contracts\IM.Application.Contracts\IM.Application.Contracts.csproj", "{65510603-4DB1-4194-94B6-C2EC734D96E0}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -139,6 +141,10 @@ Global
 		{14CD4E94-DC05-43CE-ACC0-7AE8785AB9C3}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{14CD4E94-DC05-43CE-ACC0-7AE8785AB9C3}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{14CD4E94-DC05-43CE-ACC0-7AE8785AB9C3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{65510603-4DB1-4194-94B6-C2EC734D96E0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{65510603-4DB1-4194-94B6-C2EC734D96E0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{65510603-4DB1-4194-94B6-C2EC734D96E0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{65510603-4DB1-4194-94B6-C2EC734D96E0}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -173,6 +179,7 @@ Global
 		{320FA2E3-6BBD-41D7-8507-CEAF41D45B98} = {E61A8890-8A4A-4C4C-B54E-81D9DF596E58}
 		{CF03F503-0022-46D5-A4DD-AE4CCF106404} = {E61A8890-8A4A-4C4C-B54E-81D9DF596E58}
 		{14CD4E94-DC05-43CE-ACC0-7AE8785AB9C3} = {320FA2E3-6BBD-41D7-8507-CEAF41D45B98}
+		{65510603-4DB1-4194-94B6-C2EC734D96E0} = {A9284AF8-FFBE-4A1E-91EC-AC69EBA8BA57}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {615EA258-FFB2-45B7-9D73-B482C4E29616}
