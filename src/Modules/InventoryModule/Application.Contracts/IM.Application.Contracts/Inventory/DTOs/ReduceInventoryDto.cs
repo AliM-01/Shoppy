@@ -1,6 +1,6 @@
 ﻿namespace IM.Application.Contracts.Inventory.DTOs;
 
-public class DecreaseInventoryDto
+public class ReduceInventoryDto
 {
     [Display(Name = "شناسه سبد خرید")]
     [JsonProperty("orderId")]
