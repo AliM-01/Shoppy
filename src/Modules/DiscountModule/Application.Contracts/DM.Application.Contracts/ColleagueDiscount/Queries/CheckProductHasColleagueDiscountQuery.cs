@@ -1,6 +1,8 @@
-﻿namespace DM.Application.Contracts.ColleagueDiscount.Queries;
+﻿using DM.Application.Contracts.ColleagueDiscount.DTOs;
 
-public class CheckProductHasColleagueDiscountQuery : IRequest<Response<object>>
+namespace DM.Application.Contracts.ColleagueDiscount.Queries;
+
+public class CheckProductHasColleagueDiscountQuery : IRequest<Response<CheckProductHasColleagueDiscountResponseDto>>
 {
     public CheckProductHasColleagueDiscountQuery(long productId)
     {
