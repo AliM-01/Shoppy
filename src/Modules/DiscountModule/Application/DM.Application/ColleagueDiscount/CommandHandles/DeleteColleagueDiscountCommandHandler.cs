@@ -22,7 +22,7 @@ public class DeleteColleagueDiscountCommandHandler : IRequestHandler<DeleteColle
         if (colleagueDiscount is null)
             throw new NotFoundApiException();
 
-        _colleagueDiscountRepository.FullDelete(colleagueDiscount.Id);
+        await _colleagueDiscountRepository.FullDelete(colleagueDiscount.Id);
         await _colleagueDiscountRepository.SaveChanges();
 
         return new Response<string>(ApplicationErrorMessage.RecordDeletedMessage);

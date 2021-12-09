@@ -15,7 +15,7 @@ public class EditColleagueDiscountCommandHandler : IRequestHandler<EditColleague
     public EditColleagueDiscountCommandHandler(IGenericRepository<Domain.ColleagueDiscount.ColleagueDiscount> colleagueDiscountRepository,
          IGenericRepository<Product> productRepository, IMapper mapper)
     {
-        _colleagueDiscountRepository = Guard.Against.Null(_colleagueDiscountRepository, nameof(colleagueDiscountRepository));
+        _colleagueDiscountRepository = Guard.Against.Null(colleagueDiscountRepository, nameof(_colleagueDiscountRepository));
         _productRepository = Guard.Against.Null(productRepository, nameof(_productRepository));
         _mapper = Guard.Against.Null(mapper, nameof(_mapper));
 
