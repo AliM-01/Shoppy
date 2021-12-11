@@ -3,6 +3,8 @@ using _0_Framework.Presentation.Extensions.Startup;
 using DM.Application;
 using DM.Infrastructure.Configuration;
 using DM.Infrastructure.Shared.Mappings;
+using IM.Application;
+using IM.Infrastructure.Configuration;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
@@ -41,6 +43,7 @@ public class Startup
 
         ShopModuletBootstrapper.Configure(services, connectionString);
         DiscountModuleBootstrapper.Configure(services, connectionString);
+        InventoryModuletBootstrapper.Configure(services, connectionString);
 
         #endregion
 
@@ -50,7 +53,8 @@ public class Startup
             {
                 typeof(Startup),
                 typeof(ISMAssemblyMarker),
-                typeof(IDMAssemblyMarker)
+                typeof(IDMAssemblyMarker),
+                typeof(IIMAssemblyMarker)
             });
 
         #endregion
