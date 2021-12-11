@@ -16,4 +16,9 @@
     <ProjectReference Include="..\..\Domain\IM.Domain\IM.Domain.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Inventory\CommandHandles\" />
+    <Folder Include="Inventory\QueryHandles\" />
+  </ItemGroup>
+
 </Project>
