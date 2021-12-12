@@ -5,6 +5,7 @@ using DM.Infrastructure.Configuration;
 using DM.Infrastructure.Shared.Mappings;
 using IM.Application;
 using IM.Infrastructure.Configuration;
+using IM.Infrastructure.Shared.Mappings;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
@@ -64,7 +65,8 @@ public class Startup
         services.AddAutoMapperExtension(typeof(Startup), new List<Type>
             {
                 typeof(ShopModuleMappingProfile),
-                typeof(DiscountModuleMappingProfile)
+                typeof(DiscountModuleMappingProfile),
+                typeof(InventoryModuleMappingProfile),
             });
 
         #endregion
