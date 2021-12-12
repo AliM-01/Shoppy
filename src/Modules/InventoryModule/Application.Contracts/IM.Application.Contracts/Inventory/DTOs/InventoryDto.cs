@@ -14,7 +14,7 @@ public class InventoryDto
     public string Product { get; set; }
 
     [Display(Name = "وضعیت موجودی")]
-    [JsonProperty("product")]
+    [JsonProperty("inStock")]
     public bool InStock { get; set; }
 
     [Display(Name = "قیمت")]
