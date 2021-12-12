@@ -20,7 +20,7 @@ public class Inventory : BaseEntity
 
     #region Methods
 
-    private long CalculateCurrentCount()
+    public long CalculateCurrentCount()
     {
         var plus = Operations.Where(x => x.OperationType).Sum(x => x.Count);
         var minus = Operations.Where(x => !x.OperationType).Sum(x => x.Count);

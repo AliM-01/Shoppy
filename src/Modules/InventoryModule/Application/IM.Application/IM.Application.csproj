@@ -12,13 +12,13 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\..\..\0_Framework\0_Framework.csproj" />
+    <ProjectReference Include="..\..\..\ShopModule\Domain\SM.Domin\SM.Domain.csproj" />
     <ProjectReference Include="..\..\Application.Contracts\IM.Application.Contracts\IM.Application.Contracts.csproj" />
     <ProjectReference Include="..\..\Domain\IM.Domain\IM.Domain.csproj" />
   </ItemGroup>
 
   <ItemGroup>
     <Folder Include="Inventory\CommandHandles\" />
-    <Folder Include="Inventory\QueryHandles\" />
   </ItemGroup>
 
 </Project>
