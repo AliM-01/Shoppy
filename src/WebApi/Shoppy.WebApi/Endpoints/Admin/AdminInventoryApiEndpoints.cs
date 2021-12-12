@@ -19,7 +19,6 @@ public static class AdminInventoryApiEndpoints
         public const string IncreaseInventory = BaseInventoryRoute + "/increase";
 
         public const string ReduceInventory = BaseInventoryRoute + "/reduce";
-
     }
 
 

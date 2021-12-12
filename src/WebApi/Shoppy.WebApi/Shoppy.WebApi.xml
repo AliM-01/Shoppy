@@ -88,6 +88,42 @@
             </summary>
             <response code="200">Success</response>
         </member>
+        <member name="M:Shoppy.WebApi.Controllers.Admin.Discount.AdminInventoryController.FilterInventories(IM.Application.Contracts.Inventory.DTOs.FilterInventoryDto)">
+            <summary>
+               فیلتر انبار
+            </summary>
+            <response code="200">Success</response>
+        </member>
+        <member name="M:Shoppy.WebApi.Controllers.Admin.Discount.AdminInventoryController.GetInventoryDetails(System.Int64)">
+            <summary>
+               دریافت انبار
+            </summary>
+            <response code="200">Success</response>
+        </member>
+        <member name="M:Shoppy.WebApi.Controllers.Admin.Discount.AdminInventoryController.CreateInventory(IM.Application.Contracts.Inventory.DTOs.CreateInventoryDto)">
+            <summary>
+               ایجاد انبار
+            </summary>
+            <response code="200">Success</response>
+        </member>
+        <member name="M:Shoppy.WebApi.Controllers.Admin.Discount.AdminInventoryController.EditInventory(IM.Application.Contracts.Inventory.DTOs.EditInventoryDto)">
+            <summary>
+               ویرایش انبار
+            </summary>
+            <response code="200">Success</response>
+        </member>
+        <member name="M:Shoppy.WebApi.Controllers.Admin.Discount.AdminInventoryController.IncreaseInventory(IM.Application.Contracts.Inventory.DTOs.IncreaseInventoryDto)">
+            <summary>
+               افزایش موجودی انبار
+            </summary>
+            <response code="200">Success</response>
+        </member>
+        <member name="M:Shoppy.WebApi.Controllers.Admin.Discount.AdminInventoryController.ReduceInventory(IM.Application.Contracts.Inventory.DTOs.ReduceInventoryDto)">
+            <summary>
+               کاهش موجودی انبار
+            </summary>
+            <response code="200">Success</response>
+        </member>
         <member name="M:Shoppy.WebApi.Controllers.Admin.Shop.AdminProductCategoryController.GetProductCategoriesList">
             <summary>
                دریافت لیست دسته بندی محصولات
