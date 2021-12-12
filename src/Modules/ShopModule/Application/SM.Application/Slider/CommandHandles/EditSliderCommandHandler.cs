@@ -1,5 +1,4 @@
 ﻿using _0_Framework.Application.Utilities.ImageRelated;
-using AutoMapper;
 using SM.Application.Contracts.Slider.Commands;
 using System.IO;
 

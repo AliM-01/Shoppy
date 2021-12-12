@@ -1,5 +1,4 @@
-﻿using AutoMapper;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using SM.Application.Contracts.ProductCategory.DTOs;
 using SM.Application.Contracts.ProductCategory.Queries;
 using System.Collections.Generic;

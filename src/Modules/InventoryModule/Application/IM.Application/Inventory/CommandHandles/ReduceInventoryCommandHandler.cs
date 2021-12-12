@@ -1,6 +1,4 @@
-﻿using AutoMapper;
-
-namespace IM.Application.Contracts.Inventory.Commands;
+﻿namespace IM.Application.Contracts.Inventory.Commands;
 
 public class ReduceInventoryCommandHandler : IRequestHandler<ReduceInventoryCommand, Response<string>>
 {

@@ -3,6 +3,7 @@ global using _0_Framework.Application.Exceptions;
 global using _0_Framework.Application.Wrappers;
 global using _0_Framework.Domain.IGenericRepository;
 global using Ardalis.GuardClauses;
+global using AutoMapper;
 global using MediatR;
 global using Microsoft.EntityFrameworkCore;
 global using System.Threading;

@@ -1,5 +1,4 @@
-﻿using AutoMapper;
-using SM.Application.Contracts.ProductCategory.DTOs;
+﻿using SM.Application.Contracts.ProductCategory.DTOs;
 using SM.Application.Contracts.ProductCategory.Queries;
 
 namespace SM.Application.ProductCategory.QueryHandles;

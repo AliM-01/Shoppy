@@ -1,5 +1,4 @@
-﻿using AutoMapper;
-using SM.Application.Contracts.Slider.DTOs;
+﻿using SM.Application.Contracts.Slider.DTOs;
 using SM.Application.Contracts.Slider.Queries;
 
 namespace SM.Application.Slider.QueryHandles;

@@ -1,5 +1,4 @@
-﻿using AutoMapper;
-using IM.Application.Contracts.Inventory.DTOs;
+﻿using IM.Application.Contracts.Inventory.DTOs;
 using IM.Application.Contracts.Inventory.Queries;
 using SM.Domain.Product;
 using System.Linq;

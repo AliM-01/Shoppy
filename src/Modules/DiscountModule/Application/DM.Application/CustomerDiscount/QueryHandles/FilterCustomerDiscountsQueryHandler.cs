@@ -1,5 +1,4 @@
-﻿using AutoMapper;
-using DM.Application.Contracts.CustomerDiscount.DTOs;
+﻿using DM.Application.Contracts.CustomerDiscount.DTOs;
 using DM.Application.Contracts.CustomerDiscount.Queries;
 using SM.Domain.Product;
 

@@ -1,5 +1,4 @@
 ﻿using _0_Framework.Application.Utilities.ImageRelated;
-using AutoMapper;
 using Microsoft.EntityFrameworkCore;
 using SM.Application.Contracts.Product.Commands;
 using System.IO;

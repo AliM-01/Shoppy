@@ -1,6 +1,5 @@
 ﻿
 using _0_Framework.Application.Utilities.ImageRelated;
-using AutoMapper;
 using SM.Application.Contracts.ProductPicture.Commands;
 using System.IO;
 

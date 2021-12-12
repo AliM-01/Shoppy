@@ -1,5 +1,4 @@
-﻿using AutoMapper;
-using IM.Application.Contracts.Inventory.Commands;
+﻿using IM.Application.Contracts.Inventory.Commands;
 
 namespace IM.Application.Inventory.CommandHandles;
 

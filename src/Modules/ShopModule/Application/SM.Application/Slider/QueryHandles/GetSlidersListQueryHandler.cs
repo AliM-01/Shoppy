@@ -1,5 +1,4 @@
-﻿using AutoMapper;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using SM.Application.Contracts.Slider.DTOs;
 using SM.Application.Contracts.Slider.Queries;
 using System.Collections.Generic;

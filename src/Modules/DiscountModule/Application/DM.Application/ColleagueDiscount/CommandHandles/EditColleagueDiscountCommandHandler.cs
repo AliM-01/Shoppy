@@ -1,5 +1,4 @@
-﻿using AutoMapper;
-using DM.Application.Contracts.ColleagueDiscount.Commands;
+﻿using DM.Application.Contracts.ColleagueDiscount.Commands;
 using SM.Domain.Product;
 
 namespace DM.Application.ColleagueDiscount.CommandHandles;
