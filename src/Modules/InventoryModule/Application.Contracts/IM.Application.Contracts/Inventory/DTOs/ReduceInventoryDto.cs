@@ -2,6 +2,11 @@
 
 public class ReduceInventoryDto
 {
+    [Display(Name = "شناسه انبار")]
+    [JsonProperty("inventoryId")]
+    [Range(1, 10000, ErrorMessage = DomainErrorMessage.RequiredMessage)]
+    public long InventoryId { get; set; }
+
     [Display(Name = "شناسه سبد خرید")]
     [JsonProperty("orderId")]
     [Range(0, 10000, ErrorMessage = DomainErrorMessage.RequiredMessage)]
