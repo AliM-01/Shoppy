@@ -70,5 +70,20 @@ public class AdminInventoryController : BaseApiController
 
     #endregion
 
+    #region Increase Inventory
+
+    /// <summary>
+    ///    افزایش موجودی انبار
+    /// </summary>
+    /// <response code="200">Success</response>
+    [HttpPost(AdminInventoryApiEndpoints.Inventory.IncreaseInventory)]
+    public async Task<IActionResult> IncreaseInventory([FromRoute] IncreaseInventoryDto increaseRequest)
+    {
+        var res = await Mediator.Send(new IncreaseInventoryCommand(increaseRequest));
+
+        return JsonApiResult.Success(res);
+    }
+
+    #endregion
 
 }
