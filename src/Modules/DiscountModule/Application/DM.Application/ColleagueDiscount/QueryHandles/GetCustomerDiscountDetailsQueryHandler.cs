@@ -3,14 +3,14 @@ using DM.Application.Contracts.ColleagueDiscount.DTOs;
 using DM.Application.Contracts.ColleagueDiscount.Queries;
 
 namespace DM.Application.ColleagueDiscount.QueryHandles;
-public class GetColleagueDiscountQueryHandler : IRequestHandler<GetColleagueDiscountDetailsQuery, Response<EditColleagueDiscountDto>>
+public class GetColleagueDiscountDetailsQueryHandler : IRequestHandler<GetColleagueDiscountDetailsQuery, Response<EditColleagueDiscountDto>>
 {
     #region Ctor
 
     private readonly IGenericRepository<Domain.ColleagueDiscount.ColleagueDiscount> _colleagueDiscountRepository;
     private readonly IMapper _mapper;
 
-    public GetColleagueDiscountQueryHandler(IGenericRepository<Domain.ColleagueDiscount.ColleagueDiscount> colleagueDiscountRepository, IMapper mapper)
+    public GetColleagueDiscountDetailsQueryHandler(IGenericRepository<Domain.ColleagueDiscount.ColleagueDiscount> colleagueDiscountRepository, IMapper mapper)
     {
         _colleagueDiscountRepository = Guard.Against.Null(colleagueDiscountRepository, nameof(_colleagueDiscountRepository));
         _mapper = Guard.Against.Null(mapper, nameof(_mapper));
