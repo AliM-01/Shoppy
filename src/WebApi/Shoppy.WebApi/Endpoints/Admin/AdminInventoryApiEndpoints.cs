@@ -12,6 +12,10 @@ public static class AdminInventoryApiEndpoints
 
         public const string GetInventoryDetails = BaseInventoryRoute + "/{id}";
 
+        public const string CreateInventory = BaseInventoryRoute + "/create";
+
+        public const string EditInventory = BaseInventoryRoute + "/edit";
+
     }
 
 

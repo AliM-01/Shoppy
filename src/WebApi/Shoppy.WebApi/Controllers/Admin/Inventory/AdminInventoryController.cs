@@ -1,4 +1,5 @@
-﻿using IM.Application.Contracts.Inventory.DTOs;
+﻿using IM.Application.Contracts.Inventory.Commands;
+using IM.Application.Contracts.Inventory.DTOs;
 using IM.Application.Contracts.Inventory.Queries;
 
 namespace Shoppy.WebApi.Controllers.Admin.Discount;
@@ -36,5 +37,38 @@ public class AdminInventoryController : BaseApiController
     }
 
     #endregion
+
+    #region Create Inventory
+
+    /// <summary>
+    ///    ایجاد انبار
+    /// </summary>
+    /// <response code="200">Success</response>
+    [HttpPost(AdminInventoryApiEndpoints.Inventory.CreateInventory)]
+    public async Task<IActionResult> CreateInventory([FromForm] CreateInventoryDto createRequest)
+    {
+        var res = await Mediator.Send(new CreateInventoryCommand(createRequest));
+
+        return JsonApiResult.Success(res);
+    }
+
+    #endregion
+
+    #region Edit Inventory
+
+    /// <summary>
+    ///    ویرایش انبار
+    /// </summary>
+    /// <response code="200">Success</response>
+    [HttpPut(AdminInventoryApiEndpoints.Inventory.EditInventory)]
+    public async Task<IActionResult> EditInventory([FromForm] EditInventoryDto editRequest)
+    {
+        var res = await Mediator.Send(new EditInventoryCommand(editRequest));
+
+        return JsonApiResult.Success(res);
+    }
+
+    #endregion
+
 
 }
