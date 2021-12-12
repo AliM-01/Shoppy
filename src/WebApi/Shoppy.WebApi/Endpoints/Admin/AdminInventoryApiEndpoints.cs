@@ -10,6 +10,8 @@ public static class AdminInventoryApiEndpoints
 
         public const string FilterInventories = BaseInventoryRoute + "/filter";
 
+        public const string GetInventoryDetails = BaseInventoryRoute + "/{id}";
+
     }
 
 

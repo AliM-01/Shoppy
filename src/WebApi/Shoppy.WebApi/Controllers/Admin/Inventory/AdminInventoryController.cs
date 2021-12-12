@@ -21,4 +21,20 @@ public class AdminInventoryController : BaseApiController
 
     #endregion
 
+    #region Get Inventory Details
+
+    /// <summary>
+    ///    دریافت انبار
+    /// </summary>
+    /// <response code="200">Success</response>
+    [HttpGet(AdminInventoryApiEndpoints.Inventory.GetInventoryDetails)]
+    public async Task<IActionResult> GetInventoryDetails([FromRoute] long id)
+    {
+        var res = await Mediator.Send(new GetInventoryDetailsQuery(id));
+
+        return JsonApiResult.Success(res);
+    }
+
+    #endregion
+
 }
