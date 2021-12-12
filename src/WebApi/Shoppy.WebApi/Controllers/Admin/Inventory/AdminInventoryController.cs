@@ -86,4 +86,20 @@ public class AdminInventoryController : BaseApiController
 
     #endregion
 
+    #region Reduce Inventory
+
+    /// <summary>
+    ///    کاهش موجودی انبار
+    /// </summary>
+    /// <response code="200">Success</response>
+    [HttpPost(AdminInventoryApiEndpoints.Inventory.ReduceInventory)]
+    public async Task<IActionResult> ReduceInventory([FromRoute] ReduceInventoryDto reduceRequest)
+    {
+        var res = await Mediator.Send(new ReduceInventoryCommand(reduceRequest));
+
+        return JsonApiResult.Success(res);
+    }
+
+    #endregion
+
 }
