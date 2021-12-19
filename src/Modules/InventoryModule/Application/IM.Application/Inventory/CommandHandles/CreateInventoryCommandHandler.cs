@@ -22,8 +22,8 @@ public class CreateInventoryCommandHandler : IRequestHandler<CreateInventoryComm
         if (_inventoryRepository.Exists(x => x.ProductId == request.Inventory.ProductId))
             throw new ApiException(ApplicationErrorMessage.IsDuplicatedMessage);
 
-        var inventory =
-            _mapper.Map(request.Inventory, new Domain.Inventory.Inventory());
+        var inventory = new Domain.Inventory.Inventory(request.Inventory.ProductId,
+                request.Inventory.UnitPrice);
 
         await _inventoryRepository.InsertEntity(inventory);
         await _inventoryRepository.SaveChanges();

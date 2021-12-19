@@ -77,7 +77,7 @@ public class AdminInventoryController : BaseApiController
     /// </summary>
     /// <response code="200">Success</response>
     [HttpPost(AdminInventoryApiEndpoints.Inventory.IncreaseInventory)]
-    public async Task<IActionResult> IncreaseInventory([FromRoute] IncreaseInventoryDto increaseRequest)
+    public async Task<IActionResult> IncreaseInventory([FromForm] IncreaseInventoryDto increaseRequest)
     {
         var res = await Mediator.Send(new IncreaseInventoryCommand(increaseRequest));
 
@@ -93,7 +93,7 @@ public class AdminInventoryController : BaseApiController
     /// </summary>
     /// <response code="200">Success</response>
     [HttpPost(AdminInventoryApiEndpoints.Inventory.ReduceInventory)]
-    public async Task<IActionResult> ReduceInventory([FromRoute] ReduceInventoryDto reduceRequest)
+    public async Task<IActionResult> ReduceInventory([FromForm] ReduceInventoryDto reduceRequest)
     {
         var res = await Mediator.Send(new ReduceInventoryCommand(reduceRequest));
 

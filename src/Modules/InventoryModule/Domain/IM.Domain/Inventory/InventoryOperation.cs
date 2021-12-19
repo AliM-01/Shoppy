@@ -2,6 +2,21 @@
 
 public class InventoryOperation
 {
+    protected InventoryOperation() { }
+
+    public InventoryOperation(bool operationType, long count, long operatorId, long currentCount,
+        string description, long orderId, long invetoryId)
+    {
+        OperationType = operationType;
+        Count = count;
+        OperatorId = operatorId;
+        CurrentCount = currentCount;
+        Description = description;
+        OrderId = orderId;
+        InventoryId = invetoryId;
+        OperationDate = DateTime.Now;
+    }
+
     #region Properties
 
     public long Id { get; set; }

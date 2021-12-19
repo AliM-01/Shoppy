@@ -2,6 +2,13 @@
 
 public class Inventory : BaseEntity
 {
+    public Inventory(long productId, double unitPrice)
+    {
+        ProductId = productId;
+        UnitPrice = unitPrice;
+        InStock = false;
+    }
+
     #region Properties
 
     public double UnitPrice { get; set; }
@@ -30,34 +37,14 @@ public class Inventory : BaseEntity
     public void Increase(long count, long operatorId, string description)
     {
         var currentCount = CalculateCurrentCount() + count;
-        var operation = new InventoryOperation
-        {
-            OperationType = true,
-            Count = count,
-            OperatorId = operatorId,
-            Description = description,
-            CurrentCount = currentCount,
-            OrderId = 0,
-            InventoryId = Id
-        };
-        Operations.Add(operation);
+        Operations.Add(new InventoryOperation(true, count, operatorId, currentCount, description, 0, this.Id));
         InStock = currentCount > 0;
     }
 
     public void Reduce(long count, long operatorId, string description, long orderId)
     {
         var currentCount = CalculateCurrentCount() - count;
-        var operation = new InventoryOperation
-        {
-            OperationType = false,
-            Count = count,
-            OperatorId = operatorId,
-            Description = description,
-            CurrentCount = currentCount,
-            OrderId = orderId,
-            InventoryId = Id
-        };
-        Operations.Add(operation);
+        Operations.Add(new InventoryOperation(false, count, operatorId, currentCount, description, orderId, this.Id));
         InStock = currentCount > 0;
     }
 

@@ -20,12 +20,6 @@ public class InventoryModuleMappingProfile : Profile
 
         #endregion
 
-        #region Create Inventory
-
-        CreateMap<CreateInventoryDto, Inventory>();
-
-        #endregion
-
         #region Edit Inventory
 
         CreateMap<Inventory, EditInventoryDto>();
