@@ -2,6 +2,8 @@
 
 public class Inventory : BaseEntity
 {
+    protected Inventory() { }
+
     public Inventory(long productId, double unitPrice)
     {
         ProductId = productId;
