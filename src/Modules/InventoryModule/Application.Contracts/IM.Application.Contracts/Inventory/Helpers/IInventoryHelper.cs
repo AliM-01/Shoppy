@@ -4,9 +4,9 @@ namespace IM.Application.Contracts.Inventory.Helpers;
 
 public interface IInventoryHelper
 {
-    Task<long> CalculateCurrentCount(long inventory);
+    Task<long> CalculateCurrentCount(long inventoryId);
 
-    Task Increase(long inventory, long count, long operatorId, string description);
+    Task Increase(long inventoryId, long count, long operatorId, string description);
 
-    Task Reduce(long inventory, long count, long operatorId, string description, long orderId);
+    Task Reduce(long inventoryId, long count, long operatorId, string description, long orderId);
 }
