@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using IM.Application.Contracts.Inventory.Enums;
+using System.Collections.Generic;
 
 namespace IM.Application.Contracts.Inventory.DTOs;
 
@@ -11,7 +12,7 @@ public class FilterInventoryDto
 
     [Display(Name = "وضعیت")]
     [JsonProperty("inStock")]
-    public bool InStock { get; set; }
+    public FilterInventoryInStockStateEnum InStock { get; set; } = FilterInventoryInStockStateEnum.NotSelected;
 
     [Display(Name = "انبار ها")]
     [JsonProperty("inventories")]

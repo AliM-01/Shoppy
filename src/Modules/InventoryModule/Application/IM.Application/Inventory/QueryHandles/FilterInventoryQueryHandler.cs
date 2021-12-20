@@ -1,4 +1,5 @@
 ﻿using IM.Application.Contracts.Inventory.DTOs;
+using IM.Application.Contracts.Inventory.Enums;
 using IM.Application.Contracts.Inventory.Helpers;
 using IM.Application.Contracts.Inventory.Queries;
 using SM.Domain.Product;
@@ -41,11 +42,19 @@ public class FilterInventoryQueryHandler : IRequestHandler<FilterInventoryQuery,
         if (request.Filter.ProductId != 0)
             query = query.Where(s => s.ProductId == request.Filter.ProductId);
 
-        if (request.Filter.InStock)
-            query = query.Where(s => s.InStock);
+        switch (request.Filter.InStock)
+        {
+            case FilterInventoryInStockStateEnum.NotSelected:
+                break;
 
-        if (!request.Filter.InStock)
-            query = query.Where(s => !s.InStock);
+            case FilterInventoryInStockStateEnum.InStock:
+                query = query.Where(s => s.InStock);
+                break;
+
+            case FilterInventoryInStockStateEnum.NotInStock:
+                query = query.Where(s => !s.InStock);
+                break;
+        }
 
         #endregion filter
 
