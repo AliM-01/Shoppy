@@ -17,6 +17,8 @@ public class InventoryHelper : IInventoryHelper
 
     #endregion
 
+    #region CalculateCurrentCount
+
     public async Task<long> CalculateCurrentCount(long inventoryId)
     {
         var inventory = await _inventoryRepository.GetQuery()
@@ -30,6 +32,10 @@ public class InventoryHelper : IInventoryHelper
         var minus = inventory.Operations.Where(x => !x.OperationType).Sum(x => x.Count);
         return (plus - minus);
     }
+
+    #endregion
+
+    #region Increase
 
     public async Task Increase(long inventoryId, long count, long operatorId, string description)
     {
@@ -51,6 +57,10 @@ public class InventoryHelper : IInventoryHelper
         await _inventoryRepository.SaveChanges();
     }
 
+    #endregion
+
+    #region Reduce
+
     public async Task Reduce(long inventoryId, long count, long operatorId, string description, long orderId)
     {
         var inventory = await _inventoryRepository.GetQuery()
@@ -70,4 +80,6 @@ public class InventoryHelper : IInventoryHelper
         _inventoryRepository.Update(inventory);
         await _inventoryRepository.SaveChanges();
     }
+
+    #endregion
 }

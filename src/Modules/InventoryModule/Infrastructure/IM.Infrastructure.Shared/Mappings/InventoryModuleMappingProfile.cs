@@ -14,9 +14,7 @@ public class InventoryModuleMappingProfile : Profile
 
         CreateMap<Inventory, InventoryDto>()
             .ForMember(dest => dest.CreationDate,
-                opt => opt.MapFrom(src => src.CreationDate.ToShamsi()))
-            .ForMember(dest => dest.CurrentCount,
-                opt => opt.MapFrom(src => src.CalculateCurrentCount()));
+                opt => opt.MapFrom(src => src.CreationDate.ToShamsi()));
 
         #endregion
 

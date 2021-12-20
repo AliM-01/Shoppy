@@ -1,4 +1,6 @@
-﻿namespace IM.Application.Contracts.Inventory.Commands;
+﻿using IM.Application.Contracts.Inventory.Helpers;
+
+namespace IM.Application.Contracts.Inventory.Commands;
 
 public class ReduceInventoriesCommandHandler : IRequestHandler<ReduceInventoriesCommand, Response<string>>
 {
@@ -6,11 +8,14 @@ public class ReduceInventoriesCommandHandler : IRequestHandler<ReduceInventories
 
     private readonly IGenericRepository<Domain.Inventory.Inventory> _inventoryRepository;
     private readonly IMapper _mapper;
+    private readonly IInventoryHelper _inventoryHelper;
 
-    public ReduceInventoriesCommandHandler(IGenericRepository<Domain.Inventory.Inventory> inventoryRepository, IMapper mapper)
+    public ReduceInventoriesCommandHandler(IGenericRepository<Domain.Inventory.Inventory> inventoryRepository,
+        IMapper mapper, IInventoryHelper inventoryHelper)
     {
         _inventoryRepository = Guard.Against.Null(inventoryRepository, nameof(_inventoryRepository));
         _mapper = Guard.Against.Null(mapper, nameof(_mapper));
+        _inventoryHelper = Guard.Against.Null(inventoryHelper, nameof(_inventoryHelper));
     }
 
     #endregion
@@ -26,7 +31,8 @@ public class ReduceInventoriesCommandHandler : IRequestHandler<ReduceInventories
             if (inventory is null)
                 throw new NotFoundApiException();
 
-            inventory.Reduce(request.Inventories[i].Count, operatorId, request.Inventories[i].Description, request.Inventories[i].OrderId);
+            await _inventoryHelper.Reduce(inventory.Id, request.Inventories[i].Count,
+                operatorId, request.Inventories[i].Description, request.Inventories[i].OrderId);
         }
 
         await _inventoryRepository.SaveChanges();
