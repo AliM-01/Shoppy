@@ -2,8 +2,11 @@
 using FluentValidation;
 using MediatR;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.OpenApi.Any;
 using Microsoft.OpenApi.Models;
+using Swashbuckle.AspNetCore.SwaggerGen;
 using System.Collections.Generic;
+using System.Linq;
 using System.Reflection;
 
 namespace _0_Framework.Presentation.Extensions.Startup;
@@ -32,11 +35,29 @@ public static class ServiceExtensions
 
     public static void AddSwaggerExtension(this IServiceCollection services, string title, string xmlPath)
     {
+
         services.AddSwaggerGen(c =>
         {
             c.SwaggerDoc("v1", new OpenApiInfo { Title = title, Version = "v1" });
 
             c.IncludeXmlComments(xmlPath);
+
+            c.SchemaFilter<EnumSchemaFilter>();
         });
+    }
+}
+
+public class EnumSchemaFilter : ISchemaFilter
+{
+    public void Apply(OpenApiSchema model, SchemaFilterContext context)
+    {
+        if (context.Type.IsEnum)
+        {
+            model.Type = "string";
+            model.Enum.Clear();
+            Enum.GetNames(context.Type)
+                .ToList()
+                .ForEach(name => model.Enum.Add(new OpenApiString(name)));
+        }
     }
 }

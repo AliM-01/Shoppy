@@ -1,4 +1,5 @@
 ﻿using IM.Application.Contracts.Inventory.Enums;
+using Newtonsoft.Json.Converters;
 using System.Collections.Generic;
 
 namespace IM.Application.Contracts.Inventory.DTOs;
@@ -11,8 +12,9 @@ public class FilterInventoryDto
     public long ProductId { get; set; }
 
     [Display(Name = "وضعیت")]
-    [JsonProperty("inStock")]
-    public FilterInventoryInStockStateEnum InStock { get; set; } = FilterInventoryInStockStateEnum.NotSelected;
+    [JsonConverter(typeof(StringEnumConverter))]
+    [JsonProperty("inStockState")]
+    public FilterInventoryInStockStateEnum InStockState { get; set; } = FilterInventoryInStockStateEnum.All;
 
     [Display(Name = "انبار ها")]
     [JsonProperty("inventories")]

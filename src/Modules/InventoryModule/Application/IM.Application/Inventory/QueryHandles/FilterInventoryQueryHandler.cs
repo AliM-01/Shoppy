@@ -42,9 +42,9 @@ public class FilterInventoryQueryHandler : IRequestHandler<FilterInventoryQuery,
         if (request.Filter.ProductId != 0)
             query = query.Where(s => s.ProductId == request.Filter.ProductId);
 
-        switch (request.Filter.InStock)
+        switch (request.Filter.InStockState)
         {
-            case FilterInventoryInStockStateEnum.NotSelected:
+            case FilterInventoryInStockStateEnum.All:
                 break;
 
             case FilterInventoryInStockStateEnum.InStock:

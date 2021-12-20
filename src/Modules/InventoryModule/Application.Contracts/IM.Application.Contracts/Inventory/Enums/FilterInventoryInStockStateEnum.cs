@@ -1,12 +1,17 @@
-﻿namespace IM.Application.Contracts.Inventory.Enums;
+﻿using System.Runtime.Serialization;
+
+namespace IM.Application.Contracts.Inventory.Enums;
 
 public enum FilterInventoryInStockStateEnum
 {
     [Display(Name = "همه")]
-    NotSelected,
+    [EnumMember(Value = "همه")]
+    All,
     [Display(Name = "موجود")]
+    [EnumMember(Value = "موجود")]
     InStock,
     [Display(Name = "ناموجود")]
+    [EnumMember(Value = "ناموجود")]
     NotInStock
 }
 
