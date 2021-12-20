@@ -15,6 +15,7 @@ public static class InventoryModuletBootstrapper
     public static void Configure(IServiceCollection services, string connectionString)
     {
         services.AddScoped<IGenericRepository<Inventory>, GenericRepository<InventoryDbContext, Inventory>>();
+        services.AddScoped<IGenericRepository<InventoryOperation>, GenericRepository<InventoryDbContext, InventoryOperation>>();
         services.AddScoped<IInventoryHelper, InventoryHelper>();
 
         services.AddMediatR(typeof(InventoryModuletBootstrapper).Assembly);

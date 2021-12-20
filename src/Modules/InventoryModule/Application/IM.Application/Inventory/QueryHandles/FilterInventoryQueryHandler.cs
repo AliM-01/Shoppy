@@ -56,10 +56,10 @@ public class FilterInventoryQueryHandler : IRequestHandler<FilterInventoryQuery,
                 _mapper.Map(inventory, new InventoryDto()))
             .ToListAsync(cancellationToken);
 
-        filteredEntities.ForEach(async inventory =>
+        filteredEntities.ForEach(inventory =>
         {
             inventory.Product = products.FirstOrDefault(x => x.Id == inventory.ProductId)?.Title;
-            inventory.CurrentCount = await _inventoryHelper.CalculateCurrentCount(inventory.Id);
+            inventory.CurrentCount = _inventoryHelper.CalculateCurrentCount(inventory.Id).Result;
         });
 
 

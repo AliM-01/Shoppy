@@ -1,6 +1,6 @@
 ﻿namespace IM.Domain.Inventory;
 
-public class InventoryOperation
+public class InventoryOperation : BaseEntity
 {
     protected InventoryOperation() { }
 
@@ -18,8 +18,6 @@ public class InventoryOperation
     }
 
     #region Properties
-
-    public long Id { get; set; }
 
     public bool OperationType { get; set; }
 

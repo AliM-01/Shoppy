@@ -12,6 +12,7 @@ public class InventoryDbContext : DbContext
     #endregion
 
     public DbSet<Inventory> Inventory { get; set; }
+    public DbSet<InventoryOperation> InventoryOperations { get; set; }
 
     #region On Model Creating
 

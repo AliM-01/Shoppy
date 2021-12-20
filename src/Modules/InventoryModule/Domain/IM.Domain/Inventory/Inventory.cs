@@ -23,7 +23,7 @@ public class Inventory : BaseEntity
 
     public long ProductId { get; set; }
 
-    public ICollection<InventoryOperation> Operations { get; set; }
+    public virtual ICollection<InventoryOperation> Operations { get; set; }
 
     #endregion
 }
