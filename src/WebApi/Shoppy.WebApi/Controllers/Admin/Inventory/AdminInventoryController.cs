@@ -102,4 +102,20 @@ public class AdminInventoryController : BaseApiController
 
     #endregion
 
+    #region Get Inventory Operation Log
+
+    /// <summary>
+    ///    دریافت هیستوری انبار
+    /// </summary>
+    /// <response code="200">Success</response>
+    [HttpGet(AdminInventoryApiEndpoints.Inventory.GetInventoryOperationLog)]
+    public async Task<IActionResult> GetInventoryOperationLog([FromRoute] long id)
+    {
+        var res = await Mediator.Send(new GetInventoryOperationLogQuery(id));
+
+        return JsonApiResult.Success(res);
+    }
+
+    #endregion
+
 }
