@@ -20,7 +20,7 @@ public static class AdminInventoryApiEndpoints
 
         public const string ReduceInventory = BaseInventoryRoute + "/reduce";
 
-        public const string GetInventoryOperationLog = BaseInventoryRoute + "/get-operation-log";
+        public const string GetInventoryOperationLog = BaseInventoryRoute + "/get-operation-log/{id}";
     }
 
 

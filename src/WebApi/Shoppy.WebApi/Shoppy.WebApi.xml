@@ -124,6 +124,12 @@
             </summary>
             <response code="200">Success</response>
         </member>
+        <member name="M:Shoppy.WebApi.Controllers.Admin.Discount.AdminInventoryController.GetInventoryOperationLog(System.Int64)">
+            <summary>
+               دریافت هیستوری انبار
+            </summary>
+            <response code="200">Success</response>
+        </member>
         <member name="M:Shoppy.WebApi.Controllers.Admin.Shop.AdminProductCategoryController.GetProductCategoriesList">
             <summary>
                دریافت لیست دسته بندی محصولات
