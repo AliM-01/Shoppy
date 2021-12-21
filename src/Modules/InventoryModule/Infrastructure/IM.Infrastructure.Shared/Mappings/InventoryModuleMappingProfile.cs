@@ -32,7 +32,7 @@ public class InventoryModuleMappingProfile : Profile
 
         CreateMap<InventoryOperation, InventoryOperationDto>()
             .ForMember(dest => dest.OperationDate,
-                opt => opt.MapFrom(src => src.OperationDate.ToShamsi()));
+                opt => opt.MapFrom(src => src.OperationDate.ToDetailedShamsi()));
 
         #endregion
 
