@@ -2,12 +2,4 @@
 
 namespace IM.Application.Contracts.Inventory.Commands;
 
-public class EditInventoryCommand : IRequest<Response<string>>
-{
-    public EditInventoryCommand(EditInventoryDto inventory)
-    {
-        Inventory = inventory;
-    }
-
-    public EditInventoryDto Inventory { get; set; }
-}
+public record EditInventoryCommand(EditInventoryDto Inventory) : IRequest<Response<string>>;

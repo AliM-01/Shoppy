@@ -2,12 +2,5 @@
 
 namespace IM.Application.Contracts.Inventory.Commands;
 
-public class IncreaseInventoryCommand : IRequest<Response<string>>
-{
-    public IncreaseInventoryCommand(IncreaseInventoryDto inventory)
-    {
-        Inventory = inventory;
-    }
-
-    public IncreaseInventoryDto Inventory { get; set; }
-}
+public record IncreaseInventoryCommand
+    (IncreaseInventoryDto Inventory) : IRequest<Response<string>>;

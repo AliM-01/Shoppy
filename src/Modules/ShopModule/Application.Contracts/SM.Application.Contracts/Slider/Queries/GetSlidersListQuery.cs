@@ -3,9 +3,4 @@ using System.Collections.Generic;
 
 namespace SM.Application.Contracts.Slider.Queries;
 
-public class GetSlidersListQuery : IRequest<Response<IEnumerable<SliderDto>>>
-{
-    public GetSlidersListQuery()
-    {
-    }
-}
+public record GetSlidersListQuery : IRequest<Response<IEnumerable<SliderDto>>>;

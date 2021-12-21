@@ -2,12 +2,5 @@
 
 namespace DM.Application.Contracts.ColleagueDiscount.Commands;
 
-public class EditColleagueDiscountCommand : IRequest<Response<string>>
-{
-    public EditColleagueDiscountCommand(EditColleagueDiscountDto colleagueDiscount)
-    {
-        ColleagueDiscount = colleagueDiscount;
-    }
-
-    public EditColleagueDiscountDto ColleagueDiscount { get; set; }
-}
+public record EditColleagueDiscountCommand
+    (EditColleagueDiscountDto ColleagueDiscount) : IRequest<Response<string>>;

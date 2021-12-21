@@ -2,12 +2,5 @@
 
 namespace SM.Application.Contracts.Product.Queries;
 
-public class FilterProductsQuery : IRequest<Response<FilterProductDto>>
-{
-    public FilterProductsQuery(FilterProductDto filter)
-    {
-        Filter = filter;
-    }
-
-    public FilterProductDto Filter { get; set; }
-}
+public record FilterProductsQuery
+    (FilterProductDto Filter) : IRequest<Response<FilterProductDto>>;

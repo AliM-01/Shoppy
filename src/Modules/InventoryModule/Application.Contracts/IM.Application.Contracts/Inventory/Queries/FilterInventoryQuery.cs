@@ -2,12 +2,5 @@
 
 namespace IM.Application.Contracts.Inventory.Queries;
 
-public class FilterInventoryQuery : IRequest<Response<FilterInventoryDto>>
-{
-    public FilterInventoryQuery(FilterInventoryDto filter)
-    {
-        Filter = filter;
-    }
-
-    public FilterInventoryDto Filter { get; set; }
-}
+public record FilterInventoryQuery
+    (FilterInventoryDto Filter) : IRequest<Response<FilterInventoryDto>>;

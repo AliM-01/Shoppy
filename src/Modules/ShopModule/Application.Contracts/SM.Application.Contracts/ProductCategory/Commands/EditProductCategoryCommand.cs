@@ -2,12 +2,5 @@
 
 namespace SM.Application.Contracts.ProductCategory.Commands;
 
-public class EditProductCategoryCommand : IRequest<Response<string>>
-{
-    public EditProductCategoryCommand(EditProductCategoryDto productCategory)
-    {
-        ProductCategory = productCategory;
-    }
-
-    public EditProductCategoryDto ProductCategory { get; set; }
-}
+public record EditProductCategoryCommand
+    (EditProductCategoryDto ProductCategory) : IRequest<Response<string>>;

@@ -2,12 +2,5 @@
 
 namespace DM.Application.Contracts.CustomerDiscount.Queries;
 
-public class FilterCustomerDiscountsQuery : IRequest<Response<FilterCustomerDiscountDto>>
-{
-    public FilterCustomerDiscountsQuery(FilterCustomerDiscountDto filter)
-    {
-        Filter = filter;
-    }
-
-    public FilterCustomerDiscountDto Filter { get; set; }
-}
+public record FilterCustomerDiscountsQuery
+    (FilterCustomerDiscountDto Filter) : IRequest<Response<FilterCustomerDiscountDto>>;

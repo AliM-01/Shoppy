@@ -2,12 +2,5 @@
 
 namespace SM.Application.Contracts.Product.Commands;
 
-public class CreateProductCommand : IRequest<Response<string>>
-{
-    public CreateProductCommand(CreateProductDto product)
-    {
-        Product = product;
-    }
-
-    public CreateProductDto Product { get; set; }
-}
+public record CreateProductCommand
+    (CreateProductDto Product) : IRequest<Response<string>>;

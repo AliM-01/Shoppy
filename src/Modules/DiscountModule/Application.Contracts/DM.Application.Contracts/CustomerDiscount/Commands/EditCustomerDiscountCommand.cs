@@ -2,12 +2,5 @@
 
 namespace DM.Application.Contracts.CustomerDiscount.Commands;
 
-public class EditCustomerDiscountCommand : IRequest<Response<string>>
-{
-    public EditCustomerDiscountCommand(EditCustomerDiscountDto customerDiscount)
-    {
-        CustomerDiscount = customerDiscount;
-    }
-
-    public EditCustomerDiscountDto CustomerDiscount { get; set; }
-}
+public record EditCustomerDiscountCommand
+    (EditCustomerDiscountDto CustomerDiscount) : IRequest<Response<string>>;
