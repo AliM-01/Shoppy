@@ -1,9 +1,8 @@
 ﻿using IM.Application.Contracts.Inventory.DTOs;
-using System.Collections.Generic;
 
 namespace IM.Application.Contracts.Inventory.Queries;
 
-public class GetInventoryOperationLogQuery : IRequest<Response<IEnumerable<InventoryOperationDto>>>
+public class GetInventoryOperationLogQuery : IRequest<Response<InventoryOperationDto[]>>
 {
     public GetInventoryOperationLogQuery(long id)
     {
