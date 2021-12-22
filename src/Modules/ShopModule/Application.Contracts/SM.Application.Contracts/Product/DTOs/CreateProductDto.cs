@@ -15,16 +15,6 @@ public class CreateProductDto
     [MaxLength(100, ErrorMessage = DomainErrorMessage.MaxLengthMessage)]
     public string Title { get; set; }
 
-    [Display(Name = "قیمت")]
-    [JsonProperty("unitPrice")]
-    [Required(ErrorMessage = DomainErrorMessage.RequiredMessage)]
-    public double UnitPrice { get; set; }
-
-    [Display(Name = "وضعیت موجودی")]
-    [JsonProperty("isInStock")]
-    [Required(ErrorMessage = DomainErrorMessage.RequiredMessage)]
-    public bool IsInStock { get; set; } = true;
-
     [Display(Name = "توضیح کوتاه")]
     [JsonProperty("shortDescription")]
     [Required(ErrorMessage = DomainErrorMessage.RequiredMessage)]

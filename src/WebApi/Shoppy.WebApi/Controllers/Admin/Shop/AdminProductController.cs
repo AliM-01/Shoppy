@@ -101,36 +101,4 @@ public class AdminProductController : BaseApiController
     }
 
     #endregion
-
-    #region Update Product Is In Stock
-
-    /// <summary>
-    ///    ثبت موجودی محصول
-    /// </summary>
-    /// <response code="200">Success</response>
-    [HttpPut(AdminShopApiEndpoints.Product.UpdateProductIsInStock)]
-    public async Task<IActionResult> UpdateProductIsInStock([FromRoute] long id)
-    {
-        var res = await Mediator.Send(new UpdateProductIsInStockCommand(id));
-
-        return JsonApiResult.Success(res);
-    }
-
-    #endregion
-
-    #region Update Product Not In Stock
-
-    /// <summary>
-    ///    ثبت نا موجودی محصول
-    /// </summary>
-    /// <response code="200">Success</response>
-    [HttpDelete(AdminShopApiEndpoints.Product.UpdateProductNotInStock)]
-    public async Task<IActionResult> UpdateProductNotInStock([FromRoute] long id)
-    {
-        var res = await Mediator.Send(new UpdateProductNotInStockCommand(id));
-
-        return JsonApiResult.Success(res);
-    }
-
-    #endregion
 }

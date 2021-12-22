@@ -36,10 +36,6 @@ public static class AdminShopApiEndpoints
         public const string EditProduct = BaseProductRoute + "/edit";
 
         public const string DeleteProduct = BaseProductRoute + "/delete/{id}";
-
-        public const string UpdateProductIsInStock = BaseProductRoute + "/update-is-in-stock/{id}";
-
-        public const string UpdateProductNotInStock = BaseProductRoute + "/update-not-in-stock/{id}";
     }
 
     public static class ProductPicture

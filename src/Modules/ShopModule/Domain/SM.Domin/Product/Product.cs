@@ -11,12 +11,6 @@ public class Product : BaseEntity
     [Display(Name = "کد")]
     public string Code { get; set; }
 
-    [Display(Name = "قیمت")]
-    public double UnitPrice { get; set; }
-
-    [Display(Name = "وضعیت موجودی")]
-    public bool IsInStock { get; set; } = true;
-
     [Display(Name = "توضیح کوتاه")]
     public string ShortDescription { get; set; }
 

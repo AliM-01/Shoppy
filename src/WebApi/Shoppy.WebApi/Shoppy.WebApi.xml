@@ -202,18 +202,6 @@
             </summary>
             <response code="200">Success</response>
         </member>
-        <member name="M:Shoppy.WebApi.Controllers.Admin.Shop.AdminProductController.UpdateProductIsInStock(System.Int64)">
-            <summary>
-               ثبت موجودی محصول
-            </summary>
-            <response code="200">Success</response>
-        </member>
-        <member name="M:Shoppy.WebApi.Controllers.Admin.Shop.AdminProductController.UpdateProductNotInStock(System.Int64)">
-            <summary>
-               ثبت نا موجودی محصول
-            </summary>
-            <response code="200">Success</response>
-        </member>
         <member name="M:Shoppy.WebApi.Controllers.Admin.Shop.AdminProductPictureController.GetProductPictures(System.Int64)">
             <summary>
                دریافت تصاویر محصولات
