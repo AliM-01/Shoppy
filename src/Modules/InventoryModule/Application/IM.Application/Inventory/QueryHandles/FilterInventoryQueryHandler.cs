@@ -63,6 +63,7 @@ public class FilterInventoryQueryHandler : IRequestHandler<FilterInventoryQuery,
         var filteredEntities = await query
             .Select(inventory =>
                 _mapper.Map(inventory, new InventoryDto()))
+            .OrderByDescending(x => x.CreationDate)
             .ToListAsync(cancellationToken);
 
         filteredEntities.ForEach(inventory =>
