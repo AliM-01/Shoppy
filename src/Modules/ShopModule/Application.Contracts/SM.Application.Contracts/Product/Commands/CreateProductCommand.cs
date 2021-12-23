@@ -3,4 +3,4 @@
 namespace SM.Application.Contracts.Product.Commands;
 
 public record CreateProductCommand
-    (CreateProductDto Product) : IRequest<Response<string>>;
+    (CreateProductDto Product) : IRequest<Response<CreateProductResponseDto>>;

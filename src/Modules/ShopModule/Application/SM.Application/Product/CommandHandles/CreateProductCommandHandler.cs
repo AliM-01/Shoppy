@@ -1,11 +1,12 @@
 ﻿
 using _0_Framework.Application.Utilities.ImageRelated;
 using SM.Application.Contracts.Product.Commands;
+using SM.Application.Contracts.Product.DTOs;
 using System.IO;
 
 namespace SM.Application.Product.CommandHandles;
 
-public class CreateProductCommandHandler : IRequestHandler<CreateProductCommand, Response<string>>
+public class CreateProductCommandHandler : IRequestHandler<CreateProductCommand, Response<CreateProductResponseDto>>
 {
     #region Ctor
 
@@ -24,7 +25,7 @@ public class CreateProductCommandHandler : IRequestHandler<CreateProductCommand,
 
     #endregion
 
-    public async Task<Response<string>> Handle(CreateProductCommand request, CancellationToken cancellationToken)
+    public async Task<Response<CreateProductResponseDto>> Handle(CreateProductCommand request, CancellationToken cancellationToken)
     {
         if (_productRepository.Exists(x => x.Title == request.Product.Title))
             throw new ApiException(ApplicationErrorMessage.IsDuplicatedMessage);
@@ -52,6 +53,6 @@ public class CreateProductCommandHandler : IRequestHandler<CreateProductCommand,
         await _productPictureRepository.SaveChanges();
 
 
-        return new Response<string>(ApplicationErrorMessage.OperationSucceddedMessage);
+        return new Response<CreateProductResponseDto>(new CreateProductResponseDto(product.Id));
     }
 }
