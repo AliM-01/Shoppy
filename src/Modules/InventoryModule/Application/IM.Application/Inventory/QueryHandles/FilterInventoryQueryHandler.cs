@@ -28,8 +28,7 @@ public class FilterInventoryQueryHandler : IRequestHandler<FilterInventoryQuery,
 
     public async Task<Response<FilterInventoryDto>> Handle(FilterInventoryQuery request, CancellationToken cancellationToken)
     {
-        var query = _inventoryRepository.GetQuery()
-            .OrderByDescending(p => p.LastUpdateDate).AsQueryable();
+        var query = _inventoryRepository.GetQuery().AsQueryable();
 
         var products = await _productRepository.GetQuery().Select(x => new
         {

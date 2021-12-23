@@ -41,7 +41,7 @@ public class GetProductPicturesQueryHandler : IRequestHandler<GetProductPictures
             .GetQuery()
             .Include(p => p.Product)
             .Where(p => p.ProductId == request.ProductId)
-            .OrderByDescending(p => p.LastUpdateDate)
+            .OrderBy(p => p.CreationDate)
             .Select(productPicture =>
                 _mapper.Map(productPicture, new ProductPictureDto()))
             .ToListAsync(cancellationToken);

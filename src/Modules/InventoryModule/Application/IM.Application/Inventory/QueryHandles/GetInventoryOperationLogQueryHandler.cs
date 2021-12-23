@@ -33,6 +33,7 @@ public class GetInventoryOperationLogQueryHandler : IRequestHandler<GetInventory
             .AsQueryable()
             .AsNoTracking()
             .AsSplitQuery()
+            .OrderByDescending(x => x.OperationDate)
             .Where(x => x.InventoryId == inventory.Id)
             .Select(operation =>
             _mapper.Map(operation, new InventoryOperationDto
