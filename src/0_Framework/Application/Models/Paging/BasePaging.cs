@@ -28,9 +28,6 @@ public class BasePaging
     [JsonProperty("takePage")]
     public int TakePage { get; set; }
 
-    [JsonProperty("skipPage")]
-    public int SkipPage { get; set; }
-
     [JsonProperty("shownPages")]
     public int ShownPages { get; set; }
 

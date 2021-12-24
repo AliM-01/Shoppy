@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using _0_Framework.Application.Models.Paging;
+using Microsoft.EntityFrameworkCore;
 using SM.Application.Contracts.Product.DTOs;
 using SM.Application.Contracts.Product.Queries;
 using System.Linq;
@@ -38,18 +39,22 @@ public class FilterProductCategoriesQueryHandler : IRequestHandler<FilterProduct
 
         #region paging
 
-        var filteredEntities = await query
+        var pager = Pager.Build(request.Filter.PageId, await query.CountAsync(cancellationToken: cancellationToken), request.Filter.TakePage, request.Filter.ShownPages);
+        var allEntities = await query.Paging(pager)
             .Select(product =>
                 _mapper.Map(product, new ProductDto()))
             .ToListAsync(cancellationToken);
 
         #endregion paging
 
-        if (filteredEntities is null)
+        var returnData = request.Filter.SetProducts(allEntities).SetPaging(pager);
+
+        if (returnData.Products is null)
             throw new ApiException(ApplicationErrorMessage.FilteredRecordsNotFoundMessage);
 
-        request.Filter.Products = filteredEntities;
+        if (returnData.PageId > returnData.GetLastPage() && returnData.GetLastPage() != 0)
+            throw new NotFoundApiException();
 
-        return new Response<FilterProductDto>(request.Filter);
+        return new Response<FilterProductDto>(returnData);
     }
 }
