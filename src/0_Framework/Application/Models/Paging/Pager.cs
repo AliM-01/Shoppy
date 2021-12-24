@@ -9,6 +9,7 @@ public class Pager
             PageId = pageId,
             AllPagesCount = allPagesCount,
             TakePage = take,
+            SkipPage = (pageId - 1) * take,
             StartPage = pageId - shownPages <= 0 ? 1 : pageId - shownPages,
             EndPage = pageId + shownPages > pageCount ? pageCount : pageId + shownPages,
             ShownPages = shownPages,

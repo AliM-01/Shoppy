@@ -36,6 +36,7 @@ public class FilterProductDto : BasePaging
         this.StartPage = paging.StartPage;
         this.EndPage = paging.EndPage;
         this.ShownPages = paging.ShownPages;
+        this.SkipPage = paging.SkipPage;
         this.TakePage = paging.TakePage;
         this.PageCount = paging.PageCount;
         return this;

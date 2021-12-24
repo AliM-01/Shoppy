@@ -39,7 +39,8 @@ public class FilterProductCategoriesQueryHandler : IRequestHandler<FilterProduct
 
         #region paging
 
-        var pager = Pager.Build(request.Filter.PageId, await query.CountAsync(cancellationToken: cancellationToken), request.Filter.TakePage, request.Filter.ShownPages);
+        var pager = Pager.Build(request.Filter.PageId, await query.CountAsync(cancellationToken),
+            request.Filter.TakePage, request.Filter.ShownPages);
         var allEntities = await query.Paging(pager)
             .Select(product =>
                 _mapper.Map(product, new ProductDto()))
