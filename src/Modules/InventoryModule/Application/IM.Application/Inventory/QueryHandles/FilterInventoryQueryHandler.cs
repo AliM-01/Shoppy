@@ -1,4 +1,5 @@
-﻿using IM.Application.Contracts.Inventory.DTOs;
+﻿using _0_Framework.Application.Models.Paging;
+using IM.Application.Contracts.Inventory.DTOs;
 using IM.Application.Contracts.Inventory.Enums;
 using IM.Application.Contracts.Inventory.Helpers;
 using IM.Application.Contracts.Inventory.Queries;
@@ -59,27 +60,30 @@ public class FilterInventoryQueryHandler : IRequestHandler<FilterInventoryQuery,
 
         #region paging
 
-        var filteredEntities = await query
+        var pager = Pager.Build(request.Filter.PageId, await query.CountAsync(cancellationToken),
+            request.Filter.TakePage, request.Filter.ShownPages);
+        var allEntities = await query.Paging(pager)
             .OrderByDescending(x => x.CreationDate)
             .Select(inventory =>
                 _mapper.Map(inventory, new InventoryDto()))
             .ToListAsync(cancellationToken);
 
-        filteredEntities.ForEach(inventory =>
+        allEntities.ForEach(inventory =>
         {
             inventory.Product = products.FirstOrDefault(x => x.Id == inventory.ProductId)?.Title;
             inventory.CurrentCount = _inventoryHelper.CalculateCurrentCount(inventory.Id).Result;
         });
 
-
-
         #endregion paging
 
-        if (filteredEntities is null)
+        var returnData = request.Filter.SetData(allEntities).SetPaging(pager);
+
+        if (returnData.Inventories is null)
             throw new ApiException(ApplicationErrorMessage.FilteredRecordsNotFoundMessage);
 
-        request.Filter.Inventories = filteredEntities;
+        if (returnData.PageId > returnData.GetLastPage() && returnData.GetLastPage() != 0)
+            throw new NotFoundApiException();
 
-        return new Response<FilterInventoryDto>(request.Filter);
+        return new Response<FilterInventoryDto>(returnData);
     }
 }
