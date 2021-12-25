@@ -1,4 +1,5 @@
-﻿using DM.Application.Contracts.CustomerDiscount.DTOs;
+﻿using _0_Framework.Application.Models.Paging;
+using DM.Application.Contracts.CustomerDiscount.DTOs;
 using DM.Application.Contracts.CustomerDiscount.Queries;
 using SM.Domain.Product;
 
@@ -50,21 +51,27 @@ public class FilterCustomerDiscountsQueryHandler : IRequestHandler<FilterCustome
 
         #region paging
 
-        var filteredEntities = await query
+        var pager = Pager.Build(request.Filter.PageId, await query.CountAsync(cancellationToken),
+            request.Filter.TakePage, request.Filter.ShownPages);
+        var allEntities = await query.Paging(pager)
+            .OrderByDescending(x => x.CreationDate)
             .Select(discount =>
                 _mapper.Map(discount, new CustomerDiscountDto()))
             .ToListAsync(cancellationToken);
 
-        filteredEntities.ForEach(discount =>
+        allEntities.ForEach(discount =>
             discount.Product = products.FirstOrDefault(x => x.Id == discount.ProductId)?.Title);
 
         #endregion paging
 
-        if (filteredEntities is null)
+        var returnData = request.Filter.SetData(allEntities).SetPaging(pager);
+
+        if (returnData.Discounts is null)
             throw new ApiException(ApplicationErrorMessage.FilteredRecordsNotFoundMessage);
 
-        request.Filter.Discounts = filteredEntities;
+        if (returnData.PageId > returnData.GetLastPage() && returnData.GetLastPage() != 0)
+            throw new NotFoundApiException();
 
-        return new Response<FilterCustomerDiscountDto>(request.Filter);
+        return new Response<FilterCustomerDiscountDto>(returnData);
     }
 }
