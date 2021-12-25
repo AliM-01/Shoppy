@@ -60,9 +60,9 @@ public class FilterInventoryQueryHandler : IRequestHandler<FilterInventoryQuery,
         #region paging
 
         var filteredEntities = await query
+            .OrderByDescending(x => x.CreationDate)
             .Select(inventory =>
                 _mapper.Map(inventory, new InventoryDto()))
-            .OrderByDescending(x => x.CreationDate)
             .ToListAsync(cancellationToken);
 
         filteredEntities.ForEach(inventory =>
