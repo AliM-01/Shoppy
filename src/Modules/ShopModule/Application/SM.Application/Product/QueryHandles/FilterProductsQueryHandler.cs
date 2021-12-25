@@ -48,7 +48,7 @@ public class FilterProductCategoriesQueryHandler : IRequestHandler<FilterProduct
 
         #endregion paging
 
-        var returnData = request.Filter.SetProducts(allEntities).SetPaging(pager);
+        var returnData = request.Filter.SetData(allEntities).SetPaging(pager);
 
         if (returnData.Products is null)
             throw new ApiException(ApplicationErrorMessage.FilteredRecordsNotFoundMessage);

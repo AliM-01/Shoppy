@@ -23,7 +23,7 @@ public class FilterProductDto : BasePaging
 
     #region Methods
 
-    public FilterProductDto SetProducts(IEnumerable<ProductDto> product)
+    public FilterProductDto SetData(IEnumerable<ProductDto> product)
     {
         this.Products = product;
         return this;
