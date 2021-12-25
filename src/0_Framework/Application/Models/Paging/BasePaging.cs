@@ -6,8 +6,8 @@ public class BasePaging
     public BasePaging()
     {
         PageId = 1;
-        TakePage = 9;
-        ShownPages = 3;
+        TakePage = 10;
+        ShownPages = 0;
     }
     [JsonProperty("pageId")]
     public int PageId { get; set; }
