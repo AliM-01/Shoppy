@@ -24,8 +24,7 @@ public class FilterCustomerDiscountsQueryHandler : IRequestHandler<FilterCustome
 
     public async Task<Response<FilterCustomerDiscountDto>> Handle(FilterCustomerDiscountsQuery request, CancellationToken cancellationToken)
     {
-        var query = _customerDiscountRepository.GetQuery()
-            .OrderByDescending(p => p.LastUpdateDate).AsQueryable();
+        var query = _customerDiscountRepository.GetQuery().AsQueryable();
 
         var products = await _productRepository.GetQuery().Select(x => new
         {
@@ -47,6 +46,31 @@ public class FilterCustomerDiscountsQueryHandler : IRequestHandler<FilterCustome
             query = query.Where(s => filteredProductIds.Contains(s.ProductId));
         }
 
+        switch (request.Filter.SortDateOrder)
+        {
+            case PagingDataSortCreationDateOrder.DES:
+                query = query.OrderByDescending(x => x.CreationDate).AsQueryable();
+                break;
+
+            case PagingDataSortCreationDateOrder.ASC:
+                query = query.OrderBy(x => x.CreationDate).AsQueryable();
+                break;
+        }
+
+        switch (request.Filter.SortIdOrder)
+        {
+            case PagingDataSortIdOrder.NotSelected:
+                break;
+
+            case PagingDataSortIdOrder.DES:
+                query = query.OrderByDescending(x => x.Id).AsQueryable();
+                break;
+
+            case PagingDataSortIdOrder.ASC:
+                query = query.OrderBy(x => x.Id).AsQueryable();
+                break;
+        }
+
         #endregion filter
 
         #region paging
@@ -54,7 +78,7 @@ public class FilterCustomerDiscountsQueryHandler : IRequestHandler<FilterCustome
         var pager = Pager.Build(request.Filter.PageId, await query.CountAsync(cancellationToken),
             request.Filter.TakePage, request.Filter.ShownPages);
         var allEntities = await query.Paging(pager)
-            .OrderByDescending(x => x.CreationDate)
+            .AsQueryable()
             .Select(discount =>
                 _mapper.Map(discount, new CustomerDiscountDto()))
             .ToListAsync(cancellationToken);

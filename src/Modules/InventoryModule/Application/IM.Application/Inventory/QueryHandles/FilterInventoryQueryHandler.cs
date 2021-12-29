@@ -56,6 +56,31 @@ public class FilterInventoryQueryHandler : IRequestHandler<FilterInventoryQuery,
                 break;
         }
 
+        switch (request.Filter.SortDateOrder)
+        {
+            case PagingDataSortCreationDateOrder.DES:
+                query = query.OrderByDescending(x => x.CreationDate).AsQueryable();
+                break;
+
+            case PagingDataSortCreationDateOrder.ASC:
+                query = query.OrderBy(x => x.CreationDate).AsQueryable();
+                break;
+        }
+
+        switch (request.Filter.SortIdOrder)
+        {
+            case PagingDataSortIdOrder.NotSelected:
+                break;
+
+            case PagingDataSortIdOrder.DES:
+                query = query.OrderByDescending(x => x.Id).AsQueryable();
+                break;
+
+            case PagingDataSortIdOrder.ASC:
+                query = query.OrderBy(x => x.Id).AsQueryable();
+                break;
+        }
+
         #endregion filter
 
         #region paging
@@ -63,7 +88,7 @@ public class FilterInventoryQueryHandler : IRequestHandler<FilterInventoryQuery,
         var pager = Pager.Build(request.Filter.PageId, await query.CountAsync(cancellationToken),
             request.Filter.TakePage, request.Filter.ShownPages);
         var allEntities = await query.Paging(pager)
-            .OrderByDescending(x => x.CreationDate)
+            .AsQueryable()
             .Select(inventory =>
                 _mapper.Map(inventory, new InventoryDto()))
             .ToListAsync(cancellationToken);
