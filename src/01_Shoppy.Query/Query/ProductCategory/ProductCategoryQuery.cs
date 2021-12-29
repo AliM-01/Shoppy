@@ -19,12 +19,12 @@ public class ProductCategoryQuery : IProductCategoryQuery
 
     #endregion
 
-    public async Task<Response<IEnumerable<ProductCategoryQueryModel>>> GetProductCategories()
+    public async Task<Response<IEnumerable<ProductQueryModel>>> GetProductCategories()
     {
         var productCategories = await _context.ProductCategories
-            .Select(productCategory => _mapper.Map(productCategory, new ProductCategoryQueryModel()))
+            .Select(productCategory => _mapper.Map(productCategory, new ProductQueryModel()))
             .ToListAsync();
 
-        return new Response<IEnumerable<ProductCategoryQueryModel>>(productCategories);
+        return new Response<IEnumerable<ProductQueryModel>>(productCategories);
     }
 }
