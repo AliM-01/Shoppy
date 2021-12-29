@@ -96,6 +96,12 @@ public class ShopModuleMappingProfile : Profile
 
         #endregion
 
+        #region Product Query Model
+
+        CreateMap<Product, ProductQueryModel>();
+
+        #endregion
+
         #endregion
 
         #region Product Picture
