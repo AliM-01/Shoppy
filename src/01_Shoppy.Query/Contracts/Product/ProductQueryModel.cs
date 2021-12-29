@@ -28,15 +28,19 @@ public class ProductQueryModel
 
     [Display(Name = "قیمت با تخفیف")]
     [JsonProperty("discountedPrice")]
-    public string DiscountedPrice { get; set; }
+    public string PriceWithDiscount { get; set; }
 
     [Display(Name = "درصد تخفیف")]
     [JsonProperty("discountRate")]
-    public string DiscountRate { get; set; }
+    public int DiscountRate { get; set; }
 
     [Display(Name = "دسته بندی")]
     [JsonProperty("category")]
     public string Category { get; set; }
+
+    [Display(Name = "تخفیف دارد ؟")]
+    [JsonProperty("hasDiscount")]
+    public bool HasDiscount { get; set; } = false;
 
     [Display(Name = "عنوان لینک")]
     [JsonProperty("slug")]
