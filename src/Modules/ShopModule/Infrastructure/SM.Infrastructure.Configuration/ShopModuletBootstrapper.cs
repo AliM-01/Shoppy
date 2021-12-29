@@ -1,5 +1,6 @@
 ﻿using _0_Framework.Domain.IGenericRepository;
 using _0_Framework.Infrastructure.GenericRepository;
+using _01_Shoppy.Query.Contracts.Product;
 using _01_Shoppy.Query.Contracts.ProductCategory;
 using _01_Shoppy.Query.Contracts.Slider;
 using _01_Shoppy.Query.Query;
@@ -27,6 +28,7 @@ public static class ShopModuletBootstrapper
 
         services.AddScoped<ISliderQuery, SliderQuery>();
         services.AddScoped<IProductCategoryQuery, ProductCategoryQuery>();
+        services.AddTransient<IProductQuery, ProductQuery>();
 
         services.AddDbContext<ShopDbContext>(options =>
             options.UseSqlServer(connectionString));
