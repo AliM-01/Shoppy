@@ -1,6 +1,7 @@
-﻿namespace _01_Shoppy.Query.Contracts.ProductCategory;
-
-public interface IProductCategoryQuery
+﻿namespace _01_Shoppy.Query.Contracts.ProductCategory
 {
-    Task<Response<IEnumerable<ProductCategoryQueryModel>>> GetProductCategories();
+    public interface IProductCategoryQuery
+    {
+        Task<Response<IEnumerable<ProductCategoryQueryModel>>> GetProductCategories();
+    }
 }
