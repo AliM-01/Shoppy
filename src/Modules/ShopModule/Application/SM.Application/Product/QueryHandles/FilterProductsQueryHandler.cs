@@ -23,8 +23,7 @@ public class FilterProductCategoriesQueryHandler : IRequestHandler<FilterProduct
     public async Task<Response<FilterProductDto>> Handle(FilterProductsQuery request, CancellationToken cancellationToken)
     {
         var query = _productRepository.GetQuery()
-            .Include(p => p.Category)
-            .OrderByDescending(p => p.LastUpdateDate).AsQueryable();
+            .Include(p => p.Category).AsQueryable();
 
         #region filter
 
@@ -34,6 +33,31 @@ public class FilterProductCategoriesQueryHandler : IRequestHandler<FilterProduct
 
         if (request.Filter.CategoryId != 0)
             query = query.Where(s => s.CategoryId == request.Filter.CategoryId);
+
+        switch (request.Filter.SortDateOrder)
+        {
+            case PagingDataSortCreationDateOrder.DES:
+                query = query.OrderByDescending(x => x.CreationDate).AsQueryable();
+                break;
+
+            case PagingDataSortCreationDateOrder.ASC:
+                query = query.OrderBy(x => x.CreationDate).AsQueryable();
+                break;
+        }
+
+        switch (request.Filter.SortIdOrder)
+        {
+            case PagingDataSortIdOrder.NotSelected:
+                break;
+
+            case PagingDataSortIdOrder.DES:
+                query = query.OrderByDescending(x => x.Id).AsQueryable();
+                break;
+
+            case PagingDataSortIdOrder.ASC:
+                query = query.OrderBy(x => x.Id).AsQueryable();
+                break;
+        }
 
         #endregion filter
 

@@ -1,4 +1,6 @@
 ﻿using Newtonsoft.Json;
+using System.ComponentModel.DataAnnotations;
+using System.Runtime.Serialization;
 
 namespace _0_Framework.Application.Models.Paging;
 public class BasePaging
@@ -33,6 +35,12 @@ public class BasePaging
     [JsonProperty("shownPages")]
     public int ShownPages { get; set; }
 
+    [JsonProperty("sortCreationDateOrder")]
+    public PagingDataSortCreationDateOrder SortDateOrder { get; set; } = PagingDataSortCreationDateOrder.DES;
+
+    [JsonProperty("sortIdOrder")]
+    public PagingDataSortIdOrder SortIdOrder { get; set; } = PagingDataSortIdOrder.NotSelected;
+
     public int GetLastPage()
     {
         return (int)Math.Ceiling(AllPagesCount / (double)TakePage);
@@ -57,4 +65,26 @@ public class BasePaging
     {
         return this;
     }
+}
+
+public enum PagingDataSortIdOrder
+{
+    [Display(Name = "انتخاب نشده")]
+    [EnumMember(Value = "انتخاب نشده")]
+    NotSelected,
+    [Display(Name = "جدید به قدیم")]
+    [EnumMember(Value = "جدید به قدیم")]
+    DES,
+    [Display(Name = "قدیم به جدید")]
+    [EnumMember(Value = "قدیم به جدید")]
+    ASC
+}
+public enum PagingDataSortCreationDateOrder
+{
+    [Display(Name = "جدید به قدیم")]
+    [EnumMember(Value = "جدید به قدیم")]
+    DES,
+    [Display(Name = "قدیم به جدید")]
+    [EnumMember(Value = "قدیم به جدید")]
+    ASC
 }
