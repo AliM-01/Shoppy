@@ -1,4 +1,4 @@
-﻿namespace _01_Shoppy.Query.Contracts.ProductCategory
+﻿namespace _01_Shoppy.Query.Contracts.Product
 {
     public interface IProductQuery
     {

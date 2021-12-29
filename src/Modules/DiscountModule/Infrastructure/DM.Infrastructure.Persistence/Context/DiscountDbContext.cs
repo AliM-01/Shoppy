@@ -3,7 +3,7 @@ using DM.Domain.ColleagueDiscount;
 using DM.Domain.CustomerDiscount;
 using Microsoft.EntityFrameworkCore;
 
-namespace SM.Infrastructure.Persistence.Context;
+namespace DM.Infrastructure.Persistence.Context;
 public class DiscountDbContext : DbContext
 {
     #region Ctor
