@@ -5,7 +5,7 @@ using DM.Domain.CustomerDiscount;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
-using SM.Infrastructure.Persistence.Context;
+using DM.Infrastructure.Persistence.Context;
 
 namespace DM.Infrastructure.Configuration;
 
