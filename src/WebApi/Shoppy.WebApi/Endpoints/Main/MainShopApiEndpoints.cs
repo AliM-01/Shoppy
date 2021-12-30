@@ -17,4 +17,8 @@ public static class MainShopApiEndpoints
 
         public const string GetProductCategories = BaseProductCategoryRoute + "/get-list";
     }
+    public static class Product
+    {
+        private const string BaseProductRoute = BaseMainShopRoute + "/product";
+    }
 }
