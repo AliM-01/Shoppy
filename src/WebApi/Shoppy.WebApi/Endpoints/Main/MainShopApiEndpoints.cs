@@ -20,5 +20,8 @@ public static class MainShopApiEndpoints
     public static class Product
     {
         private const string BaseProductRoute = BaseMainShopRoute + "/product";
+
+        public const string GetLatestProducts = BaseProductRoute + "/get-latest";
+
     }
 }

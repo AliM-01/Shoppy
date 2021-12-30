@@ -13,4 +13,20 @@ public class ProductController : BaseApiController
     }
 
     #endregion
+
+    #region Get Latest Products
+
+    /// <summary>
+    ///    دریافت جدید ترین محصولات 
+    /// </summary>
+    /// <response code="200">Success</response>
+    [HttpGet(MainShopApiEndpoints.Product.GetLatestProducts)]
+    public async Task<IActionResult> GetLatestProducts()
+    {
+        var res = await _productQuery.GetLatestProducts();
+
+        return JsonApiResult.Success(res);
+    }
+
+    #endregion
 }

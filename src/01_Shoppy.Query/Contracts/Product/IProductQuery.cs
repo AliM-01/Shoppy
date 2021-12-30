@@ -2,6 +2,6 @@
 {
     public interface IProductQuery
     {
-        Task<Response<IEnumerable<ProductQueryModel>>> GetLatestProducts();
+        Task<Response<List<ProductQueryModel>>> GetLatestProducts();
     }
 }

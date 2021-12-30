@@ -27,7 +27,7 @@ public class ProductQuery : IProductQuery
 
     #endregion
 
-    public async Task<Response<IEnumerable<ProductQueryModel>>> GetLatestProducts()
+    public async Task<Response<List<ProductQueryModel>>> GetLatestProducts()
     {
         #region all inventories query
 
@@ -56,7 +56,6 @@ public class ProductQuery : IProductQuery
         var latestProducts = await _shopContext.Products
                .Include(x => x.Category)
                .OrderByDescending(x => x.LastUpdateDate)
-               .Where(x => inventories.Any(s => s.ProductId == x.Id && s.InStock))
                .Take(8)
                .Select(product =>
                    _mapper.Map(product, new ProductQueryModel
@@ -90,6 +89,6 @@ public class ProductQuery : IProductQuery
 
         });
 
-        return new Response<IEnumerable<ProductQueryModel>>(latestProducts);
+        return new Response<List<ProductQueryModel>>(latestProducts);
     }
 }
