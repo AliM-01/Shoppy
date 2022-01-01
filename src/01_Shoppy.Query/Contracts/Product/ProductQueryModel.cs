@@ -35,6 +35,10 @@ public class ProductQueryModel
     public int DiscountRate { get; set; }
 
     [Display(Name = "دسته بندی")]
+    [JsonProperty("categoryId")]
+    public long CategoryId { get; set; }
+
+    [Display(Name = "دسته بندی")]
     [JsonProperty("category")]
     public string Category { get; set; }
 

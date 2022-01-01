@@ -53,21 +53,29 @@ public class ProductQuery : IProductQuery
 
         #endregion
 
+        #region all categories query
+
+        var categories = await _shopContext.ProductCategories.AsQueryable()
+            .Select(x => new
+            {
+                x.Id,
+                x.Title
+            }).ToListAsync();
+
+        #endregion
+
         var latestProducts = await _shopContext.Products
                .Include(x => x.Category)
                .OrderByDescending(x => x.LastUpdateDate)
                .Take(8)
                .Select(product =>
-                   _mapper.Map(product, new ProductQueryModel
-                   {
-                       Category = product.Category.Title.ToString()
-                   }))
+                   _mapper.Map(product, new ProductQueryModel()))
                .ToListAsync();
 
 
         latestProducts.ForEach(product =>
         {
-
+            product.Category = categories.FirstOrDefault(c => c.Id == product.CategoryId).Title.ToString();
             if (inventories.Any(x => x.ProductId == product.Id))
             {
                 // calculate unitPrice
