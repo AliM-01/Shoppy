@@ -2,6 +2,8 @@
 {
     public interface IProductQuery
     {
+        Task<Response<List<ProductQueryModel>>> GetHotestDiscountProducts();
+
         Task<Response<List<ProductQueryModel>>> GetLatestProducts();
     }
 }

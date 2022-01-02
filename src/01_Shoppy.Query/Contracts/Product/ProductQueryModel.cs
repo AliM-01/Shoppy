@@ -27,7 +27,7 @@ public class ProductQueryModel
     public string Price { get; set; }
 
     [Display(Name = "قیمت با تخفیف")]
-    [JsonProperty("discountedPrice")]
+    [JsonProperty("priceWithDiscount")]
     public string PriceWithDiscount { get; set; }
 
     [Display(Name = "درصد تخفیف")]
