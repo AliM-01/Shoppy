@@ -27,51 +27,36 @@ public class ProductQuery : IProductQuery
 
     #endregion
 
+    #region Get Latest Products
+
+    public async Task<Response<List<ProductQueryModel>>> GetLatestProducts()
+    {
+        var latestProducts = await _shopContext.Products
+               .Include(x => x.Category)
+               .OrderByDescending(x => x.LastUpdateDate)
+               .Take(8)
+               .Select(product =>
+                   _mapper.Map(product, new ProductQueryModel()))
+               .ToListAsync();
+
+        var returnData = await MapProducts(latestProducts);
+
+        return new Response<List<ProductQueryModel>>(returnData);
+    }
+
+    #endregion
+
+    #region Get Hotest Discount Products
+
     public async Task<Response<List<ProductQueryModel>>> GetHotestDiscountProducts()
     {
-        #region all inventories query
-
-        var inventories = await _inventoryContext.Inventory.AsQueryable()
-            .Select(x => new
-            {
-                x.ProductId,
-                x.InStock,
-                x.UnitPrice
-            }).ToListAsync();
-
-        #endregion
-
-        #region all discounts query
-
         List<long> hotDiscountRateIds = await _discountContext.CustomerDiscounts.AsQueryable()
             .Where(x => x.StartDate < DateTime.Now && x.EndDate > DateTime.Now)
             .Where(x => x.Rate >= 25)
             .Take(8)
             .Select(x => x.ProductId).ToListAsync();
 
-        var discounts = await _discountContext.CustomerDiscounts.AsQueryable()
-            .Where(x => x.StartDate < DateTime.Now && x.EndDate > DateTime.Now)
-            .Where(x => x.Rate >= 25)
-            .Select(x => new
-            {
-                x.ProductId,
-                x.Rate
-            }).ToListAsync();
-
-        #endregion
-
-        #region all categories query
-
-        var categories = await _shopContext.ProductCategories.AsQueryable()
-            .Select(x => new
-            {
-                x.Id,
-                x.Title
-            }).ToListAsync();
-
-        #endregion
-
-        var latestProducts = await _shopContext.Products
+        var products = await _shopContext.Products
                .Include(x => x.Category)
                .Where(x => hotDiscountRateIds.Contains(x.Id))
                .OrderByDescending(x => x.LastUpdateDate)
@@ -80,35 +65,16 @@ public class ProductQuery : IProductQuery
                    _mapper.Map(product, new ProductQueryModel()))
                .ToListAsync();
 
+        var returnData = await MapProducts(products, true);
 
-        latestProducts.ForEach(product =>
-        {
-            product.Category = categories.FirstOrDefault(c => c.Id == product.CategoryId).Title.ToString();
-            if (inventories.Any(x => x.ProductId == product.Id))
-            {
-                // calculate unitPrice
-                double unitPrice = inventories.FirstOrDefault(x => x.ProductId == product.Id).UnitPrice;
-                product.Price = unitPrice.ToMoney();
-
-                if (discounts.Any(x => x.ProductId == product.Id))
-                {
-                    // calculate discountRate
-                    int discountRate = discounts.FirstOrDefault(x => x.ProductId == product.Id).Rate;
-                    product.DiscountRate = discountRate;
-                    product.HasDiscount = discountRate > 0;
-
-                    // calculate PriceWithDiscount
-                    var discountAmount = Math.Round((unitPrice * discountRate / 100));
-                    product.PriceWithDiscount = (unitPrice - discountAmount).ToMoney();
-                }
-            }
-
-        });
-
-        return new Response<List<ProductQueryModel>>(latestProducts);
+        return new Response<List<ProductQueryModel>>(returnData);
     }
 
-    public async Task<Response<List<ProductQueryModel>>> GetLatestProducts()
+    #endregion
+
+    #region Map Products
+
+    private async Task<List<ProductQueryModel>> MapProducts(List<ProductQueryModel> products, bool hotDiscountQuery = false)
     {
         #region all inventories query
 
@@ -132,6 +98,11 @@ public class ProductQuery : IProductQuery
                 x.Rate
             }).ToListAsync();
 
+        if (hotDiscountQuery)
+        {
+            discounts = discounts.Where(x => x.Rate >= 25).ToList();
+        }
+
         #endregion
 
         #region all categories query
@@ -145,16 +116,7 @@ public class ProductQuery : IProductQuery
 
         #endregion
 
-        var latestProducts = await _shopContext.Products
-               .Include(x => x.Category)
-               .OrderByDescending(x => x.LastUpdateDate)
-               .Take(8)
-               .Select(product =>
-                   _mapper.Map(product, new ProductQueryModel()))
-               .ToListAsync();
-
-
-        latestProducts.ForEach(product =>
+        products.ForEach(product =>
         {
             product.Category = categories.FirstOrDefault(c => c.Id == product.CategoryId).Title.ToString();
             if (inventories.Any(x => x.ProductId == product.Id))
@@ -178,6 +140,8 @@ public class ProductQuery : IProductQuery
 
         });
 
-        return new Response<List<ProductQueryModel>>(latestProducts);
+        return products;
     }
+
+    #endregion
 }
