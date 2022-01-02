@@ -46,6 +46,7 @@ public class ProductQuery : IProductQuery
         List<long> hotDiscountRateIds = await _discountContext.CustomerDiscounts.AsQueryable()
             .Where(x => x.StartDate < DateTime.Now && x.EndDate > DateTime.Now)
             .Where(x => x.Rate >= 25)
+            .Take(8)
             .Select(x => x.ProductId).ToListAsync();
 
         var discounts = await _discountContext.CustomerDiscounts.AsQueryable()

@@ -29,4 +29,20 @@ public class ProductController : BaseApiController
     }
 
     #endregion
+
+    #region Get Hotest Discount Products
+
+    /// <summary>
+    ///    دریافت داغ ترین تخفیف محصولات 
+    /// </summary>
+    /// <response code="200">Success</response>
+    [HttpGet(MainShopApiEndpoints.Product.GetHotestDiscountProducts)]
+    public async Task<IActionResult> GetHotestDiscountProducts()
+    {
+        var res = await _productQuery.GetHotestDiscountProducts();
+
+        return JsonApiResult.Success(res);
+    }
+
+    #endregion
 }

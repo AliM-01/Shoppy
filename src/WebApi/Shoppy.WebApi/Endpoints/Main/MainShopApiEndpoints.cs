@@ -23,5 +23,7 @@ public static class MainShopApiEndpoints
 
         public const string GetLatestProducts = BaseProductRoute + "/get-latest";
 
+        public const string GetHotestDiscountProducts = BaseProductRoute + "/get-hotest-discount";
+
     }
 }
