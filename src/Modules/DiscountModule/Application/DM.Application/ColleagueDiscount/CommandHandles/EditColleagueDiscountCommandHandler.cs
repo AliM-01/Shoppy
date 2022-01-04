@@ -24,9 +24,9 @@ public class EditColleagueDiscountCommandHandler : IRequestHandler<EditColleague
 
     public async Task<Response<string>> Handle(EditColleagueDiscountCommand request, CancellationToken cancellationToken)
     {
-        var product = await _productRepository.GetEntityById(request.ColleagueDiscount.ProductId);
+        var existsProduct = _productRepository.Exists(p => p.Id == request.Inventory.ProductId);
 
-        if (product is null)
+        if (!existsProduct)
             throw new NotFoundApiException("محصولی با این شناسه پیدا نشد");
 
         var colleagueDiscount = await _colleagueDiscountRepository.GetEntityById(request.ColleagueDiscount.Id);
