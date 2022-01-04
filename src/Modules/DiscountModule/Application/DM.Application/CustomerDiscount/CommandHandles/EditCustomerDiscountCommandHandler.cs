@@ -24,7 +24,7 @@ public class EditCustomerDiscountCommandHandler : IRequestHandler<EditCustomerDi
 
     public async Task<Response<string>> Handle(EditCustomerDiscountCommand request, CancellationToken cancellationToken)
     {
-        var existsProduct = _productRepository.Exists(p => p.Id == request.Inventory.ProductId);
+        var existsProduct = _productRepository.Exists(p => p.Id == request.CustomerDiscount.ProductId);
 
         if (!existsProduct)
             throw new NotFoundApiException("محصولی با این شناسه پیدا نشد");
