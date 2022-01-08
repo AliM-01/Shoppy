@@ -25,4 +25,8 @@ public class ProductCategoryQueryModel
     [Display(Name = "عنوان لینک")]
     [JsonProperty("slug")]
     public string Slug { get; set; }
+
+    [Display(Name = "محصولات")]
+    [JsonProperty("products")]
+    public IEnumerable<ProductQueryModel> Products { get; set; }
 }
