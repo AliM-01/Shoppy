@@ -29,4 +29,20 @@ public class ProductCategoryController : BaseApiController
     }
 
     #endregion
+
+    #region Get Product Categories With Products
+
+    /// <summary>
+    ///    دریافت دسته بندی های محصولات به همراه محصولات 
+    /// </summary>
+    /// <response code="200">Success</response>
+    [HttpGet(MainShopApiEndpoints.ProductCategory.GetProductCategoriesWithProducts)]
+    public async Task<IActionResult> GetProductCategoriesWithProducts()
+    {
+        var res = await _productCategoryQuery.GetProductCategoriesWithProducts();
+
+        return JsonApiResult.Success(res);
+    }
+
+    #endregion
 }
