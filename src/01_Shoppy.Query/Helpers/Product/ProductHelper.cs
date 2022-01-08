@@ -27,6 +27,21 @@ public class ProductHelper : IProductHelper
 
     #endregion
 
+    #region MapProductsFromProductCategories
+
+    public async Task<List<ProductQueryModel>> MapProductsFromProductCategories(List<SM.Domain.Product.Product> products)
+    {
+        var mappedProducts = products
+               .OrderByDescending(x => x.LastUpdateDate)
+               .Select(product =>
+                   _mapper.Map(product, new ProductQueryModel()))
+               .ToList();
+
+        return await MapProducts(mappedProducts);
+    }
+
+    #endregion
+
     #region MapProducts
 
     public async Task<List<ProductQueryModel>> MapProducts
@@ -100,21 +115,4 @@ public class ProductHelper : IProductHelper
     }
 
     #endregion
-
-    #region MapProductsFromProductCategories
-
-    public async Task<List<ProductQueryModel>> MapProductsFromProductCategories(List<SM.Domain.Product.Product> products)
-    {
-        var mappedProducts = products
-               .OrderByDescending(x => x.LastUpdateDate)
-               .Select(product =>
-                   _mapper.Map(product, new ProductQueryModel()))
-               .ToList();
-
-        return await MapProducts(mappedProducts);
-    }
-
-    #endregion
-
-
 }

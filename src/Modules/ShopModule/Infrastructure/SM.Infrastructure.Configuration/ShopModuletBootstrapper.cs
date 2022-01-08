@@ -3,6 +3,7 @@ using _0_Framework.Infrastructure.GenericRepository;
 using _01_Shoppy.Query.Contracts.Product;
 using _01_Shoppy.Query.Contracts.ProductCategory;
 using _01_Shoppy.Query.Contracts.Slider;
+using _01_Shoppy.Query.Helpers.Product;
 using _01_Shoppy.Query.Query;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
@@ -25,6 +26,8 @@ public static class ShopModuletBootstrapper
         services.AddScoped<IGenericRepository<Slider>, GenericRepository<ShopDbContext, Slider>>();
 
         services.AddMediatR(typeof(ShopModuletBootstrapper).Assembly);
+
+        services.AddScoped<IProductHelper, ProductHelper>();
 
         services.AddScoped<ISliderQuery, SliderQuery>();
         services.AddScoped<IProductCategoryQuery, ProductCategoryQuery>();
