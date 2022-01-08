@@ -28,5 +28,5 @@ public class ProductCategoryQueryModel
 
     [Display(Name = "محصولات")]
     [JsonProperty("products")]
-    public IEnumerable<ProductQueryModel> Products { get; set; }
+    public List<ProductQueryModel> Products { get; set; } = new List<ProductQueryModel>();
 }
