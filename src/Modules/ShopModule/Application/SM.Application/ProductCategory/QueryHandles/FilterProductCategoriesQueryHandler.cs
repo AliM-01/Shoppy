@@ -22,7 +22,8 @@ public class FilterProductCategoriesQueryHandler : IRequestHandler<FilterProduct
 
     public async Task<Response<FilterProductCategoryDto>> Handle(FilterProductCategoriesQuery request, CancellationToken cancellationToken)
     {
-        var query = _productCategoryRepository.GetQuery().AsQueryable();
+        var query = _productCategoryRepository.GetQuery()
+            .Include(p => p.Products).AsQueryable();
 
         #region filter
 
@@ -63,7 +64,10 @@ public class FilterProductCategoriesQueryHandler : IRequestHandler<FilterProduct
         var allEntities = await query.Paging(pager)
             .AsQueryable()
             .Select(product =>
-                _mapper.Map(product, new ProductCategoryDto()))
+                _mapper.Map(product, new ProductCategoryDto
+                {
+                    ProductsCount = product.Products.Count()
+                }))
             .ToListAsync(cancellationToken);
 
         #endregion paging

@@ -262,6 +262,12 @@
             </summary>
             <response code="200">Success</response>
         </member>
+        <member name="M:Shoppy.WebApi.Controllers.Main.Shop.ProductCategoryController.GetProductCategoriesWithProducts">
+            <summary>
+               دریافت دسته بندی های محصولات به همراه محصولات 
+            </summary>
+            <response code="200">Success</response>
+        </member>
         <member name="M:Shoppy.WebApi.Controllers.Main.Shop.ProductController.GetLatestProducts">
             <summary>
                دریافت جدید ترین محصولات 

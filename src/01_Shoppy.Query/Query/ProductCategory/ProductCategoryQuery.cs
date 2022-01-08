@@ -38,7 +38,7 @@ public class ProductCategoryQuery : IProductCategoryQuery
             .Include(x => x.Products)
             .ToListAsync();
 
-        List<ProductCategoryQueryModel> returnData = new List<ProductCategoryQueryModel>();
+        List<ProductCategoryQueryModel> returnData = new();
 
         productCategories.ForEach(category =>
         {
