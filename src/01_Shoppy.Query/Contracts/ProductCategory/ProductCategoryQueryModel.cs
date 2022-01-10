@@ -22,6 +22,12 @@ public class ProductCategoryQueryModel
     [JsonProperty("imageTitle")]
     public string ImageTitle { get; set; }
 
+    [Display(Name = "کلمات کلیدی")]
+    public string MetaKeywords { get; set; }
+
+    [Display(Name = "توضیحات Meta")]
+    public string MetaDescription { get; set; }
+
     [Display(Name = "عنوان لینک")]
     [JsonProperty("slug")]
     public string Slug { get; set; }
