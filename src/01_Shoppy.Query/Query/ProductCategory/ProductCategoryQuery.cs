@@ -32,22 +32,16 @@ public class ProductCategoryQuery : IProductCategoryQuery
         return new Response<IEnumerable<ProductCategoryQueryModel>>(productCategories);
     }
 
-    public async Task<Response<IEnumerable<ProductCategoryQueryModel>>> GetProductCategoriesWithProducts()
+    public async Task<Response<ProductCategoryQueryModel>> GetProductCategoryWithProductsBySlug(string slug)
     {
-        var productCategories = await _context.ProductCategories
+        var productCategory = await _context.ProductCategories
             .Include(x => x.Products)
-            .ToListAsync();
+            .Select(category => _mapper.Map(category, new ProductCategoryQueryModel
+            {
+                Products = _productHelper.MapProductsFromProductCategories(category.Products.ToList()).Result
+            }))
+            .FirstOrDefaultAsync(x => x.Slug == slug);
 
-        List<ProductCategoryQueryModel> returnData = new();
-
-        productCategories.ForEach(category =>
-        {
-            var mappedCategory = _mapper.Map(category, new ProductCategoryQueryModel());
-            mappedCategory.Products = _productHelper.MapProductsFromProductCategories(category.Products.ToList()).Result;
-
-            returnData.Add(mappedCategory);
-        });
-
-        return new Response<IEnumerable<ProductCategoryQueryModel>>(returnData);
+        return new Response<ProductCategoryQueryModel>(productCategory);
     }
 }

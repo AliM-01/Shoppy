@@ -30,16 +30,16 @@ public class ProductCategoryController : BaseApiController
 
     #endregion
 
-    #region Get Product Categories With Products
+    #region Get Product Category
 
     /// <summary>
-    ///    دریافت دسته بندی های محصولات به همراه محصولات 
+    ///    دریافت دسته بندی  محصول 
     /// </summary>
     /// <response code="200">Success</response>
-    [HttpGet(MainShopApiEndpoints.ProductCategory.GetProductCategoriesWithProducts)]
-    public async Task<IActionResult> GetProductCategoriesWithProducts()
+    [HttpGet(MainShopApiEndpoints.ProductCategory.GetProductCategory)]
+    public async Task<IActionResult> GetProductCategory(string slug)
     {
-        var res = await _productCategoryQuery.GetProductCategoriesWithProducts();
+        var res = await _productCategoryQuery.GetProductCategoryWithProductsBySlug(slug);
 
         return JsonApiResult.Success(res);
     }

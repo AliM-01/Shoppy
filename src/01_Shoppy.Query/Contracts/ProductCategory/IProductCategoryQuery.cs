@@ -4,6 +4,6 @@
     {
         Task<Response<IEnumerable<ProductCategoryQueryModel>>> GetProductCategories();
 
-        Task<Response<IEnumerable<ProductCategoryQueryModel>>> GetProductCategoriesWithProducts();
+        Task<Response<ProductCategoryQueryModel>> GetProductCategoryWithProductsBySlug(string slug);
     }
 }
