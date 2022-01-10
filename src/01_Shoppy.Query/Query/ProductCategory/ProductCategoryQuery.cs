@@ -1,4 +1,5 @@
-﻿using _01_Shoppy.Query.Contracts.ProductCategory;
+﻿using _0_Framework.Application.Exceptions;
+using _01_Shoppy.Query.Contracts.ProductCategory;
 using _01_Shoppy.Query.Helpers.Product;
 using AutoMapper;
 using SM.Infrastructure.Persistence.Context;
@@ -34,14 +35,27 @@ public class ProductCategoryQuery : IProductCategoryQuery
 
     public async Task<Response<ProductCategoryQueryModel>> GetProductCategoryWithProductsBySlug(string slug)
     {
+        var categories = await _context.ProductCategories.Select(x => new
+        {
+            x.Slug,
+            x.Id
+        }).ToListAsync();
+
+        var existsCategory = categories.FirstOrDefault(x => x.Slug == slug);
+
+        if (existsCategory is null)
+            throw new NotFoundApiException();
+
         var productCategory = await _context.ProductCategories
             .Include(x => x.Products)
-            .Select(category => _mapper.Map(category, new ProductCategoryQueryModel
-            {
-                Products = _productHelper.MapProductsFromProductCategories(category.Products.ToList()).Result
-            }))
-            .FirstOrDefaultAsync(x => x.Slug == slug);
+            .FirstOrDefaultAsync(x => x.Id == existsCategory.Id);
 
-        return new Response<ProductCategoryQueryModel>(productCategory);
+        var mappedProductCategory = _mapper.Map(productCategory, new ProductCategoryQueryModel
+        {
+            Slug = productCategory.Slug,
+            Products = _productHelper.MapProductsFromProductCategories(productCategory.Products.ToList()).Result
+        });
+
+        return new Response<ProductCategoryQueryModel>(mappedProductCategory);
     }
 }
