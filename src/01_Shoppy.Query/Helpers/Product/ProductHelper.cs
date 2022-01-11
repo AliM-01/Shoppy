@@ -34,7 +34,10 @@ public class ProductHelper : IProductHelper
         var mappedProducts = products
                .OrderByDescending(x => x.LastUpdateDate)
                .Select(product =>
-                   _mapper.Map(product, new ProductQueryModel()))
+                   _mapper.Map(product, new ProductQueryModel
+                   {
+                       CategoryId = product.CategoryId.Value
+                   }))
                .ToList();
 
         return await MapProducts(mappedProducts);

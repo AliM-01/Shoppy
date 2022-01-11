@@ -56,6 +56,11 @@ public class ProductCategoryQuery : IProductCategoryQuery
             Products = _productHelper.MapProductsFromProductCategories(productCategory.Products.ToList()).Result
         });
 
+        mappedProductCategory.Products.ForEach(product =>
+        {
+            product.Category = mappedProductCategory.Title;
+        });
+
         return new Response<ProductCategoryQueryModel>(mappedProductCategory);
     }
 }

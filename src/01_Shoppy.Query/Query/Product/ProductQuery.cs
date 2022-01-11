@@ -31,7 +31,6 @@ public class ProductQuery : IProductQuery
     public async Task<Response<List<ProductQueryModel>>> GetLatestProducts()
     {
         var latestProducts = await _shopContext.Products
-               .Include(x => x.Category)
                .OrderByDescending(x => x.LastUpdateDate)
                .Take(8)
                .Select(product =>
