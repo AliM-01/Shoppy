@@ -33,22 +33,46 @@ public class ProductCategoryQuery : IProductCategoryQuery
         return new Response<IEnumerable<ProductCategoryQueryModel>>(productCategories);
     }
 
-    public async Task<Response<ProductCategoryQueryModel>> GetProductCategoryWithProductsBySlug(string slug)
+    public async Task<Response<ProductCategoryQueryModel>> GetProductCategoryWithProductsBy(long categoryId, string slug)
     {
+        if (categoryId == 0 && string.IsNullOrEmpty(slug))
+            throw new NotFoundApiException();
+
         var categories = await _context.ProductCategories.Select(x => new
         {
             x.Slug,
             x.Id
         }).ToListAsync();
 
-        var existsCategory = categories.FirstOrDefault(x => x.Slug == slug);
+        bool existsCategory = false;
+        long existsCategoryId = 0;
 
-        if (existsCategory is null)
+
+        if (categoryId != 0 && (string.IsNullOrEmpty(slug) || !string.IsNullOrEmpty(slug)))
+        {
+            var category = categories.FirstOrDefault(x => x.Id == categoryId);
+            if (category is not null)
+            {
+                existsCategoryId = category.Id;
+                existsCategory = true;
+            }
+        }
+        if (categoryId == 0 && !string.IsNullOrEmpty(slug))
+        {
+            var category = categories.FirstOrDefault(x => x.Slug == slug);
+            if (category is not null)
+            {
+                existsCategoryId = category.Id;
+                existsCategory = true;
+            }
+        }
+
+        if (!existsCategory)
             throw new NotFoundApiException();
 
         var productCategory = await _context.ProductCategories
             .Include(x => x.Products)
-            .FirstOrDefaultAsync(x => x.Id == existsCategory.Id);
+            .FirstOrDefaultAsync(x => x.Id == existsCategoryId);
 
         var mappedProductCategory = _mapper.Map(productCategory, new ProductCategoryQueryModel
         {

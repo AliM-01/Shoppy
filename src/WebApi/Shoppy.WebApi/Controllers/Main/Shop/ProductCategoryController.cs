@@ -37,9 +37,9 @@ public class ProductCategoryController : BaseApiController
     /// </summary>
     /// <response code="200">Success</response>
     [HttpGet(MainShopApiEndpoints.ProductCategory.GetProductCategory)]
-    public async Task<IActionResult> GetProductCategory(string slug)
+    public async Task<IActionResult> GetProductCategory([FromQuery] long categoryId, [FromQuery] string slug)
     {
-        var res = await _productCategoryQuery.GetProductCategoryWithProductsBySlug(slug);
+        var res = await _productCategoryQuery.GetProductCategoryWithProductsBy(categoryId, slug);
 
         return JsonApiResult.Success(res);
     }
