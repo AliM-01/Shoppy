@@ -262,7 +262,7 @@
             </summary>
             <response code="200">Success</response>
         </member>
-        <member name="M:Shoppy.WebApi.Controllers.Main.Shop.ProductCategoryController.GetProductCategory(System.Int64,System.String)">
+        <member name="M:Shoppy.WebApi.Controllers.Main.Shop.ProductCategoryController.GetProductCategory(_01_Shoppy.Query.Contracts.ProductCategory.ProductCategoryDetailsFilterModel)">
             <summary>
                دریافت دسته بندی  محصول 
             </summary>

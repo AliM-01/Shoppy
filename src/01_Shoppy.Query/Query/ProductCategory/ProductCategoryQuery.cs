@@ -33,9 +33,9 @@ public class ProductCategoryQuery : IProductCategoryQuery
         return new Response<IEnumerable<ProductCategoryQueryModel>>(productCategories);
     }
 
-    public async Task<Response<ProductCategoryQueryModel>> GetProductCategoryWithProductsBy(long categoryId, string slug)
+    public async Task<Response<ProductCategoryQueryModel>> GetProductCategoryWithProductsBy(ProductCategoryDetailsFilterModel filter)
     {
-        if (categoryId == 0 && string.IsNullOrEmpty(slug))
+        if (filter.CategoryId == 0 && string.IsNullOrEmpty(filter.Slug))
             throw new NotFoundApiException();
 
         var categories = await _context.ProductCategories.Select(x => new
@@ -48,18 +48,18 @@ public class ProductCategoryQuery : IProductCategoryQuery
         long existsCategoryId = 0;
 
 
-        if (categoryId != 0 && (string.IsNullOrEmpty(slug) || !string.IsNullOrEmpty(slug)))
+        if (filter.CategoryId != 0 && (string.IsNullOrEmpty(filter.Slug) || !string.IsNullOrEmpty(filter.Slug)))
         {
-            var category = categories.FirstOrDefault(x => x.Id == categoryId);
+            var category = categories.FirstOrDefault(x => x.Id == filter.CategoryId);
             if (category is not null)
             {
                 existsCategoryId = category.Id;
                 existsCategory = true;
             }
         }
-        if (categoryId == 0 && !string.IsNullOrEmpty(slug))
+        if (filter.CategoryId == 0 && !string.IsNullOrEmpty(filter.Slug))
         {
-            var category = categories.FirstOrDefault(x => x.Slug == slug);
+            var category = categories.FirstOrDefault(x => x.Slug == filter.Slug);
             if (category is not null)
             {
                 existsCategoryId = category.Id;
