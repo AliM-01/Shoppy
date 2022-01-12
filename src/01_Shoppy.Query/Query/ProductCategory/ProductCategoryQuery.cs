@@ -74,16 +74,11 @@ public class ProductCategoryQuery : IProductCategoryQuery
             .Include(x => x.Products)
             .FirstOrDefaultAsync(x => x.Id == existsCategoryId);
 
-        var mappedProductCategory = _mapper.Map(productCategory, new ProductCategoryQueryModel
-        {
-            Slug = productCategory.Slug,
-            Products = _productHelper.MapProductsFromProductCategories(productCategory.Products.ToList()).Result
-        });
+        var productCategoryProducts = productCategory.Products.ToList();
 
-        mappedProductCategory.Products.ForEach(product =>
-        {
-            product.Category = mappedProductCategory.Title;
-        });
+        var mappedProductCategory = _mapper.Map(productCategory, new ProductCategoryQueryModel());
+
+        mappedProductCategory.Products = await _productHelper.MapProductsFromProductCategories(productCategoryProducts);
 
         return new Response<ProductCategoryQueryModel>(mappedProductCategory);
     }
