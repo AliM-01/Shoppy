@@ -10,7 +10,12 @@ public class SearchProductQueryModel : BasePaging
     [Display(Name = "شناسه دسته بندی محصول")]
     [JsonProperty("productId")]
     [Range(0, 10000, ErrorMessage = DomainErrorMessage.RequiredMessage)]
-    public long CategoryId { get; set; }
+    public long CategoryId { get; set; } = 0;
+
+    [Display(Name = "متن جستجو")]
+    [JsonProperty("phrase")]
+    [Required(ErrorMessage = "لطفا متن جستجو را وارد کنید")]
+    public string Phrase { get; set; }
 
     [Display(Name = "محصولات")]
     [JsonProperty("products")]

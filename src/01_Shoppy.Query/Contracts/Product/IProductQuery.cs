@@ -5,5 +5,7 @@
         Task<Response<List<ProductQueryModel>>> GetHotestDiscountProducts();
 
         Task<Response<List<ProductQueryModel>>> GetLatestProducts();
+
+        Task<Response<SearchProductQueryModel>> Search(SearchProductQueryModel search);
     }
 }

@@ -1,4 +1,7 @@
-﻿using _01_Shoppy.Query.Helpers.Product;
+﻿using _0_Framework.Application.ErrorMessages;
+using _0_Framework.Application.Exceptions;
+using _0_Framework.Application.Models.Paging;
+using _01_Shoppy.Query.Helpers.Product;
 using AutoMapper;
 using DM.Infrastructure.Persistence.Context;
 using SM.Infrastructure.Persistence.Context;
@@ -66,6 +69,54 @@ public class ProductQuery : IProductQuery
         var returnData = await _productHelper.MapProducts(products, true);
 
         return new Response<List<ProductQueryModel>>(returnData);
+    }
+
+    #endregion
+
+    #region Search
+
+    public async Task<Response<SearchProductQueryModel>> Search(SearchProductQueryModel search)
+    {
+        var query = _shopContext.Products
+               .OrderByDescending(x => x.LastUpdateDate)
+               .AsQueryable();
+
+        if (string.IsNullOrEmpty(search.Phrase))
+            throw new ApiException("لطفا متن جستجو را وارد کنید");
+
+
+        #region filter
+
+        if (search.CategoryId != 0)
+            query = query.Where(s => s.CategoryId == search.CategoryId);
+
+        query = query.Where(s => EF.Functions.Like(s.Title, $"%{search.Phrase}%"));
+
+        #endregion filter
+
+        #region paging
+
+        var pager = Pager.Build(search.PageId, await query.CountAsync(),
+            search.TakePage, search.ShownPages);
+        var allEntities = await query.Paging(pager)
+            .AsQueryable()
+            .Select(product =>
+                   _mapper.Map(product, new ProductQueryModel()))
+            .ToListAsync();
+
+        allEntities = await _productHelper.MapProducts(allEntities);
+
+        #endregion paging
+
+        var returnData = search.SetData(allEntities).SetPaging(pager);
+
+        if (returnData.Products is null)
+            throw new ApiException(ApplicationErrorMessage.FilteredRecordsNotFoundMessage);
+
+        if (returnData.PageId > returnData.GetLastPage() && returnData.GetLastPage() != 0)
+            throw new NotFoundApiException();
+
+        return new Response<SearchProductQueryModel>(returnData);
     }
 
     #endregion
