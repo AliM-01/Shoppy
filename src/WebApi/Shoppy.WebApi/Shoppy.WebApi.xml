@@ -268,6 +268,12 @@
             </summary>
             <response code="200">Success</response>
         </member>
+        <member name="M:Shoppy.WebApi.Controllers.Main.Shop.ProductController.Search(_01_Shoppy.Query.Contracts.Product.SearchProductQueryModel)">
+            <summary>
+               جستجو 
+            </summary>
+            <response code="200">Success</response>
+        </member>
         <member name="M:Shoppy.WebApi.Controllers.Main.Shop.ProductController.GetLatestProducts">
             <summary>
                دریافت جدید ترین محصولات 

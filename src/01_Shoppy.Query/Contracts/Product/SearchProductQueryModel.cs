@@ -8,7 +8,7 @@ public class SearchProductQueryModel : BasePaging
     #region Properties
 
     [Display(Name = "شناسه دسته بندی محصول")]
-    [JsonProperty("productId")]
+    [JsonProperty("categoryId")]
     [Range(0, 10000, ErrorMessage = DomainErrorMessage.RequiredMessage)]
     public long CategoryId { get; set; } = 0;
 

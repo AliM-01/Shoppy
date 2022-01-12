@@ -19,13 +19,15 @@ public static class MainShopApiEndpoints
 
         public const string GetProductCategory = BaseProductCategoryRoute + "/get";
     }
+
     public static class Product
     {
         private const string BaseProductRoute = BaseMainShopRoute + "/product";
 
+        public const string Search = BaseProductRoute + "/search";
+
         public const string GetLatestProducts = BaseProductRoute + "/get-latest";
 
         public const string GetHotestDiscountProducts = BaseProductRoute + "/get-hotest-discount";
-
     }
 }

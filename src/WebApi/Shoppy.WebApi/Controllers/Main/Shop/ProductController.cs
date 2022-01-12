@@ -14,6 +14,22 @@ public class ProductController : BaseApiController
 
     #endregion
 
+    #region Search
+
+    /// <summary>
+    ///    جستجو 
+    /// </summary>
+    /// <response code="200">Success</response>
+    [HttpGet(MainShopApiEndpoints.Product.Search)]
+    public async Task<IActionResult> Search([FromQuery] SearchProductQueryModel search)
+    {
+        var res = await _productQuery.Search(search);
+
+        return JsonApiResult.Success(res);
+    }
+
+    #endregion
+
     #region Get Latest Products
 
     /// <summary>
