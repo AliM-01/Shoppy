@@ -90,7 +90,8 @@ public class ProductQuery : IProductQuery
         if (search.CategoryId != 0)
             query = query.Where(s => s.CategoryId == search.CategoryId);
 
-        query = query.Where(s => EF.Functions.Like(s.Title, $"%{search.Phrase}%"));
+        query = query.Where(s => EF.Functions.Like(s.Title, $"%{search.Phrase}%")
+        || EF.Functions.Like(s.ShortDescription, $"%{search.Phrase}%"));
 
         #endregion filter
 
