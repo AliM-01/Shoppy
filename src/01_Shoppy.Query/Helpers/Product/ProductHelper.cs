@@ -50,18 +50,6 @@ public class ProductHelper : IProductHelper
     public async Task<List<ProductQueryModel>> MapProducts
         (List<ProductQueryModel> products, bool hotDiscountQuery = false)
     {
-        #region all inventories query
-
-        var inventories = await _inventoryContext.Inventory.AsQueryable()
-            .Select(x => new
-            {
-                x.ProductId,
-                x.InStock,
-                x.UnitPrice
-            }).ToListAsync();
-
-        #endregion
-
         #region all discounts query
 
         var discounts = await _discountContext.CustomerDiscounts.AsQueryable()
@@ -90,16 +78,17 @@ public class ProductHelper : IProductHelper
 
         #endregion
 
-        products.ForEach(async product =>
+        products.ForEach(product =>
         {
             product.Category = categories.FirstOrDefault(c => c.Id == product.CategoryId).Title.ToString();
 
-            if (inventories.Any(x => x.ProductId == product.Id))
+            (bool existsProductInventory, double productUnitPrice) = GetProductUnitPrice(product.Id).Result;
+
+            if (existsProductInventory)
             {
                 // calculate unitPrice
-                double unitPrice = inventories.FirstOrDefault(x => x.ProductId == product.Id).UnitPrice;
-                product.Price = unitPrice.ToMoney();
-                product.UnitPrice = unitPrice;
+                product.Price = productUnitPrice.ToMoney();
+                product.UnitPrice = productUnitPrice;
 
                 if (discounts.Any(x => x.ProductId == product.Id))
                 {
@@ -109,8 +98,8 @@ public class ProductHelper : IProductHelper
                     product.HasDiscount = discountRate > 0;
 
                     // calculate PriceWithDiscount
-                    var discountAmount = Math.Round((unitPrice * discountRate / 100));
-                    product.PriceWithDiscount = (unitPrice - discountAmount).ToMoney();
+                    var discountAmount = Math.Round((productUnitPrice * discountRate / 100));
+                    product.PriceWithDiscount = (productUnitPrice - discountAmount).ToMoney();
                 }
             }
 

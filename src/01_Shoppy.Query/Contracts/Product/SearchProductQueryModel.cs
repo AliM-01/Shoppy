@@ -24,6 +24,14 @@ public class SearchProductQueryModel : BasePaging
 
     public SearchProductPriceOrder SearchProductPriceOrder { get; set; } = SearchProductPriceOrder.All;
 
+    public double FilterMinPrice { get; set; }
+
+    public double FilterMaxPrice { get; set; }
+
+    public double SelectedMinPrice { get; set; }
+
+    public double SelectedMaxPrice { get; set; }
+
     #endregion
 
     #region Methods
