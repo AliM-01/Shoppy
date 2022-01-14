@@ -123,11 +123,14 @@ public class ProductHelper : IProductHelper
 
     #region Get Product UnitPrice
 
-    public async Task<double> GetProductUnitPrice(long productId)
+    public async Task<(bool, double)> GetProductUnitPrice(long productId)
     {
-        return await _inventoryContext.Inventory
+        if (await _inventoryContext.Inventory.AnyAsync(x => x.ProductId == productId))
+            return (false, default);
+
+        return (true, await _inventoryContext.Inventory
             .Where(x => x.ProductId == productId)
-            .Select(x => x.UnitPrice).FirstOrDefaultAsync();
+            .Select(x => x.UnitPrice).FirstOrDefaultAsync());
     }
 
     #endregion
