@@ -90,9 +90,10 @@ public class ProductHelper : IProductHelper
 
         #endregion
 
-        products.ForEach(product =>
+        products.ForEach(async product =>
         {
             product.Category = categories.FirstOrDefault(c => c.Id == product.CategoryId).Title.ToString();
+
             if (inventories.Any(x => x.ProductId == product.Id))
             {
                 // calculate unitPrice
@@ -116,6 +117,17 @@ public class ProductHelper : IProductHelper
         });
 
         return products;
+    }
+
+    #endregion
+
+    #region Get Product UnitPrice
+
+    public async Task<double> GetProductUnitPrice(long productId)
+    {
+        return await _inventoryContext.Inventory
+            .Where(x => x.ProductId == productId)
+            .Select(x => x.UnitPrice).FirstOrDefaultAsync();
     }
 
     #endregion
