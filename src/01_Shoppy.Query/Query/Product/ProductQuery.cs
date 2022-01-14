@@ -81,17 +81,63 @@ public class ProductQuery : IProductQuery
                .OrderByDescending(x => x.LastUpdateDate)
                .AsQueryable();
 
-        if (string.IsNullOrEmpty(search.Phrase))
-            throw new ApiException("لطفا متن جستجو را وارد کنید");
+        #region Order
 
+        switch (search.SearchProductOrderBy)
+        {
+            case SearchProductOrderBy.Newest:
+                query = query.OrderByDescending(x => x.LastUpdateDate);
+                break;
+            case SearchProductOrderBy.Oldest:
+                query = query.OrderBy(x => x.LastUpdateDate);
+                break;
+            case SearchProductOrderBy.Price_Des:
+                query = query.OrderByDescending(x => x.Id);
+                break;
+            case SearchProductOrderBy.Price_Asc:
+                query = query.OrderBy(x => x.Id);
+                break;
+        }
+
+        #endregion
+
+        #region Filter SelectedCategoriesIds
+
+        if (search.SelectedCategoriesIds is not null && search.SelectedCategoriesIds.Any())
+        {
+            query = query.Where(x => search.SelectedCategoriesIds.Contains(x.CategoryId.Value));
+        }
+
+        #endregion
+
+        #region Filter SelectedCategoriesSlugs
+
+        if (search.SelectedCategoriesSlugs is not null && search.SelectedCategoriesSlugs.Any())
+        {
+            var selectedCategoriesId = new List<long>();
+
+            foreach (var categorySlug in search.SelectedCategoriesSlugs)
+            {
+                if (await _shopContext.ProductCategories
+                    .AnyAsync(x => x.Slug.Trim() == categorySlug.Trim()))
+                {
+                    selectedCategoriesId.Add(
+                        _shopContext.ProductCategories.FirstOrDefault(x => x.Slug.Trim() == categorySlug.Trim()).Id);
+                }
+            }
+
+            query = query.Where(x => selectedCategoriesId.Contains(x.CategoryId.Value));
+        }
+
+        #endregion
 
         #region filter
 
-        if (search.CategoryId != 0)
-            query = query.Where(s => s.CategoryId == search.CategoryId);
-
-        query = query.Where(s => EF.Functions.Like(s.Title, $"%{search.Phrase}%")
-        || EF.Functions.Like(s.ShortDescription, $"%{search.Phrase}%"));
+        if (!string.IsNullOrEmpty(search.Phrase))
+        {
+            query = query.Where(s => EF.Functions.Like(s.Title, $"%{search.Phrase}%")
+            || EF.Functions.Like(s.ShortDescription, $"%{search.Phrase}%"));
+        }
 
         #endregion filter
 

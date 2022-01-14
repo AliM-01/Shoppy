@@ -1,5 +1,4 @@
 ﻿using _0_Framework.Application.Models.Paging;
-using _0_Framework.Domain;
 
 namespace _01_Shoppy.Query.Contracts.Product;
 
@@ -8,18 +7,22 @@ public class SearchProductQueryModel : BasePaging
     #region Properties
 
     [Display(Name = "شناسه دسته بندی محصول")]
-    [JsonProperty("categoryId")]
-    [Range(0, 10000, ErrorMessage = DomainErrorMessage.RequiredMessage)]
-    public long CategoryId { get; set; } = 0;
+    [JsonProperty("selectedCategoriesIds")]
+    public List<long> SelectedCategoriesIds { get; set; }
+
+    [Display(Name = "اسلاگ دسته بندی محصول")]
+    [JsonProperty("selectedCategoriesSlugs")]
+    public List<string> SelectedCategoriesSlugs { get; set; }
 
     [Display(Name = "متن جستجو")]
     [JsonProperty("phrase")]
-    [Required(ErrorMessage = "لطفا متن جستجو را وارد کنید")]
     public string Phrase { get; set; }
 
     [Display(Name = "محصولات")]
     [JsonProperty("products")]
     public IEnumerable<ProductQueryModel> Products { get; set; }
+
+    public SearchProductOrderBy SearchProductOrderBy { get; set; } = SearchProductOrderBy.Newest;
 
     #endregion
 
@@ -45,5 +48,17 @@ public class SearchProductQueryModel : BasePaging
     }
 
     #endregion
+}
+
+public enum SearchProductOrderBy
+{
+    [Display(Name = "جدید ترین")]
+    Newest,
+    [Display(Name = "قدیمی ترین")]
+    Oldest,
+    [Display(Name = "قیمت زیاد به کم")]
+    Price_Des,
+    [Display(Name = "قیمت کم به زیاد")]
+    Price_Asc
 }
 
