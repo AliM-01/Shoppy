@@ -22,7 +22,7 @@ public class SearchProductQueryModel : BasePaging
     [JsonProperty("products")]
     public IEnumerable<ProductQueryModel> Products { get; set; }
 
-    public SearchProductOrderBy SearchProductOrderBy { get; set; } = SearchProductOrderBy.Newest;
+    public SearchProductPriceOrder SearchProductPriceOrder { get; set; } = SearchProductPriceOrder.All;
 
     #endregion
 
@@ -50,12 +50,10 @@ public class SearchProductQueryModel : BasePaging
     #endregion
 }
 
-public enum SearchProductOrderBy
+public enum SearchProductPriceOrder
 {
-    [Display(Name = "جدید ترین")]
-    Newest,
-    [Display(Name = "قدیمی ترین")]
-    Oldest,
+    [Display(Name = "همه")]
+    All,
     [Display(Name = "قیمت زیاد به کم")]
     Price_Des,
     [Display(Name = "قیمت کم به زیاد")]

@@ -19,7 +19,7 @@ public class ProductQuery : IProductQuery
 
     public ProductQuery(
         ShopDbContext shopContext, DiscountDbContext discountContext,
-        IProductHelper productHelper, IMapper mapper)
+         IProductHelper productHelper, IMapper mapper)
     {
         _shopContext = Guard.Against.Null(shopContext, nameof(_shopContext));
         _discountContext = Guard.Against.Null(discountContext, nameof(_discountContext));
@@ -81,25 +81,6 @@ public class ProductQuery : IProductQuery
                .OrderByDescending(x => x.LastUpdateDate)
                .AsQueryable();
 
-        #region Order
-
-        switch (search.SearchProductOrderBy)
-        {
-            case SearchProductOrderBy.Newest:
-                query = query.OrderByDescending(x => x.LastUpdateDate);
-                break;
-            case SearchProductOrderBy.Oldest:
-                query = query.OrderBy(x => x.LastUpdateDate);
-                break;
-            case SearchProductOrderBy.Price_Des:
-                query = query.OrderByDescending(x => x.Id);
-                break;
-            case SearchProductOrderBy.Price_Asc:
-                query = query.OrderBy(x => x.Id);
-                break;
-        }
-
-        #endregion
 
         #region Filter SelectedCategoriesIds
 
@@ -139,6 +120,17 @@ public class ProductQuery : IProductQuery
             || EF.Functions.Like(s.ShortDescription, $"%{search.Phrase}%"));
         }
 
+        switch (search.SortDateOrder)
+        {
+            case PagingDataSortCreationDateOrder.DES:
+                query = query.OrderByDescending(x => x.CreationDate).AsQueryable();
+                break;
+
+            case PagingDataSortCreationDateOrder.ASC:
+                query = query.OrderBy(x => x.CreationDate).AsQueryable();
+                break;
+        }
+
         #endregion filter
 
         #region paging
@@ -157,6 +149,20 @@ public class ProductQuery : IProductQuery
 
         var returnData = search.SetData(allEntities).SetPaging(pager);
 
+        #region Order
+
+        switch (search.SearchProductPriceOrder)
+        {
+            case SearchProductPriceOrder.Price_Asc:
+                returnData.Products = returnData.Products.OrderBy(x => x.UnitPrice);
+                break;
+
+            case SearchProductPriceOrder.Price_Des:
+                returnData.Products = returnData.Products.OrderByDescending(x => x.UnitPrice);
+                break;
+        }
+
+        #endregion
         if (returnData.Products is null)
             throw new ApiException(ApplicationErrorMessage.FilteredRecordsNotFoundMessage);
 
@@ -167,4 +173,5 @@ public class ProductQuery : IProductQuery
     }
 
     #endregion
+
 }

@@ -23,6 +23,10 @@ public class ProductQueryModel
     public string ImageTitle { get; set; }
 
     [Display(Name = "قیمت")]
+    [JsonProperty("unitPrice")]
+    public double UnitPrice { get; set; }
+
+    [Display(Name = "قیمت")]
     [JsonProperty("price")]
     public string Price { get; set; }
 

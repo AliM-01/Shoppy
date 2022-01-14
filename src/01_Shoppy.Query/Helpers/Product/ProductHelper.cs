@@ -98,6 +98,7 @@ public class ProductHelper : IProductHelper
                 // calculate unitPrice
                 double unitPrice = inventories.FirstOrDefault(x => x.ProductId == product.Id).UnitPrice;
                 product.Price = unitPrice.ToMoney();
+                product.UnitPrice = unitPrice;
 
                 if (discounts.Any(x => x.ProductId == product.Id))
                 {
