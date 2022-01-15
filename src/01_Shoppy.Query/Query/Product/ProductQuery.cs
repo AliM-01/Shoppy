@@ -4,6 +4,7 @@ using _0_Framework.Application.Models.Paging;
 using _01_Shoppy.Query.Helpers.Product;
 using AutoMapper;
 using DM.Infrastructure.Persistence.Context;
+using IM.Infrastructure.Persistence.Context;
 using SM.Infrastructure.Persistence.Context;
 
 namespace _01_Shoppy.Query.Query;
@@ -15,15 +16,17 @@ public class ProductQuery : IProductQuery
     private readonly ShopDbContext _shopContext;
     private readonly DiscountDbContext _discountContext;
     private readonly IProductHelper _productHelper;
+    private readonly InventoryDbContext _inventoryContext;
     private readonly IMapper _mapper;
 
     public ProductQuery(
         ShopDbContext shopContext, DiscountDbContext discountContext,
-         IProductHelper productHelper, IMapper mapper)
+         InventoryDbContext inventoryContext, IProductHelper productHelper, IMapper mapper)
     {
         _shopContext = Guard.Against.Null(shopContext, nameof(_shopContext));
         _discountContext = Guard.Against.Null(discountContext, nameof(_discountContext));
         _productHelper = Guard.Against.Null(productHelper, nameof(_productHelper));
+        _inventoryContext = Guard.Against.Null(inventoryContext, nameof(_discountContext));
         _mapper = Guard.Against.Null(mapper, nameof(_mapper));
     }
 
@@ -81,8 +84,23 @@ public class ProductQuery : IProductQuery
                .OrderByDescending(x => x.LastUpdateDate)
                .AsQueryable();
 
+        #region inventories query
 
-        #region Filter SelectedCategoriesIds
+        var inventories = await _inventoryContext.Inventory.AsQueryable()
+            .Select(x => new
+            {
+                x.ProductId,
+                x.InStock,
+                x.UnitPrice
+            }).ToListAsync();
+
+        var inventoryIds = inventories.Select(x => x.ProductId).ToArray();
+
+        query = query.Where(p => inventoryIds.Contains(p.Id));
+
+        #endregion
+
+        #region filter selected categories ids
 
         if (search.SelectedCategoriesIds is not null && search.SelectedCategoriesIds.Any())
         {
@@ -91,7 +109,7 @@ public class ProductQuery : IProductQuery
 
         #endregion
 
-        #region Filter SelectedCategoriesSlugs
+        #region filter selected categories slugs
 
         if (search.SelectedCategoriesSlugs is not null && search.SelectedCategoriesSlugs.Any())
         {
@@ -114,11 +132,35 @@ public class ProductQuery : IProductQuery
 
         #region filter
 
+        #region filter price
+
+        var maxPrice = inventories.OrderByDescending(p => p.UnitPrice).FirstOrDefault();
+        search.FilterMaxPrice = maxPrice.UnitPrice;
+
+        if (search.SelectedMaxPrice == 0)
+            search.SelectedMaxPrice = maxPrice.UnitPrice;
+
+        query = query.ToArray()
+            .Where(p => GetProductPriceById(p.Id) >= search.SelectedMinPrice)
+            .AsQueryable();
+
+        query = query.ToArray()
+            .Where(p => GetProductPriceById(p.Id) <= search.SelectedMaxPrice)
+            .AsQueryable();
+
+        #endregion
+
+        #region filter phrase
+
         if (!string.IsNullOrEmpty(search.Phrase))
         {
             query = query.Where(s => EF.Functions.Like(s.Title, $"%{search.Phrase}%")
             || EF.Functions.Like(s.ShortDescription, $"%{search.Phrase}%"));
         }
+
+        #endregion
+
+        #region filter sort date order
 
         switch (search.SortDateOrder)
         {
@@ -131,17 +173,20 @@ public class ProductQuery : IProductQuery
                 break;
         }
 
+        #endregion
+
         #endregion filter
 
         #region paging
 
-        var pager = Pager.Build(search.PageId, await query.CountAsync(),
+        var pager = Pager.Build(search.PageId, query.ToList().Count,
             search.TakePage, search.ShownPages);
-        var allEntities = await query.Paging(pager)
-            .AsQueryable()
+        var pagedEntities = query.Paging(pager).ToList();
+
+        List<ProductQueryModel> allEntities = pagedEntities.ToList()
             .Select(product =>
                    _mapper.Map(product, new ProductQueryModel()))
-            .ToListAsync();
+            .ToList();
 
         allEntities = await _productHelper.MapProducts(allEntities);
 
@@ -149,7 +194,7 @@ public class ProductQuery : IProductQuery
 
         var returnData = search.SetData(allEntities).SetPaging(pager);
 
-        #region Order
+        #region Price Order
 
         switch (search.SearchProductPriceOrder)
         {
@@ -163,6 +208,7 @@ public class ProductQuery : IProductQuery
         }
 
         #endregion
+
         if (returnData.Products is null)
             throw new ApiException(ApplicationErrorMessage.FilteredRecordsNotFoundMessage);
 
@@ -174,4 +220,22 @@ public class ProductQuery : IProductQuery
 
     #endregion
 
+    #region GetProductPriceById
+
+    private double GetProductPriceById(long id)
+    {
+        var inventories = _inventoryContext.Inventory
+           .Select(x => new
+           {
+               x.ProductId,
+               x.InStock,
+               x.UnitPrice
+           }).ToList();
+
+        var price = inventories.FirstOrDefault(x => x.ProductId == id).UnitPrice;
+
+        return price;
+    }
+
+    #endregion
 }
