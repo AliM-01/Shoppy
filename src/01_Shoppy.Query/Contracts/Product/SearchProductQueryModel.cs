@@ -7,13 +7,9 @@ public class SearchProductQueryModel : BasePaging
 {
     #region Properties
 
-    [Display(Name = "شناسه دسته بندی محصول")]
-    [JsonProperty("selectedCategoriesIds")]
-    public List<long> SelectedCategoriesIds { get; set; }
-
-    [Display(Name = "اسلاگ دسته بندی محصول")]
-    [JsonProperty("selectedCategoriesSlugs")]
-    public List<string> SelectedCategoriesSlugs { get; set; }
+    [Display(Name = "دسته بندی های انتخاب شده")]
+    [JsonProperty("selectedCategories")]
+    public List<string> SelectedCategories { get; set; }
 
     [Display(Name = "متن جستجو")]
     [JsonProperty("phrase")]

@@ -102,20 +102,13 @@ public class ProductQuery : IProductQuery
 
         #region filter selected categories ids
 
-        if (search.SelectedCategoriesIds is not null && search.SelectedCategoriesIds.Any())
-        {
-            query = query.Where(x => search.SelectedCategoriesIds.Contains(x.CategoryId.Value));
-        }
-
-        #endregion
-
         #region filter selected categories slugs
 
-        if (search.SelectedCategoriesSlugs is not null && search.SelectedCategoriesSlugs.Any())
+        if (search.SelectedCategories is not null && search.SelectedCategories.Any())
         {
             var selectedCategoriesId = new List<long>();
 
-            foreach (var categorySlug in search.SelectedCategoriesSlugs)
+            foreach (var categorySlug in search.SelectedCategories)
             {
                 if (await _shopContext.ProductCategories
                     .AnyAsync(x => x.Slug.Trim() == categorySlug.Trim()))
