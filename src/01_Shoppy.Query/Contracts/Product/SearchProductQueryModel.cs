@@ -1,4 +1,5 @@
 ﻿using _0_Framework.Application.Models.Paging;
+using Newtonsoft.Json.Converters;
 
 namespace _01_Shoppy.Query.Contracts.Product;
 
@@ -22,8 +23,9 @@ public class SearchProductQueryModel : BasePaging
     [JsonProperty("products")]
     public IEnumerable<ProductQueryModel> Products { get; set; }
 
-    [Display(Name = "متن جستجو")]
-    [JsonProperty("phrase")]
+    [Display(Name = "دسته بندی بر اساس قیمت")]
+    [JsonConverter(typeof(StringEnumConverter))]
+    [JsonProperty("searchProductPriceOrder")]
     public SearchProductPriceOrder SearchProductPriceOrder { get; set; } = SearchProductPriceOrder.All;
 
     [Display(Name = "حداقل قیمت (در انبار)")]
