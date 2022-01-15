@@ -22,15 +22,25 @@ public class SearchProductQueryModel : BasePaging
     [JsonProperty("products")]
     public IEnumerable<ProductQueryModel> Products { get; set; }
 
+    [Display(Name = "متن جستجو")]
+    [JsonProperty("phrase")]
     public SearchProductPriceOrder SearchProductPriceOrder { get; set; } = SearchProductPriceOrder.All;
 
-    public double FilterMinPrice { get; set; }
+    [Display(Name = "حداقل قیمت (در انبار)")]
+    [JsonProperty("filterMinPrice")]
+    public double FilterMinPrice { get; set; } = 0;
 
-    public double FilterMaxPrice { get; set; }
+    [Display(Name = "حداکثر قیمت (در انبار)")]
+    [JsonProperty("filterMaxPrice")]
+    public double FilterMaxPrice { get; set; } = 0;
 
-    public double SelectedMinPrice { get; set; }
+    [Display(Name = "حداقل قیمت")]
+    [JsonProperty("selectedMinPrice")]
+    public double SelectedMinPrice { get; set; } = 0;
 
-    public double SelectedMaxPrice { get; set; }
+    [Display(Name = "حداکثر قیمت")]
+    [JsonProperty("selectedMaxPrice")]
+    public double SelectedMaxPrice { get; set; } = 0;
 
     #endregion
 
