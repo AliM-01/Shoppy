@@ -114,7 +114,7 @@ public class ProductHelper : IProductHelper
 
     public async Task<(bool, double)> GetProductUnitPrice(long productId)
     {
-        if (await _inventoryContext.Inventory.AnyAsync(x => x.ProductId == productId))
+        if (!(await _inventoryContext.Inventory.AnyAsync(x => x.ProductId == productId)))
             return (false, default);
 
         return (true, await _inventoryContext.Inventory
