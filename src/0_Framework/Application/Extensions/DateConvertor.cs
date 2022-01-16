@@ -46,6 +46,15 @@ namespace _0_Framework.Application.Extensions
 
         #endregion
 
+        #region ToFileName
+
+        public static string ToFileName(this DateTime value)
+        {
+            return $"{value.Year:0000}-{value.Month:00}-{value.Day:00}-{value.Hour:00}-{value.Minute:00}-{value.Second:00}";
+        }
+
+        #endregion
+
         #region Private Tools
 
         private static readonly string[] Pn = { "۰", "۱", "۲", "۳", "۴", "۵", "۶", "۷", "۸", "۹" };
