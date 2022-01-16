@@ -14,6 +14,4 @@ public class ApplicationErrorMessage
     public const string NoContentMessage = "اطلاعاتی یافت نشد";
 
     public const string IsDuplicatedMessage = "امکان ثبت رکورد تکراری وجود ندارد. لطفا دوباره تلاش بفرمایید";
-
-    public const string FileMaxSizeMessage = "حجم فایل بیشتر از مقدار مجاز است. لطفا فایل دیگری آپلود کنید";
 }

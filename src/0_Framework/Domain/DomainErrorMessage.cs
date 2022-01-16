@@ -14,4 +14,6 @@ public class DomainErrorMessage
     public const string CompareMessage = "{0} و {1} با هم مغایرت دارند";
 
     public const string PasswordMessage = "رمز عبور باید ترکیبی از حروف بزرگ و کوچک و عدد و علامت باشد";
+
+    public const string FileMaxSizeMessage = "حجم فایل بیشتر از مقدار مجاز است. لطفا فایل دیگری آپلود کنید";
 }

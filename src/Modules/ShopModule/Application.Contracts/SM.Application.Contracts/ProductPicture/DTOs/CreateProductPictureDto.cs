@@ -10,6 +10,7 @@ public class CreateProductPictureDto
 
     [Display(Name = "تصویر")]
     [JsonProperty("imageFile")]
+    [MaxFileSize((2 * 1024), ErrorMessage = DomainErrorMessage.FileMaxSizeMessage)]
     public IFormFile ImageFile { get; set; }
 
     [Display(Name = "جزییات تصویر")]
