@@ -10,6 +10,13 @@
 	</PropertyGroup>
 
 	<ItemGroup>
+	  <Compile Remove="wwwroot\product_category\NewFolder\**" />
+	  <Content Remove="wwwroot\product_category\NewFolder\**" />
+	  <EmbeddedResource Remove="wwwroot\product_category\NewFolder\**" />
+	  <None Remove="wwwroot\product_category\NewFolder\**" />
+	</ItemGroup>
+
+	<ItemGroup>
 		<PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="6.0.1">
 			<PrivateAssets>all</PrivateAssets>
 			<IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
@@ -32,10 +39,6 @@
 		<ProjectReference Include="..\..\Modules\InventoryModule\Infrastructure\IM.Infrastructure.Shared\IM.Infrastructure.Shared.csproj" />
 		<ProjectReference Include="..\..\Modules\ShopModule\Infrastructure\SM.Infrastructure.Configuration\SM.Infrastructure.Configuration.csproj" />
 		<ProjectReference Include="..\..\Modules\ShopModule\Infrastructure\SM.Infrastructure.Shared\SM.Infrastructure.Shared.csproj" />
-	</ItemGroup>
-
-	<ItemGroup>
-	  <Folder Include="wwwroot\product_category\NewFolder\" />
 	</ItemGroup>
 
 </Project>
