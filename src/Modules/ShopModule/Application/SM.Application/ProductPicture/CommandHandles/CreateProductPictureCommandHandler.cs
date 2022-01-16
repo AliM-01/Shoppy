@@ -25,7 +25,7 @@ public class CreateProductPictureCommandHandler : IRequestHandler<CreateProductP
         var productPicture =
             _mapper.Map(request.ProductPicture, new Domain.ProductPicture.ProductPicture());
 
-        var imagePath = Guid.NewGuid().ToString("N") + Path.GetExtension(request.ProductPicture.ImageFile.FileName);
+        var imagePath = Path.GetExtension(request.ProductPicture.ImageFile.FileName);
 
         request.ProductPicture.ImageFile.AddImageToServer(imagePath, PathExtension.ProductPictureImage,
             200, 200, PathExtension.ProductPictureThumbnailImage);

@@ -17,7 +17,7 @@ public class CreateProductCategoryDto
 
     [Display(Name = "تصویر")]
     [JsonProperty("imageFile")]
-    [MaxFileSize((3 * 1024), ErrorMessage = DomainErrorMessage.FileMaxSizeMessage)]
+    [MaxFileSize((3 * 1024 * 1024), ErrorMessage = DomainErrorMessage.FileMaxSizeMessage)]
     public IFormFile ImageFile { get; set; }
 
     [Display(Name = "جزییات تصویر")]

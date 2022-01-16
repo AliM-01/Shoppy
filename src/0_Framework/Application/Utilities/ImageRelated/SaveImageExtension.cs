@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using _0_Framework.Application.Extensions;
+using Microsoft.AspNetCore.Http;
 using System.IO;
 
 namespace _0_Framework.Application.Utilities.ImageRelated;
@@ -23,7 +24,7 @@ public static class SaveImageExtension
                 }
             }
 
-            string OriginPath = orginalPath + fileName;
+            string OriginPath = orginalPath + DateTime.Now.ToFileName() + "-" + fileName;
 
             using (var stream = new FileStream(OriginPath, FileMode.Create))
             {

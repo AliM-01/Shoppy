@@ -17,7 +17,7 @@ public class CreateSliderDto
 
     [Display(Name = "تصویر")]
     [JsonProperty("imageFile")]
-    [MaxFileSize((5 * 1024), ErrorMessage = DomainErrorMessage.FileMaxSizeMessage)]
+    [MaxFileSize((5 * 1024 * 1024), ErrorMessage = DomainErrorMessage.FileMaxSizeMessage)]
     public IFormFile ImageFile { get; set; }
 
     [Display(Name = "جزییات تصویر")]
