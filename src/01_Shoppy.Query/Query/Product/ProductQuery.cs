@@ -100,8 +100,6 @@ public class ProductQuery : IProductQuery
 
         #endregion
 
-        #region filter selected categories ids
-
         #region filter selected categories slugs
 
         if (search.SelectedCategories is not null && search.SelectedCategories.Any())
