@@ -11,8 +11,6 @@ public class ProductPictureMapping : IEntityTypeConfiguration<ProductPicture>
         builder.HasKey(x => x.Id);
 
         builder.Property(x => x.ImagePath).IsRequired();
-        builder.Property(x => x.ImageAlt).HasMaxLength(100).IsRequired();
-        builder.Property(x => x.ImageTitle).HasMaxLength(100).IsRequired();
 
         builder.HasOne(x => x.Product)
             .WithMany(x => x.ProductPictures)

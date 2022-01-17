@@ -12,16 +12,4 @@ public class CreateProductPictureDto
     [JsonProperty("imageFile")]
     [MaxFileSize((3 * 1024 * 1024), ErrorMessage = DomainErrorMessage.FileMaxSizeMessage)]
     public IFormFile ImageFile { get; set; }
-
-    [Display(Name = "جزییات تصویر")]
-    [JsonProperty("imageAlt")]
-    [Required(ErrorMessage = DomainErrorMessage.RequiredMessage)]
-    [MaxLength(100, ErrorMessage = DomainErrorMessage.MaxLengthMessage)]
-    public string ImageAlt { get; set; }
-
-    [Display(Name = "عنوان تصویر")]
-    [JsonProperty("imageTitle")]
-    [Required(ErrorMessage = DomainErrorMessage.RequiredMessage)]
-    [MaxLength(100, ErrorMessage = DomainErrorMessage.MaxLengthMessage)]
-    public string ImageTitle { get; set; }
 }

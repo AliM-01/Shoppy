@@ -46,9 +46,7 @@ public class CreateProductCommandHandler : IRequestHandler<CreateProductCommand,
         await _productPictureRepository.InsertEntity(new Domain.ProductPicture.ProductPicture
         {
             ProductId = product.Id,
-            ImageAlt = product.ImageAlt,
-            ImagePath = imagePath,
-            ImageTitle = product.ImageTitle
+            ImagePath = imagePath
         });
         await _productPictureRepository.SaveChanges();
 
