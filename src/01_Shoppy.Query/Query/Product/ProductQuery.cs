@@ -145,8 +145,8 @@ public class ProductQuery : IProductQuery
 
         if (!string.IsNullOrEmpty(search.Phrase))
         {
-            query = query.Where(s => EF.Functions.Like(s.Title, $"%{search.Phrase}%")
-            || EF.Functions.Like(s.ShortDescription, $"%{search.Phrase}%"));
+            query = query.Where(s => s.Title.Contains(search.Phrase)
+            || s.ShortDescription.Contains(search.Phrase));
         }
 
         #endregion
