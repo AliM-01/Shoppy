@@ -50,7 +50,8 @@ namespace _0_Framework.Application.Extensions
 
         public static string ToFileName(this DateTime value)
         {
-            return $"{value.Year:0000}-{value.Month:00}-{value.Day:00}-{value.Hour:00}-{value.Minute:00}-{value.Second:00}";
+            return $"{value.Year:0000}_{value.Month:00}_{value.Day:00}_{value.Hour:00}-{value.Minute:00}_{value.Second:00}_"
+                + Guid.NewGuid().ToString("N").Substring(0, 4);
         }
 
         #endregion
