@@ -1,4 +1,4 @@
-﻿using _0_Framework.Application.Utilities.ImageRelated;
+﻿using _0_Framework.Application.Extensions;
 using SM.Application.Contracts.Slider.Commands;
 using System.IO;
 
@@ -30,7 +30,7 @@ public class EditSliderCommandHandler : IRequestHandler<EditSliderCommand, Respo
 
         if (request.Slider.ImageFile != null)
         {
-            var imagePath = Guid.NewGuid().ToString("N") + Path.GetExtension(request.Slider.ImageFile.FileName);
+            var imagePath = DateTime.Now.ToFileName() + Path.GetExtension(request.Slider.ImageFile.FileName);
 
             request.Slider.ImageFile.AddImageToServer(imagePath, PathExtension.SliderImage,
                 200, 200, PathExtension.SliderThumbnailImage, slider.ImagePath);
