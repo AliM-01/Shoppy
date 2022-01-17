@@ -1,6 +1,5 @@
 ﻿
 using _0_Framework.Application.Extensions;
-using _0_Framework.Application.Utilities.ImageRelated;
 using SM.Application.Contracts.ProductPicture.Commands;
 using System.IO;
 
@@ -23,17 +22,21 @@ public class CreateProductPictureCommandHandler : IRequestHandler<CreateProductP
 
     public async Task<Response<string>> Handle(CreateProductPictureCommand request, CancellationToken cancellationToken)
     {
-        var productPicture =
-            _mapper.Map(request.ProductPicture, new Domain.ProductPicture.ProductPicture());
+        for (int i = 0; i < request.ProductPicture.ImageFiles.Count; i++)
+        {
+            var productPicture =
+                _mapper.Map(request.ProductPicture, new Domain.ProductPicture.ProductPicture());
 
-        var imagePath = DateTime.Now.ToFileName() + Path.GetExtension(request.ProductPicture.ImageFile.FileName);
+            var imagePath = DateTime.Now.ToFileName() + Path.GetExtension(request.ProductPicture.ImageFiles[i].FileName);
 
-        request.ProductPicture.ImageFile.AddImageToServer(imagePath, PathExtension.ProductPictureImage,
-            200, 200, PathExtension.ProductPictureThumbnailImage);
-        productPicture.ImagePath = imagePath;
+            request.ProductPicture.ImageFiles[i].AddImageToServer(imagePath, PathExtension.ProductPictureImage,
+                200, 200, PathExtension.ProductPictureThumbnailImage);
+            productPicture.ImagePath = imagePath;
 
-        await _productPictureRepository.InsertEntity(productPicture);
-        await _productPictureRepository.SaveChanges();
+            await _productPictureRepository.InsertEntity(productPicture);
+            await _productPictureRepository.SaveChanges();
+        }
+
 
         return new Response<string>(ApplicationErrorMessage.OperationSucceddedMessage);
     }

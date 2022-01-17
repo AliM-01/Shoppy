@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Http;
+using System.Collections.Generic;
 
 namespace SM.Application.Contracts.ProductPicture.DTOs;
 public class CreateProductPictureDto
@@ -9,7 +10,7 @@ public class CreateProductPictureDto
     public long ProductId { get; set; }
 
     [Display(Name = "تصویر")]
-    [JsonProperty("imageFile")]
+    [JsonProperty("imageFiles")]
     [MaxFileSize((3 * 1024 * 1024), ErrorMessage = DomainErrorMessage.FileMaxSizeMessage)]
-    public IFormFile ImageFile { get; set; }
+    public List<IFormFile> ImageFiles { get; set; }
 }
