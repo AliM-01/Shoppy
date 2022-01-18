@@ -1,4 +1,5 @@
-﻿using SM.Application.Contracts.ProductPicture.Commands;
+﻿using Microsoft.AspNetCore.Http;
+using SM.Application.Contracts.ProductPicture.Commands;
 using SM.Application.Contracts.ProductPicture.DTOs;
 using SM.Application.Contracts.ProductPicture.Queries;
 
@@ -28,9 +29,19 @@ public class AdminProductPictureController : BaseApiController
     /// </summary>
     /// <response code="200">Success</response>
     [HttpPost(AdminShopApiEndpoints.ProductPicture.CreateProductPicture)]
-    public async Task<IActionResult> CreateProductPicture([FromForm] CreateProductPictureDto createRequest)
+    public async Task<IActionResult> CreateProductPicture([FromRoute] long productId)
     {
-        var res = await Mediator.Send(new CreateProductPictureCommand(createRequest));
+        var request = HttpContext.Request.Form;
+
+        var files = request.Files;
+
+        var createData = new CreateProductPictureDto
+        {
+            ImageFiles = (System.Collections.Generic.List<IFormFile>)files,
+            ProductId = productId
+        };
+
+        var res = await Mediator.Send(new CreateProductPictureCommand(createData));
 
         return JsonApiResult.Success(res);
     }

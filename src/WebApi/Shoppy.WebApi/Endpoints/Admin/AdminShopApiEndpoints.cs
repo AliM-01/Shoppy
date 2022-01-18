@@ -44,7 +44,7 @@ public static class AdminShopApiEndpoints
 
         public const string GetProductPictures = BaseProductPictureRoute + "/{productId}";
 
-        public const string CreateProductPicture = BaseProductPictureRoute + "/create";
+        public const string CreateProductPicture = BaseProductPictureRoute + "/create/{productId}";
 
         public const string RemoveProductPicture = BaseProductPictureRoute + "/remove/{id}";
 

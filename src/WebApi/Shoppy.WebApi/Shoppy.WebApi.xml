@@ -208,7 +208,7 @@
             </summary>
             <response code="200">Success</response>
         </member>
-        <member name="M:Shoppy.WebApi.Controllers.Admin.Shop.AdminProductPictureController.CreateProductPicture(SM.Application.Contracts.ProductPicture.DTOs.CreateProductPictureDto)">
+        <member name="M:Shoppy.WebApi.Controllers.Admin.Shop.AdminProductPictureController.CreateProductPicture(System.Int64)">
             <summary>
                ایجاد تصویر محصول
             </summary>
