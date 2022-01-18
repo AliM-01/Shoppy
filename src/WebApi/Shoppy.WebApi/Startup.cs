@@ -12,6 +12,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Newtonsoft.Json;
+using Serilog;
 using SM.Application;
 using SM.Infrastructure.Configuration;
 using SM.Infrastructure.Shared.Mappings;
@@ -128,6 +129,8 @@ public class Startup
         {
             endpoints.MapControllers();
         });
+
+        app.UseSerilogRequestLogging();
     }
 
     #endregion
