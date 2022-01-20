@@ -1,4 +1,6 @@
-﻿namespace _01_Shoppy.Query.Contracts.Product;
+﻿using _01_Shoppy.Query.Contracts.ProductPicture;
+
+namespace _01_Shoppy.Query.Contracts.Product;
 
 public class ProductDetailsQueryModel : ProductQueryModel
 {
@@ -25,4 +27,8 @@ public class ProductDetailsQueryModel : ProductQueryModel
     [Display(Name = "توضیحات Meta")]
     [JsonProperty("metaDescription")]
     public string MetaDescription { get; set; }
+
+    [Display(Name = "تصاویر محصول")]
+    [JsonProperty("productPictures")]
+    public List<ProductPictureQueryModel> ProductPictures { get; set; }
 }
