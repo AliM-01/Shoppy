@@ -24,6 +24,8 @@ public static class MainShopApiEndpoints
     {
         private const string BaseProductRoute = BaseMainShopRoute + "/product";
 
+        public const string GetProductDetails = BaseProductRoute + "/{slug}";
+
         public const string Search = BaseProductRoute + "/search";
 
         public const string GetLatestProducts = BaseProductRoute + "/get-latest";

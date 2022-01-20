@@ -14,6 +14,22 @@ public class ProductController : BaseApiController
 
     #endregion
 
+    #region Get Product Details
+
+    /// <summary>
+    ///    جزییات محصول 
+    /// </summary>
+    /// <response code="200">Success</response>
+    [HttpGet(MainShopApiEndpoints.Product.GetProductDetails)]
+    public async Task<IActionResult> GetProductDetails([FromRoute] string slug)
+    {
+        var res = await _productQuery.GetProductDetails(slug);
+
+        return JsonApiResult.Success(res);
+    }
+
+    #endregion
+
     #region Search
 
     /// <summary>

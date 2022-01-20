@@ -1,6 +1,7 @@
 ﻿using _0_Framework.Application.Extensions;
 using _01_Shoppy.Query.Contracts.Product;
 using _01_Shoppy.Query.Contracts.ProductCategory;
+using _01_Shoppy.Query.Contracts.ProductPicture;
 using _01_Shoppy.Query.Contracts.Slider;
 using AutoMapper;
 using SM.Application.Contracts.Product.DTOs;
@@ -105,7 +106,9 @@ public class ShopModuleMappingProfile : Profile
 
         #region ProductDetails Query Model
 
-        CreateMap<Product, ProductDetailsQueryModel>();
+        CreateMap<Product, ProductDetailsQueryModel>()
+            .ForMember(dest => dest.ProductPictures,
+                opt => opt.Ignore());
 
         #endregion
 
@@ -124,6 +127,12 @@ public class ShopModuleMappingProfile : Profile
         #region Create Product Picture
 
         CreateMap<CreateProductPictureDto, ProductPicture>();
+
+        #endregion
+
+        #region ProductPicture Query Model
+
+        CreateMap<ProductPicture, ProductPictureQueryModel>();
 
         #endregion
 

@@ -236,16 +236,33 @@ public class ProductQuery : IProductQuery
         if (string.IsNullOrEmpty(slug))
             throw new NotFoundApiException();
 
-        var existsProduct = await _shopContext.Products.AnyAsync(p => p.Slug == slug);
+        var products = await _shopContext.Products.Select(x => new
+        {
+            x.Slug,
+            x.Id
+        }).ToListAsync();
+
+        bool existsProduct = false;
+        long existsProductId = 0;
+
+        var existsProductInto = products.FirstOrDefault(x => x.Slug == slug);
+
+        if (existsProductInto is not null)
+        {
+            existsProductId = existsProductInto.Id;
+            existsProduct = true;
+        }
 
         if (!existsProduct)
             throw new NotFoundApiException("محصولی با این مشخصات پیدا نشد");
 
-        var product = await _shopContext.Products
+        var product = _shopContext.Products
                 .Include(p => p.ProductPictures)
-                .Select(product =>
-                   _mapper.Map(product, new ProductDetailsQueryModel()))
-                .FirstOrDefaultAsync(p => p.Slug == slug);
+                .Where(p => p.Id == existsProductId)
+                .AsQueryable()
+                .Select(p =>
+                   _mapper.Map(p, new ProductDetailsQueryModel()))
+                .FirstOrDefault();
 
         product = await _productHelper.MapProducts<ProductDetailsQueryModel>(product);
 
