@@ -1,4 +1,5 @@
 ﻿using _0_Framework.Application.Extensions;
+using _01_Shoppy.Query.Contracts.ProductPicture;
 using AutoMapper;
 using DM.Infrastructure.Persistence.Context;
 using IM.Application.Contracts.Inventory.Helpers;
@@ -123,6 +124,20 @@ public class ProductHelper : IProductHelper
         var currentCount = await _inventoryHelper.CalculateCurrentCount(inventory.Id);
 
         return (true, inventory.UnitPrice, currentCount);
+    }
+
+    #endregion
+
+    #region GetProductPictures
+
+    public List<ProductPictureQueryModel> GetProductPictures(SM.Domain.Product.Product product)
+    {
+        if (product.ProductPictures is null)
+            return new List<ProductPictureQueryModel>();
+
+        return product.ProductPictures
+            .Select(p => _mapper.Map(p, new ProductPictureQueryModel()))
+            .ToList();
     }
 
     #endregion

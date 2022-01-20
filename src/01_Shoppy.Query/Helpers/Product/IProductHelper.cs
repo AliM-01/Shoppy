@@ -1,4 +1,6 @@
-﻿namespace _01_Shoppy.Query.Helpers.Product;
+﻿using _01_Shoppy.Query.Contracts.ProductPicture;
+
+namespace _01_Shoppy.Query.Helpers.Product;
 
 public interface IProductHelper
 {
@@ -7,4 +9,6 @@ public interface IProductHelper
     Task<ProductQueryModel> MapProductsFromProductCategories(SM.Domain.Product.Product product);
 
     Task<(bool, double, long)> GetProductInventory(long productId);
+
+    List<ProductPictureQueryModel> GetProductPictures(SM.Domain.Product.Product product);
 }
