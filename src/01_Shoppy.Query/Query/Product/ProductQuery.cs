@@ -249,9 +249,11 @@ public class ProductQuery : IProductQuery
 
         product = await _productHelper.MapProducts<ProductDetailsQueryModel>(product);
 
-        //product.InventoryCurrentCount = 
+        var inventory = await _productHelper.GetProductInventory(product.Id);
 
-        throw new NotImplementedException();
+        product.InventoryCurrentCount = inventory.Item3;
+
+        return new Response<ProductDetailsQueryModel>(product);
     }
 
     #endregion

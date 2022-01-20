@@ -18,7 +18,7 @@ public class ProductDetailsQueryModel : ProductQueryModel
 
     [Display(Name = "موجودی")]
     [JsonProperty("inventoryCurrentCount")]
-    public int InventoryCurrentCount { get; set; }
+    public long InventoryCurrentCount { get; set; }
 
     [Display(Name = "کلمات کلیدی")]
     [JsonProperty("metaKeywords")]

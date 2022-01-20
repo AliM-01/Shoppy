@@ -5,4 +5,6 @@ public interface IProductHelper
     Task<T> MapProducts<T>(T product, bool hotDiscountQuery = false) where T : ProductQueryModel;
 
     Task<ProductQueryModel> MapProductsFromProductCategories(SM.Domain.Product.Product product);
+
+    Task<(bool, double, long)> GetProductInventory(long productId);
 }
