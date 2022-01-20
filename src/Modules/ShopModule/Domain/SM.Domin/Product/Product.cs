@@ -45,6 +45,8 @@ public class Product : BaseEntity
 
     public virtual ICollection<ProductPicture.ProductPicture> ProductPictures { get; set; }
 
+    public virtual ICollection<ProductFeature.ProductFeature> ProductFeatures { get; set; }
+
 
     #endregion
 }

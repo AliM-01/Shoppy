@@ -2,6 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using SM.Domain.Product;
 using SM.Domain.ProductCategory;
+using SM.Domain.ProductFeature;
 using SM.Domain.ProductPicture;
 using SM.Domain.Slider;
 
@@ -18,7 +19,9 @@ public class ShopDbContext : DbContext
 
     public DbSet<Product> Products { get; set; }
 
-    public DbSet<ProductPicture> ProductPicture { get; set; }
+    public DbSet<ProductPicture> ProductPictures { get; set; }
+    public DbSet<ProductFeature> ProductFeatures { get; set; }
+
     public DbSet<Slider> Sliders { get; set; }
 
     #region On Model Creating

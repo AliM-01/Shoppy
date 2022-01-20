@@ -29,6 +29,10 @@ public class ProductMapping : IEntityTypeConfiguration<Product>
             .WithMany(x => x.Products)
             .HasForeignKey(x => x.CategoryId);
 
+        builder.HasMany(x => x.ProductFeatures)
+            .WithOne(x => x.Product)
+            .HasForeignKey(x => x.ProductId);
+
         builder.Navigation(p => p.Category).AutoInclude();
     }
 }

@@ -132,7 +132,7 @@ public class ProductHelper : IProductHelper
 
     public List<ProductPictureQueryModel> GetProductPictures(long productId)
     {
-        var productPictures = _shopContext.ProductPicture.Where(x => x.ProductId == productId).ToList();
+        var productPictures = _shopContext.ProductPictures.Where(x => x.ProductId == productId).ToList();
 
         if (productPictures is null)
             return new List<ProductPictureQueryModel>();
