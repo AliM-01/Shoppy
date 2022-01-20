@@ -252,6 +252,7 @@ public class ProductQuery : IProductQuery
         var inventory = await _productHelper.GetProductInventory(product.Id);
 
         product.InventoryCurrentCount = inventory.Item3;
+        product.ProductPictures = _productHelper.GetProductPictures(product.Id);
 
         return new Response<ProductDetailsQueryModel>(product);
     }

@@ -10,5 +10,5 @@ public interface IProductHelper
 
     Task<(bool, double, long)> GetProductInventory(long productId);
 
-    List<ProductPictureQueryModel> GetProductPictures(SM.Domain.Product.Product product);
+    List<ProductPictureQueryModel> GetProductPictures(long productId);
 }

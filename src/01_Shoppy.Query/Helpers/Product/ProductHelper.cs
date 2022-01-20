@@ -130,12 +130,14 @@ public class ProductHelper : IProductHelper
 
     #region GetProductPictures
 
-    public List<ProductPictureQueryModel> GetProductPictures(SM.Domain.Product.Product product)
+    public List<ProductPictureQueryModel> GetProductPictures(long productId)
     {
-        if (product.ProductPictures is null)
+        var productPictures = _shopContext.ProductPicture.Where(x => x.ProductId == productId).ToList();
+
+        if (productPictures is null)
             return new List<ProductPictureQueryModel>();
 
-        return product.ProductPictures
+        return productPictures
             .Select(p => _mapper.Map(p, new ProductPictureQueryModel()))
             .ToList();
     }
