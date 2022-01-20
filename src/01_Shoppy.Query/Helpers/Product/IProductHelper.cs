@@ -2,7 +2,7 @@
 
 public interface IProductHelper
 {
-    Task<List<ProductQueryModel>> MapProducts(List<ProductQueryModel> products, bool hotDiscountQuery = false);
+    Task<ProductQueryModel> MapProducts(ProductQueryModel products, bool hotDiscountQuery = false);
 
-    Task<List<ProductQueryModel>> MapProductsFromProductCategories(List<SM.Domain.Product.Product> products);
+    Task<ProductQueryModel> MapProductsFromProductCategories(SM.Domain.Product.Product product);
 }

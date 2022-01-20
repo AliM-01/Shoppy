@@ -43,7 +43,13 @@ public class ProductQuery : IProductQuery
                    _mapper.Map(product, new ProductQueryModel()))
                .ToListAsync();
 
-        var returnData = await _productHelper.MapProducts(latestProducts);
+        var returnData = new List<ProductQueryModel>();
+
+        latestProducts.ForEach(p =>
+        {
+            var mappedProduct = _productHelper.MapProducts(p).Result;
+            returnData.Add(mappedProduct);
+        });
 
         return new Response<List<ProductQueryModel>>(returnData);
     }
@@ -69,7 +75,13 @@ public class ProductQuery : IProductQuery
                    _mapper.Map(product, new ProductQueryModel()))
                .ToListAsync();
 
-        var returnData = await _productHelper.MapProducts(products, true);
+        var returnData = new List<ProductQueryModel>();
+
+        products.ForEach(p =>
+        {
+            var mappedProduct = _productHelper.MapProducts(p, true).Result;
+            returnData.Add(mappedProduct);
+        });
 
         return new Response<List<ProductQueryModel>>(returnData);
     }
@@ -179,11 +191,17 @@ public class ProductQuery : IProductQuery
                    _mapper.Map(product, new ProductQueryModel()))
             .ToList();
 
-        allEntities = await _productHelper.MapProducts(allEntities);
+        var mappedProducts = new List<ProductQueryModel>();
+
+        allEntities.ForEach(p =>
+        {
+            var mappedProduct = _productHelper.MapProducts(p).Result;
+            mappedProducts.Add(mappedProduct);
+        });
 
         #endregion paging
 
-        var returnData = search.SetData(allEntities).SetPaging(pager);
+        var returnData = search.SetData(mappedProducts).SetPaging(pager);
 
         #region Price Order
 
@@ -207,6 +225,27 @@ public class ProductQuery : IProductQuery
             throw new NotFoundApiException();
 
         return new Response<SearchProductQueryModel>(returnData);
+    }
+
+    #endregion
+
+    #region Get Product Details
+
+    public async Task<Response<ProductDetailsQueryModel>> GetProductDetails(string slug)
+    {
+        if (string.IsNullOrEmpty(slug))
+            throw new NotFoundApiException();
+
+        var existsProduct = await _shopContext.Products.AnyAsync(p => p.Slug == slug);
+
+        if (!existsProduct)
+            throw new NotFoundApiException("محصولی با این مشخصات پیدا نشد");
+
+        var product = await _shopContext.Products
+                .Include(p => p.ProductPictures)
+                .FirstOrDefaultAsync(p => p.Slug == slug);
+
+        throw new NotImplementedException();
     }
 
     #endregion

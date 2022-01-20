@@ -78,7 +78,15 @@ public class ProductCategoryQuery : IProductCategoryQuery
 
         var mappedProductCategory = _mapper.Map(productCategory, new ProductCategoryQueryModel());
 
-        mappedProductCategory.Products = await _productHelper.MapProductsFromProductCategories(productCategoryProducts);
+        var mappedProductCategoryProducts = new List<ProductQueryModel>();
+
+        productCategoryProducts.ForEach(p =>
+        {
+            var mappedProduct = _productHelper.MapProductsFromProductCategories(p).Result;
+            mappedProductCategoryProducts.Add(mappedProduct);
+        });
+
+        mappedProductCategory.Products = mappedProductCategoryProducts;
 
         return new Response<ProductCategoryQueryModel>(mappedProductCategory);
     }

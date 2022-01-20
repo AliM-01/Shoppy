@@ -29,26 +29,21 @@ public class ProductHelper : IProductHelper
 
     #region MapProductsFromProductCategories
 
-    public async Task<List<ProductQueryModel>> MapProductsFromProductCategories(List<SM.Domain.Product.Product> products)
+    public async Task<ProductQueryModel> MapProductsFromProductCategories(SM.Domain.Product.Product product)
     {
-        var mappedProducts = products
-               .OrderByDescending(x => x.LastUpdateDate)
-               .Select(product =>
-                   _mapper.Map(product, new ProductQueryModel
-                   {
-                       CategoryId = product.CategoryId.Value
-                   }))
-               .ToList();
+        var mappedProduct = _mapper.Map(product, new ProductQueryModel
+        {
+            CategoryId = product.CategoryId.Value
+        });
 
-        return await MapProducts(mappedProducts);
+        return await MapProducts(mappedProduct);
     }
 
     #endregion
 
     #region MapProducts
 
-    public async Task<List<ProductQueryModel>> MapProducts
-        (List<ProductQueryModel> products, bool hotDiscountQuery = false)
+    public async Task<ProductQueryModel> MapProducts(ProductQueryModel product, bool hotDiscountQuery = false)
     {
         #region all discounts query
 
@@ -78,34 +73,31 @@ public class ProductHelper : IProductHelper
 
         #endregion
 
-        products.ForEach(product =>
+        product.Category = categories.FirstOrDefault(c => c.Id == product.CategoryId).Title.ToString();
+
+        (bool existsProductInventory, double productUnitPrice) = GetProductUnitPrice(product.Id).Result;
+
+        if (existsProductInventory)
         {
-            product.Category = categories.FirstOrDefault(c => c.Id == product.CategoryId).Title.ToString();
+            // calculate unitPrice
+            product.Price = productUnitPrice.ToMoney();
+            product.UnitPrice = productUnitPrice;
 
-            (bool existsProductInventory, double productUnitPrice) = GetProductUnitPrice(product.Id).Result;
-
-            if (existsProductInventory)
+            if (discounts.Any(x => x.ProductId == product.Id))
             {
-                // calculate unitPrice
-                product.Price = productUnitPrice.ToMoney();
-                product.UnitPrice = productUnitPrice;
+                // calculate discountRate
+                int discountRate = discounts.FirstOrDefault(x => x.ProductId == product.Id).Rate;
+                product.DiscountRate = discountRate;
+                product.HasDiscount = discountRate > 0;
 
-                if (discounts.Any(x => x.ProductId == product.Id))
-                {
-                    // calculate discountRate
-                    int discountRate = discounts.FirstOrDefault(x => x.ProductId == product.Id).Rate;
-                    product.DiscountRate = discountRate;
-                    product.HasDiscount = discountRate > 0;
-
-                    // calculate PriceWithDiscount
-                    var discountAmount = Math.Round((productUnitPrice * discountRate / 100));
-                    product.PriceWithDiscount = (productUnitPrice - discountAmount).ToMoney();
-                }
+                // calculate PriceWithDiscount
+                var discountAmount = Math.Round((productUnitPrice * discountRate / 100));
+                product.PriceWithDiscount = (productUnitPrice - discountAmount).ToMoney();
             }
+        }
 
-        });
 
-        return products;
+        return product;
     }
 
     #endregion
