@@ -1,6 +1,7 @@
 ﻿using _0_Framework.Application.Extensions;
 using AutoMapper;
 using DM.Infrastructure.Persistence.Context;
+using IM.Application.Contracts.Inventory.Helpers;
 using IM.Infrastructure.Persistence.Context;
 using SM.Infrastructure.Persistence.Context;
 
@@ -14,15 +15,17 @@ public class ProductHelper : IProductHelper
     private readonly DiscountDbContext _discountContext;
     private readonly InventoryDbContext _inventoryContext;
     private readonly IMapper _mapper;
+    private readonly IInventoryHelper _inventoryHelper;
 
     public ProductHelper(
         ShopDbContext shopContext, DiscountDbContext discountContext,
-        InventoryDbContext inventoryContext, IMapper mapper)
+        InventoryDbContext inventoryContext, IMapper mapper, IInventoryHelper inventoryHelper)
     {
         _shopContext = Guard.Against.Null(shopContext, nameof(_shopContext));
         _discountContext = Guard.Against.Null(discountContext, nameof(_discountContext));
         _inventoryContext = Guard.Against.Null(inventoryContext, nameof(_discountContext));
         _mapper = Guard.Against.Null(mapper, nameof(_mapper));
+        _inventoryHelper = Guard.Against.Null(inventoryHelper, nameof(_inventoryHelper));
     }
 
     #endregion
@@ -43,7 +46,7 @@ public class ProductHelper : IProductHelper
 
     #region MapProducts
 
-    public async Task<ProductQueryModel> MapProducts(ProductQueryModel product, bool hotDiscountQuery = false)
+    public async Task<T> MapProducts<T>(T product, bool hotDiscountQuery = false) where T : ProductQueryModel
     {
         #region all discounts query
 
@@ -75,7 +78,7 @@ public class ProductHelper : IProductHelper
 
         product.Category = categories.FirstOrDefault(c => c.Id == product.CategoryId).Title.ToString();
 
-        (bool existsProductInventory, double productUnitPrice) = GetProductUnitPrice(product.Id).Result;
+        (bool existsProductInventory, double productUnitPrice, long currentCount) = GetProductInventory(product.Id).Result;
 
         if (existsProductInventory)
         {
@@ -104,14 +107,22 @@ public class ProductHelper : IProductHelper
 
     #region Get Product UnitPrice
 
-    public async Task<(bool, double)> GetProductUnitPrice(long productId)
+    public async Task<(bool, double, long)> GetProductInventory(long productId)
     {
         if (!(await _inventoryContext.Inventory.AnyAsync(x => x.ProductId == productId)))
-            return (false, default);
+            return (false, default, default);
 
-        return (true, await _inventoryContext.Inventory
+        var inventory = await _inventoryContext.Inventory
             .Where(x => x.ProductId == productId)
-            .Select(x => x.UnitPrice).FirstOrDefaultAsync());
+            .Select(x => new
+            {
+                x.Id,
+                x.UnitPrice,
+            }).FirstOrDefaultAsync();
+
+        var currentCount = await _inventoryHelper.CalculateCurrentCount(inventory.Id);
+
+        return (true, inventory.UnitPrice, currentCount);
     }
 
     #endregion

@@ -47,7 +47,7 @@ public class ProductQuery : IProductQuery
 
         latestProducts.ForEach(p =>
         {
-            var mappedProduct = _productHelper.MapProducts(p).Result;
+            var mappedProduct = _productHelper.MapProducts<ProductQueryModel>(p).Result;
             returnData.Add(mappedProduct);
         });
 
@@ -79,7 +79,7 @@ public class ProductQuery : IProductQuery
 
         products.ForEach(p =>
         {
-            var mappedProduct = _productHelper.MapProducts(p, true).Result;
+            var mappedProduct = _productHelper.MapProducts<ProductQueryModel>(p, true).Result;
             returnData.Add(mappedProduct);
         });
 
@@ -195,7 +195,7 @@ public class ProductQuery : IProductQuery
 
         allEntities.ForEach(p =>
         {
-            var mappedProduct = _productHelper.MapProducts(p).Result;
+            var mappedProduct = _productHelper.MapProducts<ProductQueryModel>(p).Result;
             mappedProducts.Add(mappedProduct);
         });
 
@@ -243,7 +243,13 @@ public class ProductQuery : IProductQuery
 
         var product = await _shopContext.Products
                 .Include(p => p.ProductPictures)
+                .Select(product =>
+                   _mapper.Map(product, new ProductDetailsQueryModel()))
                 .FirstOrDefaultAsync(p => p.Slug == slug);
+
+        product = await _productHelper.MapProducts<ProductDetailsQueryModel>(product);
+
+        //product.InventoryCurrentCount = 
 
         throw new NotImplementedException();
     }
