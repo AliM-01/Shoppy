@@ -6,10 +6,12 @@ using _01_Shoppy.Query.Contracts.Slider;
 using AutoMapper;
 using SM.Application.Contracts.Product.DTOs;
 using SM.Application.Contracts.ProductCategory.DTOs;
+using SM.Application.Contracts.ProductFeature.DTOs;
 using SM.Application.Contracts.ProductPicture.DTOs;
 using SM.Application.Contracts.Slider.DTOs;
 using SM.Domain.Product;
 using SM.Domain.ProductCategory;
+using SM.Domain.ProductFeature;
 using SM.Domain.ProductPicture;
 using SM.Domain.Slider;
 
@@ -133,6 +135,34 @@ public class ShopModuleMappingProfile : Profile
         #region ProductPicture Query Model
 
         CreateMap<ProductPicture, ProductPictureQueryModel>();
+
+        #endregion
+
+        #endregion
+
+        #region Product Feature
+
+        #region Product Feature Dto
+
+        CreateMap<ProductFeature, ProductFeatureDto>()
+            .ForMember(dest => dest.CreationDate,
+                opt => opt.MapFrom(src => src.CreationDate.ToShamsi()));
+
+        #endregion
+
+        #region Create Product Feature
+
+        CreateMap<CreateProductFeatureDto, ProductFeature>();
+
+        #endregion
+
+        #region Edit Product Feature
+
+        CreateMap<ProductFeature, EditProductFeatureDto>();
+
+        CreateMap<EditProductFeatureDto, ProductFeature>()
+            .ForMember(dest => dest.Id,
+                opt => opt.Ignore());
 
         #endregion
 
