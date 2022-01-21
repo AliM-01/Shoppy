@@ -49,6 +49,21 @@ public static class AdminShopApiEndpoints
         public const string RemoveProductPicture = BaseProductPictureRoute + "/remove/{id}";
 
     }
+    public static class ProductFeature
+    {
+        private const string BaseProductFeatureRoute = BaseAdminShopRoute + "/product-feature";
+
+        public const string FilterProductFeatures = BaseProductFeatureRoute + "/filter";
+
+        public const string GetProductFeatureDetails = BaseProductFeatureRoute + "/{id}";
+
+        public const string CreateProductFeature = BaseProductFeatureRoute + "/create";
+
+        public const string EditProductFeature = BaseProductFeatureRoute + "/edit";
+
+        public const string DeleteProductFeature = BaseProductFeatureRoute + "/delete/{id}";
+
+    }
 
     public static class Slider
     {
