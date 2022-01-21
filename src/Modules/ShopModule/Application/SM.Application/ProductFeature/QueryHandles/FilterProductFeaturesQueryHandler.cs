@@ -24,10 +24,12 @@ public class FilterProductFeaturesQueryHandler : IRequestHandler<FilterProductFe
     {
         var query = _productFeatureRepository.GetQuery().AsQueryable();
 
+        if (request.Filter.ProductId == 0)
+            throw new ApiException(ApplicationErrorMessage.FilteredRecordsNotFoundMessage);
+
         #region filter
 
-        if (request.Filter.ProductId != 0)
-            query = query.Where(s => s.ProductId == request.Filter.ProductId);
+        query = query.Where(s => s.ProductId == request.Filter.ProductId);
 
         #endregion filter
 

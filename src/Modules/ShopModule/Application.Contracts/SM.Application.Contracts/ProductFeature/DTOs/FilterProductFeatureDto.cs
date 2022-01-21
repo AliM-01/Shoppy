@@ -12,16 +12,16 @@ public class FilterProductFeatureDto : BasePaging
     [Range(1, 10000, ErrorMessage = DomainErrorMessage.RequiredMessage)]
     public long ProductId { get; set; }
 
-    [JsonProperty("productCategories")]
+    [JsonProperty("productFeatures")]
     public IEnumerable<ProductFeatureDto> ProductFeatures { get; set; }
 
     #endregion
 
     #region Methods
 
-    public FilterProductFeatureDto SetData(IEnumerable<ProductFeatureDto> productCategories)
+    public FilterProductFeatureDto SetData(IEnumerable<ProductFeatureDto> productFeatures)
     {
-        this.ProductCategories = productCategories;
+        this.ProductFeatures = productFeatures;
         return this;
     }
 
