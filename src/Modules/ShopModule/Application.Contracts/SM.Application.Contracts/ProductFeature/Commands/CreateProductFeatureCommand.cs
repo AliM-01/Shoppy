@@ -3,4 +3,4 @@
 namespace SM.Application.Contracts.ProductFeature.Commands;
 
 public record CreateProductFeatureCommand
-    (CreateProductFeatureDto productFeature) : IRequest<Response<string>>;
+    (CreateProductFeatureDto ProductFeature) : IRequest<Response<string>>;
