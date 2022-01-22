@@ -102,6 +102,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CM.Application.Contracts", 
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CM.Infrastructure.Persistence", "src\Modules\CommentModule\Infrastructure\CM.Infrastructure.Persistence\CM.Infrastructure.Persistence.csproj", "{683BB59F-23F6-400C-98F3-319C309A047A}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CM.Infrastructure.Configuration", "src\Modules\CommentModule\Infrastructure\CM.Infrastructure.Configuration\CM.Infrastructure.Configuration.csproj", "{38B15438-1455-4937-B614-805742D97656}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -204,6 +206,10 @@ Global
 		{683BB59F-23F6-400C-98F3-319C309A047A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{683BB59F-23F6-400C-98F3-319C309A047A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{683BB59F-23F6-400C-98F3-319C309A047A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{38B15438-1455-4937-B614-805742D97656}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{38B15438-1455-4937-B614-805742D97656}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{38B15438-1455-4937-B614-805742D97656}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{38B15438-1455-4937-B614-805742D97656}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -255,6 +261,7 @@ Global
 		{A258B152-4CB6-4EEC-8749-5CF522FEDA86} = {A808ECEA-53AF-41D0-8963-4BCB72F280C2}
 		{2C04436F-68CC-4B06-A0A8-3D4DC0630FEC} = {4D12832D-2A88-45C0-9CF9-2511A86AF077}
 		{683BB59F-23F6-400C-98F3-319C309A047A} = {82BBFFE2-9001-4025-887F-4B1A9C69C0E8}
+		{38B15438-1455-4937-B614-805742D97656} = {82BBFFE2-9001-4025-887F-4B1A9C69C0E8}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {615EA258-FFB2-45B7-9D73-B482C4E29616}

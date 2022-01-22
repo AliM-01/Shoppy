@@ -1,4 +1,5 @@
 using _0_Framework.Presentation.Extensions.Startup;
+using CM.Infrastructure.Configuration;
 using DM.Application;
 using DM.Infrastructure.Configuration;
 using DM.Infrastructure.Shared.Mappings;
@@ -50,6 +51,7 @@ Log.Logger = new LoggerConfiguration()
 ShopModuletBootstrapper.Configure(builder.Services, connectionString);
 DiscountModuleBootstrapper.Configure(builder.Services, connectionString);
 InventoryModuletBootstrapper.Configure(builder.Services, connectionString);
+CommentModuletBootstrapper.Configure(builder.Services, connectionString);
 
 #endregion
 
