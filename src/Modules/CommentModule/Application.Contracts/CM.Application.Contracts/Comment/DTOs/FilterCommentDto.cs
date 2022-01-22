@@ -11,12 +11,12 @@ public class FilterCommentDto : BasePaging
     [Display(Name = "نوع")]
     [JsonConverter(typeof(StringEnumConverter))]
     [JsonProperty("type")]
-    public CommentType Type { get; set; } = CommentType.Product;
+    public FilterCommentType Type { get; set; } = FilterCommentType.All;
 
     [Display(Name = "وضعیت")]
     [JsonConverter(typeof(StringEnumConverter))]
     [JsonProperty("state")]
-    public CommentState State { get; set; }
+    public FilterCommentState State { get; set; } = FilterCommentState.All;
 
     [Display(Name = "کامنت ها")]
     [JsonProperty("comments")]
@@ -46,4 +46,19 @@ public class FilterCommentDto : BasePaging
     }
 
     #endregion
+}
+
+
+public enum FilterCommentState
+{
+    All,
+    Canceled,
+    Confirmed
+}
+
+public enum FilterCommentType
+{
+    All,
+    Product,
+    Article
 }
