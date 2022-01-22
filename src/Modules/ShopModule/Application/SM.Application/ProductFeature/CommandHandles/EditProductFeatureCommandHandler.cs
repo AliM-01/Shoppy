@@ -24,7 +24,8 @@ public class EditProductFeatureCommandHandler : IRequestHandler<EditProductFeatu
         if (productFeature is null)
             throw new NotFoundApiException();
 
-        if (_productFeatureRepository.Exists(x => x.FeatureTitle == request.ProductFeature.FeatureTitle && x.Id != request.ProductFeature.Id))
+        if (_productFeatureRepository.Exists(x => x.ProductId == request.ProductFeature.ProductId
+                && x.FeatureTitle == request.ProductFeature.FeatureTitle && x.Id != request.ProductFeature.Id))
             throw new ApiException(ApplicationErrorMessage.IsDuplicatedMessage);
 
         _mapper.Map(request.ProductFeature, productFeature);

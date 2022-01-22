@@ -19,7 +19,8 @@ public class CreateProductFeatureCommandHandler : IRequestHandler<CreateProductF
 
     public async Task<Response<string>> Handle(CreateProductFeatureCommand request, CancellationToken cancellationToken)
     {
-        if (_productFeatureRepository.Exists(x => x.FeatureTitle == request.ProductFeature.FeatureTitle))
+        if (_productFeatureRepository.Exists(x => x.ProductId == request.ProductFeature.ProductId
+                && x.FeatureTitle == request.ProductFeature.FeatureTitle))
             throw new ApiException(ApplicationErrorMessage.IsDuplicatedMessage);
 
         var productFeature =
