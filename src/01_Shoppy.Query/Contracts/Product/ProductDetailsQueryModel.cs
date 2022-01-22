@@ -1,4 +1,5 @@
 ﻿using _01_Shoppy.Query.Contracts.ProductPicture;
+using SM.Application.Contracts.ProductFeature.DTOs;
 
 namespace _01_Shoppy.Query.Contracts.Product;
 
@@ -31,4 +32,8 @@ public class ProductDetailsQueryModel : ProductQueryModel
     [Display(Name = "تصاویر محصول")]
     [JsonProperty("productPictures")]
     public List<ProductPictureQueryModel> ProductPictures { get; set; }
+
+    [Display(Name = "ویژگی های محصول")]
+    [JsonProperty("productFeatures")]
+    public List<ProductFeatureDto> ProductFeatures { get; set; }
 }

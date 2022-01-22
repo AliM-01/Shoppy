@@ -4,6 +4,7 @@ using AutoMapper;
 using DM.Infrastructure.Persistence.Context;
 using IM.Application.Contracts.Inventory.Helpers;
 using IM.Infrastructure.Persistence.Context;
+using SM.Application.Contracts.ProductFeature.DTOs;
 using SM.Infrastructure.Persistence.Context;
 
 namespace _01_Shoppy.Query.Helpers.Product;
@@ -139,6 +140,22 @@ public class ProductHelper : IProductHelper
 
         return productPictures
             .Select(p => _mapper.Map(p, new ProductPictureQueryModel()))
+            .ToList();
+    }
+
+    #endregion
+
+    #region GetProductFeatures
+
+    public List<ProductFeatureDto> GetProductFeatures(long productId)
+    {
+        var productFeatures = _shopContext.ProductFeatures.Where(x => x.ProductId == productId).ToList();
+
+        if (productFeatures is null)
+            return new List<ProductFeatureDto>();
+
+        return productFeatures
+            .Select(p => _mapper.Map(p, new ProductFeatureDto()))
             .ToList();
     }
 

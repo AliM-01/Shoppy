@@ -258,6 +258,7 @@ public class ProductQuery : IProductQuery
 
         var product = _shopContext.Products
                 .Include(p => p.ProductPictures)
+                .Include(p => p.ProductFeatures)
                 .Where(p => p.Id == existsProductId)
                 .AsQueryable()
                 .Select(p =>
@@ -270,6 +271,7 @@ public class ProductQuery : IProductQuery
 
         product.InventoryCurrentCount = inventory.Item3;
         product.ProductPictures = _productHelper.GetProductPictures(product.Id);
+        product.ProductFeatures = _productHelper.GetProductFeatures(product.Id);
 
         return new Response<ProductDetailsQueryModel>(product);
     }
