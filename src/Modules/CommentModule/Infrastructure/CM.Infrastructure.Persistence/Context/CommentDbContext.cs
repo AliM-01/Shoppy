@@ -1,7 +1,7 @@
 ﻿using _0_Framework.Infrastructure.Context;
 using Microsoft.EntityFrameworkCore;
 
-namespace IM.Infrastructure.Persistence.Context;
+namespace CM.Infrastructure.Persistence.Context;
 public class CommentDbContext : DbContext
 {
     #region Ctor

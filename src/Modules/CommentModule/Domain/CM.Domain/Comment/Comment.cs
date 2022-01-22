@@ -1,8 +1,9 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using _0_Framework.Domain;
+using System.ComponentModel.DataAnnotations;
 
 namespace CM.Domain.Comment;
 
-public class Comment
+public class Comment : BaseEntity
 {
     #region Properties
 
