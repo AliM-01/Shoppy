@@ -1,6 +1,7 @@
 ﻿using _02_DI_Container.Extensions.Startup;
 using CM.Application;
 using CM.Infrastructure.Configuration;
+using CM.Infrastructure.Shared.Mappings;
 using DM.Application;
 using DM.Infrastructure.Configuration;
 using DM.Infrastructure.Shared.Mappings;
@@ -48,6 +49,7 @@ public static class DI_Container
             typeof(ShopModuleMappingProfile),
             typeof(DiscountModuleMappingProfile),
             typeof(InventoryModuleMappingProfile),
+            typeof(CommentModuleMappingProfile)
         });
 
         #endregion

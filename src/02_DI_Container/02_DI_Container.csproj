@@ -31,6 +31,7 @@
 		<ProjectReference Include="..\0_Framework\0_Framework.csproj" />
 		<ProjectReference Include="..\Modules\CommentModule\Application\CM.Application\CM.Application.csproj" />
 		<ProjectReference Include="..\Modules\CommentModule\Infrastructure\CM.Infrastructure.Configuration\CM.Infrastructure.Configuration.csproj" />
+		<ProjectReference Include="..\Modules\CommentModule\Infrastructure\CM.Infrastructure.Shared\CM.Infrastructure.Shared.csproj" />
 		<ProjectReference Include="..\Modules\DiscountModule\Infrastructure\DM.Infrastructure.Configuration\DM.Infrastructure.Configuration.csproj" />
 		<ProjectReference Include="..\Modules\DiscountModule\Infrastructure\DM.Infrastructure.Shared\DM.Infrastructure.Shared.csproj" />
 		<ProjectReference Include="..\Modules\InventoryModule\Application\IM.Application\IM.Application.csproj" />
