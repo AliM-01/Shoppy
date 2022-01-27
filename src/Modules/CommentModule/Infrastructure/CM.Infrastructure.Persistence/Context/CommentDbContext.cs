@@ -1,4 +1,5 @@
 ﻿using _0_Framework.Infrastructure.Context;
+using CM.Domain.Comment;
 using Microsoft.EntityFrameworkCore;
 
 namespace CM.Infrastructure.Persistence.Context;
@@ -20,6 +21,8 @@ public class CommentDbContext : DbContext
 
         var assembly = typeof(CommentDbContext).Assembly;
         builder.ApplyConfigurationsFromAssembly(assembly);
+
+        builder.Entity<Comment>().HasQueryFilter(x => x.State == CommentState.Confirmed);
 
         base.OnModelCreating(builder);
     }
