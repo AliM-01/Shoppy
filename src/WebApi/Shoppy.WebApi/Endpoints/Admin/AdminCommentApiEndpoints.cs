@@ -7,5 +7,8 @@ public class AdminCommentApiEndpoints
     public static class Comment
     {
         private const string BaseCommentRoute = BaseAdminCommentRoute;
+
+        public const string FilterComments = BaseCommentRoute + "/filter";
+
     }
 }
