@@ -10,5 +10,9 @@ public class AdminCommentApiEndpoints
 
         public const string FilterComments = BaseCommentRoute + "/filter";
 
+        public const string ConfirmComment = BaseCommentRoute + "/cofirm/{id}";
+
+        public const string CancelComment = BaseCommentRoute + "/cancel/{id}";
+
     }
 }
