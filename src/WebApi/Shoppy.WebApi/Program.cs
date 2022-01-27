@@ -1,82 +1,41 @@
 using _0_Framework.Presentation.Extensions.Startup;
-using CM.Infrastructure.Configuration;
-using DM.Application;
-using DM.Infrastructure.Configuration;
-using DM.Infrastructure.Shared.Mappings;
-using IM.Application;
-using IM.Infrastructure.Configuration;
-using IM.Infrastructure.Shared.Mappings;
+using _02_DI_Container;
 using Microsoft.AspNetCore.Builder;
-using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Newtonsoft.Json;
 using Serilog;
 using Serilog.Events;
 using Serilog.Sinks.MSSqlServer;
 using Shoppy.WebApi;
-using SM.Application;
-using SM.Infrastructure.Configuration;
-using SM.Infrastructure.Shared.Mappings;
-using System.Collections.Generic;
 using System.IO;
 using System.Reflection;
 
 var builder = WebApplication.CreateBuilder(args);
 
-ConfigurationManager configuration = builder.Configuration;
-IWebHostEnvironment environment = builder.Environment;
+var configuration = builder.Configuration;
+var environment = builder.Environment;
 
 var connectionString = configuration.GetConnectionString("DefaultConnection");
 
+#region logger
+
 builder.Host.UseSerilog();
 Log.Logger = new LoggerConfiguration()
-            .WriteTo.MSSqlServer(
-                connectionString:
-                connectionString,
-                restrictedToMinimumLevel: LogEventLevel.Information,
-                sinkOptions: new MSSqlServerSinkOptions
-                {
-                    TableName = "LogEvents",
-                    AutoCreateSqlTable = true
-                })
-            .WriteTo.Console()
-            .CreateLogger();
-
-#region ConfigureServices
-
-#region Configuring Modules
-
-ShopModuletBootstrapper.Configure(builder.Services, connectionString);
-DiscountModuleBootstrapper.Configure(builder.Services, connectionString);
-InventoryModuletBootstrapper.Configure(builder.Services, connectionString);
-CommentModuletBootstrapper.Configure(builder.Services, connectionString);
+    .WriteTo.MSSqlServer(
+        connectionString:
+        connectionString,
+        restrictedToMinimumLevel: LogEventLevel.Information,
+        sinkOptions: new MSSqlServerSinkOptions
+        {
+            TableName = "LogEvents",
+            AutoCreateSqlTable = true
+        })
+    .WriteTo.Console()
+    .CreateLogger();
 
 #endregion
 
-#region Mediator And FluentValidation
-
-builder.Services.AddMediatorAndFluentValidationExtension(new List<Type>
-            {
-                typeof(IAssemblyMarker),
-                typeof(ISMAssemblyMarker),
-                typeof(IDMAssemblyMarker),
-                typeof(IIMAssemblyMarker)
-            });
-
-#endregion
-
-#region AutoMapper
-
-builder.Services.AddAutoMapperExtension(typeof(IAssemblyMarker), new List<Type>
-            {
-                typeof(ShopModuleMappingProfile),
-                typeof(DiscountModuleMappingProfile),
-                typeof(InventoryModuleMappingProfile),
-            });
-
-#endregion
+builder.Services.RegisterServices(typeof(IAssemblyMarker), connectionString);
 
 #region Swagger
 
@@ -84,20 +43,6 @@ var xmlFile = Assembly.GetExecutingAssembly().GetName().Name + ".xml";
 var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
 
 builder.Services.AddSwaggerExtension("Shoppy.WebApi", xmlPath);
-
-#endregion
-
-#region MVC Configuration
-
-builder.Services.AddControllers().AddNewtonsoftJson(options =>
-{
-    options.SerializerSettings.NullValueHandling = NullValueHandling.Include;
-    options.SerializerSettings.MaxDepth = int.MaxValue;
-    options.SerializerSettings.Formatting = Formatting.Indented;
-    options.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore;
-});
-
-#endregion
 
 #endregion
 
@@ -138,10 +83,6 @@ app.UseEndpoints(endpoints =>
 app.UseSerilogRequestLogging();
 
 #endregion
-
-using (var scope = app.Services.CreateScope())
-{
-}
 
 try
 {

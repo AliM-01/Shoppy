@@ -37,15 +37,12 @@
 	</ItemGroup>
 
 	<ItemGroup>
+		<ProjectReference Include="..\..\02_DI_Container\02_DI_Container.csproj" />
 		<ProjectReference Include="..\..\0_Framework\0_Framework.csproj" />
-		<ProjectReference Include="..\..\Modules\CommentModule\Infrastructure\CM.Infrastructure.Configuration\CM.Infrastructure.Configuration.csproj" />
-		<ProjectReference Include="..\..\Modules\DiscountModule\Infrastructure\DM.Infrastructure.Configuration\DM.Infrastructure.Configuration.csproj" />
-		<ProjectReference Include="..\..\Modules\DiscountModule\Infrastructure\DM.Infrastructure.Shared\DM.Infrastructure.Shared.csproj" />
-		<ProjectReference Include="..\..\Modules\InventoryModule\Application\IM.Application\IM.Application.csproj" />
-		<ProjectReference Include="..\..\Modules\InventoryModule\Infrastructure\IM.Infrastructure.Configuration\IM.Infrastructure.Configuration.csproj" />
-		<ProjectReference Include="..\..\Modules\InventoryModule\Infrastructure\IM.Infrastructure.Shared\IM.Infrastructure.Shared.csproj" />
-		<ProjectReference Include="..\..\Modules\ShopModule\Infrastructure\SM.Infrastructure.Configuration\SM.Infrastructure.Configuration.csproj" />
-		<ProjectReference Include="..\..\Modules\ShopModule\Infrastructure\SM.Infrastructure.Shared\SM.Infrastructure.Shared.csproj" />
+		<ProjectReference Include="..\..\Modules\CommentModule\Application.Contracts\CM.Application.Contracts\CM.Application.Contracts.csproj" />
+		<ProjectReference Include="..\..\Modules\DiscountModule\Application.Contracts\DM.Application.Contracts\DM.Application.Contracts.csproj" />
+		<ProjectReference Include="..\..\Modules\InventoryModule\Application.Contracts\IM.Application.Contracts\IM.Application.Contracts.csproj" />
+		<ProjectReference Include="..\..\Modules\ShopModule\Application.Contracts\SM.Application.Contracts\SM.Application.Contracts.csproj" />
 	</ItemGroup>
 
 </Project>

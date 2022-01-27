@@ -12,9 +12,8 @@
 
 	<ItemGroup>
 		<ProjectReference Include="..\..\..\..\0_Framework\0_Framework.csproj" />
-		<ProjectReference Include="..\..\..\ShopModule\Domain\SM.Domin\SM.Domain.csproj" />
 		<ProjectReference Include="..\..\Application.Contracts\CM.Application.Contracts\CM.Application.Contracts.csproj" />
-		<ProjectReference Include="..\..\Domain\SM.Domin\CM.Domain.csproj" />
+		<ProjectReference Include="..\..\Domain\CM.Domain\CM.Domain.csproj" />
 	</ItemGroup>
 
 </Project>

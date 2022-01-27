@@ -1,0 +1,43 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+    <RootNamespace>_02_DI_Container</RootNamespace>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+	<ItemGroup>
+		<PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="6.0.1">
+			<PrivateAssets>all</PrivateAssets>
+			<IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+		</PackageReference>
+		<PackageReference Include="Microsoft.AspNetCore.Mvc.Versioning" Version="5.0.0" />
+		<PackageReference Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" Version="6.0.1" />
+		<PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="6.0.1" />
+
+		<PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
+		<PackageReference Include="Ardalis.GuardClauses" Version="3.3.0" />
+
+		<PackageReference Include="Serilog.AspNetCore" Version="4.1.0" />
+		<PackageReference Include="Serilog.Enrichers.Environment" Version="2.2.0" />
+		<PackageReference Include="Serilog.Enrichers.Process" Version="2.0.2" />
+		<PackageReference Include="Serilog.Enrichers.Thread" Version="3.1.0" />
+		<PackageReference Include="Serilog.Settings.Configuration" Version="3.2.0" />
+		<PackageReference Include="Serilog.Sinks.MSSqlServer" Version="5.6.1" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<ProjectReference Include="..\0_Framework\0_Framework.csproj" />
+		<ProjectReference Include="..\Modules\CommentModule\Application\CM.Application\CM.Application.csproj" />
+		<ProjectReference Include="..\Modules\CommentModule\Infrastructure\CM.Infrastructure.Configuration\CM.Infrastructure.Configuration.csproj" />
+		<ProjectReference Include="..\Modules\DiscountModule\Infrastructure\DM.Infrastructure.Configuration\DM.Infrastructure.Configuration.csproj" />
+		<ProjectReference Include="..\Modules\DiscountModule\Infrastructure\DM.Infrastructure.Shared\DM.Infrastructure.Shared.csproj" />
+		<ProjectReference Include="..\Modules\InventoryModule\Application\IM.Application\IM.Application.csproj" />
+		<ProjectReference Include="..\Modules\InventoryModule\Infrastructure\IM.Infrastructure.Configuration\IM.Infrastructure.Configuration.csproj" />
+		<ProjectReference Include="..\Modules\InventoryModule\Infrastructure\IM.Infrastructure.Shared\IM.Infrastructure.Shared.csproj" />
+		<ProjectReference Include="..\Modules\ShopModule\Infrastructure\SM.Infrastructure.Configuration\SM.Infrastructure.Configuration.csproj" />
+		<ProjectReference Include="..\Modules\ShopModule\Infrastructure\SM.Infrastructure.Shared\SM.Infrastructure.Shared.csproj" />
+	</ItemGroup>
+</Project>
+
