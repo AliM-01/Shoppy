@@ -1,4 +1,4 @@
-﻿using _0_Framework.Presentation.Middlewares;
+﻿using _02_DI_Container.Middlewares;
 using Microsoft.AspNetCore.Builder;
 
 namespace _02_DI_Container.Extensions.Startup;
