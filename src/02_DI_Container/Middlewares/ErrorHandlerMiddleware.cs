@@ -1,10 +1,9 @@
 ﻿using _0_Framework.Application.Exceptions;
 using Microsoft.AspNetCore.Http;
-using System.Collections.Generic;
 using System.Net;
 using System.Text.Json;
 
-namespace _0_Framework.Presentation.Middlewares;
+namespace _02_DI_Container.Middlewares;
 
 public class ErrorHandlerMiddleware
 {

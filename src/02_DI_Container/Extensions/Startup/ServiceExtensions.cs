@@ -5,11 +5,9 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.OpenApi.Any;
 using Microsoft.OpenApi.Models;
 using Swashbuckle.AspNetCore.SwaggerGen;
-using System.Collections.Generic;
-using System.Linq;
 using System.Reflection;
 
-namespace _0_Framework.Presentation.Extensions.Startup;
+namespace _02_DI_Container.Extensions.Startup;
 
 public static class ServiceExtensions
 {
