@@ -4,15 +4,14 @@ using IM.Application.Contracts.Inventory.Queries;
 
 namespace Shoppy.WebApi.Controllers.Admin.Discount;
 
+[SwaggerTag("مدیریت انبار")]
 public class AdminInventoryController : BaseApiController
 {
     #region Filter Inventory
 
-    /// <summary>
-    ///    فیلتر انبار
-    /// </summary>
-    /// <response code="200">Success</response>
     [HttpGet(AdminInventoryApiEndpoints.Inventory.FilterInventories)]
+    [SwaggerOperation(Summary = "فیلتر انبار")]
+    [SwaggerResponse(200, "success")]
     public async Task<IActionResult> FilterInventories([FromQuery] FilterInventoryDto filter)
     {
         var res = await Mediator.Send(new FilterInventoryQuery(filter));
@@ -24,11 +23,10 @@ public class AdminInventoryController : BaseApiController
 
     #region Get Inventory Details
 
-    /// <summary>
-    ///    دریافت انبار
-    /// </summary>
-    /// <response code="200">Success</response>
     [HttpGet(AdminInventoryApiEndpoints.Inventory.GetInventoryDetails)]
+    [SwaggerOperation(Summary = "دریافت انبار")]
+    [SwaggerResponse(200, "success")]
+    [SwaggerResponse(404, "not-found")]
     public async Task<IActionResult> GetInventoryDetails([FromRoute] long id)
     {
         var res = await Mediator.Send(new GetInventoryDetailsQuery(id));
@@ -45,22 +43,25 @@ public class AdminInventoryController : BaseApiController
     /// </summary>
     /// <response code="200">Success</response>
     [HttpPost(AdminInventoryApiEndpoints.Inventory.CreateInventory)]
+    [SwaggerOperation(Summary = "ایجاد انبار")]
+    [SwaggerResponse(201, "success : created")]
+    [SwaggerResponse(400, "error : discount exists for product")]
+    [SwaggerResponse(404, "not-found")]
     public async Task<IActionResult> CreateInventory([FromForm] CreateInventoryDto createRequest)
     {
         var res = await Mediator.Send(new CreateInventoryCommand(createRequest));
 
-        return JsonApiResult.Success(res);
+        return JsonApiResult.Created(res);
     }
 
     #endregion
 
     #region Edit Inventory
 
-    /// <summary>
-    ///    ویرایش انبار
-    /// </summary>
-    /// <response code="200">Success</response>
     [HttpPut(AdminInventoryApiEndpoints.Inventory.EditInventory)]
+    [SwaggerOperation(Summary = "ویرایش انبار")]
+    [SwaggerResponse(200, "success")]
+    [SwaggerResponse(404, "not-found")]
     public async Task<IActionResult> EditInventory([FromForm] EditInventoryDto editRequest)
     {
         var res = await Mediator.Send(new EditInventoryCommand(editRequest));
@@ -72,11 +73,10 @@ public class AdminInventoryController : BaseApiController
 
     #region Increase Inventory
 
-    /// <summary>
-    ///    افزایش موجودی انبار
-    /// </summary>
-    /// <response code="200">Success</response>
     [HttpPost(AdminInventoryApiEndpoints.Inventory.IncreaseInventory)]
+    [SwaggerOperation(Summary = "افزایش موجودی انبار")]
+    [SwaggerResponse(200, "success")]
+    [SwaggerResponse(404, "not-found")]
     public async Task<IActionResult> IncreaseInventory([FromForm] IncreaseInventoryDto increaseRequest)
     {
         var res = await Mediator.Send(new IncreaseInventoryCommand(increaseRequest));
@@ -88,11 +88,10 @@ public class AdminInventoryController : BaseApiController
 
     #region Reduce Inventory
 
-    /// <summary>
-    ///    کاهش موجودی انبار
-    /// </summary>
-    /// <response code="200">Success</response>
     [HttpPost(AdminInventoryApiEndpoints.Inventory.ReduceInventory)]
+    [SwaggerOperation(Summary = "کاهش موجودی انبار")]
+    [SwaggerResponse(200, "success")]
+    [SwaggerResponse(404, "not-found")]
     public async Task<IActionResult> ReduceInventory([FromForm] ReduceInventoryDto reduceRequest)
     {
         var res = await Mediator.Send(new ReduceInventoryCommand(reduceRequest));
@@ -104,11 +103,10 @@ public class AdminInventoryController : BaseApiController
 
     #region Get Inventory Operation Log
 
-    /// <summary>
-    ///    دریافت هیستوری انبار
-    /// </summary>
-    /// <response code="200">Success</response>
     [HttpGet(AdminInventoryApiEndpoints.Inventory.GetInventoryOperationLog)]
+    [SwaggerOperation(Summary = "دریافت لاگ های انبار")]
+    [SwaggerResponse(200, "success")]
+    [SwaggerResponse(404, "not-found")]
     public async Task<IActionResult> GetInventoryOperationLog([FromRoute] long id)
     {
         var res = await Mediator.Send(new GetInventoryOperationLogQuery(id));
