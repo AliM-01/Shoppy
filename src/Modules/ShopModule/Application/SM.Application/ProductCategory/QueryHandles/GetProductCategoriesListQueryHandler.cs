@@ -38,7 +38,7 @@ public class GetProductCategoriesListQueryHandler : IRequestHandler<GetProductCa
         #endregion paging
 
         if (filteredEntities is null)
-            throw new ApiException(ApplicationErrorMessage.RecordNotFoundMessage);
+            throw new NotFoundApiException();
 
         return new Response<IEnumerable<ProductCategoryForSelectListDto>>(filteredEntities);
     }

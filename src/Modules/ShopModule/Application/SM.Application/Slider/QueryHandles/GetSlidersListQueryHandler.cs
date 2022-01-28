@@ -30,7 +30,7 @@ public class GetSlidersListQueryHandler : IRequestHandler<GetSlidersListQuery, R
             .ToListAsync(cancellationToken);
 
         if (sliders is null)
-            throw new ApiException(ApplicationErrorMessage.RecordNotFoundMessage);
+            throw new NotFoundApiException();
 
         return new Response<IEnumerable<SliderDto>>(sliders);
     }
