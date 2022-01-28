@@ -29,12 +29,10 @@ public class CheckProductHasColleagueDiscountQueryHandler : IRequestHandler<Chec
 
         bool existsColleagueDiscount = _colleagueDiscountRepository.Exists(x => x.ProductId == request.ProductId);
 
-        if (existsColleagueDiscount)
-            return new Response<CheckProductHasColleagueDiscountResponseDto>(
-                new CheckProductHasColleagueDiscountResponseDto { ExistsColleagueDiscount = true });
-
         return new Response<CheckProductHasColleagueDiscountResponseDto>(
-                new CheckProductHasColleagueDiscountResponseDto { ExistsColleagueDiscount = false });
-
+            new CheckProductHasColleagueDiscountResponseDto
+            {
+                ExistsColleagueDiscount = existsColleagueDiscount
+            });
     }
 }
