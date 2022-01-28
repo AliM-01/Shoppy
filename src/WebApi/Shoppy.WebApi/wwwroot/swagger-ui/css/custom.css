@@ -24,3 +24,10 @@
 {
     font-family: monospace !important;
 }
+
+.swagger-ui .parameter__name.required:after {
+    color: #ff0000 !important;
+    font-size: 12px !important;
+    padding: 5px 2px !important;
+    top: -5.5px !important;
+}
