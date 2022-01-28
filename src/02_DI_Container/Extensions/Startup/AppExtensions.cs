@@ -8,7 +8,13 @@ public static class AppExtensions
     public static void UseSwaggerExtension(this IApplicationBuilder app, string title)
     {
         app.UseSwagger();
-        app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", title));
+        app.UseSwaggerUI(c =>
+        {
+            c.EnableFilter();
+            c.DisplayRequestDuration();
+            c.SwaggerEndpoint("/swagger/v1/swagger.json", title);
+            c.InjectStylesheet("/swagger-ui/css/custom.css");
+        });
     }
 
     public static void UseErrorHandlingMiddleware(this IApplicationBuilder app)

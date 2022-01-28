@@ -4,6 +4,24 @@
         <name>Shoppy.WebApi</name>
     </assembly>
     <members>
+        <member name="M:Shoppy.WebApi.Controllers.Admin.Comment.AdminCommentDiscountController.FilterInventories(CM.Application.Contracts.Comment.DTOs.FilterCommentDto)">
+            <summary>
+               فیلتر کامنت ها
+            </summary>
+            <response code="200">Success</response>
+        </member>
+        <member name="M:Shoppy.WebApi.Controllers.Admin.Comment.AdminCommentDiscountController.ConfirmComment(System.Int64)">
+            <summary>
+               تایید کامنت
+            </summary>
+            <response code="200">Success</response>
+        </member>
+        <member name="M:Shoppy.WebApi.Controllers.Admin.Comment.AdminCommentDiscountController.CancelComment(System.Int64)">
+            <summary>
+               حذف کامنت
+            </summary>
+            <response code="200">Success</response>
+        </member>
         <member name="M:Shoppy.WebApi.Controllers.Admin.Discount.AdminColleagueDiscountController.FilterColleagueDiscounts(DM.Application.Contracts.ColleagueDiscount.DTOs.FilterColleagueDiscountDto)">
             <summary>
                فیلتر تخفیفات همکار

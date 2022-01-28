@@ -1,0 +1,26 @@
+@font-face {
+    font-family: 'IRansans';
+    font-style: normal;
+    font-weight: 900;
+    src: url('../fonts/IRANSansWeb.eot');
+    src: url('../fonts/IRANSansWeb.woff2') format('woff2'), url('../fonts/IRANSansWeb.woff') format('woff'), url('../fonts/IRANSansWeb.ttf') format('truetype');
+}
+
+* {
+    font-family: 'IRansans';
+}
+
+.opblock-summary-description, .swagger-ui .parameter__name, .swagger-ui .parameter__type,
+.swagger-ui button, .swagger-ui input, .swagger-ui optgroup, .swagger-ui select, .swagger-ui textarea {
+    font-family: 'IRansans' !important;
+}
+
+.swagger-ui .responses-inner h4, .swagger-ui .responses-inner h5 {
+    font-family: 'IRansans' !important;
+    font-size: 14px !important;
+}
+
+.swagger-ui .opblock .opblock-summary-path, code span, .swagger-ui a.nostyle span, .swagger-ui .code, .swagger-ui code, pre span
+{
+    font-family: monospace !important;
+}
