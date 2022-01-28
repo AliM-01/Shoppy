@@ -16,7 +16,7 @@ public class AdminCommentController : BaseApiController
     {
         var res = await Mediator.Send(new FilterCommentsQuery(filter));
 
-        return JsonApiResult.Success(res);
+        return JsonApiResult.Created(res);
     }
 
     #endregion

@@ -4,24 +4,6 @@
         <name>Shoppy.WebApi</name>
     </assembly>
     <members>
-        <member name="M:Shoppy.WebApi.Controllers.Admin.Discount.AdminColleagueDiscountController.FilterColleagueDiscounts(DM.Application.Contracts.ColleagueDiscount.DTOs.FilterColleagueDiscountDto)">
-            <summary>
-               فیلتر تخفیفات همکار
-            </summary>
-            <response code="200">Success</response>
-        </member>
-        <member name="M:Shoppy.WebApi.Controllers.Admin.Discount.AdminColleagueDiscountController.GetColleagueDiscountDetails(System.Int64)">
-            <summary>
-               دریافت تخفیف همکار
-            </summary>
-            <response code="200">Success</response>
-        </member>
-        <member name="M:Shoppy.WebApi.Controllers.Admin.Discount.AdminColleagueDiscountController.DefineColleagueDiscount(DM.Application.Contracts.ColleagueDiscount.DTOs.DefineColleagueDiscountDto)">
-            <summary>
-               تعریف تخفیف همکار
-            </summary>
-            <response code="200">Success</response>
-        </member>
         <member name="M:Shoppy.WebApi.Controllers.Admin.Discount.AdminColleagueDiscountController.EditColleagueDiscount(DM.Application.Contracts.ColleagueDiscount.DTOs.EditColleagueDiscountDto)">
             <summary>
                ویرایش تخفیف مشتری

@@ -1,19 +1,17 @@
 ﻿using DM.Application.Contracts.ColleagueDiscount.Commands;
 using DM.Application.Contracts.ColleagueDiscount.DTOs;
 using DM.Application.Contracts.ColleagueDiscount.Queries;
-using Shoppy.WebApi.Endpoints.Admin;
 
 namespace Shoppy.WebApi.Controllers.Admin.Discount;
 
+[SwaggerTag("مدیریت تخفیفات همکار")]
 public class AdminColleagueDiscountController : BaseApiController
 {
     #region Filter Colleague Discounts
 
-    /// <summary>
-    ///    فیلتر تخفیفات همکار
-    /// </summary>
-    /// <response code="200">Success</response>
     [HttpGet(AdminDiscountApiEndpoints.ColleagueDiscount.FilterColleagueDiscounts)]
+    [SwaggerOperation(Summary = "فیلتر تخفیفات همکار")]
+    [SwaggerResponse(200, "success")]
     public async Task<IActionResult> FilterColleagueDiscounts([FromQuery] FilterColleagueDiscountDto filter)
     {
         var res = await Mediator.Send(new FilterColleagueDiscountsQuery(filter));
@@ -25,11 +23,10 @@ public class AdminColleagueDiscountController : BaseApiController
 
     #region Get ColleagueDiscount Details
 
-    /// <summary>
-    ///    دریافت تخفیف همکار
-    /// </summary>
-    /// <response code="200">Success</response>
     [HttpGet(AdminDiscountApiEndpoints.ColleagueDiscount.GetColleagueDiscountDetails)]
+    [SwaggerOperation(Summary = "دریافت تخفیف همکار")]
+    [SwaggerResponse(200, "success")]
+    [SwaggerResponse(404, "not-found")]
     public async Task<IActionResult> GetColleagueDiscountDetails([FromRoute] long id)
     {
         var res = await Mediator.Send(new GetColleagueDiscountDetailsQuery(id));
@@ -41,27 +38,26 @@ public class AdminColleagueDiscountController : BaseApiController
 
     #region Define Colleague Discount
 
-    /// <summary>
-    ///    تعریف تخفیف همکار
-    /// </summary>
-    /// <response code="200">Success</response>
     [HttpPost(AdminDiscountApiEndpoints.ColleagueDiscount.DefineColleagueDiscount)]
+    [SwaggerOperation(Summary = "تعریف تخفیف همکار")]
+    [SwaggerResponse(201, "success : created")]
+    [SwaggerResponse(400, "error : discount exists for product")]
+    [SwaggerResponse(404, "not-found")]
     public async Task<IActionResult> DefineColleagueDiscount([FromForm] DefineColleagueDiscountDto createRequest)
     {
         var res = await Mediator.Send(new DefineColleagueDiscountCommand(createRequest));
 
-        return JsonApiResult.Success(res);
+        return JsonApiResult.Created(res);
     }
 
     #endregion
 
     #region Edit Colleague Discount
 
-    /// <summary>
-    ///    ویرایش تخفیف مشتری
-    /// </summary>
-    /// <response code="200">Success</response>
     [HttpPut(AdminDiscountApiEndpoints.ColleagueDiscount.EditColleagueDiscount)]
+    [SwaggerOperation(Summary = "ویرایش تخفیف همکار")]
+    [SwaggerResponse(200, "success")]
+    [SwaggerResponse(404, "not-found")]
     public async Task<IActionResult> EditColleagueDiscount([FromForm] EditColleagueDiscountDto editRequest)
     {
         var res = await Mediator.Send(new EditColleagueDiscountCommand(editRequest));
@@ -73,11 +69,10 @@ public class AdminColleagueDiscountController : BaseApiController
 
     #region Remove Colleague Discount
 
-    /// <summary>
-    ///    غیر فعال تخفیف همکار
-    /// </summary>
-    /// <response code="200">Success</response>
-    [HttpDelete(AdminDiscountApiEndpoints.ColleagueDiscount.RemoveColleagueDiscount)]
+    [HttpPost(AdminDiscountApiEndpoints.ColleagueDiscount.RemoveColleagueDiscount)]
+    [SwaggerOperation(Summary = "غیر فعال کردن تخفیف همکار")]
+    [SwaggerResponse(200, "success")]
+    [SwaggerResponse(404, "not-found")]
     public async Task<IActionResult> RemoveColleagueDiscount([FromRoute] long id)
     {
         var res = await Mediator.Send(new RemoveColleagueDiscountCommand(id));
@@ -89,11 +84,10 @@ public class AdminColleagueDiscountController : BaseApiController
 
     #region Restore Colleague Discount
 
-    /// <summary>
-    ///    فعال کردن تخفیف همکار
-    /// </summary>
-    /// <response code="200">Success</response>
-    [HttpPut(AdminDiscountApiEndpoints.ColleagueDiscount.RestoreColleagueDiscount)]
+    [HttpPost(AdminDiscountApiEndpoints.ColleagueDiscount.RestoreColleagueDiscount)]
+    [SwaggerOperation(Summary = "فعال کردن تخفیف همکار")]
+    [SwaggerResponse(200, "success")]
+    [SwaggerResponse(404, "not-found")]
     public async Task<IActionResult> RestoreColleagueDiscount([FromRoute] long id)
     {
         var res = await Mediator.Send(new RestoreColleagueDiscountCommand(id));
@@ -105,11 +99,10 @@ public class AdminColleagueDiscountController : BaseApiController
 
     #region Delete Colleague Discount
 
-    /// <summary>
-    ///    حذف تخفیف همکار
-    /// </summary>
-    /// <response code="200">Success</response>
-    [HttpPut(AdminDiscountApiEndpoints.ColleagueDiscount.DeleteColleagueDiscount)]
+    [HttpDelete(AdminDiscountApiEndpoints.ColleagueDiscount.DeleteColleagueDiscount)]
+    [SwaggerOperation(Summary = "حذف تخفیف همکار")]
+    [SwaggerResponse(200, "success")]
+    [SwaggerResponse(404, "not-found")]
     public async Task<IActionResult> DeleteColleagueDiscount([FromRoute] long id)
     {
         var res = await Mediator.Send(new DeleteColleagueDiscountCommand(id));
@@ -121,11 +114,10 @@ public class AdminColleagueDiscountController : BaseApiController
 
     #region Check Product Has Colleague Discount
 
-    /// <summary>
-    ///    چک کردن وجود تخفیف برای محصول
-    /// </summary>
-    /// <response code="200">Success</response>
     [HttpGet(AdminDiscountApiEndpoints.ColleagueDiscount.CheckProductHasColleagueDiscount)]
+    [SwaggerOperation(Summary = "چک کردن وجود تخفیف همکار برای محصول")]
+    [SwaggerResponse(200, "success")]
+    [SwaggerResponse(404, "not-found")]
     public async Task<IActionResult> CheckProductHasColleagueDiscount([FromRoute] long productId)
     {
         var res = await Mediator.Send(new CheckProductHasColleagueDiscountQuery(productId));
