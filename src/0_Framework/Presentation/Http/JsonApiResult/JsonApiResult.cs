@@ -8,17 +8,6 @@ public static class JsonApiResult
 {
     #region Success
 
-    public static OkObjectResult Success()
-    {
-        var res = JsonConvert.SerializeObject(new
-        {
-            status = "success",
-            message = "عملیات با موفقیت انجام شد"
-        });
-
-        return new OkObjectResult(res);
-    }
-
     public static OkObjectResult Success<T>(Response<T> response)
     {
         var res = JsonConvert.SerializeObject(response);
@@ -26,24 +15,15 @@ public static class JsonApiResult
         return new OkObjectResult(res);
     }
 
-    public static OkObjectResult SuccessWithMessage(string message)
+    #endregion
+
+    #region Created
+
+    public static CreatedResult Created<T>(Response<T> response)
     {
-        var res = JsonConvert.SerializeObject(new
-        {
-            status = "success",
-            message = message
-        });
-
-        return new OkObjectResult(res);
-    }
-
-    public static OkObjectResult SuccessWithMessage<T>(string message, Response<T> response)
-    {
-        response.Message = message;
-
         var res = JsonConvert.SerializeObject(response);
 
-        return new OkObjectResult(res);
+        return new CreatedResult("", res);
     }
 
     #endregion
