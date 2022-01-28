@@ -31,3 +31,7 @@
     padding: 5px 2px !important;
     top: -5.5px !important;
 }
+
+.swagger-ui table tbody tr td {
+    vertical-align: baseline !important;
+}

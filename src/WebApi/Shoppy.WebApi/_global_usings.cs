@@ -4,7 +4,8 @@ global using Ardalis.GuardClauses;
 global using Microsoft.AspNetCore.Mvc;
 global using Shoppy.WebApi.Endpoints.Admin;
 global using Shoppy.WebApi.Endpoints.Main;
+global using Swashbuckle.AspNetCore.Annotations;
 global using System;
 global using System.Threading.Tasks;
 
-namespace SM.Application;
+namespace Shoppy.WebApi;

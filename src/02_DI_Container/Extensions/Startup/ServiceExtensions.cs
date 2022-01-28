@@ -39,7 +39,7 @@ public static class ServiceExtensions
             c.SwaggerDoc("v1", new OpenApiInfo { Title = title, Version = "v1" });
 
             c.IncludeXmlComments(xmlPath);
-
+            c.EnableAnnotations();
             c.SchemaFilter<EnumSchemaFilter>();
         });
     }

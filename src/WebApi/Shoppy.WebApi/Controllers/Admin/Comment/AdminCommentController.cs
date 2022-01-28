@@ -4,15 +4,14 @@ using CM.Application.Contracts.Inventory.Queries;
 
 namespace Shoppy.WebApi.Controllers.Admin.Comment;
 
-public class AdminCommentDiscountController : BaseApiController
+[SwaggerTag("مدیریت کامنت ها")]
+public class AdminCommentController : BaseApiController
 {
     #region Filter Comment
 
-    /// <summary>
-    ///    فیلتر کامنت ها
-    /// </summary>
-    /// <response code="200">Success</response>
     [HttpGet(AdminCommentApiEndpoints.Comment.FilterComments)]
+    [SwaggerOperation(Summary = "فیلتر کامنت ها")]
+    [SwaggerResponse(200, "success")]
     public async Task<IActionResult> FilterInventories([FromQuery] FilterCommentDto filter)
     {
         var res = await Mediator.Send(new FilterCommentsQuery(filter));
@@ -24,11 +23,10 @@ public class AdminCommentDiscountController : BaseApiController
 
     #region Confirm Comment
 
-    /// <summary>
-    ///    تایید کامنت
-    /// </summary>
-    /// <response code="200">Success</response>
     [HttpPost(AdminCommentApiEndpoints.Comment.ConfirmComment)]
+    [SwaggerOperation(Summary = "تایید کامنت")]
+    [SwaggerResponse(200, "success")]
+    [SwaggerResponse(404, "not-found")]
     public async Task<IActionResult> ConfirmComment([FromRoute] long id)
     {
         var res = await Mediator.Send(new ConfirmCommentCommand(id));
@@ -40,11 +38,10 @@ public class AdminCommentDiscountController : BaseApiController
 
     #region Cancel Comment
 
-    /// <summary>
-    ///    حذف کامنت
-    /// </summary>
-    /// <response code="200">Success</response>
     [HttpPost(AdminCommentApiEndpoints.Comment.CancelComment)]
+    [SwaggerOperation(Summary = "حذف کامنت")]
+    [SwaggerResponse(200, "success")]
+    [SwaggerResponse(404, "not-found")]
     public async Task<IActionResult> CancelComment([FromRoute] long id)
     {
         var res = await Mediator.Send(new CancelCommentCommand(id));
