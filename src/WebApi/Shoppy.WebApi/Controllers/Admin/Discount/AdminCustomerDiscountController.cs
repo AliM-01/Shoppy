@@ -4,15 +4,14 @@ using DM.Application.Contracts.CustomerDiscount.Queries;
 
 namespace Shoppy.WebApi.Controllers.Admin.Discount;
 
+[SwaggerTag("مدیریت تخفیفات مشتری")]
 public class AdminCustomerDiscountController : BaseApiController
 {
     #region Filter Customer Discounts
 
-    /// <summary>
-    ///    فیلتر تخفیفات مشتری
-    /// </summary>
-    /// <response code="200">Success</response>
     [HttpGet(AdminDiscountApiEndpoints.CustomerDiscount.FilterCustomerDiscounts)]
+    [SwaggerOperation(Summary = "فیلتر تخفیفات مشتری")]
+    [SwaggerResponse(200, "success")]
     public async Task<IActionResult> FilterCustomerDiscounts([FromQuery] FilterCustomerDiscountDto filter)
     {
         var res = await Mediator.Send(new FilterCustomerDiscountsQuery(filter));
@@ -24,11 +23,10 @@ public class AdminCustomerDiscountController : BaseApiController
 
     #region Get CustomerDiscount Details
 
-    /// <summary>
-    ///    دریافت تخفیف مشتری
-    /// </summary>
-    /// <response code="200">Success</response>
     [HttpGet(AdminDiscountApiEndpoints.CustomerDiscount.GetCustomerDiscountDetails)]
+    [SwaggerOperation(Summary = "دریافت تخفیف مشتری")]
+    [SwaggerResponse(200, "success")]
+    [SwaggerResponse(404, "not-found")]
     public async Task<IActionResult> GetCustomerDiscountDetails([FromRoute] long id)
     {
         var res = await Mediator.Send(new GetCustomerDiscountDetailsQuery(id));
@@ -40,27 +38,26 @@ public class AdminCustomerDiscountController : BaseApiController
 
     #region Define Customer Discount
 
-    /// <summary>
-    ///    تعریف تخفیف مشتری
-    /// </summary>
-    /// <response code="200">Success</response>
     [HttpPost(AdminDiscountApiEndpoints.CustomerDiscount.DefineCustomerDiscount)]
+    [SwaggerOperation(Summary = "تعریف تخفیف مشتری")]
+    [SwaggerResponse(201, "success : created")]
+    [SwaggerResponse(400, "error : discount exists for product")]
+    [SwaggerResponse(404, "not-found")]
     public async Task<IActionResult> DefineCustomerDiscount([FromForm] DefineCustomerDiscountDto createRequest)
     {
         var res = await Mediator.Send(new DefineCustomerDiscountCommand(createRequest));
 
-        return JsonApiResult.Success(res);
+        return JsonApiResult.Created(res);
     }
 
     #endregion
 
     #region Edit Customer Discount
 
-    /// <summary>
-    ///    ویرایش تخفیف مشتری
-    /// </summary>
-    /// <response code="200">Success</response>
     [HttpPut(AdminDiscountApiEndpoints.CustomerDiscount.EditCustomerDiscount)]
+    [SwaggerOperation(Summary = "ویرایش تخفیف مشتری")]
+    [SwaggerResponse(200, "success")]
+    [SwaggerResponse(404, "not-found")]
     public async Task<IActionResult> EditCustomerDiscount([FromForm] EditCustomerDiscountDto editRequest)
     {
         var res = await Mediator.Send(new EditCustomerDiscountCommand(editRequest));
@@ -72,11 +69,10 @@ public class AdminCustomerDiscountController : BaseApiController
 
     #region Remove Customer Discount
 
-    /// <summary>
-    ///    حذف تخفیف مشتری
-    /// </summary>
-    /// <response code="200">Success</response>
     [HttpDelete(AdminDiscountApiEndpoints.CustomerDiscount.RemoveCustomerDiscount)]
+    [SwaggerOperation(Summary = "حذف تخفیف مشتری")]
+    [SwaggerResponse(200, "success")]
+    [SwaggerResponse(404, "not-found")]
     public async Task<IActionResult> RemoveCustomerDiscount([FromRoute] long id)
     {
         var res = await Mediator.Send(new RemoveCustomerDiscountCommand(id));
@@ -88,11 +84,10 @@ public class AdminCustomerDiscountController : BaseApiController
 
     #region Check Product Has Customer Discount
 
-    /// <summary>
-    ///    چک کردن وجود تخفیف برای محصول
-    /// </summary>
-    /// <response code="200">Success</response>
     [HttpGet(AdminDiscountApiEndpoints.CustomerDiscount.CheckProductHasCustomerDiscount)]
+    [SwaggerOperation(Summary = "چک کردن وجود تخفیف مشتری برای محصول")]
+    [SwaggerResponse(200, "success")]
+    [SwaggerResponse(404, "not-found")]
     public async Task<IActionResult> CheckProductHasCustomerDiscount([FromRoute] long productId)
     {
         var res = await Mediator.Send(new CheckProductHasCustomerDiscountQuery(productId));
