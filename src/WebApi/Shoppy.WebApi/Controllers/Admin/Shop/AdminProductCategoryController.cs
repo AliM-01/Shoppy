@@ -4,6 +4,7 @@ using SM.Application.Contracts.ProductCategory.Queries;
 
 namespace Shoppy.WebApi.Controllers.Admin.Shop;
 
+[SwaggerTag("مدیریت دسته بندی محصولات")]
 public class AdminProductCategoryController : BaseApiController
 {
     #region Get ProductCategories List
@@ -55,7 +56,7 @@ public class AdminProductCategoryController : BaseApiController
     [HttpPost(AdminShopApiEndpoints.ProductCategory.CreateProductCategory)]
     [SwaggerOperation(Summary = "ایجاد دسته بندی محصول")]
     [SwaggerResponse(201, "success : created")]
-    [SwaggerResponse(400, "error : is duplicated")]
+    [SwaggerResponse(400, "error : title is duplicated")]
     public async Task<IActionResult> CreateProductCategory([FromForm] CreateProductCategoryDto createRequest)
     {
         var res = await Mediator.Send(new CreateProductCategoryCommand(createRequest));
@@ -70,7 +71,7 @@ public class AdminProductCategoryController : BaseApiController
     [HttpPut(AdminShopApiEndpoints.ProductCategory.EditProductCategory)]
     [SwaggerOperation(Summary = "ویرایش دسته بندی محصول")]
     [SwaggerResponse(201, "success : created")]
-    [SwaggerResponse(400, "error : is duplicated")]
+    [SwaggerResponse(400, "error : title is duplicated")]
     [SwaggerResponse(404, "not-found")]
     public async Task<IActionResult> EditProductCategory([FromForm] EditProductCategoryDto editRequest)
     {

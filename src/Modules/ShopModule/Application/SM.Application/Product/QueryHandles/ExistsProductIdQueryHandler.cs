@@ -23,15 +23,11 @@ public class ExistsProductIdQueryHandler : IRequestHandler<ExistsProductIdQuery,
         var product = await _productRepository.GetQuery()
             .AsNoTracking().FirstOrDefaultAsync(s => s.Id == request.ProductId);
 
-        if (product is null)
-            return new Response<ExistsProductIdResponseDto>(new ExistsProductIdResponseDto
-            {
-                Exists = false
-            });
-
-        return new Response<ExistsProductIdResponseDto>(new ExistsProductIdResponseDto
+        var response = new ExistsProductIdResponseDto
         {
-            Exists = true
-        });
+            Exists = (product is not null)
+        };
+
+        return new Response<ExistsProductIdResponseDto>(response);
     }
 }
