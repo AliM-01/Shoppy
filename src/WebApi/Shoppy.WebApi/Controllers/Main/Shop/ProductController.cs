@@ -1,6 +1,8 @@
 ﻿using _01_Shoppy.Query.Contracts.Product;
 
 namespace Shoppy.WebApi.Controllers.Main.Shop;
+
+[SwaggerTag("محصولات")]
 public class ProductController : BaseApiController
 {
     #region Ctor 

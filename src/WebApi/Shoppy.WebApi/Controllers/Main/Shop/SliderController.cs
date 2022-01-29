@@ -1,6 +1,8 @@
 ﻿using _01_Shoppy.Query.Contracts.Slider;
 
 namespace Shoppy.WebApi.Controllers.Main.Shop;
+
+[SwaggerTag("اسلایدر")]
 public class SliderController : BaseApiController
 {
     #region Ctor 

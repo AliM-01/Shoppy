@@ -10,7 +10,7 @@ public static class JsonApiResult
 
     public static OkObjectResult Success<T>(Response<T> response)
     {
-        var res = JsonConvert.SerializeObject(response);
+        var res = JsonConvert.SerializeObject(response, Formatting.Indented);
 
         return new OkObjectResult(res);
     }
@@ -21,7 +21,7 @@ public static class JsonApiResult
 
     public static CreatedResult Created<T>(Response<T> response)
     {
-        var res = JsonConvert.SerializeObject(response);
+        var res = JsonConvert.SerializeObject(response, Formatting.Indented);
 
         return new CreatedResult("", res);
     }
@@ -36,14 +36,14 @@ public static class JsonApiResult
         {
             status = "error",
             message = "عملیات با خطا مواجه شد"
-        });
+        }, Formatting.Indented);
 
         return new BadRequestObjectResult(res);
     }
 
     public static BadRequestObjectResult Error<T>(Response<T> response)
     {
-        var res = JsonConvert.SerializeObject(response);
+        var res = JsonConvert.SerializeObject(response, Formatting.Indented);
 
         return new BadRequestObjectResult(res);
     }

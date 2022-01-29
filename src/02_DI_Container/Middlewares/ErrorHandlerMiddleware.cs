@@ -1,7 +1,7 @@
 ﻿using _0_Framework.Application.Exceptions;
 using Microsoft.AspNetCore.Http;
+using Newtonsoft.Json;
 using System.Net;
-using System.Text.Json;
 
 namespace _02_DI_Container.Middlewares;
 
@@ -61,12 +61,12 @@ public class ErrorHandlerMiddleware
                     break;
             }
 
-            var result = JsonSerializer.Serialize(new
+            var result = JsonConvert.SerializeObject(new
             {
                 status = status,
                 message = errorMessage,
                 errors = errors
-            });
+            }, Formatting.Indented);
 
             await response.WriteAsync(result);
         }
