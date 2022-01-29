@@ -1,6 +1,8 @@
 ﻿using _01_Shoppy.Query.Contracts.ProductCategory;
 
 namespace Shoppy.WebApi.Controllers.Main.Shop;
+
+[SwaggerTag("دسته بندی محصولات")]
 public class ProductCategoryController : BaseApiController
 {
     #region Ctor 
@@ -16,11 +18,9 @@ public class ProductCategoryController : BaseApiController
 
     #region Get Product Categories
 
-    /// <summary>
-    ///    دریافت دسته بندی های محصولات 
-    /// </summary>
-    /// <response code="200">Success</response>
     [HttpGet(MainShopApiEndpoints.ProductCategory.GetProductCategories)]
+    [SwaggerOperation(Summary = "دریافت دسته بندی های محصولات")]
+    [SwaggerResponse(200, "success")]
     public async Task<IActionResult> GetProductCategorys()
     {
         var res = await _productCategoryQuery.GetProductCategories();
@@ -32,11 +32,10 @@ public class ProductCategoryController : BaseApiController
 
     #region Get Product Category
 
-    /// <summary>
-    ///    دریافت دسته بندی  محصول 
-    /// </summary>
-    /// <response code="200">Success</response>
     [HttpGet(MainShopApiEndpoints.ProductCategory.GetProductCategory)]
+    [SwaggerOperation(Summary = "دریافت دسته بندی محصول")]
+    [SwaggerResponse(200, "success")]
+    [SwaggerResponse(404, "not-found")]
     public async Task<IActionResult> GetProductCategory([FromQuery] ProductCategoryDetailsFilterModel filter)
     {
         var res = await _productCategoryQuery.GetProductCategoryWithProductsBy(filter);
