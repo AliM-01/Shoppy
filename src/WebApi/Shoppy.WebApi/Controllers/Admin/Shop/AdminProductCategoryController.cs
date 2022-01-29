@@ -61,7 +61,7 @@ public class AdminProductCategoryController : BaseApiController
     {
         var res = await Mediator.Send(new CreateProductCategoryCommand(createRequest));
 
-        return JsonApiResult.Success(res);
+        return JsonApiResult.Created(res);
     }
 
     #endregion

@@ -10,42 +10,6 @@
             </summary>
             <response code="200">Success</response>
         </member>
-        <member name="M:Shoppy.WebApi.Controllers.Admin.Shop.AdminProductController.DeleteProduct(System.Int64)">
-            <summary>
-               حذف محصول
-            </summary>
-            <response code="200">Success</response>
-        </member>
-        <member name="M:Shoppy.WebApi.Controllers.Admin.Shop.AdminProductFeatureController.FilterProductFeatures(SM.Application.Contracts.ProductFeature.DTOs.FilterProductFeatureDto)">
-            <summary>
-               فیلتر ویژگی محصولات
-            </summary>
-            <response code="200">Success</response>
-        </member>
-        <member name="M:Shoppy.WebApi.Controllers.Admin.Shop.AdminProductFeatureController.GetProductFeatureDetails(System.Int64)">
-            <summary>
-               دریافت جزییات ویژگی محصول
-            </summary>
-            <response code="200">Success</response>
-        </member>
-        <member name="M:Shoppy.WebApi.Controllers.Admin.Shop.AdminProductFeatureController.CreateProductFeature(SM.Application.Contracts.ProductFeature.DTOs.CreateProductFeatureDto)">
-            <summary>
-               ایجاد ویژگی محصول
-            </summary>
-            <response code="200">Success</response>
-        </member>
-        <member name="M:Shoppy.WebApi.Controllers.Admin.Shop.AdminProductFeatureController.EditProductFeature(SM.Application.Contracts.ProductFeature.DTOs.EditProductFeatureDto)">
-            <summary>
-               ویرایش ویژگی محصول
-            </summary>
-            <response code="200">Success</response>
-        </member>
-        <member name="M:Shoppy.WebApi.Controllers.Admin.Shop.AdminProductFeatureController.DeleteProductFeature(System.Int64)">
-            <summary>
-               حذف ویژگی محصول
-            </summary>
-            <response code="200">Success</response>
-        </member>
         <member name="M:Shoppy.WebApi.Controllers.Admin.Shop.AdminProductPictureController.GetProductPictures(System.Int64)">
             <summary>
                دریافت تصاویر محصولات
