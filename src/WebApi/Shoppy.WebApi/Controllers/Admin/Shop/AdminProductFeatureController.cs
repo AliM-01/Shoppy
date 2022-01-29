@@ -3,15 +3,15 @@ using SM.Application.Contracts.ProductFeature.DTOs;
 using SM.Application.Contracts.ProductFeature.Queries;
 
 namespace Shoppy.WebApi.Controllers.Admin.Shop;
+
+[SwaggerTag("مدیریت ویژگی محصولات")]
 public class AdminProductFeatureController : BaseApiController
 {
     #region Filter Product Features
 
-    /// <summary>
-    ///    فیلتر ویژگی محصولات
-    /// </summary>
-    /// <response code="200">Success</response>
     [HttpGet(AdminShopApiEndpoints.ProductFeature.FilterProductFeatures)]
+    [SwaggerOperation(Summary = "فیلتر ویژگی محصولات")]
+    [SwaggerResponse(200, "success")]
     public async Task<IActionResult> FilterProductFeatures([FromQuery] FilterProductFeatureDto filter)
     {
         var res = await Mediator.Send(new FilterProductFeaturesQuery(filter));
@@ -23,11 +23,10 @@ public class AdminProductFeatureController : BaseApiController
 
     #region Get Product Feature Details
 
-    /// <summary>
-    ///    دریافت جزییات ویژگی محصول
-    /// </summary>
-    /// <response code="200">Success</response>
     [HttpGet(AdminShopApiEndpoints.ProductFeature.GetProductFeatureDetails)]
+    [SwaggerOperation(Summary = "دریافت جزییات ویژگی محصول")]
+    [SwaggerResponse(200, "success")]
+    [SwaggerResponse(404, "not-found")]
     public async Task<IActionResult> GetProductFeatureDetails([FromRoute] long id)
     {
         var res = await Mediator.Send(new GetProductFeatureDetailsQuery(id));
@@ -39,11 +38,10 @@ public class AdminProductFeatureController : BaseApiController
 
     #region Create Product Feature
 
-    /// <summary>
-    ///    ایجاد ویژگی محصول
-    /// </summary>
-    /// <response code="200">Success</response>
     [HttpPost(AdminShopApiEndpoints.ProductFeature.CreateProductFeature)]
+    [SwaggerOperation(Summary = "ایجاد ویژگی محصول")]
+    [SwaggerResponse(201, "success : created")]
+    [SwaggerResponse(400, "error : title is duplicated")]
     public async Task<IActionResult> CreateProductFeature([FromForm] CreateProductFeatureDto createRequest)
     {
         var res = await Mediator.Send(new CreateProductFeatureCommand(createRequest));
@@ -55,11 +53,11 @@ public class AdminProductFeatureController : BaseApiController
 
     #region Edit Product Feature
 
-    /// <summary>
-    ///    ویرایش ویژگی محصول
-    /// </summary>
-    /// <response code="200">Success</response>
     [HttpPut(AdminShopApiEndpoints.ProductFeature.EditProductFeature)]
+    [SwaggerOperation(Summary = "ویرایش ویژگی محصول")]
+    [SwaggerResponse(200, "success")]
+    [SwaggerResponse(400, "error : title is duplicated")]
+    [SwaggerResponse(404, "not-found")]
     public async Task<IActionResult> EditProductFeature([FromForm] EditProductFeatureDto editRequest)
     {
         var res = await Mediator.Send(new EditProductFeatureCommand(editRequest));
@@ -71,11 +69,10 @@ public class AdminProductFeatureController : BaseApiController
 
     #region Delete Product Feature
 
-    /// <summary>
-    ///    حذف ویژگی محصول
-    /// </summary>
-    /// <response code="200">Success</response>
     [HttpDelete(AdminShopApiEndpoints.ProductFeature.DeleteProductFeature)]
+    [SwaggerOperation(Summary = "حذف ویژگی محصول")]
+    [SwaggerResponse(200, "success")]
+    [SwaggerResponse(404, "not-found")]
     public async Task<IActionResult> DeleteProductFeature([FromRoute] long id)
     {
         var res = await Mediator.Send(new DeleteProductFeatureCommand(id));
