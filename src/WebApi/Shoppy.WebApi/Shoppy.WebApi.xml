@@ -10,42 +10,6 @@
             </summary>
             <response code="200">Success</response>
         </member>
-        <member name="M:Shoppy.WebApi.Controllers.Main.Shop.ProductCategoryController.GetProductCategorys">
-            <summary>
-               دریافت دسته بندی های محصولات 
-            </summary>
-            <response code="200">Success</response>
-        </member>
-        <member name="M:Shoppy.WebApi.Controllers.Main.Shop.ProductCategoryController.GetProductCategory(_01_Shoppy.Query.Contracts.ProductCategory.ProductCategoryDetailsFilterModel)">
-            <summary>
-               دریافت دسته بندی  محصول 
-            </summary>
-            <response code="200">Success</response>
-        </member>
-        <member name="M:Shoppy.WebApi.Controllers.Main.Shop.ProductController.GetProductDetails(System.String)">
-            <summary>
-               جزییات محصول 
-            </summary>
-            <response code="200">Success</response>
-        </member>
-        <member name="M:Shoppy.WebApi.Controllers.Main.Shop.ProductController.Search(_01_Shoppy.Query.Contracts.Product.SearchProductQueryModel)">
-            <summary>
-               جستجو 
-            </summary>
-            <response code="200">Success</response>
-        </member>
-        <member name="M:Shoppy.WebApi.Controllers.Main.Shop.ProductController.GetLatestProducts">
-            <summary>
-               دریافت جدید ترین محصولات 
-            </summary>
-            <response code="200">Success</response>
-        </member>
-        <member name="M:Shoppy.WebApi.Controllers.Main.Shop.ProductController.GetHotestDiscountProducts">
-            <summary>
-               دریافت داغ ترین تخفیف محصولات 
-            </summary>
-            <response code="200">Success</response>
-        </member>
         <member name="M:Shoppy.WebApi.Controllers.Main.Shop.SliderController.GetSliders">
             <summary>
                دریافت اسلایدر ها

@@ -16,11 +16,10 @@ public class ProductController : BaseApiController
 
     #region Get Product Details
 
-    /// <summary>
-    ///    جزییات محصول 
-    /// </summary>
-    /// <response code="200">Success</response>
     [HttpGet(MainShopApiEndpoints.Product.GetProductDetails)]
+    [SwaggerOperation(Summary = "دریافت جزییات محصول")]
+    [SwaggerResponse(200, "success")]
+    [SwaggerResponse(404, "not-found")]
     public async Task<IActionResult> GetProductDetails([FromRoute] string slug)
     {
         var res = await _productQuery.GetProductDetails(slug);
@@ -32,11 +31,11 @@ public class ProductController : BaseApiController
 
     #region Search
 
-    /// <summary>
-    ///    جستجو 
-    /// </summary>
-    /// <response code="200">Success</response>
     [HttpGet(MainShopApiEndpoints.Product.Search)]
+    [SwaggerOperation(Summary = "جستجو")]
+    [SwaggerResponse(200, "success")]
+    [SwaggerResponse(400, "error : no data with requested filter")]
+    [SwaggerResponse(404, "not-found")]
     public async Task<IActionResult> Search([FromQuery] SearchProductQueryModel search)
     {
         var res = await _productQuery.Search(search);
@@ -48,11 +47,9 @@ public class ProductController : BaseApiController
 
     #region Get Latest Products
 
-    /// <summary>
-    ///    دریافت جدید ترین محصولات 
-    /// </summary>
-    /// <response code="200">Success</response>
     [HttpGet(MainShopApiEndpoints.Product.GetLatestProducts)]
+    [SwaggerOperation(Summary = "دریافت جدید ترین محصولات")]
+    [SwaggerResponse(200, "success")]
     public async Task<IActionResult> GetLatestProducts()
     {
         var res = await _productQuery.GetLatestProducts();
@@ -64,11 +61,9 @@ public class ProductController : BaseApiController
 
     #region Get Hotest Discount Products
 
-    /// <summary>
-    ///    دریافت داغ ترین تخفیف محصولات 
-    /// </summary>
-    /// <response code="200">Success</response>
     [HttpGet(MainShopApiEndpoints.Product.GetHotestDiscountProducts)]
+    [SwaggerOperation(Summary = "دریافت داغ ترین تخفیف محصولات")]
+    [SwaggerResponse(200, "success")]
     public async Task<IActionResult> GetHotestDiscountProducts()
     {
         var res = await _productQuery.GetHotestDiscountProducts();
