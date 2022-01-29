@@ -4,15 +4,16 @@ using SM.Application.Contracts.ProductPicture.DTOs;
 using SM.Application.Contracts.ProductPicture.Queries;
 
 namespace Shoppy.WebApi.Controllers.Admin.Shop;
+
+[SwaggerTag("مدیریت تصایر محصول")]
 public class AdminProductPictureController : BaseApiController
 {
     #region Get Product Pictures
 
-    /// <summary>
-    ///    دریافت تصاویر محصولات
-    /// </summary>
-    /// <response code="200">Success</response>
     [HttpGet(AdminShopApiEndpoints.ProductPicture.GetProductPictures)]
+    [SwaggerOperation(Summary = "دریافت تصاویر محصولات")]
+    [SwaggerResponse(200, "success")]
+    [SwaggerResponse(404, "not-found")]
     public async Task<IActionResult> GetProductPictures([FromRoute] long productId)
     {
         var res = await Mediator.Send(new GetProductPicturesQuery(productId));
@@ -24,11 +25,9 @@ public class AdminProductPictureController : BaseApiController
 
     #region Create Product Picture
 
-    /// <summary>
-    ///    ایجاد تصویر محصول
-    /// </summary>
-    /// <response code="200">Success</response>
     [HttpPost(AdminShopApiEndpoints.ProductPicture.CreateProductPicture)]
+    [SwaggerOperation(Summary = "ایجاد تصویر محصول")]
+    [SwaggerResponse(201, "success : created")]
     public async Task<IActionResult> CreateProductPicture([FromRoute] long productId)
     {
         var request = HttpContext.Request.Form;
@@ -43,18 +42,17 @@ public class AdminProductPictureController : BaseApiController
 
         var res = await Mediator.Send(new CreateProductPictureCommand(createData));
 
-        return JsonApiResult.Success(res);
+        return JsonApiResult.Created(res);
     }
 
     #endregion
 
     #region Remove Product Picture
 
-    /// <summary>
-    ///    غیر فعال کردن تصویر محصول
-    /// </summary>
-    /// <response code="200">Success</response>
     [HttpDelete(AdminShopApiEndpoints.ProductPicture.RemoveProductPicture)]
+    [SwaggerOperation(Summary = "حذف تصویر محصول")]
+    [SwaggerResponse(200, "success")]
+    [SwaggerResponse(404, "not-found")]
     public async Task<IActionResult> RemoveProductPicture([FromRoute] long id)
     {
         var res = await Mediator.Send(new RemoveProductPictureCommand(id));
