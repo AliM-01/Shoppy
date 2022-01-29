@@ -38,10 +38,6 @@ public class AdminInventoryController : BaseApiController
 
     #region Create Inventory
 
-    /// <summary>
-    ///    ایجاد انبار
-    /// </summary>
-    /// <response code="200">Success</response>
     [HttpPost(AdminInventoryApiEndpoints.Inventory.CreateInventory)]
     [SwaggerOperation(Summary = "ایجاد انبار")]
     [SwaggerResponse(201, "success : created")]

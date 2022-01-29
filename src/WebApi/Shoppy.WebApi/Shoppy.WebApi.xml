@@ -4,17 +4,5 @@
         <name>Shoppy.WebApi</name>
     </assembly>
     <members>
-        <member name="M:Shoppy.WebApi.Controllers.Admin.Discount.AdminInventoryController.CreateInventory(IM.Application.Contracts.Inventory.DTOs.CreateInventoryDto)">
-            <summary>
-               ایجاد انبار
-            </summary>
-            <response code="200">Success</response>
-        </member>
-        <member name="M:Shoppy.WebApi.Controllers.Main.Shop.SliderController.GetSliders">
-            <summary>
-               دریافت اسلایدر ها
-            </summary>
-            <response code="200">Success</response>
-        </member>
     </members>
 </doc>

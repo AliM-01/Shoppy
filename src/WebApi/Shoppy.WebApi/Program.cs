@@ -6,9 +6,6 @@ using Microsoft.Extensions.Hosting;
 using Serilog;
 using Serilog.Events;
 using Serilog.Sinks.MSSqlServer;
-using Shoppy.WebApi;
-using System.IO;
-using System.Reflection;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -35,14 +32,11 @@ Log.Logger = new LoggerConfiguration()
 
 #endregion
 
-builder.Services.RegisterServices(typeof(IAssemblyMarker), connectionString);
+builder.Services.RegisterServices(typeof(Program), connectionString);
 
-#region Swagger
+#region swagger
 
-var xmlFile = Assembly.GetExecutingAssembly().GetName().Name + ".xml";
-var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
-
-builder.Services.AddSwaggerExtension("Shoppy.WebApi", xmlPath);
+builder.Services.AddSwaggerExtension("Shoppy.WebApi");
 
 #endregion
 

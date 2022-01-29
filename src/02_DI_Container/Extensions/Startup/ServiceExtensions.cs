@@ -31,14 +31,12 @@ public static class ServiceExtensions
         }, mainAssembly.Assembly);
     }
 
-    public static void AddSwaggerExtension(this IServiceCollection services, string title, string xmlPath)
+    public static void AddSwaggerExtension(this IServiceCollection services, string title)
     {
 
         services.AddSwaggerGen(c =>
         {
             c.SwaggerDoc("v1", new OpenApiInfo { Title = title, Version = "v1" });
-
-            c.IncludeXmlComments(xmlPath);
             c.EnableAnnotations();
             c.SchemaFilter<EnumSchemaFilter>();
         });
