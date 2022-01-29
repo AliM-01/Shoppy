@@ -3,15 +3,16 @@ using SM.Application.Contracts.Slider.DTOs;
 using SM.Application.Contracts.Slider.Queries;
 
 namespace Shoppy.WebApi.Controllers.Admin.Shop;
+
+[SwaggerTag("مدیریت اسلایدر ها")]
 public class AdminSliderController : BaseApiController
 {
     #region Get Sliders List
 
-    /// <summary>
-    ///    دریافت لیست اسلایدر ها
-    /// </summary>
-    /// <response code="200">Success</response>
     [HttpGet(AdminShopApiEndpoints.Slider.GetSlidersList)]
+    [SwaggerOperation(Summary = "دریافت لیست اسلایدر ها")]
+    [SwaggerResponse(200, "success")]
+    [SwaggerResponse(404, "not-found")]
     public async Task<IActionResult> GetSlidersList()
     {
         var res = await Mediator.Send(new GetSlidersListQuery());
@@ -23,11 +24,10 @@ public class AdminSliderController : BaseApiController
 
     #region Get Slider Details
 
-    /// <summary>
-    ///    دریافت جزییات اسلایدر
-    /// </summary>
-    /// <response code="200">Success</response>
     [HttpGet(AdminShopApiEndpoints.Slider.GetSliderDetails)]
+    [SwaggerOperation(Summary = "دریافت جزییات اسلایدر")]
+    [SwaggerResponse(200, "success")]
+    [SwaggerResponse(404, "not-found")]
     public async Task<IActionResult> GetSliderDetails([FromRoute] long id)
     {
         var res = await Mediator.Send(new GetSliderDetailsQuery(id));
@@ -39,27 +39,24 @@ public class AdminSliderController : BaseApiController
 
     #region Create Slider
 
-    /// <summary>
-    ///    ایجاد اسلایدر
-    /// </summary>
-    /// <response code="200">Success</response>
     [HttpPost(AdminShopApiEndpoints.Slider.CreateSlider)]
+    [SwaggerOperation(Summary = "ایجاد اسلایدر")]
+    [SwaggerResponse(201, "success : created")]
     public async Task<IActionResult> CreateSlider([FromForm] CreateSliderDto createRequest)
     {
         var res = await Mediator.Send(new CreateSliderCommand(createRequest));
 
-        return JsonApiResult.Success(res);
+        return JsonApiResult.Created(res);
     }
 
     #endregion
 
     #region Edit Slider
 
-    /// <summary>
-    ///    ویرایش اسلایدر
-    /// </summary>
-    /// <response code="200">Success</response>
     [HttpPut(AdminShopApiEndpoints.Slider.EditSlider)]
+    [SwaggerOperation(Summary = "ویرایش اسلایدر")]
+    [SwaggerResponse(200, "success")]
+    [SwaggerResponse(404, "not-found")]
     public async Task<IActionResult> EditSlider([FromForm] EditSliderDto editRequest)
     {
         var res = await Mediator.Send(new EditSliderCommand(editRequest));
@@ -71,11 +68,10 @@ public class AdminSliderController : BaseApiController
 
     #region Remove Slider
 
-    /// <summary>
-    ///    غیر فعال کردن اسلایدر
-    /// </summary>
-    /// <response code="200">Success</response>
     [HttpDelete(AdminShopApiEndpoints.Slider.RemoveSlider)]
+    [SwaggerOperation(Summary = "غیر فعال کردن اسلایدر")]
+    [SwaggerResponse(200, "success")]
+    [SwaggerResponse(404, "not-found")]
     public async Task<IActionResult> RemoveSlider([FromRoute] long id)
     {
         var res = await Mediator.Send(new RemoveSliderCommand(id));
@@ -87,11 +83,10 @@ public class AdminSliderController : BaseApiController
 
     #region Restore Slider
 
-    /// <summary>
-    ///    فعال کردن اسلایدر
-    /// </summary>
-    /// <response code="200">Success</response>
     [HttpDelete(AdminShopApiEndpoints.Slider.RestoreSlider)]
+    [SwaggerOperation(Summary = "فعال کردن اسلایدر")]
+    [SwaggerResponse(200, "success")]
+    [SwaggerResponse(404, "not-found")]
     public async Task<IActionResult> RestoreSlider([FromRoute] long id)
     {
         var res = await Mediator.Send(new RestoreSliderCommand(id));
