@@ -3,15 +3,15 @@ using SM.Application.Contracts.ProductCategory.DTOs;
 using SM.Application.Contracts.ProductCategory.Queries;
 
 namespace Shoppy.WebApi.Controllers.Admin.Shop;
+
 public class AdminProductCategoryController : BaseApiController
 {
     #region Get ProductCategories List
 
-    /// <summary>
-    ///    دریافت لیست دسته بندی محصولات
-    /// </summary>
-    /// <response code="200">Success</response>
     [HttpGet(AdminShopApiEndpoints.ProductCategory.GetProductCategoriesList)]
+    [SwaggerOperation(Summary = "دریافت لیست دسته بندی محصولات")]
+    [SwaggerResponse(200, "success")]
+    [SwaggerResponse(404, "not-found")]
     public async Task<IActionResult> GetProductCategoriesList()
     {
         var res = await Mediator.Send(new GetProductCategoriesListQuery());
@@ -23,11 +23,9 @@ public class AdminProductCategoryController : BaseApiController
 
     #region Filter Product Categories
 
-    /// <summary>
-    ///    فیلتر دسته بندی محصولات
-    /// </summary>
-    /// <response code="200">Success</response>
     [HttpGet(AdminShopApiEndpoints.ProductCategory.FilterProductCategories)]
+    [SwaggerOperation(Summary = "فیلتر دسته بندی محصولات")]
+    [SwaggerResponse(200, "success")]
     public async Task<IActionResult> FilterProductCategories([FromQuery] FilterProductCategoryDto filter)
     {
         var res = await Mediator.Send(new FilterProductCategoriesQuery(filter));
@@ -39,11 +37,10 @@ public class AdminProductCategoryController : BaseApiController
 
     #region Get ProductCategory Details
 
-    /// <summary>
-    ///    دریافت جزییات دسته بندی محصول
-    /// </summary>
-    /// <response code="200">Success</response>
     [HttpGet(AdminShopApiEndpoints.ProductCategory.GetProductCategoryDetails)]
+    [SwaggerOperation(Summary = "دریافت جزییات دسته بندی محصول")]
+    [SwaggerResponse(200, "success")]
+    [SwaggerResponse(404, "not-found")]
     public async Task<IActionResult> GetProductCategoryDetails([FromRoute] long id)
     {
         var res = await Mediator.Send(new GetProductCategoryDetailsQuery(id));
@@ -55,11 +52,10 @@ public class AdminProductCategoryController : BaseApiController
 
     #region Create Product Category
 
-    /// <summary>
-    ///    ایجاد دسته بندی محصول
-    /// </summary>
-    /// <response code="200">Success</response>
     [HttpPost(AdminShopApiEndpoints.ProductCategory.CreateProductCategory)]
+    [SwaggerOperation(Summary = "ایجاد دسته بندی محصول")]
+    [SwaggerResponse(201, "success : created")]
+    [SwaggerResponse(400, "error : is duplicated")]
     public async Task<IActionResult> CreateProductCategory([FromForm] CreateProductCategoryDto createRequest)
     {
         var res = await Mediator.Send(new CreateProductCategoryCommand(createRequest));
@@ -71,11 +67,11 @@ public class AdminProductCategoryController : BaseApiController
 
     #region Edit Product Category
 
-    /// <summary>
-    ///    ویرایش دسته بندی محصول
-    /// </summary>
-    /// <response code="200">Success</response>
     [HttpPut(AdminShopApiEndpoints.ProductCategory.EditProductCategory)]
+    [SwaggerOperation(Summary = "ویرایش دسته بندی محصول")]
+    [SwaggerResponse(201, "success : created")]
+    [SwaggerResponse(400, "error : is duplicated")]
+    [SwaggerResponse(404, "not-found")]
     public async Task<IActionResult> EditProductCategory([FromForm] EditProductCategoryDto editRequest)
     {
         var res = await Mediator.Send(new EditProductCategoryCommand(editRequest));
@@ -87,11 +83,10 @@ public class AdminProductCategoryController : BaseApiController
 
     #region Delete Product Category
 
-    /// <summary>
-    ///    حذف دسته بندی محصول
-    /// </summary>
-    /// <response code="200">Success</response>
     [HttpDelete(AdminShopApiEndpoints.ProductCategory.DeleteProductCategory)]
+    [SwaggerOperation(Summary = "حذف دسته بندی محصول")]
+    [SwaggerResponse(201, "success : created")]
+    [SwaggerResponse(404, "not-found")]
     public async Task<IActionResult> DeleteProductCategory([FromRoute] long id)
     {
         var res = await Mediator.Send(new DeleteProductCategoryCommand(id));
