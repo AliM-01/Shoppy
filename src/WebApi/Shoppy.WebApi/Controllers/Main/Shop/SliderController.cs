@@ -16,11 +16,9 @@ public class SliderController : BaseApiController
 
     #region Get Sliders
 
-    /// <summary>
-    ///    دریافت اسلایدر ها
-    /// </summary>
-    /// <response code="200">Success</response>
     [HttpGet(MainShopApiEndpoints.Slider.GetSliders)]
+    [SwaggerOperation(Summary = "دریافت اسلایدر ها")]
+    [SwaggerResponse(200, "success")]
     public async Task<IActionResult> GetSliders()
     {
         var res = await _sliderQuery.GetSliders();
