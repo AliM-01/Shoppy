@@ -6,6 +6,8 @@ public class MainCommentApiEndpoints
 
     public static class Comment
     {
+        public const string GetRecordCommentsById = BaseMainCommentRoute + "/get-comment/{recordId}";
+
         public const string AddComment = BaseMainCommentRoute + "/add";
     }
 }
