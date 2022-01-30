@@ -12,7 +12,7 @@ public class AdminCommentController : BaseApiController
     [HttpGet(AdminCommentApiEndpoints.Comment.FilterComments)]
     [SwaggerOperation(Summary = "فیلتر کامنت ها")]
     [SwaggerResponse(200, "success")]
-    public async Task<IActionResult> FilterInventories([FromQuery] FilterCommentDto filter)
+    public async Task<IActionResult> FilterComments([FromQuery] FilterCommentDto filter)
     {
         var res = await Mediator.Send(new FilterCommentsQuery(filter));
 
