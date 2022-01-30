@@ -1,6 +1,4 @@
-﻿using CM.Application.Contracts.Comment.Commands;
-
-namespace CM.Application.Comment.CommandHandles;
+﻿namespace CM.Application.Comment.CommandHandles;
 
 public class AddCommentCommandHandler : IRequestHandler<AddCommentCommand, Response<string>>
 {
