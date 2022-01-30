@@ -16,7 +16,11 @@ public class CommentModuleMappingProfile : Profile
 
         CreateMap<Comment, CommentDto>()
             .ForMember(dest => dest.CreationDate,
-                opt => opt.MapFrom(src => src.CreationDate.ToShamsi()));
+                opt => opt.MapFrom(src => src.CreationDate.ToShamsi()))
+            .ForMember(dest => dest.State,
+                opt => opt.MapFrom(src => src.State.GetEnumDisplayName()))
+            .ForMember(dest => dest.Type,
+                opt => opt.MapFrom(src => src.Type.GetEnumDisplayName()));
 
         #endregion
 

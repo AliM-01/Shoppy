@@ -19,11 +19,11 @@ public class CommentDto
 
     [Display(Name = "نوع")]
     [JsonProperty("type")]
-    public CommentType Type { get; set; } = CommentType.Product;
+    public string Type { get; set; }
 
     [Display(Name = "وضعیت")]
     [JsonProperty("state")]
-    public CommentState State { get; set; }
+    public string State { get; set; }
 
     [Display(Name = "شناسه محصول/مقاله")]
     [JsonProperty("ownerRecordId")]

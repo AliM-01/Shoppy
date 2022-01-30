@@ -39,12 +39,16 @@ public class Comment : BaseEntity
 
 public enum CommentState
 {
+    [Display(Name = "رد شده")]
     Canceled,
+    [Display(Name = "تایید شده")]
     Confirmed
 }
 
 public enum CommentType
 {
+    [Display(Name = "محصول")]
     Product,
+    [Display(Name = "مقاله")]
     Article
 }
