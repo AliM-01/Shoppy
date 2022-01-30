@@ -3,7 +3,7 @@
 namespace Shoppy.WebApi.Controllers.Main.Shop;
 
 [SwaggerTag("دسته بندی محصولات")]
-public class ProductCategoryController : BaseApiController
+public class ProductCategoryController : ControllerBase
 {
     #region Ctor 
 

@@ -3,7 +3,7 @@
 namespace Shoppy.WebApi.Controllers.Main.Shop;
 
 [SwaggerTag("محصولات")]
-public class ProductController : BaseApiController
+public class ProductController : ControllerBase
 {
     #region Ctor 
 

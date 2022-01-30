@@ -3,7 +3,7 @@
 namespace Shoppy.WebApi.Controllers.Main.Shop;
 
 [SwaggerTag("اسلایدر")]
-public class SliderController : BaseApiController
+public class SliderController : ControllerBase
 {
     #region Ctor 
 
