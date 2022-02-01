@@ -52,7 +52,7 @@ namespace CM.Infrastructure.Persistence.Migrations
                     b.Property<long>("OwnerRecordId")
                         .HasColumnType("bigint");
 
-                    b.Property<long>("ParentId")
+                    b.Property<long?>("ParentId")
                         .HasColumnType("bigint");
 
                     b.Property<int>("State")
@@ -76,12 +76,16 @@ namespace CM.Infrastructure.Persistence.Migrations
             modelBuilder.Entity("CM.Domain.Comment.Comment", b =>
                 {
                     b.HasOne("CM.Domain.Comment.Comment", "Parent")
-                        .WithMany()
+                        .WithMany("Replies")
                         .HasForeignKey("ParentId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
+                        .OnDelete(DeleteBehavior.Restrict);
 
                     b.Navigation("Parent");
+                });
+
+            modelBuilder.Entity("CM.Domain.Comment.Comment", b =>
+                {
+                    b.Navigation("Replies");
                 });
 #pragma warning restore 612, 618
         }

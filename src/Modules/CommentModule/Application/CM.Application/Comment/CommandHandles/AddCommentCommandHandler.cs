@@ -19,6 +19,9 @@ public class AddCommentCommandHandler : IRequestHandler<AddCommentCommand, Respo
     {
         var comment = _mapper.Map(request.Comment, new Domain.Comment.Comment());
 
+        if (comment.ParentId == 0)
+            comment.ParentId = null;
+
         await _commentRepository.InsertEntity(comment);
         await _commentRepository.SaveChanges();
 

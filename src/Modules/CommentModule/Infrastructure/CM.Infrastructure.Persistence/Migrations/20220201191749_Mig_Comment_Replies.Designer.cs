@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CM.Infrastructure.Persistence.Migrations
 {
     [DbContext(typeof(CommentDbContext))]
-    [Migration("20220122232618_Mig_Comment_Init")]
-    partial class Mig_Comment_Init
+    [Migration("20220201191749_Mig_Comment_Replies")]
+    partial class Mig_Comment_Replies
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -54,7 +54,7 @@ namespace CM.Infrastructure.Persistence.Migrations
                     b.Property<long>("OwnerRecordId")
                         .HasColumnType("bigint");
 
-                    b.Property<long>("ParentId")
+                    b.Property<long?>("ParentId")
                         .HasColumnType("bigint");
 
                     b.Property<int>("State")
@@ -78,12 +78,16 @@ namespace CM.Infrastructure.Persistence.Migrations
             modelBuilder.Entity("CM.Domain.Comment.Comment", b =>
                 {
                     b.HasOne("CM.Domain.Comment.Comment", "Parent")
-                        .WithMany()
+                        .WithMany("Replies")
                         .HasForeignKey("ParentId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
+                        .OnDelete(DeleteBehavior.Restrict);
 
                     b.Navigation("Parent");
+                });
+
+            modelBuilder.Entity("CM.Domain.Comment.Comment", b =>
+                {
+                    b.Navigation("Replies");
                 });
 #pragma warning restore 612, 618
         }

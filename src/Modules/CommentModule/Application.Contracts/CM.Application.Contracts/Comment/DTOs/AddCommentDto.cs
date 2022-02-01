@@ -32,6 +32,6 @@ public class AddCommentDto
     [Display(Name = "شناسه والد")]
     [JsonProperty("parentId")]
     [Range(0, 100000, ErrorMessage = DomainErrorMessage.RequiredMessage)]
-    public long ParentId { get; set; }
+    public long ParentId { get; set; } = 0;
 }
 

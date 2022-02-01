@@ -30,9 +30,11 @@ public class Comment : BaseEntity
     #region Relations
 
     [Display(Name = "شناسه والد")]
-    public long ParentId { get; set; }
+    public long? ParentId { get; set; }
 
     public Comment Parent { get; set; }
+
+    public List<Comment> Replies { get; set; }
 
     #endregion
 }
