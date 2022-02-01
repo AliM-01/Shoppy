@@ -25,7 +25,7 @@ public class CommentQuery : ICommentQuery
     public async Task<Response<List<CommentQueryModel>>> GetRecordCommentsById(long recordId)
     {
         var comments = await _commentContext.Comments
-            .Where(x => x.OwnerRecordId == recordId)
+            .Where(x => x.OwnerRecordId == recordId && x.State == CM.Domain.Comment.CommentState.Confirmed)
              .OrderByDescending(x => x.LastUpdateDate)
               .Select(comment =>
                    _mapper.Map(comment, new CommentQueryModel()))
