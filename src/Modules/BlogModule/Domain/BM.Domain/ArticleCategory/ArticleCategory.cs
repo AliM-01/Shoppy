@@ -1,9 +1,13 @@
-﻿using _0_Framework.Domain;
+﻿using _0_Framework.Application.Attributes;
+using _0_Framework.Domain;
+using _0_Framework.Domain.Seo;
+using Microsoft.AspNetCore.Http;
+using Newtonsoft.Json;
 using System.ComponentModel.DataAnnotations;
 
 namespace BM.Domain.ArticleCategory;
 
-public class ArticleCategory : BaseEntity
+public class ArticleCategory : SeoPropertiesForDomainModels
 {
     #region Properties
 
@@ -17,19 +21,9 @@ public class ArticleCategory : BaseEntity
     public int OrderShow { get; set; }
 
     [Display(Name = "تصویر")]
-    public string ImagePath { get; set; }
-
-    [Display(Name = "جزییات تصویر")]
-    public string ImageAlt { get; set; }
-
-    [Display(Name = "عنوان تصویر")]
-    public string ImageTitle { get; set; }
-
-    [Display(Name = "کلمات کلیدی")]
-    public string MetaKeywords { get; set; }
-
-    [Display(Name = "توضیحات Meta")]
-    public string MetaDescription { get; set; }
+    [JsonProperty("imageFile")]
+    [MaxFileSize((3 * 1024 * 1024), ErrorMessage = DomainErrorMessage.FileMaxSizeMessage)]
+    public IFormFile ImageFile { get; set; }
 
     [Display(Name = "عنوان لینک")]
     public string Slug { get; set; }
