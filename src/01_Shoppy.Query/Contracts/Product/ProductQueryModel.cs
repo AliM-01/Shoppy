@@ -1,6 +1,8 @@
-﻿namespace _01_Shoppy.Query.Contracts.Product;
+﻿using _0_Framework.Application.Models.Seo;
 
-public class ProductQueryModel
+namespace _01_Shoppy.Query.Contracts.Product;
+
+public class ProductQueryModel : SeoProperties
 {
     [Display(Name = "شناسه")]
     [JsonProperty("id")]
@@ -13,14 +15,6 @@ public class ProductQueryModel
     [Display(Name = "تصویر")]
     [JsonProperty("imagePath")]
     public string ImagePath { get; set; }
-
-    [Display(Name = "جزییات تصویر")]
-    [JsonProperty("imageAlt")]
-    public string ImageAlt { get; set; }
-
-    [Display(Name = "عنوان تصویر")]
-    [JsonProperty("imageTitle")]
-    public string ImageTitle { get; set; }
 
     [Display(Name = "قیمت")]
     [JsonProperty("unitPrice")]

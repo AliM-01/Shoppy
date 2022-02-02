@@ -1,6 +1,8 @@
-﻿namespace _01_Shoppy.Query.Contracts.Slider;
+﻿using _0_Framework.Application.Models.Seo;
 
-public class SliderQueryModel
+namespace _01_Shoppy.Query.Contracts.Slider;
+
+public class SliderQueryModel : ImageProperties
 {
     [Display(Name = "شناسه")]
     [JsonProperty("id")]
@@ -17,14 +19,6 @@ public class SliderQueryModel
     [Display(Name = "تصویر")]
     [JsonProperty("imagePath")]
     public string ImagePath { get; set; }
-
-    [Display(Name = "جزییات تصویر")]
-    [JsonProperty("imageAlt")]
-    public string ImageAlt { get; set; }
-
-    [Display(Name = "عنوان تصویر")]
-    [JsonProperty("imageTitle")]
-    public string ImageTitle { get; set; }
 
     [Display(Name = "لینک")]
     [JsonProperty("btnLink")]

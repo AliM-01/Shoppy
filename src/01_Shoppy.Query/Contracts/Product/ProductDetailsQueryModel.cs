@@ -21,14 +21,6 @@ public class ProductDetailsQueryModel : ProductQueryModel
     [JsonProperty("inventoryCurrentCount")]
     public long InventoryCurrentCount { get; set; }
 
-    [Display(Name = "کلمات کلیدی")]
-    [JsonProperty("metaKeywords")]
-    public string MetaKeywords { get; set; }
-
-    [Display(Name = "توضیحات Meta")]
-    [JsonProperty("metaDescription")]
-    public string MetaDescription { get; set; }
-
     [Display(Name = "تصاویر محصول")]
     [JsonProperty("productPictures")]
     public List<ProductPictureQueryModel> ProductPictures { get; set; }
