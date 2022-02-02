@@ -1,6 +1,6 @@
 ﻿namespace SM.Domain.Slider;
 
-public class Slider : BaseEntity
+public class Slider : ImagePropertiesForDomainModels
 {
     #region Properties
 
@@ -12,12 +12,6 @@ public class Slider : BaseEntity
 
     [Display(Name = "تصویر")]
     public string ImagePath { get; set; }
-
-    [Display(Name = "جزییات تصویر")]
-    public string ImageAlt { get; set; }
-
-    [Display(Name = "عنوان تصویر")]
-    public string ImageTitle { get; set; }
 
     [Display(Name = "لینک")]
     public string BtnLink { get; set; }
