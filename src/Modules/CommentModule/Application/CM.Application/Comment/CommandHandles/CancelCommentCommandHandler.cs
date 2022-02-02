@@ -29,6 +29,6 @@ public class CancelCommentCommandHandler : IRequestHandler<CancelCommentCommand,
         _commentRepository.Update(comment);
         await _commentRepository.SaveChanges();
 
-        return new Response<string>(ApplicationErrorMessage.RecordDeletedMessage);
+        return new Response<string>("کامنت مورد نظر با موفقیت رد شد");
     }
 }

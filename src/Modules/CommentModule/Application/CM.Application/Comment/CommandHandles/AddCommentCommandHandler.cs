@@ -25,7 +25,7 @@ public class AddCommentCommandHandler : IRequestHandler<AddCommentCommand, Respo
         await _commentRepository.InsertEntity(comment);
         await _commentRepository.SaveChanges();
 
-        return new Response<string>(ApplicationErrorMessage.OperationSucceddedMessage);
+        return new Response<string>("کامنت با موفقیت ثبت شد و پس از تایید توسط ادمین در سایت نمایش داده خواهد شد");
     }
 }
 
