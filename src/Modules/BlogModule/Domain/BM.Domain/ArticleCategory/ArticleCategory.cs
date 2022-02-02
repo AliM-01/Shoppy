@@ -1,8 +1,4 @@
-﻿using _0_Framework.Application.Attributes;
-using _0_Framework.Domain;
-using _0_Framework.Domain.Seo;
-using Microsoft.AspNetCore.Http;
-using Newtonsoft.Json;
+﻿using _0_Framework.Domain.Seo;
 using System.ComponentModel.DataAnnotations;
 
 namespace BM.Domain.ArticleCategory;
@@ -21,9 +17,7 @@ public class ArticleCategory : SeoPropertiesForDomainModels
     public int OrderShow { get; set; }
 
     [Display(Name = "تصویر")]
-    [JsonProperty("imageFile")]
-    [MaxFileSize((3 * 1024 * 1024), ErrorMessage = DomainErrorMessage.FileMaxSizeMessage)]
-    public IFormFile ImageFile { get; set; }
+    public string ImagePath { get; set; }
 
     [Display(Name = "عنوان لینک")]
     public string Slug { get; set; }

@@ -4,6 +4,8 @@ namespace _0_Framework.Application.Utilities.ImageRelated;
 
 public static class PathExtension
 {
+    #region Shop
+
     #region Product Category
 
     public static string ProductCategoryImage =
@@ -41,6 +43,23 @@ public static class PathExtension
 
     public static string SliderThumbnailImage =
         Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/slider/thumbnail/");
+
+    #endregion
+
+    #endregion
+
+    #region Blog
+
+
+    #region Article Category
+
+    public static string ArticleCategoryImage =
+        Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/article_category/original/");
+
+    public static string ArticleCategoryThumbnailImage =
+        Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/article_category/thumbnail/");
+
+    #endregion
 
     #endregion
 }

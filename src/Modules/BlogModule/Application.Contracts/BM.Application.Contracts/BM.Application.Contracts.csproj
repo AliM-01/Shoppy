@@ -15,10 +15,4 @@
 		<ProjectReference Include="..\..\Domain\BM.Domain\BM.Domain.csproj" />
 	</ItemGroup>
 
-
-	<ItemGroup>
-	  <Folder Include="ArticleCategory\Commands\" />
-	  <Folder Include="ArticleCategory\Queries\" />
-	</ItemGroup>
-
 </Project>
