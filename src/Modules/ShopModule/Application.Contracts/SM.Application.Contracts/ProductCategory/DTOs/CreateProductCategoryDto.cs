@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Http;
 
 namespace SM.Application.Contracts.ProductCategory.DTOs;
-public class CreateProductCategoryDto : SeoProperties
+public class CreateProductCategoryDto : SeoPropertiesForApplicationModels
 {
     [Display(Name = "عنوان")]
     [JsonProperty("title")]

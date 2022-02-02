@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace _0_Framework.Application.Models.Seo;
 
-public class SeoProperties
+public class SeoPropertiesForApplicationModels
 {
     [Display(Name = "جزییات تصویر")]
     [JsonProperty("imageAlt")]

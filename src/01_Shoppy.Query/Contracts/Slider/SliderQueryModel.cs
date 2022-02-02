@@ -2,7 +2,7 @@
 
 namespace _01_Shoppy.Query.Contracts.Slider;
 
-public class SliderQueryModel : ImageProperties
+public class SliderQueryModel : ImagePropertiesForApplicationModels
 {
     [Display(Name = "شناسه")]
     [JsonProperty("id")]

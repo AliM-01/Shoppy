@@ -2,7 +2,7 @@
 
 namespace SM.Application.Contracts.Product.DTOs;
 
-public class CreateProductDto : SeoProperties
+public class CreateProductDto : SeoPropertiesForApplicationModels
 {
     [Display(Name = "شناسه دسته بندی")]
     [JsonProperty("categoryId")]

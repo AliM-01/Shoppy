@@ -2,7 +2,7 @@
 
 namespace _01_Shoppy.Query.Contracts.ProductCategory;
 
-public class ProductCategoryQueryModel : SeoProperties
+public class ProductCategoryQueryModel : SeoPropertiesForApplicationModels
 {
     [Display(Name = "شناسه")]
     [JsonProperty("id")]
