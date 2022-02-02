@@ -1,4 +1,5 @@
 ﻿using _01_Shoppy.Query.Contracts.Comment;
+using _01_Shoppy.Query.Helpers.Comment;
 using AutoMapper;
 using CM.Infrastructure.Persistence.Context;
 
@@ -25,11 +26,20 @@ public class CommentQuery : ICommentQuery
     public async Task<Response<List<CommentQueryModel>>> GetRecordCommentsById(long recordId)
     {
         var comments = await _commentContext.Comments
+            .Where(x => x.ParentId == 0 || x.ParentId == null)
             .Where(x => x.OwnerRecordId == recordId && x.State == CM.Domain.Comment.CommentState.Confirmed)
-             .OrderByDescending(x => x.LastUpdateDate)
-              .Select(comment =>
-                   _mapper.Map(comment, new CommentQueryModel()))
-               .ToListAsync();
+            .MapComments(_mapper)
+            .ToListAsync();
+
+        for (int i = 0; i < comments.Count; i++)
+        {
+            var replies = await _commentContext.Comments
+                .Where(x => x.ParentId == comments[i].Id)
+                .MapComments(_mapper)
+                .ToArrayAsync();
+
+            comments[i].Replies = replies;
+        }
 
         return new Response<List<CommentQueryModel>>(comments);
 

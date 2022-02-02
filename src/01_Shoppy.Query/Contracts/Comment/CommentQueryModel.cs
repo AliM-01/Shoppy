@@ -29,6 +29,9 @@ public class CommentQueryModel
     [JsonProperty("parentId")]
     public long ParentId { get; set; }
 
+    [JsonProperty("replies")]
+    public CommentQueryModel[] Replies { get; set; }
+
     [Display(Name = "تاریخ ثبت")]
     [JsonProperty("creationDate")]
     public string CreationDate { get; set; }

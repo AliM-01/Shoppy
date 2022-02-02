@@ -4,6 +4,7 @@ using CM.Infrastructure.Persistence.Context;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CM.Infrastructure.Persistence.Migrations
 {
     [DbContext(typeof(CommentDbContext))]
-    partial class CommentDbContextModelSnapshot : ModelSnapshot
+    [Migration("20220202093501_Mig_Comment_Fixes")]
+    partial class Mig_Comment_Fixes
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
