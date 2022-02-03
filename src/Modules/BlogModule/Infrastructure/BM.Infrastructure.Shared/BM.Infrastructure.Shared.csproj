@@ -1,9 +1,17 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
-  <PropertyGroup>
-    <TargetFramework>net6.0</TargetFramework>
-    <ImplicitUsings>enable</ImplicitUsings>
-    <Nullable>enable</Nullable>
-  </PropertyGroup>
+	<PropertyGroup>
+		<TargetFramework>net6.0</TargetFramework>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<PackageReference Include="AutoMapper" Version="10.1.1" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<ProjectReference Include="..\..\..\..\01_Shoppy.Query\01_Shoppy.Query.csproj" />
+		<ProjectReference Include="..\..\Application.Contracts\BM.Application.Contracts\BM.Application.Contracts.csproj" />
+		<ProjectReference Include="..\..\Domain\BM.Domin\BM.Domain.csproj" />
+	</ItemGroup>
 
 </Project>
