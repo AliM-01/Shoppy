@@ -12,7 +12,7 @@ public class BlogModuletBootstrapper
 {
     public static void Configure(IServiceCollection services, string connectionString)
     {
-        services.AddScoped<IGenericRepository<ArticleCategory>, GenericRepository<BlogDbContext, ArticleCategory>>();
+        services.AddTransient<IGenericRepository<ArticleCategory>, GenericRepository<BlogDbContext, ArticleCategory>>();
 
         services.AddMediatR(typeof(BlogModuletBootstrapper).Assembly);
 

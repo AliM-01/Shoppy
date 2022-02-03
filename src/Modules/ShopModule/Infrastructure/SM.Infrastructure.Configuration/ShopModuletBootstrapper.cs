@@ -21,19 +21,21 @@ public static class ShopModuletBootstrapper
 {
     public static void Configure(IServiceCollection services, string connectionString)
     {
-        services.AddScoped<IGenericRepository<ProductCategory>, GenericRepository<ShopDbContext, ProductCategory>>();
         services.AddScoped<IGenericRepository<Product>, GenericRepository<ShopDbContext, Product>>();
-        services.AddScoped<IGenericRepository<ProductPicture>, GenericRepository<ShopDbContext, ProductPicture>>();
-        services.AddScoped<IGenericRepository<ProductFeature>, GenericRepository<ShopDbContext, ProductFeature>>();
-        services.AddScoped<IGenericRepository<Slider>, GenericRepository<ShopDbContext, Slider>>();
+
+        services.AddTransient<IGenericRepository<ProductCategory>, GenericRepository<ShopDbContext, ProductCategory>>();
+        services.AddTransient<IGenericRepository<ProductPicture>, GenericRepository<ShopDbContext, ProductPicture>>();
+        services.AddTransient<IGenericRepository<ProductFeature>, GenericRepository<ShopDbContext, ProductFeature>>();
+        services.AddTransient<IGenericRepository<Slider>, GenericRepository<ShopDbContext, Slider>>();
 
         services.AddMediatR(typeof(ShopModuletBootstrapper).Assembly);
 
         services.AddScoped<IProductHelper, ProductHelper>();
 
-        services.AddScoped<ISliderQuery, SliderQuery>();
-        services.AddScoped<IProductCategoryQuery, ProductCategoryQuery>();
-        services.AddTransient<IProductQuery, ProductQuery>();
+        services.AddTransient<ISliderQuery, SliderQuery>();
+        services.AddTransient<IProductCategoryQuery, ProductCategoryQuery>();
+
+        services.AddScoped<IProductQuery, ProductQuery>();
 
         services.AddDbContext<ShopDbContext>(options =>
             options.UseSqlServer(connectionString));
