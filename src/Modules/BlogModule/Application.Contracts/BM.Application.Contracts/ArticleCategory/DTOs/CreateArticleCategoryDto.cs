@@ -17,6 +17,7 @@ public class CreateArticleCategoryDto : SeoPropertiesForApplicationModels
     public string Description { get; set; }
 
     [Display(Name = "ترتیب نمایش")]
+    [JsonProperty("orderShow")]
     [Range(1, 10000, ErrorMessage = DomainErrorMessage.RequiredMessage)]
     public int OrderShow { get; set; }
 
