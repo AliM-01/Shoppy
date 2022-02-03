@@ -30,6 +30,8 @@
 
 	<ItemGroup>
 		<ProjectReference Include="..\0_Framework\0_Framework.csproj" />
+		<ProjectReference Include="..\Modules\BlogModule\Infrastructure\BM.Infrastructure.Configuration\BM.Infrastructure.Configuration.csproj" />
+		<ProjectReference Include="..\Modules\BlogModule\Infrastructure\BM.Infrastructure.Shared\BM.Infrastructure.Shared.csproj" />
 		<ProjectReference Include="..\Modules\CommentModule\Application\CM.Application\CM.Application.csproj" />
 		<ProjectReference Include="..\Modules\CommentModule\Infrastructure\CM.Infrastructure.Configuration\CM.Infrastructure.Configuration.csproj" />
 		<ProjectReference Include="..\Modules\CommentModule\Infrastructure\CM.Infrastructure.Shared\CM.Infrastructure.Shared.csproj" />

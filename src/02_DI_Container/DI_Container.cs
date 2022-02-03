@@ -1,4 +1,7 @@
 ﻿using _02_DI_Container.Extensions.Startup;
+using BM.Application;
+using BM.Infrastructure.Configuration;
+using BM.Infrastructure.Shared.Mappings;
 using CM.Application;
 using CM.Infrastructure.Configuration;
 using CM.Infrastructure.Shared.Mappings;
@@ -26,6 +29,7 @@ public static class DI_Container
         DiscountModuleBootstrapper.Configure(services, connectionString);
         InventoryModuletBootstrapper.Configure(services, connectionString);
         CommentModuletBootstrapper.Configure(services, connectionString);
+        BlogModuletBootstrapper.Configure(services, connectionString);
 
         #endregion
 
@@ -37,7 +41,8 @@ public static class DI_Container
             typeof(ISMAssemblyMarker),
             typeof(IDMAssemblyMarker),
             typeof(IIMAssemblyMarker),
-            typeof(ICMAssemblyMarker)
+            typeof(ICMAssemblyMarker),
+            typeof(IBMAssemblyMarker)
         });
 
         #endregion
@@ -49,7 +54,8 @@ public static class DI_Container
             typeof(ShopModuleMappingProfile),
             typeof(DiscountModuleMappingProfile),
             typeof(InventoryModuleMappingProfile),
-            typeof(CommentModuleMappingProfile)
+            typeof(CommentModuleMappingProfile),
+            typeof(BlogModuleMappingProfile)
         });
 
         #endregion
