@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
 	<PropertyGroup>
 		<TargetFramework>net6.0</TargetFramework>
@@ -11,7 +11,7 @@
 	<ItemGroup>
 		<ProjectReference Include="..\..\..\..\01_Shoppy.Query\01_Shoppy.Query.csproj" />
 		<ProjectReference Include="..\..\Application.Contracts\BM.Application.Contracts\BM.Application.Contracts.csproj" />
-		<ProjectReference Include="..\..\Domain\BM.Domin\BM.Domain.csproj" />
+		<ProjectReference Include="..\..\Domain\BM.Domain\BM.Domain.csproj" />
 	</ItemGroup>
 
 </Project>
