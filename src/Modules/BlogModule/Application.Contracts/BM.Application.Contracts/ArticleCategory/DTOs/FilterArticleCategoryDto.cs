@@ -11,10 +11,6 @@ public class FilterArticleCategoryDto : BasePaging
     [MaxLength(100, ErrorMessage = DomainErrorMessage.MaxLengthMessage)]
     public string Title { get; set; }
 
-    [JsonProperty("categoryId")]
-    [Display(Name = "دسته بندی")]
-    public long CategoryId { get; set; }
-
     [JsonProperty("articleCategories")]
     public IEnumerable<ArticleCategoryDto> ArticleCategories { get; set; }
 
