@@ -5,7 +5,6 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.OpenApi.Any;
 using Microsoft.OpenApi.Models;
 using Swashbuckle.AspNetCore.SwaggerGen;
-using System.Reflection;
 
 namespace _02_DI_Container.Extensions.Startup;
 
@@ -15,7 +14,7 @@ public static class ServiceExtensions
     {
         services.AddMediatR(asembliesTypes, configuration => configuration.AsScoped());
 
-        services.AddValidatorsFromAssembly(Assembly.GetExecutingAssembly());
+        services.AddValidatorsFromAssemblies(asembliesTypes.Select(x => x.Assembly).ToList());
         services.AddTransient(typeof(IPipelineBehavior<,>), typeof(ValidationBehavior<,>));
     }
 

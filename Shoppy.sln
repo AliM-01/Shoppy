@@ -128,9 +128,13 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BM.Application", "src\Modul
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BM.Infrastructure.Persistence", "src\Modules\BlogModule\Infrastructure\BM.Infrastructure.Persistence\BM.Infrastructure.Persistence.csproj", "{69AC1D30-E43E-4259-8126-AB42DAF50651}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BM.Infrastructure.Shared", "src\Modules\BlogModule\Infrastructure\BM.Infrastructure.Shared\BM.Infrastructure.Shared.csproj", "{2AF8FEBA-32E7-410D-8F06-FFAAD0037E65}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BM.Infrastructure.Shared", "src\Modules\BlogModule\Infrastructure\BM.Infrastructure.Shared\BM.Infrastructure.Shared.csproj", "{2AF8FEBA-32E7-410D-8F06-FFAAD0037E65}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BM.Infrastructure.Configuration", "src\Modules\BlogModule\Infrastructure\BM.Infrastructure.Configuration\BM.Infrastructure.Configuration.csproj", "{FCD3AF63-A1B6-4EA8-A0DB-44AE95D012EF}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BM.Infrastructure.Configuration", "src\Modules\BlogModule\Infrastructure\BM.Infrastructure.Configuration\BM.Infrastructure.Configuration.csproj", "{FCD3AF63-A1B6-4EA8-A0DB-44AE95D012EF}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "docs", "docs", "{BE267BF2-B49E-43F1-A433-04083E04F0FB}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{9027A6CC-AE67-406D-9ADB-C553D0C106C7}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

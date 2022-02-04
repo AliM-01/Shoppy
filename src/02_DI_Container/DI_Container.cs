@@ -8,6 +8,7 @@ using CM.Infrastructure.Shared.Mappings;
 using DM.Application;
 using DM.Infrastructure.Configuration;
 using DM.Infrastructure.Shared.Mappings;
+using FluentValidation.AspNetCore;
 using IM.Application;
 using IM.Infrastructure.Configuration;
 using IM.Infrastructure.Shared.Mappings;
@@ -62,12 +63,28 @@ public static class DI_Container
 
         #region MVC Configuration
 
+        var assemblies = new List<Type>
+        {
+            assemblyMarker,
+            typeof(ISMAssemblyMarker),
+            typeof(IDMAssemblyMarker),
+            typeof(IIMAssemblyMarker),
+            typeof(ICMAssemblyMarker),
+            typeof(IBMAssemblyMarker)
+        }
+        .Select(x => x.Assembly)
+        .ToList();
+
         services.AddControllers().AddNewtonsoftJson(options =>
         {
             options.SerializerSettings.NullValueHandling = NullValueHandling.Include;
             options.SerializerSettings.MaxDepth = int.MaxValue;
             options.SerializerSettings.Formatting = Formatting.Indented;
             options.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore;
+        }).AddFluentValidation(s =>
+        {
+            s.RegisterValidatorsFromAssemblies(assemblies);
+            s.DisableDataAnnotationsValidation = false;
         });
 
         #endregion
