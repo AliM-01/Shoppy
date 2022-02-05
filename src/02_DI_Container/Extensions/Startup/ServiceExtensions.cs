@@ -5,16 +5,20 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.OpenApi.Any;
 using Microsoft.OpenApi.Models;
 using Swashbuckle.AspNetCore.SwaggerGen;
+using System.Reflection;
 
 namespace _02_DI_Container.Extensions.Startup;
 
 public static class ServiceExtensions
 {
-    public static void AddMediatorAndFluentValidationExtension(this IServiceCollection services, List<Type> asembliesTypes)
+    public static void AddMediatorExtension(this IServiceCollection services, List<Type> asembliesTypes)
     {
         services.AddMediatR(asembliesTypes, configuration => configuration.AsScoped());
+    }
 
-        services.AddValidatorsFromAssemblies(asembliesTypes.Select(x => x.Assembly).ToList());
+    public static void AddFluentValidationExtension(this IServiceCollection services, List<Assembly> asemblies)
+    {
+        services.AddValidatorsFromAssemblies(asemblies);
         services.AddTransient(typeof(IPipelineBehavior<,>), typeof(ValidationBehavior<,>));
     }
 

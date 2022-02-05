@@ -24,7 +24,7 @@ public class CreateArticleCategoryCommandHandler : IRequestHandler<CreateArticle
         if (_articleCategoryRepository.Exists(x => x.Title == request.ArticleCategory.Title))
             throw new ApiException(ApplicationErrorMessage.IsDuplicatedMessage);
 
-        var ArticleCategory =
+        var articleCategory =
             _mapper.Map(request.ArticleCategory, new Domain.ArticleCategory.ArticleCategory());
 
         var imagePath = DateTime.Now.ToFileName() + Path.GetExtension(request.ArticleCategory.ImageFile.FileName);
@@ -32,9 +32,9 @@ public class CreateArticleCategoryCommandHandler : IRequestHandler<CreateArticle
         request.ArticleCategory.ImageFile.AddImageToServer(imagePath, PathExtension.ArticleCategoryImage,
                     200, 200, PathExtension.ArticleCategoryThumbnailImage);
 
-        ArticleCategory.ImagePath = imagePath;
+        articleCategory.ImagePath = imagePath;
 
-        await _articleCategoryRepository.InsertEntity(ArticleCategory);
+        await _articleCategoryRepository.InsertEntity(articleCategory);
         await _articleCategoryRepository.SaveChanges();
 
         return new Response<string>(ApplicationErrorMessage.OperationSucceddedMessage);

@@ -29,6 +29,15 @@ public static class CustomValidators
             .WithMessage(string.Format("لطفا {0} را وارد کنید", propertyName));
     }
 
+    public static IRuleBuilder<T, int> RangeValidator<T>(this IRuleBuilder<T, int> ruleBuilder, string propertyName, int min, int max)
+    {
+        return ruleBuilder
+            .GreaterThanOrEqualTo(min)
+            .WithMessage(string.Format("لطفا {0} را وارد کنید", propertyName))
+            .LessThanOrEqualTo(max)
+            .WithMessage(string.Format("لطفا {0} را وارد کنید", propertyName));
+    }
+
     #endregion
 
     #region MaxLengthValidator
@@ -82,9 +91,10 @@ public static class CustomValidators
 
     public static IRuleBuilder<T, IFormFile> MaxFileSizeValidator<T>(this IRuleBuilder<T, IFormFile> ruleBuilder, int size)
     {
-        return ruleBuilder.Must(x =>
-                    MaxFileSizeHelper.IsValid(size, x))
-                .WithMessage("حجم فایل بیشتر از مقدار مجاز است. لطفا فایل دیگری آپلود کنید");
+        return ruleBuilder.NotNull()
+                          .WithMessage("لطفا فایل را وارد کنید")
+                          .Must(x => MaxFileSizeHelper.IsValid(size, x))
+                          .WithMessage("حجم فایل بیشتر از مقدار مجاز است. لطفا فایل دیگری آپلود کنید");
     }
 
     #endregion

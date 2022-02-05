@@ -52,7 +52,10 @@ public class ErrorHandlerMiddleware
                 case ValidationException e:
                     // custom application error
                     response.StatusCode = (int)HttpStatusCode.BadRequest;
-                    errors.AddRange(e.Errors);
+                    for (int i = 0; i < e.Errors.Count; i++)
+                    {
+                        errors.Add(e.Errors[i]);
+                    }
                     break;
 
                 default:

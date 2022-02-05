@@ -8,7 +8,6 @@ using CM.Infrastructure.Shared.Mappings;
 using DM.Application;
 using DM.Infrastructure.Configuration;
 using DM.Infrastructure.Shared.Mappings;
-using FluentValidation.AspNetCore;
 using IM.Application;
 using IM.Infrastructure.Configuration;
 using IM.Infrastructure.Shared.Mappings;
@@ -17,6 +16,7 @@ using Newtonsoft.Json;
 using SM.Application;
 using SM.Infrastructure.Configuration;
 using SM.Infrastructure.Shared.Mappings;
+using System.Reflection;
 
 namespace _02_DI_Container;
 
@@ -36,7 +36,7 @@ public static class DI_Container
 
         #region Mediator And FluentValidation
 
-        services.AddMediatorAndFluentValidationExtension(new List<Type>
+        services.AddMediatorExtension(new List<Type>
         {
             assemblyMarker,
             typeof(ISMAssemblyMarker),
@@ -45,6 +45,17 @@ public static class DI_Container
             typeof(ICMAssemblyMarker),
             typeof(IBMAssemblyMarker)
         });
+
+        var assemblies = new List<Assembly>
+        {
+            typeof(ShopModuleMappingProfile).Assembly,
+            typeof(DiscountModuleMappingProfile).Assembly,
+            typeof(InventoryModuleMappingProfile).Assembly,
+            typeof(CommentModuleMappingProfile).Assembly,
+            typeof(BlogModuleMappingProfile).Assembly
+        };
+
+        services.AddFluentValidationExtension(assemblies);
 
         #endregion
 
@@ -63,28 +74,12 @@ public static class DI_Container
 
         #region MVC Configuration
 
-        var assemblies = new List<Type>
-        {
-            assemblyMarker,
-            typeof(ISMAssemblyMarker),
-            typeof(IDMAssemblyMarker),
-            typeof(IIMAssemblyMarker),
-            typeof(ICMAssemblyMarker),
-            typeof(IBMAssemblyMarker)
-        }
-        .Select(x => x.Assembly)
-        .ToList();
-
         services.AddControllers().AddNewtonsoftJson(options =>
         {
             options.SerializerSettings.NullValueHandling = NullValueHandling.Include;
             options.SerializerSettings.MaxDepth = int.MaxValue;
             options.SerializerSettings.Formatting = Formatting.Indented;
             options.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore;
-        }).AddFluentValidation(s =>
-        {
-            s.RegisterValidatorsFromAssemblies(assemblies);
-            s.DisableDataAnnotationsValidation = false;
         });
 
         #endregion
