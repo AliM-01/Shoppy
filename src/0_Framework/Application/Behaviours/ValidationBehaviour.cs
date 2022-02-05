@@ -2,6 +2,7 @@
 using MediatR;
 using System.Collections.Generic;
 using System.Linq;
+using ValidationException = FluentValidation.ValidationException;
 
 namespace _0_Framework.Application.Behaviours;
 
@@ -9,12 +10,10 @@ public class ValidationBehavior<TRequest, TResponse> : IPipelineBehavior<TReques
         where TRequest : IRequest<TResponse>
 {
     private readonly IEnumerable<IValidator<TRequest>> _validators;
-
     public ValidationBehavior(IEnumerable<IValidator<TRequest>> validators)
     {
         _validators = validators;
     }
-
     public async Task<TResponse> Handle(TRequest request, CancellationToken cancellationToken, RequestHandlerDelegate<TResponse> next)
     {
         if (_validators.Any())
@@ -22,9 +21,13 @@ public class ValidationBehavior<TRequest, TResponse> : IPipelineBehavior<TReques
             var context = new ValidationContext<TRequest>(request);
             var validationResults = await Task.WhenAll(_validators.Select(v => v.ValidateAsync(context, cancellationToken)));
             var failures = validationResults.SelectMany(r => r.Errors).Where(f => f != null).ToList();
-
             if (failures.Count != 0)
-                throw new Exceptions.ValidationException(failures);
+            {
+                for (int i = 0; i < failures.Count; i++)
+                {
+                    throw new ValidationException(failures[i].ErrorMessage);
+                }
+            }
         }
         return await next();
     }

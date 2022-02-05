@@ -1,4 +1,4 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using _0_Framework.Application.Extensions;
 using System.ComponentModel.DataAnnotations;
 
 namespace _0_Framework.Application.Attributes;
@@ -14,11 +14,7 @@ public class MaxFileSizeAttribute : ValidationAttribute
 
     public override bool IsValid(object value)
     {
-        var file = value as IFormFile;
-        if (file is null)
-            return true;
-
-        return file.Length <= _maxFileSize;
+        return MaxFileSizeHelper.IsValid(_maxFileSize, value);
     }
 }
 
