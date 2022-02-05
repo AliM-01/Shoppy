@@ -64,7 +64,7 @@ public static class CustomValidators
 
     #region EmailAddressValidator
 
-    public static IRuleBuilder<T, string> EmailAddressValidator<T>(this IRuleBuilder<T, string> ruleBuilder)
+    public static IRuleBuilder<T, string> CustomEmailAddressValidator<T>(this IRuleBuilder<T, string> ruleBuilder)
     {
         return ruleBuilder
             .EmailAddress()
