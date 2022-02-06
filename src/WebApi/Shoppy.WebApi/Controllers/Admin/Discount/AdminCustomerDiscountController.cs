@@ -10,7 +10,7 @@ public class AdminCustomerDiscountController : BaseApiController
     #region Filter Customer Discounts
 
     [HttpGet(AdminDiscountApiEndpoints.CustomerDiscount.FilterCustomerDiscounts)]
-    [SwaggerOperation(Summary = "فیلتر تخفیفات مشتری")]
+    [SwaggerOperation(Summary = "فیلتر تخفیفات مشتری", Tags = new[] { "AdminCustomerDiscount" })]
     [SwaggerResponse(200, "success")]
     public async Task<IActionResult> FilterCustomerDiscounts([FromQuery] FilterCustomerDiscountDto filter)
     {
@@ -24,7 +24,7 @@ public class AdminCustomerDiscountController : BaseApiController
     #region Get CustomerDiscount Details
 
     [HttpGet(AdminDiscountApiEndpoints.CustomerDiscount.GetCustomerDiscountDetails)]
-    [SwaggerOperation(Summary = "دریافت تخفیف مشتری")]
+    [SwaggerOperation(Summary = "دریافت تخفیف مشتری", Tags = new[] { "AdminCustomerDiscount" })]
     [SwaggerResponse(200, "success")]
     [SwaggerResponse(404, "not-found")]
     public async Task<IActionResult> GetCustomerDiscountDetails([FromRoute] long id)
@@ -39,7 +39,7 @@ public class AdminCustomerDiscountController : BaseApiController
     #region Define Customer Discount
 
     [HttpPost(AdminDiscountApiEndpoints.CustomerDiscount.DefineCustomerDiscount)]
-    [SwaggerOperation(Summary = "تعریف تخفیف مشتری")]
+    [SwaggerOperation(Summary = "تعریف تخفیف مشتری", Tags = new[] { "AdminCustomerDiscount" })]
     [SwaggerResponse(201, "success : created")]
     [SwaggerResponse(400, "error : discount exists for product")]
     [SwaggerResponse(404, "not-found")]
@@ -55,7 +55,7 @@ public class AdminCustomerDiscountController : BaseApiController
     #region Edit Customer Discount
 
     [HttpPut(AdminDiscountApiEndpoints.CustomerDiscount.EditCustomerDiscount)]
-    [SwaggerOperation(Summary = "ویرایش تخفیف مشتری")]
+    [SwaggerOperation(Summary = "ویرایش تخفیف مشتری", Tags = new[] { "AdminCustomerDiscount" })]
     [SwaggerResponse(200, "success")]
     [SwaggerResponse(404, "not-found")]
     public async Task<IActionResult> EditCustomerDiscount([FromForm] EditCustomerDiscountDto editRequest)
@@ -70,7 +70,7 @@ public class AdminCustomerDiscountController : BaseApiController
     #region Remove Customer Discount
 
     [HttpDelete(AdminDiscountApiEndpoints.CustomerDiscount.RemoveCustomerDiscount)]
-    [SwaggerOperation(Summary = "حذف تخفیف مشتری")]
+    [SwaggerOperation(Summary = "حذف تخفیف مشتری", Tags = new[] { "AdminCustomerDiscount" })]
     [SwaggerResponse(200, "success")]
     [SwaggerResponse(404, "not-found")]
     public async Task<IActionResult> RemoveCustomerDiscount([FromRoute] long id)
@@ -85,7 +85,7 @@ public class AdminCustomerDiscountController : BaseApiController
     #region Check Product Has Customer Discount
 
     [HttpGet(AdminDiscountApiEndpoints.CustomerDiscount.CheckProductHasCustomerDiscount)]
-    [SwaggerOperation(Summary = "چک کردن وجود تخفیف مشتری برای محصول")]
+    [SwaggerOperation(Summary = "چک کردن وجود تخفیف مشتری برای محصول", Tags = new[] { "AdminCustomerDiscount" })]
     [SwaggerResponse(200, "success")]
     [SwaggerResponse(404, "not-found")]
     public async Task<IActionResult> CheckProductHasCustomerDiscount([FromRoute] long productId)

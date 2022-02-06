@@ -21,7 +21,7 @@ public class CommentController : BaseApiController
     #region Get Record Comments By Id
 
     [HttpGet(MainCommentApiEndpoints.Comment.GetRecordCommentsById)]
-    [SwaggerOperation(Summary = "دریافت کامنت های محصول/مقاله")]
+    [SwaggerOperation(Summary = "دریافت کامنت های محصول/مقاله", Tags = new[] { "Comment" })]
     [SwaggerResponse(200, "success")]
     public async Task<IActionResult> GetRecordCommentsById([FromRoute] long recordId)
     {
@@ -35,7 +35,7 @@ public class CommentController : BaseApiController
     #region Create Product Category
 
     [HttpPost(MainCommentApiEndpoints.Comment.AddComment)]
-    [SwaggerOperation(Summary = "ایجاد کامنت")]
+    [SwaggerOperation(Summary = "ایجاد کامنت", Tags = new[] { "Comment" })]
     [SwaggerResponse(201, "success : created")]
     public async Task<IActionResult> AddComment([FromForm] AddCommentDto addRequest)
     {

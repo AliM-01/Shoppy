@@ -10,7 +10,7 @@ public class AdminColleagueDiscountController : BaseApiController
     #region Filter Colleague Discounts
 
     [HttpGet(AdminDiscountApiEndpoints.ColleagueDiscount.FilterColleagueDiscounts)]
-    [SwaggerOperation(Summary = "فیلتر تخفیفات همکار")]
+    [SwaggerOperation(Summary = "فیلتر تخفیفات همکار", Tags = new[] { "AdminColleagueDiscount" })]
     [SwaggerResponse(200, "success")]
     public async Task<IActionResult> FilterColleagueDiscounts([FromQuery] FilterColleagueDiscountDto filter)
     {
@@ -24,7 +24,7 @@ public class AdminColleagueDiscountController : BaseApiController
     #region Get ColleagueDiscount Details
 
     [HttpGet(AdminDiscountApiEndpoints.ColleagueDiscount.GetColleagueDiscountDetails)]
-    [SwaggerOperation(Summary = "دریافت تخفیف همکار")]
+    [SwaggerOperation(Summary = "دریافت تخفیف همکار", Tags = new[] { "AdminColleagueDiscount" })]
     [SwaggerResponse(200, "success")]
     [SwaggerResponse(404, "not-found")]
     public async Task<IActionResult> GetColleagueDiscountDetails([FromRoute] long id)
@@ -39,7 +39,7 @@ public class AdminColleagueDiscountController : BaseApiController
     #region Define Colleague Discount
 
     [HttpPost(AdminDiscountApiEndpoints.ColleagueDiscount.DefineColleagueDiscount)]
-    [SwaggerOperation(Summary = "تعریف تخفیف همکار")]
+    [SwaggerOperation(Summary = "تعریف تخفیف همکار", Tags = new[] { "AdminColleagueDiscount" })]
     [SwaggerResponse(201, "success : created")]
     [SwaggerResponse(400, "error : discount exists for product")]
     [SwaggerResponse(404, "not-found")]
@@ -55,7 +55,7 @@ public class AdminColleagueDiscountController : BaseApiController
     #region Edit Colleague Discount
 
     [HttpPut(AdminDiscountApiEndpoints.ColleagueDiscount.EditColleagueDiscount)]
-    [SwaggerOperation(Summary = "ویرایش تخفیف همکار")]
+    [SwaggerOperation(Summary = "ویرایش تخفیف همکار", Tags = new[] { "AdminColleagueDiscount" })]
     [SwaggerResponse(200, "success")]
     [SwaggerResponse(404, "not-found")]
     public async Task<IActionResult> EditColleagueDiscount([FromForm] EditColleagueDiscountDto editRequest)
@@ -70,7 +70,7 @@ public class AdminColleagueDiscountController : BaseApiController
     #region Remove Colleague Discount
 
     [HttpPost(AdminDiscountApiEndpoints.ColleagueDiscount.RemoveColleagueDiscount)]
-    [SwaggerOperation(Summary = "غیر فعال کردن تخفیف همکار")]
+    [SwaggerOperation(Summary = "غیر فعال کردن تخفیف همکار", Tags = new[] { "AdminColleagueDiscount" })]
     [SwaggerResponse(200, "success")]
     [SwaggerResponse(404, "not-found")]
     public async Task<IActionResult> RemoveColleagueDiscount([FromRoute] long id)
@@ -85,7 +85,7 @@ public class AdminColleagueDiscountController : BaseApiController
     #region Restore Colleague Discount
 
     [HttpPost(AdminDiscountApiEndpoints.ColleagueDiscount.RestoreColleagueDiscount)]
-    [SwaggerOperation(Summary = "فعال کردن تخفیف همکار")]
+    [SwaggerOperation(Summary = "فعال کردن تخفیف همکار", Tags = new[] { "AdminColleagueDiscount" })]
     [SwaggerResponse(200, "success")]
     [SwaggerResponse(404, "not-found")]
     public async Task<IActionResult> RestoreColleagueDiscount([FromRoute] long id)
@@ -100,7 +100,7 @@ public class AdminColleagueDiscountController : BaseApiController
     #region Delete Colleague Discount
 
     [HttpDelete(AdminDiscountApiEndpoints.ColleagueDiscount.DeleteColleagueDiscount)]
-    [SwaggerOperation(Summary = "حذف تخفیف همکار")]
+    [SwaggerOperation(Summary = "حذف تخفیف همکار", Tags = new[] { "AdminColleagueDiscount" })]
     [SwaggerResponse(200, "success")]
     [SwaggerResponse(404, "not-found")]
     public async Task<IActionResult> DeleteColleagueDiscount([FromRoute] long id)
@@ -115,7 +115,7 @@ public class AdminColleagueDiscountController : BaseApiController
     #region Check Product Has Colleague Discount
 
     [HttpGet(AdminDiscountApiEndpoints.ColleagueDiscount.CheckProductHasColleagueDiscount)]
-    [SwaggerOperation(Summary = "چک کردن وجود تخفیف همکار برای محصول")]
+    [SwaggerOperation(Summary = "چک کردن وجود تخفیف همکار برای محصول", Tags = new[] { "AdminColleagueDiscount" })]
     [SwaggerResponse(200, "success")]
     [SwaggerResponse(404, "not-found")]
     public async Task<IActionResult> CheckProductHasColleagueDiscount([FromRoute] long productId)

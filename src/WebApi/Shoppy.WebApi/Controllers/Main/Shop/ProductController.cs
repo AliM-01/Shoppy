@@ -19,7 +19,7 @@ public class ProductController : ControllerBase
     #region Get Product Details
 
     [HttpGet(MainShopApiEndpoints.Product.GetProductDetails)]
-    [SwaggerOperation(Summary = "دریافت جزییات محصول")]
+    [SwaggerOperation(Summary = "دریافت جزییات محصول", Tags = new[] { "Product" })]
     [SwaggerResponse(200, "success")]
     [SwaggerResponse(404, "not-found")]
     public async Task<IActionResult> GetProductDetails([FromRoute] string slug)
@@ -34,7 +34,7 @@ public class ProductController : ControllerBase
     #region Search
 
     [HttpGet(MainShopApiEndpoints.Product.Search)]
-    [SwaggerOperation(Summary = "جستجو")]
+    [SwaggerOperation(Summary = "جستجو", Tags = new[] { "Product" })]
     [SwaggerResponse(200, "success")]
     [SwaggerResponse(400, "error : no data with requested filter")]
     [SwaggerResponse(404, "not-found")]
@@ -50,7 +50,7 @@ public class ProductController : ControllerBase
     #region Get Latest Products
 
     [HttpGet(MainShopApiEndpoints.Product.GetLatestProducts)]
-    [SwaggerOperation(Summary = "دریافت جدید ترین محصولات")]
+    [SwaggerOperation(Summary = "دریافت جدید ترین محصولات", Tags = new[] { "Product" })]
     [SwaggerResponse(200, "success")]
     public async Task<IActionResult> GetLatestProducts()
     {
@@ -64,7 +64,7 @@ public class ProductController : ControllerBase
     #region Get Hotest Discount Products
 
     [HttpGet(MainShopApiEndpoints.Product.GetHotestDiscountProducts)]
-    [SwaggerOperation(Summary = "دریافت داغ ترین تخفیف محصولات")]
+    [SwaggerOperation(Summary = "دریافت داغ ترین تخفیف محصولات", Tags = new[] { "Product" })]
     [SwaggerResponse(200, "success")]
     public async Task<IActionResult> GetHotestDiscountProducts()
     {

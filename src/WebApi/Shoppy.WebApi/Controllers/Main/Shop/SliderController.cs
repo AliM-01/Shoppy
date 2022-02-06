@@ -19,7 +19,7 @@ public class SliderController : ControllerBase
     #region Get Sliders
 
     [HttpGet(MainShopApiEndpoints.Slider.GetSliders)]
-    [SwaggerOperation(Summary = "دریافت اسلایدر ها")]
+    [SwaggerOperation(Summary = "دریافت اسلایدر ها", Tags = new[] { "Slider" })]
     [SwaggerResponse(200, "success")]
     public async Task<IActionResult> GetSliders()
     {

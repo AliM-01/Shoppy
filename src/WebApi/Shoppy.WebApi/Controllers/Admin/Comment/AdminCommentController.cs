@@ -10,7 +10,7 @@ public class AdminCommentController : BaseApiController
     #region Filter Comment
 
     [HttpGet(AdminCommentApiEndpoints.Comment.FilterComments)]
-    [SwaggerOperation(Summary = "فیلتر کامنت ها")]
+    [SwaggerOperation(Summary = "فیلتر کامنت ها", Tags = new[] { "AdminComment" })]
     [SwaggerResponse(200, "success")]
     public async Task<IActionResult> FilterComments([FromQuery] FilterCommentDto filter)
     {
@@ -24,7 +24,7 @@ public class AdminCommentController : BaseApiController
     #region Confirm Comment
 
     [HttpPost(AdminCommentApiEndpoints.Comment.ConfirmComment)]
-    [SwaggerOperation(Summary = "تایید کامنت")]
+    [SwaggerOperation(Summary = "تایید کامنت", Tags = new[] { "AdminComment" })]
     [SwaggerResponse(200, "success")]
     [SwaggerResponse(404, "not-found")]
     public async Task<IActionResult> ConfirmComment([FromRoute] long id)
@@ -39,7 +39,7 @@ public class AdminCommentController : BaseApiController
     #region Cancel Comment
 
     [HttpPost(AdminCommentApiEndpoints.Comment.CancelComment)]
-    [SwaggerOperation(Summary = "حذف کامنت")]
+    [SwaggerOperation(Summary = "حذف کامنت", Tags = new[] { "AdminComment" })]
     [SwaggerResponse(200, "success")]
     [SwaggerResponse(404, "not-found")]
     public async Task<IActionResult> CancelComment([FromRoute] long id)

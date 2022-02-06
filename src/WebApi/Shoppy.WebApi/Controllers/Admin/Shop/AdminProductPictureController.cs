@@ -11,7 +11,7 @@ public class AdminProductPictureController : BaseApiController
     #region Get Product Pictures
 
     [HttpGet(AdminShopApiEndpoints.ProductPicture.GetProductPictures)]
-    [SwaggerOperation(Summary = "دریافت تصاویر محصولات")]
+    [SwaggerOperation(Summary = "دریافت تصاویر محصولات", Tags = new[] { "AdminProductPicture" })]
     [SwaggerResponse(200, "success")]
     [SwaggerResponse(404, "not-found")]
     public async Task<IActionResult> GetProductPictures([FromRoute] long productId)
@@ -26,7 +26,7 @@ public class AdminProductPictureController : BaseApiController
     #region Create Product Picture
 
     [HttpPost(AdminShopApiEndpoints.ProductPicture.CreateProductPicture)]
-    [SwaggerOperation(Summary = "ایجاد تصویر محصول")]
+    [SwaggerOperation(Summary = "ایجاد تصویر محصول", Tags = new[] { "AdminProductPicture" })]
     [SwaggerResponse(201, "success : created")]
     public async Task<IActionResult> CreateProductPicture([FromRoute] long productId)
     {
@@ -50,7 +50,7 @@ public class AdminProductPictureController : BaseApiController
     #region Remove Product Picture
 
     [HttpDelete(AdminShopApiEndpoints.ProductPicture.RemoveProductPicture)]
-    [SwaggerOperation(Summary = "حذف تصویر محصول")]
+    [SwaggerOperation(Summary = "حذف تصویر محصول", Tags = new[] { "AdminProductPicture" })]
     [SwaggerResponse(200, "success")]
     [SwaggerResponse(404, "not-found")]
     public async Task<IActionResult> RemoveProductPicture([FromRoute] long id)

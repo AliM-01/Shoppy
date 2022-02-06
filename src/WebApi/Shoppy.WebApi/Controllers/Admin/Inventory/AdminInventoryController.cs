@@ -10,7 +10,7 @@ public class AdminInventoryController : BaseApiController
     #region Filter Inventory
 
     [HttpGet(AdminInventoryApiEndpoints.Inventory.FilterInventories)]
-    [SwaggerOperation(Summary = "فیلتر انبار")]
+    [SwaggerOperation(Summary = "فیلتر انبار", Tags = new[] { "AdminInventory" })]
     [SwaggerResponse(200, "success")]
     public async Task<IActionResult> FilterInventories([FromQuery] FilterInventoryDto filter)
     {
@@ -24,7 +24,7 @@ public class AdminInventoryController : BaseApiController
     #region Get Inventory Details
 
     [HttpGet(AdminInventoryApiEndpoints.Inventory.GetInventoryDetails)]
-    [SwaggerOperation(Summary = "دریافت انبار")]
+    [SwaggerOperation(Summary = "دریافت انبار", Tags = new[] { "AdminInventory" })]
     [SwaggerResponse(200, "success")]
     [SwaggerResponse(404, "not-found")]
     public async Task<IActionResult> GetInventoryDetails([FromRoute] long id)
@@ -39,7 +39,7 @@ public class AdminInventoryController : BaseApiController
     #region Create Inventory
 
     [HttpPost(AdminInventoryApiEndpoints.Inventory.CreateInventory)]
-    [SwaggerOperation(Summary = "ایجاد انبار")]
+    [SwaggerOperation(Summary = "ایجاد انبار", Tags = new[] { "AdminInventory" })]
     [SwaggerResponse(201, "success : created")]
     [SwaggerResponse(400, "error : discount exists for product")]
     [SwaggerResponse(404, "not-found")]
@@ -55,7 +55,7 @@ public class AdminInventoryController : BaseApiController
     #region Edit Inventory
 
     [HttpPut(AdminInventoryApiEndpoints.Inventory.EditInventory)]
-    [SwaggerOperation(Summary = "ویرایش انبار")]
+    [SwaggerOperation(Summary = "ویرایش انبار", Tags = new[] { "AdminInventory" })]
     [SwaggerResponse(200, "success")]
     [SwaggerResponse(404, "not-found")]
     public async Task<IActionResult> EditInventory([FromForm] EditInventoryDto editRequest)
@@ -70,7 +70,7 @@ public class AdminInventoryController : BaseApiController
     #region Increase Inventory
 
     [HttpPost(AdminInventoryApiEndpoints.Inventory.IncreaseInventory)]
-    [SwaggerOperation(Summary = "افزایش موجودی انبار")]
+    [SwaggerOperation(Summary = "افزایش موجودی انبار", Tags = new[] { "AdminInventory" })]
     [SwaggerResponse(200, "success")]
     [SwaggerResponse(404, "not-found")]
     public async Task<IActionResult> IncreaseInventory([FromForm] IncreaseInventoryDto increaseRequest)
@@ -85,7 +85,7 @@ public class AdminInventoryController : BaseApiController
     #region Reduce Inventory
 
     [HttpPost(AdminInventoryApiEndpoints.Inventory.ReduceInventory)]
-    [SwaggerOperation(Summary = "کاهش موجودی انبار")]
+    [SwaggerOperation(Summary = "کاهش موجودی انبار", Tags = new[] { "AdminInventory" })]
     [SwaggerResponse(200, "success")]
     [SwaggerResponse(404, "not-found")]
     public async Task<IActionResult> ReduceInventory([FromForm] ReduceInventoryDto reduceRequest)
@@ -100,7 +100,7 @@ public class AdminInventoryController : BaseApiController
     #region Get Inventory Operation Log
 
     [HttpGet(AdminInventoryApiEndpoints.Inventory.GetInventoryOperationLog)]
-    [SwaggerOperation(Summary = "دریافت لاگ های انبار")]
+    [SwaggerOperation(Summary = "دریافت لاگ های انبار", Tags = new[] { "AdminInventory" })]
     [SwaggerResponse(200, "success")]
     [SwaggerResponse(404, "not-found")]
     public async Task<IActionResult> GetInventoryOperationLog([FromRoute] long id)
