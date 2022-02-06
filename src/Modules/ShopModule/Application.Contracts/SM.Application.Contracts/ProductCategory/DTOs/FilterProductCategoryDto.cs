@@ -9,7 +9,6 @@ public class FilterProductCategoryDto : BasePaging
 
     [JsonProperty("productTitle")]
     [Display(Name = "عنوان")]
-    [MaxLength(100, ErrorMessage = DomainErrorMessage.MaxLengthMessage)]
     public string Title { get; set; }
 
     [JsonProperty("productCategories")]
