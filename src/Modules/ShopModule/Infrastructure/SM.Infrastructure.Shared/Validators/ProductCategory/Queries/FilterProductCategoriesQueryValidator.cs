@@ -2,7 +2,7 @@
 
 namespace SM.Infrastructure.Shared.Validators.ProductCategory.Queries;
 
-internal class FilterProductCategoriesQueryValidator : AbstractValidator<FilterProductCategoriesQuery>
+public class FilterProductCategoriesQueryValidator : AbstractValidator<FilterProductCategoriesQuery>
 {
     public FilterProductCategoriesQueryValidator()
     {
