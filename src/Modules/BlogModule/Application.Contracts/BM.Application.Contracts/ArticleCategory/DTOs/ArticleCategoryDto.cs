@@ -1,6 +1,6 @@
 ﻿namespace BM.Application.Contracts.ArticleCategory.DTOs;
 
-public class ArticleCategoryDto
+public record ArticleCategoryDto
 {
     [JsonProperty("id")]
     public long Id { get; set; }
