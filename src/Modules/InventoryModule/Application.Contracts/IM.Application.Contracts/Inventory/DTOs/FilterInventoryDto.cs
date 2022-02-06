@@ -11,7 +11,6 @@ public class FilterInventoryDto : BasePaging
 
     [Display(Name = "شناسه محصول")]
     [JsonProperty("productId")]
-    [Range(0, 10000, ErrorMessage = DomainErrorMessage.RequiredMessage)]
     public long ProductId { get; set; }
 
     [Display(Name = "وضعیت")]

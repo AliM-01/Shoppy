@@ -16,6 +16,13 @@ public static class CustomValidators
                    .WithMessage(string.Format("لطفا {0} را وارد کنید", propertyName));
     }
 
+    public static IRuleBuilder<T, double> RequiredValidator<T>(this IRuleBuilder<T, double> ruleBuilder, string propertyName)
+    {
+        return ruleBuilder
+            .NotEmpty()
+                   .WithMessage(string.Format("لطفا {0} را وارد کنید", propertyName));
+    }
+
     #endregion
 
     #region Range Validator
