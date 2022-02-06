@@ -41,6 +41,7 @@ public static class ServiceExtensions
         {
             c.SwaggerDoc("v1", new OpenApiInfo { Title = title, Version = "v1" });
             c.EnableAnnotations();
+            c.DocumentFilter<DocumentFilter>();
             c.SchemaFilter<EnumSchemaFilter>();
         });
     }
@@ -58,5 +59,13 @@ public class EnumSchemaFilter : ISchemaFilter
                 .ToList()
                 .ForEach(name => model.Enum.Add(new OpenApiString(name)));
         }
+    }
+}
+
+public class DocumentFilter : IDocumentFilter
+{
+    public void Apply(OpenApiDocument swaggerDoc, DocumentFilterContext context)
+    {
+        swaggerDoc.Tags = swaggerDoc.Tags.OrderBy(x => x.Name).ToList();
     }
 }
