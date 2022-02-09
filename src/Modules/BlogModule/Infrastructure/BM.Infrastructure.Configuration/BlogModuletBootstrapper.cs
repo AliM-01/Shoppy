@@ -1,5 +1,6 @@
 ﻿using _0_Framework.Domain.IGenericRepository;
 using _0_Framework.Infrastructure.GenericRepository;
+using BM.Domain.Article;
 using BM.Domain.ArticleCategory;
 using BM.Infrastructure.Persistence.Context;
 using MediatR;
@@ -13,6 +14,7 @@ public class BlogModuletBootstrapper
     public static void Configure(IServiceCollection services, string connectionString)
     {
         services.AddTransient<IGenericRepository<ArticleCategory>, GenericRepository<BlogDbContext, ArticleCategory>>();
+        services.AddTransient<IGenericRepository<Article>, GenericRepository<BlogDbContext, Article>>();
 
         services.AddMediatR(typeof(BlogModuletBootstrapper).Assembly);
 

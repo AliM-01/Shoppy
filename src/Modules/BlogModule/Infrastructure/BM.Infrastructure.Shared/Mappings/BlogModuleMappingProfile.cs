@@ -52,7 +52,7 @@ public class BlogModuleMappingProfile : Profile
             .ForMember(dest => dest.CreationDate,
                 opt => opt.MapFrom(src => src.CreationDate.ToShamsi()))
             .ForMember(dest => dest.Category,
-                opt => opt.MapFrom(src => src.Categoy.Title));
+                opt => opt.MapFrom(src => src.Category.Title));
 
         #endregion
 

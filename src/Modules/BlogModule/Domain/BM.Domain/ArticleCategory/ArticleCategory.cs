@@ -25,5 +25,11 @@ public class ArticleCategory : SeoPropertiesForDomainModels
     [Display(Name = "عنوان لینک")]
     public string CanonicalAddress { get; set; }
 
-    #endregion 
+    #endregion
+
+    #region Relations
+
+    public virtual ICollection<Article.Article> Articles { get; set; }
+
+    #endregion
 }

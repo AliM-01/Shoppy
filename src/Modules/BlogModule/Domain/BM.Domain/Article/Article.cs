@@ -31,7 +31,7 @@ public class Article : SeoPropertiesForDomainModels
 
     public long CategoryId { get; set; }
 
-    public ArticleCategory.ArticleCategory Categoy { get; set; }
+    public ArticleCategory.ArticleCategory Category { get; set; }
 
     #endregion
 }

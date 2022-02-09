@@ -21,6 +21,7 @@ public class ProductCategory : SeoPropertiesForDomainModels
     #endregion
 
     #region Relations
+
     public virtual ICollection<Product.Product> Products { get; set; }
 
     #endregion

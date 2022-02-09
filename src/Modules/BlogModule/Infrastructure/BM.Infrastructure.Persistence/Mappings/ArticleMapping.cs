@@ -19,5 +19,10 @@ public class ArticleMapping : IEntityTypeConfiguration<Article>
         builder.Property(x => x.MetaKeywords).HasMaxLength(80).IsRequired();
         builder.Property(x => x.MetaDescription).HasMaxLength(100).IsRequired();
         builder.Property(x => x.Slug).IsRequired();
+
+
+        builder.HasOne(x => x.Category)
+            .WithMany(x => x.Articles)
+            .HasForeignKey(x => x.CategoryId);
     }
 }
