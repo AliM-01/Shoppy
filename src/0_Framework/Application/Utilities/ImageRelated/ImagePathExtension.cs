@@ -50,7 +50,6 @@ public static class PathExtension
 
     #region Blog
 
-
     #region Article Category
 
     public static string ArticleCategoryImage =
@@ -58,6 +57,16 @@ public static class PathExtension
 
     public static string ArticleCategoryThumbnailImage =
         Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/article_category/thumbnail/");
+
+    #endregion
+
+    #region Article
+
+    public static string ArticleImage =
+        Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/article/original/");
+
+    public static string ArticleThumbnailImage =
+        Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/article/thumbnail/");
 
     #endregion
 
