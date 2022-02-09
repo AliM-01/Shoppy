@@ -19,4 +19,18 @@ public class AdminBlogBlogApiEndpoints
         public const string DeleteArticleCategory = BaseArticleCategoryRoute + "/delete/{id}";
     }
 
+    public static class Article
+    {
+        private const string BaseArticleRoute = BaseAdminBlogRoute + "/article";
+
+        public const string FilterArticles = BaseArticleRoute + "/filter";
+
+        public const string GetArticleDetails = BaseArticleRoute + "/{id}";
+
+        public const string CreateArticle = BaseArticleRoute + "/create";
+
+        public const string EditArticle = BaseArticleRoute + "/edit";
+
+        public const string DeleteArticle = BaseArticleRoute + "/delete/{id}";
+    }
 }

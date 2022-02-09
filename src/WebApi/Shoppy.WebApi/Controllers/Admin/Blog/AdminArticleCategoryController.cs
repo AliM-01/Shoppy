@@ -10,7 +10,7 @@ public class AdminArticleCategoryController : BaseApiController
     #region Filter Article Categories
 
     [HttpGet(AdminBlogBlogApiEndpoints.ArticleCategory.FilterArticleCategories)]
-    [SwaggerOperation(Summary = "فیلتر دسته بندی مقالهات", Tags = new[] { "AdminArticleCategory" })]
+    [SwaggerOperation(Summary = "فیلتر دسته بندی مقالات", Tags = new[] { "AdminArticleCategory" })]
     [SwaggerResponse(200, "success")]
     public async Task<IActionResult> FilterArticleCategories([FromQuery] FilterArticleCategoryDto filter)
     {
