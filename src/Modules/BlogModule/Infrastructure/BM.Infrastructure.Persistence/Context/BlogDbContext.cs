@@ -10,7 +10,9 @@ public class BlogDbContext : DbContext
 
     #endregion
 
-    public DbSet<BM.Domain.ArticleCategory.ArticleCategory> ArticleCategories { get; set; }
+    public DbSet<Domain.ArticleCategory.ArticleCategory> ArticleCategories { get; set; }
+
+    public DbSet<Domain.Article.Article> Articles { get; set; }
 
     #region On Model Creating
 

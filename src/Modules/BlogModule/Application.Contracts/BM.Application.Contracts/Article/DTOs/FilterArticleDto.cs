@@ -23,7 +23,7 @@ public class FilterArticleDto : BasePaging
 
     public FilterArticleDto SetData(IEnumerable<ArticleDto> article)
     {
-        this.ArticleCategories = article;
+        this.Articles = article;
         return this;
     }
 
