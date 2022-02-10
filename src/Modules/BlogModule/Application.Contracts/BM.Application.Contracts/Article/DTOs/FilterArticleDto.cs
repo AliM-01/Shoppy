@@ -6,7 +6,7 @@ public class FilterArticleDto : BasePaging
 {
     #region Properties
 
-    [JsonProperty("Title")]
+    [JsonProperty("title")]
     [Display(Name = "عنوان")]
     public string Title { get; set; }
 
