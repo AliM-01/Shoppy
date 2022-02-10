@@ -24,7 +24,8 @@ public class GetInventoryOperationLogQueryHandler : IRequestHandler<GetInventory
 
     public async Task<Response<InventoryOperationDto[]>> Handle(GetInventoryOperationLogQuery request, CancellationToken cancellationToken)
     {
-        var inventory = await _inventoryRepository.GetEntityById(request.Id);
+        var inventory = await _inventoryRepository.GetQuery().AsTracking()
+            .FirstOrDefaultAsync(x => x.Id == request.Id);
 
         if (inventory is null)
             throw new NotFoundApiException();

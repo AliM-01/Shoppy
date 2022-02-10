@@ -3,7 +3,7 @@
 public class InventoryOperationDto
 {
     [JsonProperty("id")]
-    public long Id { get; set; }
+    public Guid Id { get; set; }
 
     [JsonProperty("operationType")]
     public bool OperationType { get; set; }
@@ -21,7 +21,7 @@ public class InventoryOperationDto
     public string Description { get; set; }
 
     [JsonProperty("inventoryId")]
-    public long InventoryId { get; set; }
+    public Guid InventoryId { get; set; }
 
     [JsonProperty("operatorId")]
     public long OperatorId { get; set; }

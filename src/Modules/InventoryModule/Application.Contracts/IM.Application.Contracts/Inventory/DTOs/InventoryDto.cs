@@ -3,7 +3,7 @@
 public class InventoryDto
 {
     [JsonProperty("id")]
-    public long Id { get; set; }
+    public Guid Id { get; set; }
 
     [Display(Name = "شناسه محصول")]
     [JsonProperty("productId")]

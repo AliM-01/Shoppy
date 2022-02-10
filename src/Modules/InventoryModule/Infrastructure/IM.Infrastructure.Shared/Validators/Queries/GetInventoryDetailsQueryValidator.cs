@@ -7,7 +7,7 @@ public class GetInventoryDetailsQueryValidator : AbstractValidator<GetInventoryD
     public GetInventoryDetailsQueryValidator()
     {
         RuleFor(p => p.Id)
-            .RangeValidator("شناسه", 1, 100000);
+            .RequiredValidator("شناسه");
     }
 }
 

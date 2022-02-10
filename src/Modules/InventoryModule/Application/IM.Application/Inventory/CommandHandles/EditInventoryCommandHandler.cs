@@ -29,7 +29,8 @@ public class EditInventoryCommandHandler : IRequestHandler<EditInventoryCommand,
         if (!existsProduct)
             throw new NotFoundApiException("محصولی با این شناسه پیدا نشد");
 
-        var inventory = await _inventoryRepository.GetEntityById(request.Inventory.Id);
+        var inventory = await _inventoryRepository.GetQuery().AsTracking()
+            .FirstOrDefaultAsync(x => x.Id == request.Inventory.Id);
 
         if (inventory is null)
             throw new NotFoundApiException();

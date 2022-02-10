@@ -7,10 +7,7 @@ public class ReduceInventoryCommandValidator : AbstractValidator<ReduceInventory
     public ReduceInventoryCommandValidator()
     {
         RuleFor(p => p.Inventory.InventoryId)
-            .RangeValidator("شناسه انبار", 1, 100000);
-
-        RuleFor(p => p.Inventory.InventoryId)
-            .RangeValidator("شناسه سفارش", 0, 100000);
+            .RequiredValidator("شناسه انبار");
 
         RuleFor(p => p.Inventory.ProductId)
             .RangeValidator("شناسه محصول", 1, 100000);

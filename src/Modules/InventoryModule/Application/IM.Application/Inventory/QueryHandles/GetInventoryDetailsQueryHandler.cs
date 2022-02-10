@@ -19,7 +19,8 @@ public class GetInventoryDetailsQueryHandler : IRequestHandler<GetInventoryDetai
 
     public async Task<Response<EditInventoryDto>> Handle(GetInventoryDetailsQuery request, CancellationToken cancellationToken)
     {
-        var inventory = await _inventoryRepository.GetEntityById(request.Id);
+        var inventory = await _inventoryRepository.GetQuery().AsTracking()
+            .FirstOrDefaultAsync(x => x.Id == request.Id);
 
         if (inventory is null)
             throw new NotFoundApiException();

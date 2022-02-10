@@ -7,7 +7,7 @@ public class EditInventoryCommandValidator : AbstractValidator<EditInventoryComm
     public EditInventoryCommandValidator()
     {
         RuleFor(p => p.Inventory.Id)
-            .RangeValidator("شناسه", 1, 100000);
+            .RequiredValidator("شناسه");
 
         RuleFor(p => p.Inventory.ProductId)
             .RangeValidator("شناسه محصول", 1, 100000);

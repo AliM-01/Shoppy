@@ -7,7 +7,7 @@ public class IncreaseInventoryCommandValidator : AbstractValidator<IncreaseInven
     public IncreaseInventoryCommandValidator()
     {
         RuleFor(p => p.Inventory.InventoryId)
-            .RangeValidator("شناسه انبار", 1, 100000);
+            .RequiredValidator("شناسه انبار");
 
         RuleFor(p => p.Inventory.Count)
             .RangeValidator("تعداد", 1, 100000);

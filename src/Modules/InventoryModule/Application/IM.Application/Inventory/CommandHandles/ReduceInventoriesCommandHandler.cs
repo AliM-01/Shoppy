@@ -26,7 +26,8 @@ public class ReduceInventoriesCommandHandler : IRequestHandler<ReduceInventories
 
         for (int i = 0; i < request.Inventories.Count; i++)
         {
-            var inventory = await _inventoryRepository.GetEntityById(request.Inventories[i].InventoryId);
+            var inventory = await _inventoryRepository.GetQuery().AsTracking()
+            .FirstOrDefaultAsync(x => x.Id == request.Inventories[i].InventoryId);
 
             if (inventory is null)
                 throw new NotFoundApiException();

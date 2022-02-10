@@ -1,5 +1,6 @@
 ﻿using IM.Application.Contracts.Inventory.Helpers;
 using IM.Domain.Inventory;
+using System;
 using System.Linq;
 
 namespace IM.Application.Inventory.Helpers;
@@ -23,9 +24,10 @@ public class InventoryHelper : IInventoryHelper
 
     #region CalculateCurrentCount
 
-    public async Task<long> CalculateCurrentCount(long inventoryId)
+    public async Task<long> CalculateCurrentCount(Guid inventoryId)
     {
-        var inventory = await _inventoryRepository.GetEntityById(inventoryId);
+        var inventory = await _inventoryRepository.GetQuery().AsTracking()
+            .FirstOrDefaultAsync(x => x.Id == inventoryId);
 
         if (inventory is null)
             throw new NotFoundApiException();
@@ -41,9 +43,10 @@ public class InventoryHelper : IInventoryHelper
 
     #region Increase
 
-    public async Task Increase(long inventoryId, long count, long operatorId, string description)
+    public async Task Increase(Guid inventoryId, long count, long operatorId, string description)
     {
-        var inventory = await _inventoryRepository.GetEntityById(inventoryId);
+        var inventory = await _inventoryRepository.GetQuery().AsTracking()
+            .FirstOrDefaultAsync(x => x.Id == inventoryId);
 
         if (inventory is null)
             throw new NotFoundApiException();
@@ -64,9 +67,10 @@ public class InventoryHelper : IInventoryHelper
 
     #region Reduce
 
-    public async Task Reduce(long inventoryId, long count, long operatorId, string description, long orderId)
+    public async Task Reduce(Guid inventoryId, long count, long operatorId, string description, long orderId)
     {
-        var inventory = await _inventoryRepository.GetEntityById(inventoryId);
+        var inventory = await _inventoryRepository.GetQuery().AsTracking()
+            .FirstOrDefaultAsync(x => x.Id == inventoryId);
 
         if (inventory is null)
             throw new NotFoundApiException();

@@ -1,11 +1,14 @@
-﻿namespace IM.Domain.Inventory;
+﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
+
+namespace IM.Domain.Inventory;
 
 public class InventoryOperation : BaseEntity
 {
     protected InventoryOperation() { }
 
     public InventoryOperation(bool operationType, long count, long operatorId, long currentCount,
-        string description, long orderId, long invetoryId)
+        string description, long orderId, Guid invetoryId)
     {
         OperationType = operationType;
         Count = count;
@@ -18,6 +21,10 @@ public class InventoryOperation : BaseEntity
     }
 
     #region Properties
+
+    [Key]
+    [DatabaseGenerated(DatabaseGeneratedOption.None)]
+    public new Guid Id { get; set; } = Guid.NewGuid();
 
     public bool OperationType { get; set; }
 
@@ -33,7 +40,7 @@ public class InventoryOperation : BaseEntity
 
     #region Relations
 
-    public long InventoryId { get; set; }
+    public Guid InventoryId { get; set; }
 
     public Inventory Inventory { get; set; }
 

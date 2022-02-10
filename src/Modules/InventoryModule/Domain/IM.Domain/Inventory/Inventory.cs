@@ -1,4 +1,7 @@
-﻿namespace IM.Domain.Inventory;
+﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
+
+namespace IM.Domain.Inventory;
 
 public class Inventory : BaseEntity
 {
@@ -12,6 +15,10 @@ public class Inventory : BaseEntity
     }
 
     #region Properties
+
+    [Key]
+    [DatabaseGenerated(DatabaseGeneratedOption.None)]
+    public new Guid Id { get; set; } = Guid.NewGuid();
 
     public double UnitPrice { get; set; }
 
