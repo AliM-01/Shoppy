@@ -8,6 +8,8 @@ public class AdminBlogBlogApiEndpoints
     {
         private const string BaseArticleCategoryRoute = BaseAdminBlogRoute + "/article-category";
 
+        public const string GetArticleCategoriesSelectList = BaseArticleCategoryRoute + "/get-select-list";
+
         public const string FilterArticleCategories = BaseArticleCategoryRoute + "/filter";
 
         public const string GetArticleCategoryDetails = BaseArticleCategoryRoute + "/{id}";

@@ -7,6 +7,21 @@ namespace Shoppy.WebApi.Controllers.Admin.Blog;
 [SwaggerTag("مدیریت دسته بندی مقالات")]
 public class AdminArticleCategoryController : BaseApiController
 {
+    #region Get Article Categories Select List
+
+    [HttpGet(AdminBlogBlogApiEndpoints.ArticleCategory.GetArticleCategoriesSelectList)]
+    [SwaggerOperation(Summary = "دریافت لیست دسته بندی مقالات", Tags = new[] { "AdminArticleCategory" })]
+    [SwaggerResponse(200, "success")]
+    [SwaggerResponse(404, "not-found")]
+    public async Task<IActionResult> GetArticleCategoriesSelectList()
+    {
+        var res = await Mediator.Send(new GetArticleCategoriesSelectListQuery());
+
+        return JsonApiResult.Success(res);
+    }
+
+    #endregion
+
     #region Filter Article Categories
 
     [HttpGet(AdminBlogBlogApiEndpoints.ArticleCategory.FilterArticleCategories)]
