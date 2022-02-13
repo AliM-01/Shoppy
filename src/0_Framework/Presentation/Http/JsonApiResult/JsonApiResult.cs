@@ -30,12 +30,12 @@ public static class JsonApiResult
 
     #region Error
 
-    public static BadRequestObjectResult Error()
+    public static BadRequestObjectResult Error(string msg = "عملیات با خطا مواجه شد")
     {
         var res = JsonConvert.SerializeObject(new
         {
             status = "error",
-            message = "عملیات با خطا مواجه شد"
+            message = msg
         }, Formatting.Indented);
 
         return new BadRequestObjectResult(res);
