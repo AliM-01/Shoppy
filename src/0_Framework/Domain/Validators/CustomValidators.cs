@@ -103,11 +103,11 @@ public static class CustomValidators
 
     #region MaxFileSizeValidator
 
-    public static IRuleBuilder<T, IFormFile> MaxFileSizeValidator<T>(this IRuleBuilder<T, IFormFile> ruleBuilder, int size)
+    public static IRuleBuilder<T, IFormFile> MaxFileSizeValidator<T>(this IRuleBuilder<T, IFormFile> ruleBuilder, int size, bool isRequired = true)
     {
         return ruleBuilder.NotNull()
                           .WithMessage("لطفا فایل را وارد کنید")
-                          .Must(x => MaxFileSizeHelper.IsValid(size, x))
+                          .Must(x => MaxFileSizeHelper.IsValid(size, x, isRequired))
                           .WithMessage("حجم فایل بیشتر از مقدار مجاز است. لطفا فایل دیگری آپلود کنید");
     }
 

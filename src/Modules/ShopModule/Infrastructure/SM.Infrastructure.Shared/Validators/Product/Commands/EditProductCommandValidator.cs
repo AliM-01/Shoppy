@@ -24,7 +24,7 @@ public class EditProductCommandValidator : AbstractValidator<EditProductCommand>
             .RequiredValidator("توضیحات");
 
         RuleFor(p => p.Product.ImageFile)
-            .MaxFileSizeValidator((3 * 1024 * 1024));
+            .MaxFileSizeValidator((3 * 1024 * 1024), false);
     }
 }
 

@@ -18,7 +18,7 @@ public class EditSliderCommandValidator : AbstractValidator<EditSliderCommand>
             .MaxLengthValidator("متن", 250);
 
         RuleFor(p => p.Slider.ImageFile)
-            .MaxFileSizeValidator((3 * 1024 * 1024));
+            .MaxFileSizeValidator((3 * 1024 * 1024), false);
 
         RuleFor(p => p.Slider.BtnLink)
             .RequiredValidator("لینک")

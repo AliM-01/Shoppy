@@ -20,6 +20,6 @@ public class EditArticleCommandValidator : AbstractValidator<EditArticleCommand>
             .MaxLengthValidator("توضیحات کوتاه", 250);
 
         RuleFor(p => p.Article.ImageFile)
-            .MaxFileSizeValidator((3 * 1024));
+            .MaxFileSizeValidator((3 * 1024 * 1024), false);
     }
 }

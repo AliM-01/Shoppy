@@ -20,6 +20,6 @@ public class EditArticleCategoryCommandValidator : AbstractValidator<EditArticle
             .RangeValidator("اولویت نمایش", 1, 1000);
 
         RuleFor(p => p.ArticleCategory.ImageFile)
-            .MaxFileSizeValidator((3 * 1024));
+            .MaxFileSizeValidator((3 * 1024 * 1024), false);
     }
 }
