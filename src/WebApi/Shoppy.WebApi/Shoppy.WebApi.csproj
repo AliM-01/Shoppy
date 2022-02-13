@@ -49,4 +49,8 @@
 		<ProjectReference Include="..\..\Modules\ShopModule\Application.Contracts\SM.Application.Contracts\SM.Application.Contracts.csproj" />
 	</ItemGroup>
 
+	<ItemGroup>
+	  <Folder Include="wwwroot\editor-upload\" />
+	</ItemGroup>
+
 </Project>
