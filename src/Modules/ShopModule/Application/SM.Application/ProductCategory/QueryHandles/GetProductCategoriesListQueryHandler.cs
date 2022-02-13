@@ -22,12 +22,9 @@ public class GetProductCategoriesListQueryHandler : IRequestHandler<GetProductCa
 
     public async Task<Response<IEnumerable<ProductCategoryForSelectListDto>>> Handle(GetProductCategoriesListQuery request, CancellationToken cancellationToken)
     {
-        var query = _productCategoryRepository.GetQuery()
-            .OrderByDescending(p => p.LastUpdateDate).AsQueryable();
-
-        #region paging
-
-        var filteredEntities = await query
+        var categories = await
+            _productCategoryRepository.GetQuery()
+            .OrderByDescending(p => p.LastUpdateDate)
             .Select(product => new ProductCategoryForSelectListDto
             {
                 Id = product.Id,
@@ -35,11 +32,9 @@ public class GetProductCategoriesListQueryHandler : IRequestHandler<GetProductCa
             })
             .ToListAsync(cancellationToken);
 
-        #endregion paging
-
-        if (filteredEntities is null)
+        if (categories is null)
             throw new NotFoundApiException();
 
-        return new Response<IEnumerable<ProductCategoryForSelectListDto>>(filteredEntities);
+        return new Response<IEnumerable<ProductCategoryForSelectListDto>>(categories);
     }
 }
