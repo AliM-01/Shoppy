@@ -1,5 +1,4 @@
-﻿using _01_Shoppy.Query.Helpers.Product;
-using _01_Shoppy.Query.Models.ProductCategory;
+﻿using _01_Shoppy.Query.Models.ProductCategory;
 using AutoMapper;
 using SM.Infrastructure.Persistence.Context;
 
@@ -14,8 +13,7 @@ public class GetProductCategoriesQueryHandler : IRequestHandler<GetProductCatego
     private readonly ShopDbContext _context;
     private readonly IMapper _mapper;
 
-    public GetProductCategoriesQueryHandler(ShopDbContext context,
-        IProductHelper productHelper, IMapper mapper)
+    public GetProductCategoriesQueryHandler(ShopDbContext context, IMapper mapper)
     {
         _context = Guard.Against.Null(context, nameof(_context));
         _mapper = Guard.Against.Null(mapper, nameof(_mapper));
