@@ -1,4 +1,4 @@
-﻿using _01_Shoppy.Query.Contracts.Comment;
+﻿using _01_Shoppy.Query.Queries.Comment;
 using CM.Application.Contracts.Comment.Commands;
 using CM.Application.Contracts.Comment.DTOs;
 
@@ -7,17 +7,6 @@ namespace Shoppy.WebApi.Controllers.Main.Comment;
 [SwaggerTag("کامنت ها")]
 public class CommentController : BaseApiController
 {
-    #region Ctor 
-
-    private readonly ICommentQuery _commentQuery;
-
-    public CommentController(ICommentQuery commentQuery)
-    {
-        _commentQuery = Guard.Against.Null(commentQuery, nameof(_commentQuery)); ;
-    }
-
-    #endregion
-
     #region Get Record Comments By Id
 
     [HttpGet(MainCommentApiEndpoints.Comment.GetRecordCommentsById)]
@@ -25,7 +14,7 @@ public class CommentController : BaseApiController
     [SwaggerResponse(200, "success")]
     public async Task<IActionResult> GetRecordCommentsById([FromRoute] long recordId)
     {
-        var res = await _commentQuery.GetRecordCommentsById(recordId);
+        var res = await Mediator.Send(new GetRecordCommentsByIdQuery(recordId));
 
         return JsonApiResult.Success(res);
     }

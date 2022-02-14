@@ -1,21 +1,11 @@
-﻿using _01_Shoppy.Query.Contracts.Product;
+﻿using _01_Shoppy.Query.Models.Product;
+using _01_Shoppy.Query.Queries.Product;
 
 namespace Shoppy.WebApi.Controllers.Main.Shop;
 
 [SwaggerTag("محصولات")]
-public class ProductController : ControllerBase
+public class ProductController : BaseApiController
 {
-    #region Ctor 
-
-    private readonly IProductQuery _productQuery;
-
-    public ProductController(IProductQuery productQuery)
-    {
-        _productQuery = Guard.Against.Null(productQuery, nameof(_productQuery)); ;
-    }
-
-    #endregion
-
     #region Get Product Details
 
     [HttpGet(MainShopApiEndpoints.Product.GetProductDetails)]
@@ -24,7 +14,7 @@ public class ProductController : ControllerBase
     [SwaggerResponse(404, "not-found")]
     public async Task<IActionResult> GetProductDetails([FromRoute] string slug)
     {
-        var res = await _productQuery.GetProductDetails(slug);
+        var res = await Mediator.Send(new GetProductDetailsQuery(slug));
 
         return JsonApiResult.Success(res);
     }
@@ -40,7 +30,7 @@ public class ProductController : ControllerBase
     [SwaggerResponse(404, "not-found")]
     public async Task<IActionResult> Search([FromQuery] SearchProductQueryModel search)
     {
-        var res = await _productQuery.Search(search);
+        var res = await Mediator.Send(new SearchQuery(search));
 
         return JsonApiResult.Success(res);
     }
@@ -54,7 +44,7 @@ public class ProductController : ControllerBase
     [SwaggerResponse(200, "success")]
     public async Task<IActionResult> GetLatestProducts()
     {
-        var res = await _productQuery.GetLatestProducts();
+        var res = await Mediator.Send(new GetLatestProductsQuery());
 
         return JsonApiResult.Success(res);
     }
@@ -68,7 +58,7 @@ public class ProductController : ControllerBase
     [SwaggerResponse(200, "success")]
     public async Task<IActionResult> GetHotestDiscountProducts()
     {
-        var res = await _productQuery.GetHotestDiscountProducts();
+        var res = await Mediator.Send(new GetHotestDiscountProductsQuery());
 
         return JsonApiResult.Success(res);
     }

@@ -1,21 +1,11 @@
-﻿using _01_Shoppy.Query.Contracts.ProductCategory;
+﻿using _01_Shoppy.Query.Models.ProductCategory;
+using _01_Shoppy.Query.Queries.ProductCategory;
 
 namespace Shoppy.WebApi.Controllers.Main.Shop;
 
 [SwaggerTag("دسته بندی محصولات")]
-public class ProductCategoryController : ControllerBase
+public class ProductCategoryController : BaseApiController
 {
-    #region Ctor 
-
-    private readonly IProductCategoryQuery _productCategoryQuery;
-
-    public ProductCategoryController(IProductCategoryQuery productCategoryQuery)
-    {
-        _productCategoryQuery = Guard.Against.Null(productCategoryQuery, nameof(_productCategoryQuery)); ;
-    }
-
-    #endregion
-
     #region Get Product Categories
 
     [HttpGet(MainShopApiEndpoints.ProductCategory.GetProductCategories)]
@@ -23,7 +13,7 @@ public class ProductCategoryController : ControllerBase
     [SwaggerResponse(200, "success")]
     public async Task<IActionResult> GetProductCategorys()
     {
-        var res = await _productCategoryQuery.GetProductCategories();
+        var res = await Mediator.Send(new GetProductCategoriesQuery());
 
         return JsonApiResult.Success(res);
     }
@@ -38,7 +28,7 @@ public class ProductCategoryController : ControllerBase
     [SwaggerResponse(404, "not-found")]
     public async Task<IActionResult> GetProductCategory([FromQuery] ProductCategoryDetailsFilterModel filter)
     {
-        var res = await _productCategoryQuery.GetProductCategoryWithProductsBy(filter);
+        var res = await Mediator.Send(new GetProductCategoryWithProductsByQuery(filter));
 
         return JsonApiResult.Success(res);
     }

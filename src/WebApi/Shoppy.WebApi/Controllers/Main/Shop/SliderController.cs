@@ -1,9 +1,9 @@
-﻿using _01_Shoppy.Query.Contracts.Slider;
+﻿using _01_Shoppy.Query.Queries.Slider;
 
 namespace Shoppy.WebApi.Controllers.Main.Shop;
 
 [SwaggerTag("اسلایدر")]
-public class SliderController : ControllerBase
+public class SliderController : BaseApiController
 {
     #region Ctor 
 
@@ -23,7 +23,7 @@ public class SliderController : ControllerBase
     [SwaggerResponse(200, "success")]
     public async Task<IActionResult> GetSliders()
     {
-        var res = await _sliderQuery.GetSliders();
+        var res = await Mediator.Send(new GetSlidersQuery());
 
         return JsonApiResult.Success(res);
     }
