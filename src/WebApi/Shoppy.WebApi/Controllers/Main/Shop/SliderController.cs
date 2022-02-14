@@ -5,17 +5,6 @@ namespace Shoppy.WebApi.Controllers.Main.Shop;
 [SwaggerTag("اسلایدر")]
 public class SliderController : BaseApiController
 {
-    #region Ctor 
-
-    private readonly ISliderQuery _sliderQuery;
-
-    public SliderController(ISliderQuery sliderQuery)
-    {
-        _sliderQuery = Guard.Against.Null(sliderQuery, nameof(_sliderQuery)); ;
-    }
-
-    #endregion
-
     #region Get Sliders
 
     [HttpGet(MainShopApiEndpoints.Slider.GetSliders)]

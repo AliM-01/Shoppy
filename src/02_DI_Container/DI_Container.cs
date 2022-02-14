@@ -1,4 +1,5 @@
-﻿using _02_DI_Container.Extensions.Startup;
+﻿using _01_Shoppy.Query;
+using _02_DI_Container.Extensions.Startup;
 using BM.Application;
 using BM.Infrastructure.Configuration;
 using BM.Infrastructure.Shared.Mappings;
@@ -39,6 +40,7 @@ public static class DI_Container
         services.AddMediatorExtension(new List<Type>
         {
             assemblyMarker,
+            typeof(IShoppyQueryAsseblyMarker),
             typeof(ISMAssemblyMarker),
             typeof(IDMAssemblyMarker),
             typeof(IIMAssemblyMarker),

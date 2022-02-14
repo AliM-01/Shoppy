@@ -2,7 +2,6 @@
 using _0_Framework.Application.Exceptions;
 using _0_Framework.Application.Models.Paging;
 using _01_Shoppy.Query.Helpers.Product;
-using _01_Shoppy.Query.Models.Product;
 using AutoMapper;
 using DM.Infrastructure.Persistence.Context;
 using IM.Infrastructure.Persistence.Context;
@@ -82,11 +81,11 @@ public class SearchQueryHandler : IRequestHandler<SearchQuery, Response<SearchPr
 
         #region filter price
 
-        var maxPrice = inventories.OrderByDescending(p => p.UnitPrice).FirstOrDefault();
-        request.Search.FilterMaxPrice = maxPrice.UnitPrice;
+        var maxPrice = inventories?.OrderByDescending(p => p.UnitPrice).FirstOrDefault();
+        request.Search.FilterMaxPrice = maxPrice != null ? maxPrice.UnitPrice : 0;
 
         if (request.Search.SelectedMaxPrice == 0)
-            request.Search.SelectedMaxPrice = maxPrice.UnitPrice;
+            request.Search.SelectedMaxPrice = maxPrice != null ? maxPrice.UnitPrice : 0;
 
         query = query.ToArray()
             .Where(p => _productHelper.GetProductPriceById(p.Id) >= request.Search.SelectedMinPrice)

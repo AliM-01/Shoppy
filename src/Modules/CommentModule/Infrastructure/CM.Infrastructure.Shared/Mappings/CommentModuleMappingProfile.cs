@@ -1,5 +1,5 @@
 ﻿using _0_Framework.Application.Extensions;
-using _01_Shoppy.Query.Contracts.Comment;
+using _01_Shoppy.Query.Models.Comment;
 using AutoMapper;
 using CM.Application.Contracts.Comment.DTOs;
 using CM.Domain.Comment;

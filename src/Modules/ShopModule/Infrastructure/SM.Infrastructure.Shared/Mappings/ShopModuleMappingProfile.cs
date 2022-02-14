@@ -1,8 +1,8 @@
 ﻿using _0_Framework.Application.Extensions;
-using _01_Shoppy.Query.Contracts.Product;
-using _01_Shoppy.Query.Contracts.ProductCategory;
-using _01_Shoppy.Query.Contracts.ProductPicture;
-using _01_Shoppy.Query.Contracts.Slider;
+using _01_Shoppy.Query.Models.Product;
+using _01_Shoppy.Query.Models.ProductCategory;
+using _01_Shoppy.Query.Models.ProductPicture;
+using _01_Shoppy.Query.Models.Slider;
 using AutoMapper;
 using SM.Application.Contracts.Product.DTOs;
 using SM.Application.Contracts.ProductCategory.DTOs;
