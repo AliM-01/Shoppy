@@ -1,4 +1,5 @@
 ﻿using _0_Framework.Application.Models.Seo;
+using _01_Shoppy.Query.Models.Product;
 
 namespace _01_Shoppy.Query.Models.ProductCategory;
 

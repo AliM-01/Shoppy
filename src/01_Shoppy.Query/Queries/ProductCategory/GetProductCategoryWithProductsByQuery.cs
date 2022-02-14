@@ -1,12 +1,15 @@
 ﻿using _0_Framework.Application.Exceptions;
-using _01_Shoppy.Query.Contracts.ProductCategory;
 using _01_Shoppy.Query.Helpers.Product;
+using _01_Shoppy.Query.Models.Product;
+using _01_Shoppy.Query.Models.ProductCategory;
 using AutoMapper;
 using SM.Infrastructure.Persistence.Context;
 
-namespace _01_Shoppy.Query.Query;
+namespace _01_Shoppy.Query.Queries.ProductCategory;
 
-public class ProductCategoryQuery : IProductCategoryQuery
+public record GetProductCategoryWithProductsByQuery(ProductCategoryDetailsFilterModel Filter) : IRequest<Response<ProductCategoryQueryModel>>;
+
+public class GetProductCategoryWithProductsByQueryHandler : IRequestHandler<GetProductCategoryWithProductsByQuery, Response<ProductCategoryQueryModel>>
 {
     #region Ctor
 
@@ -14,7 +17,7 @@ public class ProductCategoryQuery : IProductCategoryQuery
     private readonly IProductHelper _productHelper;
     private readonly IMapper _mapper;
 
-    public ProductCategoryQuery(ShopDbContext context,
+    public GetProductCategoryWithProductsByQueryHandler(ShopDbContext context,
         IProductHelper productHelper, IMapper mapper)
     {
         _productHelper = Guard.Against.Null(productHelper, nameof(_productHelper));
@@ -24,18 +27,9 @@ public class ProductCategoryQuery : IProductCategoryQuery
 
     #endregion
 
-    public async Task<Response<IEnumerable<ProductCategoryQueryModel>>> GetProductCategories()
+    public async Task<Response<ProductCategoryQueryModel>> Handle(GetProductCategoryWithProductsByQuery request, CancellationToken cancellationToken)
     {
-        var productCategories = await _context.ProductCategories
-            .Select(productCategory => _mapper.Map(productCategory, new ProductCategoryQueryModel()))
-            .ToListAsync();
-
-        return new Response<IEnumerable<ProductCategoryQueryModel>>(productCategories);
-    }
-
-    public async Task<Response<ProductCategoryQueryModel>> GetProductCategoryWithProductsBy(ProductCategoryDetailsFilterModel filter)
-    {
-        if (filter.CategoryId == 0 && string.IsNullOrEmpty(filter.Slug))
+        if (request.Filter.CategoryId == 0 && string.IsNullOrEmpty(request.Filter.Slug))
             throw new NotFoundApiException();
 
         var categories = await _context.ProductCategories.Select(x => new
@@ -48,18 +42,18 @@ public class ProductCategoryQuery : IProductCategoryQuery
         long existsCategoryId = 0;
 
 
-        if (filter.CategoryId != 0 && (string.IsNullOrEmpty(filter.Slug) || !string.IsNullOrEmpty(filter.Slug)))
+        if (request.Filter.CategoryId != 0 && (string.IsNullOrEmpty(request.Filter.Slug) || !string.IsNullOrEmpty(request.Filter.Slug)))
         {
-            var category = categories.FirstOrDefault(x => x.Id == filter.CategoryId);
+            var category = categories.FirstOrDefault(x => x.Id == request.Filter.CategoryId);
             if (category is not null)
             {
                 existsCategoryId = category.Id;
                 existsCategory = true;
             }
         }
-        if (filter.CategoryId == 0 && !string.IsNullOrEmpty(filter.Slug))
+        if (request.Filter.CategoryId == 0 && !string.IsNullOrEmpty(request.Filter.Slug))
         {
-            var category = categories.FirstOrDefault(x => x.Slug == filter.Slug);
+            var category = categories.FirstOrDefault(x => x.Slug == request.Filter.Slug);
             if (category is not null)
             {
                 existsCategoryId = category.Id;
