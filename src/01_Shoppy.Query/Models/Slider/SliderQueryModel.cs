@@ -1,6 +1,6 @@
 ﻿using _0_Framework.Application.Models.Seo;
 
-namespace _01_Shoppy.Query.Contracts.Slider;
+namespace _01_Shoppy.Query.Models.Slider;
 
 public class SliderQueryModel : ImagePropertiesForApplicationModels
 {

@@ -1,4 +1,5 @@
-﻿using _01_Shoppy.Query.Contracts.ProductPicture;
+﻿using _01_Shoppy.Query.Models.Product;
+using _01_Shoppy.Query.Models.ProductPicture;
 using SM.Application.Contracts.ProductFeature.DTOs;
 
 namespace _01_Shoppy.Query.Helpers.Product;
@@ -14,4 +15,6 @@ public interface IProductHelper
     List<ProductPictureQueryModel> GetProductPictures(long productId);
 
     List<ProductFeatureDto> GetProductFeatures(long productId);
+
+    double GetProductPriceById(long id);
 }

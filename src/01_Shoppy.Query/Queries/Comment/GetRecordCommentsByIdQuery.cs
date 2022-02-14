@@ -1,18 +1,22 @@
-﻿using _01_Shoppy.Query.Contracts.Comment;
-using _01_Shoppy.Query.Helpers.Comment;
+﻿using _01_Shoppy.Query.Helpers.Comment;
+using _01_Shoppy.Query.Models.Comment;
 using AutoMapper;
 using CM.Infrastructure.Persistence.Context;
+using MediatR;
 
-namespace _01_Shoppy.Query.Query.Comment;
+namespace _01_Shoppy.Query.Queries.Comment;
 
-public class CommentQuery : ICommentQuery
+public record GetRecordCommentsByIdQuery
+    (long RecordId) : IRequest<Response<List<CommentQueryModel>>>;
+
+public class GetRecordCommentsByIdQueryHandler : IRequestHandler<GetRecordCommentsByIdQuery, Response<List<CommentQueryModel>>>
 {
     #region Ctor
 
     private readonly CommentDbContext _commentContext;
     private readonly IMapper _mapper;
 
-    public CommentQuery(
+    public GetRecordCommentsByIdQueryHandler(
         CommentDbContext commentContext, IMapper mapper)
     {
         _commentContext = Guard.Against.Null(commentContext, nameof(_commentContext));
@@ -21,13 +25,11 @@ public class CommentQuery : ICommentQuery
 
     #endregion
 
-    #region Get Record Comments By Id
-
-    public async Task<Response<List<CommentQueryModel>>> GetRecordCommentsById(long recordId)
+    public async Task<Response<List<CommentQueryModel>>> Handle(GetRecordCommentsByIdQuery request, CancellationToken cancellationToken)
     {
         var comments = await _commentContext.Comments
             .Where(x => x.ParentId == 0 || x.ParentId == null)
-            .Where(x => x.OwnerRecordId == recordId && x.State == CM.Domain.Comment.CommentState.Confirmed)
+            .Where(x => x.OwnerRecordId == request.RecordId && x.State == CM.Domain.Comment.CommentState.Confirmed)
             .MapComments(_mapper)
             .ToListAsync();
 
@@ -42,8 +44,5 @@ public class CommentQuery : ICommentQuery
         }
 
         return new Response<List<CommentQueryModel>>(comments);
-
     }
-
-    #endregion
 }

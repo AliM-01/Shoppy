@@ -1,4 +1,4 @@
-﻿namespace _01_Shoppy.Query.Contracts.ProductPicture;
+﻿namespace _01_Shoppy.Query.Models.ProductPicture;
 
 public class ProductPictureQueryModel
 {

@@ -1,5 +1,6 @@
 ﻿using _0_Framework.Application.Extensions;
-using _01_Shoppy.Query.Contracts.ProductPicture;
+using _01_Shoppy.Query.Models.Product;
+using _01_Shoppy.Query.Models.ProductPicture;
 using AutoMapper;
 using DM.Infrastructure.Persistence.Context;
 using IM.Application.Contracts.Inventory.Helpers;
@@ -157,6 +158,25 @@ public class ProductHelper : IProductHelper
         return productFeatures
             .Select(p => _mapper.Map(p, new ProductFeatureDto()))
             .ToList();
+    }
+
+    #endregion
+
+    #region GetProductPriceById
+
+    public double GetProductPriceById(long id)
+    {
+        var inventories = _inventoryContext.Inventory
+           .Select(x => new
+           {
+               x.ProductId,
+               x.InStock,
+               x.UnitPrice
+           }).ToList();
+
+        var price = inventories.FirstOrDefault(x => x.ProductId == id).UnitPrice;
+
+        return price;
     }
 
     #endregion

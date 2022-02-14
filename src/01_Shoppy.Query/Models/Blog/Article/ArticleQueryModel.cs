@@ -1,4 +1,4 @@
-﻿namespace _01_Shoppy.Query.Contracts.Blog.Article;
+﻿namespace _01_Shoppy.Query.Models.Blog.Article;
 
 public class ArticleQueryModel
 {

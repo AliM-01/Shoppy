@@ -1,6 +1,6 @@
 ﻿using _0_Framework.Application.Models.Seo;
 
-namespace _01_Shoppy.Query.Contracts.ProductCategory;
+namespace _01_Shoppy.Query.Models.ProductCategory;
 
 public class ProductCategoryQueryModel : SeoPropertiesForApplicationModels
 {

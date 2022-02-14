@@ -1,6 +1,6 @@
 ﻿using _0_Framework.Domain;
 
-namespace _01_Shoppy.Query.Contracts.ProductCategory;
+namespace _01_Shoppy.Query.Models.ProductCategory;
 
 public class ProductCategoryDetailsFilterModel
 {

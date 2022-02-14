@@ -1,7 +1,4 @@
-﻿using _01_Shoppy.Query.Contracts.ProductPicture;
-using SM.Application.Contracts.ProductFeature.DTOs;
-
-namespace _01_Shoppy.Query.Contracts.Product;
+﻿namespace _01_Shoppy.Query.Models.Product;
 
 public class ProductDetailsQueryModel : ProductQueryModel
 {

@@ -1,7 +1,7 @@
 ﻿using _0_Framework.Application.Models.Paging;
 using Newtonsoft.Json.Converters;
 
-namespace _01_Shoppy.Query.Contracts.Product;
+namespace _01_Shoppy.Query.Models.Product;
 
 public class SearchProductQueryModel : BasePaging
 {

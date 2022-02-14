@@ -1,4 +1,4 @@
-﻿namespace _01_Shoppy.Query.Contracts.Comment;
+﻿namespace _01_Shoppy.Query.Models.Comment;
 
 public class CommentQueryModel
 {
