@@ -1,4 +1,5 @@
 ﻿using _0_Framework.Application.Extensions;
+using _01_Shoppy.Query.Models.Blog.Article;
 using AutoMapper;
 using BM.Application.Contracts.Article.DTOs;
 using BM.Domain.Article;
@@ -75,6 +76,12 @@ public class BlogModuleMappingProfile : Profile
                 opt => opt.Ignore())
             .ForMember(dest => dest.Slug,
                 opt => opt.MapFrom(src => src.Title.ToSlug()));
+
+        #endregion
+
+        #region Article Query Model
+
+        CreateMap<Article, ArticleQueryModel>();
 
         #endregion
 
