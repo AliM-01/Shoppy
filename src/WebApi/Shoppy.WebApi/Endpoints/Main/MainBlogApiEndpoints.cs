@@ -6,5 +6,8 @@ public class MainBlogApiEndpoints
 
     public static class Article
     {
+        private const string BaseArticleRoute = BaseMainBlogRoute + "/article";
+
+        public const string GetLatestArticles = BaseArticleRoute + "/get-latest";
     }
 }
