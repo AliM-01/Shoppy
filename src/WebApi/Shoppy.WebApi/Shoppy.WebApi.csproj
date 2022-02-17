@@ -10,10 +10,10 @@
 	</PropertyGroup>
 
 	<ItemGroup>
-	  <Compile Remove="wwwroot\product_category\NewFolder\**" />
-	  <Content Remove="wwwroot\product_category\NewFolder\**" />
-	  <EmbeddedResource Remove="wwwroot\product_category\NewFolder\**" />
-	  <None Remove="wwwroot\product_category\NewFolder\**" />
+	  <Compile Remove="wwwroot\upload\product_category\NewFolder\**" />
+	  <Content Remove="wwwroot\upload\product_category\NewFolder\**" />
+	  <EmbeddedResource Remove="wwwroot\upload\product_category\NewFolder\**" />
+	  <None Remove="wwwroot\upload\product_category\NewFolder\**" />
 	</ItemGroup>
 
 	<ItemGroup>

@@ -2,7 +2,6 @@
 using CM.Infrastructure.Persistence.Settings;
 using Microsoft.Extensions.Options;
 using MongoDB.Driver;
-using System;
 using System.Collections.Generic;
 
 namespace CM.Infrastructure.Persistence.Context;
@@ -21,17 +20,8 @@ public class CommentDbContext : ICommentDbContext
     {
         _settings = settings.Value;
 
-        MongoCredential credential = MongoCredential.CreateCredential(_settings.DbName, _settings.User, _settings.Password);
-        var mongoSettings = new MongoClientSettings
-        {
-            Credential = credential,
-            Server = new MongoServerAddress(_settings.Host),
-            ConnectTimeout = TimeSpan.FromMinutes(3),
-            RetryWrites = true,
-            RetryReads = true,
-            DirectConnection = true,
-            UseSsl = false,
-        };
+        var mongoSettings = MongoClientSettings.FromConnectionString(_settings.ConnectionString);
+        mongoSettings.ServerApi = new ServerApi(ServerApiVersion.V1);
 
         var client = new MongoClient(mongoSettings);
 
