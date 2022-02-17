@@ -2,7 +2,8 @@
 using _01_Shoppy.Query.Models.Comment;
 using AutoMapper;
 using CM.Infrastructure.Persistence.Context;
-using MediatR;
+using MongoDB.Driver;
+using MongoDB.Driver.Linq;
 
 namespace _01_Shoppy.Query.Queries.Comment;
 
@@ -13,11 +14,11 @@ public class GetRecordCommentsByIdQueryHandler : IRequestHandler<GetRecordCommen
 {
     #region Ctor
 
-    private readonly CommentDbContext _commentContext;
+    private readonly ICommentDbContext _commentContext;
     private readonly IMapper _mapper;
 
     public GetRecordCommentsByIdQueryHandler(
-        CommentDbContext commentContext, IMapper mapper)
+        ICommentDbContext commentContext, IMapper mapper)
     {
         _commentContext = Guard.Against.Null(commentContext, nameof(_commentContext));
         _mapper = Guard.Against.Null(mapper, nameof(_mapper));
@@ -28,7 +29,8 @@ public class GetRecordCommentsByIdQueryHandler : IRequestHandler<GetRecordCommen
     public async Task<Response<List<CommentQueryModel>>> Handle(GetRecordCommentsByIdQuery request, CancellationToken cancellationToken)
     {
         var comments = await _commentContext.Comments
-            .Where(x => x.ParentId == 0 || x.ParentId == null)
+            .AsQueryable()
+            .Where(x => x.ParentId == null)
             .Where(x => x.OwnerRecordId == request.RecordId && x.State == CM.Domain.Comment.CommentState.Confirmed)
             .MapComments(_mapper)
             .ToListAsync();
@@ -36,7 +38,8 @@ public class GetRecordCommentsByIdQueryHandler : IRequestHandler<GetRecordCommen
         for (int i = 0; i < comments.Count; i++)
         {
             var replies = await _commentContext.Comments
-                .Where(x => x.ParentId == comments[i].Id)
+                .AsQueryable()
+                .Where(x => x.ParentId == comments[i].Id.ToString())
                 .MapComments(_mapper)
                 .ToArrayAsync();
 

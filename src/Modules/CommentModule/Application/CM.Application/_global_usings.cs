@@ -1,11 +1,12 @@
 ﻿global using _0_Framework.Application.ErrorMessages;
 global using _0_Framework.Application.Exceptions;
 global using _0_Framework.Application.Wrappers;
-global using _0_Framework.Domain.IGenericRepository;
 global using Ardalis.GuardClauses;
 global using AutoMapper;
 global using CM.Application.Contracts.Comment.Commands;
+global using CM.Infrastructure.Persistence.Context;
 global using MediatR;
+global using MongoDB.Driver;
 global using System.Threading;
 global using System.Threading.Tasks;
 namespace CM.Application;

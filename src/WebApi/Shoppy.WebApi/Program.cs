@@ -32,7 +32,7 @@ Log.Logger = new LoggerConfiguration()
 
 #endregion
 
-builder.Services.RegisterServices(typeof(Program), connectionString);
+builder.Services.RegisterServices(typeof(Program), connectionString, configuration);
 
 #region swagger
 

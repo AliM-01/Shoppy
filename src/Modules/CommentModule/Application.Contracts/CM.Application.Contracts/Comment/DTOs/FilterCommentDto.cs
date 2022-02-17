@@ -52,6 +52,7 @@ public class FilterCommentDto : BasePaging
 public enum FilterCommentState
 {
     All,
+    UnderProgress,
     Canceled,
     Confirmed
 }

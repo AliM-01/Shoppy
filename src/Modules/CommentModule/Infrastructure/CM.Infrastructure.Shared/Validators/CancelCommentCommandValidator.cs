@@ -7,7 +7,7 @@ public class CancelCommentCommandValidator : AbstractValidator<CancelCommentComm
     public CancelCommentCommandValidator()
     {
         RuleFor(p => p.CommentId)
-            .RangeValidator("شناسه کامنت", 1, 1000);
+            .RequiredValidator("شناسه کامنت");
     }
 }
 

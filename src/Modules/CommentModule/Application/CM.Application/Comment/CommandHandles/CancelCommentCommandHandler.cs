@@ -6,12 +6,12 @@ public class CancelCommentCommandHandler : IRequestHandler<CancelCommentCommand,
 {
     #region Ctor
 
-    private readonly IGenericRepository<Domain.Comment.Comment> _commentRepository;
+    private readonly ICommentDbContext _commentContext;
     private readonly IMapper _mapper;
 
-    public CancelCommentCommandHandler(IGenericRepository<Domain.Comment.Comment> commentRepository, IMapper mapper)
+    public CancelCommentCommandHandler(ICommentDbContext commentContext, IMapper mapper)
     {
-        _commentRepository = Guard.Against.Null(commentRepository, nameof(_commentRepository));
+        _commentContext = Guard.Against.Null(commentContext, nameof(_commentContext));
         _mapper = Guard.Against.Null(mapper, nameof(_mapper));
     }
 
@@ -19,16 +19,20 @@ public class CancelCommentCommandHandler : IRequestHandler<CancelCommentCommand,
 
     public async Task<Response<string>> Handle(CancelCommentCommand request, CancellationToken cancellationToken)
     {
-        var comment = await _commentRepository.GetEntityById(request.CommentId);
+        var filter = Builders<Domain.Comment.Comment>.Filter.Eq(x => x.Id, request.CommentId);
+
+        var comment = (await _commentContext.Comments.FindAsync(filter)).FirstOrDefault();
 
         if (comment is null)
             throw new NotFoundApiException();
 
         comment.State = CommentState.Canceled;
 
-        _commentRepository.Update(comment);
-        await _commentRepository.SaveChanges();
+        var res = await _commentContext.Comments.ReplaceOneAsync(filter, comment, new ReplaceOptions { IsUpsert = false });
 
-        return new Response<string>("کامنت مورد نظر با موفقیت رد شد");
+        if (res.IsAcknowledged && res.ModifiedCount > 0)
+            return new Response<string>("کامنت مورد نظر با موفقیت رد شد");
+
+        throw new ApiException(ApplicationErrorMessage.RecordNotFoundMessage);
     }
 }

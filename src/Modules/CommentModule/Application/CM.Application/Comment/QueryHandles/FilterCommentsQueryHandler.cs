@@ -3,6 +3,7 @@ using CM.Application.Contracts.Comment.DTOs;
 using CM.Application.Contracts.Inventory.Queries;
 using CM.Domain.Comment;
 using Microsoft.EntityFrameworkCore;
+using MongoDB.Driver.Linq;
 using System.Linq;
 
 namespace CM.Application.Comment.QueryHandles;
@@ -11,12 +12,12 @@ public class FilterCommentsQueryHandler : IRequestHandler<FilterCommentsQuery, R
 {
     #region Ctor
 
-    private readonly IGenericRepository<Domain.Comment.Comment> _commentRepository;
+    private readonly ICommentDbContext _commentContext;
     private readonly IMapper _mapper;
 
-    public FilterCommentsQueryHandler(IGenericRepository<Domain.Comment.Comment> commentRepository, IMapper mapper)
+    public FilterCommentsQueryHandler(ICommentDbContext commentContext, IMapper mapper)
     {
-        _commentRepository = Guard.Against.Null(commentRepository, nameof(_commentRepository));
+        _commentContext = Guard.Against.Null(commentContext, nameof(_commentContext));
         _mapper = Guard.Against.Null(mapper, nameof(_mapper));
     }
 
@@ -24,9 +25,8 @@ public class FilterCommentsQueryHandler : IRequestHandler<FilterCommentsQuery, R
 
     public async Task<Response<FilterCommentDto>> Handle(FilterCommentsQuery request, CancellationToken cancellationToken)
     {
-        var query = _commentRepository
-            .GetQuery()
-            .IgnoreQueryFilters()
+        var query = _commentContext
+            .Comments
             .AsQueryable();
 
         #region filter
@@ -34,6 +34,10 @@ public class FilterCommentsQueryHandler : IRequestHandler<FilterCommentsQuery, R
         switch (request.Filter.State)
         {
             case FilterCommentState.All:
+                break;
+
+            case FilterCommentState.UnderProgress:
+                query = query.Where(s => s.State == CommentState.UnderProgress);
                 break;
 
             case FilterCommentState.Confirmed:

@@ -12,6 +12,7 @@ using DM.Infrastructure.Shared.Mappings;
 using IM.Application;
 using IM.Infrastructure.Configuration;
 using IM.Infrastructure.Shared.Mappings;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Newtonsoft.Json;
 using SM.Application;
@@ -23,14 +24,16 @@ namespace _02_DI_Container;
 
 public static class DI_Container
 {
-    public static void RegisterServices(this IServiceCollection services, Type assemblyMarker, string connectionString)
+    public static void RegisterServices(this IServiceCollection services, Type assemblyMarker, string connectionString, IConfiguration config)
     {
+        services.AddOptions();
+
         #region Configuring Modules
 
         ShopModuletBootstrapper.Configure(services, connectionString);
         DiscountModuleBootstrapper.Configure(services, connectionString);
         InventoryModuletBootstrapper.Configure(services, connectionString);
-        CommentModuletBootstrapper.Configure(services, connectionString);
+        CommentModuletBootstrapper.Configure(services, config);
         BlogModuletBootstrapper.Configure(services, connectionString);
 
         #endregion
@@ -40,12 +43,12 @@ public static class DI_Container
         services.AddMediatorExtension(new List<Type>
         {
             assemblyMarker,
-            typeof(IShoppyQueryAsseblyMarker),
             typeof(ISMAssemblyMarker),
             typeof(IDMAssemblyMarker),
             typeof(IIMAssemblyMarker),
             typeof(ICMAssemblyMarker),
-            typeof(IBMAssemblyMarker)
+            typeof(IBMAssemblyMarker),
+            typeof(IShoppyQueryAsseblyMarker),
         });
 
         var assemblies = new List<Assembly>

@@ -7,7 +7,7 @@ public class ConfirmCommentCommandValidator : AbstractValidator<ConfirmCommentCo
     public ConfirmCommentCommandValidator()
     {
         RuleFor(p => p.CommentId)
-            .RangeValidator("شناسه کامنت", 1, 1000);
+            .RequiredValidator("شناسه کامنت");
     }
 }
 

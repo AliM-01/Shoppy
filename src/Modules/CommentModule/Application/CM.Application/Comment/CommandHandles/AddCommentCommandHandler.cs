@@ -1,15 +1,16 @@
-﻿namespace CM.Application.Comment.CommandHandles;
+﻿
+namespace CM.Application.Comment.CommandHandles;
 
 public class AddCommentCommandHandler : IRequestHandler<AddCommentCommand, Response<string>>
 {
     #region Ctor
 
-    private readonly IGenericRepository<Domain.Comment.Comment> _commentRepository;
+    private readonly ICommentDbContext _commentContext;
     private readonly IMapper _mapper;
 
-    public AddCommentCommandHandler(IGenericRepository<Domain.Comment.Comment> commentRepository, IMapper mapper)
+    public AddCommentCommandHandler(ICommentDbContext commentContext, IMapper mapper)
     {
-        _commentRepository = Guard.Against.Null(commentRepository, nameof(_commentRepository));
+        _commentContext = Guard.Against.Null(commentContext, nameof(_commentContext));
         _mapper = Guard.Against.Null(mapper, nameof(_mapper));
     }
 
@@ -19,11 +20,10 @@ public class AddCommentCommandHandler : IRequestHandler<AddCommentCommand, Respo
     {
         var comment = _mapper.Map(request.Comment, new Domain.Comment.Comment());
 
-        if (comment.ParentId == 0)
+        if (string.IsNullOrEmpty(comment.ParentId))
             comment.ParentId = null;
 
-        await _commentRepository.InsertEntity(comment);
-        await _commentRepository.SaveChanges();
+        await _commentContext.Comments.InsertOneAsync(comment);
 
         return new Response<string>("کامنت با موفقیت ثبت شد و پس از تایید توسط ادمین در سایت نمایش داده خواهد شد");
     }

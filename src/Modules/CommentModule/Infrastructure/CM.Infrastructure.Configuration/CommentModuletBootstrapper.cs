@@ -1,22 +1,18 @@
-﻿using _0_Framework.Domain.IGenericRepository;
-using _0_Framework.Infrastructure.GenericRepository;
-using CM.Domain.Comment;
-using CM.Infrastructure.Persistence.Context;
+﻿using CM.Infrastructure.Persistence.Context;
+using CM.Infrastructure.Persistence.Settings;
 using MediatR;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace CM.Infrastructure.Configuration;
 
 public static class CommentModuletBootstrapper
 {
-    public static void Configure(IServiceCollection services, string connectionString)
+    public static void Configure(IServiceCollection services, Microsoft.Extensions.Configuration.IConfiguration config)
     {
-        services.AddScoped<IGenericRepository<Comment>, GenericRepository<CommentDbContext, Comment>>();
+        services.Configure<CommentDbSettings>(config.GetSection("CommentDbSettings"));
+
+        services.AddScoped<ICommentDbContext, CommentDbContext>();
 
         services.AddMediatR(typeof(CommentModuletBootstrapper).Assembly);
-
-        services.AddDbContext<CommentDbContext>(options =>
-            options.UseSqlServer(connectionString));
     }
 }
