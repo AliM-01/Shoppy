@@ -29,7 +29,8 @@ public class CommentDbContext : ICommentDbContext
             ConnectTimeout = TimeSpan.FromMinutes(3),
             RetryWrites = true,
             RetryReads = true,
-            DirectConnection = true
+            DirectConnection = true,
+            UseSsl = false,
         };
 
         var client = new MongoClient(mongoSettings);

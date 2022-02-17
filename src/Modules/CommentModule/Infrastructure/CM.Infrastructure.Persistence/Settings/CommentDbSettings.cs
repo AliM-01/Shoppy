@@ -4,7 +4,7 @@ public class CommentDbSettings
 {
     public string ConnectionString {
         get {
-            return $@"mongodb+srv://{User}:{Password}@{Host}/{DbName}?retryWrites=true&w=majority&connect=replicaSet";
+            return $@"mongodb+srv://{User}:{Password}@{Host}/{DbName}?retryWrites=true&w=majority";
         }
     }
 
