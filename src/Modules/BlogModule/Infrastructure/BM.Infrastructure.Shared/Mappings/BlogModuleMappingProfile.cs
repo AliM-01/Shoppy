@@ -4,6 +4,7 @@ using AutoMapper;
 using BM.Application.Contracts.Article.DTOs;
 using BM.Domain.Article;
 using BM.Domain.ArticleCategory;
+using System;
 
 namespace BM.Infrastructure.Shared.Mappings;
 
@@ -53,7 +54,9 @@ public class BlogModuleMappingProfile : Profile
             .ForMember(dest => dest.CreationDate,
                 opt => opt.MapFrom(src => src.CreationDate.ToShamsi()))
             .ForMember(dest => dest.Category,
-                opt => opt.MapFrom(src => src.Category.Title));
+                opt => opt.MapFrom(src => src.Category.Title))
+            .ForMember(dest => dest.Summary,
+                opt => opt.MapFrom(src => src.Summary.Substring(0, Math.Max(src.Summary.Length, 35))));
 
         #endregion
 
@@ -81,7 +84,11 @@ public class BlogModuleMappingProfile : Profile
 
         #region Article Query Model
 
-        CreateMap<Article, ArticleQueryModel>();
+        CreateMap<Article, ArticleQueryModel>()
+            .ForMember(dest => dest.Summary,
+                opt => opt.MapFrom(src => src.Summary.Substring(0, Math.Max(src.Summary.Length, 35))))
+            .ForMember(dest => dest.CreationDate,
+                opt => opt.MapFrom(src => src.CreationDate.ToDetailedShamsi()));
 
         #endregion
 
