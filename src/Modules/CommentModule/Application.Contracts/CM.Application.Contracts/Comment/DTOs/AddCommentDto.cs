@@ -27,6 +27,6 @@ public class AddCommentDto
 
     [Display(Name = "شناسه والد")]
     [JsonProperty("parentId")]
-    public long ParentId { get; set; } = 0;
+    public string? ParentId { get; set; } = null;
 }
 

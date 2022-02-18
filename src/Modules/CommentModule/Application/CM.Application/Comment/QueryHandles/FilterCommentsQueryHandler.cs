@@ -1,8 +1,8 @@
 ﻿using _0_Framework.Application.Models.Paging;
+using _0_Framework.Infrastructure;
 using CM.Application.Contracts.Comment.DTOs;
 using CM.Application.Contracts.Inventory.Queries;
 using CM.Domain.Comment;
-using Microsoft.EntityFrameworkCore;
 using MongoDB.Driver.Linq;
 using System.Linq;
 
@@ -55,11 +55,14 @@ public class FilterCommentsQueryHandler : IRequestHandler<FilterCommentsQuery, R
 
         var pager = Pager.Build(request.Filter.PageId, query.Count(),
             request.Filter.TakePage, request.Filter.ShownPages);
-        var allEntities = await query.Paging(pager)
-            .AsQueryable()
-            .Select(inventory =>
-                _mapper.Map(inventory, new CommentDto()))
-            .ToListAsync();
+
+        var allEntities =
+             (await query
+                .DocumentPaging(pager)
+                .ToListAsyncSafe()
+             )
+            .Select(c => _mapper.Map(c, new CommentDto()))
+            .ToList();
 
         #endregion paging
 

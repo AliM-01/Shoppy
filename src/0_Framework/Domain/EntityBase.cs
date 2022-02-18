@@ -13,8 +13,10 @@ public abstract class EntityBase
     public bool IsDeleted { get; set; }
 
     [BsonElement("creationDate")]
+    [BsonRepresentation(BsonType.DateTime)]
     public DateTime CreationDate { get; set; } = DateTime.Now;
 
     [BsonElement("lastUpdateDate")]
+    [BsonRepresentation(BsonType.DateTime)]
     public DateTime LastUpdateDate { get; set; } = DateTime.Now;
 }

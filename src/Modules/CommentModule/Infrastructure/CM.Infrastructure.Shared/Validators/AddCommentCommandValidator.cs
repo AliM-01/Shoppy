@@ -20,6 +20,6 @@ public class AddCommentCommandValidator : AbstractValidator<AddCommentCommand>
             .RangeValidator("شناسه محصول/مقاله", 1, 100000);
 
         RuleFor(p => p.Comment.ParentId)
-            .RangeValidator("شناسه والد", 0, 100000);
+            .RequiredValidator("شناسه والد");
     }
 }

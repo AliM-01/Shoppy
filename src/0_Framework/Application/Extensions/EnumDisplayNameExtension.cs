@@ -6,12 +6,18 @@ namespace _0_Framework.Application.Extensions;
 
 public static class EnumDisplayNameExtension
 {
-    public static string GetEnumDisplayName(this Enum myEnum)
+    public static string GetEnumDisplayName<T>(this T enumValue) where T : IComparable, IFormattable, IConvertible
     {
-        var enumName = myEnum.GetType().GetMember(myEnum.ToString()).FirstOrDefault();
+        if (!typeof(T).IsEnum)
+            throw new ArgumentException("Argument must be of type Enum");
 
-        if (enumName != null) return enumName.GetCustomAttribute<DisplayAttribute>()?.GetName();
+        DisplayAttribute displayAttribute = enumValue.GetType()
+                                                     .GetMember(enumValue.ToString())
+                                                     .First()
+                                                     .GetCustomAttribute<DisplayAttribute>();
 
-        return "";
+        string displayName = displayAttribute?.GetName();
+
+        return displayName ?? enumValue.ToString();
     }
 }

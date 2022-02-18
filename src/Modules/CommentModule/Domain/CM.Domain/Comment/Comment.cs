@@ -29,12 +29,12 @@ public class Comment : EntityBase
 
     [Display(Name = "وضعیت")]
     [BsonElement("state")]
-    [BsonRepresentation(BsonType.String)]
+    [BsonRepresentation(BsonType.Int32)]
     public CommentState State { get; set; } = CommentState.UnderProgress;
 
     [Display(Name = "نوع")]
     [BsonElement("type")]
-    [BsonRepresentation(BsonType.String)]
+    [BsonRepresentation(BsonType.Int32)]
     public CommentType Type { get; set; } = CommentType.Product;
 
     [Display(Name = "شناسه محصول/مقاله")]
@@ -55,22 +55,22 @@ public class Comment : EntityBase
 public enum CommentState
 {
     [Display(Name = "در حال بررسی")]
-    [BsonRepresentation(BsonType.String)]
+    [BsonRepresentation(BsonType.Int32)]
     UnderProgress,
     [Display(Name = "رد شده")]
-    [BsonRepresentation(BsonType.String)]
+    [BsonRepresentation(BsonType.Int32)]
     Canceled,
     [Display(Name = "تایید شده")]
-    [BsonRepresentation(BsonType.String)]
+    [BsonRepresentation(BsonType.Int32)]
     Confirmed
 }
 
 public enum CommentType
 {
     [Display(Name = "محصول")]
-    [BsonRepresentation(BsonType.String)]
+    [BsonRepresentation(BsonType.Int32)]
     Product,
     [Display(Name = "مقاله")]
-    [BsonRepresentation(BsonType.String)]
+    [BsonRepresentation(BsonType.Int32)]
     Article
 }

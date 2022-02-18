@@ -3,7 +3,7 @@
 public class CommentDto
 {
     [JsonProperty("id")]
-    public long Id { get; set; }
+    public string Id { get; set; }
 
     [Display(Name = "نام")]
     [JsonProperty("name")]
@@ -35,7 +35,7 @@ public class CommentDto
 
     [Display(Name = "شناسه والد")]
     [JsonProperty("parentId")]
-    public long ParentId { get; set; }
+    public string? ParentId { get; set; }
 
     [Display(Name = "تاریخ ثبت")]
     [JsonProperty("creationDate")]
