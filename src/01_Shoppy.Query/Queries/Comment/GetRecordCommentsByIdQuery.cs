@@ -1,9 +1,10 @@
 ﻿using _01_Shoppy.Query.Helpers.Comment;
 using _01_Shoppy.Query.Models.Comment;
 using AutoMapper;
+using CM.Domain.Comment;
 using CM.Infrastructure.Persistence.Context;
+using MongoDB.Bson;
 using MongoDB.Driver;
-using MongoDB.Driver.Linq;
 
 namespace _01_Shoppy.Query.Queries.Comment;
 
@@ -28,20 +29,25 @@ public class GetRecordCommentsByIdQueryHandler : IRequestHandler<GetRecordCommen
 
     public async Task<Response<List<CommentQueryModel>>> Handle(GetRecordCommentsByIdQuery request, CancellationToken cancellationToken)
     {
-        var comments = await _commentContext.Comments
-            .AsQueryable()
-            .Where(x => x.ParentId == null)
-            .Where(x => x.OwnerRecordId == request.RecordId && x.State == CM.Domain.Comment.CommentState.Confirmed)
-            .MapComments(_mapper)
-            .ToListAsync();
+        var filter = Builders<CM.Domain.Comment.Comment>.Filter.Eq(x => x.ParentId, null)
+             & Builders<CM.Domain.Comment.Comment>.Filter.Eq(x => x.OwnerRecordId, request.RecordId)
+             & Builders<CM.Domain.Comment.Comment>.Filter.Eq(x => x.State, CommentState.Confirmed);
+
+        var comments = (
+            await _commentContext.Comments
+                .FindAsync(filter)
+            )
+            .ToList()
+            .MapComments(_mapper);
 
         for (int i = 0; i < comments.Count; i++)
         {
-            var replies = await _commentContext.Comments
-                .AsQueryable()
-                .Where(x => x.ParentId == comments[i].Id.ToString())
+            var replies = (
+                await _commentContext.Comments.FindAsync(new BsonDocument("parentId", comments[i].Id.ToString()))
+                )
+                .ToList()
                 .MapComments(_mapper)
-                .ToArrayAsync();
+                .ToArray();
 
             comments[i].Replies = replies;
         }

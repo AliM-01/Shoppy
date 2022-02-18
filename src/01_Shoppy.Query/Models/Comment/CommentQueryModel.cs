@@ -3,7 +3,7 @@
 public class CommentQueryModel
 {
     [JsonProperty("id")]
-    public long Id { get; set; }
+    public string Id { get; set; }
 
     [Display(Name = "نام")]
     [JsonProperty("name")]
@@ -27,7 +27,7 @@ public class CommentQueryModel
 
     [Display(Name = "شناسه والد")]
     [JsonProperty("parentId")]
-    public long ParentId { get; set; }
+    public string? ParentId { get; set; } = null;
 
     [JsonProperty("replies")]
     public CommentQueryModel[] Replies { get; set; }
