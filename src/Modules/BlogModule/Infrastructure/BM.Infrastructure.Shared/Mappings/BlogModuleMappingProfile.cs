@@ -56,7 +56,7 @@ public class BlogModuleMappingProfile : Profile
             .ForMember(dest => dest.Category,
                 opt => opt.MapFrom(src => src.Category.Title))
             .ForMember(dest => dest.Summary,
-                opt => opt.MapFrom(src => src.Summary.Substring(0, Math.Max(src.Summary.Length, 35))));
+                opt => opt.MapFrom(src => (src.Summary.Substring(0, Math.Max(src.Summary.Length, 35)) + " ...")));
 
         #endregion
 
@@ -86,7 +86,7 @@ public class BlogModuleMappingProfile : Profile
 
         CreateMap<Article, ArticleQueryModel>()
             .ForMember(dest => dest.Summary,
-                opt => opt.MapFrom(src => src.Summary.Substring(0, Math.Max(src.Summary.Length, 35))))
+                opt => opt.MapFrom(src => (src.Summary.Substring(0, Math.Max(src.Summary.Length, 35)) + " ...")))
             .ForMember(dest => dest.CreationDate,
                 opt => opt.MapFrom(src => src.CreationDate.ToDetailedShamsi()));
 
