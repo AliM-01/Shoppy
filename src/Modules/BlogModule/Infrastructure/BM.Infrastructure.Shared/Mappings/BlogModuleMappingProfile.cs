@@ -5,6 +5,7 @@ using BM.Application.Contracts.Article.DTOs;
 using BM.Domain.Article;
 using BM.Domain.ArticleCategory;
 using System;
+using System.Linq;
 
 namespace BM.Infrastructure.Shared.Mappings;
 
@@ -56,7 +57,7 @@ public class BlogModuleMappingProfile : Profile
             .ForMember(dest => dest.Category,
                 opt => opt.MapFrom(src => src.Category.Title))
             .ForMember(dest => dest.Summary,
-                opt => opt.MapFrom(src => (src.Summary.Substring(0, Math.Max(src.Summary.Length, 35)) + " ...")));
+                opt => opt.MapFrom(src => $"{src.Summary.Substring(0, Math.Max(src.Summary.Length, 35))} ..."));
 
         #endregion
 
@@ -86,9 +87,21 @@ public class BlogModuleMappingProfile : Profile
 
         CreateMap<Article, ArticleQueryModel>()
             .ForMember(dest => dest.Summary,
-                opt => opt.MapFrom(src => (src.Summary.Substring(0, Math.Max(src.Summary.Length, 35)) + " ...")))
+                opt => opt.MapFrom(src => $"{src.Summary.Substring(0, Math.Max(src.Summary.Length, 35))} ..."))
             .ForMember(dest => dest.CreationDate,
                 opt => opt.MapFrom(src => src.CreationDate.ToDetailedShamsi()));
+
+        #endregion
+
+        #region Article Details Query Model
+
+        CreateMap<Article, ArticleDetailsQueryModel>()
+            .ForMember(dest => dest.Summary,
+                opt => opt.MapFrom(src => $"{src.Summary.Substring(0, Math.Max(src.Summary.Length, 35))} ..."))
+            .ForMember(dest => dest.CreationDate,
+                opt => opt.MapFrom(src => src.CreationDate.ToDetailedShamsi()))
+            .ForMember(dest => dest.Tags,
+                opt => opt.MapFrom(src => src.MetaKeywords.Split('-', StringSplitOptions.RemoveEmptyEntries).ToArray()));
 
         #endregion
 
