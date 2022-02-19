@@ -1,8 +1,8 @@
 ﻿using _0_Framework.Application.Exceptions;
 using _0_Framework.Infrastructure;
+using _0_Framework.Infrastructure.Helpers;
 using _01_Shoppy.Query.Models.Blog.Article;
 using AutoMapper;
-using BM.Infrastructure.Persistence.Context;
 
 namespace _01_Shoppy.Query.Queries.Blog.Article;
 
@@ -12,13 +12,13 @@ public class GetArticleDetailsQueryHandler : IRequestHandler<GetArticleDetailsQu
 {
     #region Ctor
 
-    private readonly IBlogDbContext _blogContext;
+    private readonly IMongoHelper<BM.Domain.Article.Article> _articleHelper;
     private readonly IMapper _mapper;
 
     public GetArticleDetailsQueryHandler(
-        IBlogDbContext blogContext, IMapper mapper)
+        IMongoHelper<BM.Domain.Article.Article> articleHelper, IMapper mapper)
     {
-        _blogContext = Guard.Against.Null(blogContext, nameof(_blogContext));
+        _articleHelper = Guard.Against.Null(articleHelper, nameof(_articleHelper));
         _mapper = Guard.Against.Null(mapper, nameof(_mapper));
     }
 
@@ -29,24 +29,22 @@ public class GetArticleDetailsQueryHandler : IRequestHandler<GetArticleDetailsQu
         if (string.IsNullOrEmpty(request.Slug))
             throw new NotFoundApiException();
 
-        var articles = await _blogContext.Articles.AsQueryable().Select(x => new
-        {
-            x.Slug,
-            x.Id
-        }).ToListAsyncSafe();
+        var articles = await _articleHelper.AsQueryable()
+            .Select(x => new
+            {
+                x.Slug,
+                x.Id
+            })
+            .ToListAsyncSafe();
 
         var existsArticle = articles.FirstOrDefault(x => x.Slug == request.Slug);
 
         if (existsArticle is not null)
             throw new NotFoundApiException();
 
-        var article = _blogContext.Articles
-                .AsQueryable()
-                .Where(x => x.Id == existsArticle.Id)
-                .Select(c =>
-                   _mapper.Map(c, new ArticleDetailsQueryModel()))
-                .FirstOrDefault();
+        var article = await _articleHelper.GetByIdAsync(existsArticle.Id);
 
-        return new Response<ArticleDetailsQueryModel>(article);
+        return new Response<ArticleDetailsQueryModel>(
+            _mapper.Map(article, new ArticleDetailsQueryModel()));
     }
 }

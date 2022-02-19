@@ -6,12 +6,12 @@ public class GetArticleCategoriesSelectListQueryHandler : IRequestHandler<GetArt
 {
     #region Ctor
 
-    private readonly IBlogDbContext _blogContext;
+    private readonly IMongoHelper<Domain.ArticleCategory.ArticleCategory> _articleCategoryHelper;
     private readonly IMapper _mapper;
 
-    public GetArticleCategoriesSelectListQueryHandler(IBlogDbContext blogContext, IMapper mapper)
+    public GetArticleCategoriesSelectListQueryHandler(IMongoHelper<Domain.ArticleCategory.ArticleCategory> articleCategoryHelper, IMapper mapper)
     {
-        _blogContext = Guard.Against.Null(blogContext, nameof(_blogContext));
+        _articleCategoryHelper = Guard.Against.Null(articleCategoryHelper, nameof(_articleCategoryHelper));
         _mapper = Guard.Against.Null(mapper, nameof(_mapper));
     }
 
@@ -20,7 +20,7 @@ public class GetArticleCategoriesSelectListQueryHandler : IRequestHandler<GetArt
     public async Task<Response<IEnumerable<ArticleCategoryForSelectListDto>>> Handle(GetArticleCategoriesSelectListQuery request, CancellationToken cancellationToken)
     {
         var categories = (await
-            _blogContext.ArticleCategories
+            _articleCategoryHelper
             .AsQueryable()
             .OrderByDescending(p => p.LastUpdateDate)
             .ToListAsyncSafe()

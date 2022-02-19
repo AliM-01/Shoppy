@@ -6,20 +6,18 @@ public class DeleteArticleCategoryCommandHandler : IRequestHandler<DeleteArticle
 {
     #region Ctor
 
-    private readonly IBlogDbContext _blogContext;
+    private readonly IMongoHelper<Domain.ArticleCategory.ArticleCategory> _articleCategoryHelper;
 
-    public DeleteArticleCategoryCommandHandler(IBlogDbContext blogContext)
+    public DeleteArticleCategoryCommandHandler(IMongoHelper<Domain.ArticleCategory.ArticleCategory> articleCategoryHelper)
     {
-        _blogContext = Guard.Against.Null(blogContext, nameof(_blogContext));
+        _articleCategoryHelper = Guard.Against.Null(articleCategoryHelper, nameof(_articleCategoryHelper));
     }
 
     #endregion
 
     public async Task<Response<string>> Handle(DeleteArticleCategoryCommand request, CancellationToken cancellationToken)
     {
-        var articleCategory = (
-            await _blogContext.ArticleCategories.FindAsync(MongoDbFilters<Domain.ArticleCategory.ArticleCategory>.GetByIdFilter(request.ArticleCategoryId))
-            ).FirstOrDefault();
+        var articleCategory = await _articleCategoryHelper.GetByIdAsync(request.ArticleCategoryId);
 
         if (articleCategory is null)
             throw new NotFoundApiException();
@@ -27,8 +25,7 @@ public class DeleteArticleCategoryCommandHandler : IRequestHandler<DeleteArticle
         File.Delete(PathExtension.ArticleCategoryImage + articleCategory.ImagePath);
         File.Delete(PathExtension.ArticleCategoryThumbnailImage + articleCategory.ImagePath);
 
-        await _blogContext.ArticleCategories.DeleteOneAsync(
-            MongoDbFilters<Domain.ArticleCategory.ArticleCategory>.GetByIdFilter(articleCategory.Id));
+        await _articleCategoryHelper.DeletePermanentAsync(request.ArticleCategoryId);
 
         return new Response<string>(ApplicationErrorMessage.RecordDeletedMessage);
     }

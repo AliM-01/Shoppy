@@ -6,12 +6,12 @@ public class GetArticleCategoryDetailsQueryHandler : IRequestHandler<GetArticleC
 {
     #region Ctor
 
-    private readonly IBlogDbContext _blogContext;
+    private readonly IMongoHelper<Domain.ArticleCategory.ArticleCategory> _articleCategoryHelper;
     private readonly IMapper _mapper;
 
-    public GetArticleCategoryDetailsQueryHandler(IBlogDbContext blogContext, IMapper mapper)
+    public GetArticleCategoryDetailsQueryHandler(IMongoHelper<Domain.ArticleCategory.ArticleCategory> articleCategoryHelper, IMapper mapper)
     {
-        _blogContext = Guard.Against.Null(blogContext, nameof(_blogContext));
+        _articleCategoryHelper = Guard.Against.Null(articleCategoryHelper, nameof(_articleCategoryHelper));
         _mapper = Guard.Against.Null(mapper, nameof(_mapper));
     }
 
@@ -19,9 +19,7 @@ public class GetArticleCategoryDetailsQueryHandler : IRequestHandler<GetArticleC
 
     public async Task<Response<EditArticleCategoryDto>> Handle(GetArticleCategoryDetailsQuery request, CancellationToken cancellationToken)
     {
-        var articleCategory = (
-            await _blogContext.ArticleCategories.FindAsync(MongoDbFilters<Domain.ArticleCategory.ArticleCategory>.GetByIdFilter(request.Id))
-            ).FirstOrDefault();
+        var articleCategory = await _articleCategoryHelper.GetByIdAsync(request.Id);
 
         if (articleCategory is null)
             throw new NotFoundApiException();

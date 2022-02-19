@@ -1,7 +1,7 @@
 ﻿using _0_Framework.Infrastructure;
+using _0_Framework.Infrastructure.Helpers;
 using _01_Shoppy.Query.Models.Blog.Article;
 using AutoMapper;
-using BM.Infrastructure.Persistence.Context;
 
 namespace _01_Shoppy.Query.Queries.Article;
 
@@ -11,12 +11,13 @@ public class GetLatestArticlesQueryHandler : IRequestHandler<GetLatestArticlesQu
 {
     #region Ctor
 
-    private readonly IBlogDbContext _blogContext;
+    private readonly IMongoHelper<BM.Domain.Article.Article> _articleHelper;
     private readonly IMapper _mapper;
 
-    public GetLatestArticlesQueryHandler(IBlogDbContext blogContext, IMapper mapper)
+    public GetLatestArticlesQueryHandler(
+        IMongoHelper<BM.Domain.Article.Article> articleHelper, IMapper mapper)
     {
-        _blogContext = Guard.Against.Null(blogContext, nameof(_blogContext));
+        _articleHelper = Guard.Against.Null(articleHelper, nameof(_articleHelper));
         _mapper = Guard.Against.Null(mapper, nameof(_mapper));
     }
 
@@ -24,12 +25,12 @@ public class GetLatestArticlesQueryHandler : IRequestHandler<GetLatestArticlesQu
 
     public async Task<Response<IEnumerable<ArticleQueryModel>>> Handle(GetLatestArticlesQuery request, CancellationToken cancellationToken)
     {
-        var latestArticles = await _blogContext.Articles
+        var latestArticles = await _articleHelper
                .AsQueryable()
                .OrderByDescending(x => x.LastUpdateDate)
                .Take(8)
-               .Select(Article =>
-                   _mapper.Map(Article, new ArticleQueryModel()))
+               .Select(article =>
+                   _mapper.Map(article, new ArticleQueryModel()))
                .ToListAsyncSafe();
 
         return new Response<IEnumerable<ArticleQueryModel>>(latestArticles);

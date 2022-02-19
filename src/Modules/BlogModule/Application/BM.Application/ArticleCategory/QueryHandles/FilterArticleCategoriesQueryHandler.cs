@@ -8,12 +8,12 @@ public class FilterArticleCategoriesQueryHandler : IRequestHandler<FilterArticle
 {
     #region Ctor
 
-    private readonly IBlogDbContext _blogContext;
+    private readonly IMongoHelper<Domain.ArticleCategory.ArticleCategory> _articleCategoryHelper;
     private readonly IMapper _mapper;
 
-    public FilterArticleCategoriesQueryHandler(IBlogDbContext blogContext, IMapper mapper)
+    public FilterArticleCategoriesQueryHandler(IMongoHelper<Domain.ArticleCategory.ArticleCategory> articleCategoryHelper, IMapper mapper)
     {
-        _blogContext = Guard.Against.Null(blogContext, nameof(_blogContext));
+        _articleCategoryHelper = Guard.Against.Null(articleCategoryHelper, nameof(_articleCategoryHelper));
         _mapper = Guard.Against.Null(mapper, nameof(_mapper));
     }
 
@@ -21,7 +21,7 @@ public class FilterArticleCategoriesQueryHandler : IRequestHandler<FilterArticle
 
     public async Task<Response<FilterArticleCategoryDto>> Handle(FilterArticleCategoriesQuery request, CancellationToken cancellationToken)
     {
-        var query = _blogContext.ArticleCategories.AsQueryable();
+        var query = _articleCategoryHelper.AsQueryable();
 
         #region filter
 
@@ -55,17 +55,16 @@ public class FilterArticleCategoriesQueryHandler : IRequestHandler<FilterArticle
 
         #endregion filter
 
+
         #region paging
 
-        var pager = Pager.Build(request.Filter.PageId, await query.CountAsync(cancellationToken),
-            request.Filter.TakePage, request.Filter.ShownPages);
-        var allEntities = (await query
-                .DocumentPaging(pager)
-                .ToListAsyncSafe()
-             )
+        var pager = request.Filter.BuildPager(query.Count());
+
+        var allEntities =
+            _articleCategoryHelper
+            .ApplyPagination(query, pager)
             .Select(article =>
-                _mapper.Map(article, new ArticleCategoryDto()))
-            .ToList();
+                _mapper.Map(article, new ArticleCategoryDto()));
 
         #endregion paging
 

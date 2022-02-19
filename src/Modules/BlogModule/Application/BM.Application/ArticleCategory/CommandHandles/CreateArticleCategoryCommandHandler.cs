@@ -8,12 +8,12 @@ public class CreateArticleCategoryCommandHandler : IRequestHandler<CreateArticle
 {
     #region Ctor
 
-    private readonly IBlogDbContext _blogContext;
+    private readonly IMongoHelper<Domain.ArticleCategory.ArticleCategory> _articleCategoryHelper;
     private readonly IMapper _mapper;
 
-    public CreateArticleCategoryCommandHandler(IBlogDbContext blogContext, IMapper mapper)
+    public CreateArticleCategoryCommandHandler(IMongoHelper<Domain.ArticleCategory.ArticleCategory> articleCategoryHelper, IMapper mapper)
     {
-        _blogContext = Guard.Against.Null(blogContext, nameof(_blogContext));
+        _articleCategoryHelper = Guard.Against.Null(articleCategoryHelper, nameof(_articleCategoryHelper));
         _mapper = Guard.Against.Null(mapper, nameof(_mapper));
     }
 
@@ -21,7 +21,7 @@ public class CreateArticleCategoryCommandHandler : IRequestHandler<CreateArticle
 
     public async Task<Response<string>> Handle(CreateArticleCategoryCommand request, CancellationToken cancellationToken)
     {
-        if (await _blogContext.ArticleCategories.AsQueryable().AnyAsync(x => x.Title == request.ArticleCategory.Title))
+        if (await _articleCategoryHelper.ExistsAsync(x => x.Title == request.ArticleCategory.Title))
             throw new ApiException(ApplicationErrorMessage.IsDuplicatedMessage);
 
         var articleCategory =
@@ -34,7 +34,7 @@ public class CreateArticleCategoryCommandHandler : IRequestHandler<CreateArticle
 
         articleCategory.ImagePath = imagePath;
 
-        await _blogContext.ArticleCategories.InsertOneAsync(articleCategory);
+        await _articleCategoryHelper.InsertAsync(articleCategory);
 
         return new Response<string>(ApplicationErrorMessage.OperationSucceddedMessage);
     }

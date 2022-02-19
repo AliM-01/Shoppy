@@ -7,12 +7,12 @@ public class EditArticleCategoryCommandHandler : IRequestHandler<EditArticleCate
 {
     #region Ctor
 
-    private readonly IBlogDbContext _blogContext;
+    private readonly IMongoHelper<Domain.ArticleCategory.ArticleCategory> _articleCategoryHelper;
     private readonly IMapper _mapper;
 
-    public EditArticleCategoryCommandHandler(IBlogDbContext blogContext, IMapper mapper)
+    public EditArticleCategoryCommandHandler(IMongoHelper<Domain.ArticleCategory.ArticleCategory> articleCategoryHelper, IMapper mapper)
     {
-        _blogContext = Guard.Against.Null(blogContext, nameof(_blogContext));
+        _articleCategoryHelper = Guard.Against.Null(articleCategoryHelper, nameof(_articleCategoryHelper));
         _mapper = Guard.Against.Null(mapper, nameof(_mapper));
     }
 
@@ -20,15 +20,12 @@ public class EditArticleCategoryCommandHandler : IRequestHandler<EditArticleCate
 
     public async Task<Response<string>> Handle(EditArticleCategoryCommand request, CancellationToken cancellationToken)
     {
-        var articleCategory = (
-            await _blogContext.ArticleCategories.FindAsync(
-                MongoDbFilters<Domain.ArticleCategory.ArticleCategory>.GetByIdFilter(request.ArticleCategory.Id))
-            ).FirstOrDefault();
+        var articleCategory = await _articleCategoryHelper.GetByIdAsync(request.ArticleCategory.Id);
 
         if (articleCategory is null)
             throw new NotFoundApiException();
 
-        if (await _blogContext.ArticleCategories.AsQueryable().AnyAsync(x => x.Title == request.ArticleCategory.Title && x.Id != request.ArticleCategory.Id))
+        if (await _articleCategoryHelper.ExistsAsync(x => x.Title == request.ArticleCategory.Title && x.Id != request.ArticleCategory.Id))
             throw new ApiException(ApplicationErrorMessage.IsDuplicatedMessage);
 
         _mapper.Map(request.ArticleCategory, articleCategory);
@@ -43,8 +40,7 @@ public class EditArticleCategoryCommandHandler : IRequestHandler<EditArticleCate
             articleCategory.ImagePath = imagePath;
         }
 
-        await _blogContext.ArticleCategories.ReplaceOneAsync(
-            MongoDbFilters<Domain.ArticleCategory.ArticleCategory>.GetByIdFilter(articleCategory.Id), articleCategory);
+        await _articleCategoryHelper.UpdateAsync(articleCategory);
 
         return new Response<string>();
     }
