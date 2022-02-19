@@ -1,10 +1,8 @@
-﻿using _01_Shoppy.Query.Helpers.Comment;
+﻿using _0_Framework.Infrastructure.Helpers;
+using _01_Shoppy.Query.Helpers.Comment;
 using _01_Shoppy.Query.Models.Comment;
 using AutoMapper;
 using CM.Domain.Comment;
-using CM.Infrastructure.Persistence.Context;
-using MongoDB.Bson;
-using MongoDB.Driver;
 
 namespace _01_Shoppy.Query.Queries.Comment;
 
@@ -15,13 +13,13 @@ public class GetRecordCommentsByIdQueryHandler : IRequestHandler<GetRecordCommen
 {
     #region Ctor
 
-    private readonly ICommentDbContext _commentContext;
+    private readonly IMongoHelper<CM.Domain.Comment.Comment> _commentHelper;
     private readonly IMapper _mapper;
 
     public GetRecordCommentsByIdQueryHandler(
-        ICommentDbContext commentContext, IMapper mapper)
+        IMongoHelper<CM.Domain.Comment.Comment> commentHelper, IMapper mapper)
     {
-        _commentContext = Guard.Against.Null(commentContext, nameof(_commentContext));
+        _commentHelper = Guard.Against.Null(commentHelper, nameof(_commentHelper));
         _mapper = Guard.Against.Null(mapper, nameof(_mapper));
     }
 
@@ -34,8 +32,9 @@ public class GetRecordCommentsByIdQueryHandler : IRequestHandler<GetRecordCommen
              & Builders<CM.Domain.Comment.Comment>.Filter.Eq(x => x.State, CommentState.Confirmed);
 
         var comments = (
-            await _commentContext.Comments
-                .FindAsync(filter)
+            _commentHelper.GetQuery()
+            .Where(x => x.ParentId == null)
+            .Where(x => x.OwnerRecordId == request.RecordId && x.State == CommentState.Confirmed)
             )
             .ToList()
             .MapComments(_mapper);
@@ -43,7 +42,7 @@ public class GetRecordCommentsByIdQueryHandler : IRequestHandler<GetRecordCommen
         for (int i = 0; i < comments.Count; i++)
         {
             var replies = (
-                await _commentContext.Comments.FindAsync(new BsonDocument("parentId", comments[i].Id.ToString()))
+                _commentHelper.GetQuery().Where(x => x.ParentId == comments[i].Id.ToString())
                 )
                 .ToList()
                 .MapComments(_mapper)

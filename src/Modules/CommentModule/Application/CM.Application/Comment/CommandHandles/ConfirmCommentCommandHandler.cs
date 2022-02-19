@@ -6,12 +6,12 @@ public class ConfirmCommentCommandHandler : IRequestHandler<ConfirmCommentComman
 {
     #region Ctor
 
-    private readonly ICommentDbContext _commentContext;
+    private readonly IMongoHelper<Domain.Comment.Comment> _commentHelper;
     private readonly IMapper _mapper;
 
-    public ConfirmCommentCommandHandler(ICommentDbContext commentContext, IMapper mapper)
+    public ConfirmCommentCommandHandler(IMongoHelper<Domain.Comment.Comment> commentHelper, IMapper mapper)
     {
-        _commentContext = Guard.Against.Null(commentContext, nameof(_commentContext));
+        _commentHelper = Guard.Against.Null(commentHelper, nameof(_commentHelper));
         _mapper = Guard.Against.Null(mapper, nameof(_mapper));
     }
 
@@ -19,20 +19,15 @@ public class ConfirmCommentCommandHandler : IRequestHandler<ConfirmCommentComman
 
     public async Task<Response<string>> Handle(ConfirmCommentCommand request, CancellationToken cancellationToken)
     {
-        var filter = Builders<Domain.Comment.Comment>.Filter.Eq(x => x.Id, request.CommentId);
-
-        var comment = (await _commentContext.Comments.FindAsync(filter)).FirstOrDefault();
+        var comment = await _commentHelper.GetByIdAsync(request.CommentId);
 
         if (comment is null)
             throw new NotFoundApiException();
 
-        comment.State = CommentState.Confirmed;
+        comment.State = CommentState.Canceled;
 
-        var res = await _commentContext.Comments.ReplaceOneAsync(filter, comment, new ReplaceOptions { IsUpsert = false });
+        await _commentHelper.UpdateAsync(comment);
 
-        if (res.IsAcknowledged && res.ModifiedCount > 0)
-            return new Response<string>("کامنت مورد نظر با موفقیت تایید شد");
-
-        throw new ApiException(ApplicationErrorMessage.RecordNotFoundMessage);
+        return new Response<string>("کامنت مورد نظر با موفقیت تایید شد");
     }
 }
