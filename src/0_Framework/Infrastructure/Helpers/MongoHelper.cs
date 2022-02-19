@@ -35,6 +35,7 @@ public class MongoHelper<TDocument, TSettings> : IMongoHelper<TDocument>
 
     #endregion
 
+
     #region GetQuery
 
     public IMongoQueryable<TDocument> AsQueryable()
@@ -60,6 +61,22 @@ public class MongoHelper<TDocument, TSettings> : IMongoHelper<TDocument>
     public async Task<bool> ExistsAsync(Expression<Func<TDocument, bool>> expression)
     {
         return await _context.AsQueryable().AnyAsync(expression);
+    }
+
+    #endregion
+
+    #region GetByFilter
+
+    public async Task<TDocument> GetByFilter(FilterDefinition<TDocument> filter)
+    {
+        var res = await _context.FindAsync(filter);
+
+        var document = await res.FirstOrDefaultAsync();
+
+        if (document is null)
+            throw new NotFoundApiException();
+
+        return document;
     }
 
     #endregion

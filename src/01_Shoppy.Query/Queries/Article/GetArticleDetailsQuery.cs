@@ -1,5 +1,4 @@
 ﻿using _0_Framework.Application.Exceptions;
-using _0_Framework.Infrastructure;
 using _0_Framework.Infrastructure.Helpers;
 using _01_Shoppy.Query.Models.Blog.Article;
 using AutoMapper;
@@ -29,20 +28,9 @@ public class GetArticleDetailsQueryHandler : IRequestHandler<GetArticleDetailsQu
         if (string.IsNullOrEmpty(request.Slug))
             throw new NotFoundApiException();
 
-        var articles = await _articleHelper.AsQueryable()
-            .Select(x => new
-            {
-                x.Slug,
-                x.Id
-            })
-            .ToListAsyncSafe();
+        var filter = Builders<BM.Domain.Article.Article>.Filter.Eq(x => x.Slug, request.Slug);
 
-        var existsArticle = articles.FirstOrDefault(x => x.Slug == request.Slug);
-
-        if (existsArticle is not null)
-            throw new NotFoundApiException();
-
-        var article = await _articleHelper.GetByIdAsync(existsArticle.Id);
+        var article = await _articleHelper.GetByFilter(filter);
 
         return new Response<ArticleDetailsQueryModel>(
             _mapper.Map(article, new ArticleDetailsQueryModel()));
