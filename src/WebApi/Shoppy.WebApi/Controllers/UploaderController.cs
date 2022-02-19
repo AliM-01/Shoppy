@@ -26,7 +26,7 @@ public class UploaderController : ControllerBase
 
         var imagePath = DateTime.Now.ToFileName() + Path.GetExtension(upload.FileName);
 
-        upload.AddImageToServer(imagePath, $"wwwroot/editor-upload/{day}/", null, null);
+        upload.AddImageToServer(imagePath, $"wwwroot/editor-upload/{day}/", 150, 150);
 
         return new JsonResult(new
         {

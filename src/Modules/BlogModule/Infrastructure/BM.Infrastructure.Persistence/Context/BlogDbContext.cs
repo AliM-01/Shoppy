@@ -1,5 +1,6 @@
 ﻿using BM.Domain.Article;
 using BM.Domain.ArticleCategory;
+using BM.Infrastructure.Persistence.Seed;
 using BM.Infrastructure.Persistence.Settings;
 using Microsoft.Extensions.Options;
 using MongoDB.Driver;
@@ -31,6 +32,9 @@ public class BlogDbContext : IBlogDbContext
 
         ArticleCategories = db.GetCollection<ArticleCategory>(_settings.ArticleCategoryCollection);
         Articles = db.GetCollection<Article>(_settings.ArticleCollection);
+
+        var categories = BlogDbDataSeed.SeedArticleCategoryData(ArticleCategories);
+        BlogDbDataSeed.SeedArticleData(Articles, categories);
     }
 
     #endregion
