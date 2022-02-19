@@ -50,8 +50,7 @@ public class FilterCommentsQueryHandler : IRequestHandler<FilterCommentsQuery, R
 
         #region paging
 
-        var pager = Pager.Build(request.Filter.PageId, query.Count(),
-            request.Filter.TakePage, request.Filter.ShownPages);
+        var pager = request.Filter.BuildPager(query.Count());
 
         var allEntities =
              _commentHelper
