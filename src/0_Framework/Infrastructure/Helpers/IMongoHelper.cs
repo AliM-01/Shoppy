@@ -1,5 +1,7 @@
-﻿using _0_Framework.Domain;
+﻿using _0_Framework.Application.Models.Paging;
+using _0_Framework.Domain;
 using MongoDB.Driver.Linq;
+using System.Collections.Generic;
 using System.Linq.Expressions;
 
 namespace _0_Framework.Infrastructure.Helpers;
@@ -8,6 +10,8 @@ public interface IMongoHelper<TDocument>
     where TDocument : EntityBase
 {
     IMongoQueryable<TDocument> AsQueryable();
+
+    List<TDocument> GetPagination(IMongoQueryable<TDocument> query, BasePaging pager);
 
     Task<bool> ExistsAsync(Expression<Func<TDocument, bool>> expression);
 

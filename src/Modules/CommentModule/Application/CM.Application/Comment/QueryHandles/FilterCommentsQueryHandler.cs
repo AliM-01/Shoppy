@@ -1,5 +1,4 @@
 ﻿using _0_Framework.Application.Models.Paging;
-using _0_Framework.Infrastructure;
 using CM.Application.Contracts.Comment.DTOs;
 using CM.Application.Contracts.Inventory.Queries;
 using CM.Domain.Comment;
@@ -55,12 +54,10 @@ public class FilterCommentsQueryHandler : IRequestHandler<FilterCommentsQuery, R
             request.Filter.TakePage, request.Filter.ShownPages);
 
         var allEntities =
-             (await query
-                .DocumentPaging(pager)
-                .ToListAsyncSafe()
-             )
-            .Select(c => _mapper.Map(c, new CommentDto()))
-            .ToList();
+             _commentHelper
+             .GetPagination(query, pager)
+             .Select(c => _mapper.Map(c, new CommentDto()))
+             .ToList();
 
         #endregion paging
 

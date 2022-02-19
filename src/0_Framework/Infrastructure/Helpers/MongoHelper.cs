@@ -1,8 +1,10 @@
 ﻿using _0_Framework.Application.Exceptions;
+using _0_Framework.Application.Models.Paging;
 using _0_Framework.Domain;
 using Microsoft.Extensions.Options;
 using MongoDB.Driver;
 using MongoDB.Driver.Linq;
+using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 
@@ -38,6 +40,17 @@ public class MongoHelper<TDocument, TSettings> : IMongoHelper<TDocument>
     public IMongoQueryable<TDocument> AsQueryable()
     {
         return _context.AsQueryable();
+    }
+
+    #endregion
+
+    #region GetPagination
+
+    public List<TDocument> GetPagination(IMongoQueryable<TDocument> query, BasePaging pager)
+    {
+        return query
+                .DocumentPaging(pager)
+                .ToListSafe();
     }
 
     #endregion
