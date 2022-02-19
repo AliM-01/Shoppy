@@ -6,27 +6,29 @@ public class DeleteArticleCategoryCommandHandler : IRequestHandler<DeleteArticle
 {
     #region Ctor
 
-    private readonly IGenericRepository<Domain.ArticleCategory.ArticleCategory> _articleCategoryRepository;
+    private readonly IBlogDbContext _blogContext;
 
-    public DeleteArticleCategoryCommandHandler(IGenericRepository<Domain.ArticleCategory.ArticleCategory> articleCategoryRepository)
+    public DeleteArticleCategoryCommandHandler(IBlogDbContext blogContext)
     {
-        _articleCategoryRepository = Guard.Against.Null(articleCategoryRepository, nameof(_articleCategoryRepository));
+        _blogContext = Guard.Against.Null(blogContext, nameof(_blogContext));
     }
 
     #endregion
 
     public async Task<Response<string>> Handle(DeleteArticleCategoryCommand request, CancellationToken cancellationToken)
     {
-        var ArticleCategory = await _articleCategoryRepository.GetEntityById(request.ArticleCategoryId);
+        var articleCategory = (
+            await _blogContext.ArticleCategories.FindAsync(MongoDbFilters<Domain.ArticleCategory.ArticleCategory>.GetByIdFilter(request.ArticleCategoryId))
+            ).FirstOrDefault();
 
-        if (ArticleCategory is null)
+        if (articleCategory is null)
             throw new NotFoundApiException();
 
-        File.Delete(PathExtension.ArticleCategoryImage + ArticleCategory.ImagePath);
-        File.Delete(PathExtension.ArticleCategoryThumbnailImage + ArticleCategory.ImagePath);
+        File.Delete(PathExtension.ArticleCategoryImage + articleCategory.ImagePath);
+        File.Delete(PathExtension.ArticleCategoryThumbnailImage + articleCategory.ImagePath);
 
-        await _articleCategoryRepository.FullDelete(ArticleCategory.Id);
-        await _articleCategoryRepository.SaveChanges();
+        await _blogContext.ArticleCategories.DeleteOneAsync(
+            MongoDbFilters<Domain.ArticleCategory.ArticleCategory>.GetByIdFilter(articleCategory.Id));
 
         return new Response<string>(ApplicationErrorMessage.RecordDeletedMessage);
     }

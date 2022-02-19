@@ -19,7 +19,9 @@ public class GetArticleDetailsQueryHandler : IRequestHandler<GetArticleDetailsQu
 
     public async Task<Response<EditArticleDto>> Handle(GetArticleDetailsQuery request, CancellationToken cancellationToken)
     {
-        var article = await _blogContext.Articles.FindAsync(filter: x => x.Id == request.Id);
+        var article = (
+            await _blogContext.Articles.FindAsync(MongoDbFilters<Domain.Article.Article>.GetByIdFilter(request.Id))
+            ).FirstOrDefault();
 
         if (article is null)
             throw new NotFoundApiException();

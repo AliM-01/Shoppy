@@ -8,12 +8,12 @@ public class CreateArticleCategoryCommandHandler : IRequestHandler<CreateArticle
 {
     #region Ctor
 
-    private readonly IGenericRepository<Domain.ArticleCategory.ArticleCategory> _articleCategoryRepository;
+    private readonly IBlogDbContext _blogContext;
     private readonly IMapper _mapper;
 
-    public CreateArticleCategoryCommandHandler(IGenericRepository<Domain.ArticleCategory.ArticleCategory> articleCategoryRepository, IMapper mapper)
+    public CreateArticleCategoryCommandHandler(IBlogDbContext blogContext, IMapper mapper)
     {
-        _articleCategoryRepository = Guard.Against.Null(articleCategoryRepository, nameof(_articleCategoryRepository));
+        _blogContext = Guard.Against.Null(blogContext, nameof(_blogContext));
         _mapper = Guard.Against.Null(mapper, nameof(_mapper));
     }
 
@@ -21,7 +21,7 @@ public class CreateArticleCategoryCommandHandler : IRequestHandler<CreateArticle
 
     public async Task<Response<string>> Handle(CreateArticleCategoryCommand request, CancellationToken cancellationToken)
     {
-        if (_articleCategoryRepository.Exists(x => x.Title == request.ArticleCategory.Title))
+        if (await _blogContext.ArticleCategories.AsQueryable().AnyAsync(x => x.Title == request.ArticleCategory.Title))
             throw new ApiException(ApplicationErrorMessage.IsDuplicatedMessage);
 
         var articleCategory =
@@ -34,8 +34,7 @@ public class CreateArticleCategoryCommandHandler : IRequestHandler<CreateArticle
 
         articleCategory.ImagePath = imagePath;
 
-        await _articleCategoryRepository.InsertEntity(articleCategory);
-        await _articleCategoryRepository.SaveChanges();
+        await _blogContext.ArticleCategories.InsertOneAsync(articleCategory);
 
         return new Response<string>(ApplicationErrorMessage.OperationSucceddedMessage);
     }

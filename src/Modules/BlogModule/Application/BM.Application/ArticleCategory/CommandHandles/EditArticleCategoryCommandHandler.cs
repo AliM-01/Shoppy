@@ -7,12 +7,12 @@ public class EditArticleCategoryCommandHandler : IRequestHandler<EditArticleCate
 {
     #region Ctor
 
-    private readonly IGenericRepository<Domain.ArticleCategory.ArticleCategory> _articleCategoryRepository;
+    private readonly IBlogDbContext _blogContext;
     private readonly IMapper _mapper;
 
-    public EditArticleCategoryCommandHandler(IGenericRepository<Domain.ArticleCategory.ArticleCategory> articleCategoryRepository, IMapper mapper)
+    public EditArticleCategoryCommandHandler(IBlogDbContext blogContext, IMapper mapper)
     {
-        _articleCategoryRepository = Guard.Against.Null(articleCategoryRepository, nameof(_articleCategoryRepository));
+        _blogContext = Guard.Against.Null(blogContext, nameof(_blogContext));
         _mapper = Guard.Against.Null(mapper, nameof(_mapper));
     }
 
@@ -20,28 +20,31 @@ public class EditArticleCategoryCommandHandler : IRequestHandler<EditArticleCate
 
     public async Task<Response<string>> Handle(EditArticleCategoryCommand request, CancellationToken cancellationToken)
     {
-        var ArticleCategory = await _articleCategoryRepository.GetEntityById(request.ArticleCategory.Id);
+        var articleCategory = (
+            await _blogContext.ArticleCategories.FindAsync(
+                MongoDbFilters<Domain.ArticleCategory.ArticleCategory>.GetByIdFilter(request.ArticleCategory.Id))
+            ).FirstOrDefault();
 
-        if (ArticleCategory is null)
+        if (articleCategory is null)
             throw new NotFoundApiException();
 
-        if (_articleCategoryRepository.Exists(x => x.Title == request.ArticleCategory.Title && x.Id != request.ArticleCategory.Id))
+        if (await _blogContext.ArticleCategories.AsQueryable().AnyAsync(x => x.Title == request.ArticleCategory.Title && x.Id != request.ArticleCategory.Id))
             throw new ApiException(ApplicationErrorMessage.IsDuplicatedMessage);
 
-        _mapper.Map(request.ArticleCategory, ArticleCategory);
+        _mapper.Map(request.ArticleCategory, articleCategory);
 
         if (request.ArticleCategory.ImageFile != null)
         {
             var imagePath = DateTime.Now.ToFileName() + Path.GetExtension(request.ArticleCategory.ImageFile.FileName);
 
             request.ArticleCategory.ImageFile.AddImageToServer(imagePath, PathExtension.ArticleCategoryImage,
-                200, 200, PathExtension.ArticleCategoryThumbnailImage, ArticleCategory.ImagePath);
+                200, 200, PathExtension.ArticleCategoryThumbnailImage, articleCategory.ImagePath);
 
-            ArticleCategory.ImagePath = imagePath;
+            articleCategory.ImagePath = imagePath;
         }
 
-        _articleCategoryRepository.Update(ArticleCategory);
-        await _articleCategoryRepository.SaveChanges();
+        await _blogContext.ArticleCategories.ReplaceOneAsync(
+            MongoDbFilters<Domain.ArticleCategory.ArticleCategory>.GetByIdFilter(articleCategory.Id), articleCategory);
 
         return new Response<string>();
     }

@@ -1,4 +1,5 @@
 ﻿using _0_Framework.Application.Extensions;
+using _0_Framework.Infrastructure;
 using BM.Application.Contracts.Article.Commands;
 
 namespace BM.Application.Article.CommandHandles;
@@ -21,7 +22,8 @@ public class EditArticleCommandHandler : IRequestHandler<EditArticleCommand, Res
     public async Task<Response<string>> Handle(EditArticleCommand request, CancellationToken cancellationToken)
     {
         var article = (
-            await _blogContext.Articles.FindAsync(filter: x => x.Id == request.Article.Id)
+            await _blogContext.Articles.FindAsync(
+                MongoDbFilters<Domain.Article.Article>.GetByIdFilter(request.Article.Id))
             ).FirstOrDefault();
 
         if (article is null)
@@ -42,7 +44,8 @@ public class EditArticleCommandHandler : IRequestHandler<EditArticleCommand, Res
             article.ImagePath = imagePath;
         }
 
-        await _blogContext.Articles.ReplaceOneAsync(filter: x => x.Id == article.Id, article);
+        await _blogContext.Articles.ReplaceOneAsync(
+            MongoDbFilters<Domain.Article.Article>.GetByIdFilter(article.Id), article);
 
         return new Response<string>();
     }

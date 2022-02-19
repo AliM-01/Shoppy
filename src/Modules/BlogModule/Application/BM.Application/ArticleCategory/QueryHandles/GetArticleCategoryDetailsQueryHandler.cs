@@ -6,12 +6,12 @@ public class GetArticleCategoryDetailsQueryHandler : IRequestHandler<GetArticleC
 {
     #region Ctor
 
-    private readonly IGenericRepository<Domain.ArticleCategory.ArticleCategory> _articleCategoryRepository;
+    private readonly IBlogDbContext _blogContext;
     private readonly IMapper _mapper;
 
-    public GetArticleCategoryDetailsQueryHandler(IGenericRepository<Domain.ArticleCategory.ArticleCategory> articleCategoryRepository, IMapper mapper)
+    public GetArticleCategoryDetailsQueryHandler(IBlogDbContext blogContext, IMapper mapper)
     {
-        _articleCategoryRepository = Guard.Against.Null(articleCategoryRepository, nameof(_articleCategoryRepository));
+        _blogContext = Guard.Against.Null(blogContext, nameof(_blogContext));
         _mapper = Guard.Against.Null(mapper, nameof(_mapper));
     }
 
@@ -19,12 +19,14 @@ public class GetArticleCategoryDetailsQueryHandler : IRequestHandler<GetArticleC
 
     public async Task<Response<EditArticleCategoryDto>> Handle(GetArticleCategoryDetailsQuery request, CancellationToken cancellationToken)
     {
-        var ArticleCategory = await _articleCategoryRepository.GetEntityById(request.Id);
+        var articleCategory = (
+            await _blogContext.ArticleCategories.FindAsync(MongoDbFilters<Domain.ArticleCategory.ArticleCategory>.GetByIdFilter(request.Id))
+            ).FirstOrDefault();
 
-        if (ArticleCategory is null)
+        if (articleCategory is null)
             throw new NotFoundApiException();
 
-        var mappedArticleCategory = _mapper.Map<EditArticleCategoryDto>(ArticleCategory);
+        var mappedArticleCategory = _mapper.Map<EditArticleCategoryDto>(articleCategory);
 
         return new Response<EditArticleCategoryDto>(mappedArticleCategory);
     }

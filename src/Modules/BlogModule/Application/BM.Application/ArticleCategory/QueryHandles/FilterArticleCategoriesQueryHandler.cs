@@ -8,12 +8,12 @@ public class FilterArticleCategoriesQueryHandler : IRequestHandler<FilterArticle
 {
     #region Ctor
 
-    private readonly IGenericRepository<Domain.ArticleCategory.ArticleCategory> _articleCategoryRepository;
+    private readonly IBlogDbContext _blogContext;
     private readonly IMapper _mapper;
 
-    public FilterArticleCategoriesQueryHandler(IGenericRepository<Domain.ArticleCategory.ArticleCategory> articleCategoryRepository, IMapper mapper)
+    public FilterArticleCategoriesQueryHandler(IBlogDbContext blogContext, IMapper mapper)
     {
-        _articleCategoryRepository = Guard.Against.Null(articleCategoryRepository, nameof(_articleCategoryRepository));
+        _blogContext = Guard.Against.Null(blogContext, nameof(_blogContext));
         _mapper = Guard.Against.Null(mapper, nameof(_mapper));
     }
 
@@ -21,7 +21,7 @@ public class FilterArticleCategoriesQueryHandler : IRequestHandler<FilterArticle
 
     public async Task<Response<FilterArticleCategoryDto>> Handle(FilterArticleCategoriesQuery request, CancellationToken cancellationToken)
     {
-        var query = _articleCategoryRepository.GetQuery().AsQueryable();
+        var query = _blogContext.ArticleCategories.AsQueryable();
 
         #region filter
 
@@ -31,11 +31,11 @@ public class FilterArticleCategoriesQueryHandler : IRequestHandler<FilterArticle
         switch (request.Filter.SortDateOrder)
         {
             case PagingDataSortCreationDateOrder.DES:
-                query = query.OrderByDescending(x => x.CreationDate).AsQueryable();
+                query = query.OrderByDescending(x => x.CreationDate);
                 break;
 
             case PagingDataSortCreationDateOrder.ASC:
-                query = query.OrderBy(x => x.CreationDate).AsQueryable();
+                query = query.OrderBy(x => x.CreationDate);
                 break;
         }
 
@@ -45,11 +45,11 @@ public class FilterArticleCategoriesQueryHandler : IRequestHandler<FilterArticle
                 break;
 
             case PagingDataSortIdOrder.DES:
-                query = query.OrderByDescending(x => x.Id).AsQueryable();
+                query = query.OrderByDescending(x => x.Id);
                 break;
 
             case PagingDataSortIdOrder.ASC:
-                query = query.OrderBy(x => x.Id).AsQueryable();
+                query = query.OrderBy(x => x.Id);
                 break;
         }
 
@@ -59,11 +59,13 @@ public class FilterArticleCategoriesQueryHandler : IRequestHandler<FilterArticle
 
         var pager = Pager.Build(request.Filter.PageId, await query.CountAsync(cancellationToken),
             request.Filter.TakePage, request.Filter.ShownPages);
-        var allEntities = await query.Paging(pager)
-            .AsQueryable()
-            .Select(Article =>
-                _mapper.Map(Article, new ArticleCategoryDto()))
-            .ToListAsync(cancellationToken);
+        var allEntities = (await query
+                .DocumentPaging(pager)
+                .ToListAsyncSafe()
+             )
+            .Select(article =>
+                _mapper.Map(article, new ArticleCategoryDto()))
+            .ToList();
 
         #endregion paging
 

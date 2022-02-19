@@ -1,18 +1,17 @@
 ﻿using BM.Application.Contracts.ArticleCategory.DTOs;
 using BM.Application.Contracts.ArticleCategory.Queries;
-using Microsoft.EntityFrameworkCore;
 
 namespace BM.Application.ArticleCategory.QueryHandles;
 public class GetArticleCategoriesSelectListQueryHandler : IRequestHandler<GetArticleCategoriesSelectListQuery, Response<IEnumerable<ArticleCategoryForSelectListDto>>>
 {
     #region Ctor
 
-    private readonly IGenericRepository<Domain.ArticleCategory.ArticleCategory> _articleCategoryRepository;
+    private readonly IBlogDbContext _blogContext;
     private readonly IMapper _mapper;
 
-    public GetArticleCategoriesSelectListQueryHandler(IGenericRepository<Domain.ArticleCategory.ArticleCategory> articleCategoryRepository, IMapper mapper)
+    public GetArticleCategoriesSelectListQueryHandler(IBlogDbContext blogContext, IMapper mapper)
     {
-        _articleCategoryRepository = Guard.Against.Null(articleCategoryRepository, nameof(_articleCategoryRepository));
+        _blogContext = Guard.Against.Null(blogContext, nameof(_blogContext));
         _mapper = Guard.Against.Null(mapper, nameof(_mapper));
     }
 
@@ -20,15 +19,18 @@ public class GetArticleCategoriesSelectListQueryHandler : IRequestHandler<GetArt
 
     public async Task<Response<IEnumerable<ArticleCategoryForSelectListDto>>> Handle(GetArticleCategoriesSelectListQuery request, CancellationToken cancellationToken)
     {
-        var categories = await
-            _articleCategoryRepository.GetQuery()
+        var categories = (await
+            _blogContext.ArticleCategories
+            .AsQueryable()
             .OrderByDescending(p => p.LastUpdateDate)
+            .ToListAsyncSafe()
+            )
             .Select(Article => new ArticleCategoryForSelectListDto
             {
                 Id = Article.Id,
                 Title = Article.Title
             })
-            .ToListAsync(cancellationToken);
+            .ToList();
 
         if (categories is null)
             throw new NotFoundApiException();
