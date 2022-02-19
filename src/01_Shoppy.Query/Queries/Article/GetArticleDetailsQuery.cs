@@ -1,4 +1,5 @@
 ﻿using _0_Framework.Application.Exceptions;
+using _0_Framework.Infrastructure;
 using _01_Shoppy.Query.Models.Blog.Article;
 using AutoMapper;
 using BM.Infrastructure.Persistence.Context;
@@ -28,11 +29,11 @@ public class GetArticleDetailsQueryHandler : IRequestHandler<GetArticleDetailsQu
         if (string.IsNullOrEmpty(request.Slug))
             throw new NotFoundApiException();
 
-        var articles = await _blogContext.Articles.Select(x => new
+        var articles = await _blogContext.Articles.AsQueryable().Select(x => new
         {
             x.Slug,
             x.Id
-        }).ToListAsync();
+        }).ToListAsyncSafe();
 
         var existsArticle = articles.FirstOrDefault(x => x.Slug == request.Slug);
 
@@ -40,8 +41,8 @@ public class GetArticleDetailsQueryHandler : IRequestHandler<GetArticleDetailsQu
             throw new NotFoundApiException();
 
         var article = _blogContext.Articles
-                .Where(x => x.Id == existsArticle.Id)
                 .AsQueryable()
+                .Where(x => x.Id == existsArticle.Id)
                 .Select(c =>
                    _mapper.Map(c, new ArticleDetailsQueryModel()))
                 .FirstOrDefault();

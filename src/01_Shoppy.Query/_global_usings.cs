@@ -3,6 +3,8 @@ global using _01_Shoppy.Query.Models.Product;
 global using Ardalis.GuardClauses;
 global using MediatR;
 global using Microsoft.EntityFrameworkCore;
+global using MongoDB.Driver;
+global using MongoDB.Driver.Linq;
 global using Newtonsoft.Json;
 global using System.ComponentModel.DataAnnotations;
 

@@ -1,4 +1,5 @@
-﻿using _01_Shoppy.Query.Models.Blog.Article;
+﻿using _0_Framework.Infrastructure;
+using _01_Shoppy.Query.Models.Blog.Article;
 using AutoMapper;
 using BM.Infrastructure.Persistence.Context;
 
@@ -24,11 +25,12 @@ public class GetLatestArticlesQueryHandler : IRequestHandler<GetLatestArticlesQu
     public async Task<Response<IEnumerable<ArticleQueryModel>>> Handle(GetLatestArticlesQuery request, CancellationToken cancellationToken)
     {
         var latestArticles = await _blogContext.Articles
+               .AsQueryable()
                .OrderByDescending(x => x.LastUpdateDate)
                .Take(8)
                .Select(Article =>
                    _mapper.Map(Article, new ArticleQueryModel()))
-               .ToListAsync();
+               .ToListAsyncSafe();
 
         return new Response<IEnumerable<ArticleQueryModel>>(latestArticles);
     }
