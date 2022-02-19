@@ -1,6 +1,8 @@
 ﻿
 using _0_Framework.Application.Extensions;
 using BM.Application.Contracts.Article.Commands;
+using MongoDB.Driver;
+using MongoDB.Driver.Linq;
 
 namespace BM.Application.Article.CommandHandles;
 
@@ -8,12 +10,12 @@ public class CreateArticleCommandHandler : IRequestHandler<CreateArticleCommand,
 {
     #region Ctor
 
-    private readonly IGenericRepository<Domain.Article.Article> _articleRepository;
+    private readonly IBlogDbContext _blogContext;
     private readonly IMapper _mapper;
 
-    public CreateArticleCommandHandler(IGenericRepository<Domain.Article.Article> articleRepository, IMapper mapper)
+    public CreateArticleCommandHandler(IBlogDbContext blogContext, IMapper mapper)
     {
-        _articleRepository = Guard.Against.Null(articleRepository, nameof(_articleRepository));
+        _blogContext = Guard.Against.Null(blogContext, nameof(_blogContext));
         _mapper = Guard.Against.Null(mapper, nameof(_mapper));
     }
 
@@ -21,7 +23,7 @@ public class CreateArticleCommandHandler : IRequestHandler<CreateArticleCommand,
 
     public async Task<Response<string>> Handle(CreateArticleCommand request, CancellationToken cancellationToken)
     {
-        if (_articleRepository.Exists(x => x.Title == request.Article.Title))
+        if (await _blogContext.Articles.AsQueryable().AnyAsync(x => x.Title == request.Article.Title))
             throw new ApiException(ApplicationErrorMessage.IsDuplicatedMessage);
 
         var article =
@@ -34,8 +36,7 @@ public class CreateArticleCommandHandler : IRequestHandler<CreateArticleCommand,
 
         article.ImagePath = imagePath;
 
-        await _articleRepository.InsertEntity(article);
-        await _articleRepository.SaveChanges();
+        await _blogContext.Articles.InsertOneAsync(article);
 
         return new Response<string>(ApplicationErrorMessage.OperationSucceddedMessage);
     }

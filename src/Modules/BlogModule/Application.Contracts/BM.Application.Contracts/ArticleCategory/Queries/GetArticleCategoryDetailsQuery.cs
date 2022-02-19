@@ -3,4 +3,4 @@
 namespace BM.Application.Contracts.ArticleCategory.Queries;
 
 public record GetArticleCategoryDetailsQuery
-    (long Id) : IRequest<Response<EditArticleCategoryDto>>;
+    (string Id) : IRequest<Response<EditArticleCategoryDto>>;

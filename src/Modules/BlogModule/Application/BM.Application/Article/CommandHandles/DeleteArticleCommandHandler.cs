@@ -1,4 +1,6 @@
 ﻿using BM.Application.Contracts.Article.Commands;
+using MongoDB.Bson;
+using MongoDB.Driver;
 
 namespace BM.Application.Article.CommandHandles;
 
@@ -6,27 +8,28 @@ public class DeleteArticleCommandHandler : IRequestHandler<DeleteArticleCommand,
 {
     #region Ctor
 
-    private readonly IGenericRepository<Domain.Article.Article> _articleRepository;
+    private readonly IBlogDbContext _blogContext;
 
-    public DeleteArticleCommandHandler(IGenericRepository<Domain.Article.Article> articleRepository)
+    public DeleteArticleCommandHandler(IBlogDbContext blogContext)
     {
-        _articleRepository = Guard.Against.Null(articleRepository, nameof(_articleRepository));
+        _blogContext = Guard.Against.Null(blogContext, nameof(_blogContext));
     }
 
     #endregion
 
     public async Task<Response<string>> Handle(DeleteArticleCommand request, CancellationToken cancellationToken)
     {
-        var Article = await _articleRepository.GetEntityById(request.ArticleId);
+        var article = (
+            await _blogContext.Articles.FindAsync(new BsonDocument("id", request.ArticleId))
+            ).FirstOrDefault();
 
-        if (Article is null)
+        if (article is null)
             throw new NotFoundApiException();
 
-        File.Delete(PathExtension.ArticleImage + Article.ImagePath);
-        File.Delete(PathExtension.ArticleThumbnailImage + Article.ImagePath);
+        File.Delete(PathExtension.ArticleImage + article.ImagePath);
+        File.Delete(PathExtension.ArticleThumbnailImage + article.ImagePath);
 
-        await _articleRepository.FullDelete(Article.Id);
-        await _articleRepository.SaveChanges();
+        await _blogContext.Articles.DeleteOneAsync(new BsonDocument("id", article.Id));
 
         return new Response<string>(ApplicationErrorMessage.RecordDeletedMessage);
     }

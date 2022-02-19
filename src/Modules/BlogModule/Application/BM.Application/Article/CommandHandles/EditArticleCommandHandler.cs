@@ -7,12 +7,12 @@ public class EditArticleCommandHandler : IRequestHandler<EditArticleCommand, Res
 {
     #region Ctor
 
-    private readonly IGenericRepository<Domain.Article.Article> _articleRepository;
+    private readonly IBlogDbContext _blogContext;
     private readonly IMapper _mapper;
 
-    public EditArticleCommandHandler(IGenericRepository<Domain.Article.Article> articleRepository, IMapper mapper)
+    public EditArticleCommandHandler(IBlogDbContext blogContext, IMapper mapper)
     {
-        _articleRepository = Guard.Against.Null(articleRepository, nameof(_articleRepository));
+        _blogContext = Guard.Against.Null(blogContext, nameof(_blogContext));
         _mapper = Guard.Against.Null(mapper, nameof(_mapper));
     }
 
@@ -20,28 +20,29 @@ public class EditArticleCommandHandler : IRequestHandler<EditArticleCommand, Res
 
     public async Task<Response<string>> Handle(EditArticleCommand request, CancellationToken cancellationToken)
     {
-        var Article = await _articleRepository.GetEntityById(request.Article.Id);
+        var article = (
+            await _blogContext.Articles.FindAsync(filter: x => x.Id == request.Article.Id)
+            ).FirstOrDefault();
 
-        if (Article is null)
+        if (article is null)
             throw new NotFoundApiException();
 
-        if (_articleRepository.Exists(x => x.Title == request.Article.Title && x.Id != request.Article.Id))
+        if (await _blogContext.Articles.AsQueryable().AnyAsync(x => x.Title == request.Article.Title && x.Id != request.Article.Id))
             throw new ApiException(ApplicationErrorMessage.IsDuplicatedMessage);
 
-        _mapper.Map(request.Article, Article);
+        _mapper.Map(request.Article, article);
 
         if (request.Article.ImageFile != null)
         {
             var imagePath = DateTime.Now.ToFileName() + Path.GetExtension(request.Article.ImageFile.FileName);
 
             request.Article.ImageFile.AddImageToServer(imagePath, PathExtension.ArticleImage,
-                200, 200, PathExtension.ArticleThumbnailImage, Article.ImagePath);
+                200, 200, PathExtension.ArticleThumbnailImage, article.ImagePath);
 
-            Article.ImagePath = imagePath;
+            article.ImagePath = imagePath;
         }
 
-        _articleRepository.Update(Article);
-        await _articleRepository.SaveChanges();
+        await _blogContext.Articles.ReplaceOneAsync(filter: x => x.Id == article.Id, article);
 
         return new Response<string>();
     }

@@ -6,12 +6,12 @@ public class GetArticleDetailsQueryHandler : IRequestHandler<GetArticleDetailsQu
 {
     #region Ctor
 
-    private readonly IGenericRepository<Domain.Article.Article> _articleRepository;
+    private readonly IBlogDbContext _blogContext;
     private readonly IMapper _mapper;
 
-    public GetArticleDetailsQueryHandler(IGenericRepository<Domain.Article.Article> articleRepository, IMapper mapper)
+    public GetArticleDetailsQueryHandler(IBlogDbContext blogContext, IMapper mapper)
     {
-        _articleRepository = Guard.Against.Null(articleRepository, nameof(_articleRepository));
+        _blogContext = Guard.Against.Null(blogContext, nameof(_blogContext));
         _mapper = Guard.Against.Null(mapper, nameof(_mapper));
     }
 
@@ -19,12 +19,12 @@ public class GetArticleDetailsQueryHandler : IRequestHandler<GetArticleDetailsQu
 
     public async Task<Response<EditArticleDto>> Handle(GetArticleDetailsQuery request, CancellationToken cancellationToken)
     {
-        var Article = await _articleRepository.GetEntityById(request.Id);
+        var article = await _blogContext.Articles.FindAsync(filter: x => x.Id == request.Id);
 
-        if (Article is null)
+        if (article is null)
             throw new NotFoundApiException();
 
-        var mappedArticle = _mapper.Map<EditArticleDto>(Article);
+        var mappedArticle = _mapper.Map<EditArticleDto>(article);
 
         return new Response<EditArticleDto>(mappedArticle);
     }

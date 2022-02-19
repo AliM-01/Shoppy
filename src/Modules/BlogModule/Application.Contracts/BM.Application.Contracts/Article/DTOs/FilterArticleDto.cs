@@ -12,7 +12,7 @@ public class FilterArticleDto : BasePaging
 
     [JsonProperty("categoryId")]
     [Display(Name = "شناسه دسته بندی")]
-    public long CategoryId { get; set; }
+    public string CategoryId { get; set; }
 
     [JsonProperty("articles")]
     public IEnumerable<ArticleDto> Articles { get; set; }

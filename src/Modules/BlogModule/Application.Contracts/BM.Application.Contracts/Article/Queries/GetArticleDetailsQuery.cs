@@ -3,4 +3,4 @@
 namespace BM.Application.Contracts.Article.Queries;
 
 public record GetArticleDetailsQuery
-    (long Id) : IRequest<Response<EditArticleDto>>;
+    (string Id) : IRequest<Response<EditArticleDto>>;

@@ -5,6 +5,9 @@ global using _0_Framework.Application.Wrappers;
 global using _0_Framework.Domain.IGenericRepository;
 global using Ardalis.GuardClauses;
 global using AutoMapper;
+global using BM.Infrastructure.Persistence.Context;
 global using MediatR;
+global using MongoDB.Driver;
+global using MongoDB.Driver.Linq;
 
 namespace BM.Application;
