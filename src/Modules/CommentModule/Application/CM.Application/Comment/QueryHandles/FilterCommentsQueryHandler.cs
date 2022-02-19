@@ -1,6 +1,5 @@
 ﻿using _0_Framework.Application.Models.Paging;
 using _0_Framework.Infrastructure;
-using _0_Framework.Infrastructure.Helpers;
 using CM.Application.Contracts.Comment.DTOs;
 using CM.Application.Contracts.Inventory.Queries;
 using CM.Domain.Comment;
@@ -26,7 +25,7 @@ public class FilterCommentsQueryHandler : IRequestHandler<FilterCommentsQuery, R
 
     public async Task<Response<FilterCommentDto>> Handle(FilterCommentsQuery request, CancellationToken cancellationToken)
     {
-        var query = _commentHelper.GetQuery();
+        var query = _commentHelper.AsQueryable();
 
         #region filter
 

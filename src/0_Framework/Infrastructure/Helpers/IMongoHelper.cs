@@ -7,7 +7,7 @@ namespace _0_Framework.Infrastructure.Helpers;
 public interface IMongoHelper<TDocument>
     where TDocument : EntityBase
 {
-    IMongoQueryable<TDocument> GetQuery();
+    IMongoQueryable<TDocument> AsQueryable();
 
     Task<bool> ExistsAsync(Expression<Func<TDocument, bool>> expression);
 

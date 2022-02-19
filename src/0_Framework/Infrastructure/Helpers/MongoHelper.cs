@@ -35,7 +35,7 @@ public class MongoHelper<TDocument, TSettings> : IMongoHelper<TDocument>
 
     #region GetQuery
 
-    public IMongoQueryable<TDocument> GetQuery()
+    public IMongoQueryable<TDocument> AsQueryable()
     {
         return _context.AsQueryable();
     }

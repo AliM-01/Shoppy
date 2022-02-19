@@ -32,7 +32,7 @@ public class GetRecordCommentsByIdQueryHandler : IRequestHandler<GetRecordCommen
              & Builders<CM.Domain.Comment.Comment>.Filter.Eq(x => x.State, CommentState.Confirmed);
 
         var comments = (
-            _commentHelper.GetQuery()
+            _commentHelper.AsQueryable()
             .Where(x => x.ParentId == null)
             .Where(x => x.OwnerRecordId == request.RecordId && x.State == CommentState.Confirmed)
             )
@@ -42,7 +42,7 @@ public class GetRecordCommentsByIdQueryHandler : IRequestHandler<GetRecordCommen
         for (int i = 0; i < comments.Count; i++)
         {
             var replies = (
-                _commentHelper.GetQuery().Where(x => x.ParentId == comments[i].Id.ToString())
+                _commentHelper.AsQueryable().Where(x => x.ParentId == comments[i].Id.ToString())
                 )
                 .ToList()
                 .MapComments(_mapper)
