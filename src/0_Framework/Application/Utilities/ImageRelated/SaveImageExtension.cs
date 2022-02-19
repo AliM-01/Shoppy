@@ -47,6 +47,28 @@ public static class SaveImageExtension
         return false;
     }
 
+    public static void CropAndAddImageToServer(this IFormFile image, string fileName, string orginalPath, int width, int height)
+    {
+        if (image != null && image.IsImage())
+        {
+            if (!Directory.Exists(orginalPath))
+                Directory.CreateDirectory(orginalPath);
+
+            string OriginPath = orginalPath + fileName;
+
+            using (var stream = new FileStream(OriginPath, FileMode.Create))
+            {
+                ImageOptimizer resizer = new ImageOptimizer();
+
+                resizer.ImageResizer(orginalPath + fileName, orginalPath + fileName, width, height);
+            }
+
+            return;
+        }
+
+        return;
+    }
+
     public static void DeleteImage(this string imageName, string OriginPath, string ThumbPath)
     {
         if (!string.IsNullOrEmpty(imageName))
