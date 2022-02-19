@@ -11,7 +11,7 @@ public interface IMongoHelper<TDocument>
 {
     IMongoQueryable<TDocument> AsQueryable();
 
-    List<TDocument> GetPagination(IMongoQueryable<TDocument> query, BasePaging pager);
+    List<TDocument> ApplyPagination(IMongoQueryable<TDocument> query, BasePaging pager);
 
     Task<bool> ExistsAsync(Expression<Func<TDocument, bool>> expression);
 

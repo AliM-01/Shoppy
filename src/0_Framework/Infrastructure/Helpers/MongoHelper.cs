@@ -46,7 +46,7 @@ public class MongoHelper<TDocument, TSettings> : IMongoHelper<TDocument>
 
     #region GetPagination
 
-    public List<TDocument> GetPagination(IMongoQueryable<TDocument> query, BasePaging pager)
+    public List<TDocument> ApplyPagination(IMongoQueryable<TDocument> query, BasePaging pager)
     {
         return query
                 .DocumentPaging(pager)

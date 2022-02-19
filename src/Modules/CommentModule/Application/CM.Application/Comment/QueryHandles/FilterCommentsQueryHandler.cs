@@ -54,7 +54,7 @@ public class FilterCommentsQueryHandler : IRequestHandler<FilterCommentsQuery, R
 
         var allEntities =
              _commentHelper
-             .GetPagination(query, pager)
+             .ApplyPagination(query, pager)
              .Select(c => _mapper.Map(c, new CommentDto()))
              .ToList();
 
