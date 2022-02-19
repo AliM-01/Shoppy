@@ -8,9 +8,9 @@ namespace BM.Infrastructure.Persistence.Context;
 
 public interface IBlogDbContext
 {
-    IMongoCollection<Domain.ArticleCategory.ArticleCategory> ArticleCategories { get; }
+    IMongoCollection<ArticleCategory> ArticleCategories { get; }
 
-    IMongoCollection<Domain.Article.Article> Articles { get; }
+    IMongoCollection<Article> Articles { get; }
 }
 
 public class BlogDbContext : IBlogDbContext

@@ -1,25 +1,19 @@
-﻿using _0_Framework.Domain.IGenericRepository;
-using _0_Framework.Infrastructure.GenericRepository;
-using BM.Domain.Article;
-using BM.Domain.ArticleCategory;
-using BM.Infrastructure.Persistence.Context;
+﻿using BM.Infrastructure.Persistence.Context;
+using BM.Infrastructure.Persistence.Settings;
 using MediatR;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace BM.Infrastructure.Configuration;
 
 public class BlogModuletBootstrapper
 {
-    public static void Configure(IServiceCollection services, string connectionString)
+    public static void Configure(IServiceCollection services, Microsoft.Extensions.Configuration.IConfiguration config)
     {
-        services.AddTransient<IGenericRepository<ArticleCategory>, GenericRepository<BlogDbContext, ArticleCategory>>();
-        services.AddTransient<IGenericRepository<Article>, GenericRepository<BlogDbContext, Article>>();
+        services.Configure<BlogDbSettings>(config.GetSection("BlogDbSettings"));
+
+        services.AddScoped<IBlogDbContext, BlogDbContext>();
 
         services.AddMediatR(typeof(BlogModuletBootstrapper).Assembly);
-
-        services.AddDbContext<BlogDbContext>(options =>
-            options.UseSqlServer(connectionString));
     }
 }
 
