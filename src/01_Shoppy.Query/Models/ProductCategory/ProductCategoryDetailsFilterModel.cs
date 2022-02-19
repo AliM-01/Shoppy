@@ -1,13 +1,10 @@
-﻿using _0_Framework.Domain;
-
-namespace _01_Shoppy.Query.Models.ProductCategory;
+﻿namespace _01_Shoppy.Query.Models.ProductCategory;
 
 public class ProductCategoryDetailsFilterModel
 {
     [Display(Name = "شناسه دسته بندی محصول")]
     [JsonProperty("categoryId")]
-    [Range(0, 10000, ErrorMessage = DomainErrorMessage.RequiredMessage)]
-    public long CategoryId { get; set; }
+    public string CategoryId { get; set; }
 
     [Display(Name = "اسلاگ دسته بندی")]
     [JsonProperty("slug")]

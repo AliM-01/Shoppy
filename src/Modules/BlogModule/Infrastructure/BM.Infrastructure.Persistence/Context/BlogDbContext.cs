@@ -1,30 +1,41 @@
-﻿using _0_Framework.Infrastructure.Context;
-using Microsoft.EntityFrameworkCore;
+﻿using BM.Domain.Article;
+using BM.Domain.ArticleCategory;
+using BM.Infrastructure.Persistence.Settings;
+using Microsoft.Extensions.Options;
+using MongoDB.Driver;
 
 namespace BM.Infrastructure.Persistence.Context;
-public class BlogDbContext : DbContext
-{
-    #region Ctor
 
-    public BlogDbContext(DbContextOptions<BlogDbContext> options) : base(options) { }
+public interface IBlogDbContext
+{
+    IMongoCollection<Domain.ArticleCategory.ArticleCategory> ArticleCategories { get; }
+
+    IMongoCollection<Domain.Article.Article> Articles { get; }
+}
+
+public class BlogDbContext : IBlogDbContext
+{
+    #region ctor
+
+    private readonly BlogDbSettings _settings;
+    public BlogDbContext(IOptionsSnapshot<BlogDbSettings> settings)
+    {
+        _settings = settings.Value;
+
+        var mongoSettings = MongoClientSettings.FromConnectionString(_settings.ConnectionString);
+        mongoSettings.ServerApi = new ServerApi(ServerApiVersion.V1);
+
+        var client = new MongoClient(mongoSettings);
+
+        var db = client.GetDatabase(_settings.DbName);
+
+        ArticleCategories = db.GetCollection<ArticleCategory>(_settings.ArticleCategoryCollection);
+        Articles = db.GetCollection<Article>(_settings.ArticleCollection);
+    }
 
     #endregion
 
-    public DbSet<Domain.ArticleCategory.ArticleCategory> ArticleCategories { get; set; }
+    public IMongoCollection<ArticleCategory> ArticleCategories { get; set; }
 
-    public DbSet<Domain.Article.Article> Articles { get; set; }
-
-    #region On Model Creating
-
-    protected override void OnModelCreating(ModelBuilder builder)
-    {
-        builder.ApplySharedDbContextOnModelCreatingConfiguration();
-
-        var assembly = typeof(BlogDbContext).Assembly;
-        builder.ApplyConfigurationsFromAssembly(assembly);
-
-        base.OnModelCreating(builder);
-    }
-
-    #endregion On Model Creating
+    public IMongoCollection<Article> Articles { get; set; }
 }
