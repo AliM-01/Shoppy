@@ -11,10 +11,10 @@ public class GetLatestArticlesQueryHandler : IRequestHandler<GetLatestArticlesQu
 {
     #region Ctor
 
-    private readonly BlogDbContext _blogContext;
+    private readonly IBlogDbContext _blogContext;
     private readonly IMapper _mapper;
 
-    public GetLatestArticlesQueryHandler(BlogDbContext blogContext, IMapper mapper)
+    public GetLatestArticlesQueryHandler(IBlogDbContext blogContext, IMapper mapper)
     {
         _blogContext = Guard.Against.Null(blogContext, nameof(_blogContext));
         _mapper = Guard.Against.Null(mapper, nameof(_mapper));

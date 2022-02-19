@@ -1,5 +1,6 @@
 ﻿using _0_Framework.Application.Models.Paging;
 using _0_Framework.Infrastructure;
+using _0_Framework.Infrastructure.Helpers;
 using CM.Application.Contracts.Comment.DTOs;
 using CM.Application.Contracts.Inventory.Queries;
 using CM.Domain.Comment;
@@ -12,12 +13,12 @@ public class FilterCommentsQueryHandler : IRequestHandler<FilterCommentsQuery, R
 {
     #region Ctor
 
-    private readonly ICommentDbContext _commentContext;
+    private readonly IMongoHelper<CM.Domain.Comment.Comment> _commentHelper;
     private readonly IMapper _mapper;
 
-    public FilterCommentsQueryHandler(ICommentDbContext commentContext, IMapper mapper)
+    public FilterCommentsQueryHandler(IMongoHelper<CM.Domain.Comment.Comment> commentHelper, IMapper mapper)
     {
-        _commentContext = Guard.Against.Null(commentContext, nameof(_commentContext));
+        _commentHelper = Guard.Against.Null(commentHelper, nameof(_commentHelper));
         _mapper = Guard.Against.Null(mapper, nameof(_mapper));
     }
 
@@ -25,9 +26,7 @@ public class FilterCommentsQueryHandler : IRequestHandler<FilterCommentsQuery, R
 
     public async Task<Response<FilterCommentDto>> Handle(FilterCommentsQuery request, CancellationToken cancellationToken)
     {
-        var query = _commentContext
-            .Comments
-            .AsQueryable();
+        var query = _commentHelper.GetQuery();
 
         #region filter
 

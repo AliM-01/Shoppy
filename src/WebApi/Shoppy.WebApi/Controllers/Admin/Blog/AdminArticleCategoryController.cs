@@ -42,9 +42,9 @@ public class AdminArticleCategoryController : BaseApiController
     [SwaggerOperation(Summary = "دریافت جزییات دسته بندی مقاله", Tags = new[] { "AdminArticleCategory" })]
     [SwaggerResponse(200, "success")]
     [SwaggerResponse(404, "not-found")]
-    public async Task<IActionResult> GetArticleCategoryDetails([FromRoute] long id)
+    public async Task<IActionResult> GetArticleCategoryDetails([FromRoute] Guid id)
     {
-        var res = await Mediator.Send(new GetArticleCategoryDetailsQuery(id));
+        var res = await Mediator.Send(new GetArticleCategoryDetailsQuery(id.ToString()));
 
         return JsonApiResult.Success(res);
     }
@@ -88,9 +88,9 @@ public class AdminArticleCategoryController : BaseApiController
     [SwaggerOperation(Summary = "حذف دسته بندی مقاله", Tags = new[] { "AdminArticleCategory" })]
     [SwaggerResponse(201, "success : created")]
     [SwaggerResponse(404, "not-found")]
-    public async Task<IActionResult> DeleteArticleCategory([FromRoute] long id)
+    public async Task<IActionResult> DeleteArticleCategory([FromRoute] Guid id)
     {
-        var res = await Mediator.Send(new DeleteArticleCategoryCommand(id));
+        var res = await Mediator.Send(new DeleteArticleCategoryCommand(id.ToString()));
 
         return JsonApiResult.Success(res);
     }

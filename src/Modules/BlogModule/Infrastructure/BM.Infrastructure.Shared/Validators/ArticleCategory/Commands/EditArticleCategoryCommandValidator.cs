@@ -7,7 +7,7 @@ public class EditArticleCategoryCommandValidator : AbstractValidator<EditArticle
     public EditArticleCategoryCommandValidator()
     {
         RuleFor(p => p.ArticleCategory.Id)
-            .RangeValidator("شناسه دسته بندی", 1, 1000);
+            .RequiredValidator("شناسه دسته بندی");
 
         RuleFor(p => p.ArticleCategory.Title)
             .RequiredValidator("عنوان دسته بندی");

@@ -7,7 +7,7 @@ public class DeleteArticleCategoryCommandValidator : AbstractValidator<DeleteArt
     public DeleteArticleCategoryCommandValidator()
     {
         RuleFor(p => p.ArticleCategoryId)
-            .RangeValidator("شناسه دسته بندی", 1, 1000);
+            .RequiredValidator("شناسه دسته بندی");
     }
 }
 

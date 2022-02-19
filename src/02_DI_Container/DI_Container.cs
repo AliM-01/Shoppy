@@ -34,7 +34,7 @@ public static class DI_Container
         DiscountModuleBootstrapper.Configure(services, connectionString);
         InventoryModuletBootstrapper.Configure(services, connectionString);
         CommentModuletBootstrapper.Configure(services, config);
-        BlogModuletBootstrapper.Configure(services, connectionString);
+        BlogModuletBootstrapper.Configure(services, config);
 
         #endregion
 

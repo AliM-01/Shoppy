@@ -10,7 +10,7 @@ public class FilterArticlesQueryValidator : AbstractValidator<FilterArticlesQuer
             .MaxLengthValidator("عنوان", 100);
 
         RuleFor(p => p.Filter.CategoryId)
-            .RangeValidator("شناسه دسته بندی", 1, 1000);
+            .RequiredValidator("شناسه دسته بندی");
     }
 }
 

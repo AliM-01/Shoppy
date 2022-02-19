@@ -7,7 +7,7 @@ public class EditArticleCommandValidator : AbstractValidator<EditArticleCommand>
     public EditArticleCommandValidator()
     {
         RuleFor(p => p.Article.Id)
-            .RangeValidator("شناسه", 1, 1000);
+            .RequiredValidator("شناسه");
 
         RuleFor(p => p.Article.Title)
             .RequiredValidator("عنوان");

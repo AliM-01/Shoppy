@@ -4,7 +4,8 @@ using System.Linq.Expressions;
 
 namespace _0_Framework.Infrastructure.Helpers;
 
-public interface IMongoHelper<TDocument> where TDocument : EntityBase
+public interface IMongoHelper<TDocument>
+    where TDocument : EntityBase
 {
     IMongoQueryable<TDocument> GetQuery();
 

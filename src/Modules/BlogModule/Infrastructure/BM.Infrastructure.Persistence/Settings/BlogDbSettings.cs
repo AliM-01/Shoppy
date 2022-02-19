@@ -1,11 +1,9 @@
-﻿namespace BM.Infrastructure.Persistence.Settings;
+﻿using _0_Framework.Infrastructure;
 
-public class BlogDbSettings
+namespace BM.Infrastructure.Persistence.Settings;
+
+public class BlogDbSettings : BaseMongoDbSettings
 {
-    public string ConnectionString { get; set; }
-
-    public string DbName { get; set; }
-
     public string ArticleCategoryCollection { get; set; }
 
     public string ArticleCollection { get; set; }

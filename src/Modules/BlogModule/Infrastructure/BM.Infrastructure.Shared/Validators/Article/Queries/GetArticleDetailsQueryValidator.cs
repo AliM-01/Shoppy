@@ -7,6 +7,6 @@ public class GetArticleDetailsQueryValidator : AbstractValidator<GetArticleDetai
     public GetArticleDetailsQueryValidator()
     {
         RuleFor(p => p.Id)
-            .RangeValidator("شناسه دسته بندی", 1, 1000);
+            .RequiredValidator("شناسه دسته بندی");
     }
 }

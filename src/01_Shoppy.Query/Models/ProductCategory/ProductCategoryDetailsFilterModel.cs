@@ -4,7 +4,7 @@ public class ProductCategoryDetailsFilterModel
 {
     [Display(Name = "شناسه دسته بندی محصول")]
     [JsonProperty("categoryId")]
-    public string CategoryId { get; set; }
+    public long CategoryId { get; set; }
 
     [Display(Name = "اسلاگ دسته بندی")]
     [JsonProperty("slug")]

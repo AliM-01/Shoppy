@@ -1,5 +1,6 @@
 ﻿using _0_Framework.Application.Exceptions;
 using _0_Framework.Domain;
+using Microsoft.Extensions.Options;
 using MongoDB.Driver;
 using MongoDB.Driver.Linq;
 using System.Linq;
@@ -7,17 +8,27 @@ using System.Linq.Expressions;
 
 namespace _0_Framework.Infrastructure.Helpers;
 
-public class MongoHelper<TCollection, TDocument> : IMongoHelper<TDocument>
-    where TCollection : IMongoCollection<TDocument>
+public class MongoHelper<TDocument, TSettings> : IMongoHelper<TDocument>
     where TDocument : EntityBase
+    where TSettings : BaseMongoDbSettings
 {
     #region Ctor
 
-    private readonly TCollection _context;
+    private readonly IMongoCollection<TDocument> _context;
+    private readonly TSettings _settings;
 
-    public MongoHelper(TCollection context)
+    public MongoHelper(IOptionsSnapshot<TSettings> settings)
     {
-        _context = context;
+        _settings = settings.Value;
+
+        var mongoSettings = MongoClientSettings.FromConnectionString(_settings.ConnectionString);
+        mongoSettings.ServerApi = new ServerApi(ServerApiVersion.V1);
+
+        var client = new MongoClient(mongoSettings);
+
+        var database = client.GetDatabase(_settings.DbName);
+
+        _context = database.GetCollection<TDocument>(nameof(TDocument) + "Collection");
     }
 
     #endregion

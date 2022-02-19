@@ -1,10 +1,8 @@
-﻿namespace CM.Infrastructure.Persistence.Settings;
+﻿using _0_Framework.Infrastructure;
 
-public class CommentDbSettings
+namespace CM.Infrastructure.Persistence.Settings;
+
+public class CommentDbSettings : BaseMongoDbSettings
 {
-    public string ConnectionString { get; set; }
-
-    public string DbName { get; set; }
-
     public string CommentCollection { get; set; }
 }

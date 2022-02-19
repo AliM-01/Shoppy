@@ -12,11 +12,11 @@ public class GetArticleDetailsQueryHandler : IRequestHandler<GetArticleDetailsQu
 {
     #region Ctor
 
-    private readonly BlogDbContext _blogContext;
+    private readonly IBlogDbContext _blogContext;
     private readonly IMapper _mapper;
 
     public GetArticleDetailsQueryHandler(
-        BlogDbContext blogContext, IMapper mapper)
+        IBlogDbContext blogContext, IMapper mapper)
     {
         _blogContext = Guard.Against.Null(blogContext, nameof(_blogContext));
         _mapper = Guard.Against.Null(mapper, nameof(_mapper));
