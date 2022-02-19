@@ -6,12 +6,12 @@ public class GetArticleDetailsQueryHandler : IRequestHandler<GetArticleDetailsQu
 {
     #region Ctor
 
-    private readonly IBlogDbContext _blogContext;
+    private readonly IMongoHelper<Domain.Article.Article> _articleHelper;
     private readonly IMapper _mapper;
 
-    public GetArticleDetailsQueryHandler(IBlogDbContext blogContext, IMapper mapper)
+    public GetArticleDetailsQueryHandler(IMongoHelper<Domain.Article.Article> articleHelper, IMapper mapper)
     {
-        _blogContext = Guard.Against.Null(blogContext, nameof(_blogContext));
+        _articleHelper = Guard.Against.Null(articleHelper, nameof(_articleHelper));
         _mapper = Guard.Against.Null(mapper, nameof(_mapper));
     }
 
@@ -19,9 +19,7 @@ public class GetArticleDetailsQueryHandler : IRequestHandler<GetArticleDetailsQu
 
     public async Task<Response<EditArticleDto>> Handle(GetArticleDetailsQuery request, CancellationToken cancellationToken)
     {
-        var article = (
-            await _blogContext.Articles.FindAsync(MongoDbFilters<Domain.Article.Article>.GetByIdFilter(request.Id))
-            ).FirstOrDefault();
+        var article = await _articleHelper.GetByIdAsync(request.Id);
 
         if (article is null)
             throw new NotFoundApiException();

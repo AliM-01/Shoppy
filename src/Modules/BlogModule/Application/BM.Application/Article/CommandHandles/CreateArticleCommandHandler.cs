@@ -1,8 +1,6 @@
 ﻿
 using _0_Framework.Application.Extensions;
-using BM.Application.Contracts.Article.Commands;
-using MongoDB.Driver;
-using MongoDB.Driver.Linq;
+using _0_Framework.Infrastructure.Helpers;
 
 namespace BM.Application.Article.CommandHandles;
 
@@ -10,12 +8,12 @@ public class CreateArticleCommandHandler : IRequestHandler<CreateArticleCommand,
 {
     #region Ctor
 
-    private readonly IBlogDbContext _blogContext;
+    private readonly IMongoHelper<Domain.Article.Article> _articleHelper;
     private readonly IMapper _mapper;
 
-    public CreateArticleCommandHandler(IBlogDbContext blogContext, IMapper mapper)
+    public CreateArticleCommandHandler(IMongoHelper<Domain.Article.Article> articleHelper, IMapper mapper)
     {
-        _blogContext = Guard.Against.Null(blogContext, nameof(_blogContext));
+        _articleHelper = Guard.Against.Null(articleHelper, nameof(_articleHelper));
         _mapper = Guard.Against.Null(mapper, nameof(_mapper));
     }
 
@@ -23,11 +21,10 @@ public class CreateArticleCommandHandler : IRequestHandler<CreateArticleCommand,
 
     public async Task<Response<string>> Handle(CreateArticleCommand request, CancellationToken cancellationToken)
     {
-        if (await _blogContext.Articles.AsQueryable().AnyAsync(x => x.Title == request.Article.Title))
+        if (await _articleHelper.ExistsAsync(x => x.Title == request.Article.Title))
             throw new ApiException(ApplicationErrorMessage.IsDuplicatedMessage);
 
-        var article =
-            _mapper.Map(request.Article, new Domain.Article.Article());
+        var article = _mapper.Map(request.Article, new Domain.Article.Article());
 
         var imagePath = DateTime.Now.ToFileName() + Path.GetExtension(request.Article.ImageFile.FileName);
 
@@ -36,7 +33,7 @@ public class CreateArticleCommandHandler : IRequestHandler<CreateArticleCommand,
 
         article.ImagePath = imagePath;
 
-        await _blogContext.Articles.InsertOneAsync(article);
+        await _articleHelper.InsertAsync(article);
 
         return new Response<string>(ApplicationErrorMessage.OperationSucceddedMessage);
     }

@@ -1,6 +1,4 @@
 ﻿using _0_Framework.Application.Extensions;
-using _0_Framework.Infrastructure;
-using BM.Application.Contracts.Article.Commands;
 
 namespace BM.Application.Article.CommandHandles;
 
@@ -8,12 +6,12 @@ public class EditArticleCommandHandler : IRequestHandler<EditArticleCommand, Res
 {
     #region Ctor
 
-    private readonly IBlogDbContext _blogContext;
+    private readonly IMongoHelper<Domain.Article.Article> _articleHelper;
     private readonly IMapper _mapper;
 
-    public EditArticleCommandHandler(IBlogDbContext blogContext, IMapper mapper)
+    public EditArticleCommandHandler(IMongoHelper<Domain.Article.Article> articleHelper, IMapper mapper)
     {
-        _blogContext = Guard.Against.Null(blogContext, nameof(_blogContext));
+        _articleHelper = Guard.Against.Null(articleHelper, nameof(_articleHelper));
         _mapper = Guard.Against.Null(mapper, nameof(_mapper));
     }
 
@@ -21,15 +19,12 @@ public class EditArticleCommandHandler : IRequestHandler<EditArticleCommand, Res
 
     public async Task<Response<string>> Handle(EditArticleCommand request, CancellationToken cancellationToken)
     {
-        var article = (
-            await _blogContext.Articles.FindAsync(
-                MongoDbFilters<Domain.Article.Article>.GetByIdFilter(request.Article.Id))
-            ).FirstOrDefault();
+        var article = await _articleHelper.GetByIdAsync(request.Article.Id);
 
         if (article is null)
             throw new NotFoundApiException();
 
-        if (await _blogContext.Articles.AsQueryable().AnyAsync(x => x.Title == request.Article.Title && x.Id != request.Article.Id))
+        if (await _articleHelper.ExistsAsync(x => x.Title == request.Article.Title && x.Id != request.Article.Id))
             throw new ApiException(ApplicationErrorMessage.IsDuplicatedMessage);
 
         _mapper.Map(request.Article, article);
@@ -44,8 +39,7 @@ public class EditArticleCommandHandler : IRequestHandler<EditArticleCommand, Res
             article.ImagePath = imagePath;
         }
 
-        await _blogContext.Articles.ReplaceOneAsync(
-            MongoDbFilters<Domain.Article.Article>.GetByIdFilter(article.Id), article);
+        await _articleHelper.UpdateAsync(article);
 
         return new Response<string>();
     }

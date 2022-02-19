@@ -1,5 +1,4 @@
 ﻿using _0_Framework.Application.Models.Paging;
-using _0_Framework.Infrastructure;
 using BM.Application.Contracts.Article.DTOs;
 using BM.Application.Contracts.Article.Queries;
 using Microsoft.EntityFrameworkCore;
@@ -9,12 +8,12 @@ public class FilterArticlesQueryHandler : IRequestHandler<FilterArticlesQuery, R
 {
     #region Ctor
 
-    private readonly IBlogDbContext _blogContext;
+    private readonly IMongoHelper<Domain.Article.Article> _articleHelper;
     private readonly IMapper _mapper;
 
-    public FilterArticlesQueryHandler(IBlogDbContext blogContext, IMapper mapper)
+    public FilterArticlesQueryHandler(IMongoHelper<Domain.Article.Article> articleHelper, IMapper mapper)
     {
-        _blogContext = Guard.Against.Null(blogContext, nameof(_blogContext));
+        _articleHelper = Guard.Against.Null(articleHelper, nameof(_articleHelper));
         _mapper = Guard.Against.Null(mapper, nameof(_mapper));
     }
 
@@ -22,7 +21,7 @@ public class FilterArticlesQueryHandler : IRequestHandler<FilterArticlesQuery, R
 
     public async Task<Response<FilterArticleDto>> Handle(FilterArticlesQuery request, CancellationToken cancellationToken)
     {
-        var query = _blogContext.Articles.AsQueryable();
+        var query = _articleHelper.AsQueryable();
 
         #region filter
 
@@ -58,17 +57,13 @@ public class FilterArticlesQueryHandler : IRequestHandler<FilterArticlesQuery, R
 
         #region paging
 
-        var pager = Pager.Build(request.Filter.PageId, await query.CountAsync(cancellationToken),
-            request.Filter.TakePage, request.Filter.ShownPages);
+        var pager = request.Filter.BuildPager(query.Count());
 
         var allEntities =
-            (await query
-                .DocumentPaging(pager)
-                .ToListAsyncSafe()
-             )
+            _articleHelper
+            .ApplyPagination(query, pager)
             .Select(article =>
-                _mapper.Map(article, new ArticleDto()))
-            .ToList();
+                _mapper.Map(article, new ArticleDto()));
 
         #endregion paging
 
