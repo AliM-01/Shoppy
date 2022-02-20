@@ -60,12 +60,6 @@ public class ShopModuleMappingProfile : Profile
 
         #endregion
 
-        #region Product Category Query Model
-
-        CreateMap<ProductCategory, ProductCategoryDetailsQueryModel>();
-
-        #endregion
-
         #endregion
 
         #region Product

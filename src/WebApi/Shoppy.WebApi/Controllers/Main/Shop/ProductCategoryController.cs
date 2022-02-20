@@ -26,7 +26,7 @@ public class ProductCategoryController : BaseApiController
     [SwaggerOperation(Summary = "دریافت دسته بندی محصول", Tags = new[] { "ProductCategory" })]
     [SwaggerResponse(200, "success")]
     [SwaggerResponse(404, "not-found")]
-    public async Task<IActionResult> GetProductCategory([FromQuery] ProductCategoryDetailsFilterModel filter)
+    public async Task<IActionResult> GetProductCategory([FromQuery] FilterProductCategoryDetailsModel filter)
     {
         var res = await Mediator.Send(new GetProductCategoryWithProductsByQuery(filter));
 
