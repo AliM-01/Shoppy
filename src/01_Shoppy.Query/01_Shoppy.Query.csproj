@@ -22,4 +22,8 @@
     <ProjectReference Include="..\Modules\ShopModule\Infrastructure\SM.Infrastructure.Persistence\SM.Infrastructure.Persistence.csproj" />
   </ItemGroup>
 
+	<ItemGroup>
+	  <Folder Include="Queries\ArticleCategory\" />
+	</ItemGroup>
+
 </Project>
