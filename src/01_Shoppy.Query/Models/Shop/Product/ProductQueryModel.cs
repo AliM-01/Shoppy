@@ -40,6 +40,9 @@ public class ProductQueryModel : SeoPropertiesForApplicationModels
     [JsonProperty("category")]
     public string Category { get; set; }
 
+    [JsonProperty("categorySlug")]
+    public string CategorySlug { get; set; }
+
     [Display(Name = "تخفیف دارد ؟")]
     [JsonProperty("hasDiscount")]
     public bool HasDiscount { get; set; } = false;

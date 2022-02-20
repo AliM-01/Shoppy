@@ -102,13 +102,17 @@ public class ShopModuleMappingProfile : Profile
 
         #region Product Query Model
 
-        CreateMap<Product, ProductQueryModel>();
+        CreateMap<Product, ProductQueryModel>()
+            .ForMember(dest => dest.CategorySlug,
+                opt => opt.MapFrom(src => src.Category.Slug.ToSlug()));
 
         #endregion
 
         #region ProductDetails Query Model
 
         CreateMap<Product, ProductDetailsQueryModel>()
+            .ForMember(dest => dest.CategorySlug,
+                opt => opt.MapFrom(src => src.Category.Slug.ToSlug()))
             .ForMember(dest => dest.ProductPictures,
                 opt => opt.Ignore());
 

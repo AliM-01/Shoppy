@@ -6,10 +6,6 @@ public class FilterProductCategoryDetailsModel : BasePaging
 {
     #region Properties
 
-    [Display(Name = "شناسه دسته بندی محصول")]
-    [JsonProperty("categoryId")]
-    public long CategoryId { get; set; }
-
     [Display(Name = "اسلاگ دسته بندی")]
     [JsonProperty("slug")]
     public string Slug { get; set; }

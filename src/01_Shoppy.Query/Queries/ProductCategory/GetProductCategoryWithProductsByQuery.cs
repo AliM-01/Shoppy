@@ -30,7 +30,7 @@ public class GetProductCategoryWithProductsByQueryHandler : IRequestHandler<GetP
 
     public async Task<Response<ProductCategoryDetailsQueryModel>> Handle(GetProductCategoryWithProductsByQuery request, CancellationToken cancellationToken)
     {
-        if (request.Filter.CategoryId == 0 && string.IsNullOrEmpty(request.Filter.Slug))
+        if (string.IsNullOrEmpty(request.Filter.Slug))
             throw new NotFoundApiException();
 
         var categories = await _context.ProductCategories.Select(x => new
@@ -43,23 +43,12 @@ public class GetProductCategoryWithProductsByQueryHandler : IRequestHandler<GetP
 
         #region filter
 
-        if (request.Filter.CategoryId != 0 && (string.IsNullOrEmpty(request.Filter.Slug) || !string.IsNullOrEmpty(request.Filter.Slug)))
-        {
-            var category = categories.FirstOrDefault(x => x.Id == request.Filter.CategoryId);
+        var category = categories.FirstOrDefault(x => x.Slug == request.Filter.Slug);
 
-            if (category is null)
-                throw new NotFoundApiException();
-            categoryId = category.Id;
-        }
-        if (request.Filter.CategoryId == 0 && !string.IsNullOrEmpty(request.Filter.Slug))
-        {
-            var category = categories.FirstOrDefault(x => x.Slug == request.Filter.Slug);
+        if (category is null)
+            throw new NotFoundApiException();
 
-            if (category is null)
-                throw new NotFoundApiException();
-
-            categoryId = category.Id;
-        }
+        categoryId = category.Id;
 
         #endregion
 
