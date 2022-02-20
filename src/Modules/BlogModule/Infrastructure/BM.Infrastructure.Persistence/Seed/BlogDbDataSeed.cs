@@ -66,6 +66,9 @@ public static class BlogDbDataSeed
 
     public static void SeedArticleData(IMongoCollection<Article> collection, ArticleCategory[] categories)
     {
+        if (categories.Length < 0)
+            return;
+
         bool existsAny = collection.Find(_ => true).Any();
 
         const string summary = "لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ";

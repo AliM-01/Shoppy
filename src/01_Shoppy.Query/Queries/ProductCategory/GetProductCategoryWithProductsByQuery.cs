@@ -1,15 +1,14 @@
 ﻿using _0_Framework.Application.Exceptions;
 using _01_Shoppy.Query.Helpers.Product;
-using _01_Shoppy.Query.Models.Product;
 using _01_Shoppy.Query.Models.ProductCategory;
 using AutoMapper;
 using SM.Infrastructure.Persistence.Context;
 
 namespace _01_Shoppy.Query.Queries.ProductCategory;
 
-public record GetProductCategoryWithProductsByQuery(ProductCategoryDetailsFilterModel Filter) : IRequest<Response<ProductCategoryQueryModel>>;
+public record GetProductCategoryWithProductsByQuery(ProductCategoryDetailsFilterModel Filter) : IRequest<Response<ProductCategoryDetailsQueryModel>>;
 
-public class GetProductCategoryWithProductsByQueryHandler : IRequestHandler<GetProductCategoryWithProductsByQuery, Response<ProductCategoryQueryModel>>
+public class GetProductCategoryWithProductsByQueryHandler : IRequestHandler<GetProductCategoryWithProductsByQuery, Response<ProductCategoryDetailsQueryModel>>
 {
     #region Ctor
 
@@ -27,7 +26,7 @@ public class GetProductCategoryWithProductsByQueryHandler : IRequestHandler<GetP
 
     #endregion
 
-    public async Task<Response<ProductCategoryQueryModel>> Handle(GetProductCategoryWithProductsByQuery request, CancellationToken cancellationToken)
+    public async Task<Response<ProductCategoryDetailsQueryModel>> Handle(GetProductCategoryWithProductsByQuery request, CancellationToken cancellationToken)
     {
         if (request.Filter.CategoryId == 0 && string.IsNullOrEmpty(request.Filter.Slug))
             throw new NotFoundApiException();
@@ -70,7 +69,7 @@ public class GetProductCategoryWithProductsByQueryHandler : IRequestHandler<GetP
 
         var productCategoryProducts = productCategory.Products.ToList();
 
-        var mappedProductCategory = _mapper.Map(productCategory, new ProductCategoryQueryModel());
+        var mappedProductCategory = _mapper.Map(productCategory, new ProductCategoryDetailsQueryModel());
 
         var mappedProductCategoryProducts = new List<ProductQueryModel>();
 
@@ -82,6 +81,6 @@ public class GetProductCategoryWithProductsByQueryHandler : IRequestHandler<GetP
 
         mappedProductCategory.Products = mappedProductCategoryProducts;
 
-        return new Response<ProductCategoryQueryModel>(mappedProductCategory);
+        return new Response<ProductCategoryDetailsQueryModel>(mappedProductCategory);
     }
 }
