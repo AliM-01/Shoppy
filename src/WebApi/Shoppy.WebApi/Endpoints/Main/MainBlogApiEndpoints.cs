@@ -10,4 +10,11 @@ public class MainBlogApiEndpoints
 
         public const string GetLatestArticles = BaseArticleRoute + "/get-latest";
     }
+
+    public static class ArticleCategory
+    {
+        private const string BaseArticleCategoryRoute = BaseMainBlogRoute + "/article-category";
+
+        public const string GetArticleCategory = BaseArticleCategoryRoute + "/get";
+    }
 }
