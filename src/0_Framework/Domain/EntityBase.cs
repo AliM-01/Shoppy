@@ -3,24 +3,6 @@ using MongoDB.Bson.Serialization.Attributes;
 
 namespace _0_Framework.Domain;
 
-public interface IEntityBase
-{
-    [BsonId]
-    [BsonRepresentation(BsonType.ObjectId)]
-    string Id { get; set; }
-
-    [BsonElement("isDeleted")]
-    bool IsDeleted { get; set; }
-
-    [BsonElement("creationDate")]
-    [BsonRepresentation(BsonType.DateTime)]
-    DateTime CreationDate { get; set; }
-
-    [BsonElement("lastUpdateDate")]
-    [BsonRepresentation(BsonType.DateTime)]
-    DateTime LastUpdateDate { get; set; }
-}
-
 public abstract class EntityBase
 {
     [BsonId]
