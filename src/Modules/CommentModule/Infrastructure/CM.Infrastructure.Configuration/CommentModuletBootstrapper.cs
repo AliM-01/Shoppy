@@ -4,6 +4,7 @@ using CM.Infrastructure.Persistence.Context;
 using CM.Infrastructure.Persistence.Settings;
 using MediatR;
 using Microsoft.Extensions.DependencyInjection;
+using System;
 
 namespace CM.Infrastructure.Configuration;
 
@@ -18,5 +19,18 @@ public static class CommentModuletBootstrapper
         services.AddScoped<IMongoHelper<Comment>, MongoHelper<Comment, CommentDbSettings>>();
 
         services.AddMediatR(typeof(CommentModuletBootstrapper).Assembly);
+
+        using (var scope = services.BuildServiceProvider().CreateScope())
+        {
+            try
+            {
+                var commentService = scope.ServiceProvider.GetRequiredService<ICommentDbContext>();
+                CommentDbContextSeed.SeedData(commentService.Comments);
+            }
+            catch (Exception ex)
+            {
+                throw;
+            }
+        }
     }
 }
