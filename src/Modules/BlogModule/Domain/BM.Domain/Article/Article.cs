@@ -1,9 +1,11 @@
-﻿using _0_Framework.Domain.Seo;
+﻿using _0_Framework.Domain.Attributes;
+using _0_Framework.Domain.Seo;
 using MongoDB.Bson.Serialization.Attributes;
 using System.ComponentModel.DataAnnotations;
 
 namespace BM.Domain.Article;
 
+[BsonCollection("ArticleCollection")]
 public class Article : MongoSeoPropertiesForDomainModels
 {
     #region Properties

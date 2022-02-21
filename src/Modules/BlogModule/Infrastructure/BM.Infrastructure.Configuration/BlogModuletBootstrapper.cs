@@ -21,6 +21,8 @@ public class BlogModuletBootstrapper
         services.AddScoped<IMongoHelper<ArticleCategory>, MongoHelper<ArticleCategory, BlogDbSettings>>();
         services.AddScoped<IMongoHelper<Article>, MongoHelper<Article, BlogDbSettings>>();
 
+        services.AddMediatR(typeof(BlogModuletBootstrapper).Assembly);
+
         using (var scope = services.BuildServiceProvider().CreateScope())
         {
             try
@@ -35,8 +37,6 @@ public class BlogModuletBootstrapper
                 throw;
             }
         }
-
-        services.AddMediatR(typeof(BlogModuletBootstrapper).Assembly);
     }
 }
 

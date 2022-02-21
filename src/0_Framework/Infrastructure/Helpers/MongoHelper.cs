@@ -1,6 +1,7 @@
 ﻿using _0_Framework.Application.Exceptions;
 using _0_Framework.Application.Models.Paging;
 using _0_Framework.Domain;
+using _0_Framework.Domain.Attributes;
 using Microsoft.Extensions.Options;
 using MongoDB.Driver;
 using MongoDB.Driver.Linq;
@@ -16,7 +17,7 @@ public class MongoHelper<TDocument, TSettings> : IMongoHelper<TDocument>
 {
     #region Ctor
 
-    private readonly IMongoCollection<TDocument> _context;
+    private readonly IMongoCollection<TDocument> _collection;
     private readonly TSettings _settings;
 
     public MongoHelper(IOptionsSnapshot<TSettings> settings)
@@ -30,17 +31,24 @@ public class MongoHelper<TDocument, TSettings> : IMongoHelper<TDocument>
 
         var database = client.GetDatabase(_settings.DbName);
 
-        _context = database.GetCollection<TDocument>(nameof(TDocument) + "Collection");
+        _collection = database.GetCollection<TDocument>(GetCollectionName(typeof(TDocument)));
+    }
+
+    private protected string GetCollectionName(Type documentType)
+    {
+        return ((BsonCollectionAttribute)documentType.GetCustomAttributes(
+                typeof(BsonCollectionAttribute),
+                true)
+            .FirstOrDefault())?.CollectionName;
     }
 
     #endregion
-
 
     #region GetQuery
 
     public IMongoQueryable<TDocument> AsQueryable()
     {
-        return _context.AsQueryable();
+        return _collection.AsQueryable();
     }
 
     #endregion
@@ -60,7 +68,7 @@ public class MongoHelper<TDocument, TSettings> : IMongoHelper<TDocument>
 
     public async Task<bool> ExistsAsync(Expression<Func<TDocument, bool>> expression)
     {
-        return await _context.AsQueryable().AnyAsync(expression);
+        return await _collection.AsQueryable().AnyAsync(expression);
     }
 
     #endregion
@@ -69,7 +77,7 @@ public class MongoHelper<TDocument, TSettings> : IMongoHelper<TDocument>
 
     public async Task<TDocument> GetByFilter(FilterDefinition<TDocument> filter)
     {
-        var res = await _context.FindAsync(filter);
+        var res = await _collection.FindAsync(filter);
 
         var document = await res.FirstOrDefaultAsync();
 
@@ -87,7 +95,7 @@ public class MongoHelper<TDocument, TSettings> : IMongoHelper<TDocument>
     {
         var filter = MongoDbFilters<TDocument>.GetByIdFilter(id);
 
-        var res = await _context.FindAsync(filter);
+        var res = await _collection.FindAsync(filter);
 
         var document = await res.FirstOrDefaultAsync();
 
@@ -103,7 +111,7 @@ public class MongoHelper<TDocument, TSettings> : IMongoHelper<TDocument>
 
     public async Task InsertAsync(TDocument document)
     {
-        await _context.InsertOneAsync(document);
+        await _collection.InsertOneAsync(document);
     }
 
     #endregion
@@ -116,7 +124,7 @@ public class MongoHelper<TDocument, TSettings> : IMongoHelper<TDocument>
 
         var filter = MongoDbFilters<TDocument>.GetByIdFilter(document.Id);
 
-        await _context.ReplaceOneAsync(filter, document);
+        await _collection.ReplaceOneAsync(filter, document);
     }
 
     #endregion
@@ -142,7 +150,7 @@ public class MongoHelper<TDocument, TSettings> : IMongoHelper<TDocument>
 
         var filter = MongoDbFilters<TDocument>.GetByIdFilter(document.Id);
 
-        await _context.DeleteOneAsync(filter);
+        await _collection.DeleteOneAsync(filter);
     }
 
     #endregion

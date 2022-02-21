@@ -1,10 +1,12 @@
 ﻿using _0_Framework.Domain;
+using _0_Framework.Domain.Attributes;
 using MongoDB.Bson;
 using MongoDB.Bson.Serialization.Attributes;
 using System.ComponentModel.DataAnnotations;
 
 namespace CM.Domain.Comment;
 
+[BsonCollection("CommentCollection")]
 public class Comment : EntityBase
 {
     #region Properties
