@@ -8,9 +8,6 @@ public class FilterArticlesQueryValidator : AbstractValidator<FilterArticlesQuer
     {
         RuleFor(p => p.Filter.Title)
             .MaxLengthValidator("عنوان", 100);
-
-        RuleFor(p => p.Filter.CategoryId)
-            .RequiredValidator("شناسه دسته بندی");
     }
 }
 

@@ -25,17 +25,16 @@ public class GetLatestArticlesQueryHandler : IRequestHandler<GetLatestArticlesQu
 
     public async Task<Response<IEnumerable<ArticleQueryModel>>> Handle(GetLatestArticlesQuery request, CancellationToken cancellationToken)
     {
-        var latestArticles = (
+        var latestArticles =
             await _articleHelper
                .AsQueryable()
                .OrderByDescending(x => x.LastUpdateDate)
                .Take(8)
-               .ToListAsyncSafe()
-               )
-               .Select(article =>
-                   _mapper.Map(article, new ArticleQueryModel()))
-               .ToList();
+               .ToListAsyncSafe();
 
-        return new Response<IEnumerable<ArticleQueryModel>>(latestArticles);
+        return new Response<IEnumerable<ArticleQueryModel>>(
+            latestArticles
+            .Select(article =>
+                   _mapper.Map(article, new ArticleQueryModel())));
     }
 }
