@@ -2,4 +2,4 @@
 
 namespace DM.Application.Contracts.ColleagueDiscount.Queries;
 
-public record GetColleagueDiscountDetailsQuery(long Id) : IRequest<Response<EditColleagueDiscountDto>>;
+public record GetColleagueDiscountDetailsQuery(string Id) : IRequest<Response<EditColleagueDiscountDto>>;

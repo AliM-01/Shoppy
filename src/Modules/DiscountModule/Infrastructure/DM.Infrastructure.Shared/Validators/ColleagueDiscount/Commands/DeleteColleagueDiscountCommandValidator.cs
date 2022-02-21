@@ -7,6 +7,6 @@ public class DeleteColleagueDiscountCommandValidator : AbstractValidator<DeleteC
     public DeleteColleagueDiscountCommandValidator()
     {
         RuleFor(p => p.ColleagueDiscountId)
-            .RangeValidator("شناسه تخفیف", 1, 100000);
+            .RequiredValidator("شناسه تخفیف");
     }
 }

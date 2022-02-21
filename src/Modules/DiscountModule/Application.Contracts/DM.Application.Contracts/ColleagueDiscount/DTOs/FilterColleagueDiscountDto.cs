@@ -11,10 +11,6 @@ public class FilterColleagueDiscountDto : BasePaging
     [Display(Name = "عنوان محصول")]
     public string ProductTitle { get; set; }
 
-    [Display(Name = "شناسه محصول")]
-    [JsonProperty("productId")]
-    public long ProductId { get; set; }
-
     [JsonProperty("discounts")]
     public IEnumerable<ColleagueDiscountDto> Discounts { get; set; }
 

@@ -7,6 +7,6 @@ public class GetCustomerDiscountDetailsQueryValidator : AbstractValidator<GetCus
     public GetCustomerDiscountDetailsQueryValidator()
     {
         RuleFor(p => p.Id)
-            .RangeValidator("شناسه تخفیف", 1, 100000);
+            .RequiredValidator("شناسه تخفیف");
     }
 }

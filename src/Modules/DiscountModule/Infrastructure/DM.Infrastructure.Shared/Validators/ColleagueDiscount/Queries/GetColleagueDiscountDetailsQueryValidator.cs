@@ -7,6 +7,6 @@ public class GetColleagueDiscountDetailsQueryValidator : AbstractValidator<GetCo
     public GetColleagueDiscountDetailsQueryValidator()
     {
         RuleFor(p => p.Id)
-            .RangeValidator("شناسه تخفیف", 1, 100000);
+            .RequiredValidator("شناسه تخفیف");
     }
 }

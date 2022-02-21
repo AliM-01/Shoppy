@@ -1,3 +1,3 @@
 ﻿namespace DM.Application.Contracts.ColleagueDiscount.Commands;
 
-public record RestoreColleagueDiscountCommand(long ColleagueDiscountId) : IRequest<Response<string>>;
+public record RestoreColleagueDiscountCommand(string ColleagueDiscountId) : IRequest<Response<string>>;

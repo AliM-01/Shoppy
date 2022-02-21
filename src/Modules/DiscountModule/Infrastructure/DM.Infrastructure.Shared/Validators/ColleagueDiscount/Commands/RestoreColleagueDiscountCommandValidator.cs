@@ -7,6 +7,6 @@ public class RestoreColleagueDiscountCommandValidator : AbstractValidator<Restor
     public RestoreColleagueDiscountCommandValidator()
     {
         RuleFor(p => p.ColleagueDiscountId)
-            .RangeValidator("شناسه تخفیف", 1, 100000);
+            .RequiredValidator("شناسه تخفیف");
     }
 }

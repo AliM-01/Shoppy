@@ -3,4 +3,4 @@
 namespace DM.Application.Contracts.CustomerDiscount.Queries;
 
 public record GetCustomerDiscountDetailsQuery
-    (long Id) : IRequest<Response<EditCustomerDiscountDto>>;
+    (string Id) : IRequest<Response<EditCustomerDiscountDto>>;

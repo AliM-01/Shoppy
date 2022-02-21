@@ -9,8 +9,5 @@ internal class FilterCustomerDiscountsQueryValidator : AbstractValidator<FilterC
         RuleFor(p => p.Filter.ProductTitle)
             .RequiredValidator("عنوان محصول")
             .MaxLengthValidator("عنوان محصول", 100);
-
-        RuleFor(p => p.Filter.ProductId)
-            .RangeValidator("شناسه محصول", 0, 10000);
     }
 }

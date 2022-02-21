@@ -3,4 +3,4 @@
 namespace DM.Application.Contracts.CustomerDiscount.Queries;
 
 public record CheckProductHasCustomerDiscountQuery
-    (long ProductId) : IRequest<Response<CheckProductHasCustomerDiscountResponseDto>>;
+    (string ProductId) : IRequest<Response<CheckProductHasCustomerDiscountResponseDto>>;
