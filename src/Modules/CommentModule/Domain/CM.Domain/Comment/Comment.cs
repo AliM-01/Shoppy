@@ -6,7 +6,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace CM.Domain.Comment;
 
-[BsonCollection("CommentCollection")]
+[BsonCollection("comments")]
 public class Comment : EntityBase
 {
     #region Properties

@@ -21,7 +21,7 @@ public class CommentController : BaseApiController
 
     #endregion
 
-    #region Create Product Category
+    #region Add Comment
 
     [HttpPost(MainCommentApiEndpoints.Comment.AddComment)]
     [SwaggerOperation(Summary = "ایجاد کامنت", Tags = new[] { "Comment" })]

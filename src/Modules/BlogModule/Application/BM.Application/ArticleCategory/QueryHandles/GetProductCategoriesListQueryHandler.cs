@@ -25,10 +25,10 @@ public class GetArticleCategoriesSelectListQueryHandler : IRequestHandler<GetArt
             .OrderByDescending(p => p.LastUpdateDate)
             .ToListAsyncSafe()
             )
-            .Select(Article => new ArticleCategoryForSelectListDto
+            .Select(article => new ArticleCategoryForSelectListDto
             {
-                Id = Article.Id,
-                Title = Article.Title
+                Id = article.Id,
+                Title = article.Title
             })
             .ToList();
 
