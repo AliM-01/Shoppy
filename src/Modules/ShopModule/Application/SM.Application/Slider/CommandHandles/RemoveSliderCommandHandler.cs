@@ -17,7 +17,7 @@ public class RemoveSliderCommandHandler : IRequestHandler<RemoveSliderCommand, R
 
     public async Task<Response<string>> Handle(RemoveSliderCommand request, CancellationToken cancellationToken)
     {
-        var slider = await _sliderRepository.GetEntityById(request.SliderId);
+        var slider = await _sliderRepository.GetByIdAsync(request.SliderId);
 
         if (slider is null)
             throw new NotFoundApiException();

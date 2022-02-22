@@ -13,12 +13,12 @@ public static class InventoryModuletBootstrapper
 {
     public static void Configure(IServiceCollection services, Microsoft.Extensions.Configuration.IConfiguration config)
     {
-        services.Configure<InventoryDbSettings>(config.GetSection("InventoryDbSettings"));
+        services.Configure<inventoryRepositorySettings>(config.GetSection("inventoryRepositorySettings"));
 
-        services.AddScoped<IInventoryDbContext, InventoryDbContext>();
+        services.AddScoped<IinventoryRepositoryContext, inventoryRepositoryContext>();
 
-        services.AddScoped<IGenericRepository<Inventory>, GenericRepository<Inventory, InventoryDbSettings>>();
-        services.AddScoped<IGenericRepository<InventoryOperation>, GenericRepository<InventoryOperation, InventoryDbSettings>>();
+        services.AddScoped<IGenericRepository<Inventory>, GenericRepository<Inventory, inventoryRepositorySettings>>();
+        services.AddScoped<IGenericRepository<InventoryOperation>, GenericRepository<InventoryOperation, inventoryRepositorySettings>>();
 
         services.AddScoped<IInventoryHelper, InventoryHelper>();
 

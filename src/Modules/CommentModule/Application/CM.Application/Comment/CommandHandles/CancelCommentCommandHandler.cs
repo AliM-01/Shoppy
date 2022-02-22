@@ -6,12 +6,12 @@ public class CancelCommentCommandHandler : IRequestHandler<CancelCommentCommand,
 {
     #region Ctor
 
-    private readonly IGenericRepository<Domain.Comment.Comment> _commentHelper;
+    private readonly IGenericRepository<Domain.Comment.Comment> _commentRepository;
     private readonly IMapper _mapper;
 
-    public CancelCommentCommandHandler(IGenericRepository<Domain.Comment.Comment> commentHelper, IMapper mapper)
+    public CancelCommentCommandHandler(IGenericRepository<Domain.Comment.Comment> commentRepository, IMapper mapper)
     {
-        _commentHelper = Guard.Against.Null(commentHelper, nameof(_commentHelper));
+        _commentRepository = Guard.Against.Null(commentRepository, nameof(_commentRepository));
         _mapper = Guard.Against.Null(mapper, nameof(_mapper));
     }
 
@@ -19,14 +19,14 @@ public class CancelCommentCommandHandler : IRequestHandler<CancelCommentCommand,
 
     public async Task<Response<string>> Handle(CancelCommentCommand request, CancellationToken cancellationToken)
     {
-        var comment = await _commentHelper.GetByIdAsync(request.CommentId);
+        var comment = await _commentRepository.GetByIdAsync(request.CommentId);
 
         if (comment is null)
             throw new NotFoundApiException();
 
         comment.State = CommentState.Canceled;
 
-        await _commentHelper.UpdateAsync(comment);
+        await _commentRepository.UpdateAsync(comment);
 
         return new Response<string>("کامنت مورد نظر با موفقیت رد شد");
     }

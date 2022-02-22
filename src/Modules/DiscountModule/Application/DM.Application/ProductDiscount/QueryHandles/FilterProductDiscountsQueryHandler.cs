@@ -9,14 +9,14 @@ public class FilterProductDiscountsQueryHandler : IRequestHandler<FilterProductD
 {
     #region Ctor
 
-    private readonly IGenericRepository<Domain.ProductDiscount.ProductDiscount> _productDiscountHelper;
+    private readonly IGenericRepository<Domain.ProductDiscount.ProductDiscount> _productDiscountRepository;
     private readonly IGenericRepository<Product> _productRepository;
     private readonly IMapper _mapper;
 
-    public FilterProductDiscountsQueryHandler(IGenericRepository<Domain.ProductDiscount.ProductDiscount> productDiscountHelper,
+    public FilterProductDiscountsQueryHandler(IGenericRepository<Domain.ProductDiscount.ProductDiscount> productDiscountRepository,
         IGenericRepository<Product> productRepository, IMapper mapper)
     {
-        _productDiscountHelper = Guard.Against.Null(productDiscountHelper, nameof(_productDiscountHelper));
+        _productDiscountRepository = Guard.Against.Null(productDiscountRepository, nameof(_productDiscountRepository));
         _productRepository = Guard.Against.Null(productRepository, nameof(_productRepository));
         _mapper = Guard.Against.Null(mapper, nameof(_mapper));
     }
@@ -25,7 +25,7 @@ public class FilterProductDiscountsQueryHandler : IRequestHandler<FilterProductD
 
     public async Task<Response<FilterProductDiscountDto>> Handle(FilterProductDiscountsQuery request, CancellationToken cancellationToken)
     {
-        var query = _productDiscountHelper.AsQueryable();
+        var query = _productDiscountRepository.AsQueryable();
 
         var products = await _productRepository.GetQuery().Select(x => new
         {
@@ -79,7 +79,7 @@ public class FilterProductDiscountsQueryHandler : IRequestHandler<FilterProductD
         var pager = request.Filter.BuildPager(query.Count());
 
         var allEntities =
-            _productDiscountHelper
+            _productDiscountRepository
             .ApplyPagination(query, pager)
             .Select(discount =>
                 _mapper.Map(discount, new ProductDiscountDto()))

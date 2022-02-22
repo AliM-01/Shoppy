@@ -10,15 +10,15 @@ public class GetInventoryOperationLogQueryHandler : IRequestHandler<GetInventory
 {
     #region Ctor
 
-    private readonly IGenericRepository<Domain.Inventory.Inventory> _inventoryHelper;
+    private readonly IGenericRepository<Domain.Inventory.Inventory> _inventoryRepository;
     private readonly IGenericRepository<InventoryOperation> _inventoryOperationHelper;
     private readonly ShopDbContext _shopDbContext;
     private readonly IMapper _mapper;
 
-    public GetInventoryOperationLogQueryHandler(IGenericRepository<Domain.Inventory.Inventory> inventoryHelper,
+    public GetInventoryOperationLogQueryHandler(IGenericRepository<Domain.Inventory.Inventory> inventoryRepository,
         IGenericRepository<InventoryOperation> inventoryOperationHelper, ShopDbContext shopDbContext, IMapper mapper)
     {
-        _inventoryHelper = Guard.Against.Null(inventoryHelper, nameof(_inventoryHelper));
+        _inventoryRepository = Guard.Against.Null(inventoryRepository, nameof(_inventoryRepository));
         _inventoryOperationHelper = Guard.Against.Null(inventoryOperationHelper, nameof(_inventoryOperationHelper));
         _mapper = Guard.Against.Null(mapper, nameof(_mapper));
         _shopDbContext = Guard.Against.Null(shopDbContext, nameof(_shopDbContext));
@@ -28,7 +28,7 @@ public class GetInventoryOperationLogQueryHandler : IRequestHandler<GetInventory
 
     public async Task<Response<GetInventoryOperationsDto>> Handle(GetInventoryOperationLogQuery request, CancellationToken cancellationToken)
     {
-        var inventory = await _inventoryHelper.GetByIdAsync(request.Id);
+        var inventory = await _inventoryRepository.GetByIdAsync(request.Id);
 
         if (inventory is null)
             throw new NotFoundApiException();

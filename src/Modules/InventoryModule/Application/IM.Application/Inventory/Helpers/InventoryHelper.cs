@@ -8,13 +8,13 @@ public class InventoryHelper : IInventoryHelper
 {
     #region Ctor
 
-    private readonly IGenericRepository<Domain.Inventory.Inventory> _inventoryHelper;
+    private readonly IGenericRepository<Domain.Inventory.Inventory> _inventoryRepository;
     private readonly IGenericRepository<InventoryOperation> _inventoryOperationHelper;
 
-    public InventoryHelper(IGenericRepository<Domain.Inventory.Inventory> inventoryHelper,
+    public InventoryHelper(IGenericRepository<Domain.Inventory.Inventory> inventoryRepository,
         IGenericRepository<InventoryOperation> inventoryOperationHelper)
     {
-        _inventoryHelper = Guard.Against.Null(inventoryHelper, nameof(_inventoryHelper));
+        _inventoryRepository = Guard.Against.Null(inventoryRepository, nameof(_inventoryRepository));
         _inventoryOperationHelper = Guard.Against.Null(inventoryOperationHelper, nameof(_inventoryOperationHelper));
     }
 
@@ -25,7 +25,7 @@ public class InventoryHelper : IInventoryHelper
 
     public async Task<long> CalculateCurrentCount(string inventoryId)
     {
-        var inventory = await _inventoryHelper.GetByIdAsync(inventoryId);
+        var inventory = await _inventoryRepository.GetByIdAsync(inventoryId);
 
 
         if (inventory is null)
@@ -44,7 +44,7 @@ public class InventoryHelper : IInventoryHelper
 
     public async Task Increase(string inventoryId, long count, long operatorId, string description)
     {
-        var inventory = await _inventoryHelper.GetByIdAsync(inventoryId);
+        var inventory = await _inventoryRepository.GetByIdAsync(inventoryId);
 
         if (inventory is null)
             throw new NotFoundApiException();
@@ -59,7 +59,7 @@ public class InventoryHelper : IInventoryHelper
         inventory.Operations.Add(operation);
         inventory.InStock = currentCount > 0;
 
-        await _inventoryHelper.UpdateAsync(inventory);
+        await _inventoryRepository.UpdateAsync(inventory);
     }
 
     #endregion
@@ -68,7 +68,7 @@ public class InventoryHelper : IInventoryHelper
 
     public async Task Reduce(string inventoryId, long count, long operatorId, string description, long orderId)
     {
-        var inventory = await _inventoryHelper.GetByIdAsync(inventoryId);
+        var inventory = await _inventoryRepository.GetByIdAsync(inventoryId);
 
         if (inventory is null)
             throw new NotFoundApiException();
@@ -83,7 +83,7 @@ public class InventoryHelper : IInventoryHelper
         inventory.Operations.Add(operation);
         inventory.InStock = currentCount > 0;
 
-        await _inventoryHelper.UpdateAsync(inventory);
+        await _inventoryRepository.UpdateAsync(inventory);
     }
 
     #endregion

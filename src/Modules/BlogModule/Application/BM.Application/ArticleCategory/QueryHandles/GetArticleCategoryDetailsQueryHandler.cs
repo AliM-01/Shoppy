@@ -6,12 +6,12 @@ public class GetArticleCategoryDetailsQueryHandler : IRequestHandler<GetArticleC
 {
     #region Ctor
 
-    private readonly IGenericRepository<Domain.ArticleCategory.ArticleCategory> _articleCategoryHelper;
+    private readonly IGenericRepository<Domain.ArticleCategory.ArticleCategory> _articleCategoryRepository;
     private readonly IMapper _mapper;
 
-    public GetArticleCategoryDetailsQueryHandler(IGenericRepository<Domain.ArticleCategory.ArticleCategory> articleCategoryHelper, IMapper mapper)
+    public GetArticleCategoryDetailsQueryHandler(IGenericRepository<Domain.ArticleCategory.ArticleCategory> articleCategoryRepository, IMapper mapper)
     {
-        _articleCategoryHelper = Guard.Against.Null(articleCategoryHelper, nameof(_articleCategoryHelper));
+        _articleCategoryRepository = Guard.Against.Null(articleCategoryRepository, nameof(_articleCategoryRepository));
         _mapper = Guard.Against.Null(mapper, nameof(_mapper));
     }
 
@@ -19,7 +19,7 @@ public class GetArticleCategoryDetailsQueryHandler : IRequestHandler<GetArticleC
 
     public async Task<Response<EditArticleCategoryDto>> Handle(GetArticleCategoryDetailsQuery request, CancellationToken cancellationToken)
     {
-        var articleCategory = await _articleCategoryHelper.GetByIdAsync(request.Id);
+        var articleCategory = await _articleCategoryRepository.GetByIdAsync(request.Id);
 
         if (articleCategory is null)
             throw new NotFoundApiException();

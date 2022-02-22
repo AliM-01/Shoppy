@@ -8,12 +8,12 @@ public class FilterArticleCategoriesQueryHandler : IRequestHandler<FilterArticle
 {
     #region Ctor
 
-    private readonly IGenericRepository<Domain.ArticleCategory.ArticleCategory> _articleCategoryHelper;
+    private readonly IGenericRepository<Domain.ArticleCategory.ArticleCategory> _articleCategoryRepository;
     private readonly IMapper _mapper;
 
-    public FilterArticleCategoriesQueryHandler(IGenericRepository<Domain.ArticleCategory.ArticleCategory> articleCategoryHelper, IMapper mapper)
+    public FilterArticleCategoriesQueryHandler(IGenericRepository<Domain.ArticleCategory.ArticleCategory> articleCategoryRepository, IMapper mapper)
     {
-        _articleCategoryHelper = Guard.Against.Null(articleCategoryHelper, nameof(_articleCategoryHelper));
+        _articleCategoryRepository = Guard.Against.Null(articleCategoryRepository, nameof(_articleCategoryRepository));
         _mapper = Guard.Against.Null(mapper, nameof(_mapper));
     }
 
@@ -21,7 +21,7 @@ public class FilterArticleCategoriesQueryHandler : IRequestHandler<FilterArticle
 
     public async Task<Response<FilterArticleCategoryDto>> Handle(FilterArticleCategoriesQuery request, CancellationToken cancellationToken)
     {
-        var query = _articleCategoryHelper.AsQueryable();
+        var query = _articleCategoryRepository.AsQueryable();
 
         #region filter
 
@@ -61,7 +61,7 @@ public class FilterArticleCategoriesQueryHandler : IRequestHandler<FilterArticle
         var pager = request.Filter.BuildPager(query.Count());
 
         var allEntities =
-            _articleCategoryHelper
+            _articleCategoryRepository
             .ApplyPagination(query, pager)
             .Select(article =>
                 _mapper.Map(article, new ArticleCategoryDto()));

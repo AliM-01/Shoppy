@@ -11,12 +11,12 @@ public class FilterCommentsQueryHandler : IRequestHandler<FilterCommentsQuery, R
 {
     #region Ctor
 
-    private readonly IGenericRepository<CM.Domain.Comment.Comment> _commentHelper;
+    private readonly IGenericRepository<CM.Domain.Comment.Comment> _commentRepository;
     private readonly IMapper _mapper;
 
-    public FilterCommentsQueryHandler(IGenericRepository<CM.Domain.Comment.Comment> commentHelper, IMapper mapper)
+    public FilterCommentsQueryHandler(IGenericRepository<CM.Domain.Comment.Comment> commentRepository, IMapper mapper)
     {
-        _commentHelper = Guard.Against.Null(commentHelper, nameof(_commentHelper));
+        _commentRepository = Guard.Against.Null(commentRepository, nameof(_commentRepository));
         _mapper = Guard.Against.Null(mapper, nameof(_mapper));
     }
 
@@ -24,7 +24,7 @@ public class FilterCommentsQueryHandler : IRequestHandler<FilterCommentsQuery, R
 
     public async Task<Response<FilterCommentDto>> Handle(FilterCommentsQuery request, CancellationToken cancellationToken)
     {
-        var query = _commentHelper.AsQueryable();
+        var query = _commentRepository.AsQueryable();
 
         #region filter
 
@@ -53,7 +53,7 @@ public class FilterCommentsQueryHandler : IRequestHandler<FilterCommentsQuery, R
         var pager = request.Filter.BuildPager(query.Count());
 
         var allEntities =
-             _commentHelper
+             _commentRepository
              .ApplyPagination(query, pager)
              .Select(c => _mapper.Map(c, new CommentDto()))
              .ToList();

@@ -8,12 +8,12 @@ public class CreateArticleCategoryCommandHandler : IRequestHandler<CreateArticle
 {
     #region Ctor
 
-    private readonly IGenericRepository<Domain.ArticleCategory.ArticleCategory> _articleCategoryHelper;
+    private readonly IGenericRepository<Domain.ArticleCategory.ArticleCategory> _articleCategoryRepository;
     private readonly IMapper _mapper;
 
-    public CreateArticleCategoryCommandHandler(IGenericRepository<Domain.ArticleCategory.ArticleCategory> articleCategoryHelper, IMapper mapper)
+    public CreateArticleCategoryCommandHandler(IGenericRepository<Domain.ArticleCategory.ArticleCategory> articleCategoryRepository, IMapper mapper)
     {
-        _articleCategoryHelper = Guard.Against.Null(articleCategoryHelper, nameof(_articleCategoryHelper));
+        _articleCategoryRepository = Guard.Against.Null(articleCategoryRepository, nameof(_articleCategoryRepository));
         _mapper = Guard.Against.Null(mapper, nameof(_mapper));
     }
 
@@ -21,7 +21,7 @@ public class CreateArticleCategoryCommandHandler : IRequestHandler<CreateArticle
 
     public async Task<Response<string>> Handle(CreateArticleCategoryCommand request, CancellationToken cancellationToken)
     {
-        if (await _articleCategoryHelper.ExistsAsync(x => x.Title == request.ArticleCategory.Title))
+        if (await _articleCategoryRepository.ExistsAsync(x => x.Title == request.ArticleCategory.Title))
             throw new ApiException(ApplicationErrorMessage.IsDuplicatedMessage);
 
         var articleCategory =
@@ -34,7 +34,7 @@ public class CreateArticleCategoryCommandHandler : IRequestHandler<CreateArticle
 
         articleCategory.ImagePath = imagePath;
 
-        await _articleCategoryHelper.InsertAsync(articleCategory);
+        await _articleCategoryRepository.InsertAsync(articleCategory);
 
         return new Response<string>(ApplicationErrorMessage.OperationSucceddedMessage);
     }

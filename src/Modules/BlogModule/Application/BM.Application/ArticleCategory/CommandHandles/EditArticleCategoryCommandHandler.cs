@@ -7,12 +7,12 @@ public class EditArticleCategoryCommandHandler : IRequestHandler<EditArticleCate
 {
     #region Ctor
 
-    private readonly IGenericRepository<Domain.ArticleCategory.ArticleCategory> _articleCategoryHelper;
+    private readonly IGenericRepository<Domain.ArticleCategory.ArticleCategory> _articleCategoryRepository;
     private readonly IMapper _mapper;
 
-    public EditArticleCategoryCommandHandler(IGenericRepository<Domain.ArticleCategory.ArticleCategory> articleCategoryHelper, IMapper mapper)
+    public EditArticleCategoryCommandHandler(IGenericRepository<Domain.ArticleCategory.ArticleCategory> articleCategoryRepository, IMapper mapper)
     {
-        _articleCategoryHelper = Guard.Against.Null(articleCategoryHelper, nameof(_articleCategoryHelper));
+        _articleCategoryRepository = Guard.Against.Null(articleCategoryRepository, nameof(_articleCategoryRepository));
         _mapper = Guard.Against.Null(mapper, nameof(_mapper));
     }
 
@@ -20,12 +20,12 @@ public class EditArticleCategoryCommandHandler : IRequestHandler<EditArticleCate
 
     public async Task<Response<string>> Handle(EditArticleCategoryCommand request, CancellationToken cancellationToken)
     {
-        var articleCategory = await _articleCategoryHelper.GetByIdAsync(request.ArticleCategory.Id);
+        var articleCategory = await _articleCategoryRepository.GetByIdAsync(request.ArticleCategory.Id);
 
         if (articleCategory is null)
             throw new NotFoundApiException();
 
-        if (await _articleCategoryHelper.ExistsAsync(x => x.Title == request.ArticleCategory.Title && x.Id != request.ArticleCategory.Id))
+        if (await _articleCategoryRepository.ExistsAsync(x => x.Title == request.ArticleCategory.Title && x.Id != request.ArticleCategory.Id))
             throw new ApiException(ApplicationErrorMessage.IsDuplicatedMessage);
 
         _mapper.Map(request.ArticleCategory, articleCategory);
@@ -40,7 +40,7 @@ public class EditArticleCategoryCommandHandler : IRequestHandler<EditArticleCate
             articleCategory.ImagePath = imagePath;
         }
 
-        await _articleCategoryHelper.UpdateAsync(articleCategory);
+        await _articleCategoryRepository.UpdateAsync(articleCategory);
 
         return new Response<string>();
     }

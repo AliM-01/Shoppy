@@ -7,14 +7,14 @@ public class DefineProductDiscountCommandHandler : IRequestHandler<DefineProduct
 {
     #region Ctor
 
-    private readonly IGenericRepository<Domain.ProductDiscount.ProductDiscount> _productDiscountHelper;
+    private readonly IGenericRepository<Domain.ProductDiscount.ProductDiscount> _productDiscountRepository;
     private readonly IMapper _mapper;
     private readonly IGenericRepository<Product> _productRepository;
 
-    public DefineProductDiscountCommandHandler(IGenericRepository<Domain.ProductDiscount.ProductDiscount> productDiscountHelper,
+    public DefineProductDiscountCommandHandler(IGenericRepository<Domain.ProductDiscount.ProductDiscount> productDiscountRepository,
          IGenericRepository<Product> productRepository, IMapper mapper)
     {
-        _productDiscountHelper = Guard.Against.Null(productDiscountHelper, nameof(_productDiscountHelper));
+        _productDiscountRepository = Guard.Against.Null(productDiscountRepository, nameof(_productDiscountRepository));
         _productRepository = Guard.Against.Null(productRepository, nameof(_productRepository));
         _mapper = Guard.Against.Null(mapper, nameof(_mapper));
 
@@ -29,13 +29,13 @@ public class DefineProductDiscountCommandHandler : IRequestHandler<DefineProduct
         if (!existsProduct)
             throw new NotFoundApiException("محصولی با این شناسه پیدا نشد");
 
-        if (await _productDiscountHelper.ExistsAsync(x => x.ProductId == request.ProductDiscount.ProductId))
+        if (await _productDiscountRepository.ExistsAsync(x => x.ProductId == request.ProductDiscount.ProductId))
             throw new ApiException("برای این محصول قبلا تخفیف در نظر گرفته شده است");
 
         var productDiscount =
             _mapper.Map(request.ProductDiscount, new Domain.ProductDiscount.ProductDiscount());
 
-        await _productDiscountHelper.InsertAsync(productDiscount);
+        await _productDiscountRepository.InsertAsync(productDiscount);
 
         return new Response<string>(ApplicationErrorMessage.OperationSucceddedMessage);
     }

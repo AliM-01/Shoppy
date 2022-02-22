@@ -1,5 +1,6 @@
 ﻿
 using _0_Framework.Application.Extensions;
+using _0_Framework.Infrastructure.Helpers;
 using SM.Application.Contracts.Product.Commands;
 using SM.Application.Contracts.Product.DTOs;
 using System.IO;

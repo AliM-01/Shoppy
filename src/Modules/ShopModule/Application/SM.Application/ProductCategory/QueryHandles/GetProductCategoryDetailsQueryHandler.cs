@@ -19,7 +19,7 @@ public class GetProductCategoryDetailsQueryHandler : IRequestHandler<GetProductC
 
     public async Task<Response<EditProductCategoryDto>> Handle(GetProductCategoryDetailsQuery request, CancellationToken cancellationToken)
     {
-        var productCategory = await _productCategoryRepository.GetEntityById(request.Id);
+        var productCategory = await _productCategoryRepository.GetByIdAsync(request.Id);
 
         if (productCategory is null)
             throw new NotFoundApiException();

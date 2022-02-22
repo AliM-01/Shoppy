@@ -12,15 +12,15 @@ public class FilterInventoryQueryHandler : IRequestHandler<FilterInventoryQuery,
 {
     #region Ctor
 
-    private readonly IGenericRepository<Domain.Inventory.Inventory> _inventoryDb;
+    private readonly IGenericRepository<Domain.Inventory.Inventory> _inventoryRepository;
     private readonly IGenericRepository<Product> _productRepository;
     private readonly IMapper _mapper;
     private readonly IInventoryHelper _inventoryHelper;
 
-    public FilterInventoryQueryHandler(IGenericRepository<Domain.Inventory.Inventory> inventoryDb,
+    public FilterInventoryQueryHandler(IGenericRepository<Domain.Inventory.Inventory> inventoryRepository,
         IGenericRepository<Product> productRepository, IMapper mapper, IInventoryHelper inventoryHelper)
     {
-        _inventoryDb = Guard.Against.Null(inventoryDb, nameof(_inventoryDb));
+        _inventoryRepository = Guard.Against.Null(inventoryRepository, nameof(_inventoryRepository));
         _productRepository = Guard.Against.Null(productRepository, nameof(_productRepository));
         _mapper = Guard.Against.Null(mapper, nameof(_mapper));
         _inventoryHelper = Guard.Against.Null(inventoryHelper, nameof(_inventoryHelper));
@@ -30,7 +30,7 @@ public class FilterInventoryQueryHandler : IRequestHandler<FilterInventoryQuery,
 
     public async Task<Response<FilterInventoryDto>> Handle(FilterInventoryQuery request, CancellationToken cancellationToken)
     {
-        var query = _inventoryDb.AsQueryable();
+        var query = _inventoryRepository.AsQueryable();
 
         var products = await _productRepository.GetQuery().Select(x => new
         {
@@ -89,7 +89,7 @@ public class FilterInventoryQueryHandler : IRequestHandler<FilterInventoryQuery,
         var pager = request.Filter.BuildPager(query.Count());
 
         var allEntities =
-             _inventoryDb
+             _inventoryRepository
              .ApplyPagination(query, pager)
              .Select(inventory =>
                 _mapper.Map(inventory, new InventoryDto()))

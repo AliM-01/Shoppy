@@ -6,18 +6,18 @@ public class DeleteArticleCategoryCommandHandler : IRequestHandler<DeleteArticle
 {
     #region Ctor
 
-    private readonly IGenericRepository<Domain.ArticleCategory.ArticleCategory> _articleCategoryHelper;
+    private readonly IGenericRepository<Domain.ArticleCategory.ArticleCategory> _articleCategoryRepository;
 
-    public DeleteArticleCategoryCommandHandler(IGenericRepository<Domain.ArticleCategory.ArticleCategory> articleCategoryHelper)
+    public DeleteArticleCategoryCommandHandler(IGenericRepository<Domain.ArticleCategory.ArticleCategory> articleCategoryRepository)
     {
-        _articleCategoryHelper = Guard.Against.Null(articleCategoryHelper, nameof(_articleCategoryHelper));
+        _articleCategoryRepository = Guard.Against.Null(articleCategoryRepository, nameof(_articleCategoryRepository));
     }
 
     #endregion
 
     public async Task<Response<string>> Handle(DeleteArticleCategoryCommand request, CancellationToken cancellationToken)
     {
-        var articleCategory = await _articleCategoryHelper.GetByIdAsync(request.ArticleCategoryId);
+        var articleCategory = await _articleCategoryRepository.GetByIdAsync(request.ArticleCategoryId);
 
         if (articleCategory is null)
             throw new NotFoundApiException();
@@ -25,7 +25,7 @@ public class DeleteArticleCategoryCommandHandler : IRequestHandler<DeleteArticle
         File.Delete(PathExtension.ArticleCategoryImage + articleCategory.ImagePath);
         File.Delete(PathExtension.ArticleCategoryThumbnailImage + articleCategory.ImagePath);
 
-        await _articleCategoryHelper.DeletePermanentAsync(request.ArticleCategoryId);
+        await _articleCategoryRepository.DeletePermanentAsync(request.ArticleCategoryId);
 
         return new Response<string>(ApplicationErrorMessage.RecordDeletedMessage);
     }

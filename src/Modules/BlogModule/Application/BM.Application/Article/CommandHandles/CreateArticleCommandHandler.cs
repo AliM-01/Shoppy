@@ -7,12 +7,12 @@ public class CreateArticleCommandHandler : IRequestHandler<CreateArticleCommand,
 {
     #region Ctor
 
-    private readonly IGenericRepository<Domain.Article.Article> _articleHelper;
+    private readonly IGenericRepository<Domain.Article.Article> _articleRepository;
     private readonly IMapper _mapper;
 
-    public CreateArticleCommandHandler(IGenericRepository<Domain.Article.Article> articleHelper, IMapper mapper)
+    public CreateArticleCommandHandler(IGenericRepository<Domain.Article.Article> articleRepository, IMapper mapper)
     {
-        _articleHelper = Guard.Against.Null(articleHelper, nameof(_articleHelper));
+        _articleRepository = Guard.Against.Null(articleRepository, nameof(_articleRepository));
         _mapper = Guard.Against.Null(mapper, nameof(_mapper));
     }
 
@@ -20,7 +20,7 @@ public class CreateArticleCommandHandler : IRequestHandler<CreateArticleCommand,
 
     public async Task<Response<string>> Handle(CreateArticleCommand request, CancellationToken cancellationToken)
     {
-        if (await _articleHelper.ExistsAsync(x => x.Title == request.Article.Title))
+        if (await _articleRepository.ExistsAsync(x => x.Title == request.Article.Title))
             throw new ApiException(ApplicationErrorMessage.IsDuplicatedMessage);
 
         var article = _mapper.Map(request.Article, new Domain.Article.Article());
@@ -32,7 +32,7 @@ public class CreateArticleCommandHandler : IRequestHandler<CreateArticleCommand,
 
         article.ImagePath = imagePath;
 
-        await _articleHelper.InsertAsync(article);
+        await _articleRepository.InsertAsync(article);
 
         return new Response<string>(ApplicationErrorMessage.OperationSucceddedMessage);
     }

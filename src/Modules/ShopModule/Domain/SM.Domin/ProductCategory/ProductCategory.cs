@@ -1,7 +1,7 @@
 ﻿namespace SM.Domain.ProductCategory;
 
 [BsonCollection("productCategories")]
-public class ProductCategory : MongoSeoPropertiesForDomainModels
+public class ProductCategory : SeoPropertiesForDomainModels
 {
     #region Properties
 

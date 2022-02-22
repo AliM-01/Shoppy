@@ -25,7 +25,7 @@ public class GetProductPicturesQueryHandler : IRequestHandler<GetProductPictures
 
     public async Task<Response<IEnumerable<ProductPictureDto>>> Handle(GetProductPicturesQuery request, CancellationToken cancellationToken)
     {
-        var product = await _productRepository.GetEntityById(request.ProductId);
+        var product = await _productRepository.GetByIdAsync(request.ProductId);
 
         if (product is null)
             throw new NotFoundApiException();

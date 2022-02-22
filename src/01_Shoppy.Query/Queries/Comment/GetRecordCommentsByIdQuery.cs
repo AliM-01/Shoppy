@@ -13,13 +13,13 @@ public class GetRecordCommentsByIdQueryHandler : IRequestHandler<GetRecordCommen
 {
     #region Ctor
 
-    private readonly IGenericRepository<CM.Domain.Comment.Comment> _commentHelper;
+    private readonly IGenericRepository<CM.Domain.Comment.Comment> _commentRepository;
     private readonly IMapper _mapper;
 
     public GetRecordCommentsByIdQueryHandler(
-        IGenericRepository<CM.Domain.Comment.Comment> commentHelper, IMapper mapper)
+        IGenericRepository<CM.Domain.Comment.Comment> commentRepository, IMapper mapper)
     {
-        _commentHelper = Guard.Against.Null(commentHelper, nameof(_commentHelper));
+        _commentRepository = Guard.Against.Null(commentRepository, nameof(_commentRepository));
         _mapper = Guard.Against.Null(mapper, nameof(_mapper));
     }
 
@@ -32,7 +32,7 @@ public class GetRecordCommentsByIdQueryHandler : IRequestHandler<GetRecordCommen
              & Builders<CM.Domain.Comment.Comment>.Filter.Eq(x => x.State, CommentState.Confirmed);
 
         var comments = (
-            _commentHelper.AsQueryable()
+            _commentRepository.AsQueryable()
             .Where(x => x.ParentId == null)
             .Where(x => x.OwnerRecordId == request.RecordId && x.State == CommentState.Confirmed)
             )
@@ -42,7 +42,7 @@ public class GetRecordCommentsByIdQueryHandler : IRequestHandler<GetRecordCommen
         for (int i = 0; i < comments.Count; i++)
         {
             var replies = (
-                _commentHelper.AsQueryable().Where(x => x.ParentId == comments[i].Id.ToString())
+                _commentRepository.AsQueryable().Where(x => x.ParentId == comments[i].Id.ToString())
                 )
                 .ToList()
                 .MapComments(_mapper)

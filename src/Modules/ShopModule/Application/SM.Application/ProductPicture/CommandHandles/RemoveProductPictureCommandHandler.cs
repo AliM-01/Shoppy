@@ -19,7 +19,7 @@ public class RemoveProductPictureCommandHandler : IRequestHandler<RemoveProductP
 
     public async Task<Response<string>> Handle(RemoveProductPictureCommand request, CancellationToken cancellationToken)
     {
-        var productPicture = await _productPictureRepository.GetEntityById(request.ProductPictureId);
+        var productPicture = await _productPictureRepository.GetByIdAsync(request.ProductPictureId);
 
         if (productPicture is null)
             throw new NotFoundApiException();

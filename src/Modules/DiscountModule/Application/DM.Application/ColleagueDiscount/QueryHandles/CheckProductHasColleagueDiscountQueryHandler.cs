@@ -8,13 +8,13 @@ public class CheckProductHasColleagueDiscountQueryHandler : IRequestHandler<Chec
 {
     #region Ctor
 
-    private readonly IGenericRepository<Domain.ColleagueDiscount.ColleagueDiscount> _colleagueDiscountHelper;
+    private readonly IGenericRepository<Domain.ColleagueDiscount.ColleagueDiscount> _colleagueDiscountRepository;
     private readonly IGenericRepository<Product> _productRepository;
 
-    public CheckProductHasColleagueDiscountQueryHandler(IGenericRepository<Domain.ColleagueDiscount.ColleagueDiscount> colleagueDiscountHelper,
+    public CheckProductHasColleagueDiscountQueryHandler(IGenericRepository<Domain.ColleagueDiscount.ColleagueDiscount> colleagueDiscountRepository,
         IGenericRepository<Product> productRepository)
     {
-        _colleagueDiscountHelper = Guard.Against.Null(colleagueDiscountHelper, nameof(_colleagueDiscountHelper));
+        _colleagueDiscountRepository = Guard.Against.Null(colleagueDiscountRepository, nameof(_colleagueDiscountRepository));
         _productRepository = Guard.Against.Null(productRepository, nameof(_productRepository));
     }
 
@@ -22,12 +22,12 @@ public class CheckProductHasColleagueDiscountQueryHandler : IRequestHandler<Chec
 
     public async Task<Response<CheckProductHasColleagueDiscountResponseDto>> Handle(CheckProductHasColleagueDiscountQuery request, CancellationToken cancellationToken)
     {
-        var product = await _productRepository.GetEntityById(request.ProductId);
+        var product = await _productRepository.GetByIdAsync(request.ProductId);
 
         if (product is null)
             throw new NotFoundApiException("محصولی با این شناسه پیدا نشد");
 
-        bool existsColleagueDiscount = await _colleagueDiscountHelper.ExistsAsync(x => x.ProductId == request.ProductId);
+        bool existsColleagueDiscount = await _colleagueDiscountRepository.ExistsAsync(x => x.ProductId == request.ProductId);
 
         return new Response<CheckProductHasColleagueDiscountResponseDto>(
             new CheckProductHasColleagueDiscountResponseDto

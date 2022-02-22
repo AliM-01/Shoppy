@@ -6,12 +6,12 @@ public class AddCommentCommandHandler : IRequestHandler<AddCommentCommand, Respo
 {
     #region Ctor
 
-    private readonly IGenericRepository<Domain.Comment.Comment> _commentHelper;
+    private readonly IGenericRepository<Domain.Comment.Comment> _commentRepository;
     private readonly IMapper _mapper;
 
-    public AddCommentCommandHandler(IGenericRepository<Domain.Comment.Comment> commentHelper, IMapper mapper)
+    public AddCommentCommandHandler(IGenericRepository<Domain.Comment.Comment> commentRepository, IMapper mapper)
     {
-        _commentHelper = Guard.Against.Null(commentHelper, nameof(_commentHelper));
+        _commentRepository = Guard.Against.Null(commentRepository, nameof(_commentRepository));
         _mapper = Guard.Against.Null(mapper, nameof(_mapper));
     }
 
@@ -24,7 +24,7 @@ public class AddCommentCommandHandler : IRequestHandler<AddCommentCommand, Respo
         if (string.IsNullOrEmpty(comment.ParentId))
             comment.ParentId = null;
 
-        await _commentHelper.InsertAsync(comment);
+        await _commentRepository.InsertAsync(comment);
 
         return new Response<string>("کامنت با موفقیت ثبت شد و پس از تایید توسط ادمین در سایت نمایش داده خواهد شد");
     }

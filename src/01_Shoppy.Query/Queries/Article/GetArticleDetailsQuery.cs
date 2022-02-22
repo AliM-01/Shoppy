@@ -11,13 +11,13 @@ public class GetArticleDetailsQueryHandler : IRequestHandler<GetArticleDetailsQu
 {
     #region Ctor
 
-    private readonly IGenericRepository<BM.Domain.Article.Article> _articleHelper;
+    private readonly IGenericRepository<BM.Domain.Article.Article> _articleRepository;
     private readonly IMapper _mapper;
 
     public GetArticleDetailsQueryHandler(
-        IGenericRepository<BM.Domain.Article.Article> articleHelper, IMapper mapper)
+        IGenericRepository<BM.Domain.Article.Article> articleRepository, IMapper mapper)
     {
-        _articleHelper = Guard.Against.Null(articleHelper, nameof(_articleHelper));
+        _articleRepository = Guard.Against.Null(articleRepository, nameof(_articleRepository));
         _mapper = Guard.Against.Null(mapper, nameof(_mapper));
     }
 
@@ -30,7 +30,7 @@ public class GetArticleDetailsQueryHandler : IRequestHandler<GetArticleDetailsQu
 
         var filter = Builders<BM.Domain.Article.Article>.Filter.Eq(x => x.Slug, request.Slug);
 
-        var article = await _articleHelper.GetByFilter(filter);
+        var article = await _articleRepository.GetByFilter(filter);
 
         return new Response<ArticleDetailsQueryModel>(
             _mapper.Map(article, new ArticleDetailsQueryModel()));

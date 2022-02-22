@@ -6,14 +6,14 @@ public class ReduceInventoriesCommandHandler : IRequestHandler<ReduceInventories
 {
     #region Ctor
 
-    private readonly IGenericRepository<Domain.Inventory.Inventory> _inventoryDb;
+    private readonly IGenericRepository<Domain.Inventory.Inventory> _inventoryRepository;
     private readonly IMapper _mapper;
     private readonly IInventoryHelper _inventoryHelper;
 
-    public ReduceInventoriesCommandHandler(IGenericRepository<Domain.Inventory.Inventory> inventoryDb,
+    public ReduceInventoriesCommandHandler(IGenericRepository<Domain.Inventory.Inventory> inventoryRepository,
         IMapper mapper, IInventoryHelper inventoryHelper)
     {
-        _inventoryDb = Guard.Against.Null(inventoryDb, nameof(_inventoryDb));
+        _inventoryRepository = Guard.Against.Null(inventoryRepository, nameof(_inventoryRepository));
         _mapper = Guard.Against.Null(mapper, nameof(_mapper));
         _inventoryHelper = Guard.Against.Null(inventoryHelper, nameof(_inventoryHelper));
     }
@@ -26,7 +26,7 @@ public class ReduceInventoriesCommandHandler : IRequestHandler<ReduceInventories
 
         for (int i = 0; i < request.Inventories.Count; i++)
         {
-            var inventory = await _inventoryDb.GetByIdAsync(request.Inventories[i].InventoryId);
+            var inventory = await _inventoryRepository.GetByIdAsync(request.Inventories[i].InventoryId);
 
             if (inventory is null)
                 throw new NotFoundApiException();

@@ -5,7 +5,7 @@ using System.Collections.Generic;
 namespace SM.Domain.Product;
 
 [BsonCollection("products")]
-public class Product : MongoSeoPropertiesForDomainModels
+public class Product : SeoPropertiesForDomainModels
 {
     #region Properties
 

@@ -7,14 +7,14 @@ public class EditProductDiscountCommandHandler : IRequestHandler<EditProductDisc
 {
     #region Ctor
 
-    private readonly IGenericRepository<Domain.ProductDiscount.ProductDiscount> _productDiscountHelper;
+    private readonly IGenericRepository<Domain.ProductDiscount.ProductDiscount> _productDiscountRepository;
     private readonly IMapper _mapper;
     private readonly IGenericRepository<Product> _productRepository;
 
-    public EditProductDiscountCommandHandler(IGenericRepository<Domain.ProductDiscount.ProductDiscount> productDiscountHelper,
+    public EditProductDiscountCommandHandler(IGenericRepository<Domain.ProductDiscount.ProductDiscount> productDiscountRepository,
          IGenericRepository<Product> productRepository, IMapper mapper)
     {
-        _productDiscountHelper = Guard.Against.Null(productDiscountHelper, nameof(_productDiscountHelper));
+        _productDiscountRepository = Guard.Against.Null(productDiscountRepository, nameof(_productDiscountRepository));
         _productRepository = Guard.Against.Null(productRepository, nameof(_productRepository));
         _mapper = Guard.Against.Null(mapper, nameof(_mapper));
 
@@ -29,14 +29,14 @@ public class EditProductDiscountCommandHandler : IRequestHandler<EditProductDisc
         if (!existsProduct)
             throw new NotFoundApiException("محصولی با این شناسه پیدا نشد");
 
-        var ProductDiscount = await _productDiscountHelper.GetByIdAsync(request.ProductDiscount.Id);
+        var ProductDiscount = await _productDiscountRepository.GetByIdAsync(request.ProductDiscount.Id);
 
         if (ProductDiscount is null)
             throw new NotFoundApiException();
 
         _mapper.Map(request.ProductDiscount, ProductDiscount);
 
-        await _productDiscountHelper.UpdateAsync(ProductDiscount);
+        await _productDiscountRepository.UpdateAsync(ProductDiscount);
 
         return new Response<string>();
     }

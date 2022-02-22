@@ -9,14 +9,14 @@ public class FilterColleagueDiscountsQueryHandler : IRequestHandler<FilterCollea
 {
     #region Ctor
 
-    private readonly IGenericRepository<Domain.ColleagueDiscount.ColleagueDiscount> _colleagueDiscountHelper;
+    private readonly IGenericRepository<Domain.ColleagueDiscount.ColleagueDiscount> _colleagueDiscountRepository;
     private readonly IGenericRepository<Product> _productRepository;
     private readonly IMapper _mapper;
 
-    public FilterColleagueDiscountsQueryHandler(IGenericRepository<Domain.ColleagueDiscount.ColleagueDiscount> colleagueDiscountHelper,
+    public FilterColleagueDiscountsQueryHandler(IGenericRepository<Domain.ColleagueDiscount.ColleagueDiscount> colleagueDiscountRepository,
         IGenericRepository<Product> productRepository, IMapper mapper)
     {
-        _colleagueDiscountHelper = Guard.Against.Null(colleagueDiscountHelper, nameof(_colleagueDiscountHelper));
+        _colleagueDiscountRepository = Guard.Against.Null(colleagueDiscountRepository, nameof(_colleagueDiscountRepository));
         _productRepository = Guard.Against.Null(productRepository, nameof(_productRepository));
         _mapper = Guard.Against.Null(mapper, nameof(_mapper));
     }
@@ -25,7 +25,7 @@ public class FilterColleagueDiscountsQueryHandler : IRequestHandler<FilterCollea
 
     public async Task<Response<FilterColleagueDiscountDto>> Handle(FilterColleagueDiscountsQuery request, CancellationToken cancellationToken)
     {
-        var query = _colleagueDiscountHelper.AsQueryable();
+        var query = _colleagueDiscountRepository.AsQueryable();
 
         var products = await _productRepository.GetQuery().Select(x => new
         {
@@ -79,7 +79,7 @@ public class FilterColleagueDiscountsQueryHandler : IRequestHandler<FilterCollea
         var pager = request.Filter.BuildPager(query.Count());
 
         var allEntities =
-            _colleagueDiscountHelper
+            _colleagueDiscountRepository
             .ApplyPagination(query, pager)
             .Select(discount =>
                 _mapper.Map(discount, new ColleagueDiscountDto()))

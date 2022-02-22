@@ -6,12 +6,12 @@ public class GetProductDiscountDetailsQueryHandler : IRequestHandler<GetProductD
 {
     #region Ctor
 
-    private readonly IGenericRepository<Domain.ProductDiscount.ProductDiscount> _productDiscountHelper;
+    private readonly IGenericRepository<Domain.ProductDiscount.ProductDiscount> _productDiscountRepository;
     private readonly IMapper _mapper;
 
-    public GetProductDiscountDetailsQueryHandler(IGenericRepository<Domain.ProductDiscount.ProductDiscount> productDiscountHelper, IMapper mapper)
+    public GetProductDiscountDetailsQueryHandler(IGenericRepository<Domain.ProductDiscount.ProductDiscount> productDiscountRepository, IMapper mapper)
     {
-        _productDiscountHelper = Guard.Against.Null(productDiscountHelper, nameof(_productDiscountHelper));
+        _productDiscountRepository = Guard.Against.Null(productDiscountRepository, nameof(_productDiscountRepository));
         _mapper = Guard.Against.Null(mapper, nameof(_mapper));
     }
 
@@ -19,7 +19,7 @@ public class GetProductDiscountDetailsQueryHandler : IRequestHandler<GetProductD
 
     public async Task<Response<EditProductDiscountDto>> Handle(GetProductDiscountDetailsQuery request, CancellationToken cancellationToken)
     {
-        var ProductDiscount = await _productDiscountHelper.GetByIdAsync(request.Id);
+        var ProductDiscount = await _productDiscountRepository.GetByIdAsync(request.Id);
 
         if (ProductDiscount is null)
             throw new NotFoundApiException();

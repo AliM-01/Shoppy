@@ -3,7 +3,7 @@ using AutoMapper;
 
 namespace _01_Shoppy.Query.Helpers.Comment;
 
-public static class CommentHelper
+public static class commentRepository
 {
     public static List<CommentQueryModel> MapComments(this List<CM.Domain.Comment.Comment> comments, IMapper mapper)
     {

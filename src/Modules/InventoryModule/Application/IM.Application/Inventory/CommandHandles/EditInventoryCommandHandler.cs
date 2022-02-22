@@ -7,14 +7,14 @@ public class EditInventoryCommandHandler : IRequestHandler<EditInventoryCommand,
 {
     #region Ctor
 
-    private readonly IGenericRepository<Domain.Inventory.Inventory> _inventoryHelper;
+    private readonly IGenericRepository<Domain.Inventory.Inventory> _inventoryRepository;
     private readonly IGenericRepository<Product> _productRepository;
     private readonly IMapper _mapper;
 
-    public EditInventoryCommandHandler(IGenericRepository<Domain.Inventory.Inventory> inventoryHelper,
+    public EditInventoryCommandHandler(IGenericRepository<Domain.Inventory.Inventory> inventoryRepository,
         IMapper mapper, IGenericRepository<Product> productRepository)
     {
-        _inventoryHelper = Guard.Against.Null(inventoryHelper, nameof(_inventoryHelper));
+        _inventoryRepository = Guard.Against.Null(inventoryRepository, nameof(_inventoryRepository));
         _productRepository = Guard.Against.Null(productRepository, nameof(_productRepository));
         _mapper = Guard.Against.Null(mapper, nameof(_mapper));
     }
@@ -29,17 +29,17 @@ public class EditInventoryCommandHandler : IRequestHandler<EditInventoryCommand,
         if (!existsProduct)
             throw new NotFoundApiException("محصولی با این شناسه پیدا نشد");
 
-        var inventory = await _inventoryHelper.GetByIdAsync(request.Inventory.Id);
+        var inventory = await _inventoryRepository.GetByIdAsync(request.Inventory.Id);
 
         if (inventory is null)
             throw new NotFoundApiException();
 
-        if (await _inventoryHelper.ExistsAsync(x => x.ProductId == request.Inventory.ProductId && x.Id != request.Inventory.Id))
+        if (await _inventoryRepository.ExistsAsync(x => x.ProductId == request.Inventory.ProductId && x.Id != request.Inventory.Id))
             throw new ApiException(ApplicationErrorMessage.IsDuplicatedMessage);
 
         _mapper.Map(request.Inventory, inventory);
 
-        await _inventoryHelper.UpdateAsync(inventory);
+        await _inventoryRepository.UpdateAsync(inventory);
 
         return new Response<string>();
     }

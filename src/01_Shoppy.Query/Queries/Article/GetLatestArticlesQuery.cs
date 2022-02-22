@@ -11,13 +11,13 @@ public class GetLatestArticlesQueryHandler : IRequestHandler<GetLatestArticlesQu
 {
     #region Ctor
 
-    private readonly IGenericRepository<BM.Domain.Article.Article> _articleHelper;
+    private readonly IGenericRepository<BM.Domain.Article.Article> _articleRepository;
     private readonly IMapper _mapper;
 
     public GetLatestArticlesQueryHandler(
-        IGenericRepository<BM.Domain.Article.Article> articleHelper, IMapper mapper)
+        IGenericRepository<BM.Domain.Article.Article> articleRepository, IMapper mapper)
     {
-        _articleHelper = Guard.Against.Null(articleHelper, nameof(_articleHelper));
+        _articleRepository = Guard.Against.Null(articleRepository, nameof(_articleRepository));
         _mapper = Guard.Against.Null(mapper, nameof(_mapper));
     }
 
@@ -26,7 +26,7 @@ public class GetLatestArticlesQueryHandler : IRequestHandler<GetLatestArticlesQu
     public async Task<Response<IEnumerable<ArticleQueryModel>>> Handle(GetLatestArticlesQuery request, CancellationToken cancellationToken)
     {
         var latestArticles =
-            await _articleHelper
+            await _articleRepository
                .AsQueryable()
                .OrderByDescending(x => x.LastUpdateDate)
                .Take(8)

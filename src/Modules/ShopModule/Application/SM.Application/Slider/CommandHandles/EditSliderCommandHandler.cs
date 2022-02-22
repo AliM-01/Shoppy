@@ -21,7 +21,7 @@ public class EditSliderCommandHandler : IRequestHandler<EditSliderCommand, Respo
 
     public async Task<Response<string>> Handle(EditSliderCommand request, CancellationToken cancellationToken)
     {
-        var slider = await _sliderRepository.GetEntityById(request.Slider.Id);
+        var slider = await _sliderRepository.GetByIdAsync(request.Slider.Id);
 
         if (slider is null)
             throw new NotFoundApiException();

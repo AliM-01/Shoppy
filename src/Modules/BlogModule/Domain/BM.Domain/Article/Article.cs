@@ -6,7 +6,7 @@ using System.ComponentModel.DataAnnotations;
 namespace BM.Domain.Article;
 
 [BsonCollection("articles")]
-public class Article : MongoSeoPropertiesForDomainModels
+public class Article : SeoPropertiesForDomainModels
 {
     #region Properties
 

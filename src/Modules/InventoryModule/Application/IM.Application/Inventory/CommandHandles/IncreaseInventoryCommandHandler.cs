@@ -6,14 +6,14 @@ public class IncreaseInventoryCommandHandler : IRequestHandler<IncreaseInventory
 {
     #region Ctor
 
-    private readonly IGenericRepository<Domain.Inventory.Inventory> _inventoryDb;
+    private readonly IGenericRepository<Domain.Inventory.Inventory> _inventoryRepository;
     private readonly IMapper _mapper;
     private readonly IInventoryHelper _inventoryHelper;
 
-    public IncreaseInventoryCommandHandler(IGenericRepository<Domain.Inventory.Inventory> inventoryDb,
+    public IncreaseInventoryCommandHandler(IGenericRepository<Domain.Inventory.Inventory> inventoryRepository,
         IMapper mapper, IInventoryHelper inventoryHelper)
     {
-        _inventoryDb = Guard.Against.Null(inventoryDb, nameof(_inventoryDb));
+        _inventoryRepository = Guard.Against.Null(inventoryRepository, nameof(_inventoryRepository));
         _mapper = Guard.Against.Null(mapper, nameof(_mapper));
         _inventoryHelper = Guard.Against.Null(inventoryHelper, nameof(_inventoryHelper));
     }
@@ -22,7 +22,7 @@ public class IncreaseInventoryCommandHandler : IRequestHandler<IncreaseInventory
 
     public async Task<Response<string>> Handle(IncreaseInventoryCommand request, CancellationToken cancellationToken)
     {
-        var inventory = await _inventoryDb.GetByIdAsync(request.Inventory.InventoryId);
+        var inventory = await _inventoryRepository.GetByIdAsync(request.Inventory.InventoryId);
 
         if (inventory is null)
             throw new NotFoundApiException();

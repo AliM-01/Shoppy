@@ -6,12 +6,12 @@ public class EditArticleCommandHandler : IRequestHandler<EditArticleCommand, Res
 {
     #region Ctor
 
-    private readonly IGenericRepository<Domain.Article.Article> _articleHelper;
+    private readonly IGenericRepository<Domain.Article.Article> _articleRepository;
     private readonly IMapper _mapper;
 
-    public EditArticleCommandHandler(IGenericRepository<Domain.Article.Article> articleHelper, IMapper mapper)
+    public EditArticleCommandHandler(IGenericRepository<Domain.Article.Article> articleRepository, IMapper mapper)
     {
-        _articleHelper = Guard.Against.Null(articleHelper, nameof(_articleHelper));
+        _articleRepository = Guard.Against.Null(articleRepository, nameof(_articleRepository));
         _mapper = Guard.Against.Null(mapper, nameof(_mapper));
     }
 
@@ -19,12 +19,12 @@ public class EditArticleCommandHandler : IRequestHandler<EditArticleCommand, Res
 
     public async Task<Response<string>> Handle(EditArticleCommand request, CancellationToken cancellationToken)
     {
-        var article = await _articleHelper.GetByIdAsync(request.Article.Id);
+        var article = await _articleRepository.GetByIdAsync(request.Article.Id);
 
         if (article is null)
             throw new NotFoundApiException();
 
-        if (await _articleHelper.ExistsAsync(x => x.Title == request.Article.Title && x.Id != request.Article.Id))
+        if (await _articleRepository.ExistsAsync(x => x.Title == request.Article.Title && x.Id != request.Article.Id))
             throw new ApiException(ApplicationErrorMessage.IsDuplicatedMessage);
 
         _mapper.Map(request.Article, article);
@@ -39,7 +39,7 @@ public class EditArticleCommandHandler : IRequestHandler<EditArticleCommand, Res
             article.ImagePath = imagePath;
         }
 
-        await _articleHelper.UpdateAsync(article);
+        await _articleRepository.UpdateAsync(article);
 
         return new Response<string>();
     }

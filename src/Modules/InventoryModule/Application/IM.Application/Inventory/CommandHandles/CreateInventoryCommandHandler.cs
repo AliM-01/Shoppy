@@ -7,14 +7,14 @@ public class CreateInventoryCommandHandler : IRequestHandler<CreateInventoryComm
 {
     #region Ctor
 
-    private readonly IGenericRepository<Domain.Inventory.Inventory> _inventoryHelper;
+    private readonly IGenericRepository<Domain.Inventory.Inventory> _inventoryRepository;
     private readonly IGenericRepository<Product> _productRepository;
     private readonly IMapper _mapper;
 
-    public CreateInventoryCommandHandler(IGenericRepository<Domain.Inventory.Inventory> inventoryHelper,
+    public CreateInventoryCommandHandler(IGenericRepository<Domain.Inventory.Inventory> inventoryRepository,
         IMapper mapper, IGenericRepository<Product> productRepository)
     {
-        _inventoryHelper = Guard.Against.Null(inventoryHelper, nameof(_inventoryHelper));
+        _inventoryRepository = Guard.Against.Null(inventoryRepository, nameof(_inventoryRepository));
         _productRepository = Guard.Against.Null(productRepository, nameof(_productRepository));
         _mapper = Guard.Against.Null(mapper, nameof(_mapper));
     }
@@ -28,13 +28,13 @@ public class CreateInventoryCommandHandler : IRequestHandler<CreateInventoryComm
         if (!existsProduct)
             throw new NotFoundApiException("محصولی با این شناسه پیدا نشد");
 
-        if (await _inventoryHelper.ExistsAsync(x => x.ProductId == request.Inventory.ProductId))
+        if (await _inventoryRepository.ExistsAsync(x => x.ProductId == request.Inventory.ProductId))
             throw new ApiException(ApplicationErrorMessage.IsDuplicatedMessage);
 
         var inventory = new Domain.Inventory.Inventory(request.Inventory.ProductId,
                 request.Inventory.UnitPrice);
 
-        await _inventoryHelper.InsertAsync(inventory);
+        await _inventoryRepository.InsertAsync(inventory);
 
         return new Response<string>(ApplicationErrorMessage.OperationSucceddedMessage);
     }
