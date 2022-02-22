@@ -37,8 +37,7 @@ public class EditSliderCommandHandler : IRequestHandler<EditSliderCommand, Respo
             slider.ImagePath = imagePath;
         }
 
-        _sliderRepository.Update(slider);
-        await _sliderRepository.SaveChanges();
+        await _sliderRepository.UpdateAsync(slider);
 
         return new Response<string>();
     }

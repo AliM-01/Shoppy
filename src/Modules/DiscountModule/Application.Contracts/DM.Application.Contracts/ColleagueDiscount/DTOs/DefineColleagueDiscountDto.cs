@@ -3,7 +3,7 @@ public class DefineColleagueDiscountDto
 {
     [Display(Name = "شناسه محصول")]
     [JsonProperty("productId")]
-    public long ProductId { get; set; }
+    public string ProductId { get; set; }
 
     [Display(Name = "درصد")]
     [JsonProperty("rate")]

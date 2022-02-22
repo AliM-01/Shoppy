@@ -33,8 +33,7 @@ public class CreateProductPictureCommandHandler : IRequestHandler<CreateProductP
                 200, 200, PathExtension.ProductPictureThumbnailImage);
             productPicture.ImagePath = imagePath;
 
-            await _productPictureRepository.InsertEntity(productPicture);
-            await _productPictureRepository.SaveChanges();
+            await _productPictureRepository.InsertAsync(productPicture);
         }
 
 

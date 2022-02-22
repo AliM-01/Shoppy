@@ -1,5 +1,5 @@
 ﻿using _0_Framework.Application.Models.Paging;
-using Microsoft.EntityFrameworkCore;
+using MongoDB.Driver.Linq;
 using SM.Application.Contracts.ProductFeature.DTOs;
 using SM.Application.Contracts.ProductFeature.Queries;
 using System.Linq;
@@ -22,9 +22,9 @@ public class FilterProductFeaturesQueryHandler : IRequestHandler<FilterProductFe
 
     public async Task<Response<FilterProductFeatureDto>> Handle(FilterProductFeaturesQuery request, CancellationToken cancellationToken)
     {
-        var query = _productFeatureRepository.GetQuery().AsQueryable();
+        var query = _productFeatureRepository.AsQueryable();
 
-        if (request.Filter.ProductId == 0)
+        if (string.IsNullOrEmpty(request.Filter.ProductId))
             throw new ApiException(ApplicationErrorMessage.FilteredRecordsNotFoundMessage);
 
         #region filter
@@ -35,13 +35,14 @@ public class FilterProductFeaturesQueryHandler : IRequestHandler<FilterProductFe
 
         #region paging
 
-        var pager = Pager.Build(request.Filter.PageId, await query.CountAsync(cancellationToken),
-            request.Filter.TakePage, request.Filter.ShownPages);
-        var allEntities = await query.Paging(pager)
-            .AsQueryable()
-            .Select(product =>
+        var pager = request.Filter.BuildPager(query.Count());
+
+        var allEntities =
+             _productFeatureRepository
+             .ApplyPagination(query, pager)
+             .Select(product =>
                 _mapper.Map(product, new ProductFeatureDto()))
-            .ToListAsync(cancellationToken);
+             .ToList();
 
         #endregion paging
 

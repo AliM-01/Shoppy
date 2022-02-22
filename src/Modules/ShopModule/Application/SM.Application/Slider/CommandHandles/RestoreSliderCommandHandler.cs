@@ -24,8 +24,7 @@ public class RestoreSliderCommandHandler : IRequestHandler<RestoreSliderCommand,
 
         slider.IsDeleted = false;
 
-        _sliderRepository.Update(slider);
-        await _sliderRepository.SaveChanges();
+        await _sliderRepository.UpdateAsync(slider);
 
         return new Response<string>(ApplicationErrorMessage.RecordDeletedMessage);
     }

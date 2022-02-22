@@ -1,5 +1,4 @@
-﻿using Microsoft.EntityFrameworkCore;
-using SM.Application.Contracts.Product.DTOs;
+﻿using SM.Application.Contracts.Product.DTOs;
 using SM.Application.Contracts.Product.Queries;
 
 namespace SM.Application.Product.QueryHandles;
@@ -20,13 +19,12 @@ public class ExistsProductIdQueryHandler : IRequestHandler<ExistsProductIdQuery,
 
     public async Task<Response<ExistsProductIdResponseDto>> Handle(ExistsProductIdQuery request, CancellationToken cancellationToken)
     {
-        var product = await _productRepository.GetQuery()
-            .AsNoTracking().FirstOrDefaultAsync(s => s.Id == request.ProductId);
+        var product = await _productRepository.GetByIdAsync(request.ProductId);
 
         var response = new ExistsProductIdResponseDto
         {
             Exists = (product is not null),
-            ProductId = (product is not null) ? product.Id : 0,
+            ProductId = (product is not null) ? product.Id : "0",
             ProductTitle = (product is not null) ? product.Title : ""
         };
 

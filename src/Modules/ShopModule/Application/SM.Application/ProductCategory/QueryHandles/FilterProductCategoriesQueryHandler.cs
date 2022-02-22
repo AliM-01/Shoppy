@@ -1,5 +1,6 @@
 ﻿using _0_Framework.Application.Models.Paging;
 using Microsoft.EntityFrameworkCore;
+using MongoDB.Driver.Linq;
 using SM.Application.Contracts.ProductCategory.DTOs;
 using SM.Application.Contracts.ProductCategory.Queries;
 using System.Linq;
@@ -10,20 +11,23 @@ public class FilterProductCategoriesQueryHandler : IRequestHandler<FilterProduct
     #region Ctor
 
     private readonly IGenericRepository<Domain.ProductCategory.ProductCategory> _productCategoryRepository;
+    private readonly IGenericRepository<Domain.Product.Product> _productRepository;
     private readonly IMapper _mapper;
 
-    public FilterProductCategoriesQueryHandler(IGenericRepository<Domain.ProductCategory.ProductCategory> productCategoryRepository, IMapper mapper)
+    public FilterProductCategoriesQueryHandler(IGenericRepository<Domain.ProductCategory.ProductCategory> productCategoryRepository,
+        IMapper mapper, IGenericRepository<Domain.Product.Product> productRepository)
     {
         _productCategoryRepository = Guard.Against.Null(productCategoryRepository, nameof(_productCategoryRepository));
         _mapper = Guard.Against.Null(mapper, nameof(_mapper));
+        _productRepository = Guard.Against.Null(productRepository, nameof(_productRepository));
+
     }
 
     #endregion
 
     public async Task<Response<FilterProductCategoryDto>> Handle(FilterProductCategoriesQuery request, CancellationToken cancellationToken)
     {
-        var query = _productCategoryRepository.GetQuery()
-            .Include(p => p.Products).AsQueryable();
+        var query = _productCategoryRepository.AsQueryable();
 
         #region filter
 
@@ -33,11 +37,11 @@ public class FilterProductCategoriesQueryHandler : IRequestHandler<FilterProduct
         switch (request.Filter.SortDateOrder)
         {
             case PagingDataSortCreationDateOrder.DES:
-                query = query.OrderByDescending(x => x.CreationDate).AsQueryable();
+                query = query.OrderByDescending(x => x.CreationDate);
                 break;
 
             case PagingDataSortCreationDateOrder.ASC:
-                query = query.OrderBy(x => x.CreationDate).AsQueryable();
+                query = query.OrderBy(x => x.CreationDate);
                 break;
         }
 
@@ -47,11 +51,11 @@ public class FilterProductCategoriesQueryHandler : IRequestHandler<FilterProduct
                 break;
 
             case PagingDataSortIdOrder.DES:
-                query = query.OrderByDescending(x => x.Id).AsQueryable();
+                query = query.OrderByDescending(x => x.Id);
                 break;
 
             case PagingDataSortIdOrder.ASC:
-                query = query.OrderBy(x => x.Id).AsQueryable();
+                query = query.OrderBy(x => x.Id);
                 break;
         }
 
@@ -59,16 +63,17 @@ public class FilterProductCategoriesQueryHandler : IRequestHandler<FilterProduct
 
         #region paging
 
-        var pager = Pager.Build(request.Filter.PageId, await query.CountAsync(cancellationToken),
-            request.Filter.TakePage, request.Filter.ShownPages);
-        var allEntities = await query.Paging(pager)
-            .AsQueryable()
-            .Select(product =>
-                _mapper.Map(product, new ProductCategoryDto
-                {
-                    ProductsCount = product.Products.Count()
-                }))
-            .ToListAsync(cancellationToken);
+        var pager = request.Filter.BuildPager(query.Count());
+
+        var allEntities =
+             _productCategoryRepository
+                .ApplyPagination(query, pager)
+                .Select(category =>
+                    _mapper.Map(category, new ProductCategoryDto
+                    {
+                        ProductsCount = _productRepository.AsQueryable().Where(x => x.CategoryId == category.Id).Count()
+                    }))
+                .ToList();
 
         #endregion paging
 

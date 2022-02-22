@@ -1,6 +1,7 @@
-﻿using _01_Shoppy.Query.Models.ProductCategory;
+﻿using _0_Framework.Infrastructure;
+using _0_Framework.Infrastructure.Helpers;
+using _01_Shoppy.Query.Models.ProductCategory;
 using AutoMapper;
-using SM.Infrastructure.Persistence.Context;
 
 namespace _01_Shoppy.Query.Queries.ProductCategory;
 
@@ -10,12 +11,12 @@ public class GetProductCategoriesQueryHandler : IRequestHandler<GetProductCatego
 {
     #region Ctor
 
-    private readonly ShopDbContext _context;
+    private readonly IGenericRepository<SM.Domain.ProductCategory.ProductCategory> _productCategoryRepository;
     private readonly IMapper _mapper;
 
-    public GetProductCategoriesQueryHandler(ShopDbContext context, IMapper mapper)
+    public GetProductCategoriesQueryHandler(IGenericRepository<SM.Domain.ProductCategory.ProductCategory> productCategoryRepository, IMapper mapper)
     {
-        _context = Guard.Against.Null(context, nameof(_context));
+        _productCategoryRepository = Guard.Against.Null(productCategoryRepository, nameof(_productCategoryRepository));
         _mapper = Guard.Against.Null(mapper, nameof(_mapper));
     }
 
@@ -23,9 +24,9 @@ public class GetProductCategoriesQueryHandler : IRequestHandler<GetProductCatego
 
     public async Task<Response<IEnumerable<ProductCategoryQueryModel>>> Handle(GetProductCategoriesQuery request, CancellationToken cancellationToken)
     {
-        var productCategories = await _context.ProductCategories
+        var productCategories = (await _productCategoryRepository.AsQueryable().ToListAsyncSafe())
              .Select(productCategory => _mapper.Map(productCategory, new ProductCategoryQueryModel()))
-             .ToListAsync();
+             .ToList();
 
         return new Response<IEnumerable<ProductCategoryQueryModel>>(productCategories);
     }

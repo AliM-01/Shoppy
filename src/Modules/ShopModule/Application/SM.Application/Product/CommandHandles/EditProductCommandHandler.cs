@@ -1,6 +1,4 @@
-﻿using _0_Framework.Application.Utilities.ImageRelated;
-using Microsoft.EntityFrameworkCore;
-using SM.Application.Contracts.Product.Commands;
+﻿using SM.Application.Contracts.Product.Commands;
 using System.IO;
 
 namespace SM.Application.Product.CommandHandles;
@@ -22,14 +20,12 @@ public class EditProductCommandHandler : IRequestHandler<EditProductCommand, Res
 
     public async Task<Response<string>> Handle(EditProductCommand request, CancellationToken cancellationToken)
     {
-        var product = await _productRepository.GetQuery()
-            .Include(p => p.Category)
-            .FirstOrDefaultAsync(s => s.Id == request.Product.Id);
+        var product = await _productRepository.GetByIdAsync(request.Product.Id);
 
         if (product is null)
             throw new NotFoundApiException();
 
-        if (_productRepository.Exists(x => x.Title == request.Product.Title && x.Id != request.Product.Id))
+        if (await _productRepository.ExistsAsync(x => x.Title == request.Product.Title && x.Id != request.Product.Id))
             throw new ApiException(ApplicationErrorMessage.IsDuplicatedMessage);
 
         _mapper.Map(request.Product, product);
@@ -44,8 +40,7 @@ public class EditProductCommandHandler : IRequestHandler<EditProductCommand, Res
 
         product.CategoryId = request.Product.CategoryId;
 
-        _productRepository.Update(product);
-        await _productRepository.SaveChanges();
+        await _productRepository.UpdateAsync(product);
 
         return new Response<string>();
     }

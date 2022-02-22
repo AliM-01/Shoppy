@@ -26,7 +26,7 @@ public class EditProductCategoryCommandHandler : IRequestHandler<EditProductCate
         if (productCategory is null)
             throw new NotFoundApiException();
 
-        if (_productCategoryRepository.Exists(x => x.Title == request.ProductCategory.Title && x.Id != request.ProductCategory.Id))
+        if (await _productCategoryRepository.ExistsAsync(x => x.Title == request.ProductCategory.Title && x.Id != request.ProductCategory.Id))
             throw new ApiException(ApplicationErrorMessage.IsDuplicatedMessage);
 
         _mapper.Map(request.ProductCategory, productCategory);
@@ -41,8 +41,7 @@ public class EditProductCategoryCommandHandler : IRequestHandler<EditProductCate
             productCategory.ImagePath = imagePath;
         }
 
-        _productCategoryRepository.Update(productCategory);
-        await _productCategoryRepository.SaveChanges();
+        await _productCategoryRepository.UpdateAsync(productCategory);
 
         return new Response<string>();
     }

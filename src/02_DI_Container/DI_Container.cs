@@ -24,13 +24,13 @@ namespace _02_DI_Container;
 
 public static class DI_Container
 {
-    public static void RegisterServices(this IServiceCollection services, Type assemblyMarker, string connectionString, IConfiguration config)
+    public static void RegisterServices(this IServiceCollection services, Type assemblyMarker, IConfiguration config)
     {
         services.AddOptions();
 
         #region Configuring Modules
 
-        ShopModuletBootstrapper.Configure(services, connectionString);
+        ShopModuletBootstrapper.Configure(services, config);
         DiscountModuleBootstrapper.Configure(services, config);
         InventoryModuletBootstrapper.Configure(services, config);
         CommentModuletBootstrapper.Configure(services, config);

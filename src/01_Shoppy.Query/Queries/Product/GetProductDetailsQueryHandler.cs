@@ -1,7 +1,7 @@
 ﻿using _0_Framework.Application.Exceptions;
+using _0_Framework.Infrastructure;
 using _01_Shoppy.Query.Helpers.Product;
 using AutoMapper;
-using SM.Infrastructure.Persistence.Context;
 
 namespace _01_Shoppy.Query.Queries.Product;
 
@@ -11,14 +11,15 @@ public class GetProductDetailsQueryHandler : IRequestHandler<GetProductDetailsQu
 {
     #region Ctor
 
-    private readonly ShopDbContext _shopContext;
+    private readonly IGenericRepository<SM.Domain.Product.Product> _productRepository;
     private readonly IProductHelper _productHelper;
     private readonly IMapper _mapper;
 
-    public GetProductDetailsQueryHandler(
-        ShopDbContext shopContext, IProductHelper productHelper, IMapper mapper)
+    public GetProductDetailsQueryHandler(IGenericRepository<SM.Domain.Product.Product> productRepository,
+                                         IProductHelper productHelper,
+                                         IMapper mapper)
     {
-        _shopContext = Guard.Against.Null(shopContext, nameof(_shopContext));
+        _productRepository = Guard.Against.Null(productRepository, nameof(_productRepository));
         _productHelper = Guard.Against.Null(productHelper, nameof(_productHelper));
         _mapper = Guard.Against.Null(mapper, nameof(_mapper));
     }
@@ -30,14 +31,15 @@ public class GetProductDetailsQueryHandler : IRequestHandler<GetProductDetailsQu
         if (string.IsNullOrEmpty(request.Slug))
             throw new NotFoundApiException();
 
-        var products = await _shopContext.Products.Select(x => new
-        {
-            x.Slug,
-            x.Id
-        }).ToListAsync();
+        var products = (await _productRepository.AsQueryable().ToListAsyncSafe())
+            .Select(x => new
+            {
+                x.Slug,
+                x.Id
+            }).ToList();
 
         bool existsProduct = false;
-        long existsProductId = 0;
+        string existsProductId = "0";
 
         var existsProductInto = products.FirstOrDefault(x => x.Slug == request.Slug);
 
@@ -50,14 +52,8 @@ public class GetProductDetailsQueryHandler : IRequestHandler<GetProductDetailsQu
         if (!existsProduct)
             throw new NotFoundApiException("محصولی با این مشخصات پیدا نشد");
 
-        var product = _shopContext.Products
-                .Include(p => p.ProductPictures)
-                .Include(p => p.ProductFeatures)
-                .Where(p => p.Id == existsProductId)
-                .AsQueryable()
-                .Select(p =>
-                   _mapper.Map(p, new ProductDetailsQueryModel()))
-                .FirstOrDefault();
+        var dbProduct = await _productRepository.GetByIdAsync(existsProductId);
+        var product = _mapper.Map(dbProduct, new ProductDetailsQueryModel());
 
         product = await _productHelper.MapProducts<ProductDetailsQueryModel>(product);
 

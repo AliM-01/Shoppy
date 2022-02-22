@@ -9,7 +9,7 @@ public class Inventory : EntityBase
 {
     protected Inventory() { }
 
-    public Inventory(long productId, decimal unitPrice)
+    public Inventory(string productId, decimal unitPrice)
     {
         ProductId = productId;
         UnitPrice = unitPrice;
@@ -33,7 +33,7 @@ public class Inventory : EntityBase
 
     [Display(Name = "محصول")]
     [BsonElement("productId")]
-    public long ProductId { get; set; }
+    public string ProductId { get; set; }
 
     [BsonElement("operations")]
     public List<InventoryOperation> Operations { get; set; }

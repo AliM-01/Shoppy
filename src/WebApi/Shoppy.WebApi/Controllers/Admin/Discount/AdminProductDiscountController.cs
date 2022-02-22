@@ -88,7 +88,7 @@ public class AdminProductDiscountController : BaseApiController
     [SwaggerOperation(Summary = "چک کردن وجود تخفیف محصول برای محصول", Tags = new[] { "AdminProductDiscount" })]
     [SwaggerResponse(200, "success")]
     [SwaggerResponse(404, "not-found")]
-    public async Task<IActionResult> CheckProductHasProductDiscount([FromRoute] long productId)
+    public async Task<IActionResult> CheckProductHasProductDiscount([FromRoute] string productId)
     {
         var res = await Mediator.Send(new CheckProductHasProductDiscountQuery(productId));
 

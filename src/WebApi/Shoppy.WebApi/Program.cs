@@ -1,7 +1,6 @@
 using _02_DI_Container;
 using _02_DI_Container.Extensions.Startup;
 using Microsoft.AspNetCore.Builder;
-using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Hosting;
 using Serilog;
 using Serilog.Events;
@@ -11,8 +10,6 @@ var builder = WebApplication.CreateBuilder(args);
 
 var configuration = builder.Configuration;
 var environment = builder.Environment;
-
-var connectionString = configuration.GetConnectionString("DefaultConnection");
 
 #region logger
 
@@ -32,7 +29,7 @@ Log.Logger = new LoggerConfiguration()
 
 #endregion
 
-builder.Services.RegisterServices(typeof(Program), connectionString, configuration);
+builder.Services.RegisterServices(typeof(Program), configuration);
 
 #region swagger
 

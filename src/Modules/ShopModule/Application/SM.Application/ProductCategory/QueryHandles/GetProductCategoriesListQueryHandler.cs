@@ -1,4 +1,4 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using _0_Framework.Infrastructure;
 using SM.Application.Contracts.ProductCategory.DTOs;
 using SM.Application.Contracts.ProductCategory.Queries;
 using System.Collections.Generic;
@@ -22,15 +22,17 @@ public class GetProductCategoriesListQueryHandler : IRequestHandler<GetProductCa
 
     public async Task<Response<IEnumerable<ProductCategoryForSelectListDto>>> Handle(GetProductCategoriesListQuery request, CancellationToken cancellationToken)
     {
-        var categories = await
-            _productCategoryRepository.GetQuery()
-            .OrderByDescending(p => p.LastUpdateDate)
+        var categories = (
+            await _productCategoryRepository
+                .AsQueryable()
+                .OrderByDescending(p => p.LastUpdateDate)
+                .ToListAsyncSafe())
             .Select(product => new ProductCategoryForSelectListDto
             {
                 Id = product.Id,
                 Title = product.Title
             })
-            .ToListAsync(cancellationToken);
+            .ToList();
 
         if (categories is null)
             throw new NotFoundApiException();

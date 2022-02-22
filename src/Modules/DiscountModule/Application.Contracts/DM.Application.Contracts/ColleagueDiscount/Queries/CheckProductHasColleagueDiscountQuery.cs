@@ -2,5 +2,5 @@
 
 namespace DM.Application.Contracts.ColleagueDiscount.Queries;
 
-public record CheckProductHasColleagueDiscountQuery(long ProductId)
+public record CheckProductHasColleagueDiscountQuery(string ProductId)
     : IRequest<Response<CheckProductHasColleagueDiscountResponseDto>>;

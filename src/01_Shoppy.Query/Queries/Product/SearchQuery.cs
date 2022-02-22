@@ -2,11 +2,9 @@
 using _0_Framework.Application.Exceptions;
 using _0_Framework.Application.Models.Paging;
 using _0_Framework.Infrastructure;
-using _0_Framework.Infrastructure.Helpers;
 using _01_Shoppy.Query.Helpers.Product;
 using AutoMapper;
 using IM.Domain.Inventory;
-using SM.Infrastructure.Persistence.Context;
 
 namespace _01_Shoppy.Query.Queries.Product;
 
@@ -16,16 +14,20 @@ public class SearchQueryHandler : IRequestHandler<SearchQuery, Response<SearchPr
 {
     #region Ctor
 
-    private readonly ShopDbContext _shopContext;
+    private readonly IGenericRepository<SM.Domain.Product.Product> _productRepository;
+    private readonly IGenericRepository<SM.Domain.ProductCategory.ProductCategory> _productCategoryRepository;
     private readonly IProductHelper _productHelper;
     private readonly IGenericRepository<Inventory> _inventoryContext;
     private readonly IMapper _mapper;
 
-    public SearchQueryHandler(
-        ShopDbContext shopContext,
-         IGenericRepository<Inventory> inventoryContext, IProductHelper productHelper, IMapper mapper)
+    public SearchQueryHandler(IGenericRepository<SM.Domain.Product.Product> productRepository,
+                              IGenericRepository<SM.Domain.ProductCategory.ProductCategory> productCategoryRepository,
+                              IGenericRepository<Inventory> inventoryContext,
+                              IProductHelper productHelper,
+                              IMapper mapper)
     {
-        _shopContext = Guard.Against.Null(shopContext, nameof(_shopContext));
+        _productRepository = Guard.Against.Null(productRepository, nameof(_productRepository));
+        _productCategoryRepository = Guard.Against.Null(productCategoryRepository, nameof(_productCategoryRepository));
         _productHelper = Guard.Against.Null(productHelper, nameof(_productHelper));
         _inventoryContext = Guard.Against.Null(inventoryContext, nameof(_inventoryContext));
         _mapper = Guard.Against.Null(mapper, nameof(_mapper));
@@ -35,9 +37,7 @@ public class SearchQueryHandler : IRequestHandler<SearchQuery, Response<SearchPr
 
     public async Task<Response<SearchProductQueryModel>> Handle(SearchQuery request, CancellationToken cancellationToken)
     {
-        var query = _shopContext.Products
-               .OrderByDescending(x => x.LastUpdateDate)
-               .AsQueryable();
+        var query = _productRepository.AsQueryable();
 
         #region inventories query
 
@@ -59,19 +59,19 @@ public class SearchQueryHandler : IRequestHandler<SearchQuery, Response<SearchPr
 
         if (request.Search.SelectedCategories is not null && request.Search.SelectedCategories.Any())
         {
-            var selectedCategoriesId = new List<long>();
+            var selectedCategoriesId = new List<string>();
 
             foreach (var categorySlug in request.Search.SelectedCategories)
             {
-                if (await _shopContext.ProductCategories
-                    .AnyAsync(x => x.Slug.Trim() == categorySlug.Trim()))
+                if (await _productCategoryRepository.ExistsAsync(x => x.Slug.Trim() == categorySlug.Trim()))
                 {
-                    selectedCategoriesId.Add(
-                        _shopContext.ProductCategories.FirstOrDefault(x => x.Slug.Trim() == categorySlug.Trim()).Id);
+                    var filter = Builders<SM.Domain.ProductCategory.ProductCategory>.Filter.Eq(x => x.Slug.Trim(), categorySlug.Trim());
+                    var category = await _productCategoryRepository.GetByFilter(filter);
+                    selectedCategoriesId.Add(category.Id);
                 }
             }
 
-            query = query.Where(x => selectedCategoriesId.Contains(x.CategoryId.Value));
+            query = query.Where(x => selectedCategoriesId.Contains(x.CategoryId));
         }
 
         #endregion
@@ -86,13 +86,9 @@ public class SearchQueryHandler : IRequestHandler<SearchQuery, Response<SearchPr
         if (request.Search.SelectedMaxPrice == 0)
             request.Search.SelectedMaxPrice = maxPrice != null ? maxPrice.UnitPrice : 0;
 
-        query = query.ToArray()
-            .Where(p => _productHelper.GetProductPriceById(p.Id) >= request.Search.SelectedMinPrice)
-            .AsQueryable();
+        query = query.Where(p => _productHelper.GetProductPriceById(p.Id) >= request.Search.SelectedMinPrice);
 
-        query = query.ToArray()
-            .Where(p => _productHelper.GetProductPriceById(p.Id) <= request.Search.SelectedMaxPrice)
-            .AsQueryable();
+        query = query.Where(p => _productHelper.GetProductPriceById(p.Id) <= request.Search.SelectedMaxPrice);
 
         #endregion
 
@@ -111,11 +107,11 @@ public class SearchQueryHandler : IRequestHandler<SearchQuery, Response<SearchPr
         switch (request.Search.SortDateOrder)
         {
             case PagingDataSortCreationDateOrder.DES:
-                query = query.OrderByDescending(x => x.CreationDate).AsQueryable();
+                query = query.OrderByDescending(x => x.CreationDate);
                 break;
 
             case PagingDataSortCreationDateOrder.ASC:
-                query = query.OrderBy(x => x.CreationDate).AsQueryable();
+                query = query.OrderBy(x => x.CreationDate);
                 break;
         }
 
@@ -125,14 +121,14 @@ public class SearchQueryHandler : IRequestHandler<SearchQuery, Response<SearchPr
 
         #region paging
 
-        var pager = Pager.Build(request.Search.PageId, query.ToList().Count,
-            request.Search.TakePage, request.Search.ShownPages);
-        var pagedEntities = query.Paging(pager).ToList();
+        var pager = request.Search.BuildPager(query.Count());
 
-        List<ProductQueryModel> allEntities = pagedEntities.ToList()
-            .Select(product =>
+        var allEntities =
+             _productRepository
+             .ApplyPagination(query, pager)
+             .Select(product =>
                    _mapper.Map(product, new ProductQueryModel()))
-            .ToList();
+             .ToList();
 
         var mappedProducts = new List<ProductQueryModel>();
 

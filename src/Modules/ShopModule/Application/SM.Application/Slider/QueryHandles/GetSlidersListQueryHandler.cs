@@ -1,4 +1,4 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using _0_Framework.Infrastructure;
 using SM.Application.Contracts.Slider.DTOs;
 using SM.Application.Contracts.Slider.Queries;
 using System.Collections.Generic;
@@ -22,12 +22,13 @@ public class GetSlidersListQueryHandler : IRequestHandler<GetSlidersListQuery, R
 
     public async Task<Response<IEnumerable<SliderDto>>> Handle(GetSlidersListQuery request, CancellationToken cancellationToken)
     {
-        var query = _sliderRepository.GetQuery()
-            .OrderByDescending(p => p.LastUpdateDate).AsQueryable();
+        var query = _sliderRepository.AsQueryable();
 
-        var sliders = await query
+        var sliders = (await query
+            .OrderByDescending(p => p.LastUpdateDate)
+            .ToListAsyncSafe())
             .Select(product => _mapper.Map(product, new SliderDto()))
-            .ToListAsync(cancellationToken);
+            .ToList();
 
         if (sliders is null)
             throw new NotFoundApiException();

@@ -1,4 +1,4 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using _0_Framework.Infrastructure;
 using SM.Application.Contracts.ProductPicture.DTOs;
 using SM.Application.Contracts.ProductPicture.Queries;
 using System.Collections.Generic;
@@ -30,21 +30,20 @@ public class GetProductPicturesQueryHandler : IRequestHandler<GetProductPictures
         if (product is null)
             throw new NotFoundApiException();
 
-        bool anyProductPictures = await _productPictureRepository
-            .GetQuery().AnyAsync(p => p.ProductId == request.ProductId);
+        bool anyProductPictures = await _productPictureRepository.ExistsAsync(p => p.ProductId == request.ProductId);
 
         if (!anyProductPictures)
             throw new NoContentApiException();
 
-        var productPictures = await
+        var productPictures = (await
             _productPictureRepository
-            .GetQuery()
-            .Include(p => p.Product)
+            .AsQueryable()
             .Where(p => p.ProductId == request.ProductId)
             .OrderBy(p => p.CreationDate)
+            .ToListAsyncSafe())
             .Select(productPicture =>
                 _mapper.Map(productPicture, new ProductPictureDto()))
-            .ToListAsync(cancellationToken);
+            .ToList();
 
         return new Response<IEnumerable<ProductPictureDto>>(productPictures);
     }

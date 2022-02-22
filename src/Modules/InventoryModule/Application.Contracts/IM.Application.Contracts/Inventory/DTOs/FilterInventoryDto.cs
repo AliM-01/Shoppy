@@ -11,7 +11,7 @@ public class FilterInventoryDto : BasePaging
 
     [Display(Name = "شناسه محصول")]
     [JsonProperty("productId")]
-    public long ProductId { get; set; }
+    public string ProductId { get; set; }
 
     [Display(Name = "وضعیت")]
     [JsonConverter(typeof(StringEnumConverter))]

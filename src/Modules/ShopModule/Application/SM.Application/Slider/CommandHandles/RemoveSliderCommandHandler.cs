@@ -22,8 +22,7 @@ public class RemoveSliderCommandHandler : IRequestHandler<RemoveSliderCommand, R
         if (slider is null)
             throw new NotFoundApiException();
 
-        await _sliderRepository.SoftDelete(slider.Id);
-        await _sliderRepository.SaveChanges();
+        await _sliderRepository.DeleteAsync(slider.Id);
 
         return new Response<string>(ApplicationErrorMessage.RecordDeletedMessage);
     }

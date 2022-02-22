@@ -1,5 +1,4 @@
-﻿using Microsoft.EntityFrameworkCore;
-using SM.Application.Contracts.Product.DTOs;
+﻿using SM.Application.Contracts.Product.DTOs;
 using SM.Application.Contracts.Product.Queries;
 
 namespace SM.Application.Product.QueryHandles;
@@ -20,9 +19,7 @@ public class GetProductDetailsQueryHandler : IRequestHandler<GetProductDetailsQu
 
     public async Task<Response<EditProductDto>> Handle(GetProductDetailsQuery request, CancellationToken cancellationToken)
     {
-        var product = await _productRepository.GetQuery()
-            .Include(p => p.Category)
-            .AsNoTracking().FirstOrDefaultAsync(s => s.Id == request.Id);
+        var product = await _productRepository.GetByIdAsync(request.Id);
 
         if (product is null)
             throw new NotFoundApiException();

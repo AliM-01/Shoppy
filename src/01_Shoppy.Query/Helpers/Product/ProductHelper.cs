@@ -7,7 +7,6 @@ using DM.Domain.ProductDiscount;
 using IM.Application.Contracts.Inventory.Helpers;
 using IM.Domain.Inventory;
 using SM.Application.Contracts.ProductFeature.DTOs;
-using SM.Infrastructure.Persistence.Context;
 
 namespace _01_Shoppy.Query.Helpers.Product;
 
@@ -15,17 +14,28 @@ public class ProductHelper : IProductHelper
 {
     #region Ctor
 
-    private readonly ShopDbContext _shopContext;
+    private readonly IGenericRepository<SM.Domain.Product.Product> _productRepository;
+    private readonly IGenericRepository<SM.Domain.ProductCategory.ProductCategory> _productCategoryRepository;
+    private readonly IGenericRepository<SM.Domain.ProductPicture.ProductPicture> _productPictureRepository;
+    private readonly IGenericRepository<SM.Domain.ProductFeature.ProductFeature> _productFeatureRepository;
     private readonly IGenericRepository<ProductDiscount> _productDiscount;
     private readonly IGenericRepository<Inventory> _inventoryContext;
     private readonly IMapper _mapper;
     private readonly IInventoryHelper _inventoryHelper;
 
-    public ProductHelper(
-        ShopDbContext shopContext, IGenericRepository<ProductDiscount> productDiscount,
-        IGenericRepository<Inventory> inventoryContext, IMapper mapper, IInventoryHelper inventoryHelper)
+    public ProductHelper(IGenericRepository<SM.Domain.Product.Product> productRepository,
+                         IGenericRepository<ProductDiscount> productDiscount,
+                         IGenericRepository<Inventory> inventoryContext,
+                         IGenericRepository<SM.Domain.ProductPicture.ProductPicture> productPictureRepository,
+                         IGenericRepository<SM.Domain.ProductFeature.ProductFeature> productFeatureRepository,
+                         IGenericRepository<SM.Domain.ProductCategory.ProductCategory> productCategoryRepository,
+                         IMapper mapper,
+                         IInventoryHelper inventoryHelper)
     {
-        _shopContext = Guard.Against.Null(shopContext, nameof(_shopContext));
+        _productRepository = Guard.Against.Null(productRepository, nameof(_productRepository));
+        _productCategoryRepository = Guard.Against.Null(productCategoryRepository, nameof(_productCategoryRepository));
+        _productPictureRepository = Guard.Against.Null(productPictureRepository, nameof(_productPictureRepository));
+        _productPictureRepository = Guard.Against.Null(productPictureRepository, nameof(_productPictureRepository));
         _productDiscount = Guard.Against.Null(productDiscount, nameof(_productDiscount));
         _inventoryContext = Guard.Against.Null(inventoryContext, nameof(_inventoryContext));
         _mapper = Guard.Against.Null(mapper, nameof(_mapper));
@@ -40,7 +50,7 @@ public class ProductHelper : IProductHelper
     {
         var mappedProduct = _mapper.Map(product, new ProductQueryModel
         {
-            CategoryId = product.CategoryId.Value
+            CategoryId = product.CategoryId
         });
 
         return await MapProducts(mappedProduct);
@@ -73,12 +83,14 @@ public class ProductHelper : IProductHelper
 
         #region all categories query
 
-        var categories = await _shopContext.ProductCategories.AsQueryable()
+        var categories = (await _productCategoryRepository
+            .AsQueryable()
+            .ToListAsyncSafe())
             .Select(x => new
             {
                 x.Id,
                 x.Title
-            }).ToListAsync();
+            }).ToList();
 
         #endregion
 
@@ -113,7 +125,7 @@ public class ProductHelper : IProductHelper
 
     #region Get Product UnitPrice
 
-    public async Task<(bool, decimal, long)> GetProductInventory(long productId)
+    public async Task<(bool, decimal, long)> GetProductInventory(string productId)
     {
         if (!(await _inventoryContext.ExistsAsync(x => x.ProductId == productId)))
             return (false, default, default);
@@ -130,9 +142,11 @@ public class ProductHelper : IProductHelper
 
     #region GetProductPictures
 
-    public List<ProductPictureQueryModel> GetProductPictures(long productId)
+    public List<ProductPictureQueryModel> GetProductPictures(string productId)
     {
-        var productPictures = _shopContext.ProductPictures.Where(x => x.ProductId == productId).ToList();
+        var productPictures = _productPictureRepository
+            .AsQueryable()
+            .Where(x => x.ProductId == productId).ToListSafe();
 
         if (productPictures is null)
             return new List<ProductPictureQueryModel>();
@@ -146,9 +160,11 @@ public class ProductHelper : IProductHelper
 
     #region GetProductFeatures
 
-    public List<ProductFeatureDto> GetProductFeatures(long productId)
+    public List<ProductFeatureDto> GetProductFeatures(string productId)
     {
-        var productFeatures = _shopContext.ProductFeatures.Where(x => x.ProductId == productId).ToList();
+        var productFeatures = _productFeatureRepository
+            .AsQueryable()
+            .Where(x => x.ProductId == productId).ToListSafe();
 
         if (productFeatures is null)
             return new List<ProductFeatureDto>();
@@ -162,9 +178,9 @@ public class ProductHelper : IProductHelper
 
     #region GetProductPriceById
 
-    public decimal GetProductPriceById(string Id)
+    public decimal GetProductPriceById(string id)
     {
-        var inventories = (_inventoryContext.AsQueryable().ToListAsyncSafe().Result)
+        var inventories = (_inventoryContext.AsQueryable().ToListSafe())
            .Select(x => new
            {
                x.ProductId,

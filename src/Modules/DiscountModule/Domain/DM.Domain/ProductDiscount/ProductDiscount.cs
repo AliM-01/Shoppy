@@ -34,7 +34,7 @@ public class ProductDiscount : EntityBase
     [Display(Name = "محصول")]
     [BsonElement("productId")]
     [Required]
-    public long ProductId { get; set; }
+    public string ProductId { get; set; }
 
     #endregion
 }

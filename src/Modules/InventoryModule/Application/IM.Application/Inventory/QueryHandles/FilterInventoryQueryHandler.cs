@@ -32,7 +32,7 @@ public class FilterInventoryQueryHandler : IRequestHandler<FilterInventoryQuery,
     {
         var query = _inventoryRepository.AsQueryable();
 
-        var products = await _productRepository.GetQuery().Select(x => new
+        var products = await _productRepository.AsQueryable().Select(x => new
         {
             x.Id,
             x.Title
@@ -40,7 +40,7 @@ public class FilterInventoryQueryHandler : IRequestHandler<FilterInventoryQuery,
 
         #region filter
 
-        if (request.Filter.ProductId != 0)
+        if (string.IsNullOrEmpty(request.Filter.ProductId))
             query = query.Where(s => s.ProductId == request.Filter.ProductId);
 
         switch (request.Filter.InStockState)

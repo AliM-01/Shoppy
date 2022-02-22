@@ -24,14 +24,13 @@ public class EditProductFeatureCommandHandler : IRequestHandler<EditProductFeatu
         if (productFeature is null)
             throw new NotFoundApiException();
 
-        if (_productFeatureRepository.Exists(x => x.ProductId == request.ProductFeature.ProductId
+        if (await _productFeatureRepository.ExistsAsync(x => x.ProductId == request.ProductFeature.ProductId
                 && x.FeatureTitle == request.ProductFeature.FeatureTitle && x.Id != request.ProductFeature.Id))
             throw new ApiException(ApplicationErrorMessage.IsDuplicatedMessage);
 
         _mapper.Map(request.ProductFeature, productFeature);
 
-        _productFeatureRepository.Update(productFeature);
-        await _productFeatureRepository.SaveChanges();
+        await _productFeatureRepository.UpdateAsync(productFeature);
 
         return new Response<string>();
     }

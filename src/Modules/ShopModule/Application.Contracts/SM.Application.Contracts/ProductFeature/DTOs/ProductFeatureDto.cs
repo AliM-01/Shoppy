@@ -7,7 +7,7 @@ public class ProductFeatureDto
 
     [Display(Name = "شناسه محصول")]
     [JsonProperty("productId")]
-    public long ProductId { get; set; }
+    public string ProductId { get; set; }
 
     [Display(Name = "عنوان")]
     [JsonProperty("featureTitle")]

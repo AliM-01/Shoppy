@@ -23,7 +23,7 @@ public class CreateInventoryCommandHandler : IRequestHandler<CreateInventoryComm
 
     public async Task<Response<string>> Handle(CreateInventoryCommand request, CancellationToken cancellationToken)
     {
-        var existsProduct = _productRepository.Exists(p => p.Id == request.Inventory.ProductId);
+        var existsProduct = await _productRepository.ExistsAsync(p => p.Id == request.Inventory.ProductId);
 
         if (!existsProduct)
             throw new NotFoundApiException("محصولی با این شناسه پیدا نشد");

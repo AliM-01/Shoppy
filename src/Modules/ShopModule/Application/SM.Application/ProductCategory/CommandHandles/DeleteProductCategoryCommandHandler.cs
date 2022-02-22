@@ -1,6 +1,4 @@
-﻿using _0_Framework.Application.Utilities.ImageRelated;
-using SM.Application.Contracts.ProductCategory.Commands;
-using System.IO;
+﻿using SM.Application.Contracts.ProductCategory.Commands;
 
 namespace SM.Application.ProductCategory.CommandHandles;
 
@@ -24,11 +22,7 @@ public class DeleteProductCategoryCommandHandler : IRequestHandler<DeleteProduct
         if (productCategory is null)
             throw new NotFoundApiException();
 
-        File.Delete(PathExtension.ProductCategoryImage + productCategory.ImagePath);
-        File.Delete(PathExtension.ProductCategoryThumbnailImage + productCategory.ImagePath);
-
-        await _productCategoryRepository.FullDelete(productCategory.Id);
-        await _productCategoryRepository.SaveChanges();
+        await _productCategoryRepository.DeleteAsync(productCategory.Id);
 
         return new Response<string>(ApplicationErrorMessage.RecordDeletedMessage);
     }

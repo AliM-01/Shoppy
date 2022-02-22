@@ -1,8 +1,6 @@
-﻿using _0_Framework.Domain.IGenericRepository;
-using _0_Framework.Infrastructure.GenericRepository;
+﻿using _0_Framework.Infrastructure.Helpers;
 using _01_Shoppy.Query.Helpers.Product;
 using MediatR;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using SM.Domain.Product;
 using SM.Domain.ProductCategory;
@@ -10,25 +8,29 @@ using SM.Domain.ProductFeature;
 using SM.Domain.ProductPicture;
 using SM.Domain.Slider;
 using SM.Infrastructure.Persistence.Context;
+using SM.Infrastructure.Persistence.Settings;
 
 namespace SM.Infrastructure.Configuration;
 
 public static class ShopModuletBootstrapper
 {
-    public static void Configure(IServiceCollection services, string connectionString)
+    public static void Configure(IServiceCollection services, Microsoft.Extensions.Configuration.IConfiguration config)
     {
-        services.AddScoped<IGenericRepository<Product>, GenericRepository<ShopDbContext, Product>>();
+        services.AddScoped<IGenericRepository<Product>, GenericRepository<Product, ShopDbSettings>>();
 
-        services.AddTransient<IGenericRepository<ProductCategory>, GenericRepository<ShopDbContext, ProductCategory>>();
-        services.AddTransient<IGenericRepository<ProductPicture>, GenericRepository<ShopDbContext, ProductPicture>>();
-        services.AddTransient<IGenericRepository<ProductFeature>, GenericRepository<ShopDbContext, ProductFeature>>();
-        services.AddTransient<IGenericRepository<Slider>, GenericRepository<ShopDbContext, Slider>>();
+        services.Configure<ShopDbSettings>(config.GetSection("ShopDbSettings"));
 
-        services.AddMediatR(typeof(ShopModuletBootstrapper).Assembly);
+        services.AddScoped<IShopDbContext, ShopDbContext>();
+
+        services.AddTransient<IGenericRepository<ProductCategory>, GenericRepository<ProductCategory, ShopDbSettings>>();
+        services.AddTransient<IGenericRepository<ProductPicture>, GenericRepository<ProductPicture, ShopDbSettings>>();
+        services.AddTransient<IGenericRepository<ProductFeature>, GenericRepository<ProductFeature, ShopDbSettings>>();
+        services.AddTransient<IGenericRepository<Slider>, GenericRepository<Slider, ShopDbSettings>>();
 
         services.AddScoped<IProductHelper, ProductHelper>();
 
-        services.AddDbContext<ShopDbContext>(options =>
-            options.UseSqlServer(connectionString));
+
+        services.AddMediatR(typeof(ShopModuletBootstrapper).Assembly);
+
     }
 }

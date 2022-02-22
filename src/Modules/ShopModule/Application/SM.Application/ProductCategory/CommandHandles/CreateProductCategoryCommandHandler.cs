@@ -22,7 +22,7 @@ public class CreateProductCategoryCommandHandler : IRequestHandler<CreateProduct
 
     public async Task<Response<string>> Handle(CreateProductCategoryCommand request, CancellationToken cancellationToken)
     {
-        if (_productCategoryRepository.Exists(x => x.Title == request.ProductCategory.Title))
+        if (await _productCategoryRepository.ExistsAsync(x => x.Title == request.ProductCategory.Title))
             throw new ApiException(ApplicationErrorMessage.IsDuplicatedMessage);
 
         var productCategory =
@@ -35,8 +35,7 @@ public class CreateProductCategoryCommandHandler : IRequestHandler<CreateProduct
 
         productCategory.ImagePath = imagePath;
 
-        await _productCategoryRepository.InsertEntity(productCategory);
-        await _productCategoryRepository.SaveChanges();
+        await _productCategoryRepository.InsertAsync(productCategory);
 
         return new Response<string>(ApplicationErrorMessage.OperationSucceddedMessage);
     }

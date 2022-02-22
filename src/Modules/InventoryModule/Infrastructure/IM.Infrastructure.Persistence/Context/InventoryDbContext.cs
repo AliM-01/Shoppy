@@ -1,4 +1,5 @@
 ﻿using IM.Domain.Inventory;
+using IM.Infrastructure.Persistence.Settings;
 using Microsoft.Extensions.Options;
 using MongoDB.Driver;
 

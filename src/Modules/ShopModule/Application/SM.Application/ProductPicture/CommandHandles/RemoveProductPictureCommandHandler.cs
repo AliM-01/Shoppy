@@ -1,5 +1,4 @@
-﻿using _0_Framework.Application.Utilities.ImageRelated;
-using SM.Application.Contracts.ProductPicture.Commands;
+﻿using SM.Application.Contracts.ProductPicture.Commands;
 using System.IO;
 
 namespace SM.Application.ProductPicture.CommandHandles;
@@ -27,8 +26,7 @@ public class RemoveProductPictureCommandHandler : IRequestHandler<RemoveProductP
         File.Delete(PathExtension.ProductPictureImage + productPicture.ImagePath);
         File.Delete(PathExtension.ProductPictureThumbnailImage + productPicture.ImagePath);
 
-        await _productPictureRepository.FullDelete(productPicture.Id);
-        await _productPictureRepository.SaveChanges();
+        await _productPictureRepository.DeletePermanentAsync(productPicture.Id);
 
         return new Response<string>(ApplicationErrorMessage.RecordDeletedMessage);
     }

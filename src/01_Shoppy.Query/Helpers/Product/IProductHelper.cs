@@ -9,11 +9,11 @@ public interface IProductHelper
 
     Task<ProductQueryModel> MapProductsFromProductCategories(SM.Domain.Product.Product product);
 
-    Task<(bool, decimal, long)> GetProductInventory(long productId);
+    Task<(bool, decimal, long)> GetProductInventory(string ProductId);
 
-    List<ProductPictureQueryModel> GetProductPictures(long productId);
+    List<ProductPictureQueryModel> GetProductPictures(string ProductId);
 
-    List<ProductFeatureDto> GetProductFeatures(long productId);
+    List<ProductFeatureDto> GetProductFeatures(string ProductId);
 
     decimal GetProductPriceById(string Id);
 }

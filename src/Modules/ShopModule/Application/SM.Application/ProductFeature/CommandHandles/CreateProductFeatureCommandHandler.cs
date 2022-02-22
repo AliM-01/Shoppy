@@ -19,15 +19,14 @@ public class CreateProductFeatureCommandHandler : IRequestHandler<CreateProductF
 
     public async Task<Response<string>> Handle(CreateProductFeatureCommand request, CancellationToken cancellationToken)
     {
-        if (_productFeatureRepository.Exists(x => x.ProductId == request.ProductFeature.ProductId
+        if (await _productFeatureRepository.ExistsAsync(x => x.ProductId == request.ProductFeature.ProductId
                 && x.FeatureTitle == request.ProductFeature.FeatureTitle))
             throw new ApiException(ApplicationErrorMessage.IsDuplicatedMessage);
 
         var productFeature =
             _mapper.Map(request.ProductFeature, new Domain.ProductFeature.ProductFeature());
 
-        await _productFeatureRepository.InsertEntity(productFeature);
-        await _productFeatureRepository.SaveChanges();
+        await _productFeatureRepository.InsertAsync(productFeature);
 
         return new Response<string>(ApplicationErrorMessage.OperationSucceddedMessage);
     }

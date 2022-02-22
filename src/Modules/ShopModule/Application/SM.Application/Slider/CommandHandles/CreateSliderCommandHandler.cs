@@ -30,8 +30,7 @@ public class CreateSliderCommandHandler : IRequestHandler<CreateSliderCommand, R
             200, 200, PathExtension.SliderThumbnailImage);
         slider.ImagePath = imagePath;
 
-        await _sliderRepository.InsertEntity(slider);
-        await _sliderRepository.SaveChanges();
+        await _sliderRepository.InsertAsync(slider);
 
         return new Response<string>(ApplicationErrorMessage.OperationSucceddedMessage);
     }
