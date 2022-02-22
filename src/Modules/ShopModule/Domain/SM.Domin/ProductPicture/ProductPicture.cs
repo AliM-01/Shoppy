@@ -1,18 +1,22 @@
 ﻿namespace SM.Domain.ProductPicture;
 
-public class ProductPicture : BaseEntity
+[BsonCollection("productPicture")]
+public class ProductPicture : EntityBase
 {
     #region Properties
 
     [Display(Name = "تصویر")]
+    [BsonElement("imagePath")]
     public string ImagePath { get; set; }
 
     #endregion
 
     #region Relations
 
-    public long? ProductId { get; set; }
+    [BsonElement("productId")]
+    public string ProductId { get; set; }
 
+    [BsonElement("product")]
     public virtual Product.Product Product { get; set; }
 
     #endregion

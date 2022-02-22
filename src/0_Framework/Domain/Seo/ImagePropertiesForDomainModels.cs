@@ -2,7 +2,7 @@
 
 namespace _0_Framework.Domain.Seo;
 
-public class ImagePropertiesForDomainModels : BaseEntity
+public class ImagePropertiesForDomainModels : EntityBase
 {
     [Display(Name = "جزییات تصویر")]
     public string ImageAlt { get; set; }
