@@ -1,9 +1,9 @@
 ﻿using _0_Framework.Application.Extensions;
 using AutoMapper;
 using DM.Application.Contracts.ColleagueDiscount.DTOs;
-using DM.Application.Contracts.CustomerDiscount.DTOs;
+using DM.Application.Contracts.ProductDiscount.DTOs;
 using DM.Domain.ColleagueDiscount;
-using DM.Domain.CustomerDiscount;
+using DM.Domain.ProductDiscount;
 
 namespace DM.Infrastructure.Shared.Mappings;
 public class DiscountModuleMappingProfile : Profile
@@ -14,7 +14,7 @@ public class DiscountModuleMappingProfile : Profile
 
         #region Customer Discount Dto
 
-        CreateMap<CustomerDiscount, CustomerDiscountDto>()
+        CreateMap<ProductDiscount, ProductDiscountDto>()
           .ForMember(dest => dest.IsExpired,
               // Is Discount Expired
               opt => opt.MapFrom(src => (src.StartDate < System.DateTime.Now || src.EndDate >= System.DateTime.Now ? true : false)))
@@ -29,7 +29,7 @@ public class DiscountModuleMappingProfile : Profile
 
         #region Create Customer Discount
 
-        CreateMap<DefineCustomerDiscountDto, CustomerDiscount>()
+        CreateMap<DefineProductDiscountDto, ProductDiscount>()
             .ForMember(dest => dest.StartDate,
                 opt => opt.MapFrom(src => src.StartDate.ToMiladi()))
             .ForMember(dest => dest.EndDate,
@@ -39,13 +39,13 @@ public class DiscountModuleMappingProfile : Profile
 
         #region Edit Customer Discount
 
-        CreateMap<CustomerDiscount, EditCustomerDiscountDto>()
+        CreateMap<ProductDiscount, EditProductDiscountDto>()
             .ForMember(dest => dest.StartDate,
                 opt => opt.MapFrom(src => src.StartDate.ToDetailedShamsi()))
             .ForMember(dest => dest.EndDate,
                 opt => opt.MapFrom(src => src.EndDate.ToDetailedShamsi()));
 
-        CreateMap<EditCustomerDiscountDto, CustomerDiscount>()
+        CreateMap<EditProductDiscountDto, ProductDiscount>()
             .ForMember(dest => dest.Id,
                 opt => opt.Ignore())
             .ForMember(dest => dest.StartDate,

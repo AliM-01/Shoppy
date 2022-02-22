@@ -1,6 +1,6 @@
 ﻿using _0_Framework.Infrastructure.Context;
 using DM.Domain.ColleagueDiscount;
-using DM.Domain.CustomerDiscount;
+using DM.Domain.ProductDiscount;
 using Microsoft.EntityFrameworkCore;
 
 namespace DM.Infrastructure.Persistence.Context;
@@ -12,7 +12,7 @@ public class DiscountDbContext : DbContext
 
     #endregion
 
-    public DbSet<CustomerDiscount> CustomerDiscounts { get; set; }
+    public DbSet<ProductDiscount> ProductDiscounts { get; set; }
     public DbSet<ColleagueDiscount> ColleagueDiscounts { get; set; }
 
 
@@ -26,7 +26,7 @@ public class DiscountDbContext : DbContext
         builder.ApplyConfigurationsFromAssembly(assembly);
 
         //  Is Discount Expired Query Filter
-        builder.Entity<CustomerDiscount>().HasQueryFilter(b =>
+        builder.Entity<ProductDiscount>().HasQueryFilter(b =>
                 EF.Property<DateTime>(b, "StartDate") < DateTime.Now || EF.Property<DateTime>(b, "EndDate") >= DateTime.Now);
 
         base.OnModelCreating(builder);

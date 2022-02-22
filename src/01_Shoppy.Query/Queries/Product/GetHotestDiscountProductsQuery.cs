@@ -30,7 +30,7 @@ public class GetHotestDiscountProductsQueryHandler : IRequestHandler<GetHotestDi
 
     public async Task<Response<List<ProductQueryModel>>> Handle(GetHotestDiscountProductsQuery request, CancellationToken cancellationToken)
     {
-        List<long> hotDiscountRateIds = await _discountContext.CustomerDiscounts.AsQueryable()
+        List<long> hotDiscountRateIds = await _discountContext.ProductDiscounts.AsQueryable()
             .Where(x => x.StartDate < DateTime.Now && x.EndDate > DateTime.Now)
             .Where(x => x.Rate >= 25)
             .Take(8)

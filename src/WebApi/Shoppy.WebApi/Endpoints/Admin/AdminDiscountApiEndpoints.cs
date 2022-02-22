@@ -4,21 +4,21 @@ public static class AdminDiscountApiEndpoints
 {
     private const string BaseAdminDiscountRoute = BaseApiEndpointRoutes.AdminBaseRoute + "/discount";
 
-    public static class CustomerDiscount
+    public static class ProductDiscount
     {
-        private const string BaseCustomerDiscountRoute = BaseAdminDiscountRoute + "/customer-discount";
+        private const string BaseProductDiscountRoute = BaseAdminDiscountRoute + "/customer-discount";
 
-        public const string FilterCustomerDiscounts = BaseCustomerDiscountRoute + "/filter";
+        public const string FilterProductDiscounts = BaseProductDiscountRoute + "/filter";
 
-        public const string GetCustomerDiscountDetails = BaseCustomerDiscountRoute + "/{id}";
+        public const string GetProductDiscountDetails = BaseProductDiscountRoute + "/{id}";
 
-        public const string DefineCustomerDiscount = BaseCustomerDiscountRoute + "/define";
+        public const string DefineProductDiscount = BaseProductDiscountRoute + "/define";
 
-        public const string EditCustomerDiscount = BaseCustomerDiscountRoute + "/edit";
+        public const string EditProductDiscount = BaseProductDiscountRoute + "/edit";
 
-        public const string RemoveCustomerDiscount = BaseCustomerDiscountRoute + "/remove/{id}";
+        public const string RemoveProductDiscount = BaseProductDiscountRoute + "/remove/{id}";
 
-        public const string CheckProductHasCustomerDiscount = BaseCustomerDiscountRoute + "/check-product-has-discount/{productId}";
+        public const string CheckProductHasProductDiscount = BaseProductDiscountRoute + "/check-product-has-discount/{productId}";
 
     }
 

@@ -53,7 +53,7 @@ public class ProductHelper : IProductHelper
     {
         #region all discounts query
 
-        var discounts = await _discountContext.CustomerDiscounts.AsQueryable()
+        var discounts = await _discountContext.ProductDiscounts.AsQueryable()
             .Where(x => x.StartDate < DateTime.Now && x.EndDate > DateTime.Now)
             .Select(x => new
             {
