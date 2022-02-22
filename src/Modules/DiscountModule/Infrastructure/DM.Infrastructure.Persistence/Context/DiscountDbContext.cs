@@ -30,6 +30,10 @@ public class DiscountDbContext : IDiscountDbContext
 
         ProductDiscounts = db.GetCollection<ProductDiscount>(_settings.ProductDiscountCollection);
         ColleagueDiscounts = db.GetCollection<ColleagueDiscount>(_settings.ColleagueDiscountCollection);
+
+
+
+        var t = ProductDiscounts.Find(_ => true);
     }
 
     #endregion

@@ -28,7 +28,6 @@ public class CommentDbContext : ICommentDbContext
         var db = client.GetDatabase(_settings.DbName);
 
         Comments = db.GetCollection<Comment>(_settings.CommentCollection);
-        CommentDbContextSeed.SeedData(Comments);
     }
 
     #endregion

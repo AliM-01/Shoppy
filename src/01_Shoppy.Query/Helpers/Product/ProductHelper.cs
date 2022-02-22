@@ -1,8 +1,9 @@
 ﻿using _0_Framework.Application.Extensions;
-using _01_Shoppy.Query.Models.Product;
+using _0_Framework.Infrastructure;
+using _0_Framework.Infrastructure.Helpers;
 using _01_Shoppy.Query.Models.ProductPicture;
 using AutoMapper;
-using DM.Infrastructure.Persistence.Context;
+using DM.Domain.ProductDiscount;
 using IM.Application.Contracts.Inventory.Helpers;
 using IM.Infrastructure.Persistence.Context;
 using SM.Application.Contracts.ProductFeature.DTOs;
@@ -15,18 +16,18 @@ public class ProductHelper : IProductHelper
     #region Ctor
 
     private readonly ShopDbContext _shopContext;
-    private readonly DiscountDbContext _discountContext;
+    private readonly IMongoHelper<ProductDiscount> _productDiscount;
     private readonly InventoryDbContext _inventoryContext;
     private readonly IMapper _mapper;
     private readonly IInventoryHelper _inventoryHelper;
 
     public ProductHelper(
-        ShopDbContext shopContext, DiscountDbContext discountContext,
+        ShopDbContext shopContext, IMongoHelper<ProductDiscount> productDiscount,
         InventoryDbContext inventoryContext, IMapper mapper, IInventoryHelper inventoryHelper)
     {
         _shopContext = Guard.Against.Null(shopContext, nameof(_shopContext));
-        _discountContext = Guard.Against.Null(discountContext, nameof(_discountContext));
-        _inventoryContext = Guard.Against.Null(inventoryContext, nameof(_discountContext));
+        _productDiscount = Guard.Against.Null(productDiscount, nameof(_productDiscount));
+        _inventoryContext = Guard.Against.Null(inventoryContext, nameof(_inventoryContext));
         _mapper = Guard.Against.Null(mapper, nameof(_mapper));
         _inventoryHelper = Guard.Against.Null(inventoryHelper, nameof(_inventoryHelper));
     }
@@ -53,13 +54,15 @@ public class ProductHelper : IProductHelper
     {
         #region all discounts query
 
-        var discounts = await _discountContext.ProductDiscounts.AsQueryable()
+        var discounts = (await _productDiscount.AsQueryable()
             .Where(x => x.StartDate < DateTime.Now && x.EndDate > DateTime.Now)
+            .ToListAsyncSafe()
+            )
             .Select(x => new
             {
                 x.ProductId,
                 x.Rate
-            }).ToListAsync();
+            }).ToList();
 
         if (hotDiscountQuery)
         {

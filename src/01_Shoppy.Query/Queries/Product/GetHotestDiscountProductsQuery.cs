@@ -1,7 +1,8 @@
-﻿using _01_Shoppy.Query.Helpers.Product;
-using _01_Shoppy.Query.Models.Product;
+﻿using _0_Framework.Infrastructure;
+using _0_Framework.Infrastructure.Helpers;
+using _01_Shoppy.Query.Helpers.Product;
 using AutoMapper;
-using DM.Infrastructure.Persistence.Context;
+using DM.Domain.ProductDiscount;
 using SM.Infrastructure.Persistence.Context;
 
 namespace _01_Shoppy.Query.Queries.Product;
@@ -13,16 +14,17 @@ public class GetHotestDiscountProductsQueryHandler : IRequestHandler<GetHotestDi
     #region Ctor
 
     private readonly ShopDbContext _shopContext;
-    private readonly DiscountDbContext _discountContext;
-    private readonly IProductHelper _productHelper;
+    private readonly IMongoHelper<ProductDiscount> _productDiscount;
     private readonly IMapper _mapper;
+    private readonly IProductHelper _productHelper;
 
     public GetHotestDiscountProductsQueryHandler(
-        ShopDbContext shopContext, DiscountDbContext discountContext, IProductHelper productHelper, IMapper mapper)
+        ShopDbContext shopContext, IMongoHelper<ProductDiscount> productDiscount,
+        IMapper mapper, IProductHelper productHelper)
     {
         _shopContext = Guard.Against.Null(shopContext, nameof(_shopContext));
-        _discountContext = Guard.Against.Null(discountContext, nameof(_discountContext));
         _productHelper = Guard.Against.Null(productHelper, nameof(_productHelper));
+        _productDiscount = Guard.Against.Null(productDiscount, nameof(_productDiscount));
         _mapper = Guard.Against.Null(mapper, nameof(_mapper));
     }
 
@@ -30,11 +32,14 @@ public class GetHotestDiscountProductsQueryHandler : IRequestHandler<GetHotestDi
 
     public async Task<Response<List<ProductQueryModel>>> Handle(GetHotestDiscountProductsQuery request, CancellationToken cancellationToken)
     {
-        List<long> hotDiscountRateIds = await _discountContext.ProductDiscounts.AsQueryable()
+        List<long> hotDiscountRateIds = (await _productDiscount
+            .AsQueryable()
             .Where(x => x.StartDate < DateTime.Now && x.EndDate > DateTime.Now)
             .Where(x => x.Rate >= 25)
             .Take(8)
-            .Select(x => x.ProductId).ToListAsync();
+            .ToListAsyncSafe())
+            .Select(x => x.ProductId).
+            ToList();
 
         var products = await _shopContext.Products
                .Include(x => x.Category)

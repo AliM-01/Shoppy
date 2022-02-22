@@ -3,7 +3,6 @@ using _0_Framework.Application.Exceptions;
 using _0_Framework.Application.Models.Paging;
 using _01_Shoppy.Query.Helpers.Product;
 using AutoMapper;
-using DM.Infrastructure.Persistence.Context;
 using IM.Infrastructure.Persistence.Context;
 using SM.Infrastructure.Persistence.Context;
 
@@ -16,19 +15,17 @@ public class SearchQueryHandler : IRequestHandler<SearchQuery, Response<SearchPr
     #region Ctor
 
     private readonly ShopDbContext _shopContext;
-    private readonly DiscountDbContext _discountContext;
     private readonly IProductHelper _productHelper;
     private readonly InventoryDbContext _inventoryContext;
     private readonly IMapper _mapper;
 
     public SearchQueryHandler(
-        ShopDbContext shopContext, DiscountDbContext discountContext,
+        ShopDbContext shopContext,
          InventoryDbContext inventoryContext, IProductHelper productHelper, IMapper mapper)
     {
         _shopContext = Guard.Against.Null(shopContext, nameof(_shopContext));
-        _discountContext = Guard.Against.Null(discountContext, nameof(_discountContext));
         _productHelper = Guard.Against.Null(productHelper, nameof(_productHelper));
-        _inventoryContext = Guard.Against.Null(inventoryContext, nameof(_discountContext));
+        _inventoryContext = Guard.Against.Null(inventoryContext, nameof(_inventoryContext));
         _mapper = Guard.Against.Null(mapper, nameof(_mapper));
     }
 

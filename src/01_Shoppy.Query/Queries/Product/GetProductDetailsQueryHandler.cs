@@ -1,8 +1,6 @@
 ﻿using _0_Framework.Application.Exceptions;
 using _01_Shoppy.Query.Helpers.Product;
-using _01_Shoppy.Query.Models.Product;
 using AutoMapper;
-using DM.Infrastructure.Persistence.Context;
 using SM.Infrastructure.Persistence.Context;
 
 namespace _01_Shoppy.Query.Queries.Product;
@@ -14,15 +12,13 @@ public class GetProductDetailsQueryHandler : IRequestHandler<GetProductDetailsQu
     #region Ctor
 
     private readonly ShopDbContext _shopContext;
-    private readonly DiscountDbContext _discountContext;
     private readonly IProductHelper _productHelper;
     private readonly IMapper _mapper;
 
     public GetProductDetailsQueryHandler(
-        ShopDbContext shopContext, DiscountDbContext discountContext, IProductHelper productHelper, IMapper mapper)
+        ShopDbContext shopContext, IProductHelper productHelper, IMapper mapper)
     {
         _shopContext = Guard.Against.Null(shopContext, nameof(_shopContext));
-        _discountContext = Guard.Against.Null(discountContext, nameof(_discountContext));
         _productHelper = Guard.Against.Null(productHelper, nameof(_productHelper));
         _mapper = Guard.Against.Null(mapper, nameof(_mapper));
     }
