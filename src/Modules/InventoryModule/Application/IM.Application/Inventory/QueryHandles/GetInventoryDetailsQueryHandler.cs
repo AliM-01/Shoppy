@@ -6,12 +6,12 @@ public class GetInventoryDetailsQueryHandler : IRequestHandler<GetInventoryDetai
 {
     #region Ctor
 
-    private readonly IGenericRepository<Domain.Inventory.Inventory> _inventoryRepository;
+    private readonly IMongoHelper<Domain.Inventory.Inventory> _inventoryHelper;
     private readonly IMapper _mapper;
 
-    public GetInventoryDetailsQueryHandler(IGenericRepository<Domain.Inventory.Inventory> inventoryRepository, IMapper mapper)
+    public GetInventoryDetailsQueryHandler(IMongoHelper<Domain.Inventory.Inventory> inventoryHelper, IMapper mapper)
     {
-        _inventoryRepository = Guard.Against.Null(inventoryRepository, nameof(_inventoryRepository));
+        _inventoryHelper = Guard.Against.Null(inventoryHelper, nameof(_inventoryHelper));
         _mapper = Guard.Against.Null(mapper, nameof(_mapper));
     }
 
@@ -19,8 +19,7 @@ public class GetInventoryDetailsQueryHandler : IRequestHandler<GetInventoryDetai
 
     public async Task<Response<EditInventoryDto>> Handle(GetInventoryDetailsQuery request, CancellationToken cancellationToken)
     {
-        var inventory = await _inventoryRepository.GetQuery().AsTracking()
-            .FirstOrDefaultAsync(x => x.Id == request.Id);
+        var inventory = await _inventoryHelper.GetByIdAsync(request.Id);
 
         if (inventory is null)
             throw new NotFoundApiException();

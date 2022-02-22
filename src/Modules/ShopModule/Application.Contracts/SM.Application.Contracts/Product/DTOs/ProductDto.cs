@@ -15,7 +15,7 @@ public class ProductDto
 
     [Display(Name = "قیمت")]
     [JsonProperty("unitPrice")]
-    public double UnitPrice { get; set; }
+    public decimal UnitPrice { get; set; }
 
     [Display(Name = "تصویر")]
     [JsonProperty("imagePath")]

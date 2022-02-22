@@ -3,4 +3,4 @@
 namespace IM.Application.Contracts.Inventory.Queries;
 
 public record GetInventoryOperationLogQuery
-    (Guid Id) : IRequest<Response<GetInventoryOperationsDto>>;
+    (string Id) : IRequest<Response<GetInventoryOperationsDto>>;

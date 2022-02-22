@@ -3,7 +3,7 @@
 public class InventoryDto
 {
     [JsonProperty("id")]
-    public Guid Id { get; set; }
+    public string Id { get; set; }
 
     [Display(Name = "شناسه محصول")]
     [JsonProperty("productId")]
@@ -19,7 +19,7 @@ public class InventoryDto
 
     [Display(Name = "قیمت")]
     [JsonProperty("unitPrice")]
-    public double UnitPrice { get; set; }
+    public decimal UnitPrice { get; set; }
 
     [Display(Name = "موجودی فعلی")]
     [JsonProperty("currentCount")]

@@ -2,6 +2,7 @@
 global using _0_Framework.Application.Exceptions;
 global using _0_Framework.Application.Wrappers;
 global using _0_Framework.Domain.IGenericRepository;
+global using _0_Framework.Infrastructure.Helpers;
 global using Ardalis.GuardClauses;
 global using AutoMapper;
 global using MediatR;

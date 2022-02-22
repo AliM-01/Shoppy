@@ -3,5 +3,5 @@
 public class EditInventoryDto : CreateInventoryDto
 {
     [JsonProperty("id")]
-    public Guid Id { get; set; }
+    public string Id { get; set; }
 }

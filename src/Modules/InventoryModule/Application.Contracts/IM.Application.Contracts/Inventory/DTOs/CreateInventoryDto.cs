@@ -8,5 +8,5 @@ public class CreateInventoryDto
 
     [Display(Name = "قیمت")]
     [JsonProperty("unitPrice")]
-    public double UnitPrice { get; set; }
+    public decimal UnitPrice { get; set; }
 }

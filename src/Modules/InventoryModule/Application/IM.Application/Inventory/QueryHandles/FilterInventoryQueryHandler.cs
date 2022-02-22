@@ -3,6 +3,7 @@ using IM.Application.Contracts.Inventory.DTOs;
 using IM.Application.Contracts.Inventory.Enums;
 using IM.Application.Contracts.Inventory.Helpers;
 using IM.Application.Contracts.Inventory.Queries;
+using MongoDB.Driver.Linq;
 using SM.Domain.Product;
 using System.Linq;
 
@@ -11,15 +12,15 @@ public class FilterInventoryQueryHandler : IRequestHandler<FilterInventoryQuery,
 {
     #region Ctor
 
-    private readonly IGenericRepository<Domain.Inventory.Inventory> _inventoryRepository;
+    private readonly IMongoHelper<Domain.Inventory.Inventory> _inventoryDb;
     private readonly IGenericRepository<Product> _productRepository;
     private readonly IMapper _mapper;
     private readonly IInventoryHelper _inventoryHelper;
 
-    public FilterInventoryQueryHandler(IGenericRepository<Domain.Inventory.Inventory> InventoryRepository,
+    public FilterInventoryQueryHandler(IMongoHelper<Domain.Inventory.Inventory> inventoryDb,
         IGenericRepository<Product> productRepository, IMapper mapper, IInventoryHelper inventoryHelper)
     {
-        _inventoryRepository = Guard.Against.Null(InventoryRepository, nameof(_inventoryRepository));
+        _inventoryDb = Guard.Against.Null(inventoryDb, nameof(_inventoryDb));
         _productRepository = Guard.Against.Null(productRepository, nameof(_productRepository));
         _mapper = Guard.Against.Null(mapper, nameof(_mapper));
         _inventoryHelper = Guard.Against.Null(inventoryHelper, nameof(_inventoryHelper));
@@ -29,7 +30,7 @@ public class FilterInventoryQueryHandler : IRequestHandler<FilterInventoryQuery,
 
     public async Task<Response<FilterInventoryDto>> Handle(FilterInventoryQuery request, CancellationToken cancellationToken)
     {
-        var query = _inventoryRepository.GetQuery().AsQueryable();
+        var query = _inventoryDb.AsQueryable();
 
         var products = await _productRepository.GetQuery().Select(x => new
         {
@@ -59,11 +60,11 @@ public class FilterInventoryQueryHandler : IRequestHandler<FilterInventoryQuery,
         switch (request.Filter.SortDateOrder)
         {
             case PagingDataSortCreationDateOrder.DES:
-                query = query.OrderByDescending(x => x.CreationDate).AsQueryable();
+                query = query.OrderByDescending(x => x.CreationDate);
                 break;
 
             case PagingDataSortCreationDateOrder.ASC:
-                query = query.OrderBy(x => x.CreationDate).AsQueryable();
+                query = query.OrderBy(x => x.CreationDate);
                 break;
         }
 
@@ -73,11 +74,11 @@ public class FilterInventoryQueryHandler : IRequestHandler<FilterInventoryQuery,
                 break;
 
             case PagingDataSortIdOrder.DES:
-                query = query.OrderByDescending(x => x.Id).AsQueryable();
+                query = query.OrderByDescending(x => x.Id);
                 break;
 
             case PagingDataSortIdOrder.ASC:
-                query = query.OrderBy(x => x.Id).AsQueryable();
+                query = query.OrderBy(x => x.Id);
                 break;
         }
 
@@ -85,13 +86,14 @@ public class FilterInventoryQueryHandler : IRequestHandler<FilterInventoryQuery,
 
         #region paging
 
-        var pager = Pager.Build(request.Filter.PageId, await query.CountAsync(cancellationToken),
-            request.Filter.TakePage, request.Filter.ShownPages);
-        var allEntities = await query.Paging(pager)
-            .AsQueryable()
-            .Select(inventory =>
+        var pager = request.Filter.BuildPager(query.Count());
+
+        var allEntities =
+             _inventoryDb
+             .ApplyPagination(query, pager)
+             .Select(inventory =>
                 _mapper.Map(inventory, new InventoryDto()))
-            .ToListAsync(cancellationToken);
+             .ToList();
 
         allEntities.ForEach(inventory =>
         {

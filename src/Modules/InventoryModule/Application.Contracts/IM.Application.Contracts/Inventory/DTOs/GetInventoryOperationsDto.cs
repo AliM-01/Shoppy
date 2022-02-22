@@ -4,7 +4,7 @@ public class GetInventoryOperationsDto
 {
     [Display(Name = "شناسه انبار")]
     [JsonProperty("inventoryId")]
-    public Guid InventoryId { get; set; }
+    public string InventoryId { get; set; }
 
     [Display(Name = "شناسه محصول")]
     [JsonProperty("productId")]

@@ -1,13 +1,15 @@
-﻿using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
+﻿using _0_Framework.Domain.Attributes;
+using MongoDB.Bson.Serialization.Attributes;
+using System.ComponentModel.DataAnnotations;
 
 namespace IM.Domain.Inventory;
 
-public class Inventory : BaseEntity
+[BsonCollection("inventories")]
+public class Inventory : EntityBase
 {
     protected Inventory() { }
 
-    public Inventory(long productId, double unitPrice)
+    public Inventory(long productId, decimal unitPrice)
     {
         ProductId = productId;
         UnitPrice = unitPrice;
@@ -16,21 +18,25 @@ public class Inventory : BaseEntity
 
     #region Properties
 
-    [Key]
-    [DatabaseGenerated(DatabaseGeneratedOption.None)]
-    public new Guid Id { get; set; } = Guid.NewGuid();
+    [Display(Name = "قیمت")]
+    [BsonElement("unitPrice")]
+    [Required]
+    public decimal UnitPrice { get; set; }
 
-    public double UnitPrice { get; set; }
-
+    [Display(Name = "وضعیت")]
+    [BsonElement("inStock")]
     public bool InStock { get; set; } = false;
 
     #endregion
 
     #region Relations
 
+    [Display(Name = "محصول")]
+    [BsonElement("productId")]
     public long ProductId { get; set; }
 
-    public virtual ICollection<InventoryOperation> Operations { get; set; }
+    [BsonElement("operations")]
+    public List<InventoryOperation> Operations { get; set; }
 
     #endregion
 }

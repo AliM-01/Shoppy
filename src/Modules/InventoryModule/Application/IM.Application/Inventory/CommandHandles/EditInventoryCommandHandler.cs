@@ -7,14 +7,14 @@ public class EditInventoryCommandHandler : IRequestHandler<EditInventoryCommand,
 {
     #region Ctor
 
-    private readonly IGenericRepository<Domain.Inventory.Inventory> _inventoryRepository;
+    private readonly IMongoHelper<Domain.Inventory.Inventory> _inventoryHelper;
     private readonly IGenericRepository<Product> _productRepository;
     private readonly IMapper _mapper;
 
-    public EditInventoryCommandHandler(IGenericRepository<Domain.Inventory.Inventory> inventoryRepository,
+    public EditInventoryCommandHandler(IMongoHelper<Domain.Inventory.Inventory> inventoryHelper,
         IMapper mapper, IGenericRepository<Product> productRepository)
     {
-        _inventoryRepository = Guard.Against.Null(inventoryRepository, nameof(_inventoryRepository));
+        _inventoryHelper = Guard.Against.Null(inventoryHelper, nameof(_inventoryHelper));
         _productRepository = Guard.Against.Null(productRepository, nameof(_productRepository));
         _mapper = Guard.Against.Null(mapper, nameof(_mapper));
     }
@@ -29,19 +29,17 @@ public class EditInventoryCommandHandler : IRequestHandler<EditInventoryCommand,
         if (!existsProduct)
             throw new NotFoundApiException("محصولی با این شناسه پیدا نشد");
 
-        var inventory = await _inventoryRepository.GetQuery().AsTracking()
-            .FirstOrDefaultAsync(x => x.Id == request.Inventory.Id);
+        var inventory = await _inventoryHelper.GetByIdAsync(request.Inventory.Id);
 
         if (inventory is null)
             throw new NotFoundApiException();
 
-        if (_inventoryRepository.Exists(x => x.ProductId == request.Inventory.ProductId && x.Id != request.Inventory.Id))
+        if (await _inventoryHelper.ExistsAsync(x => x.ProductId == request.Inventory.ProductId && x.Id != request.Inventory.Id))
             throw new ApiException(ApplicationErrorMessage.IsDuplicatedMessage);
 
         _mapper.Map(request.Inventory, inventory);
 
-        _inventoryRepository.Update(inventory);
-        await _inventoryRepository.SaveChanges();
+        await _inventoryHelper.UpdateAsync(inventory);
 
         return new Response<string>();
     }

@@ -4,7 +4,7 @@ public class ReduceInventoryDto
 {
     [Display(Name = "شناسه انبار")]
     [JsonProperty("inventoryId")]
-    public Guid InventoryId { get; set; }
+    public string InventoryId { get; set; }
 
     [Display(Name = "شناسه سبد خرید")]
     [JsonProperty("orderId")]

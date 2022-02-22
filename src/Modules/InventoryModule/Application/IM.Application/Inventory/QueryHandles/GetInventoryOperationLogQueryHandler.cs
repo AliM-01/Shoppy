@@ -1,4 +1,5 @@
-﻿using IM.Application.Contracts.Inventory.DTOs;
+﻿using _0_Framework.Infrastructure;
+using IM.Application.Contracts.Inventory.DTOs;
 using IM.Application.Contracts.Inventory.Queries;
 using IM.Domain.Inventory;
 using SM.Infrastructure.Persistence.Context;
@@ -9,16 +10,16 @@ public class GetInventoryOperationLogQueryHandler : IRequestHandler<GetInventory
 {
     #region Ctor
 
-    private readonly IGenericRepository<Domain.Inventory.Inventory> _inventoryRepository;
-    private readonly IGenericRepository<InventoryOperation> _inventoryOperationRepository;
+    private readonly IMongoHelper<Domain.Inventory.Inventory> _inventoryHelper;
+    private readonly IMongoHelper<InventoryOperation> _inventoryOperationHelper;
     private readonly ShopDbContext _shopDbContext;
     private readonly IMapper _mapper;
 
-    public GetInventoryOperationLogQueryHandler(IGenericRepository<Domain.Inventory.Inventory> inventoryRepository,
-        IGenericRepository<InventoryOperation> inventoryOperationRepository, ShopDbContext shopDbContext, IMapper mapper)
+    public GetInventoryOperationLogQueryHandler(IMongoHelper<Domain.Inventory.Inventory> inventoryHelper,
+        IMongoHelper<InventoryOperation> inventoryOperationHelper, ShopDbContext shopDbContext, IMapper mapper)
     {
-        _inventoryRepository = Guard.Against.Null(inventoryRepository, nameof(_inventoryRepository));
-        _inventoryOperationRepository = Guard.Against.Null(inventoryOperationRepository, nameof(_inventoryOperationRepository));
+        _inventoryHelper = Guard.Against.Null(inventoryHelper, nameof(_inventoryHelper));
+        _inventoryOperationHelper = Guard.Against.Null(inventoryOperationHelper, nameof(_inventoryOperationHelper));
         _mapper = Guard.Against.Null(mapper, nameof(_mapper));
         _shopDbContext = Guard.Against.Null(shopDbContext, nameof(_shopDbContext));
     }
@@ -27,24 +28,22 @@ public class GetInventoryOperationLogQueryHandler : IRequestHandler<GetInventory
 
     public async Task<Response<GetInventoryOperationsDto>> Handle(GetInventoryOperationLogQuery request, CancellationToken cancellationToken)
     {
-        var inventory = await _inventoryRepository.GetQuery().AsTracking()
-            .FirstOrDefaultAsync(x => x.Id == request.Id);
+        var inventory = await _inventoryHelper.GetByIdAsync(request.Id);
 
         if (inventory is null)
             throw new NotFoundApiException();
 
-        var logs = await _inventoryOperationRepository.GetQuery()
+        var logs = (await _inventoryOperationHelper
             .AsQueryable()
-            .AsNoTracking()
-            .AsSplitQuery()
             .OrderByDescending(x => x.OperationDate)
             .Where(x => x.InventoryId == inventory.Id)
+            .ToListAsyncSafe())
             .Select(operation =>
                 _mapper.Map(operation, new InventoryOperationDto
                 {
                     Operator = "مدیر سیستم"
                 }))
-            .ToArrayAsync();
+            .ToArray();
 
         var returnData = new GetInventoryOperationsDto
         {

@@ -4,7 +4,7 @@ public class IncreaseInventoryDto
 {
     [Display(Name = "شناسه انبار")]
     [JsonProperty("inventoryId")]
-    public Guid InventoryId { get; set; }
+    public string InventoryId { get; set; }
 
     [Display(Name = "تعداد")]
     [JsonProperty("count")]
