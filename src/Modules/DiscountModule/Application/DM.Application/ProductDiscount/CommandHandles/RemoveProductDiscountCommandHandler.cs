@@ -6,24 +6,23 @@ public class RemoveProductDiscountCommandHandler : IRequestHandler<RemoveProduct
 {
     #region Ctor
 
-    private readonly IGenericRepository<Domain.ProductDiscount.ProductDiscount> _ProductDiscountRepository;
+    private readonly IMongoHelper<Domain.ProductDiscount.ProductDiscount> _productDiscountHelper;
 
-    public RemoveProductDiscountCommandHandler(IGenericRepository<Domain.ProductDiscount.ProductDiscount> ProductDiscountRepository)
+    public RemoveProductDiscountCommandHandler(IMongoHelper<Domain.ProductDiscount.ProductDiscount> productDiscountHelper)
     {
-        _ProductDiscountRepository = Guard.Against.Null(ProductDiscountRepository, nameof(_ProductDiscountRepository));
+        _productDiscountHelper = Guard.Against.Null(productDiscountHelper, nameof(_productDiscountHelper));
     }
 
     #endregion
 
     public async Task<Response<string>> Handle(RemoveProductDiscountCommand request, CancellationToken cancellationToken)
     {
-        var ProductDiscount = await _ProductDiscountRepository.GetEntityById(request.ProductDiscountId);
+        var productDiscount = await _productDiscountHelper.GetByIdAsync(request.ProductDiscountId);
 
-        if (ProductDiscount is null)
+        if (productDiscount is null)
             throw new NotFoundApiException();
 
-        await _ProductDiscountRepository.FullDelete(ProductDiscount.Id);
-        await _ProductDiscountRepository.SaveChanges();
+        await _productDiscountHelper.DeletePermanentAsync(productDiscount.Id);
 
         return new Response<string>(ApplicationErrorMessage.RecordDeletedMessage);
     }

@@ -4,7 +4,5 @@ namespace CM.Infrastructure.Persistence.Settings;
 
 public class CommentDbSettings : BaseMongoDbSettings
 {
-    public string ColleagueDiscountCollection { get; set; }
-
-    public string ProductDiscountCollection { get; set; }
+    public string CommentCollection { get; set; }
 }

@@ -6,26 +6,25 @@ public class RemoveColleagueDiscountCommandHandler : IRequestHandler<RemoveColle
 {
     #region Ctor
 
-    private readonly IGenericRepository<Domain.ColleagueDiscount.ColleagueDiscount> _colleagueDiscountRepository;
+    private readonly IMongoHelper<Domain.ColleagueDiscount.ColleagueDiscount> _colleagueDiscountHelper;
 
-    public RemoveColleagueDiscountCommandHandler(IGenericRepository<Domain.ColleagueDiscount.ColleagueDiscount> colleagueDiscountRepository)
+    public RemoveColleagueDiscountCommandHandler(IMongoHelper<Domain.ColleagueDiscount.ColleagueDiscount> colleagueDiscountHelper)
     {
-        _colleagueDiscountRepository = Guard.Against.Null(colleagueDiscountRepository, nameof(_colleagueDiscountRepository));
+        _colleagueDiscountHelper = Guard.Against.Null(colleagueDiscountHelper, nameof(_colleagueDiscountHelper));
     }
 
     #endregion
 
     public async Task<Response<string>> Handle(RemoveColleagueDiscountCommand request, CancellationToken cancellationToken)
     {
-        var colleagueDiscount = await _colleagueDiscountRepository.GetEntityById(request.ColleagueDiscountId);
+        var colleagueDiscount = await _colleagueDiscountHelper.GetByIdAsync(request.ColleagueDiscountId);
 
         if (colleagueDiscount is null)
             throw new NotFoundApiException();
 
         colleagueDiscount.IsActive = false;
 
-        _colleagueDiscountRepository.Update(colleagueDiscount);
-        await _colleagueDiscountRepository.SaveChanges();
+        await _colleagueDiscountHelper.UpdateAsync(colleagueDiscount);
 
         return new Response<string>(ApplicationErrorMessage.RecordDeletedMessage);
     }

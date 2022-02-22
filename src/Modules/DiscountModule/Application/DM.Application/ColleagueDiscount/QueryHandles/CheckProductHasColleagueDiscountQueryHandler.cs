@@ -8,13 +8,13 @@ public class CheckProductHasColleagueDiscountQueryHandler : IRequestHandler<Chec
 {
     #region Ctor
 
-    private readonly IGenericRepository<Domain.ColleagueDiscount.ColleagueDiscount> _colleagueDiscountRepository;
+    private readonly IMongoHelper<Domain.ColleagueDiscount.ColleagueDiscount> _colleagueDiscountHelper;
     private readonly IGenericRepository<Product> _productRepository;
 
-    public CheckProductHasColleagueDiscountQueryHandler(IGenericRepository<Domain.ColleagueDiscount.ColleagueDiscount> colleagueDiscountRepository,
+    public CheckProductHasColleagueDiscountQueryHandler(IMongoHelper<Domain.ColleagueDiscount.ColleagueDiscount> colleagueDiscountHelper,
         IGenericRepository<Product> productRepository)
     {
-        _colleagueDiscountRepository = Guard.Against.Null(colleagueDiscountRepository, nameof(_colleagueDiscountRepository));
+        _colleagueDiscountHelper = Guard.Against.Null(colleagueDiscountHelper, nameof(_colleagueDiscountHelper));
         _productRepository = Guard.Against.Null(productRepository, nameof(_productRepository));
     }
 
@@ -27,7 +27,7 @@ public class CheckProductHasColleagueDiscountQueryHandler : IRequestHandler<Chec
         if (product is null)
             throw new NotFoundApiException("محصولی با این شناسه پیدا نشد");
 
-        bool existsColleagueDiscount = _colleagueDiscountRepository.Exists(x => x.ProductId == request.ProductId);
+        bool existsColleagueDiscount = await _colleagueDiscountHelper.ExistsAsync(x => x.ProductId == request.ProductId);
 
         return new Response<CheckProductHasColleagueDiscountResponseDto>(
             new CheckProductHasColleagueDiscountResponseDto

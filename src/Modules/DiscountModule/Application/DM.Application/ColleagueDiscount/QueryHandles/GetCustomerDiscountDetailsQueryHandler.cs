@@ -6,12 +6,12 @@ public class GetColleagueDiscountDetailsQueryHandler : IRequestHandler<GetCollea
 {
     #region Ctor
 
-    private readonly IGenericRepository<Domain.ColleagueDiscount.ColleagueDiscount> _colleagueDiscountRepository;
+    private readonly IMongoHelper<Domain.ColleagueDiscount.ColleagueDiscount> _colleagueDiscountHelper;
     private readonly IMapper _mapper;
 
-    public GetColleagueDiscountDetailsQueryHandler(IGenericRepository<Domain.ColleagueDiscount.ColleagueDiscount> colleagueDiscountRepository, IMapper mapper)
+    public GetColleagueDiscountDetailsQueryHandler(IMongoHelper<Domain.ColleagueDiscount.ColleagueDiscount> colleagueDiscountHelper, IMapper mapper)
     {
-        _colleagueDiscountRepository = Guard.Against.Null(colleagueDiscountRepository, nameof(_colleagueDiscountRepository));
+        _colleagueDiscountHelper = Guard.Against.Null(colleagueDiscountHelper, nameof(_colleagueDiscountHelper));
         _mapper = Guard.Against.Null(mapper, nameof(_mapper));
     }
 
@@ -19,7 +19,7 @@ public class GetColleagueDiscountDetailsQueryHandler : IRequestHandler<GetCollea
 
     public async Task<Response<EditColleagueDiscountDto>> Handle(GetColleagueDiscountDetailsQuery request, CancellationToken cancellationToken)
     {
-        var colleagueDiscount = await _colleagueDiscountRepository.GetEntityById(request.Id);
+        var colleagueDiscount = await _colleagueDiscountHelper.GetByIdAsync(request.Id);
 
         if (colleagueDiscount is null)
             throw new NotFoundApiException();

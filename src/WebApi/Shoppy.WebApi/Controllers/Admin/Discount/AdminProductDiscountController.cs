@@ -27,7 +27,7 @@ public class AdminProductDiscountController : BaseApiController
     [SwaggerOperation(Summary = "دریافت تخفیف محصول", Tags = new[] { "AdminProductDiscount" })]
     [SwaggerResponse(200, "success")]
     [SwaggerResponse(404, "not-found")]
-    public async Task<IActionResult> GetProductDiscountDetails([FromRoute] long id)
+    public async Task<IActionResult> GetProductDiscountDetails([FromRoute] string id)
     {
         var res = await Mediator.Send(new GetProductDiscountDetailsQuery(id));
 
@@ -73,7 +73,7 @@ public class AdminProductDiscountController : BaseApiController
     [SwaggerOperation(Summary = "حذف تخفیف محصول", Tags = new[] { "AdminProductDiscount" })]
     [SwaggerResponse(200, "success")]
     [SwaggerResponse(404, "not-found")]
-    public async Task<IActionResult> RemoveProductDiscount([FromRoute] long id)
+    public async Task<IActionResult> RemoveProductDiscount([FromRoute] string id)
     {
         var res = await Mediator.Send(new RemoveProductDiscountCommand(id));
 

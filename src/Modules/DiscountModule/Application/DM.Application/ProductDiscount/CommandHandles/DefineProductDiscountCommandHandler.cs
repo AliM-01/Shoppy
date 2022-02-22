@@ -7,14 +7,14 @@ public class DefineProductDiscountCommandHandler : IRequestHandler<DefineProduct
 {
     #region Ctor
 
-    private readonly IGenericRepository<Domain.ProductDiscount.ProductDiscount> _ProductDiscountRepository;
+    private readonly IMongoHelper<Domain.ProductDiscount.ProductDiscount> _productDiscountHelper;
     private readonly IMapper _mapper;
     private readonly IGenericRepository<Product> _productRepository;
 
-    public DefineProductDiscountCommandHandler(IGenericRepository<Domain.ProductDiscount.ProductDiscount> ProductDiscountRepository,
+    public DefineProductDiscountCommandHandler(IMongoHelper<Domain.ProductDiscount.ProductDiscount> productDiscountHelper,
          IGenericRepository<Product> productRepository, IMapper mapper)
     {
-        _ProductDiscountRepository = Guard.Against.Null(ProductDiscountRepository, nameof(_ProductDiscountRepository));
+        _productDiscountHelper = Guard.Against.Null(productDiscountHelper, nameof(_productDiscountHelper));
         _productRepository = Guard.Against.Null(productRepository, nameof(_productRepository));
         _mapper = Guard.Against.Null(mapper, nameof(_mapper));
 
@@ -29,14 +29,13 @@ public class DefineProductDiscountCommandHandler : IRequestHandler<DefineProduct
         if (!existsProduct)
             throw new NotFoundApiException("محصولی با این شناسه پیدا نشد");
 
-        if (_ProductDiscountRepository.Exists(x => x.ProductId == request.ProductDiscount.ProductId))
+        if (await _productDiscountHelper.ExistsAsync(x => x.ProductId == request.ProductDiscount.ProductId))
             throw new ApiException("برای این محصول قبلا تخفیف در نظر گرفته شده است");
 
-        var ProductDiscount =
+        var productDiscount =
             _mapper.Map(request.ProductDiscount, new Domain.ProductDiscount.ProductDiscount());
 
-        await _ProductDiscountRepository.InsertEntity(ProductDiscount);
-        await _ProductDiscountRepository.SaveChanges();
+        await _productDiscountHelper.InsertAsync(productDiscount);
 
         return new Response<string>(ApplicationErrorMessage.OperationSucceddedMessage);
     }

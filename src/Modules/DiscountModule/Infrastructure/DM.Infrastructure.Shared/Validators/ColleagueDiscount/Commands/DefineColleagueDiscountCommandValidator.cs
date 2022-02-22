@@ -7,7 +7,7 @@ public class DefineColleagueDiscountCommandValidator : AbstractValidator<DefineC
     public DefineColleagueDiscountCommandValidator()
     {
         RuleFor(p => p.ColleagueDiscount.ProductId)
-            .RequiredValidator("شناسه محصول");
+            .RangeValidator("شناسه محصول", 1, 100000);
 
         RuleFor(p => p.ColleagueDiscount.Rate)
             .RangeValidator("درصد", 1, 100);

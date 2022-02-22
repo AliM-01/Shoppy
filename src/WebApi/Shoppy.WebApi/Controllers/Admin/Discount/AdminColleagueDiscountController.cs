@@ -27,7 +27,7 @@ public class AdminColleagueDiscountController : BaseApiController
     [SwaggerOperation(Summary = "دریافت تخفیف همکار", Tags = new[] { "AdminColleagueDiscount" })]
     [SwaggerResponse(200, "success")]
     [SwaggerResponse(404, "not-found")]
-    public async Task<IActionResult> GetColleagueDiscountDetails([FromRoute] long id)
+    public async Task<IActionResult> GetColleagueDiscountDetails([FromRoute] string id)
     {
         var res = await Mediator.Send(new GetColleagueDiscountDetailsQuery(id));
 
@@ -73,7 +73,7 @@ public class AdminColleagueDiscountController : BaseApiController
     [SwaggerOperation(Summary = "غیر فعال کردن تخفیف همکار", Tags = new[] { "AdminColleagueDiscount" })]
     [SwaggerResponse(200, "success")]
     [SwaggerResponse(404, "not-found")]
-    public async Task<IActionResult> RemoveColleagueDiscount([FromRoute] long id)
+    public async Task<IActionResult> RemoveColleagueDiscount([FromRoute] string id)
     {
         var res = await Mediator.Send(new RemoveColleagueDiscountCommand(id));
 
@@ -88,7 +88,7 @@ public class AdminColleagueDiscountController : BaseApiController
     [SwaggerOperation(Summary = "فعال کردن تخفیف همکار", Tags = new[] { "AdminColleagueDiscount" })]
     [SwaggerResponse(200, "success")]
     [SwaggerResponse(404, "not-found")]
-    public async Task<IActionResult> RestoreColleagueDiscount([FromRoute] long id)
+    public async Task<IActionResult> RestoreColleagueDiscount([FromRoute] string id)
     {
         var res = await Mediator.Send(new RestoreColleagueDiscountCommand(id));
 
@@ -103,7 +103,7 @@ public class AdminColleagueDiscountController : BaseApiController
     [SwaggerOperation(Summary = "حذف تخفیف همکار", Tags = new[] { "AdminColleagueDiscount" })]
     [SwaggerResponse(200, "success")]
     [SwaggerResponse(404, "not-found")]
-    public async Task<IActionResult> DeleteColleagueDiscount([FromRoute] long id)
+    public async Task<IActionResult> DeleteColleagueDiscount([FromRoute] string id)
     {
         var res = await Mediator.Send(new DeleteColleagueDiscountCommand(id));
 

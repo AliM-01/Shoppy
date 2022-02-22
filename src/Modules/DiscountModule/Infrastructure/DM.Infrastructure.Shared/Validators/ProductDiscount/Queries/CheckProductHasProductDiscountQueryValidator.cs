@@ -7,6 +7,6 @@ public class CheckProductHasProductDiscountQueryValidator : AbstractValidator<Ch
     public CheckProductHasProductDiscountQueryValidator()
     {
         RuleFor(p => p.ProductId)
-            .RequiredValidator("شناسه محصول");
+            .RangeValidator("شناسه محصول", 1, 100000);
     }
 }

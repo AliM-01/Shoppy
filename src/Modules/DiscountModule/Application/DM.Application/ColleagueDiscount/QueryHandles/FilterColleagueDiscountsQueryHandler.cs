@@ -1,6 +1,7 @@
 ﻿using _0_Framework.Application.Models.Paging;
 using DM.Application.Contracts.ColleagueDiscount.DTOs;
 using DM.Application.Contracts.ColleagueDiscount.Queries;
+using MongoDB.Driver.Linq;
 using SM.Domain.Product;
 
 namespace DM.Application.ColleagueDiscount.QueryHandles;
@@ -8,14 +9,14 @@ public class FilterColleagueDiscountsQueryHandler : IRequestHandler<FilterCollea
 {
     #region Ctor
 
-    private readonly IGenericRepository<Domain.ColleagueDiscount.ColleagueDiscount> _colleagueDiscountRepository;
+    private readonly IMongoHelper<Domain.ColleagueDiscount.ColleagueDiscount> _colleagueDiscountHelper;
     private readonly IGenericRepository<Product> _productRepository;
     private readonly IMapper _mapper;
 
-    public FilterColleagueDiscountsQueryHandler(IGenericRepository<Domain.ColleagueDiscount.ColleagueDiscount> colleagueDiscountRepository,
+    public FilterColleagueDiscountsQueryHandler(IMongoHelper<Domain.ColleagueDiscount.ColleagueDiscount> colleagueDiscountHelper,
         IGenericRepository<Product> productRepository, IMapper mapper)
     {
-        _colleagueDiscountRepository = Guard.Against.Null(colleagueDiscountRepository, nameof(_colleagueDiscountRepository));
+        _colleagueDiscountHelper = Guard.Against.Null(colleagueDiscountHelper, nameof(_colleagueDiscountHelper));
         _productRepository = Guard.Against.Null(productRepository, nameof(_productRepository));
         _mapper = Guard.Against.Null(mapper, nameof(_mapper));
     }
@@ -24,7 +25,7 @@ public class FilterColleagueDiscountsQueryHandler : IRequestHandler<FilterCollea
 
     public async Task<Response<FilterColleagueDiscountDto>> Handle(FilterColleagueDiscountsQuery request, CancellationToken cancellationToken)
     {
-        var query = _colleagueDiscountRepository.GetQuery().AsQueryable();
+        var query = _colleagueDiscountHelper.AsQueryable();
 
         var products = await _productRepository.GetQuery().Select(x => new
         {
@@ -49,11 +50,11 @@ public class FilterColleagueDiscountsQueryHandler : IRequestHandler<FilterCollea
         switch (request.Filter.SortDateOrder)
         {
             case PagingDataSortCreationDateOrder.DES:
-                query = query.OrderByDescending(x => x.CreationDate).AsQueryable();
+                query = query.OrderByDescending(x => x.CreationDate);
                 break;
 
             case PagingDataSortCreationDateOrder.ASC:
-                query = query.OrderBy(x => x.CreationDate).AsQueryable();
+                query = query.OrderBy(x => x.CreationDate);
                 break;
         }
 
@@ -63,11 +64,11 @@ public class FilterColleagueDiscountsQueryHandler : IRequestHandler<FilterCollea
                 break;
 
             case PagingDataSortIdOrder.DES:
-                query = query.OrderByDescending(x => x.Id).AsQueryable();
+                query = query.OrderByDescending(x => x.Id);
                 break;
 
             case PagingDataSortIdOrder.ASC:
-                query = query.OrderBy(x => x.Id).AsQueryable();
+                query = query.OrderBy(x => x.Id);
                 break;
         }
 
@@ -75,13 +76,14 @@ public class FilterColleagueDiscountsQueryHandler : IRequestHandler<FilterCollea
 
         #region paging
 
-        var pager = Pager.Build(request.Filter.PageId, await query.CountAsync(cancellationToken),
-            request.Filter.TakePage, request.Filter.ShownPages);
-        var allEntities = await query.Paging(pager)
-            .AsQueryable()
+        var pager = request.Filter.BuildPager(query.Count());
+
+        var allEntities =
+            _colleagueDiscountHelper
+            .ApplyPagination(query, pager)
             .Select(discount =>
                 _mapper.Map(discount, new ColleagueDiscountDto()))
-            .ToListAsync(cancellationToken);
+            .ToList();
 
         allEntities.ForEach(discount =>
             discount.Product = products.FirstOrDefault(x => x.Id == discount.ProductId)?.Title);
