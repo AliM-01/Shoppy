@@ -11,11 +11,11 @@ public class GetArticleDetailsQueryHandler : IRequestHandler<GetArticleDetailsQu
 {
     #region Ctor
 
-    private readonly IMongoHelper<BM.Domain.Article.Article> _articleHelper;
+    private readonly IGenericRepository<BM.Domain.Article.Article> _articleHelper;
     private readonly IMapper _mapper;
 
     public GetArticleDetailsQueryHandler(
-        IMongoHelper<BM.Domain.Article.Article> articleHelper, IMapper mapper)
+        IGenericRepository<BM.Domain.Article.Article> articleHelper, IMapper mapper)
     {
         _articleHelper = Guard.Against.Null(articleHelper, nameof(_articleHelper));
         _mapper = Guard.Against.Null(mapper, nameof(_mapper));

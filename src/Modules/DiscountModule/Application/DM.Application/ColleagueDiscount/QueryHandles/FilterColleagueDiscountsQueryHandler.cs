@@ -9,11 +9,11 @@ public class FilterColleagueDiscountsQueryHandler : IRequestHandler<FilterCollea
 {
     #region Ctor
 
-    private readonly IMongoHelper<Domain.ColleagueDiscount.ColleagueDiscount> _colleagueDiscountHelper;
+    private readonly IGenericRepository<Domain.ColleagueDiscount.ColleagueDiscount> _colleagueDiscountHelper;
     private readonly IGenericRepository<Product> _productRepository;
     private readonly IMapper _mapper;
 
-    public FilterColleagueDiscountsQueryHandler(IMongoHelper<Domain.ColleagueDiscount.ColleagueDiscount> colleagueDiscountHelper,
+    public FilterColleagueDiscountsQueryHandler(IGenericRepository<Domain.ColleagueDiscount.ColleagueDiscount> colleagueDiscountHelper,
         IGenericRepository<Product> productRepository, IMapper mapper)
     {
         _colleagueDiscountHelper = Guard.Against.Null(colleagueDiscountHelper, nameof(_colleagueDiscountHelper));

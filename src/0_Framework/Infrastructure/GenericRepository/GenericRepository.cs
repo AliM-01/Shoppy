@@ -1,124 +1,156 @@
-﻿using _0_Framework.Domain;
-using _0_Framework.Domain.IGenericRepository;
-using Microsoft.EntityFrameworkCore;
+﻿using _0_Framework.Application.Exceptions;
+using _0_Framework.Application.Models.Paging;
+using _0_Framework.Domain;
+using _0_Framework.Domain.Attributes;
+using Microsoft.Extensions.Options;
+using MongoDB.Driver;
+using MongoDB.Driver.Linq;
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 
-namespace _0_Framework.Infrastructure.GenericRepository;
-public class GenericRepository<TContext, TEntity> : IGenericRepository<TEntity>
-        where TContext : DbContext
-        where TEntity : BaseEntity
+namespace _0_Framework.Infrastructure.Helpers;
+
+public class GenericRepository<TDocument, TSettings> : IGenericRepository<TDocument>
+    where TDocument : EntityBase
+    where TSettings : BaseMongoDbSettings
 {
     #region Ctor
 
-    private readonly TContext _context;
+    private readonly IMongoCollection<TDocument> _collection;
+    private readonly TSettings _settings;
 
-    private readonly DbSet<TEntity> _dbSet;
-
-    public GenericRepository(TContext context)
+    public GenericRepository(IOptionsSnapshot<TSettings> settings)
     {
-        this._context = context;
-        this._dbSet = _context.Set<TEntity>();
+        _settings = settings.Value;
+
+        var mongoSettings = MongoClientSettings.FromConnectionString(_settings.ConnectionString);
+        mongoSettings.ServerApi = new ServerApi(ServerApiVersion.V1);
+
+        var client = new MongoClient(mongoSettings);
+
+        var database = client.GetDatabase(_settings.DbName);
+
+        _collection = database.GetCollection<TDocument>(GetCollectionName(typeof(TDocument)));
+    }
+
+    private protected string GetCollectionName(Type documentType)
+    {
+        return ((BsonCollectionAttribute)documentType.GetCustomAttributes(
+                typeof(BsonCollectionAttribute),
+                true)
+            .FirstOrDefault())?.CollectionName;
     }
 
     #endregion
 
-    #region CRUD
+    #region GetQuery
 
-    #region Create
-
-    public async Task InsertEntity(TEntity entity)
+    public IMongoQueryable<TDocument> AsQueryable()
     {
-        entity.CreationDate = DateTime.Now;
-        entity.LastUpdateDate = DateTime.Now;
-        await _dbSet.AddAsync(entity);
-    }
-
-    public async Task InsertRangeEntity(List<TEntity> entities)
-    {
-        foreach (var entity in entities)
-        {
-            await InsertEntity(entity);
-        }
+        return _collection.AsQueryable();
     }
 
     #endregion
 
-    #region Read
+    #region GetPagination
 
-    public async Task<TEntity> GetEntityById(long entityId)
+    public List<TDocument> ApplyPagination(IMongoQueryable<TDocument> query, BasePaging pager)
     {
-        return await _dbSet.AsNoTracking().SingleOrDefaultAsync(s => s.Id == entityId);
+        return query
+                .DocumentPaging(pager)
+                .ToListSafe();
+    }
+
+    #endregion
+
+    #region Exists
+
+    public async Task<bool> ExistsAsync(Expression<Func<TDocument, bool>> expression)
+    {
+        return await _collection.AsQueryable().AnyAsync(expression);
+    }
+
+    #endregion
+
+    #region GetByFilter
+
+    public async Task<TDocument> GetByFilter(FilterDefinition<TDocument> filter)
+    {
+        var res = await _collection.FindAsync(filter);
+
+        var document = await res.FirstOrDefaultAsync();
+
+        if (document is null)
+            throw new NotFoundApiException();
+
+        return document;
+    }
+
+    #endregion
+
+    #region GetByIdAsync
+
+    public async Task<TDocument> GetByIdAsync(string id)
+    {
+        var filter = MongoDbFilters<TDocument>.GetByIdFilter(id);
+
+        var res = await _collection.FindAsync(filter);
+
+        var document = await res.FirstOrDefaultAsync();
+
+        if (document is null)
+            throw new NotFoundApiException();
+
+        return document;
+    }
+
+    #endregion
+
+    #region Insert
+
+    public async Task InsertAsync(TDocument document)
+    {
+        await _collection.InsertOneAsync(document);
     }
 
     #endregion
 
     #region Update
 
-    public void Update(TEntity entity)
+    public async Task UpdateAsync(TDocument document)
     {
-        _context.Entry(entity).State = EntityState.Modified;
-        entity.LastUpdateDate = DateTime.Now;
-        _dbSet.Update(entity);
+        document.LastUpdateDate = DateTime.UtcNow;
+
+        var filter = MongoDbFilters<TDocument>.GetByIdFilter(document.Id);
+
+        await _collection.ReplaceOneAsync(filter, document);
     }
 
     #endregion
 
     #region Delete
 
-    public async Task SoftDelete(long entityId)
+    public async Task DeleteAsync(string id)
     {
-        TEntity entity = await GetEntityById(entityId);
-        entity.IsDeleted = true;
-        Update(entity);
-    }
+        var document = await GetByIdAsync(id);
 
-    public async Task FullDelete(long entityId)
-    {
-        TEntity entity = await GetEntityById(entityId);
-        _context.Remove(entity);
+        document.IsDeleted = true;
+
+        await UpdateAsync(document);
     }
 
     #endregion
 
-    #endregion
+    #region DeletePermanentAsync
 
-    #region Exists
-
-    public bool Exists(Expression<Func<TEntity, bool>> expression)
+    public async Task DeletePermanentAsync(string id)
     {
-        return _dbSet.Any(expression);
-    }
+        var document = await GetByIdAsync(id);
 
-    #endregion
+        var filter = MongoDbFilters<TDocument>.GetByIdFilter(document.Id);
 
-    #region Save Changes
-
-    public async Task SaveChanges()
-    {
-        await _context.SaveChangesAsync();
-    }
-
-    #endregion
-
-    #region Get Query
-
-    public IQueryable<TEntity> GetQuery()
-    {
-        return _dbSet.AsNoTracking().AsQueryable();
-    }
-
-    #endregion
-
-    #region Dispose
-
-    public async ValueTask DisposeAsync()
-    {
-        if (_context != null)
-        {
-            await _context.DisposeAsync();
-        }
+        await _collection.DeleteOneAsync(filter);
     }
 
     #endregion

@@ -5,9 +5,9 @@ public class DeleteArticleCommandHandler : IRequestHandler<DeleteArticleCommand,
 {
     #region Ctor
 
-    private readonly IMongoHelper<Domain.Article.Article> _articleHelper;
+    private readonly IGenericRepository<Domain.Article.Article> _articleHelper;
 
-    public DeleteArticleCommandHandler(IMongoHelper<Domain.Article.Article> articleHelper)
+    public DeleteArticleCommandHandler(IGenericRepository<Domain.Article.Article> articleHelper)
     {
         _articleHelper = Guard.Against.Null(articleHelper, nameof(_articleHelper));
     }

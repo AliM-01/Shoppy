@@ -8,10 +8,10 @@ public class CheckProductHasProductDiscountQueryHandler : IRequestHandler<CheckP
 {
     #region Ctor
 
-    private readonly IMongoHelper<Domain.ProductDiscount.ProductDiscount> _productDiscountHelper;
+    private readonly IGenericRepository<Domain.ProductDiscount.ProductDiscount> _productDiscountHelper;
     private readonly IGenericRepository<Product> _productRepository;
 
-    public CheckProductHasProductDiscountQueryHandler(IMongoHelper<Domain.ProductDiscount.ProductDiscount> productDiscountHelper,
+    public CheckProductHasProductDiscountQueryHandler(IGenericRepository<Domain.ProductDiscount.ProductDiscount> productDiscountHelper,
         IGenericRepository<Product> productRepository)
     {
         _productDiscountHelper = Guard.Against.Null(productDiscountHelper, nameof(_productDiscountHelper));

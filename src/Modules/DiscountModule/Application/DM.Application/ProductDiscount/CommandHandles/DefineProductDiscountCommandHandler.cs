@@ -7,11 +7,11 @@ public class DefineProductDiscountCommandHandler : IRequestHandler<DefineProduct
 {
     #region Ctor
 
-    private readonly IMongoHelper<Domain.ProductDiscount.ProductDiscount> _productDiscountHelper;
+    private readonly IGenericRepository<Domain.ProductDiscount.ProductDiscount> _productDiscountHelper;
     private readonly IMapper _mapper;
     private readonly IGenericRepository<Product> _productRepository;
 
-    public DefineProductDiscountCommandHandler(IMongoHelper<Domain.ProductDiscount.ProductDiscount> productDiscountHelper,
+    public DefineProductDiscountCommandHandler(IGenericRepository<Domain.ProductDiscount.ProductDiscount> productDiscountHelper,
          IGenericRepository<Product> productRepository, IMapper mapper)
     {
         _productDiscountHelper = Guard.Against.Null(productDiscountHelper, nameof(_productDiscountHelper));

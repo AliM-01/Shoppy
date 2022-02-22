@@ -6,10 +6,10 @@ public class GetArticleCategoriesSelectListQueryHandler : IRequestHandler<GetArt
 {
     #region Ctor
 
-    private readonly IMongoHelper<Domain.ArticleCategory.ArticleCategory> _articleCategoryHelper;
+    private readonly IGenericRepository<Domain.ArticleCategory.ArticleCategory> _articleCategoryHelper;
     private readonly IMapper _mapper;
 
-    public GetArticleCategoriesSelectListQueryHandler(IMongoHelper<Domain.ArticleCategory.ArticleCategory> articleCategoryHelper, IMapper mapper)
+    public GetArticleCategoriesSelectListQueryHandler(IGenericRepository<Domain.ArticleCategory.ArticleCategory> articleCategoryHelper, IMapper mapper)
     {
         _articleCategoryHelper = Guard.Against.Null(articleCategoryHelper, nameof(_articleCategoryHelper));
         _mapper = Guard.Against.Null(mapper, nameof(_mapper));

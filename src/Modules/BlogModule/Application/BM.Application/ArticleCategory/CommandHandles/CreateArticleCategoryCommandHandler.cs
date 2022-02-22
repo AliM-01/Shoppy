@@ -8,10 +8,10 @@ public class CreateArticleCategoryCommandHandler : IRequestHandler<CreateArticle
 {
     #region Ctor
 
-    private readonly IMongoHelper<Domain.ArticleCategory.ArticleCategory> _articleCategoryHelper;
+    private readonly IGenericRepository<Domain.ArticleCategory.ArticleCategory> _articleCategoryHelper;
     private readonly IMapper _mapper;
 
-    public CreateArticleCategoryCommandHandler(IMongoHelper<Domain.ArticleCategory.ArticleCategory> articleCategoryHelper, IMapper mapper)
+    public CreateArticleCategoryCommandHandler(IGenericRepository<Domain.ArticleCategory.ArticleCategory> articleCategoryHelper, IMapper mapper)
     {
         _articleCategoryHelper = Guard.Against.Null(articleCategoryHelper, nameof(_articleCategoryHelper));
         _mapper = Guard.Against.Null(mapper, nameof(_mapper));

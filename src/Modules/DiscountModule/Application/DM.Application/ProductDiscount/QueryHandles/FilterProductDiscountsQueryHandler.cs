@@ -9,11 +9,11 @@ public class FilterProductDiscountsQueryHandler : IRequestHandler<FilterProductD
 {
     #region Ctor
 
-    private readonly IMongoHelper<Domain.ProductDiscount.ProductDiscount> _productDiscountHelper;
+    private readonly IGenericRepository<Domain.ProductDiscount.ProductDiscount> _productDiscountHelper;
     private readonly IGenericRepository<Product> _productRepository;
     private readonly IMapper _mapper;
 
-    public FilterProductDiscountsQueryHandler(IMongoHelper<Domain.ProductDiscount.ProductDiscount> productDiscountHelper,
+    public FilterProductDiscountsQueryHandler(IGenericRepository<Domain.ProductDiscount.ProductDiscount> productDiscountHelper,
         IGenericRepository<Product> productRepository, IMapper mapper)
     {
         _productDiscountHelper = Guard.Against.Null(productDiscountHelper, nameof(_productDiscountHelper));

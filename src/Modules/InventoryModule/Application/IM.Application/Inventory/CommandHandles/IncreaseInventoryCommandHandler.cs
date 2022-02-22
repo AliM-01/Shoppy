@@ -6,11 +6,11 @@ public class IncreaseInventoryCommandHandler : IRequestHandler<IncreaseInventory
 {
     #region Ctor
 
-    private readonly IMongoHelper<Domain.Inventory.Inventory> _inventoryDb;
+    private readonly IGenericRepository<Domain.Inventory.Inventory> _inventoryDb;
     private readonly IMapper _mapper;
     private readonly IInventoryHelper _inventoryHelper;
 
-    public IncreaseInventoryCommandHandler(IMongoHelper<Domain.Inventory.Inventory> inventoryDb,
+    public IncreaseInventoryCommandHandler(IGenericRepository<Domain.Inventory.Inventory> inventoryDb,
         IMapper mapper, IInventoryHelper inventoryHelper)
     {
         _inventoryDb = Guard.Against.Null(inventoryDb, nameof(_inventoryDb));

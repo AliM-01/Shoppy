@@ -18,12 +18,12 @@ public class SearchQueryHandler : IRequestHandler<SearchQuery, Response<SearchPr
 
     private readonly ShopDbContext _shopContext;
     private readonly IProductHelper _productHelper;
-    private readonly IMongoHelper<Inventory> _inventoryContext;
+    private readonly IGenericRepository<Inventory> _inventoryContext;
     private readonly IMapper _mapper;
 
     public SearchQueryHandler(
         ShopDbContext shopContext,
-         IMongoHelper<Inventory> inventoryContext, IProductHelper productHelper, IMapper mapper)
+         IGenericRepository<Inventory> inventoryContext, IProductHelper productHelper, IMapper mapper)
     {
         _shopContext = Guard.Against.Null(shopContext, nameof(_shopContext));
         _productHelper = Guard.Against.Null(productHelper, nameof(_productHelper));

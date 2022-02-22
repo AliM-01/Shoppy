@@ -16,14 +16,14 @@ public class ProductHelper : IProductHelper
     #region Ctor
 
     private readonly ShopDbContext _shopContext;
-    private readonly IMongoHelper<ProductDiscount> _productDiscount;
-    private readonly IMongoHelper<Inventory> _inventoryContext;
+    private readonly IGenericRepository<ProductDiscount> _productDiscount;
+    private readonly IGenericRepository<Inventory> _inventoryContext;
     private readonly IMapper _mapper;
     private readonly IInventoryHelper _inventoryHelper;
 
     public ProductHelper(
-        ShopDbContext shopContext, IMongoHelper<ProductDiscount> productDiscount,
-        IMongoHelper<Inventory> inventoryContext, IMapper mapper, IInventoryHelper inventoryHelper)
+        ShopDbContext shopContext, IGenericRepository<ProductDiscount> productDiscount,
+        IGenericRepository<Inventory> inventoryContext, IMapper mapper, IInventoryHelper inventoryHelper)
     {
         _shopContext = Guard.Against.Null(shopContext, nameof(_shopContext));
         _productDiscount = Guard.Against.Null(productDiscount, nameof(_productDiscount));

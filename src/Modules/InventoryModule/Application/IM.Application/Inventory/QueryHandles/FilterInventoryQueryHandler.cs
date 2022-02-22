@@ -12,12 +12,12 @@ public class FilterInventoryQueryHandler : IRequestHandler<FilterInventoryQuery,
 {
     #region Ctor
 
-    private readonly IMongoHelper<Domain.Inventory.Inventory> _inventoryDb;
+    private readonly IGenericRepository<Domain.Inventory.Inventory> _inventoryDb;
     private readonly IGenericRepository<Product> _productRepository;
     private readonly IMapper _mapper;
     private readonly IInventoryHelper _inventoryHelper;
 
-    public FilterInventoryQueryHandler(IMongoHelper<Domain.Inventory.Inventory> inventoryDb,
+    public FilterInventoryQueryHandler(IGenericRepository<Domain.Inventory.Inventory> inventoryDb,
         IGenericRepository<Product> productRepository, IMapper mapper, IInventoryHelper inventoryHelper)
     {
         _inventoryDb = Guard.Against.Null(inventoryDb, nameof(_inventoryDb));

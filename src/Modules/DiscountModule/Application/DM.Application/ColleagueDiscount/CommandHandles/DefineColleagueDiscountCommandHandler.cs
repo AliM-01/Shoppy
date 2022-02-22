@@ -7,11 +7,11 @@ public class DefineColleagueDiscountCommandHandler : IRequestHandler<DefineColle
 {
     #region Ctor
 
-    private readonly IMongoHelper<Domain.ColleagueDiscount.ColleagueDiscount> _colleagueDiscountHelper;
+    private readonly IGenericRepository<Domain.ColleagueDiscount.ColleagueDiscount> _colleagueDiscountHelper;
     private readonly IMapper _mapper;
     private readonly IGenericRepository<Product> _productRepository;
 
-    public DefineColleagueDiscountCommandHandler(IMongoHelper<Domain.ColleagueDiscount.ColleagueDiscount> colleagueDiscountHelper,
+    public DefineColleagueDiscountCommandHandler(IGenericRepository<Domain.ColleagueDiscount.ColleagueDiscount> colleagueDiscountHelper,
          IGenericRepository<Product> productRepository, IMapper mapper)
     {
         _colleagueDiscountHelper = Guard.Against.Null(colleagueDiscountHelper, nameof(_colleagueDiscountHelper));

@@ -14,13 +14,13 @@ public class GetArticleCategoryWithArticlesByQueryHandler : IRequestHandler<GetA
 {
     #region Ctor
 
-    private readonly IMongoHelper<BM.Domain.ArticleCategory.ArticleCategory> _articleCategoryHelper;
-    private readonly IMongoHelper<BM.Domain.Article.Article> _articleHelper;
+    private readonly IGenericRepository<BM.Domain.ArticleCategory.ArticleCategory> _articleCategoryHelper;
+    private readonly IGenericRepository<BM.Domain.Article.Article> _articleHelper;
     private readonly IMapper _mapper;
 
     public GetArticleCategoryWithArticlesByQueryHandler(
-        IMongoHelper<BM.Domain.ArticleCategory.ArticleCategory> articleCategoryHelper,
-        IMongoHelper<BM.Domain.Article.Article> articleHelper, IMapper mapper)
+        IGenericRepository<BM.Domain.ArticleCategory.ArticleCategory> articleCategoryHelper,
+        IGenericRepository<BM.Domain.Article.Article> articleHelper, IMapper mapper)
     {
         _articleCategoryHelper = Guard.Against.Null(articleCategoryHelper, nameof(_articleCategoryHelper));
         _articleHelper = Guard.Against.Null(articleHelper, nameof(_articleHelper));

@@ -16,7 +16,7 @@ public static class CommentModuletBootstrapper
 
         services.AddScoped<ICommentDbContext, CommentDbContext>();
 
-        services.AddScoped<IMongoHelper<Comment>, MongoHelper<Comment, CommentDbSettings>>();
+        services.AddScoped<IGenericRepository<Comment>, GenericRepository<Comment, CommentDbSettings>>();
 
         services.AddMediatR(typeof(CommentModuletBootstrapper).Assembly);
 

@@ -6,10 +6,10 @@ public class CancelCommentCommandHandler : IRequestHandler<CancelCommentCommand,
 {
     #region Ctor
 
-    private readonly IMongoHelper<Domain.Comment.Comment> _commentHelper;
+    private readonly IGenericRepository<Domain.Comment.Comment> _commentHelper;
     private readonly IMapper _mapper;
 
-    public CancelCommentCommandHandler(IMongoHelper<Domain.Comment.Comment> commentHelper, IMapper mapper)
+    public CancelCommentCommandHandler(IGenericRepository<Domain.Comment.Comment> commentHelper, IMapper mapper)
     {
         _commentHelper = Guard.Against.Null(commentHelper, nameof(_commentHelper));
         _mapper = Guard.Against.Null(mapper, nameof(_mapper));

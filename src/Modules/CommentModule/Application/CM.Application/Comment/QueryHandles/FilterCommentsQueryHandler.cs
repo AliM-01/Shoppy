@@ -11,10 +11,10 @@ public class FilterCommentsQueryHandler : IRequestHandler<FilterCommentsQuery, R
 {
     #region Ctor
 
-    private readonly IMongoHelper<CM.Domain.Comment.Comment> _commentHelper;
+    private readonly IGenericRepository<CM.Domain.Comment.Comment> _commentHelper;
     private readonly IMapper _mapper;
 
-    public FilterCommentsQueryHandler(IMongoHelper<CM.Domain.Comment.Comment> commentHelper, IMapper mapper)
+    public FilterCommentsQueryHandler(IGenericRepository<CM.Domain.Comment.Comment> commentHelper, IMapper mapper)
     {
         _commentHelper = Guard.Against.Null(commentHelper, nameof(_commentHelper));
         _mapper = Guard.Against.Null(mapper, nameof(_mapper));

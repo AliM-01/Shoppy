@@ -17,8 +17,8 @@ public static class InventoryModuletBootstrapper
 
         services.AddScoped<IInventoryDbContext, InventoryDbContext>();
 
-        services.AddScoped<IMongoHelper<Inventory>, MongoHelper<Inventory, InventoryDbSettings>>();
-        services.AddScoped<IMongoHelper<InventoryOperation>, MongoHelper<InventoryOperation, InventoryDbSettings>>();
+        services.AddScoped<IGenericRepository<Inventory>, GenericRepository<Inventory, InventoryDbSettings>>();
+        services.AddScoped<IGenericRepository<InventoryOperation>, GenericRepository<InventoryOperation, InventoryDbSettings>>();
 
         services.AddScoped<IInventoryHelper, InventoryHelper>();
 

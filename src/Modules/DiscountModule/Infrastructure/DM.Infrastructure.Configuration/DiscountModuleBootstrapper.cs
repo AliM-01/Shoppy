@@ -16,8 +16,8 @@ public static class DiscountModuleBootstrapper
 
         services.AddScoped<IDiscountDbContext, DiscountDbContext>();
 
-        services.AddScoped<IMongoHelper<ColleagueDiscount>, MongoHelper<ColleagueDiscount, DiscountDbSettings>>();
-        services.AddScoped<IMongoHelper<ProductDiscount>, MongoHelper<ProductDiscount, DiscountDbSettings>>();
+        services.AddScoped<IGenericRepository<ColleagueDiscount>, GenericRepository<ColleagueDiscount, DiscountDbSettings>>();
+        services.AddScoped<IGenericRepository<ProductDiscount>, GenericRepository<ProductDiscount, DiscountDbSettings>>();
 
         services.AddMediatR(typeof(DiscountModuleBootstrapper).Assembly);
     }

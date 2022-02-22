@@ -6,10 +6,10 @@ public class EditArticleCommandHandler : IRequestHandler<EditArticleCommand, Res
 {
     #region Ctor
 
-    private readonly IMongoHelper<Domain.Article.Article> _articleHelper;
+    private readonly IGenericRepository<Domain.Article.Article> _articleHelper;
     private readonly IMapper _mapper;
 
-    public EditArticleCommandHandler(IMongoHelper<Domain.Article.Article> articleHelper, IMapper mapper)
+    public EditArticleCommandHandler(IGenericRepository<Domain.Article.Article> articleHelper, IMapper mapper)
     {
         _articleHelper = Guard.Against.Null(articleHelper, nameof(_articleHelper));
         _mapper = Guard.Against.Null(mapper, nameof(_mapper));

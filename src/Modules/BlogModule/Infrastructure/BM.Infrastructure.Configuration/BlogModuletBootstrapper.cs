@@ -18,8 +18,8 @@ public class BlogModuletBootstrapper
 
         services.AddScoped<IBlogDbContext, BlogDbContext>();
 
-        services.AddScoped<IMongoHelper<ArticleCategory>, MongoHelper<ArticleCategory, BlogDbSettings>>();
-        services.AddScoped<IMongoHelper<Article>, MongoHelper<Article, BlogDbSettings>>();
+        services.AddScoped<IGenericRepository<ArticleCategory>, GenericRepository<ArticleCategory, BlogDbSettings>>();
+        services.AddScoped<IGenericRepository<Article>, GenericRepository<Article, BlogDbSettings>>();
 
         services.AddMediatR(typeof(BlogModuletBootstrapper).Assembly);
 

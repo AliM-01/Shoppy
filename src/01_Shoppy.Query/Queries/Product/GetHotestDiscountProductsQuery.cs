@@ -14,12 +14,12 @@ public class GetHotestDiscountProductsQueryHandler : IRequestHandler<GetHotestDi
     #region Ctor
 
     private readonly ShopDbContext _shopContext;
-    private readonly IMongoHelper<ProductDiscount> _productDiscount;
+    private readonly IGenericRepository<ProductDiscount> _productDiscount;
     private readonly IMapper _mapper;
     private readonly IProductHelper _productHelper;
 
     public GetHotestDiscountProductsQueryHandler(
-        ShopDbContext shopContext, IMongoHelper<ProductDiscount> productDiscount,
+        ShopDbContext shopContext, IGenericRepository<ProductDiscount> productDiscount,
         IMapper mapper, IProductHelper productHelper)
     {
         _shopContext = Guard.Against.Null(shopContext, nameof(_shopContext));

@@ -6,10 +6,10 @@ public class GetProductDiscountDetailsQueryHandler : IRequestHandler<GetProductD
 {
     #region Ctor
 
-    private readonly IMongoHelper<Domain.ProductDiscount.ProductDiscount> _productDiscountHelper;
+    private readonly IGenericRepository<Domain.ProductDiscount.ProductDiscount> _productDiscountHelper;
     private readonly IMapper _mapper;
 
-    public GetProductDiscountDetailsQueryHandler(IMongoHelper<Domain.ProductDiscount.ProductDiscount> productDiscountHelper, IMapper mapper)
+    public GetProductDiscountDetailsQueryHandler(IGenericRepository<Domain.ProductDiscount.ProductDiscount> productDiscountHelper, IMapper mapper)
     {
         _productDiscountHelper = Guard.Against.Null(productDiscountHelper, nameof(_productDiscountHelper));
         _mapper = Guard.Against.Null(mapper, nameof(_mapper));

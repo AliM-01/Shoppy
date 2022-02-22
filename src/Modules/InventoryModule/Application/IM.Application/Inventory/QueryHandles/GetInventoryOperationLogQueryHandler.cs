@@ -10,13 +10,13 @@ public class GetInventoryOperationLogQueryHandler : IRequestHandler<GetInventory
 {
     #region Ctor
 
-    private readonly IMongoHelper<Domain.Inventory.Inventory> _inventoryHelper;
-    private readonly IMongoHelper<InventoryOperation> _inventoryOperationHelper;
+    private readonly IGenericRepository<Domain.Inventory.Inventory> _inventoryHelper;
+    private readonly IGenericRepository<InventoryOperation> _inventoryOperationHelper;
     private readonly ShopDbContext _shopDbContext;
     private readonly IMapper _mapper;
 
-    public GetInventoryOperationLogQueryHandler(IMongoHelper<Domain.Inventory.Inventory> inventoryHelper,
-        IMongoHelper<InventoryOperation> inventoryOperationHelper, ShopDbContext shopDbContext, IMapper mapper)
+    public GetInventoryOperationLogQueryHandler(IGenericRepository<Domain.Inventory.Inventory> inventoryHelper,
+        IGenericRepository<InventoryOperation> inventoryOperationHelper, ShopDbContext shopDbContext, IMapper mapper)
     {
         _inventoryHelper = Guard.Against.Null(inventoryHelper, nameof(_inventoryHelper));
         _inventoryOperationHelper = Guard.Against.Null(inventoryOperationHelper, nameof(_inventoryOperationHelper));

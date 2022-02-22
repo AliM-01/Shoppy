@@ -7,11 +7,11 @@ public class EditInventoryCommandHandler : IRequestHandler<EditInventoryCommand,
 {
     #region Ctor
 
-    private readonly IMongoHelper<Domain.Inventory.Inventory> _inventoryHelper;
+    private readonly IGenericRepository<Domain.Inventory.Inventory> _inventoryHelper;
     private readonly IGenericRepository<Product> _productRepository;
     private readonly IMapper _mapper;
 
-    public EditInventoryCommandHandler(IMongoHelper<Domain.Inventory.Inventory> inventoryHelper,
+    public EditInventoryCommandHandler(IGenericRepository<Domain.Inventory.Inventory> inventoryHelper,
         IMapper mapper, IGenericRepository<Product> productRepository)
     {
         _inventoryHelper = Guard.Against.Null(inventoryHelper, nameof(_inventoryHelper));

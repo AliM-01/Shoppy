@@ -1,27 +1,30 @@
-﻿using System.Collections.Generic;
-using System.Linq;
+﻿using _0_Framework.Application.Models.Paging;
+using _0_Framework.Domain;
+using MongoDB.Driver;
+using MongoDB.Driver.Linq;
+using System.Collections.Generic;
 using System.Linq.Expressions;
 
-namespace _0_Framework.Domain.IGenericRepository;
+namespace _0_Framework.Infrastructure.Helpers;
 
-public interface IGenericRepository<TEntity> : IAsyncDisposable
-        where TEntity : BaseEntity
+public interface IGenericRepository<TDocument>
+    where TDocument : EntityBase
 {
-    IQueryable<TEntity> GetQuery();
+    IMongoQueryable<TDocument> AsQueryable();
 
-    Task InsertEntity(TEntity entity);
+    List<TDocument> ApplyPagination(IMongoQueryable<TDocument> query, BasePaging pager);
 
-    Task InsertRangeEntity(List<TEntity> entities);
+    Task<bool> ExistsAsync(Expression<Func<TDocument, bool>> expression);
 
-    Task<TEntity> GetEntityById(long entityId);
+    Task<TDocument> GetByFilter(FilterDefinition<TDocument> filter);
 
-    void Update(TEntity entity);
+    Task<TDocument> GetByIdAsync(string id);
 
-    Task SoftDelete(long entityId);
+    Task InsertAsync(TDocument document);
 
-    Task FullDelete(long entityId);
+    Task UpdateAsync(TDocument document);
 
-    bool Exists(Expression<Func<TEntity, bool>> expression);
+    Task DeleteAsync(string id);
 
-    Task SaveChanges();
+    Task DeletePermanentAsync(string id);
 }
