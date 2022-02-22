@@ -27,7 +27,7 @@ public class AdminProductController : BaseApiController
     [SwaggerOperation(Summary = "چک کردن وجود شناسه محصول", Tags = new[] { "AdminProduct" })]
     [SwaggerResponse(200, "success")]
     [SwaggerResponse(404, "not-found")]
-    public async Task<IActionResult> ExistsProductId([FromRoute] long id)
+    public async Task<IActionResult> ExistsProductid([FromRoute] string id)
     {
         var res = await Mediator.Send(new ExistsProductIdQuery(id));
 
@@ -42,7 +42,7 @@ public class AdminProductController : BaseApiController
     [SwaggerOperation(Summary = "دریافت جزییات محصول", Tags = new[] { "AdminProduct" })]
     [SwaggerResponse(200, "success")]
     [SwaggerResponse(404, "not-found")]
-    public async Task<IActionResult> GetProductDetails([FromRoute] long id)
+    public async Task<IActionResult> GetProductDetails([FromRoute] string id)
     {
         var res = await Mediator.Send(new GetProductDetailsQuery(id));
 
@@ -88,7 +88,7 @@ public class AdminProductController : BaseApiController
     [SwaggerOperation(Summary = "حذف محصول", Tags = new[] { "AdminProduct" })]
     [SwaggerResponse(200, "success")]
     [SwaggerResponse(404, "not-found")]
-    public async Task<IActionResult> DeleteProduct([FromRoute] long id)
+    public async Task<IActionResult> DeleteProduct([FromRoute] string id)
     {
         var res = await Mediator.Send(new DeleteProductCommand(id));
 

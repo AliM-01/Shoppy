@@ -14,7 +14,7 @@ public class AdminProductPictureController : BaseApiController
     [SwaggerOperation(Summary = "دریافت تصاویر محصولات", Tags = new[] { "AdminProductPicture" })]
     [SwaggerResponse(200, "success")]
     [SwaggerResponse(404, "not-found")]
-    public async Task<IActionResult> GetProductPictures([FromRoute] long productId)
+    public async Task<IActionResult> GetProductPictures([FromRoute] string ProductId)
     {
         var res = await Mediator.Send(new GetProductPicturesQuery(productId));
 
@@ -28,7 +28,7 @@ public class AdminProductPictureController : BaseApiController
     [HttpPost(AdminShopApiEndpoints.ProductPicture.CreateProductPicture)]
     [SwaggerOperation(Summary = "ایجاد تصویر محصول", Tags = new[] { "AdminProductPicture" })]
     [SwaggerResponse(201, "success : created")]
-    public async Task<IActionResult> CreateProductPicture([FromRoute] long productId)
+    public async Task<IActionResult> CreateProductPicture([FromRoute] string ProductId)
     {
         var request = HttpContext.Request.Form;
 
@@ -37,7 +37,7 @@ public class AdminProductPictureController : BaseApiController
         var createData = new CreateProductPictureDto
         {
             ImageFiles = (System.Collections.Generic.List<IFormFile>)files,
-            ProductId = productId
+            ProductId = ProductId
         };
 
         var res = await Mediator.Send(new CreateProductPictureCommand(createData));
@@ -53,7 +53,7 @@ public class AdminProductPictureController : BaseApiController
     [SwaggerOperation(Summary = "حذف تصویر محصول", Tags = new[] { "AdminProductPicture" })]
     [SwaggerResponse(200, "success")]
     [SwaggerResponse(404, "not-found")]
-    public async Task<IActionResult> RemoveProductPicture([FromRoute] long id)
+    public async Task<IActionResult> RemoveProductPicture([FromRoute] string id)
     {
         var res = await Mediator.Send(new RemoveProductPictureCommand(id));
 

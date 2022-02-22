@@ -28,7 +28,7 @@ public class AdminSliderController : BaseApiController
     [SwaggerOperation(Summary = "دریافت جزییات اسلایدر", Tags = new[] { "AdminSlider" })]
     [SwaggerResponse(200, "success")]
     [SwaggerResponse(404, "not-found")]
-    public async Task<IActionResult> GetSliderDetails([FromRoute] long id)
+    public async Task<IActionResult> GetSliderDetails([FromRoute] string id)
     {
         var res = await Mediator.Send(new GetSliderDetailsQuery(id));
 
@@ -72,7 +72,7 @@ public class AdminSliderController : BaseApiController
     [SwaggerOperation(Summary = "غیر فعال کردن اسلایدر", Tags = new[] { "AdminSlider" })]
     [SwaggerResponse(200, "success")]
     [SwaggerResponse(404, "not-found")]
-    public async Task<IActionResult> RemoveSlider([FromRoute] long id)
+    public async Task<IActionResult> RemoveSlider([FromRoute] string id)
     {
         var res = await Mediator.Send(new RemoveSliderCommand(id));
 
@@ -87,7 +87,7 @@ public class AdminSliderController : BaseApiController
     [SwaggerOperation(Summary = "فعال کردن اسلایدر", Tags = new[] { "AdminSlider" })]
     [SwaggerResponse(200, "success")]
     [SwaggerResponse(404, "not-found")]
-    public async Task<IActionResult> RestoreSlider([FromRoute] long id)
+    public async Task<IActionResult> RestoreSlider([FromRoute] string id)
     {
         var res = await Mediator.Send(new RestoreSliderCommand(id));
 

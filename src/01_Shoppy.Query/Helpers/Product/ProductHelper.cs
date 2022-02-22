@@ -162,7 +162,7 @@ public class ProductHelper : IProductHelper
 
     #region GetProductPriceById
 
-    public decimal GetProductPriceById(long id)
+    public decimal GetProductPriceById(string Id)
     {
         var inventories = (_inventoryContext.AsQueryable().ToListAsyncSafe().Result)
            .Select(x => new

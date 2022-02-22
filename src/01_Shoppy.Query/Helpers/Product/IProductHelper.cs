@@ -15,5 +15,5 @@ public interface IProductHelper
 
     List<ProductFeatureDto> GetProductFeatures(long productId);
 
-    decimal GetProductPriceById(long id);
+    decimal GetProductPriceById(string Id);
 }

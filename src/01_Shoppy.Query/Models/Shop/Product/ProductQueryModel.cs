@@ -6,7 +6,7 @@ public class ProductQueryModel : SeoPropertiesForApplicationModels
 {
     [Display(Name = "شناسه")]
     [JsonProperty("id")]
-    public long Id { get; set; }
+    public string Id { get; set; }
 
     [Display(Name = "عنوان")]
     [JsonProperty("title")]
@@ -34,7 +34,7 @@ public class ProductQueryModel : SeoPropertiesForApplicationModels
 
     [Display(Name = "دسته بندی")]
     [JsonProperty("categoryId")]
-    public long CategoryId { get; set; }
+    public string CategoryId { get; set; }
 
     [Display(Name = "دسته بندی")]
     [JsonProperty("category")]

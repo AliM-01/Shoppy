@@ -3,12 +3,12 @@
 
 public class CreateProductResponseDto
 {
-    public CreateProductResponseDto(long productId)
+    public CreateProductResponseDto(string productId)
     {
         ProductId = productId;
     }
 
     [JsonProperty("productId")]
-    public long ProductId { get; set; }
+    public string ProductId { get; set; }
 }
 

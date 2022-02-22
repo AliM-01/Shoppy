@@ -3,5 +3,5 @@
 public class EditProductFeatureDto : CreateProductFeatureDto
 {
     [JsonProperty("id")]
-    public long Id { get; set; }
+    public string Id { get; set; }
 }

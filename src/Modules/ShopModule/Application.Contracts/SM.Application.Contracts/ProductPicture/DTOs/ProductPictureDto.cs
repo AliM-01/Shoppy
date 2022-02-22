@@ -3,7 +3,7 @@
 public class ProductPictureDto
 {
     [JsonProperty("id")]
-    public long Id { get; set; }
+    public string Id { get; set; }
 
     [Display(Name = "محصول")]
     [JsonProperty("product")]

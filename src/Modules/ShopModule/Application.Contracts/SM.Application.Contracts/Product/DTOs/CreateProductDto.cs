@@ -6,7 +6,7 @@ public class CreateProductDto : SeoPropertiesForApplicationModels
 {
     [Display(Name = "شناسه دسته بندی")]
     [JsonProperty("categoryId")]
-    public long CategoryId { get; set; }
+    public string CategoryId { get; set; }
 
     [Display(Name = "عنوان")]
     [JsonProperty("title")]

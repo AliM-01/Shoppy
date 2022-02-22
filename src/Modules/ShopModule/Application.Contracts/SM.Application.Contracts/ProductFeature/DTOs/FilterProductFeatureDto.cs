@@ -9,7 +9,7 @@ public class FilterProductFeatureDto : BasePaging
 
     [Display(Name = "شناسه محصول")]
     [JsonProperty("productId")]
-    public long ProductId { get; set; }
+    public string ProductId { get; set; }
 
     [JsonProperty("productFeatures")]
     public IEnumerable<ProductFeatureDto> ProductFeatures { get; set; }

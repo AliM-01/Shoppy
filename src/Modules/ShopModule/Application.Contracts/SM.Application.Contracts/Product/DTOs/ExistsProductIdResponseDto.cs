@@ -6,7 +6,7 @@ public class ExistsProductIdResponseDto
     public bool Exists { get; set; }
 
     [JsonProperty("productId")]
-    public long ProductId { get; set; }
+    public string ProductId { get; set; }
 
     [JsonProperty("productTitle")]
     public string ProductTitle { get; set; }

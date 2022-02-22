@@ -4,7 +4,7 @@ public class ProductPictureQueryModel
 {
     [Display(Name = "شناسه")]
     [JsonProperty("id")]
-    public long Id { get; set; }
+    public string Id { get; set; }
 
     [Display(Name = "تصویر")]
     [JsonProperty("imagePath")]

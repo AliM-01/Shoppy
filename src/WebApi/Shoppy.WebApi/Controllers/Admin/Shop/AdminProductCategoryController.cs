@@ -42,7 +42,7 @@ public class AdminProductCategoryController : BaseApiController
     [SwaggerOperation(Summary = "دریافت جزییات دسته بندی محصول", Tags = new[] { "AdminProductCategory" })]
     [SwaggerResponse(200, "success")]
     [SwaggerResponse(404, "not-found")]
-    public async Task<IActionResult> GetProductCategoryDetails([FromRoute] long id)
+    public async Task<IActionResult> GetProductCategoryDetails([FromRoute] string id)
     {
         var res = await Mediator.Send(new GetProductCategoryDetailsQuery(id));
 
@@ -88,7 +88,7 @@ public class AdminProductCategoryController : BaseApiController
     [SwaggerOperation(Summary = "حذف دسته بندی محصول", Tags = new[] { "AdminProductCategory" })]
     [SwaggerResponse(201, "success : created")]
     [SwaggerResponse(404, "not-found")]
-    public async Task<IActionResult> DeleteProductCategory([FromRoute] long id)
+    public async Task<IActionResult> DeleteProductCategory([FromRoute] string id)
     {
         var res = await Mediator.Send(new DeleteProductCategoryCommand(id));
 

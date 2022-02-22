@@ -1,3 +1,3 @@
 ﻿namespace SM.Application.Contracts.Product.Commands;
 
-public record DeleteProductCommand(long ProductId) : IRequest<Response<string>>;
+public record DeleteProductCommand(string ProductId) : IRequest<Response<string>>;

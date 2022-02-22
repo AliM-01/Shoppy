@@ -39,7 +39,7 @@ public class GetProductCategoryWithProductsByQueryHandler : IRequestHandler<GetP
             x.Id
         }).ToListAsync();
 
-        long categoryId = 0;
+        string CategoryId = 0;
 
         #region filter
 

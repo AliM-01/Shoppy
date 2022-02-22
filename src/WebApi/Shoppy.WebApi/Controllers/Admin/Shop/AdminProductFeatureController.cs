@@ -27,7 +27,7 @@ public class AdminProductFeatureController : BaseApiController
     [SwaggerOperation(Summary = "دریافت جزییات ویژگی محصول", Tags = new[] { "AdminProductFeature" })]
     [SwaggerResponse(200, "success")]
     [SwaggerResponse(404, "not-found")]
-    public async Task<IActionResult> GetProductFeatureDetails([FromRoute] long id)
+    public async Task<IActionResult> GetProductFeatureDetails([FromRoute] string id)
     {
         var res = await Mediator.Send(new GetProductFeatureDetailsQuery(id));
 
@@ -73,7 +73,7 @@ public class AdminProductFeatureController : BaseApiController
     [SwaggerOperation(Summary = "حذف ویژگی محصول", Tags = new[] { "AdminProductFeature" })]
     [SwaggerResponse(200, "success")]
     [SwaggerResponse(404, "not-found")]
-    public async Task<IActionResult> DeleteProductFeature([FromRoute] long id)
+    public async Task<IActionResult> DeleteProductFeature([FromRoute] string id)
     {
         var res = await Mediator.Send(new DeleteProductFeatureCommand(id));
 

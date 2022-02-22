@@ -3,4 +3,4 @@
 namespace SM.Application.Contracts.Product.Queries;
 
 public record ExistsProductIdQuery
-    (long ProductId) : IRequest<Response<ExistsProductIdResponseDto>>;
+    (string ProductId) : IRequest<Response<ExistsProductIdResponseDto>>;

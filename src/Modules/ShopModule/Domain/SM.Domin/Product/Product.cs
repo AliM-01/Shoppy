@@ -1,6 +1,4 @@
-﻿using _0_Framework.Domain.Attributes;
-using MongoDB.Bson.Serialization.Attributes;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 
 namespace SM.Domain.Product;
 

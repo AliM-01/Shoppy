@@ -13,7 +13,7 @@ public class FilterProductDto : BasePaging
 
     [JsonProperty("categoryId")]
     [Display(Name = "دسته بندی")]
-    public long CategoryId { get; set; }
+    public string CategoryId { get; set; }
 
     [JsonProperty("products")]
     public IEnumerable<ProductDto> Products { get; set; }

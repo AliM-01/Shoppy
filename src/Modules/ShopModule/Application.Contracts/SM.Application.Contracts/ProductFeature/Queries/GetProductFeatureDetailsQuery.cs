@@ -3,4 +3,4 @@
 namespace SM.Application.Contracts.ProductFeature.Queries;
 
 public record GetProductFeatureDetailsQuery
-    (long Id) : IRequest<Response<EditProductFeatureDto>>;
+    (string Id) : IRequest<Response<EditProductFeatureDto>>;

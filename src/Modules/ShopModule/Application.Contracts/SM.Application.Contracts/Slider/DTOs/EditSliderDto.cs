@@ -2,7 +2,7 @@
 public class EditSliderDto : CreateSliderDto
 {
     [JsonProperty("id")]
-    public long Id { get; set; }
+    public string Id { get; set; }
 
     [JsonProperty("imagePath")]
     public string ImagePath { get; set; }
