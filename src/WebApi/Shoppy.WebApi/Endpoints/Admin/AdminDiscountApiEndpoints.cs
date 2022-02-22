@@ -6,7 +6,7 @@ public static class AdminDiscountApiEndpoints
 
     public static class ProductDiscount
     {
-        private const string BaseProductDiscountRoute = BaseAdminDiscountRoute + "/customer-discount";
+        private const string BaseProductDiscountRoute = BaseAdminDiscountRoute + "/product-discount";
 
         public const string FilterProductDiscounts = BaseProductDiscountRoute + "/filter";
 

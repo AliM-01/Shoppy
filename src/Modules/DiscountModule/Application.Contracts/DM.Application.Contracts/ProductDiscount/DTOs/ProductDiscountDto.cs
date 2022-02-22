@@ -6,7 +6,7 @@ public class ProductDiscountDto
 
     [Display(Name = "شناسه محصول")]
     [JsonProperty("productId")]
-    public string ProductId { get; set; }
+    public long ProductId { get; set; }
 
     [Display(Name = "محصول")]
     [JsonProperty("product")]

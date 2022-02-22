@@ -24,12 +24,12 @@ public class EditProductDiscountCommandHandler : IRequestHandler<EditProductDisc
 
     public async Task<Response<string>> Handle(EditProductDiscountCommand request, CancellationToken cancellationToken)
     {
-        var existsProduct = _productRepository.Exists(p => p.Id == 1 /*request.ProductDiscount.ProductId*/);
+        var existsProduct = _productRepository.Exists(p => p.Id == request.ProductDiscount.ProductId);
 
         if (!existsProduct)
             throw new NotFoundApiException("محصولی با این شناسه پیدا نشد");
 
-        var ProductDiscount = await _ProductDiscountRepository.GetEntityById(1/*request.ProductDiscount.Id*/);
+        var ProductDiscount = await _ProductDiscountRepository.GetEntityById(request.ProductDiscount.Id);
 
         if (ProductDiscount is null)
             throw new NotFoundApiException();
