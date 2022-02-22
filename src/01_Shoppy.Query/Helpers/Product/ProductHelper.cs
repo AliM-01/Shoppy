@@ -5,7 +5,7 @@ using _01_Shoppy.Query.Models.ProductPicture;
 using AutoMapper;
 using DM.Domain.ProductDiscount;
 using IM.Application.Contracts.Inventory.Helpers;
-using IM.Infrastructure.Persistence.Context;
+using IM.Domain.Inventory;
 using SM.Application.Contracts.ProductFeature.DTOs;
 using SM.Infrastructure.Persistence.Context;
 
@@ -17,13 +17,13 @@ public class ProductHelper : IProductHelper
 
     private readonly ShopDbContext _shopContext;
     private readonly IMongoHelper<ProductDiscount> _productDiscount;
-    private readonly InventoryDbContext _inventoryContext;
+    private readonly IMongoHelper<Inventory> _inventoryContext;
     private readonly IMapper _mapper;
     private readonly IInventoryHelper _inventoryHelper;
 
     public ProductHelper(
         ShopDbContext shopContext, IMongoHelper<ProductDiscount> productDiscount,
-        InventoryDbContext inventoryContext, IMapper mapper, IInventoryHelper inventoryHelper)
+        IMongoHelper<Inventory> inventoryContext, IMapper mapper, IInventoryHelper inventoryHelper)
     {
         _shopContext = Guard.Against.Null(shopContext, nameof(_shopContext));
         _productDiscount = Guard.Against.Null(productDiscount, nameof(_productDiscount));
@@ -84,7 +84,7 @@ public class ProductHelper : IProductHelper
 
         product.Category = categories.FirstOrDefault(c => c.Id == product.CategoryId).Title.ToString();
 
-        (bool existsProductInventory, double productUnitPrice, long currentCount) = GetProductInventory(product.Id).Result;
+        (bool existsProductInventory, decimal productUnitPrice, long currentCount) = GetProductInventory(product.Id).Result;
 
         if (existsProductInventory)
         {
@@ -113,18 +113,13 @@ public class ProductHelper : IProductHelper
 
     #region Get Product UnitPrice
 
-    public async Task<(bool, double, long)> GetProductInventory(long productId)
+    public async Task<(bool, decimal, long)> GetProductInventory(long productId)
     {
-        if (!(await _inventoryContext.Inventory.AnyAsync(x => x.ProductId == productId)))
+        if (!(await _inventoryContext.ExistsAsync(x => x.ProductId == productId)))
             return (false, default, default);
 
-        var inventory = await _inventoryContext.Inventory
-            .Where(x => x.ProductId == productId)
-            .Select(x => new
-            {
-                x.Id,
-                x.UnitPrice,
-            }).FirstOrDefaultAsync();
+        var filter = Builders<Inventory>.Filter.Eq(x => x.ProductId, productId);
+        var inventory = (await _inventoryContext.GetByFilter(filter));
 
         var currentCount = await _inventoryHelper.CalculateCurrentCount(inventory.Id);
 
@@ -167,9 +162,9 @@ public class ProductHelper : IProductHelper
 
     #region GetProductPriceById
 
-    public double GetProductPriceById(long id)
+    public decimal GetProductPriceById(long id)
     {
-        var inventories = _inventoryContext.Inventory
+        var inventories = (_inventoryContext.AsQueryable().ToListAsyncSafe().Result)
            .Select(x => new
            {
                x.ProductId,

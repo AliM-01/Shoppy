@@ -16,7 +16,7 @@ public static class CustomValidators
                    .WithMessage(string.Format("لطفا {0} را وارد کنید", propertyName));
     }
 
-    public static IRuleBuilder<T, double> RequiredValidator<T>(this IRuleBuilder<T, double> ruleBuilder, string propertyName)
+    public static IRuleBuilder<T, decimal> RequiredValidator<T>(this IRuleBuilder<T, decimal> ruleBuilder, string propertyName)
     {
         return ruleBuilder
             .NotEmpty()

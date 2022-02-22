@@ -1,5 +1,4 @@
-﻿using _01_Shoppy.Query.Models.Product;
-using _01_Shoppy.Query.Models.ProductPicture;
+﻿using _01_Shoppy.Query.Models.ProductPicture;
 using SM.Application.Contracts.ProductFeature.DTOs;
 
 namespace _01_Shoppy.Query.Helpers.Product;
@@ -10,11 +9,11 @@ public interface IProductHelper
 
     Task<ProductQueryModel> MapProductsFromProductCategories(SM.Domain.Product.Product product);
 
-    Task<(bool, double, long)> GetProductInventory(long productId);
+    Task<(bool, decimal, long)> GetProductInventory(long productId);
 
     List<ProductPictureQueryModel> GetProductPictures(long productId);
 
     List<ProductFeatureDto> GetProductFeatures(long productId);
 
-    double GetProductPriceById(long id);
+    decimal GetProductPriceById(long id);
 }

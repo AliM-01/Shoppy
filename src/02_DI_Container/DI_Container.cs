@@ -32,7 +32,7 @@ public static class DI_Container
 
         ShopModuletBootstrapper.Configure(services, connectionString);
         DiscountModuleBootstrapper.Configure(services, config);
-        InventoryModuletBootstrapper.Configure(services, connectionString);
+        InventoryModuletBootstrapper.Configure(services, config);
         CommentModuletBootstrapper.Configure(services, config);
         BlogModuletBootstrapper.Configure(services, config);
 

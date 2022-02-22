@@ -1,9 +1,11 @@
 ﻿using _0_Framework.Application.ErrorMessages;
 using _0_Framework.Application.Exceptions;
 using _0_Framework.Application.Models.Paging;
+using _0_Framework.Infrastructure;
+using _0_Framework.Infrastructure.Helpers;
 using _01_Shoppy.Query.Helpers.Product;
 using AutoMapper;
-using IM.Infrastructure.Persistence.Context;
+using IM.Domain.Inventory;
 using SM.Infrastructure.Persistence.Context;
 
 namespace _01_Shoppy.Query.Queries.Product;
@@ -16,12 +18,12 @@ public class SearchQueryHandler : IRequestHandler<SearchQuery, Response<SearchPr
 
     private readonly ShopDbContext _shopContext;
     private readonly IProductHelper _productHelper;
-    private readonly InventoryDbContext _inventoryContext;
+    private readonly IMongoHelper<Inventory> _inventoryContext;
     private readonly IMapper _mapper;
 
     public SearchQueryHandler(
         ShopDbContext shopContext,
-         InventoryDbContext inventoryContext, IProductHelper productHelper, IMapper mapper)
+         IMongoHelper<Inventory> inventoryContext, IProductHelper productHelper, IMapper mapper)
     {
         _shopContext = Guard.Against.Null(shopContext, nameof(_shopContext));
         _productHelper = Guard.Against.Null(productHelper, nameof(_productHelper));
@@ -39,13 +41,13 @@ public class SearchQueryHandler : IRequestHandler<SearchQuery, Response<SearchPr
 
         #region inventories query
 
-        var inventories = await _inventoryContext.Inventory.AsQueryable()
+        var inventories = (await _inventoryContext.AsQueryable().ToListAsyncSafe())
             .Select(x => new
             {
                 x.ProductId,
                 x.InStock,
                 x.UnitPrice
-            }).ToListAsync();
+            }).ToList();
 
         var inventoryIds = inventories.Select(x => x.ProductId).ToArray();
 

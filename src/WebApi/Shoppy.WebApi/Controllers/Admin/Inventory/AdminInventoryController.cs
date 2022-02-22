@@ -27,7 +27,7 @@ public class AdminInventoryController : BaseApiController
     [SwaggerOperation(Summary = "دریافت انبار", Tags = new[] { "AdminInventory" })]
     [SwaggerResponse(200, "success")]
     [SwaggerResponse(404, "not-found")]
-    public async Task<IActionResult> GetInventoryDetails([FromRoute] Guid id)
+    public async Task<IActionResult> GetInventoryDetails([FromRoute] string id)
     {
         var res = await Mediator.Send(new GetInventoryDetailsQuery(id));
 
@@ -103,7 +103,7 @@ public class AdminInventoryController : BaseApiController
     [SwaggerOperation(Summary = "دریافت لاگ های انبار", Tags = new[] { "AdminInventory" })]
     [SwaggerResponse(200, "success")]
     [SwaggerResponse(404, "not-found")]
-    public async Task<IActionResult> GetInventoryOperationLog([FromRoute] Guid id)
+    public async Task<IActionResult> GetInventoryOperationLog([FromRoute] string id)
     {
         var res = await Mediator.Send(new GetInventoryOperationLogQuery(id));
 

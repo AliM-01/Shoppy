@@ -26,19 +26,19 @@ public class SearchProductQueryModel : BasePaging
 
     [Display(Name = "حداقل قیمت (در انبار)")]
     [JsonProperty("filterMinPrice")]
-    public double FilterMinPrice { get; set; } = 0;
+    public decimal FilterMinPrice { get; set; } = 0;
 
     [Display(Name = "حداکثر قیمت (در انبار)")]
     [JsonProperty("filterMaxPrice")]
-    public double FilterMaxPrice { get; set; } = 0;
+    public decimal FilterMaxPrice { get; set; } = 0;
 
     [Display(Name = "حداقل قیمت")]
     [JsonProperty("selectedMinPrice")]
-    public double SelectedMinPrice { get; set; } = 0;
+    public decimal SelectedMinPrice { get; set; } = 0;
 
     [Display(Name = "حداکثر قیمت")]
     [JsonProperty("selectedMaxPrice")]
-    public double SelectedMaxPrice { get; set; } = 0;
+    public decimal SelectedMaxPrice { get; set; } = 0;
 
     #endregion
 

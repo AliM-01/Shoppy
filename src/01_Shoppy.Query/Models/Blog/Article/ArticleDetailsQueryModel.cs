@@ -6,6 +6,7 @@ public class ArticleDetailsQueryModel : ArticleQueryModel
     [JsonProperty("text")]
     public string Text { get; set; }
 
+    [JsonProperty("tags")]
     public string[] Tags { get; set; }
 
     [Display(Name = "جزییات تصویر")]
