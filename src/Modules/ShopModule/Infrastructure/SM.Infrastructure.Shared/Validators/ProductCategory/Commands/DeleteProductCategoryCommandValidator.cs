@@ -7,6 +7,6 @@ public class DeleteProductCategoryCommandValidator : AbstractValidator<DeletePro
     public DeleteProductCategoryCommandValidator()
     {
         RuleFor(p => p.ProductCategoryId)
-            .RangeValidator("شناسه دسته بندی", 1, 100000);
+            .RequiredValidator("شناسه دسته بندی");
     }
 }

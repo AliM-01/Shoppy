@@ -7,7 +7,7 @@ public class EditSliderCommandValidator : AbstractValidator<EditSliderCommand>
     public EditSliderCommandValidator()
     {
         RuleFor(p => p.Slider.Id)
-            .RangeValidator("شناسه", 1, 100000);
+            .RequiredValidator("شناسه");
 
         RuleFor(p => p.Slider.Heading)
             .RequiredValidator("عنوان")

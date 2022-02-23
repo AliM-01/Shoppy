@@ -10,7 +10,7 @@ public class EditColleagueDiscountCommandValidator : AbstractValidator<EditColle
             .RequiredValidator("شناسه تخفیف");
 
         RuleFor(p => p.ColleagueDiscount.ProductId)
-            .RangeValidator("شناسه محصول", 1, 100000);
+            .RequiredValidator("شناسه محصول");
 
         RuleFor(p => p.ColleagueDiscount.Rate)
             .RangeValidator("درصد", 1, 100);

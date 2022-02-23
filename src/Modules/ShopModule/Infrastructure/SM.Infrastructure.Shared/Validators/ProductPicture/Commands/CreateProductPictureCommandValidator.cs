@@ -7,6 +7,6 @@ public class CreateProductPictureCommandValidator : AbstractValidator<CreateProd
     public CreateProductPictureCommandValidator()
     {
         RuleFor(p => p.ProductPicture.ProductId)
-             .RangeValidator("شناسه محصول", 1, 10000);
+             .RequiredValidator("شناسه محصول");
     }
 }

@@ -7,6 +7,6 @@ public class GetProductPicturesQueryValidator : AbstractValidator<GetProductPict
     public GetProductPicturesQueryValidator()
     {
         RuleFor(p => p.ProductId)
-            .RangeValidator("شناسه محصول", 1, 10000);
+            .RequiredValidator("شناسه محصول");
     }
 }

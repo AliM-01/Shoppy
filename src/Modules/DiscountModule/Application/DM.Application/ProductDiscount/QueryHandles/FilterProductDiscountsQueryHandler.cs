@@ -1,4 +1,5 @@
 ﻿using _0_Framework.Application.Models.Paging;
+using _0_Framework.Infrastructure;
 using DM.Application.Contracts.ProductDiscount.DTOs;
 using DM.Application.Contracts.ProductDiscount.Queries;
 using MongoDB.Driver.Linq;
@@ -27,22 +28,23 @@ public class FilterProductDiscountsQueryHandler : IRequestHandler<FilterProductD
     {
         var query = _productDiscountRepository.AsQueryable();
 
-        var products = await _productRepository.GetQuery().Select(x => new
-        {
-            x.Id,
-            x.Title
-        }).ToListAsync();
+        var products = await _productRepository.AsQueryable()
+            .Select(x => new
+            {
+                x.Id,
+                x.Title
+            }).ToListAsyncSafe();
 
         #region filter
 
-        if (request.Filter.ProductId != 0)
+        if (string.IsNullOrEmpty(request.Filter.ProductId))
             query = query.Where(s => s.ProductId == request.Filter.ProductId);
 
         if (!string.IsNullOrEmpty(request.Filter.ProductTitle))
         {
-            List<long> filteredProductIds = await _productRepository.GetQuery()
+            List<string> filteredProductIds = await _productRepository.AsQueryable()
                 .Where(s => EF.Functions.Like(s.Title, $"%{request.Filter.ProductTitle}%"))
-                .Select(x => x.Id).ToListAsync();
+                .Select(x => x.Id).ToListAsyncSafe();
 
             query = query.Where(s => filteredProductIds.Contains(s.ProductId));
         }

@@ -7,7 +7,7 @@ public class GetProductFeatureDetailsQueryValidator : AbstractValidator<GetProdu
     public GetProductFeatureDetailsQueryValidator()
     {
         RuleFor(p => p.Id)
-            .RangeValidator("شناسه", 1, 100000);
+            .RequiredValidator("شناسه");
     }
 }
 

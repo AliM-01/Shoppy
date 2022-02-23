@@ -10,7 +10,7 @@ public class EditProductDiscountCommandValidator : AbstractValidator<EditProduct
             .RequiredValidator("شناسه تخفیف");
 
         RuleFor(p => p.ProductDiscount.ProductId)
-            .RangeValidator("شناسه محصول", 1, 100000);
+            .RequiredValidator("شناسه محصول");
 
         RuleFor(p => p.ProductDiscount.Rate)
             .RangeValidator("درصد", 1, 100);

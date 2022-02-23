@@ -46,9 +46,12 @@ public class GenericRepository<TDocument, TSettings> : IGenericRepository<TDocum
 
     #region GetQuery
 
-    public IMongoQueryable<TDocument> AsQueryable()
+    public IMongoQueryable<TDocument> AsQueryable(bool isDeletedFilter = true)
     {
-        return _collection.AsQueryable();
+        if (!isDeletedFilter)
+            return _collection.AsQueryable();
+
+        return _collection.AsQueryable().Where(x => x.IsDeleted == false);
     }
 
     #endregion

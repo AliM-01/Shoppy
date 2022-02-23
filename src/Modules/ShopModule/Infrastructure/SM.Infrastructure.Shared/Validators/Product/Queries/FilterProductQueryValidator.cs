@@ -10,6 +10,6 @@ internal class FilterProductsQueryValidator : AbstractValidator<FilterProductsQu
             .MaxLengthValidator("عنوان", 100);
 
         RuleFor(p => p.Filter.CategoryId)
-            .RangeValidator("شناسه دسته بندی", 1, 10000);
+            .RequiredValidator("شناسه دسته بندی");
     }
 }

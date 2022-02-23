@@ -10,7 +10,7 @@ public class ReduceInventoryCommandValidator : AbstractValidator<ReduceInventory
             .RequiredValidator("شناسه انبار");
 
         RuleFor(p => p.Inventory.ProductId)
-            .RangeValidator("شناسه محصول", 1, 100000);
+            .RequiredValidator("شناسه محصول");
 
         RuleFor(p => p.Inventory.Count)
             .RangeValidator("تعداد", 1, 100000);

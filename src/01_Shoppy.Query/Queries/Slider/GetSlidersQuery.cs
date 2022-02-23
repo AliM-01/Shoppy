@@ -1,6 +1,6 @@
-﻿using _01_Shoppy.Query.Models.Slider;
+﻿using _0_Framework.Infrastructure;
+using _01_Shoppy.Query.Models.Slider;
 using AutoMapper;
-using SM.Infrastructure.Persistence.Context;
 
 namespace _01_Shoppy.Query.Queries.Slider;
 
@@ -10,12 +10,12 @@ public class GetSlidersQueryHandler : IRequestHandler<GetSlidersQuery, Response<
 {
     #region Ctor
 
-    private readonly ShopDbContext _context;
+    private readonly IGenericRepository<SM.Domain.Slider.Slider> _sliderRepository;
     private readonly IMapper _mapper;
 
-    public GetSlidersQueryHandler(ShopDbContext context, IMapper mapper)
+    public GetSlidersQueryHandler(IGenericRepository<SM.Domain.Slider.Slider> sliderRepository, IMapper mapper)
     {
-        _context = Guard.Against.Null(context, nameof(_context));
+        _sliderRepository = Guard.Against.Null(sliderRepository, nameof(_sliderRepository));
         _mapper = Guard.Against.Null(mapper, nameof(_mapper));
     }
 
@@ -23,9 +23,9 @@ public class GetSlidersQueryHandler : IRequestHandler<GetSlidersQuery, Response<
 
     public async Task<Response<IEnumerable<SliderQueryModel>>> Handle(GetSlidersQuery request, CancellationToken cancellationToken)
     {
-        var sliders = await _context.Sliders
+        var sliders = (await _sliderRepository.AsQueryable().ToListAsyncSafe())
              .Select(slider => _mapper.Map(slider, new SliderQueryModel()))
-             .ToListAsync();
+             .ToList();
 
         return new Response<IEnumerable<SliderQueryModel>>(sliders);
     }

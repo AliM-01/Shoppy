@@ -7,7 +7,7 @@ public class CreateProductFeatureCommandValidator : AbstractValidator<CreateProd
     public CreateProductFeatureCommandValidator()
     {
         RuleFor(p => p.ProductFeature.ProductId)
-            .RangeValidator("شناسه محصول", 1, 10000);
+            .RequiredValidator("شناسه محصول");
 
         RuleFor(p => p.ProductFeature.FeatureTitle)
             .RequiredValidator("عنوان")

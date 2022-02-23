@@ -7,7 +7,7 @@ public class ExistsProductIdQueryValidator : AbstractValidator<ExistsProductIdQu
     public ExistsProductIdQueryValidator()
     {
         RuleFor(p => p.ProductId)
-            .RangeValidator("شناسه", 1, 100000);
+            .RequiredValidator("شناسه");
     }
 }
 

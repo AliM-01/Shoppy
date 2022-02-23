@@ -3,8 +3,6 @@ using _02_DI_Container.Extensions.Startup;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.Hosting;
 using Serilog;
-using Serilog.Events;
-using Serilog.Sinks.MSSqlServer;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -15,15 +13,6 @@ var environment = builder.Environment;
 
 builder.Host.UseSerilog();
 Log.Logger = new LoggerConfiguration()
-    .WriteTo.MSSqlServer(
-        connectionString:
-        connectionString,
-        restrictedToMinimumLevel: LogEventLevel.Information,
-        sinkOptions: new MSSqlServerSinkOptions
-        {
-            TableName = "LogEvents",
-            AutoCreateSqlTable = true
-        })
     .WriteTo.Console()
     .CreateLogger();
 

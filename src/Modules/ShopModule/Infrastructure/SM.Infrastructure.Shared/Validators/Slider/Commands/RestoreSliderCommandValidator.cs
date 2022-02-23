@@ -7,6 +7,6 @@ public class RestoreSliderCommandValidator : AbstractValidator<RestoreSliderComm
     public RestoreSliderCommandValidator()
     {
         RuleFor(p => p.SliderId)
-            .RangeValidator("شناسه دسته بندی", 1, 100000);
+            .RequiredValidator("شناسه دسته بندی");
     }
 }

@@ -6,8 +6,6 @@ public class FilterInventoryQueryValidator : AbstractValidator<FilterInventoryQu
 {
     public FilterInventoryQueryValidator()
     {
-        RuleFor(p => p.Filter.ProductId)
-            .RangeValidator("شناسه محصول", 0, 100000);
     }
 }
 

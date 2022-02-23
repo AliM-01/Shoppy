@@ -7,6 +7,6 @@ public class CheckProductHasColleagueDiscountQueryValidator : AbstractValidator<
     public CheckProductHasColleagueDiscountQueryValidator()
     {
         RuleFor(p => p.ProductId)
-            .RangeValidator("شناسه محصول", 1, 100000);
+            .RequiredValidator("شناسه محصول");
     }
 }

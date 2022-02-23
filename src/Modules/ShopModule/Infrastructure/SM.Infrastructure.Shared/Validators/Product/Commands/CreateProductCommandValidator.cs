@@ -7,7 +7,7 @@ public class CreateProductCommandValidator : AbstractValidator<CreateProductComm
     public CreateProductCommandValidator()
     {
         RuleFor(p => p.Product.CategoryId)
-            .RangeValidator("شناسه دسته بندی", 1, 10000);
+            .RequiredValidator("شناسه دسته بندی");
 
         RuleFor(p => p.Product.Title)
             .RequiredValidator("عنوان")

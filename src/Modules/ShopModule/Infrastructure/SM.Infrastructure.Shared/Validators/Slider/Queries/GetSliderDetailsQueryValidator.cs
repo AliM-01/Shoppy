@@ -7,7 +7,7 @@ public class GetSliderDetailsQueryValidator : AbstractValidator<GetSliderDetails
     public GetSliderDetailsQueryValidator()
     {
         RuleFor(p => p.Id)
-            .RangeValidator("شناسه", 1, 100000);
+            .RequiredValidator("شناسه");
     }
 }
 

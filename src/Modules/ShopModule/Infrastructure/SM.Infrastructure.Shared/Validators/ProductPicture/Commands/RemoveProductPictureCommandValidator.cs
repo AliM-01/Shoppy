@@ -7,6 +7,6 @@ public class RemoveProductPictureCommandValidator : AbstractValidator<RemoveProd
     public RemoveProductPictureCommandValidator()
     {
         RuleFor(p => p.ProductPictureId)
-            .RangeValidator("شناسه", 1, 100000);
+            .RequiredValidator("شناسه");
     }
 }

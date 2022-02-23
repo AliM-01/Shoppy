@@ -26,9 +26,7 @@ public class ShopModuleMappingProfile : Profile
 
         CreateMap<ProductCategory, ProductCategoryDto>()
             .ForMember(dest => dest.CreationDate,
-                opt => opt.MapFrom(src => src.CreationDate.ToShamsi()))
-            .ForMember(dest => dest.ProductsCount,
-                opt => opt.MapFrom(src => src.Products.Count));
+                opt => opt.MapFrom(src => src.CreationDate.ToShamsi()));
 
         #endregion
 

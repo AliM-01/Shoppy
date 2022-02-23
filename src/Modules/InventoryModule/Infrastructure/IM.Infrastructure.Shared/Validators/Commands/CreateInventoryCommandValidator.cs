@@ -7,7 +7,7 @@ public class CreateInventoryCommandValidator : AbstractValidator<CreateInventory
     public CreateInventoryCommandValidator()
     {
         RuleFor(p => p.Inventory.ProductId)
-            .RangeValidator("شناسه محصول", 1, 100000);
+            .RequiredValidator("شناسه محصول");
 
         RuleFor(p => p.Inventory.UnitPrice)
             .RequiredValidator("قیمت");

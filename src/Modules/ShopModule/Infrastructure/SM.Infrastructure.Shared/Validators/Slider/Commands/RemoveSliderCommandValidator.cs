@@ -7,6 +7,6 @@ public class RemoveSliderCommandValidator : AbstractValidator<RemoveSliderComman
     public RemoveSliderCommandValidator()
     {
         RuleFor(p => p.SliderId)
-            .RangeValidator("شناسه دسته بندی", 1, 100000);
+            .RequiredValidator("شناسه دسته بندی");
     }
 }

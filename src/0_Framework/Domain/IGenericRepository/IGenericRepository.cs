@@ -10,7 +10,7 @@ namespace _0_Framework.Infrastructure.Helpers;
 public interface IGenericRepository<TDocument>
     where TDocument : EntityBase
 {
-    IMongoQueryable<TDocument> AsQueryable();
+    IMongoQueryable<TDocument> AsQueryable(bool isDeletedFilter = true);
 
     List<TDocument> ApplyPagination(IMongoQueryable<TDocument> query, BasePaging pager);
 

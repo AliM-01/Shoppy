@@ -14,7 +14,7 @@ public class AdminProductPictureController : BaseApiController
     [SwaggerOperation(Summary = "دریافت تصاویر محصولات", Tags = new[] { "AdminProductPicture" })]
     [SwaggerResponse(200, "success")]
     [SwaggerResponse(404, "not-found")]
-    public async Task<IActionResult> GetProductPictures([FromRoute] string ProductId)
+    public async Task<IActionResult> GetProductPictures([FromRoute] string productId)
     {
         var res = await Mediator.Send(new GetProductPicturesQuery(productId));
 

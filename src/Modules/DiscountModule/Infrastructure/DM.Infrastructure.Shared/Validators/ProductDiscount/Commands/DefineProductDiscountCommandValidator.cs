@@ -7,7 +7,7 @@ public class DefineProductDiscountCommandValidator : AbstractValidator<DefinePro
     public DefineProductDiscountCommandValidator()
     {
         RuleFor(p => p.ProductDiscount.ProductId)
-            .RangeValidator("شناسه محصول", 1, 100000);
+            .RequiredValidator("شناسه محصول");
 
         RuleFor(p => p.ProductDiscount.StartDate)
             .RequiredValidator("تاریخ شروع");
