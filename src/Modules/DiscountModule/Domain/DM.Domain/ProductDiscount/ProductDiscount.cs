@@ -2,7 +2,7 @@
 
 namespace DM.Domain.ProductDiscount;
 
-[BsonCollection("ProductDiscounts")]
+[BsonCollection("productDiscounts")]
 public class ProductDiscount : EntityBase
 {
     #region Properties
