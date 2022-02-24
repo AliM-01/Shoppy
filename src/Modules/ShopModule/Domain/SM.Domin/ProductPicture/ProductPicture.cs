@@ -16,8 +16,5 @@ public class ProductPicture : EntityBase
     [BsonElement("productId")]
     public string ProductId { get; set; }
 
-    [BsonElement("product")]
-    public virtual Product.Product Product { get; set; }
-
     #endregion
 }

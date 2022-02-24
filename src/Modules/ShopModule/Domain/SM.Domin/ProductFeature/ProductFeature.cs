@@ -5,10 +5,6 @@ public class ProductFeature : EntityBase
 {
     #region Properties
 
-    [Display(Name = "شناسه محصول")]
-    [BsonElement("productId")]
-    public string ProductId { get; set; }
-
     [Display(Name = "عنوان ویژگی")]
     [BsonElement("featureTitle")]
     public string FeatureTitle { get; set; }
@@ -21,8 +17,9 @@ public class ProductFeature : EntityBase
 
     #region Relations
 
-    [BsonElement("product")]
-    public virtual Product.Product Product { get; set; }
+    [Display(Name = "شناسه محصول")]
+    [BsonElement("productId")]
+    public string ProductId { get; set; }
 
     #endregion Relations
 }

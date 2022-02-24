@@ -49,13 +49,13 @@ public class Product : SeoPropertiesForDomainModels
     public string CategoryId { get; set; }
 
     [BsonElement("category")]
-    public virtual ProductCategory.ProductCategory Category { get; set; }
+    public ProductCategory.ProductCategory Category { get; set; }
 
     [BsonElement("productPictures")]
-    public virtual ICollection<ProductPicture.ProductPicture> ProductPictures { get; set; }
+    public List<ProductPicture.ProductPicture> ProductPictures { get; set; }
 
     [BsonElement("productFeatures")]
-    public virtual ICollection<ProductFeature.ProductFeature> ProductFeatures { get; set; }
+    public List<ProductFeature.ProductFeature> ProductFeatures { get; set; }
 
 
     #endregion

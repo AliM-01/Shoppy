@@ -8,7 +8,9 @@ using SM.Domain.ProductFeature;
 using SM.Domain.ProductPicture;
 using SM.Domain.Slider;
 using SM.Infrastructure.Persistence.Context;
+using SM.Infrastructure.Persistence.Seeds;
 using SM.Infrastructure.Persistence.Settings;
+using System;
 
 namespace SM.Infrastructure.Configuration;
 
@@ -29,8 +31,25 @@ public static class ShopModuletBootstrapper
 
         services.AddScoped<IProductHelper, ProductHelper>();
 
-
         services.AddMediatR(typeof(ShopModuletBootstrapper).Assembly);
+
+        using (var scope = services.BuildServiceProvider().CreateScope())
+        {
+            try
+            {
+                var prodcutContext = scope.ServiceProvider.GetRequiredService<IShopDbContext>();
+                var categories = ShopDbSeed.SeedProductCategories(prodcutContext.ProductCategories);
+                ShopDbSeed.SeedProducts(prodcutContext.Products, categories);
+                ShopDbSeed.SeedProductPictures(prodcutContext.ProductPictures);
+                ShopDbSeed.SeedProductFeatures(prodcutContext.ProductFeatures);
+                ShopDbSeed.SeedSliders(prodcutContext.Sliders);
+
+            }
+            catch (Exception ex)
+            {
+                throw;
+            }
+        }
 
     }
 }
