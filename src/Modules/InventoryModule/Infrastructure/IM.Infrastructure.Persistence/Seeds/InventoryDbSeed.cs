@@ -15,17 +15,61 @@ public static class InventoryDbSeed
         {
             Inventory[] inventoryToAdd =
             {
-                new Inventory(SeedProductIdConstants.Product_01, 10300000),
-                new Inventory(SeedProductIdConstants.Product_02, 25000000),
-                new Inventory(SeedProductIdConstants.Product_03, 6000000),
-                new Inventory(SeedProductIdConstants.Product_04, 10000000),
-                new Inventory(SeedProductIdConstants.Product_05, 7000000),
-                new Inventory(SeedProductIdConstants.Product_06, 11000000),
-                new Inventory(SeedProductIdConstants.Product_07, 15000000),
-                new Inventory(SeedProductIdConstants.Product_08, 13000000),
-                new Inventory(SeedProductIdConstants.Product_09, 9000000),
-                new Inventory(SeedProductIdConstants.Product_10, 23000000),
-                new Inventory(SeedProductIdConstants.Product_11, 30000000),
+                new Inventory
+                {
+                    ProductId = SeedProductIdConstants.Product_01,
+                    UnitPrice = 10300000
+                },
+                new Inventory
+                {
+                    ProductId = SeedProductIdConstants.Product_02,
+                    UnitPrice = 25000000
+                },
+                new Inventory
+                {
+                    ProductId = SeedProductIdConstants.Product_03,
+                    UnitPrice = 6000000
+                },
+                new Inventory
+                {
+                    ProductId = SeedProductIdConstants.Product_04,
+                    UnitPrice = 10000000
+                },
+                new Inventory
+                {
+                    ProductId = SeedProductIdConstants.Product_05,
+                    UnitPrice = 7000000
+                },
+                new Inventory
+                {
+                    ProductId = SeedProductIdConstants.Product_06,
+                    UnitPrice = 11000000
+                },
+                new Inventory
+                {
+                    ProductId = SeedProductIdConstants.Product_07,
+                    UnitPrice = 15000000
+                },
+                new Inventory
+                {
+                    ProductId = SeedProductIdConstants.Product_08,
+                    UnitPrice = 13000000
+                },
+                new Inventory
+                {
+                    ProductId = SeedProductIdConstants.Product_09,
+                    UnitPrice = 9000000
+                },
+                new Inventory
+                {
+                    ProductId = SeedProductIdConstants.Product_10,
+                    UnitPrice = 23000000
+                },
+                new Inventory
+                {
+                    ProductId = SeedProductIdConstants.Product_10,
+                    UnitPrice = 30000000
+                }
             };
             inventorys.InsertManyAsync(inventoryToAdd);
 
@@ -37,6 +81,9 @@ public static class InventoryDbSeed
 
     public static void SeedInventoryOperations(IMongoCollection<InventoryOperation> operations, Inventory[] inventories)
     {
+        if (inventories is null)
+            return;
+
         bool existsInventory = operations.Find(_ => true).Any();
 
         if (!existsInventory)
@@ -60,7 +107,6 @@ public static class InventoryDbSeed
                 new InventoryOperation(true, 25, 0, 25, Increase, 0, inventories[8].Id),
                 new InventoryOperation(true, 9, 0, 9, Increase, 0, inventories[9].Id),
                 new InventoryOperation(true, 7, 0, 7, Increase, 0, inventories[10].Id),
-                new InventoryOperation(true, 3, 0, 3, Increase, 0, inventories[11].Id),
             };
 
             operations.InsertManyAsync(operationToAdd);

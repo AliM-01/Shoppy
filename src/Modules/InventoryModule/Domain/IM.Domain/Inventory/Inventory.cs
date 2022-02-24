@@ -7,7 +7,7 @@ namespace IM.Domain.Inventory;
 [BsonCollection("inventories")]
 public class Inventory : EntityBase
 {
-    protected Inventory() { }
+    public Inventory() { }
 
     public Inventory(string productId, decimal unitPrice)
     {
