@@ -41,7 +41,7 @@ public class Comment : EntityBase
 
     [Display(Name = "شناسه محصول/مقاله")]
     [BsonElement("ownerRecordId")]
-    public long OwnerRecordId { get; set; }
+    public string OwnerRecordId { get; set; }
 
     #endregion
 

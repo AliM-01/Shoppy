@@ -1,5 +1,6 @@
 ﻿using CM.Domain.Comment;
 using MongoDB.Driver;
+using SM.Infrastructure.Persistence.Seeds;
 using System.Collections.Generic;
 
 namespace CM.Infrastructure.Persistence.Context;
@@ -18,7 +19,7 @@ public static class CommentDbContextSeed
                 {
                     Name = "A",
                     Email = "a@gmail.com",
-                    OwnerRecordId = 21,
+                    OwnerRecordId = SeedProductIdConstants.Product_01,
                     Text = "<p>عالی بود</p>",
                     Type = CommentType.Product,
                     State = CommentState.Confirmed,
@@ -28,7 +29,7 @@ public static class CommentDbContextSeed
                 {
                     Name = "B",
                     Email = "b@gmail.com",
-                    OwnerRecordId = 21,
+                    OwnerRecordId = SeedProductIdConstants.Product_09,
                     Text = "<p>جالب بود</p>",
                     Type = CommentType.Product,
                     State = CommentState.Confirmed,
@@ -38,8 +39,18 @@ public static class CommentDbContextSeed
                 {
                     Name = "C",
                     Email = "c@gmail.com",
-                    OwnerRecordId = 22,
+                    OwnerRecordId = SeedProductIdConstants.Product_02,
                     Text = "<p>خوب بود</p>",
+                    Type = CommentType.Product,
+                    State = CommentState.Confirmed,
+                    ParentId = null
+                },
+                new Comment
+                {
+                    Name = "D",
+                    Email = "d@gmail.com",
+                    OwnerRecordId = SeedProductIdConstants.Product_07,
+                    Text = "<p>قیمت مناسب</p>",
                     Type = CommentType.Product,
                     State = CommentState.Confirmed,
                     ParentId = null

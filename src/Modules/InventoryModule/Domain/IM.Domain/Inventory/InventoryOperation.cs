@@ -47,9 +47,6 @@ public class InventoryOperation : EntityBase
     [BsonElement("inventoryId")]
     public string InventoryId { get; set; }
 
-    [BsonElement("inventory")]
-    public Inventory Inventory { get; set; }
-
     [BsonElement("operatorId")]
     public long OperatorId { get; set; }
 

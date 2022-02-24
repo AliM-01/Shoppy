@@ -23,7 +23,7 @@ public class AddCommentDto
 
     [Display(Name = "شناسه محصول/مقاله")]
     [JsonProperty("ownerRecordId")]
-    public long OwnerRecordId { get; set; }
+    public string OwnerRecordId { get; set; }
 
     [Display(Name = "شناسه والد")]
     [JsonProperty("parentId")]
