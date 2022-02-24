@@ -17,7 +17,7 @@ public class AddCommentCommandValidator : AbstractValidator<AddCommentCommand>
             .MaxLengthValidator("متن نظر", 500);
 
         RuleFor(p => p.Comment.OwnerRecordId)
-            .RangeValidator("شناسه محصول/مقاله", 1, 100000);
+            .RequiredValidator("شناسه محصول/مقاله");
 
         RuleFor(p => p.Comment.ParentId)
             .RequiredValidator("شناسه والد");
