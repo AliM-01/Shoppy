@@ -2,6 +2,7 @@
 using DM.Domain.ColleagueDiscount;
 using DM.Domain.ProductDiscount;
 using DM.Infrastructure.Persistence.Context;
+using DM.Infrastructure.Persistence.Seeds;
 using DM.Infrastructure.Persistence.Settings;
 using MediatR;
 using Microsoft.Extensions.DependencyInjection;
@@ -20,5 +21,19 @@ public static class DiscountModuleBootstrapper
         services.AddScoped<IGenericRepository<ProductDiscount>, GenericRepository<ProductDiscount, DiscountDbSettings>>();
 
         services.AddMediatR(typeof(DiscountModuleBootstrapper).Assembly);
+
+        using (var scope = services.BuildServiceProvider().CreateScope())
+        {
+            try
+            {
+                var discountContext = scope.ServiceProvider.GetRequiredService<IDiscountDbContext>();
+
+                DiscountDbSeed.SeedProductDiscounts(discountContext.ProductDiscounts);
+            }
+            catch (Exception ex)
+            {
+                throw;
+            }
+        }
     }
 }
