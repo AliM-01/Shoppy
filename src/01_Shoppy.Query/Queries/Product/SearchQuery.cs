@@ -3,7 +3,6 @@ using _0_Framework.Application.Exceptions;
 using _0_Framework.Application.Models.Paging;
 using _0_Framework.Infrastructure;
 using _01_Shoppy.Query.Helpers.Product;
-using AutoMapper;
 using IM.Domain.Inventory;
 
 namespace _01_Shoppy.Query.Queries.Product;
