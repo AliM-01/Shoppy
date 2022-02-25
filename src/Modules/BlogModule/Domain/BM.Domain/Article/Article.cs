@@ -1,4 +1,5 @@
-﻿using _0_Framework.Domain.Attributes;
+﻿using _0_Framework.Domain;
+using _0_Framework.Domain.Attributes;
 using _0_Framework.Domain.Seo;
 using MongoDB.Bson.Serialization.Attributes;
 using System.ComponentModel.DataAnnotations;
@@ -12,30 +13,30 @@ public class Article : SeoPropertiesForDomainModels
 
     [Display(Name = "عنوان")]
     [BsonElement("title")]
-    [Required]
-    [MaxLength(100)]
+    [Required(ErrorMessage = DomainErrorMessage.RequiredMessage)]
+    [MaxLength(100, ErrorMessage = DomainErrorMessage.MaxLengthMessage)]
     public string Title { get; set; }
 
     [Display(Name = "توضیحات کوتاه")]
     [BsonElement("summary")]
-    [Required]
-    [MaxLength(100)]
+    [Required(ErrorMessage = DomainErrorMessage.RequiredMessage)]
+    [MaxLength(100, ErrorMessage = DomainErrorMessage.MaxLengthMessage)]
     public string Summary { get; set; }
 
     [Display(Name = "متن")]
     [BsonElement("text")]
-    [Required]
-    [MinLength(35)]
+    [Required(ErrorMessage = DomainErrorMessage.RequiredMessage)]
+    [MinLength(35, ErrorMessage = DomainErrorMessage.MinLengthMessage)]
     public string Text { get; set; }
 
     [Display(Name = "تصویر")]
     [BsonElement("imagePath")]
-    [Required]
+    [Required(ErrorMessage = DomainErrorMessage.RequiredMessage)]
     public string ImagePath { get; set; }
 
     [Display(Name = "عنوان لینک")]
     [BsonElement("slug")]
-    [Required]
+    [Required(ErrorMessage = DomainErrorMessage.RequiredMessage)]
     public string Slug { get; set; }
 
     [Display(Name = "عنوان لینک")]

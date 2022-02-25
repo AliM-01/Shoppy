@@ -9,22 +9,22 @@ public class ProductDiscount : EntityBase
 
     [Display(Name = "درصد")]
     [BsonElement("rate")]
-    [Range(0, 100)]
+    [Range(1, 100, ErrorMessage = DomainErrorMessage.RequiredMessage)]
     public int Rate { get; set; }
 
     [BsonElement("startDate")]
     [BsonRepresentation(BsonType.DateTime)]
-    [Required]
+    [Required(ErrorMessage = DomainErrorMessage.RequiredMessage)]
     public DateTime StartDate { get; set; }
 
     [BsonElement("endDate")]
     [BsonRepresentation(BsonType.DateTime)]
-    [Required]
+    [Required(ErrorMessage = DomainErrorMessage.RequiredMessage)]
     public DateTime EndDate { get; set; }
 
     [BsonElement("description")]
-    [Required]
-    [MaxLength(250)]
+    [Required(ErrorMessage = DomainErrorMessage.RequiredMessage)]
+    [MaxLength(250, ErrorMessage = DomainErrorMessage.MaxLengthMessage)]
     public string Description { get; set; }
 
     #endregion
@@ -33,7 +33,7 @@ public class ProductDiscount : EntityBase
 
     [Display(Name = "محصول")]
     [BsonElement("productId")]
-    [Required]
+    [Required(ErrorMessage = DomainErrorMessage.RequiredMessage)]
     public string ProductId { get; set; }
 
     #endregion

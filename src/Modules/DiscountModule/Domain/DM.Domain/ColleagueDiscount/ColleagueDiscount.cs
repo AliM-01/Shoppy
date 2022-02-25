@@ -7,7 +7,7 @@ public class ColleagueDiscount : EntityBase
 
     [Display(Name = "درصد")]
     [BsonElement("rate")]
-    [Range(0, 100)]
+    [Range(1, 100, ErrorMessage = DomainErrorMessage.RequiredMessage)]
     public int Rate { get; set; }
 
     [Display(Name = "وضعیت")]
@@ -20,7 +20,7 @@ public class ColleagueDiscount : EntityBase
 
     [Display(Name = "محصول")]
     [BsonElement("productId")]
-    [Required]
+    [Required(ErrorMessage = DomainErrorMessage.RequiredMessage)]
     public string ProductId { get; set; }
 
     #endregion

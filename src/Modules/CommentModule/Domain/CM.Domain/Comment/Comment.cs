@@ -13,20 +13,20 @@ public class Comment : EntityBase
 
     [Display(Name = "نام")]
     [BsonElement("name")]
-    [Required]
-    [MaxLength(100)]
+    [Required(ErrorMessage = DomainErrorMessage.RequiredMessage)]
+    [MaxLength(100, ErrorMessage = DomainErrorMessage.MaxLengthMessage)]
     public string Name { get; set; }
 
     [Display(Name = "ایمیل")]
     [BsonElement("email")]
-    [Required]
-    [MaxLength(100)]
+    [Required(ErrorMessage = DomainErrorMessage.RequiredMessage)]
+    [MaxLength(100, ErrorMessage = DomainErrorMessage.MaxLengthMessage)]
     public string Email { get; set; }
 
     [Display(Name = "متن نظر")]
     [BsonElement("text")]
-    [Required]
-    [MaxLength(500)]
+    [Required(ErrorMessage = DomainErrorMessage.RequiredMessage)]
+    [MaxLength(500, ErrorMessage = DomainErrorMessage.MaxLengthMessage)]
     public string Text { get; set; }
 
     [Display(Name = "وضعیت")]

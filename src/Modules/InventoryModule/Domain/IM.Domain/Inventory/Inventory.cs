@@ -20,7 +20,7 @@ public class Inventory : EntityBase
 
     [Display(Name = "قیمت")]
     [BsonElement("unitPrice")]
-    [Required]
+    [Required(ErrorMessage = DomainErrorMessage.RequiredMessage)]
     public decimal UnitPrice { get; set; }
 
     [Display(Name = "وضعیت")]

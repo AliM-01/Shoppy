@@ -7,24 +7,24 @@ public class ProductCategory : SeoPropertiesForDomainModels
 
     [Display(Name = "عنوان")]
     [BsonElement("title")]
-    [Required]
-    [MaxLength(100)]
+    [Required(ErrorMessage = DomainErrorMessage.RequiredMessage)]
+    [MaxLength(100, ErrorMessage = DomainErrorMessage.MaxLengthMessage)]
     public string Title { get; set; }
 
     [Display(Name = "توضیحات")]
     [BsonElement("description")]
-    [Required]
-    [MaxLength(250)]
+    [Required(ErrorMessage = DomainErrorMessage.RequiredMessage)]
+    [MaxLength(250, ErrorMessage = DomainErrorMessage.MaxLengthMessage)]
     public string Description { get; set; }
 
     [Display(Name = "تصویر")]
     [BsonElement("imagePath")]
-    [Required]
+    [Required(ErrorMessage = DomainErrorMessage.RequiredMessage)]
     public string ImagePath { get; set; }
 
     [Display(Name = "عنوان لینک")]
     [BsonElement("slug")]
-    [Required]
+    [Required(ErrorMessage = DomainErrorMessage.RequiredMessage)]
     public string Slug { get; set; }
 
     #endregion
