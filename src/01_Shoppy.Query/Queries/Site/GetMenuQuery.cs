@@ -1,9 +1,9 @@
 ﻿using _0_Framework.Infrastructure;
 using _01_Shoppy.Query.Models.Blog.ArticleCategory;
-using _01_Shoppy.Query.Models.Common;
 using _01_Shoppy.Query.Models.ProductCategory;
+using _01_Shoppy.Query.Models.Site;
 
-namespace _01_Shoppy.Query.Queries.Common;
+namespace _01_Shoppy.Query.Queries.Site;
 
 public record GetMenuQuery() : IRequest<Response<MenuDto>>;
 

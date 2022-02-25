@@ -1,7 +1,7 @@
 ﻿using _01_Shoppy.Query.Models.Blog.ArticleCategory;
 using _01_Shoppy.Query.Models.ProductCategory;
 
-namespace _01_Shoppy.Query.Models.Common;
+namespace _01_Shoppy.Query.Models.Site;
 
 public class MenuDto
 {
