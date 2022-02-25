@@ -64,7 +64,8 @@ public class FilterArticleCategoriesQueryHandler : IRequestHandler<FilterArticle
             _articleCategoryRepository
             .ApplyPagination(query, pager)
             .Select(article =>
-                _mapper.Map(article, new ArticleCategoryDto()));
+                _mapper.Map(article, new ArticleCategoryDto()))
+            .ToList();
 
         #endregion paging
 

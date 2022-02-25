@@ -35,7 +35,7 @@ public class CommentDto
 
     [Display(Name = "شناسه والد")]
     [JsonProperty("parentId")]
-    public string? ParentId { get; set; }
+    public string ParentId { get; set; }
 
     [Display(Name = "تاریخ ثبت")]
     [JsonProperty("creationDate")]

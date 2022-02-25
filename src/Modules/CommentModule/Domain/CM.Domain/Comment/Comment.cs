@@ -49,7 +49,7 @@ public class Comment : EntityBase
 
     [Display(Name = "شناسه والد")]
     [BsonElement("parentId")]
-    public string? ParentId { get; set; }
+    public string ParentId { get; set; } = null;
 
     #endregion
 }

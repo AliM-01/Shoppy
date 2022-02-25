@@ -26,35 +26,39 @@ public class ErrorHandlerMiddleware
             response.ContentType = "application/json";
             var status = "error";
             var errors = new List<string>();
-            var errorMessage = error?.Message;
+            var errorMessage = error.Message;
 
-            errors.Add(error.Message);
+            errors.Add(errorMessage);
 
             switch (error)
             {
                 case ApiException e:
                     // custom application error
                     response.StatusCode = (int)HttpStatusCode.BadRequest;
+                    errorMessage = e.Message;
                     break;
 
                 case NotFoundApiException e:
                     // custom not-found application error
                     status = "not-found";
+                    errorMessage = e.Message;
                     response.StatusCode = (int)HttpStatusCode.NotFound;
                     break;
 
                 case NoContentApiException e:
                     // custom no-content application error
+                    errorMessage = e.Message;
                     status = "no-content";
                     response.StatusCode = (int)HttpStatusCode.NoContent;
                     break;
 
                 case ValidationException e:
                     // custom application error
+                    errorMessage = e.Message;
                     response.StatusCode = (int)HttpStatusCode.BadRequest;
                     for (int i = 0; i < e.Errors.Count; i++)
                     {
-                        errors.Add(e.Errors[i]);
+                        errors.Add(e.Errors[i].ToString());
                     }
                     break;
 

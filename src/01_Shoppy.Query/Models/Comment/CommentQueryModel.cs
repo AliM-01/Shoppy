@@ -27,7 +27,7 @@ public class CommentQueryModel
 
     [Display(Name = "شناسه والد")]
     [JsonProperty("parentId")]
-    public string? ParentId { get; set; } = null;
+    public string ParentId { get; set; } = null;
 
     [JsonProperty("replies")]
     public CommentQueryModel[] Replies { get; set; }

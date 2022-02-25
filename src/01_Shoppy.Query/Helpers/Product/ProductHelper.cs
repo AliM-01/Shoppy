@@ -34,7 +34,7 @@ public class ProductHelper : IProductHelper
         _productRepository = Guard.Against.Null(productRepository, nameof(_productRepository));
         _productCategoryRepository = Guard.Against.Null(productCategoryRepository, nameof(_productCategoryRepository));
         _productPictureRepository = Guard.Against.Null(productPictureRepository, nameof(_productPictureRepository));
-        _productPictureRepository = Guard.Against.Null(productPictureRepository, nameof(_productPictureRepository));
+        _productFeatureRepository = Guard.Against.Null(productFeatureRepository, nameof(_productFeatureRepository));
         _productDiscount = Guard.Against.Null(productDiscount, nameof(_productDiscount));
         _inventoryContext = Guard.Against.Null(inventoryContext, nameof(_inventoryContext));
         _mapper = Guard.Against.Null(mapper, nameof(_mapper));
