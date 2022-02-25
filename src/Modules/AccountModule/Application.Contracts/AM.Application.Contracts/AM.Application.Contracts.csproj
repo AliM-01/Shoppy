@@ -1,0 +1,18 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Folder Include="Account\Commands\" />
+    <Folder Include="Account\Queries\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\..\0_Framework\0_Framework.csproj" />
+    <ProjectReference Include="..\..\Domain\AM.Domain\AM.Domain.csproj" />
+  </ItemGroup>
+
+</Project>

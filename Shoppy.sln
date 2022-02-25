@@ -158,6 +158,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Infrastructure", "Infrastru
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AM.Domain", "src\Modules\AccountModule\Domain\AM.Domain\AM.Domain.csproj", "{B8F0AAA1-4860-44AB-ACC0-2796EBEB409A}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AM.Application.Contracts", "src\Modules\AccountModule\Application.Contracts\AM.Application.Contracts\AM.Application.Contracts.csproj", "{11F0860D-9979-45C7-BEAD-C0F6B27CFD23}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -304,6 +306,10 @@ Global
 		{B8F0AAA1-4860-44AB-ACC0-2796EBEB409A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B8F0AAA1-4860-44AB-ACC0-2796EBEB409A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B8F0AAA1-4860-44AB-ACC0-2796EBEB409A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{11F0860D-9979-45C7-BEAD-C0F6B27CFD23}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{11F0860D-9979-45C7-BEAD-C0F6B27CFD23}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{11F0860D-9979-45C7-BEAD-C0F6B27CFD23}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{11F0860D-9979-45C7-BEAD-C0F6B27CFD23}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -381,6 +387,7 @@ Global
 		{1C71E648-D34C-4BC5-A1C9-DBD923C8C780} = {2B701206-95AB-4F72-9794-8AED99DE0107}
 		{25AA0F10-AC4F-40BA-AD3D-0B59A98C42B0} = {2B701206-95AB-4F72-9794-8AED99DE0107}
 		{B8F0AAA1-4860-44AB-ACC0-2796EBEB409A} = {1C71E648-D34C-4BC5-A1C9-DBD923C8C780}
+		{11F0860D-9979-45C7-BEAD-C0F6B27CFD23} = {43E70543-6A99-4B9E-9C18-3E8B06BB8CB9}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {615EA258-FFB2-45B7-9D73-B482C4E29616}
