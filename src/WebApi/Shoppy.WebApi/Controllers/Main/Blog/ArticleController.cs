@@ -1,4 +1,5 @@
-﻿using _01_Shoppy.Query.Queries.Article;
+﻿using _01_Shoppy.Query.Models.Blog.Article;
+using _01_Shoppy.Query.Queries.Article;
 using _01_Shoppy.Query.Queries.Blog.Article;
 
 namespace Shoppy.WebApi.Controllers.Main.Article;
@@ -6,6 +7,22 @@ namespace Shoppy.WebApi.Controllers.Main.Article;
 [SwaggerTag("مقاله ها")]
 public class ArticleController : BaseApiController
 {
+    #region Search
+
+    [HttpGet(MainBlogApiEndpoints.Article.Search)]
+    [SwaggerOperation(Summary = "جستجو", Tags = new[] { "Article" })]
+    [SwaggerResponse(200, "success")]
+    [SwaggerResponse(400, "error : no data with requested filter")]
+    [SwaggerResponse(404, "not-found")]
+    public async Task<IActionResult> Search([FromQuery] SearchArticleQueryModel search)
+    {
+        var res = await Mediator.Send(new SearchArticleQuery(search));
+
+        return JsonApiResult.Success(res);
+    }
+
+    #endregion
+
     #region Get Article Details
 
     [HttpGet(MainBlogApiEndpoints.Article.GetArticleDetails)]

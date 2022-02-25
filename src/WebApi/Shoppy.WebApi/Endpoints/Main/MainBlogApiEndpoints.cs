@@ -8,6 +8,8 @@ public class MainBlogApiEndpoints
     {
         private const string BaseArticleRoute = BaseMainBlogRoute + "/article";
 
+        public const string Search = BaseArticleRoute + "/search";
+
         public const string GetArticleDetails = BaseArticleRoute + "/{slug}";
 
         public const string GetLatestArticles = BaseArticleRoute + "/get-latest";
