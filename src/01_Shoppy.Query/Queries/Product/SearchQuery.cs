@@ -1,6 +1,4 @@
-﻿using _0_Framework.Application.ErrorMessages;
-using _0_Framework.Application.Exceptions;
-using _0_Framework.Application.Models.Paging;
+﻿using _0_Framework.Application.Models.Paging;
 using _0_Framework.Infrastructure;
 using _01_Shoppy.Query.Helpers.Product;
 using IM.Domain.Inventory;
@@ -85,10 +83,6 @@ public class SearchQueryHandler : IRequestHandler<SearchQuery, Response<SearchPr
         if (request.Search.SelectedMaxPrice == 0)
             request.Search.SelectedMaxPrice = maxPrice != null ? maxPrice.UnitPrice : 0;
 
-        query = query.Where(p => _productHelper.GetProductPriceById(p.Id) >= request.Search.SelectedMinPrice);
-
-        query = query.Where(p => _productHelper.GetProductPriceById(p.Id) <= request.Search.SelectedMaxPrice);
-
         #endregion
 
         #region filter phrase
@@ -153,6 +147,12 @@ public class SearchQueryHandler : IRequestHandler<SearchQuery, Response<SearchPr
                 returnData.Products = returnData.Products.OrderByDescending(x => x.UnitPrice);
                 break;
         }
+
+
+        returnData.Products = returnData.Products.Where(p => _productHelper.GetProductPriceById(p.Id) >= request.Search.SelectedMinPrice);
+
+        returnData.Products = returnData.Products.Where(p => _productHelper.GetProductPriceById(p.Id) <= request.Search.SelectedMaxPrice);
+
 
         #endregion
 
