@@ -41,7 +41,7 @@ public class FilterInventoryQueryHandler : IRequestHandler<FilterInventoryQuery,
 
         #region filter
 
-        if (string.IsNullOrEmpty(request.Filter.ProductId))
+        if (!string.IsNullOrEmpty(request.Filter.ProductId))
             query = query.Where(s => s.ProductId == request.Filter.ProductId);
 
         switch (request.Filter.InStockState)

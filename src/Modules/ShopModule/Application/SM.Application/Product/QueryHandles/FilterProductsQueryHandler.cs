@@ -31,7 +31,7 @@ public class FilterProductCategoriesQueryHandler : IRequestHandler<FilterProduct
             query = query.Where(s => EF.Functions.Like(s.Title, $"%{request.Filter.Search}%") ||
              EF.Functions.Like(s.Code, $"%{request.Filter.Search}%"));
 
-        if (string.IsNullOrEmpty(request.Filter.CategoryId))
+        if (!string.IsNullOrEmpty(request.Filter.CategoryId))
             query = query.Where(s => s.CategoryId == request.Filter.CategoryId);
 
         switch (request.Filter.SortDateOrder)
