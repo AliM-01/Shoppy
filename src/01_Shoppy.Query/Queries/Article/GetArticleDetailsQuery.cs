@@ -1,7 +1,4 @@
-﻿using _0_Framework.Application.Exceptions;
-using _0_Framework.Infrastructure.Helpers;
-using _01_Shoppy.Query.Models.Blog.Article;
-using AutoMapper;
+﻿using _01_Shoppy.Query.Models.Blog.Article;
 
 namespace _01_Shoppy.Query.Queries.Blog.Article;
 
@@ -32,7 +29,8 @@ public class GetArticleDetailsQueryHandler : IRequestHandler<GetArticleDetailsQu
 
         var article = await _articleRepository.GetByFilter(filter);
 
-        return new Response<ArticleDetailsQueryModel>(
-            _mapper.Map(article, new ArticleDetailsQueryModel()));
+        var meppedArticle = _mapper.Map(article, new ArticleDetailsQueryModel());
+
+        return new Response<ArticleDetailsQueryModel>(meppedArticle);
     }
 }

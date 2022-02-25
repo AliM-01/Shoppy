@@ -23,7 +23,6 @@ public class DeleteArticleCategoryCommandHandler : IRequestHandler<DeleteArticle
             throw new NotFoundApiException();
 
         File.Delete(PathExtension.ArticleCategoryImage + articleCategory.ImagePath);
-        File.Delete(PathExtension.ArticleCategoryThumbnailImage + articleCategory.ImagePath);
 
         await _articleCategoryRepository.DeletePermanentAsync(request.ArticleCategoryId);
 

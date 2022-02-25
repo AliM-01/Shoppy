@@ -34,8 +34,8 @@ public class EditArticleCategoryCommandHandler : IRequestHandler<EditArticleCate
         {
             var imagePath = DateTime.Now.ToFileName() + Path.GetExtension(request.ArticleCategory.ImageFile.FileName);
 
-            request.ArticleCategory.ImageFile.AddImageToServer(imagePath, PathExtension.ArticleCategoryImage,
-                200, 200, PathExtension.ArticleCategoryThumbnailImage, articleCategory.ImagePath);
+            request.ArticleCategory.ImageFile
+            .CropAndAddImageToServer(imagePath, PathExtension.ArticleCategoryImage, 200, 200);
 
             articleCategory.ImagePath = imagePath;
         }

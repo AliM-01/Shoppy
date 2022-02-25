@@ -1,7 +1,5 @@
 ﻿using _0_Framework.Infrastructure;
-using _0_Framework.Infrastructure.Helpers;
 using _01_Shoppy.Query.Models.Blog.Article;
-using AutoMapper;
 
 namespace _01_Shoppy.Query.Queries.Article;
 

@@ -8,10 +8,6 @@ public class FilterAccountDto : BasePaging
 {
     #region Properties
 
-    [JsonProperty("title")]
-    [Display(Name = "عنوان")]
-    public string Title { get; set; }
-
     [Display(Name = "نام و نام خانوادگی")]
     [JsonProperty("fullName")]
     public string FullName { get; set; }

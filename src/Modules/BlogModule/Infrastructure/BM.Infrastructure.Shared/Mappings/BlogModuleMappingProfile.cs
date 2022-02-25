@@ -96,7 +96,9 @@ public class BlogModuleMappingProfile : Profile
             .ForMember(dest => dest.Summary,
                 opt => opt.MapFrom(src => $"{src.Summary.Substring(0, Math.Max(src.Summary.Length, 35))} ..."))
             .ForMember(dest => dest.CreationDate,
-                opt => opt.MapFrom(src => src.CreationDate.ToDetailedShamsi()));
+                opt => opt.MapFrom(src => src.CreationDate.ToDetailedShamsi()))
+            .ForMember(dest => dest.Category,
+                opt => opt.MapFrom(src => src.Category.Title));
 
         #endregion
 
