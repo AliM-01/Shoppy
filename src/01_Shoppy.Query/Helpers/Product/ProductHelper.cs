@@ -1,6 +1,5 @@
 ﻿using _0_Framework.Application.Extensions;
 using _0_Framework.Infrastructure;
-using _0_Framework.Infrastructure.Helpers;
 using _01_Shoppy.Query.Models.ProductPicture;
 using AutoMapper;
 using DM.Domain.ProductDiscount;
@@ -64,15 +63,13 @@ public class ProductHelper : IProductHelper
     {
         #region all discounts query
 
-        var discounts = (await _productDiscount.AsQueryable()
+        var discounts = await _productDiscount.AsQueryable()
             .Where(x => x.StartDate < DateTime.Now && x.EndDate > DateTime.Now)
-            .ToListAsyncSafe()
-            )
             .Select(x => new
             {
                 x.ProductId,
                 x.Rate
-            }).ToList();
+            }).ToListAsyncSafe();
 
         if (hotDiscountQuery)
         {
@@ -83,14 +80,13 @@ public class ProductHelper : IProductHelper
 
         #region all categories query
 
-        var categories = (await _productCategoryRepository
+        var categories = await _productCategoryRepository
             .AsQueryable()
-            .ToListAsyncSafe())
             .Select(x => new
             {
                 x.Id,
                 x.Title
-            }).ToList();
+            }).ToListAsyncSafe();
 
         #endregion
 
@@ -180,13 +176,13 @@ public class ProductHelper : IProductHelper
 
     public decimal GetProductPriceById(string id)
     {
-        var inventories = (_inventoryContext.AsQueryable().ToListSafe())
+        var inventories = _inventoryContext.AsQueryable()
            .Select(x => new
            {
                x.ProductId,
                x.InStock,
                x.UnitPrice
-           }).ToList();
+           }).ToListSafe();
 
         var price = inventories.FirstOrDefault(x => x.ProductId == id).UnitPrice;
 

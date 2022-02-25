@@ -2,7 +2,6 @@
 using _0_Framework.Application.Exceptions;
 using _0_Framework.Application.Models.Paging;
 using _0_Framework.Infrastructure;
-using _0_Framework.Infrastructure.Helpers;
 using _01_Shoppy.Query.Helpers.Product;
 using _01_Shoppy.Query.Models.ProductCategory;
 using AutoMapper;
@@ -38,12 +37,12 @@ public class GetProductCategoryWithProductsByQueryHandler : IRequestHandler<GetP
         if (string.IsNullOrEmpty(request.Filter.Slug))
             throw new NotFoundApiException();
 
-        var categories = (await _productCategoryRepository.AsQueryable().ToListAsyncSafe())
+        var categories = await _productCategoryRepository.AsQueryable()
             .Select(x => new
             {
                 x.Slug,
                 x.Id
-            }).ToList();
+            }).ToListAsyncSafe();
 
         string categoryId = "";
 

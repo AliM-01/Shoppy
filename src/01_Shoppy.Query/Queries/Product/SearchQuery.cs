@@ -41,13 +41,13 @@ public class SearchQueryHandler : IRequestHandler<SearchQuery, Response<SearchPr
 
         #region inventories query
 
-        var inventories = (await _inventoryContext.AsQueryable().ToListAsyncSafe())
+        var inventories = await _inventoryContext.AsQueryable()
             .Select(x => new
             {
                 x.ProductId,
                 x.InStock,
                 x.UnitPrice
-            }).ToList();
+            }).ToListAsyncSafe();
 
         var inventoryIds = inventories.Select(x => x.ProductId).ToArray();
 
@@ -97,7 +97,7 @@ public class SearchQueryHandler : IRequestHandler<SearchQuery, Response<SearchPr
         if (!string.IsNullOrEmpty(request.Search.Phrase))
         {
             query = query.Where(s => s.Title.Contains(request.Search.Phrase)
-            || s.ShortDescription.Contains(request.Search.Phrase));
+            || s.ShortDescription.Contains(request.Search.Phrase) || s.MetaKeywords.Contains(request.Search.Phrase));
         }
 
         #endregion

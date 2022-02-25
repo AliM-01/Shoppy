@@ -31,12 +31,12 @@ public class GetProductDetailsQueryHandler : IRequestHandler<GetProductDetailsQu
         if (string.IsNullOrEmpty(request.Slug))
             throw new NotFoundApiException();
 
-        var products = (await _productRepository.AsQueryable().ToListAsyncSafe())
+        var products = await _productRepository.AsQueryable()
             .Select(x => new
             {
                 x.Slug,
                 x.Id
-            }).ToList();
+            }).ToListAsyncSafe();
 
         bool existsProduct = false;
         string existsProductId = "0";

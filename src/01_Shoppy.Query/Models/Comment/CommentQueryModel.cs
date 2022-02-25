@@ -19,7 +19,7 @@ public class CommentQueryModel
 
     [Display(Name = "شناسه محصول/مقاله")]
     [JsonProperty("ownerRecordId")]
-    public long OwnerRecordId { get; set; }
+    public string OwnerRecordId { get; set; }
 
     [Display(Name = "عنوان محصول/مقاله")]
     [JsonProperty("ownerName")]

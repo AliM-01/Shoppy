@@ -1,4 +1,5 @@
 ﻿using _0_Framework.Application.Models.Paging;
+using _0_Framework.Infrastructure;
 using IM.Application.Contracts.Inventory.DTOs;
 using IM.Application.Contracts.Inventory.Enums;
 using IM.Application.Contracts.Inventory.Helpers;
@@ -36,7 +37,7 @@ public class FilterInventoryQueryHandler : IRequestHandler<FilterInventoryQuery,
         {
             x.Id,
             x.Title
-        }).ToListAsync();
+        }).ToListAsyncSafe();
 
         #region filter
 
