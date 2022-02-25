@@ -15,7 +15,7 @@ public static class MainShopApiEndpoints
     {
         private const string BaseProductCategoryRoute = BaseMainShopRoute + "/product-category";
 
-        public const string GetProductCategories = BaseProductCategoryRoute + "/get-list";
+        public const string GetProductCategoryList = BaseProductCategoryRoute + "/get-list";
 
         public const string GetProductCategory = BaseProductCategoryRoute + "/get";
     }

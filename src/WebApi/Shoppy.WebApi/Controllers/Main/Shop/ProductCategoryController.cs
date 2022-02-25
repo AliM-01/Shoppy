@@ -6,12 +6,12 @@ namespace Shoppy.WebApi.Controllers.Main.Shop;
 [SwaggerTag("دسته بندی محصولات")]
 public class ProductCategoryController : BaseApiController
 {
-    #region Get Product Categories
+    #region Get ProductCategory List
 
-    [HttpGet(MainShopApiEndpoints.ProductCategory.GetProductCategories)]
+    [HttpGet(MainShopApiEndpoints.ProductCategory.GetProductCategoryList)]
     [SwaggerOperation(Summary = "دریافت دسته بندی های محصولات", Tags = new[] { "ProductCategory" })]
     [SwaggerResponse(200, "success")]
-    public async Task<IActionResult> GetProductCategorys()
+    public async Task<IActionResult> GetProductCategoryList()
     {
         var res = await Mediator.Send(new GetProductCategoriesQuery());
 

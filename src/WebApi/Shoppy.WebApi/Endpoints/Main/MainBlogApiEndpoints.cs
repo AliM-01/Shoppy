@@ -19,6 +19,8 @@ public class MainBlogApiEndpoints
     {
         private const string BaseArticleCategoryRoute = BaseMainBlogRoute + "/article-category";
 
+        public const string GetArticleCategoryList = BaseArticleCategoryRoute + "/get-list";
+
         public const string GetArticleCategory = BaseArticleCategoryRoute + "/get";
     }
 }
