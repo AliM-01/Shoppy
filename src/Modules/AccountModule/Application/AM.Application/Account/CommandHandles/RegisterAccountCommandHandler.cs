@@ -1,4 +1,5 @@
 ﻿using _0_Framework.Application.Exceptions;
+using _0_Framework.Application.Extensions;
 using AM.Domain.Enums;
 using AM.Infrastructure.Persistence.Settings;
 namespace AM.Application.Account.CommandHandles;
@@ -34,7 +35,7 @@ public class RegisterAccountCommandHandler : IRequestHandler<RegisterAccountComm
 
         var user = new Domain.Account.Account
         {
-            UserName = request.Account.Email,
+            UserName = Generators.GenerateRandomUsername(),
             Email = request.Account.Email.Trim(),
             Avatar = "default-avatar.png"
         };
@@ -44,7 +45,7 @@ public class RegisterAccountCommandHandler : IRequestHandler<RegisterAccountComm
         var result = await _userManager.CreateAsync(user, request.Account.Password);
 
         if (!result.Succeeded)
-            throw new ApiException($"${result.Errors}");
+            throw new ApiException($"${result.Errors.First()}");
 
         await _userManager.AddToRoleAsync(user, Roles.BasicUser.ToString());
 
