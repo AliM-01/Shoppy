@@ -31,8 +31,5 @@ public class Account : MongoIdentityUser<Guid>
     [BsonRepresentation(BsonType.DateTime)]
     public DateTime RegisterDate { get; set; } = DateTime.Now;
 
-    [BsonElement("isDeleted")]
-    public bool IsDeleted { get; set; }
-
     #endregion Properties
 }
