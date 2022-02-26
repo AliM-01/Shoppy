@@ -20,6 +20,9 @@ public class CreateAccountDto
     [JsonProperty("password")]
     public string Password { get; set; }
 
+    [JsonProperty("confirmPassword")]
+    public string ConfirmPassword { get; set; }
+
     [JsonProperty("imageFile")]
     public IFormFile ImageFile { get; set; }
 }
