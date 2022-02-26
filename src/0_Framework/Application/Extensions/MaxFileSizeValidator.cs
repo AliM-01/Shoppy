@@ -2,7 +2,7 @@
 
 namespace _0_Framework.Application.Extensions;
 
-public static class MaxFileSizeHelper
+public static class MaxFileSizeValidator
 {
     public static bool IsValid(int maxFileSize, object value, bool isRequired = true)
     {

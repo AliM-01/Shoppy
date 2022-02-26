@@ -1,5 +1,4 @@
-﻿using _0_Framework.Application.Extensions;
-using FluentValidation;
+﻿using FluentValidation;
 using Microsoft.AspNetCore.Http;
 using System.Text.RegularExpressions;
 
@@ -107,7 +106,10 @@ public static class CustomValidators
     {
         return ruleBuilder.NotNull()
                           .WithMessage("لطفا فایل را وارد کنید")
-                          .Must(x => MaxFileSizeHelper.IsValid(size, x, isRequired))
+                          .Must(x =>
+                          {
+                              return Application.Extensions.MaxFileSizeValidator.IsValid(size, x, isRequired);
+                          })
                           .WithMessage("حجم فایل بیشتر از مقدار مجاز است. لطفا فایل دیگری آپلود کنید");
     }
 

@@ -1,7 +1,12 @@
 ﻿namespace _0_Framework.Application.Extensions;
 
-public static class Generator
+public static class Generators
 {
+    public static string GenerateCode()
+    {
+        return Guid.NewGuid().ToString("N").ToUpper().Substring(0, 5);
+    }
+
     public static string GenerateRandomUsername()
     {
         string result = "";

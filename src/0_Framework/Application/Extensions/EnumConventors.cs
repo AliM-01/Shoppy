@@ -4,7 +4,7 @@ using System.Reflection;
 
 namespace _0_Framework.Application.Extensions;
 
-public static class EnumDisplayNameExtension
+public static class EnumConventors
 {
     public static string GetEnumDisplayName<T>(this T enumValue) where T : IComparable, IFormattable, IConvertible
     {

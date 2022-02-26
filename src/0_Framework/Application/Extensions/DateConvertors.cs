@@ -2,7 +2,7 @@
 
 namespace _0_Framework.Application.Extensions;
 
-public static class DateConvertor
+public static class DateConvertors
 {
     #region ToShamsi
 

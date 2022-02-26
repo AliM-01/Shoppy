@@ -1,8 +1,9 @@
-﻿using System.Text.RegularExpressions;
+﻿using System.Globalization;
+using System.Text.RegularExpressions;
 
 namespace _0_Framework.Application.Extensions;
 
-public static class GenerateSlug
+public static class StringConventors
 {
     public static string ToSlug(this string value)
     {
@@ -20,4 +21,11 @@ public static class GenerateSlug
 
         return value;
     }
+
+    public static string ToMoney(this decimal text)
+    {
+        var result = text.ToString("N0", CultureInfo.CreateSpecificCulture("fa-ir"));
+        return result;
+    }
 }
+
