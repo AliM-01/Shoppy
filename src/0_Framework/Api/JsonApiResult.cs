@@ -2,7 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 
-namespace _0_Framework.Presentation.Http.JsonApiResult;
+namespace _0_Framework.Api;
 
 public static class JsonApiResult
 {

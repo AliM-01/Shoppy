@@ -2,7 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace _0_Framework.Presentation;
+namespace _0_Framework.Api;
 
 [ApiController]
 public abstract class BaseApiController : ControllerBase
