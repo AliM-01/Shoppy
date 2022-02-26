@@ -5,6 +5,7 @@ using MediatR;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
 using Newtonsoft.Json;
@@ -20,12 +21,17 @@ public class AccountModuletBootstrapper
     {
         #region db config
 
-        services.Configure<AccountDbSettings>(config.GetSection("AccountDbSettings"));
+        services.AddSingleton<AccountDbSettings>(sp =>
+        {
+            return (AccountDbSettings)config.GetSection("AccountDbSettings").Get(typeof(AccountDbSettings));
+        });
+
+        var accountDbSettings = services.BuildServiceProvider().GetRequiredService<AccountDbSettings>();
 
         services.AddIdentity<Account, AccountRole>()
             .AddMongoDbStores<Account, AccountRole, Guid>
             (
-                config["AccountDbSettings:ConnectionString"], config["AccountDbSettings:DbName"]
+               accountDbSettings.ConnectionString, accountDbSettings.DbName
             );
 
         services.AddMediatR(typeof(AccountModuletBootstrapper).Assembly);
@@ -48,9 +54,12 @@ public class AccountModuletBootstrapper
 
         #region auth config
 
-        services.Configure<JwtSettings>(config.GetSection("JwtSettings"));
+        services.AddSingleton<JwtSettings>(sp =>
+        {
+            return (JwtSettings)config.GetSection("JwtSettings").Get(typeof(JwtSettings));
+        });
 
-        var jwtSettings = services.BuildServiceProvider().CreateScope().ServiceProvider.GetRequiredService<JwtSettings>();
+        var jwtSettings = services.BuildServiceProvider().GetRequiredService<JwtSettings>();
 
         services.AddAuthentication("OAuth")
             .AddJwtBearer("OAuth", c =>
