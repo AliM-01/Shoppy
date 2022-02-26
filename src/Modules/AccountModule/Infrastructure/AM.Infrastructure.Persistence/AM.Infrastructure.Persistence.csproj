@@ -10,4 +10,8 @@
     <ProjectReference Include="..\..\..\..\0_Framework\0_Framework.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Seed\" />
+  </ItemGroup>
+
 </Project>
