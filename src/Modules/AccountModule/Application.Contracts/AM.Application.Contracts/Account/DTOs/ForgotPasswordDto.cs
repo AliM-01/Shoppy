@@ -2,7 +2,6 @@
 
 public class ForgotPasswordDto
 {
-    [JsonProperty("mobile")]
-    [Display(Name = "تلفن همراه")]
-    public string Mobile { get; set; }
+    [JsonProperty("email")]
+    public string Email { get; set; }
 }

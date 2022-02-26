@@ -2,11 +2,9 @@
 
 public class AuthenticateUserDto
 {
-    [JsonProperty("mobile")]
-    [Display(Name = "موبایل")]
-    public string Mobile { get; set; }
+    [JsonProperty("email")]
+    public string Email { get; set; }
 
     [JsonProperty("password")]
-    [Display(Name = "رمز عبور")]
     public string Password { get; set; }
 }

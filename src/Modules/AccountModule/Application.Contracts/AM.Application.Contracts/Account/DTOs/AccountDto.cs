@@ -1,6 +1,4 @@
-﻿using Newtonsoft.Json;
-
-namespace AM.Application.Contracts.Account.DTOs;
+﻿namespace AM.Application.Contracts.Account.DTOs;
 
 public class AccountDto
 {
@@ -13,11 +11,11 @@ public class AccountDto
     [JsonProperty("fullName")]
     public string FullName { get; set; }
 
-    [JsonProperty("mobile")]
-    public string Mobile { get; set; }
+    [JsonProperty("email")]
+    public string Email { get; set; }
 
-    [JsonProperty("imagePath")]
-    public string ImagePath { get; set; }
+    [JsonProperty("avatarPath")]
+    public string AvatarPath { get; set; }
 
     [JsonProperty("registerDate")]
     public string RegisterDate { get; set; }

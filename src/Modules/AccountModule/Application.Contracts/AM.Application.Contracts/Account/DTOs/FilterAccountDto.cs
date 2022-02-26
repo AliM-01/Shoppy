@@ -1,6 +1,4 @@
 ﻿using _0_Framework.Application.Models.Paging;
-using Newtonsoft.Json;
-using System.ComponentModel.DataAnnotations;
 
 namespace AM.Application.Contracts.Account.DTOs;
 
@@ -12,8 +10,8 @@ public class FilterAccountDto : BasePaging
     [JsonProperty("fullName")]
     public string FullName { get; set; }
 
-    [JsonProperty("mobile")]
-    public string Mobile { get; set; }
+    [JsonProperty("email")]
+    public string Email { get; set; }
 
     [JsonProperty("accounts")]
     public IEnumerable<AccountDto> Accounts { get; set; }
