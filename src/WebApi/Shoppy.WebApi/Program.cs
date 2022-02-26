@@ -18,7 +18,7 @@ Log.Logger = new LoggerConfiguration()
 
 #endregion
 
-builder.Services.RegisterServices(typeof(Program), configuration);
+await builder.Services.RegisterServicesAsync(typeof(Program), configuration);
 
 #region swagger
 

@@ -11,16 +11,14 @@ namespace AM.Infrastructure.Configuration;
 
 public class AccountModuletBootstrapper
 {
-    public static async Task Configure(IServiceCollection services, Microsoft.Extensions.Configuration.IConfiguration config)
+    public static async Task ConfigureAsync(IServiceCollection services, Microsoft.Extensions.Configuration.IConfiguration config)
     {
         services.Configure<AccountDbSettings>(config.GetSection("AccountDbSettings"));
-
-        var mongoDbSettings = services.BuildServiceProvider().GetRequiredService<AccountDbSettings>();
 
         services.AddIdentity<Account, AccountRole>()
             .AddMongoDbStores<Account, AccountRole, Guid>
             (
-                mongoDbSettings.ConnectionString, mongoDbSettings.DbName
+                config["AccountDbSettings:ConnectionString"], config["AccountDbSettings:DbName"]
             );
 
         services.AddMediatR(typeof(AccountModuletBootstrapper).Assembly);

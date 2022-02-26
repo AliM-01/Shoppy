@@ -1,5 +1,6 @@
 ﻿using _01_Shoppy.Query;
 using _02_DI_Container.Extensions.Startup;
+using AM.Infrastructure.Configuration;
 using BM.Application;
 using BM.Infrastructure.Configuration;
 using BM.Infrastructure.Shared.Mappings;
@@ -24,12 +25,13 @@ namespace _02_DI_Container;
 
 public static class DI_Container
 {
-    public static void RegisterServices(this IServiceCollection services, Type assemblyMarker, IConfiguration config)
+    public static async Task RegisterServicesAsync(this IServiceCollection services, Type assemblyMarker, IConfiguration config)
     {
         services.AddOptions();
 
         #region Configuring Modules
 
+        await AccountModuletBootstrapper.ConfigureAsync(services, config);
         ShopModuletBootstrapper.Configure(services, config);
         DiscountModuleBootstrapper.Configure(services, config);
         InventoryModuletBootstrapper.Configure(services, config);
