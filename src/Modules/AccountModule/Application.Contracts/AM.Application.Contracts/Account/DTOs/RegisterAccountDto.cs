@@ -1,9 +1,8 @@
 ﻿using Microsoft.AspNetCore.Http;
-using Newtonsoft.Json;
 
 namespace AM.Application.Contracts.Account.DTOs;
 
-public class CreateAccountDto
+public class RegisterAccountDto
 {
     [JsonProperty("roleId")]
     public string RoleId { get; set; }
