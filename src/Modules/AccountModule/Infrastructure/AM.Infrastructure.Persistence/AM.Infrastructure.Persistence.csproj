@@ -8,10 +8,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\..\..\0_Framework\0_Framework.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Seed\" />
+    <ProjectReference Include="..\..\Domain\AM.Domain\AM.Domain.csproj" />
   </ItemGroup>
 
 </Project>
