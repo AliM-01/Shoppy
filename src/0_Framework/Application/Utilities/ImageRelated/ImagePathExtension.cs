@@ -4,6 +4,13 @@ namespace _0_Framework.Application.Utilities.ImageRelated;
 
 public static class PathExtension
 {
+    #region Account
+
+    public static string AccountImage =
+        Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/upload/avatar/");
+
+    #endregion
+
     #region Shop
 
     #region Product Category
