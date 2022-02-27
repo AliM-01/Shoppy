@@ -1,6 +1,6 @@
 ﻿namespace AM.Domain.Settings;
 
-public class BearerTokensOptions
+public class BearerTokenSettings
 {
     public string Key { set; get; }
     public string Issuer { set; get; }
