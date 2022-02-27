@@ -3,4 +3,4 @@
 namespace AM.Application.Contracts.Account.Commands;
 
 public record ChangePasswordCommand
-    (ChangePasswordDto Password) : IRequest<Response<string>>;
+    (ChangePasswordDto Password, string UserId) : IRequest<Response<string>>;
