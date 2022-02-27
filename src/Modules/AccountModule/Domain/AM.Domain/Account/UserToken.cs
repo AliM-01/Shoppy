@@ -1,14 +1,11 @@
-﻿using MongoDB.Bson;
+﻿using _0_Framework.Domain;
+using MongoDB.Bson;
 using MongoDB.Bson.Serialization.Attributes;
 
 namespace AM.Domain.Account;
 
-public class UserToken
+public class UserToken : EntityBase
 {
-    [BsonId]
-    [BsonRepresentation(BsonType.ObjectId)]
-    public string Id { get; set; }
-
     [BsonElement("userId")]
     public string UserId { get; set; }
 

@@ -8,7 +8,7 @@ public interface ITokenStoreService
 
     Task AddUserToken(Domain.Account.Account user, string refreshTokenSerial, string accessToken, string refreshTokenSourceSerial);
 
-    Task<bool> IsValidToken(string accessToken, int userId);
+    Task<bool> IsValidToken(string accessToken, string userId);
 
     Task DeleteExpiredTokens();
 
@@ -18,7 +18,7 @@ public interface ITokenStoreService
 
     Task DeleteTokensWithSameRefreshTokenSource(string refreshTokenIdHashSource);
 
-    Task InvalidateUserTokens(int userId);
+    Task InvalidateUserTokens(string userId);
 
     Task RevokeUserBearerTokens(string userIdValue, string refreshTokenValue);
 }
