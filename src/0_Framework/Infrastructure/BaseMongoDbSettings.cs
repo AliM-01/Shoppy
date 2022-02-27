@@ -7,10 +7,3 @@ public abstract class BaseMongoDbSettings
     public string DbName { get; set; }
 }
 
-public interface IBaseMongoDbSettings
-{
-    public string ConnectionString { get; set; }
-
-    public string DbName { get; set; }
-}
-

@@ -9,4 +9,9 @@ public static class MongoDbFilters<T> where T : EntityBase
     {
         return Builders<T>.Filter.Eq(x => x.Id, id);
     }
+
+    public static FilterDefinition<T> GetBySlugFilter(string slug)
+    {
+        return Builders<T>.Filter.Eq("slug", slug);
+    }
 }
