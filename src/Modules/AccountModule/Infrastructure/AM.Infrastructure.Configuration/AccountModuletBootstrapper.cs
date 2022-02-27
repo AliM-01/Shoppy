@@ -61,9 +61,16 @@ public class AccountModuletBootstrapper
 
         var jwtSettings = services.BuildServiceProvider().GetRequiredService<JwtSettings>();
 
-        services.AddAuthentication("OAuth")
-            .AddJwtBearer("OAuth", c =>
+        services.AddAuthentication(options =>
+        {
+            options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+            options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+            options.DefaultScheme = JwtBearerDefaults.AuthenticationScheme;
+        })
+            .AddJwtBearer(c =>
             {
+                c.SaveToken = true;
+                c.RequireHttpsMetadata = false;
                 var secretBytes = Encoding.UTF8.GetBytes(jwtSettings.Secret);
                 var key = new SymmetricSecurityKey(secretBytes);
 
@@ -107,10 +114,14 @@ public class AccountModuletBootstrapper
 
                 c.TokenValidationParameters = new TokenValidationParameters()
                 {
+                    ValidateIssuerSigningKey = true,
+                    ValidateIssuer = true,
+                    ValidateAudience = true,
+                    ValidateLifetime = true,
                     ClockSkew = TimeSpan.Zero,
                     ValidIssuer = jwtSettings.Issuer,
                     ValidAudience = jwtSettings.Audiance,
-                    IssuerSigningKey = key,
+                    IssuerSigningKey = key
                 };
             });
 

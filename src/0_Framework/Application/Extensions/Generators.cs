@@ -1,4 +1,6 @@
-﻿namespace _0_Framework.Application.Extensions;
+﻿using System.Text.RegularExpressions;
+
+namespace _0_Framework.Application.Extensions;
 
 public static class Generators
 {
@@ -42,4 +44,18 @@ public static class Generators
         return result;
     }
 
+    public static string GenerateUserPassword()
+    {
+        var chars = "$%#@!*?;:abcdefghijklmnopqrstuvxxyzABCDEFGHIJKLMNOPQRSTUVWXYZ^&".ToCharArray();
+
+        var random = new Random();
+        var password = Guid.NewGuid().ToString().Substring(4, 9);
+
+        var regex = new Regex("^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{6,}$");
+
+        while (!regex.IsMatch(password))
+            password += chars[random.Next(chars.Length)].ToString();
+
+        return password;
+    }
 }
