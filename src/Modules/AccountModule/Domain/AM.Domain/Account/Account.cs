@@ -31,5 +31,12 @@ public class Account : MongoIdentityUser<Guid>
     [BsonRepresentation(BsonType.DateTime)]
     public DateTime RegisterDate { get; set; } = DateTime.Now;
 
+    [BsonElement("serialNumber")]
+    public string SerialNumber { get; set; }
+
+    [BsonElement("authenticationTokens")]
+    public List<UserToken> AuthenticationTokens { get; set; }
+
     #endregion Properties
+
 }
