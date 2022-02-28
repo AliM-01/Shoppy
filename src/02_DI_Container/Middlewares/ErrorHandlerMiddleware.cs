@@ -1,5 +1,6 @@
 ﻿using _0_Framework.Application.Exceptions;
 using Microsoft.AspNetCore.Http;
+using Microsoft.IdentityModel.Tokens;
 using Newtonsoft.Json;
 using System.Net;
 
@@ -60,6 +61,11 @@ public class ErrorHandlerMiddleware
                     {
                         errors.Add(e.Errors[i].ToString());
                     }
+                    break;
+
+                case SecurityTokenExpiredException e:
+                    response.StatusCode = (int)HttpStatusCode.Unauthorized;
+                    errorMessage = "token expired";
                     break;
 
                 default:
