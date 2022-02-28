@@ -1,6 +1,5 @@
 ﻿using _0_Framework.Application.Wrappers;
 using Microsoft.AspNetCore.Mvc;
-using Newtonsoft.Json;
 
 namespace _0_Framework.Api;
 
@@ -50,4 +49,18 @@ public static class JsonApiResult
 
     #endregion
 
+    #region Unauthorized
+
+    public static UnauthorizedObjectResult Unauthorized(string msg = "لطفا به حساب کاربری خود وارد شوید")
+    {
+        var res = CustonJsonConverter.Serialize(new
+        {
+            status = "un-authorized",
+            message = msg
+        });
+
+        return new UnauthorizedObjectResult(res);
+    }
+
+    #endregion
 }
