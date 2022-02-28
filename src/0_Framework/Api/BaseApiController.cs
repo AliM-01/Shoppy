@@ -16,7 +16,7 @@ public abstract class BaseApiController : ControllerBase
 
 [ApiController]
 [EnableCors("CorsPolicy")]
-[Authorize]
+[Authorize(Policy = "Admin")]
 public abstract class BaseAdminApiController : ControllerBase
 {
     private IMediator _mediator;
