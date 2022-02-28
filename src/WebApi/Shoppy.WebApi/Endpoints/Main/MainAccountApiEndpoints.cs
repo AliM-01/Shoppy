@@ -9,5 +9,7 @@ public class MainAccountApiEndpoints
         public const string Register = BaseMainAccountRoute + "/register";
 
         public const string Login = BaseMainAccountRoute + "/login";
+
+        public const string RefreshToken = BaseMainAccountRoute + "/refresh-token";
     }
 }

@@ -37,4 +37,19 @@ public class AccountController : BaseApiController
     }
 
     #endregion
+
+    #region RefreshToken
+
+    [HttpGet(MainAccountApiEndpoints.Account.RefreshToken)]
+    [SwaggerOperation(Summary = "refresh token", Tags = new[] { "Account" })]
+    [SwaggerResponse(200, "success")]
+    [SwaggerResponse(404, "not found")]
+    public async Task<IActionResult> RefreshToken([FromBody] RevokeRefreshTokenRequestDto Token)
+    {
+        var res = await Mediator.Send(new RevokeRefreshTokenCommand(Token));
+
+        return JsonApiResult.Success(res);
+    }
+
+    #endregion
 }
