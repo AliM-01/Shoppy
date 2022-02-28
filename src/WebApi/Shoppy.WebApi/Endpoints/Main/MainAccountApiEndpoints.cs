@@ -6,5 +6,6 @@ public class MainAccountApiEndpoints
 
     public static class Account
     {
+        public const string Register = BaseMainAccountRoute + "/register";
     }
 }
