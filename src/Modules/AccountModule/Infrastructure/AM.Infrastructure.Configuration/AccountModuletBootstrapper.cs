@@ -58,6 +58,7 @@ public class AccountModuletBootstrapper
 
         #endregion
 
+        services.AddScoped<ISecurityService, SecurityService>();
         services.AddScoped<ITokenFactoryService, TokenFactoryService>();
         services.AddScoped<ITokenStoreService, TokenStoreService>();
         services.AddScoped<ITokenValidatorService, TokenValidatorService>();
