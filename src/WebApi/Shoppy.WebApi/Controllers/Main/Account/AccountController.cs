@@ -23,7 +23,7 @@ public class AccountController : BaseApiController
 
     #region Register
 
-    [HttpGet(MainAccountApiEndpoints.Account.Register)]
+    [HttpPost(MainAccountApiEndpoints.Account.Register)]
     [SwaggerOperation(Summary = "ثبت نام", Tags = new[] { "Account" })]
     [SwaggerResponse(200, "success")]
     [SwaggerResponse(400, "duplicate email")]
@@ -38,7 +38,7 @@ public class AccountController : BaseApiController
 
     #region Login
 
-    [HttpGet(MainAccountApiEndpoints.Account.Login)]
+    [HttpPost(MainAccountApiEndpoints.Account.Login)]
     [SwaggerOperation(Summary = "ورود به حساب", Tags = new[] { "Account" })]
     [SwaggerResponse(200, "success")]
     [SwaggerResponse(400, "not active")]
@@ -53,7 +53,7 @@ public class AccountController : BaseApiController
 
     #region RefreshToken
 
-    [HttpGet(MainAccountApiEndpoints.Account.RefreshToken)]
+    [HttpPost(MainAccountApiEndpoints.Account.RefreshToken)]
     [SwaggerOperation(Summary = "refresh token", Tags = new[] { "Account" })]
     [SwaggerResponse(200, "success")]
     [SwaggerResponse(404, "not found")]
@@ -68,7 +68,7 @@ public class AccountController : BaseApiController
 
     #region ForgotPassword
 
-    [HttpGet(MainAccountApiEndpoints.Account.ForgotPassword)]
+    [HttpPost(MainAccountApiEndpoints.Account.ForgotPassword)]
     [SwaggerOperation(Summary = "فراموشی رمز عبور", Tags = new[] { "Account" })]
     [SwaggerResponse(200, "success")]
     [SwaggerResponse(404, "not-found")]
@@ -83,7 +83,7 @@ public class AccountController : BaseApiController
 
     #region Logout
 
-    [HttpGet(MainAccountApiEndpoints.Account.Logout)]
+    [HttpPost(MainAccountApiEndpoints.Account.Logout)]
     [SwaggerOperation(Summary = "خروج از حساب", Tags = new[] { "Account" })]
     [SwaggerResponse(200, "success")]
     [SwaggerResponse(404, "not-found")]
@@ -113,6 +113,24 @@ public class AccountController : BaseApiController
             return JsonApiResult.Success();
 
         return JsonApiResult.Unauthorized();
+    }
+
+    #endregion
+
+    #region GetCurrentUser
+
+    [HttpGet(MainAccountApiEndpoints.Account.GetCurrentUser)]
+    [SwaggerOperation(Summary = "Get CurrentUser", Tags = new[] { "Account" })]
+    [SwaggerResponse(200, "success")]
+    [SwaggerResponse(401, "un-authorized")]
+    public IActionResult GetCurrentUser()
+    {
+        if (!this.User.Identity.IsAuthenticated)
+            return JsonApiResult.Unauthorized();
+
+        var claimsIdentity = User.Identity as ClaimsIdentity;
+
+        return Ok(CustonJsonConverter.Serialize(new { username = claimsIdentity.Name }));
     }
 
     #endregion

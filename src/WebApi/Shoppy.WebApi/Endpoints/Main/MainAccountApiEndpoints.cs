@@ -17,5 +17,7 @@ public class MainAccountApiEndpoints
         public const string Logout = BaseMainAccountRoute + "/logout";
 
         public const string IsAuthenticated = BaseMainAccountRoute + "/is-authenticated";
+
+        public const string GetCurrentUser = BaseMainAccountRoute + "/get-currentUser";
     }
 }
