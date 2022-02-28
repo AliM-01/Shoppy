@@ -160,11 +160,13 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AM.Domain", "src\Modules\Ac
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AM.Application.Contracts", "src\Modules\AccountModule\Application.Contracts\AM.Application.Contracts\AM.Application.Contracts.csproj", "{11F0860D-9979-45C7-BEAD-C0F6B27CFD23}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AM.Application", "src\Modules\AccountModule\Application\AM.Application\AM.Application.csproj", "{3BBA7C0C-31C4-449A-9736-F3BC5F4BAF67}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AM.Application", "src\Modules\AccountModule\Application\AM.Application\AM.Application.csproj", "{3BBA7C0C-31C4-449A-9736-F3BC5F4BAF67}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AM.Infrastructure.Persistence", "src\Modules\AccountModule\Infrastructure\AM.Infrastructure.Persistence\AM.Infrastructure.Persistence.csproj", "{CB8FFA1A-75B9-4E55-A277-CFE7564A2030}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AM.Infrastructure.Persistence", "src\Modules\AccountModule\Infrastructure\AM.Infrastructure.Persistence\AM.Infrastructure.Persistence.csproj", "{CB8FFA1A-75B9-4E55-A277-CFE7564A2030}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AM.Infrastructure.Configuration", "src\Modules\AccountModule\Infrastructure\AM.Infrastructure.Configuration\AM.Infrastructure.Configuration.csproj", "{60B9CE91-5344-478F-8380-220F2B92E346}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AM.Infrastructure.Configuration", "src\Modules\AccountModule\Infrastructure\AM.Infrastructure.Configuration\AM.Infrastructure.Configuration.csproj", "{60B9CE91-5344-478F-8380-220F2B92E346}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AM.Infrastructure.Shared", "src\Modules\AccountModule\Infrastructure\AM.Infrastructure.Shared\AM.Infrastructure.Shared.csproj", "{929BBB5B-D0D9-453E-8134-33E03D5D82B1}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -328,6 +330,10 @@ Global
 		{60B9CE91-5344-478F-8380-220F2B92E346}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{60B9CE91-5344-478F-8380-220F2B92E346}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{60B9CE91-5344-478F-8380-220F2B92E346}.Release|Any CPU.Build.0 = Release|Any CPU
+		{929BBB5B-D0D9-453E-8134-33E03D5D82B1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{929BBB5B-D0D9-453E-8134-33E03D5D82B1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{929BBB5B-D0D9-453E-8134-33E03D5D82B1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{929BBB5B-D0D9-453E-8134-33E03D5D82B1}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -409,6 +415,7 @@ Global
 		{3BBA7C0C-31C4-449A-9736-F3BC5F4BAF67} = {3209C83E-958D-47B2-BB5E-7FCDD977A6BB}
 		{CB8FFA1A-75B9-4E55-A277-CFE7564A2030} = {25AA0F10-AC4F-40BA-AD3D-0B59A98C42B0}
 		{60B9CE91-5344-478F-8380-220F2B92E346} = {25AA0F10-AC4F-40BA-AD3D-0B59A98C42B0}
+		{929BBB5B-D0D9-453E-8134-33E03D5D82B1} = {25AA0F10-AC4F-40BA-AD3D-0B59A98C42B0}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {615EA258-FFB2-45B7-9D73-B482C4E29616}
