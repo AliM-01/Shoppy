@@ -1,5 +1,5 @@
 ﻿using _0_Framework.Application.Exceptions;
-using AM.Infrastructure.Persistence.Settings;
+using AM.Application.Contracts.Services;
 namespace AM.Application.Account.CommandHandles;
 
 public class AuthenticateUserCommandHandler : IRequestHandler<AuthenticateUserCommand, Response<string>>
@@ -9,17 +9,20 @@ public class AuthenticateUserCommandHandler : IRequestHandler<AuthenticateUserCo
     private readonly IMapper _mapper;
     private readonly UserManager<Domain.Account.Account> _userManager;
     private readonly SignInManager<Domain.Account.Account> _signInManager;
-    private readonly JwtSettings _jwtSettings;
+    private readonly ITokenFactoryService _tokenFactoryService;
+    private readonly ITokenStoreService _tokenStoreService;
 
     public AuthenticateUserCommandHandler(IMapper mapper,
                                          UserManager<Domain.Account.Account> userManager,
                                          SignInManager<Domain.Account.Account> signInManager,
-                                         IOptionsSnapshot<JwtSettings> jwtSettings)
+        ITokenFactoryService tokenFactoryService,
+ITokenStoreService tokenStoreService)
     {
         _mapper = Guard.Against.Null(mapper, nameof(_mapper));
         _userManager = Guard.Against.Null(userManager, nameof(_userManager));
         _signInManager = Guard.Against.Null(signInManager, nameof(_signInManager));
-        _jwtSettings = jwtSettings.Value;
+        _tokenFactoryService = Guard.Against.Null(tokenFactoryService, nameof(_tokenFactoryService));
+        _tokenStoreService = Guard.Against.Null(tokenStoreService, nameof(_tokenStoreService));
     }
 
     #endregion Ctor
