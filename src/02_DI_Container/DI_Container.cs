@@ -1,6 +1,7 @@
 ﻿using _01_Shoppy.Query;
 using _02_DI_Container.Extensions.Startup;
 using AM.Infrastructure.Configuration;
+using AM.Infrastructure.Shared.Mappings;
 using BM.Application;
 using BM.Infrastructure.Configuration;
 using BM.Infrastructure.Shared.Mappings;
@@ -59,7 +60,8 @@ public static class DI_Container
             typeof(DiscountModuleMappingProfile).Assembly,
             typeof(InventoryModuleMappingProfile).Assembly,
             typeof(CommentModuleMappingProfile).Assembly,
-            typeof(BlogModuleMappingProfile).Assembly
+            typeof(BlogModuleMappingProfile).Assembly,
+            typeof(AccountModuleMappingProfile).Assembly,
         };
 
         services.AddFluentValidationExtension(assemblies);
@@ -74,7 +76,8 @@ public static class DI_Container
             typeof(DiscountModuleMappingProfile),
             typeof(InventoryModuleMappingProfile),
             typeof(CommentModuleMappingProfile),
-            typeof(BlogModuleMappingProfile)
+            typeof(BlogModuleMappingProfile),
+            typeof(AccountModuleMappingProfile),
         });
 
         #endregion

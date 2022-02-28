@@ -32,6 +32,7 @@
 	<ItemGroup>
 		<ProjectReference Include="..\0_Framework\0_Framework.csproj" />
 		<ProjectReference Include="..\Modules\AccountModule\Infrastructure\AM.Infrastructure.Configuration\AM.Infrastructure.Configuration.csproj" />
+		<ProjectReference Include="..\Modules\AccountModule\Infrastructure\AM.Infrastructure.Shared\AM.Infrastructure.Shared.csproj" />
 		<ProjectReference Include="..\Modules\BlogModule\Domain\BM.Domain\BM.Domain.csproj" />
 		<ProjectReference Include="..\Modules\BlogModule\Infrastructure\BM.Infrastructure.Configuration\BM.Infrastructure.Configuration.csproj" />
 		<ProjectReference Include="..\Modules\BlogModule\Infrastructure\BM.Infrastructure.Shared\BM.Infrastructure.Shared.csproj" />
