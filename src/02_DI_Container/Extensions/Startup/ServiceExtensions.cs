@@ -43,7 +43,33 @@ public static class ServiceExtensions
             c.EnableAnnotations();
             c.DocumentFilter<DocumentFilter>();
             c.SchemaFilter<EnumSchemaFilter>();
+
+            c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
+            {
+                Type = SecuritySchemeType.ApiKey,
+                Description = "Put **_ONLY_** your JWT Bearer token on textbox below!",
+                In = ParameterLocation.Header,
+                Name = "Authorization",
+                Scheme = "bearer",
+                BearerFormat = "JWT"
+            });
+
+            c.AddSecurityRequirement(new OpenApiSecurityRequirement
+                {
+                    {
+                        new OpenApiSecurityScheme
+                        {
+                            Reference = new OpenApiReference
+                            {
+                                Type = ReferenceType.SecurityScheme,
+                                Id = "Bearer"
+                            }
+                        },
+                        new List<string>()
+                    }
+                });
         });
+    });
     }
 }
 
