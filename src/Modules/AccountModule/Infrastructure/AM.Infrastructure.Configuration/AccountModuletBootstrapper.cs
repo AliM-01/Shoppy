@@ -1,4 +1,5 @@
-﻿using _0_Framework.Infrastructure.Helpers;
+﻿using _0_Framework.Api;
+using _0_Framework.Infrastructure.Helpers;
 using AM.Application.Contracts.Services;
 using AM.Application.Services;
 using AM.Domain.Account;
@@ -12,7 +13,6 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
-using Newtonsoft.Json;
 using System;
 using System.Text;
 using System.Threading.Tasks;
@@ -138,7 +138,7 @@ public class AccountModuletBootstrapper
 
     private static string ProduceUnAuthorizedResponse(string message = "لطفا به حساب کاربری خود وارد شوید")
     {
-        return JsonConvert.SerializeObject(new
+        return CustonJsonConverter.Serialize(new
         {
             status = "un-authorized",
             message = message

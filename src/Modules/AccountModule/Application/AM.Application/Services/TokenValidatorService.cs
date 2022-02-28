@@ -1,7 +1,7 @@
-﻿using AM.Application.Contracts.Services;
+﻿using _0_Framework.Api;
+using AM.Application.Contracts.Services;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Http;
-using Newtonsoft.Json;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 
@@ -66,7 +66,7 @@ public class TokenValidatorService : ITokenValidatorService
 
         context.Response.StatusCode = 401;
         context.Response.ContentType = "application/json";
-        var response = JsonConvert.SerializeObject(new
+        var response = CustonJsonConverter.Serialize(new
         {
             status = "success",
             message = "احراز هویت با موفقیت انجام شد"

@@ -1,7 +1,7 @@
-﻿using _0_Framework.Application.Exceptions;
+﻿using _0_Framework.Api;
+using _0_Framework.Application.Exceptions;
 using Microsoft.AspNetCore.Http;
 using Microsoft.IdentityModel.Tokens;
-using Newtonsoft.Json;
 using System.Net;
 
 namespace _02_DI_Container.Middlewares;
@@ -74,12 +74,12 @@ public class ErrorHandlerMiddleware
                     break;
             }
 
-            var result = JsonConvert.SerializeObject(new
+            var result = CustonJsonConverter.Serialize(new
             {
                 status = status,
                 message = errorMessage,
                 errors = errors
-            }, Formatting.Indented);
+            });
 
             await response.WriteAsync(result);
         }

@@ -45,7 +45,8 @@ ITokenStoreService tokenStoreService)
             throw new NotFoundApiException("کاربری با اطلاعات خواسته شده پیدا نشد");
 
         var result = await _tokenFactoryService.CreateJwtTokenAsync(user);
-        await _tokenStoreService.AddUserToken(user, result.RefreshTokenSerial, result.AccessToken, _tokenFactoryService.GetRefreshTokenSerial(refreshTokenValue));
+        await _tokenStoreService.AddUserToken(user, result.RefreshTokenSerial, result.AccessToken,
+                _tokenFactoryService.GetRefreshTokenSerial(request.Token.RefreshToken));
 
         return new Response<AuthenticateUserResponseDto>(new AuthenticateUserResponseDto(result));
     }
