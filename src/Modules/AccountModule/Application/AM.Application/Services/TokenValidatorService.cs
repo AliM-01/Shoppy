@@ -1,5 +1,7 @@
 ﻿using AM.Application.Contracts.Services;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Http;
+using Newtonsoft.Json;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 
@@ -60,6 +62,16 @@ public class TokenValidatorService : ITokenValidatorService
             context.Fail("This token is not in our database.");
             return;
         }
+
+
+        context.Response.StatusCode = 401;
+        context.Response.ContentType = "application/json";
+        var response = JsonConvert.SerializeObject(new
+        {
+            status = "success",
+            message = "احراز هویت با موفقیت انجام شد"
+        });
+        await context.Response.WriteAsync(response);
     }
 
     #endregion

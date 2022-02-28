@@ -78,70 +78,70 @@ public class AccountModuletBootstrapper
 
         var jwtSettings = services.BuildServiceProvider().GetRequiredService<JwtSettings>();
 
-        services.AddAuthentication(options =>
-        {
-            options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
-            options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
-            options.DefaultScheme = JwtBearerDefaults.AuthenticationScheme;
-        })
-            .AddJwtBearer(c =>
-            {
-                c.SaveToken = true;
-                c.RequireHttpsMetadata = false;
-                var secretBytes = Encoding.UTF8.GetBytes(jwtSettings.Secret);
-                var key = new SymmetricSecurityKey(secretBytes);
-
-                c.Events = new JwtBearerEvents
+        services
+                .AddAuthentication(options =>
                 {
-                    OnAuthenticationFailed = context =>
-                    {
-                        context.Response.StatusCode = 403;
-                        context.Response.ContentType = "application/json";
-                        var result = JsonConvert.SerializeObject(new
-                        {
-                            status = "un-authorized",
-                            message = context.Exception.Message.ToString()
-                        }); ;
-                        return context.Response.WriteAsync(result);
-                    },
-                    OnChallenge = context =>
-                    {
-                        context.HandleResponse();
-                        context.Response.StatusCode = 401;
-                        context.Response.ContentType = "application/json";
-                        var result = JsonConvert.SerializeObject(new
-                        {
-                            status = "un-authorized",
-                            message = "لطفا به حساب کاربری خود وارد شوید"
-                        });
-                        return context.Response.WriteAsync(result);
-                    },
-                    OnForbidden = context =>
-                    {
-                        context.Response.StatusCode = 403;
-                        context.Response.ContentType = "application/json";
-                        var result = JsonConvert.SerializeObject(new
-                        {
-                            status = "un-authorized",
-                            message = "لطفا به حساب کاربری خود وارد شوید"
-                        });
-                        return context.Response.WriteAsync(result);
-                    },
-                };
-
-                c.TokenValidationParameters = new TokenValidationParameters()
+                    options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+                    options.DefaultSignInScheme = JwtBearerDefaults.AuthenticationScheme;
+                    options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+                })
+                .AddJwtBearer(cfg =>
                 {
-                    ValidateIssuerSigningKey = true,
-                    ValidateIssuer = true,
-                    ValidateAudience = true,
-                    ValidateLifetime = true,
-                    ClockSkew = TimeSpan.Zero,
-                    ValidIssuer = jwtSettings.Issuer,
-                    ValidAudience = jwtSettings.Audiance,
-                    IssuerSigningKey = key
-                };
-            });
+                    cfg.RequireHttpsMetadata = false;
+                    cfg.SaveToken = true;
+                    cfg.TokenValidationParameters = new TokenValidationParameters
+                    {
+                        ValidIssuer = jwtSettings.Issuer,
+                        ValidateIssuer = true,
+                        ValidAudience = jwtSettings.Audiance,
+                        ValidateAudience = true,
+                        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtSettings.Secret)),
+                        ValidateIssuerSigningKey = true,
+                        ValidateLifetime = true,
+                        ClockSkew = TimeSpan.Zero
+                    };
+                    cfg.Events = new JwtBearerEvents
+                    {
+                        OnAuthenticationFailed = context =>
+                        {
+                            context.Response.StatusCode = 401;
+                            context.Response.ContentType = "application/json";
+                            return context.Response.WriteAsync(ProduceUnAuthorizedResponse(context.Exception.Message));
+                        },
+                        OnTokenValidated = context =>
+                        {
+                            var tokenValidatorService = context.HttpContext.RequestServices.GetRequiredService<ITokenValidatorService>();
+                            return tokenValidatorService.ValidateAsync(context);
+                        },
+                        OnMessageReceived = context =>
+                        {
+                            return Task.CompletedTask;
+                        },
+                        OnChallenge = context =>
+                        {
+                            context.HandleResponse();
+                            context.Response.StatusCode = 401;
+                            context.Response.ContentType = "application/json";
+                            return context.Response.WriteAsync(ProduceUnAuthorizedResponse());
+                        },
+                        OnForbidden = context =>
+                        {
+                            context.Response.StatusCode = 401;
+                            context.Response.ContentType = "application/json";
+                            return context.Response.WriteAsync(ProduceUnAuthorizedResponse());
+                        }
+                    };
+                });
 
         #endregion
+    }
+
+    private static string ProduceUnAuthorizedResponse(string message = "لطفا به حساب کاربری خود وارد شوید")
+    {
+        return JsonConvert.SerializeObject(new
+        {
+            status = "un-authorized",
+            message = message
+        });
     }
 }
