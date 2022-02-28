@@ -5,7 +5,7 @@ using BM.Application.Contracts.ArticleCategory.Queries;
 namespace Shoppy.WebApi.Controllers.Admin.Blog;
 
 [SwaggerTag("مدیریت دسته بندی مقالات")]
-public class AdminArticleCategoryController : BaseApiController
+public class AdminArticleCategoryController : BaseAdminApiController
 {
     #region Get Article Categories Select List
 

@@ -5,7 +5,7 @@ using SM.Application.Contracts.Product.Queries;
 namespace Shoppy.WebApi.Controllers.Admin.Shop;
 
 [SwaggerTag("مدیریت محصولات")]
-public class AdminProductController : BaseApiController
+public class AdminProductController : BaseAdminApiController
 {
     #region Filter Products
 

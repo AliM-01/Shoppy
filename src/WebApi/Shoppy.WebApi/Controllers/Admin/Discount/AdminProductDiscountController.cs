@@ -5,7 +5,7 @@ using DM.Application.Contracts.ProductDiscount.Queries;
 namespace Shoppy.WebApi.Controllers.Admin.Discount;
 
 [SwaggerTag("مدیریت تخفیفات محصول")]
-public class AdminProductDiscountController : BaseApiController
+public class AdminProductDiscountController : BaseAdminApiController
 {
     #region Filter Customer Discounts
 

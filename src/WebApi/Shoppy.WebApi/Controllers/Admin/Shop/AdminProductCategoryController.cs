@@ -5,7 +5,7 @@ using SM.Application.Contracts.ProductCategory.Queries;
 namespace Shoppy.WebApi.Controllers.Admin.Shop;
 
 [SwaggerTag("مدیریت دسته بندی محصولات")]
-public class AdminProductCategoryController : BaseApiController
+public class AdminProductCategoryController : BaseAdminApiController
 {
     #region Get ProductCategories List
 

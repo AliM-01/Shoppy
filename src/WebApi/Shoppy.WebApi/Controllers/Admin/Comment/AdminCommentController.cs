@@ -5,7 +5,7 @@ using CM.Application.Contracts.Inventory.Queries;
 namespace Shoppy.WebApi.Controllers.Admin.Comment;
 
 [SwaggerTag("مدیریت کامنت ها")]
-public class AdminCommentController : BaseApiController
+public class AdminCommentController : BaseAdminApiController
 {
     #region Filter Comment
 

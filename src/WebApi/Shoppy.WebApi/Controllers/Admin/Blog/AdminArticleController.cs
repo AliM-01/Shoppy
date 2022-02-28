@@ -5,7 +5,7 @@ using BM.Application.Contracts.Article.Queries;
 namespace Shoppy.WebApi.Controllers.Admin.Blog;
 
 [SwaggerTag("مدیریت مقالات")]
-public class AdminArticleController : BaseApiController
+public class AdminArticleController : BaseAdminApiController
 {
     #region Filter Articles
 

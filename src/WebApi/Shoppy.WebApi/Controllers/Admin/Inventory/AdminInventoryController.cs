@@ -5,7 +5,7 @@ using IM.Application.Contracts.Inventory.Queries;
 namespace Shoppy.WebApi.Controllers.Admin.Discount;
 
 [SwaggerTag("مدیریت انبار")]
-public class AdminInventoryController : BaseApiController
+public class AdminInventoryController : BaseAdminApiController
 {
     #region Filter Inventory
 

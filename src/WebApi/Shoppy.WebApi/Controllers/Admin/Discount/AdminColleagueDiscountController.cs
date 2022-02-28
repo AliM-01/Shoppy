@@ -5,7 +5,7 @@ using DM.Application.Contracts.ColleagueDiscount.Queries;
 namespace Shoppy.WebApi.Controllers.Admin.Discount;
 
 [SwaggerTag("مدیریت تخفیفات همکار")]
-public class AdminColleagueDiscountController : BaseApiController
+public class AdminColleagueDiscountController : BaseAdminApiController
 {
     #region Filter Colleague Discounts
 

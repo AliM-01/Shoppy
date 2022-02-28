@@ -5,7 +5,7 @@ using SM.Application.Contracts.Slider.Queries;
 namespace Shoppy.WebApi.Controllers.Admin.Shop;
 
 [SwaggerTag("مدیریت اسلایدر ها")]
-public class AdminSliderController : BaseApiController
+public class AdminSliderController : BaseAdminApiController
 {
     #region Get Sliders List
 

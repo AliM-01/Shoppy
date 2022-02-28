@@ -6,7 +6,7 @@ using SM.Application.Contracts.ProductPicture.Queries;
 namespace Shoppy.WebApi.Controllers.Admin.Shop;
 
 [SwaggerTag("مدیریت تصایر محصول")]
-public class AdminProductPictureController : BaseApiController
+public class AdminProductPictureController : BaseAdminApiController
 {
     #region Get Product Pictures
 
