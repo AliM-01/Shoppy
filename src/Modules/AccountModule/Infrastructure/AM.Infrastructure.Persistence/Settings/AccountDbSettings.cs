@@ -2,9 +2,6 @@
 
 namespace AM.Infrastructure.Persistence.Settings;
 
-public class AccountDbSettings : IBaseMongoDbSettings
+public class AccountDbSettings : BaseMongoDbSettings
 {
-    public string ConnectionString { get; set; }
-
-    public string DbName { get; set; }
 }

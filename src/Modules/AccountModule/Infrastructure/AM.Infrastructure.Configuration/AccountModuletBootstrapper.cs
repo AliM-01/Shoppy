@@ -1,4 +1,5 @@
-﻿using AM.Domain.Account;
+﻿using _0_Framework.Infrastructure.Helpers;
+using AM.Domain.Account;
 using AM.Infrastructure.Persistence.Seed;
 using AM.Infrastructure.Persistence.Settings;
 using MediatR;
@@ -17,7 +18,7 @@ namespace AM.Infrastructure.Configuration;
 
 public class AccountModuletBootstrapper
 {
-    public static async Task ConfigureAsync(IServiceCollection services, Microsoft.Extensions.Configuration.IConfiguration config)
+    public static async Task ConfigureAsync(IServiceCollection services, IConfiguration config)
     {
         #region db config
 
@@ -33,6 +34,8 @@ public class AccountModuletBootstrapper
             (
                accountDbSettings.ConnectionString, accountDbSettings.DbName
             );
+
+        services.AddScoped<IGenericRepository<UserToken>, GenericRepository<UserToken, AccountDbSettings>>();
 
         services.AddMediatR(typeof(AccountModuletBootstrapper).Assembly);
 
