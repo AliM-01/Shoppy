@@ -1,8 +1,9 @@
 ﻿using _0_Framework.Application.Exceptions;
+using AM.Application.Contracts.Account.DTOs;
 using AM.Application.Contracts.Services;
 namespace AM.Application.Account.CommandHandles;
 
-public class AuthenticateUserCommandHandler : IRequestHandler<AuthenticateUserCommand, Response<string>>
+public class AuthenticateUserCommandHandler : IRequestHandler<AuthenticateUserCommand, Response<AuthenticateUserResponseDto>>
 {
     #region Ctor
 
@@ -27,7 +28,7 @@ ITokenStoreService tokenStoreService)
 
     #endregion Ctor
 
-    public async Task<Response<string>> Handle(AuthenticateUserCommand request, CancellationToken cancellationToken)
+    public async Task<Response<AuthenticateUserResponseDto>> Handle(AuthenticateUserCommand request, CancellationToken cancellationToken)
     {
         var user = await _userManager.FindByEmailAsync(request.Account.Email);
 
@@ -42,6 +43,9 @@ ITokenStoreService tokenStoreService)
         if (!user.EmailConfirmed)
             throw new ApiException("حساب کاربری شما فعال نیست");
 
-        return new Response<string>("احراز هویت با موفقیت انجام شد");
+        var token = await _tokenFactoryService.CreateJwtTokenAsync(user);
+        await _tokenStoreService.AddUserToken(user, token.RefreshTokenSerial, token.AccessToken, null);
+
+        return new Response<AuthenticateUserResponseDto>(new AuthenticateUserResponseDto(token));
     }
 }
