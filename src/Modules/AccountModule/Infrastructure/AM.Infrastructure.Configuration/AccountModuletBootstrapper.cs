@@ -1,5 +1,6 @@
 ﻿using _0_Framework.Infrastructure.Helpers;
 using AM.Domain.Account;
+using AM.Domain.Enums;
 using AM.Infrastructure.Persistence.Seed;
 using AM.Infrastructure.Persistence.Settings;
 using MediatR;
@@ -60,6 +61,12 @@ public class AccountModuletBootstrapper
         services.AddSingleton<JwtSettings>(sp =>
         {
             return (JwtSettings)config.GetSection("JwtSettings").Get(typeof(JwtSettings));
+        });
+
+        services.AddAuthorization(options =>
+        {
+            options.AddPolicy(RoleConstants.Admin, policy => policy.RequireRole(RoleConstants.Admin));
+            options.AddPolicy(RoleConstants.BasicUser, policy => policy.RequireRole(RoleConstants.BasicUser));
         });
 
         var jwtSettings = services.BuildServiceProvider().GetRequiredService<JwtSettings>();

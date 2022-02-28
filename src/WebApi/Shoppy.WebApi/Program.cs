@@ -41,19 +41,17 @@ else
 
 app.UseErrorHandlingMiddleware();
 app.UseHttpsRedirection();
-
+app.UseStatusCodePages();
 app.UseStaticFiles();
-
-app.UseCors(options =>
-{
-    options.AllowAnyHeader()
-        .AllowAnyMethod()
-        .AllowAnyOrigin();
-});
+app.UseSwaggerExtension("Shoppy.WebApi");
 
 app.UseRouting();
 
-app.UseSwaggerExtension("Shoppy.WebApi");
+app.UseAuthentication();
+
+app.UseCors("CorsPolicy");
+
+app.UseAuthorization();
 
 app.UseEndpoints(endpoints =>
 {
