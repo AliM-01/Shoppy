@@ -34,6 +34,8 @@ public class RegisterAccountCommandHandler : IRequestHandler<RegisterAccountComm
 
         var user = _mapper.Map(request.Account, new Domain.Account.Account());
 
+        user.SerialNumber = Guid.NewGuid().ToString("N");
+
         var result = await _userManager.CreateAsync(user, request.Account.Password);
 
         if (!result.Succeeded)

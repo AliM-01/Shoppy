@@ -35,6 +35,10 @@ public class ChangePasswordCommandHandler : IRequestHandler<ChangePasswordComman
         if (!changePasswordResult.Succeeded)
             throw new ApiException("رمز عبور جدید نباید با رمز عبور فعلی یکسان باشد");
 
+        user.SerialNumber = Guid.NewGuid().ToString("N");
+
+        await _userManager.UpdateAsync(user);
+
         return new Response<string>("حساب کاربری شما با موفقیت ویرایش شد");
     }
 }
