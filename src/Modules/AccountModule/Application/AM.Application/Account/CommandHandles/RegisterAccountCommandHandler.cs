@@ -1,5 +1,4 @@
 ﻿using _0_Framework.Application.Exceptions;
-using _0_Framework.Application.Extensions;
 using AM.Domain.Enums;
 using AM.Infrastructure.Persistence.Settings;
 namespace AM.Application.Account.CommandHandles;
@@ -33,14 +32,7 @@ public class RegisterAccountCommandHandler : IRequestHandler<RegisterAccountComm
         if (userWithSameEmail != null)
             throw new ApiException($"ایمیل وارد شده <${request.Account.Email}> تکراری می‌ باشد");
 
-        var user = new Domain.Account.Account
-        {
-            UserName = Generators.GenerateRandomUsername(),
-            Email = request.Account.Email.Trim(),
-            Avatar = "default-avatar.png"
-        };
-
-        _mapper.Map(request.Account, user);
+        var user = _mapper.Map(request.Account, new Domain.Account.Account());
 
         var result = await _userManager.CreateAsync(user, request.Account.Password);
 
