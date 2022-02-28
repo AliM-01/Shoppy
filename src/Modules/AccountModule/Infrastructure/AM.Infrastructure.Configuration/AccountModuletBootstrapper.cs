@@ -1,4 +1,6 @@
 ﻿using _0_Framework.Infrastructure.Helpers;
+using AM.Application.Contracts.Services;
+using AM.Application.Services;
 using AM.Domain.Account;
 using AM.Domain.Enums;
 using AM.Infrastructure.Persistence.Seed;
@@ -55,6 +57,11 @@ public class AccountModuletBootstrapper
         }
 
         #endregion
+
+        services.AddScoped<ITokenFactoryService, TokenFactoryService>();
+        services.AddScoped<ITokenStoreService, TokenStoreService>();
+        services.AddScoped<ITokenValidatorService, TokenValidatorService>();
+
 
         #region auth config
 
