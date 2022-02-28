@@ -1,6 +1,8 @@
 ﻿using AM.Application.Contracts.Account.Commands;
 using AM.Application.Contracts.Account.DTOs;
+using AM.Application.Contracts.Services;
 using Microsoft.AspNetCore.Authorization;
+using System.Security.Claims;
 
 namespace Shoppy.WebApi.Controllers.Main.Account;
 
@@ -8,6 +10,17 @@ namespace Shoppy.WebApi.Controllers.Main.Account;
 [SwaggerTag("احراز هویت")]
 public class AccountController : BaseApiController
 {
+    #region ctor
+
+    private readonly ITokenStoreService _tokenStoreService;
+
+    public AccountController(ITokenStoreService tokenStoreService)
+    {
+        _tokenStoreService = tokenStoreService;
+    }
+
+    #endregion
+
     #region Register
 
     [HttpGet(MainAccountApiEndpoints.Account.Register)]
@@ -53,7 +66,7 @@ public class AccountController : BaseApiController
 
     #endregion
 
-    #region Login
+    #region ForgotPassword
 
     [HttpGet(MainAccountApiEndpoints.Account.ForgotPassword)]
     [SwaggerOperation(Summary = "فراموشی رمز عبور", Tags = new[] { "Account" })]
@@ -68,4 +81,21 @@ public class AccountController : BaseApiController
 
     #endregion
 
+    #region Logout
+
+    [HttpGet(MainAccountApiEndpoints.Account.Logout)]
+    [SwaggerOperation(Summary = "خروج از حساب", Tags = new[] { "Account" })]
+    [SwaggerResponse(200, "success")]
+    [SwaggerResponse(404, "not-found")]
+    public async Task<IActionResult> Logout([FromBody] RevokeRefreshTokenRequestDto token)
+    {
+        var claimsIdentity = this.User.Identity as ClaimsIdentity;
+        var userId = claimsIdentity.FindFirst(ClaimTypes.UserData)?.Value;
+
+        await _tokenStoreService.RevokeUserBearerTokens(userId, token.RefreshToken);
+
+        return JsonApiResult.Success();
+    }
+
+    #endregion
 }

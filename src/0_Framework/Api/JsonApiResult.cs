@@ -7,6 +7,17 @@ public static class JsonApiResult
 {
     #region Success
 
+    public static OkObjectResult Success(string msg = "عملیات با موفقیت انجام شد")
+    {
+        var res = CustonJsonConverter.Serialize(new
+        {
+            status = "success",
+            message = msg
+        });
+
+        return new OkObjectResult(res);
+    }
+
     public static OkObjectResult Success<T>(Response<T> response)
     {
         var res = CustonJsonConverter.Serialize(response);
