@@ -15,5 +15,7 @@ public class MainAccountApiEndpoints
         public const string ForgotPassword = BaseMainAccountRoute + "/forgot-password";
 
         public const string Logout = BaseMainAccountRoute + "/logout";
+
+        public const string IsAuthenticated = BaseMainAccountRoute + "/is-authenticated";
     }
 }

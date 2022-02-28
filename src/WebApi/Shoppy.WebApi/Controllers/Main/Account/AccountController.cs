@@ -98,4 +98,22 @@ public class AccountController : BaseApiController
     }
 
     #endregion
+
+    #region IsAuthenticated
+
+    [HttpGet(MainAccountApiEndpoints.Account.IsAuthenticated)]
+    [SwaggerOperation(Summary = "Is Authenticated", Tags = new[] { "Account" })]
+    [SwaggerResponse(200, "success")]
+    [SwaggerResponse(401, "un-authorized")]
+    public IActionResult IsAuthenticated()
+    {
+        bool isAuth = this.User.Identity.IsAuthenticated;
+
+        if (isAuth)
+            return JsonApiResult.Success();
+
+        return JsonApiResult.Unauthorized();
+    }
+
+    #endregion
 }
