@@ -29,11 +29,16 @@ public class ChangePasswordCommandHandler : IRequestHandler<ChangePasswordComman
         if (!isCorrectPassword)
             throw new ApiException("رمز فعلی وارد شده اشتباه است");
 
+        var verifyPasswordResult = _userManager.PasswordHasher.VerifyHashedPassword(user, user.PasswordHash, request.Password.NewPassword);
+
+        if (verifyPasswordResult == PasswordVerificationResult.Failed)
+            throw new ApiException("رمز عبور جدید نباید با رمز عبور فعلی یکسان باشد");
+
         var changePasswordResult = await _userManager
             .ChangePasswordAsync(user, request.Password.OldPassword, request.Password.NewPassword);
 
         if (!changePasswordResult.Succeeded)
-            throw new ApiException("رمز عبور جدید نباید با رمز عبور فعلی یکسان باشد");
+            throw new ApiException("عملیات با خطا مواجه شد");
 
         user.SerialNumber = Guid.NewGuid().ToString("N");
 

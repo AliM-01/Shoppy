@@ -32,6 +32,10 @@ public class ForgotPasswordCommandHandler : IRequestHandler<ForgotPasswordComman
 
         await _userManager.AddPasswordAsync(user, newPassword);
 
+        user.SerialNumber = Guid.NewGuid().ToString("N");
+
+        await _userManager.UpdateAsync(user);
+
         return new Response<string>("رمز عبور شما تغییر کرد و برای شما ارسال شد. لطفا بعد از ورود به حساب آن را تغییر دهید");
     }
 }
