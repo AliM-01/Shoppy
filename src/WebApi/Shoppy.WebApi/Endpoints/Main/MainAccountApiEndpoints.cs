@@ -11,5 +11,7 @@ public class MainAccountApiEndpoints
         public const string Login = BaseMainAccountRoute + "/login";
 
         public const string RefreshToken = BaseMainAccountRoute + "/refresh-token";
+
+        public const string ForgotPassword = BaseMainAccountRoute + "/forgot-password";
     }
 }

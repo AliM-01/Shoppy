@@ -29,9 +29,9 @@ public class AccountController : BaseApiController
     [SwaggerOperation(Summary = "ورود به حساب", Tags = new[] { "Account" })]
     [SwaggerResponse(200, "success")]
     [SwaggerResponse(400, "not active")]
-    public async Task<IActionResult> Login([FromForm] AuthenticateUserRequestDto Login)
+    public async Task<IActionResult> Login([FromForm] AuthenticateUserRequestDto login)
     {
-        var res = await Mediator.Send(new AuthenticateUserCommand(Login));
+        var res = await Mediator.Send(new AuthenticateUserCommand(login));
 
         return JsonApiResult.Success(res);
     }
@@ -44,12 +44,28 @@ public class AccountController : BaseApiController
     [SwaggerOperation(Summary = "refresh token", Tags = new[] { "Account" })]
     [SwaggerResponse(200, "success")]
     [SwaggerResponse(404, "not found")]
-    public async Task<IActionResult> RefreshToken([FromBody] RevokeRefreshTokenRequestDto Token)
+    public async Task<IActionResult> RefreshToken([FromBody] RevokeRefreshTokenRequestDto token)
     {
-        var res = await Mediator.Send(new RevokeRefreshTokenCommand(Token));
+        var res = await Mediator.Send(new RevokeRefreshTokenCommand(token));
 
         return JsonApiResult.Success(res);
     }
 
     #endregion
+
+    #region Login
+
+    [HttpGet(MainAccountApiEndpoints.Account.ForgotPassword)]
+    [SwaggerOperation(Summary = "فراموشی رمز عبور", Tags = new[] { "Account" })]
+    [SwaggerResponse(200, "success")]
+    [SwaggerResponse(404, "not-found")]
+    public async Task<IActionResult> ForgotPassword([FromForm] ForgotPasswordDto forgotPassword)
+    {
+        var res = await Mediator.Send(new ForgotPasswordCommand(forgotPassword));
+
+        return JsonApiResult.Success(res);
+    }
+
+    #endregion
+
 }
