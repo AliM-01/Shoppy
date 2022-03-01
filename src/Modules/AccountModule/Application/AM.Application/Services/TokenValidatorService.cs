@@ -16,8 +16,8 @@ public class TokenValidatorService : ITokenValidatorService
 
     public TokenValidatorService(UserManager<Domain.Account.Account> userManager, ITokenStoreService tokenStoreService)
     {
-        _userManager = userManager;
-        _tokenStoreService = tokenStoreService;
+        _userManager = Guard.Against.Null(userManager, nameof(_userManager));
+        _tokenStoreService = Guard.Against.Null(tokenStoreService, nameof(_tokenStoreService));
     }
 
     #endregion

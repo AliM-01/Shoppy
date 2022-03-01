@@ -24,10 +24,10 @@ public class TokenFactoryService : ITokenFactoryService
         IOptionsSnapshot<BearerTokenSettings> tokentSettings,
         ILogger<TokenFactoryService> logger)
     {
-        _securityService = securityService;
-        _userManager = userManager;
+        _securityService = Guard.Against.Null(securityService, nameof(_securityService));
+        _userManager = Guard.Against.Null(userManager, nameof(_userManager));
         _tokentSettings = tokentSettings.Value;
-        _logger = logger;
+        _logger = Guard.Against.Null(logger, nameof(_logger));
     }
 
     #endregion

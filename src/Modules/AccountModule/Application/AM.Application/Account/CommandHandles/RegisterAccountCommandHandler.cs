@@ -1,6 +1,5 @@
 ﻿using _0_Framework.Application.Exceptions;
 using AM.Domain.Enums;
-using AM.Infrastructure.Persistence.Settings;
 namespace AM.Application.Account.CommandHandles;
 
 public class RegisterAccountCommandHandler : IRequestHandler<RegisterAccountCommand, Response<string>>
@@ -10,17 +9,14 @@ public class RegisterAccountCommandHandler : IRequestHandler<RegisterAccountComm
     private readonly IMapper _mapper;
     private readonly UserManager<Domain.Account.Account> _userManager;
     private readonly SignInManager<Domain.Account.Account> _signInManager;
-    private readonly JwtSettings _jwtSettings;
 
     public RegisterAccountCommandHandler(IMapper mapper,
                                          UserManager<Domain.Account.Account> userManager,
-                                         SignInManager<Domain.Account.Account> signInManager,
-                                         IOptionsSnapshot<JwtSettings> jwtSettings)
+                                         SignInManager<Domain.Account.Account> signInManager)
     {
         _mapper = Guard.Against.Null(mapper, nameof(_mapper));
         _userManager = Guard.Against.Null(userManager, nameof(_userManager));
         _signInManager = Guard.Against.Null(signInManager, nameof(_signInManager));
-        _jwtSettings = jwtSettings.Value;
     }
 
     #endregion Ctor

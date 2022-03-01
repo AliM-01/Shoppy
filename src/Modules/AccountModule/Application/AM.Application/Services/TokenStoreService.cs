@@ -25,11 +25,11 @@ public class TokenStoreService : ITokenStoreService
         IOptionsSnapshot<BearerTokenSettings> tokenSettings,
         ITokenFactoryService tokenFactoryService)
     {
-        _userManager = userManager;
-        _securityService = securityService;
-        _userTokenRepository = userTokenRepository;
+        _securityService = Guard.Against.Null(securityService, nameof(_securityService));
+        _userManager = Guard.Against.Null(userManager, nameof(_userManager));
+        _userTokenRepository = Guard.Against.Null(userTokenRepository, nameof(_userTokenRepository));
         _tokenSettings = tokenSettings.Value;
-        _tokenFactoryService = tokenFactoryService;
+        _tokenFactoryService = Guard.Against.Null(tokenFactoryService, nameof(_tokenFactoryService));
     }
 
     #endregion

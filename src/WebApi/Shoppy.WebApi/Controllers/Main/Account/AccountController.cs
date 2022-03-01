@@ -1,6 +1,7 @@
 ﻿using AM.Application.Contracts.Account.Commands;
 using AM.Application.Contracts.Account.DTOs;
 using AM.Application.Contracts.Services;
+using Ardalis.GuardClauses;
 using Microsoft.AspNetCore.Authorization;
 using System.Security.Claims;
 
@@ -16,7 +17,7 @@ public class AccountController : BaseApiController
 
     public AccountController(ITokenStoreService tokenStoreService)
     {
-        _tokenStoreService = tokenStoreService;
+        _tokenStoreService = Guard.Against.Null(tokenStoreService, nameof(_tokenStoreService));
     }
 
     #endregion
