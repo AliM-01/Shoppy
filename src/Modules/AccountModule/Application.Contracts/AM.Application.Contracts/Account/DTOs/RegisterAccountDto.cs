@@ -1,6 +1,4 @@
-﻿using Microsoft.AspNetCore.Http;
-
-namespace AM.Application.Contracts.Account.DTOs;
+﻿namespace AM.Application.Contracts.Account.DTOs;
 
 public class RegisterAccountDto
 {
@@ -18,7 +16,4 @@ public class RegisterAccountDto
 
     [JsonProperty("confirmPassword")]
     public string ConfirmPassword { get; set; }
-
-    [JsonProperty("imageFile")]
-    public IFormFile ImageFile { get; set; }
 }

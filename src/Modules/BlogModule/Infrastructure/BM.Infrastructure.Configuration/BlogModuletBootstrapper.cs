@@ -32,7 +32,7 @@ public class BlogModuletBootstrapper
                 var categories = BlogDbDataSeed.SeedArticleCategoryData(articleService.ArticleCategories);
                 BlogDbDataSeed.SeedArticleData(articleService.Articles, categories);
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 throw;
             }

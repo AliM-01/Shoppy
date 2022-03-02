@@ -25,14 +25,21 @@ public class AccountModuletBootstrapper
     {
         #region db config
 
-        services.AddSingleton<AccountDbSettings>(sp =>
+        var accountDbSettings = (AccountDbSettings)config.GetSection("AccountDbSettings").Get(typeof(AccountDbSettings));
+
+        services.Configure<AccountDbSettings>(config.GetSection("AccountDbSettings"));
+
+        services.AddIdentity<Account, AccountRole>(options =>
         {
-            return (AccountDbSettings)config.GetSection("AccountDbSettings").Get(typeof(AccountDbSettings));
-        });
-
-        var accountDbSettings = services.BuildServiceProvider().GetRequiredService<AccountDbSettings>();
-
-        services.AddIdentity<Account, AccountRole>()
+            options.Password.RequireDigit = false;
+            options.Password.RequireLowercase = false;
+            options.Password.RequireNonAlphanumeric = false;
+            options.Password.RequireUppercase = false;
+            options.Password.RequiredLength = 6;
+            options.Password.RequiredUniqueChars = 0;
+            options.User.RequireUniqueEmail = true;
+            //options.SignIn.RequireConfirmedEmail = true;
+        })
             .AddMongoDbStores<Account, AccountRole, Guid>
             (
                accountDbSettings.ConnectionString, accountDbSettings.DbName
@@ -42,15 +49,15 @@ public class AccountModuletBootstrapper
 
         services.AddMediatR(typeof(AccountModuletBootstrapper).Assembly);
 
-        using (var sp = services.BuildServiceProvider())
+        using (var scope = services.BuildServiceProvider().CreateScope())
         {
             try
             {
-                var roleManager = sp.GetRequiredService<RoleManager<AccountRole>>();
+                var roleManager = scope.ServiceProvider.GetRequiredService<RoleManager<AccountRole>>();
                 await SeedDefaultRoles.SeedAsync(roleManager);
 
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 throw;
             }
@@ -66,18 +73,15 @@ public class AccountModuletBootstrapper
 
         #region auth config
 
-        services.AddSingleton<JwtSettings>(sp =>
-        {
-            return (JwtSettings)config.GetSection("JwtSettings").Get(typeof(JwtSettings));
-        });
+        var jwtSettings = (JwtSettings)config.GetSection("JwtSettings").Get(typeof(JwtSettings));
+
+        services.Configure<JwtSettings>(config.GetSection("JwtSettings"));
 
         services.AddAuthorization(options =>
         {
             options.AddPolicy(RoleConstants.Admin, policy => policy.RequireRole(RoleConstants.Admin));
             options.AddPolicy(RoleConstants.BasicUser, policy => policy.RequireRole(RoleConstants.BasicUser));
         });
-
-        var jwtSettings = services.BuildServiceProvider().GetRequiredService<JwtSettings>();
 
         services
                 .AddAuthentication(options =>

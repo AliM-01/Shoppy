@@ -40,7 +40,7 @@ public class EditAccountCommandHandler : IRequestHandler<EditAccountCommand, Res
         var result = await _userManager.UpdateAsync(user);
 
         if (!result.Succeeded)
-            throw new ApiException($"${result.Errors.First()}");
+            throw new ApiException($"${result.Errors.First().Description}");
 
         return new Response<string>("کاربر با موفقیت ویرایش شد");
     }

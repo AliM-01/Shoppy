@@ -35,7 +35,7 @@ public class RegisterAccountCommandHandler : IRequestHandler<RegisterAccountComm
         var result = await _userManager.CreateAsync(user, request.Account.Password);
 
         if (!result.Succeeded)
-            throw new ApiException($"${result.Errors.First()}");
+            throw new ApiException($"${result.Errors.First().Description}");
 
         await _userManager.AddToRoleAsync(user, Roles.BasicUser.ToString());
 

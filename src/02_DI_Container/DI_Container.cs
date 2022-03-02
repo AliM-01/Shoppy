@@ -1,5 +1,6 @@
 ﻿using _01_Shoppy.Query;
 using _02_DI_Container.Extensions.Startup;
+using AM.Application;
 using AM.Infrastructure.Configuration;
 using AM.Infrastructure.Shared.Mappings;
 using BM.Application;
@@ -51,6 +52,7 @@ public static class DI_Container
             typeof(IIMAssemblyMarker),
             typeof(ICMAssemblyMarker),
             typeof(IBMAssemblyMarker),
+            typeof(IAMAssemblyMarker),
             typeof(IShoppyQueryAsseblyMarker),
         });
 
