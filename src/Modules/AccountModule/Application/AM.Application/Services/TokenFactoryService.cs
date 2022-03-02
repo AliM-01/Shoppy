@@ -69,14 +69,14 @@ public class TokenFactoryService : ITokenFactoryService
                 new Claim(ClaimTypes.SerialNumber, refreshTokenSerial, ClaimValueTypes.String, _tokentSettings.Issuer)
             };
 
-        var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_tokentSettings.Key));
+        var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_tokentSettings.Secret));
         var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
 
         var now = DateTime.UtcNow;
 
         var token = new JwtSecurityToken(
             issuer: _tokentSettings.Issuer,
-            audience: _tokentSettings.Audience,
+            audience: _tokentSettings.Audiance,
             claims: claims,
             notBefore: now,
             expires: now.AddMinutes(_tokentSettings.RefreshTokenExpirationMinutes),
@@ -106,7 +106,7 @@ public class TokenFactoryService : ITokenFactoryService
                     RequireExpirationTime = true,
                     ValidateIssuer = false,
                     ValidateAudience = false,
-                    IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_tokentSettings.Key)),
+                    IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_tokentSettings.Secret)),
                     ValidateIssuerSigningKey = true, // verify signature to avoid tampering
                     ValidateLifetime = true, // validate the expiration
                     ClockSkew = TimeSpan.Zero // tolerance for the expiration date
@@ -149,12 +149,12 @@ public class TokenFactoryService : ITokenFactoryService
             claims.Add(new Claim(ClaimTypes.Role, role, ClaimValueTypes.String, _tokentSettings.Issuer));
         }
 
-        var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_tokentSettings.Key));
+        var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_tokentSettings.Secret));
         var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
         var now = DateTime.UtcNow;
         var token = new JwtSecurityToken(
             issuer: _tokentSettings.Issuer,
-            audience: _tokentSettings.Audience,
+            audience: _tokentSettings.Audiance,
             claims: claims,
             notBefore: now,
             expires: now.AddMinutes(_tokentSettings.AccessTokenExpirationMinutes),

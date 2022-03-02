@@ -1,5 +1,6 @@
 ﻿using _0_Framework.Api;
 using _0_Framework.Infrastructure.Helpers;
+using AM.Application.Contracts.Common.Settings;
 using AM.Application.Contracts.Services;
 using AM.Application.Services;
 using AM.Domain.Account;
@@ -38,7 +39,7 @@ public class AccountModuletBootstrapper
             options.Password.RequiredLength = 6;
             options.Password.RequiredUniqueChars = 0;
             options.User.RequireUniqueEmail = true;
-            //options.SignIn.RequireConfirmedEmail = true;
+            options.SignIn.RequireConfirmedEmail = true;
         })
             .AddMongoDbStores<Account, AccountRole, Guid>
             (
@@ -73,9 +74,9 @@ public class AccountModuletBootstrapper
 
         #region auth config
 
-        var jwtSettings = (JwtSettings)config.GetSection("JwtSettings").Get(typeof(JwtSettings));
+        var bearerTokenSettings = (BearerTokenSettings)config.GetSection("BearerTokenSettings").Get(typeof(BearerTokenSettings));
 
-        services.Configure<JwtSettings>(config.GetSection("JwtSettings"));
+        services.Configure<BearerTokenSettings>(config.GetSection("BearerTokenSettings"));
 
         services.AddAuthorization(options =>
         {
@@ -96,11 +97,11 @@ public class AccountModuletBootstrapper
                     cfg.SaveToken = true;
                     cfg.TokenValidationParameters = new TokenValidationParameters
                     {
-                        ValidIssuer = jwtSettings.Issuer,
+                        ValidIssuer = bearerTokenSettings.Issuer,
                         ValidateIssuer = true,
-                        ValidAudience = jwtSettings.Audiance,
+                        ValidAudience = bearerTokenSettings.Audiance,
                         ValidateAudience = true,
-                        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtSettings.Secret)),
+                        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(bearerTokenSettings.Secret)),
                         ValidateIssuerSigningKey = true,
                         ValidateLifetime = true,
                         ClockSkew = TimeSpan.Zero
