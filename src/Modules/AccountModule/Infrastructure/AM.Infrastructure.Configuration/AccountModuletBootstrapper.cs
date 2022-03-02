@@ -44,7 +44,9 @@ public class AccountModuletBootstrapper
             .AddMongoDbStores<Account, AccountRole, Guid>
             (
                accountDbSettings.ConnectionString, accountDbSettings.DbName
-            );
+            )
+            .AddDefaultTokenProviders()
+            .AddErrorDescriber<PersianIdentity.PersianIdentityErrorDescriber>();
 
         services.AddScoped<IGenericRepository<UserToken>, GenericRepository<UserToken, AccountDbSettings>>();
 
