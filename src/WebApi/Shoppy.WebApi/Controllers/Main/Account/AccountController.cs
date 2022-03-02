@@ -111,7 +111,7 @@ public class AccountController : BaseApiController
         bool isAuth = this.User.Identity.IsAuthenticated;
 
         if (isAuth)
-            return JsonApiResult.Success();
+            return JsonApiResult.Success("احراز هویت با موفقیت انجام شد");
 
         return JsonApiResult.Unauthorized();
     }

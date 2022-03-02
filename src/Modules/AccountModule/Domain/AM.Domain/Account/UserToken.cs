@@ -15,6 +15,7 @@ public class UserToken : EntityBase
     public string AccessTokenHash { get; set; }
 
     [BsonElement("accessTokenExpiresDateTime")]
+    [BsonRepresentation(BsonType.String)]
     public DateTimeOffset AccessTokenExpiresDateTime { get; set; }
 
     [BsonElement("refreshTokenIdHash")]
@@ -24,5 +25,6 @@ public class UserToken : EntityBase
     public string RefreshTokenIdHashSource { get; set; }
 
     [BsonElement("refreshTokenExpiresDateTime")]
+    [BsonRepresentation(BsonType.String)]
     public DateTimeOffset RefreshTokenExpiresDateTime { get; set; }
 }

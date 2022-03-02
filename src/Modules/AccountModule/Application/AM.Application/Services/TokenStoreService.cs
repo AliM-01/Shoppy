@@ -3,7 +3,6 @@ using _0_Framework.Infrastructure.Helpers;
 using AM.Application.Contracts.Common.Settings;
 using AM.Application.Contracts.Services;
 using AM.Domain.Account;
-using Microsoft.EntityFrameworkCore;
 using MongoDB.Driver;
 
 namespace AM.Application.Services;
@@ -191,9 +190,10 @@ public class TokenStoreService : ITokenStoreService
 
         var userToken = await _userTokenRepository
             .AsQueryable()
-            .FirstOrDefaultAsync(x => x.AccessTokenHash == accessTokenHash && x.UserId == userId);
+            .Where(x => x.AccessTokenHash == accessTokenHash && x.UserId == userId)
+            .ToListAsyncSafe();
 
-        return userToken?.AccessTokenExpiresDateTime >= DateTimeOffset.UtcNow;
+        return userToken.First().AccessTokenExpiresDateTime >= DateTimeOffset.UtcNow;
     }
 
     #endregion

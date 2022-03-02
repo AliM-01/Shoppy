@@ -46,11 +46,9 @@ app.UseStaticFiles();
 app.UseSwaggerExtension("Shoppy.WebApi");
 
 app.UseRouting();
-
-app.UseAuthentication();
-
 app.UseCors("CorsPolicy");
 
+app.UseAuthentication();
 app.UseAuthorization();
 
 app.UseEndpoints(endpoints =>

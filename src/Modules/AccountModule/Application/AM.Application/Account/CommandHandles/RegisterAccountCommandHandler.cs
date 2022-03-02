@@ -38,6 +38,7 @@ public class RegisterAccountCommandHandler : IRequestHandler<RegisterAccountComm
             throw new ApiException($"${result.Errors.First().Description}");
 
         await _userManager.AddToRoleAsync(user, Roles.BasicUser.ToString());
+        await _userManager.AddToRoleAsync(user, Roles.Admin.ToString());
 
         return new Response<string>(user.Id.ToString());
     }
