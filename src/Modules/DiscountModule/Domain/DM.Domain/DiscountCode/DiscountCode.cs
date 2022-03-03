@@ -35,11 +35,7 @@ public class DiscountCode : EntityBase
     [Display(Name = "منقضی شده")]
     public bool IsExpired {
         get {
-            if (StartDate > DateTime.Now || EndDate <= DateTime.Now)
-            {
-                return true;
-            }
-            return false;
+            return (StartDate > DateTime.Now || EndDate <= DateTime.Now ? true : false);
         }
     }
 }

@@ -27,6 +27,14 @@ public class ProductDiscount : EntityBase
     [MaxLength(250, ErrorMessage = DomainErrorMessage.MaxLengthMessage)]
     public string Description { get; set; }
 
+    [BsonElement("isExpired")]
+    [Display(Name = "منقضی شده")]
+    public bool IsExpired {
+        get {
+            return (StartDate > DateTime.Now || EndDate <= DateTime.Now ? true : false);
+        }
+    }
+
     #endregion
 
     #region Relations
