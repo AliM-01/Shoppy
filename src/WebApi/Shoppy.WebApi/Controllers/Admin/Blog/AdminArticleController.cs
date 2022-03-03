@@ -9,7 +9,7 @@ public class AdminArticleController : BaseAdminApiController
 {
     #region Filter Articles
 
-    [HttpGet(AdminBlogBlogApiEndpoints.Article.FilterArticles)]
+    [HttpGet(AdminBlogApiEndpoints.Article.FilterArticles)]
     [SwaggerOperation(Summary = "فیلتر  مقالات", Tags = new[] { "AdminArticle" })]
     [SwaggerResponse(200, "success")]
     public async Task<IActionResult> FilterArticles([FromQuery] FilterArticleDto filter)
@@ -23,7 +23,7 @@ public class AdminArticleController : BaseAdminApiController
 
     #region Get Article Details
 
-    [HttpGet(AdminBlogBlogApiEndpoints.Article.GetArticleDetails)]
+    [HttpGet(AdminBlogApiEndpoints.Article.GetArticleDetails)]
     [SwaggerOperation(Summary = "دریافت جزییات  مقاله", Tags = new[] { "AdminArticle" })]
     [SwaggerResponse(200, "success")]
     [SwaggerResponse(404, "not-found")]
@@ -38,7 +38,7 @@ public class AdminArticleController : BaseAdminApiController
 
     #region Create Article 
 
-    [HttpPost(AdminBlogBlogApiEndpoints.Article.CreateArticle)]
+    [HttpPost(AdminBlogApiEndpoints.Article.CreateArticle)]
     [SwaggerOperation(Summary = "ایجاد  مقاله", Tags = new[] { "AdminArticle" })]
     [SwaggerResponse(201, "success : created")]
     [SwaggerResponse(400, "error : title is duplicated")]
@@ -53,7 +53,7 @@ public class AdminArticleController : BaseAdminApiController
 
     #region Edit Article 
 
-    [HttpPut(AdminBlogBlogApiEndpoints.Article.EditArticle)]
+    [HttpPut(AdminBlogApiEndpoints.Article.EditArticle)]
     [SwaggerOperation(Summary = "ویرایش  مقاله", Tags = new[] { "AdminArticle" })]
     [SwaggerResponse(201, "success : created")]
     [SwaggerResponse(400, "error : title is duplicated")]
@@ -69,7 +69,7 @@ public class AdminArticleController : BaseAdminApiController
 
     #region Delete Article 
 
-    [HttpDelete(AdminBlogBlogApiEndpoints.Article.DeleteArticle)]
+    [HttpDelete(AdminBlogApiEndpoints.Article.DeleteArticle)]
     [SwaggerOperation(Summary = "حذف  مقاله", Tags = new[] { "AdminArticle" })]
     [SwaggerResponse(201, "success : created")]
     [SwaggerResponse(404, "not-found")]

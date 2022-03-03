@@ -1,6 +1,6 @@
 ﻿namespace Shoppy.WebApi.Endpoints.Admin;
 
-public class AdminBlogBlogApiEndpoints
+public class AdminBlogApiEndpoints
 {
     private const string BaseAdminBlogRoute = BaseApiEndpointRoutes.AdminBaseRoute + "/blog";
 
