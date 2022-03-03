@@ -14,17 +14,13 @@ public static class DiscountDbSeed
 
         if (!existsDiscount)
         {
+            const string description = "لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ";
+
             DiscountCode[] discountToAdd =
             {
                 new DiscountCode
                 {
-                    Code = Generators.GenerateCode(),
-                    Rate = 25,
-                    StartDate = DateTime.UtcNow,
-                    EndDate = DateTime.UtcNow.AddDays(30),
-                },
-                new DiscountCode
-                {
+                    Description = description,
                     Code = Generators.GenerateCode(),
                     Rate = 10,
                     StartDate = DateTime.UtcNow,
@@ -32,6 +28,7 @@ public static class DiscountDbSeed
                 },
                 new DiscountCode
                 {
+                    Description = description,
                     Code = Generators.GenerateCode(),
                     Rate = 75,
                     StartDate = DateTime.UtcNow,
@@ -39,35 +36,17 @@ public static class DiscountDbSeed
                 },
                 new DiscountCode
                 {
+                    Description = description,
                     Code = Generators.GenerateCode(),
-                    Rate = 30,
+                    Rate = 50,
                     StartDate = DateTime.UtcNow,
                     EndDate = DateTime.UtcNow.AddDays(30),
                 },
                 new DiscountCode
                 {
-                    Rate = 53,
-                    StartDate = DateTime.UtcNow,
-                    EndDate = DateTime.UtcNow.AddDays(30),
-                },
-                new DiscountCode
-                {
+                    Description = description,
                     Code = Generators.GenerateCode(),
                     Rate = 99,
-                    StartDate = DateTime.UtcNow,
-                    EndDate = DateTime.UtcNow.AddDays(30),
-                },
-                new DiscountCode
-                {
-                    Code = Generators.GenerateCode(),
-                    Rate = 10,
-                    StartDate = DateTime.UtcNow,
-                    EndDate = DateTime.UtcNow.AddDays(30),
-                },
-                new DiscountCode
-                {
-                    Code = Generators.GenerateCode(),
-                    Rate = 10,
                     StartDate = DateTime.UtcNow,
                     EndDate = DateTime.UtcNow.AddDays(30),
                 }
