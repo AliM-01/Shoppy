@@ -1,4 +1,5 @@
 ﻿using _0_Framework.Infrastructure.Helpers;
+using DM.Domain.DiscountCode;
 using DM.Domain.ProductDiscount;
 using DM.Infrastructure.Persistence.Context;
 using DM.Infrastructure.Persistence.Seeds;
@@ -16,6 +17,7 @@ public static class DiscountModuleBootstrapper
 
         services.AddScoped<IDiscountDbContext, DiscountDbContext>();
 
+        services.AddScoped<IGenericRepository<DiscountCode>, GenericRepository<DiscountCode, DiscountDbSettings>>();
         services.AddScoped<IGenericRepository<ProductDiscount>, GenericRepository<ProductDiscount, DiscountDbSettings>>();
 
         services.AddMediatR(typeof(DiscountModuleBootstrapper).Assembly);
@@ -26,6 +28,7 @@ public static class DiscountModuleBootstrapper
             {
                 var discountContext = scope.ServiceProvider.GetRequiredService<IDiscountDbContext>();
 
+                DiscountDbSeed.SeedDiscountCodes(discountContext.DiscountCodes);
                 DiscountDbSeed.SeedProductDiscounts(discountContext.ProductDiscounts);
             }
             catch (Exception ex)

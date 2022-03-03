@@ -6,7 +6,7 @@ public static class Generators
 {
     public static string GenerateCode()
     {
-        return Guid.NewGuid().ToString("N").ToUpper().Substring(0, 5);
+        return Guid.NewGuid().ToString().ToUpper().Substring(0, 5);
     }
 
     public static string GenerateRandomUsername()

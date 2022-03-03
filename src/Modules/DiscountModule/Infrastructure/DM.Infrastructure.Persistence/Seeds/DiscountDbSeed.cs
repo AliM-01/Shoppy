@@ -1,4 +1,6 @@
-﻿using DM.Domain.ProductDiscount;
+﻿using _0_Framework.Application.Extensions;
+using DM.Domain.DiscountCode;
+using DM.Domain.ProductDiscount;
 using MongoDB.Driver;
 using SM.Infrastructure.Persistence.Seeds;
 
@@ -6,6 +8,74 @@ namespace DM.Infrastructure.Persistence.Seeds;
 
 public static class DiscountDbSeed
 {
+    public static void SeedDiscountCodes(IMongoCollection<DiscountCode> discounts)
+    {
+        bool existsDiscount = discounts.Find(_ => true).Any();
+
+        if (!existsDiscount)
+        {
+            DiscountCode[] discountToAdd =
+            {
+                new DiscountCode
+                {
+                    Code = Generators.GenerateCode(),
+                    Rate = 25,
+                    StartDate = DateTime.UtcNow,
+                    EndDate = DateTime.UtcNow.AddDays(30),
+                },
+                new DiscountCode
+                {
+                    Code = Generators.GenerateCode(),
+                    Rate = 10,
+                    StartDate = DateTime.UtcNow,
+                    EndDate = DateTime.UtcNow.AddDays(30),
+                },
+                new DiscountCode
+                {
+                    Code = Generators.GenerateCode(),
+                    Rate = 75,
+                    StartDate = DateTime.UtcNow,
+                    EndDate = DateTime.UtcNow.AddDays(30),
+                },
+                new DiscountCode
+                {
+                    Code = Generators.GenerateCode(),
+                    Rate = 30,
+                    StartDate = DateTime.UtcNow,
+                    EndDate = DateTime.UtcNow.AddDays(30),
+                },
+                new DiscountCode
+                {
+                    Rate = 53,
+                    StartDate = DateTime.UtcNow,
+                    EndDate = DateTime.UtcNow.AddDays(30),
+                },
+                new DiscountCode
+                {
+                    Code = Generators.GenerateCode(),
+                    Rate = 99,
+                    StartDate = DateTime.UtcNow,
+                    EndDate = DateTime.UtcNow.AddDays(30),
+                },
+                new DiscountCode
+                {
+                    Code = Generators.GenerateCode(),
+                    Rate = 10,
+                    StartDate = DateTime.UtcNow,
+                    EndDate = DateTime.UtcNow.AddDays(30),
+                },
+                new DiscountCode
+                {
+                    Code = Generators.GenerateCode(),
+                    Rate = 10,
+                    StartDate = DateTime.UtcNow,
+                    EndDate = DateTime.UtcNow.AddDays(30),
+                }
+            };
+            discounts.InsertManyAsync(discountToAdd);
+        }
+    }
+
     public static void SeedProductDiscounts(IMongoCollection<ProductDiscount> discounts)
     {
         bool existsDiscount = discounts.Find(_ => true).Any();
