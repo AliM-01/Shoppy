@@ -7,6 +7,7 @@ public class DiscountCode : EntityBase
     [BsonElement("code")]
     [Display(Name = "کد تخفیف")]
     [Required]
+    [MinLength(3)]
     [MaxLength(15)]
     public string Code { get; set; }
 
