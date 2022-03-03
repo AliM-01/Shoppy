@@ -15,4 +15,9 @@
 		<ProjectReference Include="..\..\Domain\AM.Domain\AM.Domain.csproj" />
 	</ItemGroup>
 
+	<ItemGroup>
+	  <Folder Include="Validators\Commands\" />
+	  <Folder Include="Validators\Queries\" />
+	</ItemGroup>
+
 </Project>
