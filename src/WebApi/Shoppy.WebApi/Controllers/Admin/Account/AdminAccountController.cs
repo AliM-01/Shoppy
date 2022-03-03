@@ -52,13 +52,28 @@ public class AdminAccountController : BaseAdminApiController
 
     #endregion
 
+    #region Activate Account 
+
+    [HttpPost(AdminAccountApiEndpoints.Account.ActivateAccount)]
+    [SwaggerOperation(Summary = "فعال کردن حساب  کاربر", Tags = new[] { "AdminAccount" })]
+    [SwaggerResponse(201, "success : created")]
+    [SwaggerResponse(404, "not-found")]
+    public async Task<IActionResult> ActivateAccount([FromRoute] Guid id)
+    {
+        var res = await Mediator.Send(new ActivateAccountByAdminCommand(id.ToString()));
+
+        return JsonApiResult.Success(res);
+    }
+
+    #endregion
+
     #region DeActivate Account 
 
     [HttpDelete(AdminAccountApiEndpoints.Account.DeActivateAccount)]
-    [SwaggerOperation(Summary = "حذف  کاربر", Tags = new[] { "AdminAccount" })]
+    [SwaggerOperation(Summary = "غیر فعال کردن حساب  کاربر", Tags = new[] { "AdminAccount" })]
     [SwaggerResponse(201, "success : created")]
     [SwaggerResponse(404, "not-found")]
-    public async Task<IActionResult> DeleteAccount([FromRoute] Guid id)
+    public async Task<IActionResult> DeActivateAccount([FromRoute] Guid id)
     {
         var res = await Mediator.Send(new DeActivateAccountCommand(id.ToString()));
 
