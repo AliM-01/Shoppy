@@ -10,10 +10,6 @@ public class DiscountCode : EntityBase
     [MaxLength(15)]
     public string Code { get; set; }
 
-    [BsonElement("usableCount")]
-    [Display(Name = "تعداد قابل استفاده")]
-    public int UsableCount { get; set; }
-
     [Display(Name = "درصد")]
     [BsonElement("rate")]
     [Range(1, 100, ErrorMessage = DomainErrorMessage.RequiredMessage)]
