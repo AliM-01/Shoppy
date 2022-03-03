@@ -22,27 +22,4 @@ public static class AdminDiscountApiEndpoints
 
     }
 
-
-    public static class ColleagueDiscount
-    {
-        private const string BaseColleagueDiscountRoute = BaseAdminDiscountRoute + "/colleague-discount";
-
-        public const string FilterColleagueDiscounts = BaseColleagueDiscountRoute + "/filter";
-
-        public const string GetColleagueDiscountDetails = BaseColleagueDiscountRoute + "/{id}";
-
-        public const string DefineColleagueDiscount = BaseColleagueDiscountRoute + "/define";
-
-        public const string EditColleagueDiscount = BaseColleagueDiscountRoute + "/edit";
-
-        public const string RemoveColleagueDiscount = BaseColleagueDiscountRoute + "/remove/{id}";
-
-        public const string RestoreColleagueDiscount = BaseColleagueDiscountRoute + "/restore/{id}";
-
-        public const string DeleteColleagueDiscount = BaseColleagueDiscountRoute + "/delete/{id}";
-
-        public const string CheckProductHasColleagueDiscount = BaseColleagueDiscountRoute + "/check-product-has-discount/{productId}";
-
-    }
-
 }

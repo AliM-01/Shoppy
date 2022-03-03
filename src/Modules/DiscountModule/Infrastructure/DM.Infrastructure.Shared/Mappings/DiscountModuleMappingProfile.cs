@@ -1,8 +1,6 @@
 ﻿using _0_Framework.Application.Extensions;
 using AutoMapper;
-using DM.Application.Contracts.ColleagueDiscount.DTOs;
 using DM.Application.Contracts.ProductDiscount.DTOs;
-using DM.Domain.ColleagueDiscount;
 using DM.Domain.ProductDiscount;
 
 namespace DM.Infrastructure.Shared.Mappings;
@@ -10,9 +8,9 @@ public class DiscountModuleMappingProfile : Profile
 {
     public DiscountModuleMappingProfile()
     {
-        #region Customer Discount
+        #region Product Discount
 
-        #region Customer Discount Dto
+        #region Product Discount Dto
 
         CreateMap<ProductDiscount, ProductDiscountDto>()
           .ForMember(dest => dest.IsExpired,
@@ -27,7 +25,7 @@ public class DiscountModuleMappingProfile : Profile
 
         #endregion
 
-        #region Create Customer Discount
+        #region Create Product Discount
 
         CreateMap<DefineProductDiscountDto, ProductDiscount>()
             .ForMember(dest => dest.StartDate,
@@ -37,7 +35,7 @@ public class DiscountModuleMappingProfile : Profile
 
         #endregion
 
-        #region Edit Customer Discount
+        #region Edit Product Discount
 
         CreateMap<ProductDiscount, EditProductDiscountDto>()
             .ForMember(dest => dest.StartDate,
@@ -52,34 +50,6 @@ public class DiscountModuleMappingProfile : Profile
                 opt => opt.MapFrom(src => src.StartDate.ToMiladi()))
             .ForMember(dest => dest.EndDate,
                 opt => opt.MapFrom(src => src.EndDate.ToMiladi()));
-
-        #endregion
-
-        #endregion
-
-        #region Colleague Discount
-
-        #region Colleague Discount Dto
-
-        CreateMap<ColleagueDiscount, ColleagueDiscountDto>()
-          .ForMember(dest => dest.CreationDate,
-              opt => opt.MapFrom(src => src.CreationDate.ToShamsi()));
-
-        #endregion
-
-        #region Create Colleague Discount
-
-        CreateMap<DefineColleagueDiscountDto, ColleagueDiscount>();
-
-        #endregion
-
-        #region Edit Colleague Discount
-
-        CreateMap<ColleagueDiscount, EditColleagueDiscountDto>();
-
-        CreateMap<EditColleagueDiscountDto, ColleagueDiscount>()
-            .ForMember(dest => dest.Id,
-                opt => opt.Ignore());
 
         #endregion
 
