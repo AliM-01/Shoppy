@@ -79,7 +79,7 @@ public class TokenFactoryService : ITokenFactoryService
             audience: _tokentSettings.Audiance,
             claims: claims,
             notBefore: now,
-            expires: now.AddMinutes(_tokentSettings.RefreshTokenExpirationMinutes),
+            expires: now.AddHours(_tokentSettings.RefreshTokenExpirationHours),
             signingCredentials: creds);
 
         var refreshTokenValue = new JwtSecurityTokenHandler().WriteToken(token);

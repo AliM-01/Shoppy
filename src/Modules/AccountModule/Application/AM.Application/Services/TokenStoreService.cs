@@ -56,7 +56,7 @@ public class TokenStoreService : ITokenStoreService
                                        null : _securityService.GetSha256Hash(refreshTokenSourceSerial),
 
             AccessTokenHash = _securityService.GetSha256Hash(accessToken),
-            RefreshTokenExpiresDateTime = now.AddMinutes(_tokenSettings.RefreshTokenExpirationMinutes),
+            RefreshTokenExpiresDateTime = now.AddMinutes(_tokenSettings.RefreshTokenExpirationHours),
             AccessTokenExpiresDateTime = now.AddMinutes(_tokenSettings.AccessTokenExpirationMinutes)
         };
         await AddUserToken(token);
