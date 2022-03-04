@@ -59,8 +59,6 @@ public class DiscountModuleMappingProfile : Profile
         #region Discount Code Dto
 
         CreateMap<DiscountCode, DiscountCodeDto>()
-          .ForMember(dest => dest.CreationDate,
-              opt => opt.MapFrom(src => src.CreationDate.ToShamsi()))
           .ForMember(dest => dest.StartDate,
               opt => opt.MapFrom(src => src.StartDate.ToDetailedShamsi()))
           .ForMember(dest => dest.EndDate,
