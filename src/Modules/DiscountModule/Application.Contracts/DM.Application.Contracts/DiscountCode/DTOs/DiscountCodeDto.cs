@@ -27,8 +27,4 @@ public class DiscountCodeDto
     [Display(Name = "وضعیت فعال بودن")]
     [JsonProperty("isExpired")]
     public string IsExpired { get; set; }
-
-    [Display(Name = "تاریخ ثبت")]
-    [JsonProperty("creationDate")]
-    public string CreationDate { get; set; }
 }
