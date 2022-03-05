@@ -26,5 +26,5 @@ public class DiscountCodeDto
 
     [Display(Name = "وضعیت فعال بودن")]
     [JsonProperty("isExpired")]
-    public string IsExpired { get; set; }
+    public bool IsExpired { get; set; }
 }
