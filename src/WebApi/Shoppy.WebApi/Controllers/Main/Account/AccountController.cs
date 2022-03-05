@@ -7,7 +7,6 @@ using System.Security.Claims;
 
 namespace Shoppy.WebApi.Controllers.Main.Account;
 
-[AllowAnonymous]
 [SwaggerTag("احراز هویت")]
 public class AccountController : BaseApiController
 {
@@ -58,7 +57,7 @@ public class AccountController : BaseApiController
     [SwaggerOperation(Summary = "refresh token", Tags = new[] { "Account" })]
     [SwaggerResponse(200, "success")]
     [SwaggerResponse(404, "not found")]
-    public async Task<IActionResult> RefreshToken([FromBody] RevokeRefreshTokenRequestDto token)
+    public async Task<IActionResult> RefreshToken([FromForm] RevokeRefreshTokenRequestDto token)
     {
         var res = await Mediator.Send(new RevokeRefreshTokenCommand(token));
 
@@ -88,7 +87,7 @@ public class AccountController : BaseApiController
     [SwaggerOperation(Summary = "خروج از حساب", Tags = new[] { "Account" })]
     [SwaggerResponse(200, "success")]
     [SwaggerResponse(404, "not-found")]
-    public async Task<IActionResult> Logout([FromBody] RevokeRefreshTokenRequestDto token)
+    public async Task<IActionResult> Logout([FromForm] RevokeRefreshTokenRequestDto token)
     {
         var claimsIdentity = this.User.Identity as ClaimsIdentity;
         var userId = claimsIdentity.FindFirst(ClaimTypes.UserData)?.Value;
@@ -102,33 +101,27 @@ public class AccountController : BaseApiController
 
     #region IsAuthenticated
 
+    [Authorize]
     [HttpGet(MainAccountApiEndpoints.Account.IsAuthenticated)]
     [SwaggerOperation(Summary = "Is Authenticated", Tags = new[] { "Account" })]
     [SwaggerResponse(200, "success")]
     [SwaggerResponse(401, "un-authorized")]
     public IActionResult IsAuthenticated()
     {
-        bool isAuth = this.User.Identity.IsAuthenticated;
-
-        if (isAuth)
-            return JsonApiResult.Success("احراز هویت با موفقیت انجام شد");
-
-        return JsonApiResult.Unauthorized();
+        return JsonApiResult.Success("احراز هویت با موفقیت انجام شد");
     }
 
     #endregion
 
     #region GetCurrentUser
 
+    [Authorize]
     [HttpGet(MainAccountApiEndpoints.Account.GetCurrentUser)]
     [SwaggerOperation(Summary = "Get CurrentUser", Tags = new[] { "Account" })]
     [SwaggerResponse(200, "success")]
     [SwaggerResponse(401, "un-authorized")]
     public IActionResult GetCurrentUser()
     {
-        if (!this.User.Identity.IsAuthenticated)
-            return JsonApiResult.Unauthorized();
-
         var claimsIdentity = User.Identity as ClaimsIdentity;
 
         return Ok(CustonJsonConverter.Serialize(new { username = claimsIdentity.Name }));
