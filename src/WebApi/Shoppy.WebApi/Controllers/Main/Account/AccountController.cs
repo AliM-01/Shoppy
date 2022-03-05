@@ -23,6 +23,7 @@ public class AccountController : BaseApiController
 
     #region Register
 
+    [AllowAnonymous]
     [HttpPost(MainAccountApiEndpoints.Account.Register)]
     [SwaggerOperation(Summary = "ثبت نام", Tags = new[] { "Account" })]
     [SwaggerResponse(200, "success")]
@@ -38,6 +39,7 @@ public class AccountController : BaseApiController
 
     #region Login
 
+    [AllowAnonymous]
     [HttpPost(MainAccountApiEndpoints.Account.Login)]
     [SwaggerOperation(Summary = "ورود به حساب", Tags = new[] { "Account" })]
     [SwaggerResponse(200, "success")]
@@ -53,6 +55,7 @@ public class AccountController : BaseApiController
 
     #region RefreshToken
 
+    [AllowAnonymous]
     [HttpPost(MainAccountApiEndpoints.Account.RefreshToken)]
     [SwaggerOperation(Summary = "refresh token", Tags = new[] { "Account" })]
     [SwaggerResponse(200, "success")]
@@ -68,6 +71,7 @@ public class AccountController : BaseApiController
 
     #region ForgotPassword
 
+    [AllowAnonymous]
     [HttpPost(MainAccountApiEndpoints.Account.ForgotPassword)]
     [SwaggerOperation(Summary = "فراموشی رمز عبور", Tags = new[] { "Account" })]
     [SwaggerResponse(200, "success")]
@@ -83,6 +87,7 @@ public class AccountController : BaseApiController
 
     #region Logout
 
+    [AllowAnonymous]
     [HttpPost(MainAccountApiEndpoints.Account.Logout)]
     [SwaggerOperation(Summary = "خروج از حساب", Tags = new[] { "Account" })]
     [SwaggerResponse(200, "success")]
