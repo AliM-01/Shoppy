@@ -22,4 +22,18 @@ public static class AdminDiscountApiEndpoints
 
     }
 
+    public static class DiscountCode
+    {
+        private const string BaseDiscountCodeRoute = BaseAdminDiscountRoute + "/discount-code";
+
+        public const string FilterDiscountCodes = BaseDiscountCodeRoute + "/filter";
+
+        public const string GetDiscountCodeDetails = BaseDiscountCodeRoute + "/{id}";
+
+        public const string DefineDiscountCode = BaseDiscountCodeRoute + "/define";
+
+        public const string EditDiscountCode = BaseDiscountCodeRoute + "/edit";
+
+        public const string RemoveDiscountCode = BaseDiscountCodeRoute + "/remove/{id}";
+    }
 }
