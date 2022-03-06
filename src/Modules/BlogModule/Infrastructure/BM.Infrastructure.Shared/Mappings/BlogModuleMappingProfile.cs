@@ -96,7 +96,7 @@ public class BlogModuleMappingProfile : Profile
             .ForMember(dest => dest.Summary,
                 opt => opt.MapFrom(src => $"{src.Summary.Substring(0, Math.Max(src.Summary.Length, 35))} ..."))
             .ForMember(dest => dest.CreationDate,
-                opt => opt.MapFrom(src => src.CreationDate.ToDetailedShamsi()))
+                opt => opt.MapFrom(src => src.CreationDate.ToShamsi()))
             .ForMember(dest => dest.Category,
                 opt => opt.MapFrom(src => src.Category.Title));
 
@@ -108,7 +108,7 @@ public class BlogModuleMappingProfile : Profile
             .ForMember(dest => dest.Summary,
                 opt => opt.MapFrom(src => $"{src.Summary.Substring(0, Math.Max(src.Summary.Length, 35))} ..."))
             .ForMember(dest => dest.CreationDate,
-                opt => opt.MapFrom(src => src.CreationDate.ToDetailedShamsi()))
+                opt => opt.MapFrom(src => src.CreationDate.ToShamsi()))
             .ForMember(dest => dest.Tags,
                 opt => opt.MapFrom(src => src.MetaKeywords.Split('-', StringSplitOptions.RemoveEmptyEntries).ToArray()));
 

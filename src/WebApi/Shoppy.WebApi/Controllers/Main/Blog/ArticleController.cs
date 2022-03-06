@@ -37,6 +37,7 @@ public class ArticleController : BaseApiController
     }
 
     #endregion
+
     #region Get Latest Articles
 
     [HttpGet(MainBlogApiEndpoints.Article.GetLatestArticles)]

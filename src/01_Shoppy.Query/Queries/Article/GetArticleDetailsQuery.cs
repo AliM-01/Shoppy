@@ -9,13 +9,16 @@ public class GetArticleDetailsQueryHandler : IRequestHandler<GetArticleDetailsQu
     #region Ctor
 
     private readonly IGenericRepository<BM.Domain.Article.Article> _articleRepository;
+    private readonly IGenericRepository<BM.Domain.ArticleCategory.ArticleCategory> _articleCategoryRepository;
     private readonly IMapper _mapper;
 
     public GetArticleDetailsQueryHandler(
-        IGenericRepository<BM.Domain.Article.Article> articleRepository, IMapper mapper)
+        IGenericRepository<BM.Domain.Article.Article> articleRepository, IMapper mapper,
+        IGenericRepository<BM.Domain.ArticleCategory.ArticleCategory> articleCategoryRepository)
     {
         _articleRepository = Guard.Against.Null(articleRepository, nameof(_articleRepository));
         _mapper = Guard.Against.Null(mapper, nameof(_mapper));
+        _articleCategoryRepository = Guard.Against.Null(articleCategoryRepository, nameof(_articleCategoryRepository));
     }
 
     #endregion
@@ -30,6 +33,8 @@ public class GetArticleDetailsQueryHandler : IRequestHandler<GetArticleDetailsQu
         var article = await _articleRepository.GetByFilter(filter);
 
         var meppedArticle = _mapper.Map(article, new ArticleDetailsQueryModel());
+
+        meppedArticle.Category = (await _articleCategoryRepository.GetByIdAsync(article.CategoryId)).Title;
 
         return new Response<ArticleDetailsQueryModel>(meppedArticle);
     }
