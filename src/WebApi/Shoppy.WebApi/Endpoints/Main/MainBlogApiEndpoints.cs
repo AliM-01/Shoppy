@@ -13,6 +13,8 @@ public class MainBlogApiEndpoints
         public const string GetArticleDetails = BaseArticleRoute + "/{slug}";
 
         public const string GetLatestArticles = BaseArticleRoute + "/get-latest";
+
+        public const string GetRelatedArticles = BaseArticleRoute + "/get-related/{categoryId}";
     }
 
     public static class ArticleCategory

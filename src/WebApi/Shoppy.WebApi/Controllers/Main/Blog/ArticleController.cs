@@ -51,4 +51,18 @@ public class ArticleController : BaseApiController
     }
 
     #endregion
+
+    #region Get Related Articles
+
+    [HttpGet(MainBlogApiEndpoints.Article.GetRelatedArticles)]
+    [SwaggerOperation(Summary = "دریافت مقالات مرتبط", Tags = new[] { "Article" })]
+    [SwaggerResponse(200, "success")]
+    public async Task<IActionResult> GetRelatedArticles([FromRoute] string categoryId)
+    {
+        var res = await Mediator.Send(new GetRelatedArticlesQuery(categoryId));
+
+        return JsonApiResult.Success(res);
+    }
+
+    #endregion
 }
