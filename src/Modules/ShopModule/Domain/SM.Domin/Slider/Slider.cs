@@ -1,6 +1,6 @@
 ﻿namespace SM.Domain.Slider;
 
-[BsonCollection("slider")]
+[BsonCollection("sliders")]
 public class Slider : ImagePropertiesForDomainModels
 {
     #region Properties

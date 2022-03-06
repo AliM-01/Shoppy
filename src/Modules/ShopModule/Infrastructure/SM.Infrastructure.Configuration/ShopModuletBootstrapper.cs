@@ -37,12 +37,12 @@ public static class ShopModuletBootstrapper
         {
             try
             {
-                var prodcutContext = scope.ServiceProvider.GetRequiredService<IShopDbContext>();
-                var categories = ShopDbSeed.SeedProductCategories(prodcutContext.ProductCategories);
-                ShopDbSeed.SeedProducts(prodcutContext.Products, categories);
-                ShopDbSeed.SeedProductPictures(prodcutContext.ProductPictures);
-                ShopDbSeed.SeedProductFeatures(prodcutContext.ProductFeatures);
-                ShopDbSeed.SeedSliders(prodcutContext.Sliders);
+                var shopContext = scope.ServiceProvider.GetRequiredService<IShopDbContext>();
+                var categories = ShopDbSeed.SeedProductCategories(shopContext.ProductCategories);
+                ShopDbSeed.SeedProducts(shopContext.Products, categories);
+                ShopDbSeed.SeedProductPictures(shopContext.ProductPictures);
+                ShopDbSeed.SeedProductFeatures(shopContext.ProductFeatures);
+                ShopDbSeed.SeedSliders(shopContext.Sliders);
 
             }
             catch (Exception ex)
