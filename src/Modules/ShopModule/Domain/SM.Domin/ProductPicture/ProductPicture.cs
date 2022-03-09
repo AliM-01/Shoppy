@@ -1,6 +1,6 @@
 ﻿namespace SM.Domain.ProductPicture;
 
-[BsonCollection("productPicture")]
+[BsonCollection("productPictures")]
 public class ProductPicture : EntityBase
 {
     #region Properties

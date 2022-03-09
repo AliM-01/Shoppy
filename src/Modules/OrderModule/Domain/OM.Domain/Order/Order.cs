@@ -1,9 +1,11 @@
 ﻿using _0_Framework.Domain;
+using _0_Framework.Domain.Attributes;
 using MongoDB.Bson.Serialization.Attributes;
 using System.ComponentModel.DataAnnotations;
 
 namespace OM.Domain.Order;
 
+[BsonCollection("orders")]
 public class Order : EntityBase
 {
     #region Properties
@@ -43,6 +45,9 @@ public class Order : EntityBase
     [Display(Name = "حساب")]
     [BsonElement("refId")]
     public long RefId { get; set; }
+
+    [BsonElement("items")]
+    public List<OrderItem> Items { get; private set; }
 
     #endregion
 }
