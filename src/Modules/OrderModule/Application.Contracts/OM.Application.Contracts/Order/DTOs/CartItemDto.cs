@@ -4,9 +4,6 @@ namespace OM.Application.Contracts.Order.DTOs;
 
 public class CartItemDto
 {
-    [JsonProperty("id")]
-    public string Id { get; set; }
-
     [Display(Name = "شناسه محصول")]
     [JsonProperty("productId")]
     public string ProductId { get; set; }
