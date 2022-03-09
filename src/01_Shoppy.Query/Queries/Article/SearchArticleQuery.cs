@@ -59,7 +59,6 @@ public class SearchArticleQueryHandler : IRequestHandler<SearchArticleQuery, Res
 
         #endregion
 
-
         #region paging
 
         var pager = request.Search.BuildPager(query.Count());
