@@ -7,7 +7,7 @@ using SM.Domain.Product;
 
 namespace OM.Application.Order.QueryHandles;
 
-public class ComputeCartQueryHandler : IRequestHandler<ComputeCartQuery, Response<List<CartItemDto>>>
+public class ComputeCartQueryHandler : IRequestHandler<ComputeCartQuery, Response<CartDto>>
 {
     #region Ctor
 
@@ -32,9 +32,9 @@ public class ComputeCartQueryHandler : IRequestHandler<ComputeCartQuery, Respons
 
     #endregion
 
-    public async Task<Response<List<CartItemDto>>> Handle(ComputeCartQuery request, CancellationToken cancellationToken)
+    public async Task<Response<CartDto>> Handle(ComputeCartQuery request, CancellationToken cancellationToken)
     {
-        var returnData = new List<CartItemDto>();
+        var cart = new CartDto();
 
         var productDiscounts = await _productDiscountRepository
                             .AsQueryable()
@@ -52,7 +52,7 @@ public class ComputeCartQueryHandler : IRequestHandler<ComputeCartQuery, Respons
 
                 var itemInventory = await _inventoryRepository.GetByFilter(filter);
 
-                if (itemInventory is null) return new Response<List<CartItemDto>>(returnData);
+                if (itemInventory is null) return new Response<List<CartItemDto>>(cart);
 
                 var product = await _productRepository.GetByIdAsync(itemInventory.ProductId);
 
@@ -86,10 +86,17 @@ public class ComputeCartQueryHandler : IRequestHandler<ComputeCartQuery, Respons
 
                 #endregion
 
-                returnData.Add(itemToReturn);
+                cart.Items.Add(itemToReturn);
             }
         }
 
-        return new Response<List<CartItemDto>>(returnData);
+        for (int i = 0; i < cart.Items.Count; i++)
+        {
+            cart.TotalAmount += cart.Items[i].TotalItemPrice;
+            cart.PayAmount += cart.Items[i].ItemPayAmount;
+            cart.DiscountAmount += cart.Items[i].DiscountAmount;
+        }
+
+        return new Response<CartDto>(cart);
     }
 }

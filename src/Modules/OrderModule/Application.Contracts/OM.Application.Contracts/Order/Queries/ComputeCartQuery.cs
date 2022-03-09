@@ -3,4 +3,4 @@
 namespace OM.Application.Contracts.Order.Queries;
 
 public record ComputeCartQuery
-    (List<CartItemInCookieDto> Items) : IRequest<Response<List<CartItemDto>>>;
+    (List<CartItemInCookieDto> Items) : IRequest<Response<CartDto>>;
