@@ -182,6 +182,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OM.Domain", "src\Modules\Or
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OM.Application.Contracts", "src\Modules\OrderModule\Application.Contracts\OM.Application.Contracts\OM.Application.Contracts.csproj", "{BCA22759-4166-4C4F-8C66-B34355587F44}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OM.Application", "src\Modules\OrderModule\Application\OM.Application\OM.Application.csproj", "{BC51C2FD-431C-4B3A-992D-7D9E51A33D27}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -356,6 +358,10 @@ Global
 		{BCA22759-4166-4C4F-8C66-B34355587F44}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{BCA22759-4166-4C4F-8C66-B34355587F44}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{BCA22759-4166-4C4F-8C66-B34355587F44}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BC51C2FD-431C-4B3A-992D-7D9E51A33D27}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BC51C2FD-431C-4B3A-992D-7D9E51A33D27}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BC51C2FD-431C-4B3A-992D-7D9E51A33D27}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BC51C2FD-431C-4B3A-992D-7D9E51A33D27}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -445,6 +451,7 @@ Global
 		{D1D52420-A4AF-4A89-BDF6-AF6AA8CA67BC} = {AC1ABFE8-BB02-471B-A627-40E0A500F2CA}
 		{2CD96EB8-74B6-4E93-8606-0A546E7D53E4} = {D8CAFCBE-7864-4A8B-BF0F-D4790EF46614}
 		{BCA22759-4166-4C4F-8C66-B34355587F44} = {FACA657F-C7CF-4BB8-B6A2-D02836F5BD2A}
+		{BC51C2FD-431C-4B3A-992D-7D9E51A33D27} = {F5ECDA21-51F6-4F5A-BB7E-51A3CBA9D7CC}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {615EA258-FFB2-45B7-9D73-B482C4E29616}
