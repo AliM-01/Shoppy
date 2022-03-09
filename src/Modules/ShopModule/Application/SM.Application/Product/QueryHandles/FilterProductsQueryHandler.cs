@@ -6,14 +6,14 @@ using SM.Application.Contracts.Product.Queries;
 using System.Linq;
 
 namespace SM.Application.Product.QueryHandles;
-public class FilterProductCategoriesQueryHandler : IRequestHandler<FilterProductsQuery, Response<FilterProductDto>>
+public class FilterProductsQueryHandler : IRequestHandler<FilterProductsQuery, Response<FilterProductDto>>
 {
     #region Ctor
 
     private readonly IGenericRepository<Domain.Product.Product> _productRepository;
     private readonly IMapper _mapper;
 
-    public FilterProductCategoriesQueryHandler(IGenericRepository<Domain.Product.Product> productRepository, IMapper mapper)
+    public FilterProductsQueryHandler(IGenericRepository<Domain.Product.Product> productRepository, IMapper mapper)
     {
         _productRepository = Guard.Against.Null(productRepository, nameof(_productRepository));
         _mapper = Guard.Against.Null(mapper, nameof(_mapper));
