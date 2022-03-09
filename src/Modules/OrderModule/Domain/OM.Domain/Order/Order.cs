@@ -1,9 +1,4 @@
-﻿using _0_Framework.Domain;
-using _0_Framework.Domain.Attributes;
-using MongoDB.Bson.Serialization.Attributes;
-using System.ComponentModel.DataAnnotations;
-
-namespace OM.Domain.Order;
+﻿namespace OM.Domain.Order;
 
 [BsonCollection("orders")]
 public class Order : EntityBase
