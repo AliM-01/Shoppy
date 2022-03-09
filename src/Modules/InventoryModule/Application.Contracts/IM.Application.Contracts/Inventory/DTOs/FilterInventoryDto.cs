@@ -1,6 +1,5 @@
 ﻿using _0_Framework.Application.Models.Paging;
 using IM.Application.Contracts.Inventory.Enums;
-using Newtonsoft.Json.Converters;
 using System.Collections.Generic;
 
 namespace IM.Application.Contracts.Inventory.DTOs;
@@ -14,7 +13,7 @@ public class FilterInventoryDto : BasePaging
     public string ProductId { get; set; }
 
     [Display(Name = "وضعیت")]
-    [JsonConverter(typeof(StringEnumConverter))]
+    [JsonConverter(typeof(Newtonsoft.Json.Converters.StringEnumConverter))]
     [JsonProperty("inStockState")]
     public FilterInventoryInStockStateEnum InStockState { get; set; } = FilterInventoryInStockStateEnum.All;
 
