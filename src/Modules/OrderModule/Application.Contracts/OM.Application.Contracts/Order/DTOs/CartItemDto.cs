@@ -7,6 +7,10 @@ public class CartItemDto
     [JsonProperty("id")]
     public string Id { get; set; }
 
+    [Display(Name = "شناسه محصول")]
+    [JsonProperty("productId")]
+    public string ProductId { get; set; }
+
     [JsonProperty("title")]
     public string Title { get; set; }
 
