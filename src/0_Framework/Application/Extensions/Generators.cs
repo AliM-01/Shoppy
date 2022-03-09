@@ -4,9 +4,9 @@ namespace _0_Framework.Application.Extensions;
 
 public static class Generators
 {
-    public static string GenerateCode()
+    public static string GenerateCode(int subString = 5)
     {
-        return Guid.NewGuid().ToString().ToUpper().Substring(0, 5);
+        return Guid.NewGuid().ToString().ToUpper().Substring(0, subString);
     }
 
     public static string GenerateRandomUsername()
