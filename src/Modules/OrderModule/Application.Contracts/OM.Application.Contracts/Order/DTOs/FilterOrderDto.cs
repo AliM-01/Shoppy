@@ -7,8 +7,8 @@ public class FilterOrderDto : BasePaging
 {
     #region Properties
 
-    [JsonProperty("phrase")]
-    public string Phrase { get; set; }
+    [JsonProperty("userNames")]
+    public string UserNames { get; set; }
 
     [Display(Name = "وضعیت پرداخت")]
     [JsonConverter(typeof(Newtonsoft.Json.Converters.StringEnumConverter))]
