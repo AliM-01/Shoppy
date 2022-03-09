@@ -20,6 +20,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Newtonsoft.Json;
 using OM.Application;
 using OM.Infrastructure.Configuration;
+using OM.Infrastructure.Shared.Mappings;
 using SM.Application;
 using SM.Infrastructure.Configuration;
 using SM.Infrastructure.Shared.Mappings;
@@ -101,6 +102,7 @@ public static class DI_Container
             typeof(CommentModuleMappingProfile),
             typeof(BlogModuleMappingProfile),
             typeof(AccountModuleMappingProfile),
+            typeof(OrderModuleMappingProfile),
         };
         services.AddFluentValidationExtension(assemblyTypes);
     }
@@ -115,6 +117,7 @@ public static class DI_Container
             typeof(CommentModuleMappingProfile),
             typeof(BlogModuleMappingProfile),
             typeof(AccountModuleMappingProfile),
+            typeof(OrderModuleMappingProfile),
         });
     }
 }
