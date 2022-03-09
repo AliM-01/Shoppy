@@ -9,7 +9,7 @@ public class SearchProductQueryModel : BasePaging
 
     [Display(Name = "دسته بندی های انتخاب شده")]
     [JsonProperty("selectedCategories")]
-    public List<string> SelectedCategories { get; set; }
+    public HashSet<string> SelectedCategories { get; set; }
 
     [Display(Name = "متن جستجو")]
     [JsonProperty("phrase")]

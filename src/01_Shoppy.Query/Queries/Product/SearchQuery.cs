@@ -60,9 +60,9 @@ public class SearchQueryHandler : IRequestHandler<SearchQuery, Response<SearchPr
 
             foreach (var categorySlug in request.Search.SelectedCategories)
             {
-                if (await _productCategoryRepository.ExistsAsync(x => x.Slug.Trim() == categorySlug.Trim()))
+                if (await _productCategoryRepository.ExistsAsync(x => x.Slug == categorySlug))
                 {
-                    var filter = Builders<SM.Domain.ProductCategory.ProductCategory>.Filter.Eq(x => x.Slug.Trim(), categorySlug.Trim());
+                    var filter = Builders<SM.Domain.ProductCategory.ProductCategory>.Filter.Eq(x => x.Slug, categorySlug);
                     var category = await _productCategoryRepository.GetByFilter(filter);
                     selectedCategoriesId.Add(category.Id);
                 }
