@@ -19,6 +19,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Newtonsoft.Json;
 using OM.Application;
+using OM.Infrastructure.Configuration;
 using SM.Application;
 using SM.Infrastructure.Configuration;
 using SM.Infrastructure.Shared.Mappings;
@@ -45,6 +46,7 @@ public static class DI_Container
         InventoryModuletBootstrapper.Configure(services, config);
         CommentModuletBootstrapper.Configure(services, config);
         BlogModuletBootstrapper.Configure(services, config);
+        OrderModuletBootstrapper.Configure(services, config);
     }
 
     private static void AddGeneralSettings(IServiceCollection services)
