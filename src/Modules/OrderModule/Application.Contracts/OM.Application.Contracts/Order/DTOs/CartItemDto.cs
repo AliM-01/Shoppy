@@ -1,6 +1,4 @@
-﻿using _0_Framework.Application.Extensions;
-
-namespace OM.Application.Contracts.Order.DTOs;
+﻿namespace OM.Application.Contracts.Order.DTOs;
 
 public class CartItemDto
 {
@@ -44,7 +42,6 @@ public class CartItemDto
 
     public CartItemDto()
     {
-        Id = Generators.GenerateCode(subString: 8);
         TotalItemPrice = UnitPrice * Count;
     }
 

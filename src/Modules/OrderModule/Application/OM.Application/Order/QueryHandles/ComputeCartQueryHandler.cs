@@ -35,6 +35,7 @@ public class ComputeCartQueryHandler : IRequestHandler<ComputeCartQuery, Respons
     public async Task<Response<CartDto>> Handle(ComputeCartQuery request, CancellationToken cancellationToken)
     {
         var cart = new CartDto();
+        cart.Items = new List<CartItemDto>();
 
         var productDiscounts = await _productDiscountRepository
                             .AsQueryable()
@@ -44,7 +45,7 @@ public class ComputeCartQueryHandler : IRequestHandler<ComputeCartQuery, Respons
 
         foreach (var cartItem in request.Items)
         {
-            if (await _inventoryRepository.ExistsAsync(x => x.ProductId == cartItem.ProductId && x.InStock))
+            if (await _inventoryRepository.ExistsAsync(x => x.ProductId == cartItem.ProductId))
             {
                 #region check inventory
 
@@ -52,7 +53,7 @@ public class ComputeCartQueryHandler : IRequestHandler<ComputeCartQuery, Respons
 
                 var itemInventory = await _inventoryRepository.GetByFilter(filter);
 
-                if (itemInventory is null) return new Response<List<CartItemDto>>(cart);
+                if (itemInventory is null) return new Response<CartDto>(cart);
 
                 var product = await _productRepository.GetByIdAsync(itemInventory.ProductId);
 
