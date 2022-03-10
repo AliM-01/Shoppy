@@ -2,6 +2,11 @@
 
 public class CartDto
 {
+    public CartDto()
+    {
+        Items = new List<CartItemDto>();
+    }
+
     [Display(Name = "جمع کل")]
     [JsonProperty("totalAmount")]
     public decimal TotalAmount { get; set; }

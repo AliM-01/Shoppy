@@ -35,7 +35,6 @@ public class ComputeCartQueryHandler : IRequestHandler<ComputeCartQuery, Respons
     public async Task<Response<CartDto>> Handle(ComputeCartQuery request, CancellationToken cancellationToken)
     {
         var cart = new CartDto();
-        cart.Items = new List<CartItemDto>();
 
         var productDiscounts = await _productDiscountRepository
                             .AsQueryable()
@@ -45,55 +44,56 @@ public class ComputeCartQueryHandler : IRequestHandler<ComputeCartQuery, Respons
 
         foreach (var cartItem in request.Items)
         {
-            if (await _inventoryRepository.ExistsAsync(x => x.ProductId == cartItem.ProductId))
+            if (!(await _inventoryRepository.ExistsAsync(x => x.ProductId == cartItem.ProductId)))
+                continue;
+
+            #region check inventory
+
+            var filter = Builders<Inventory>.Filter.Eq(x => x.ProductId, cartItem.ProductId);
+
+            var itemInventory = await _inventoryRepository.GetByFilter(filter);
+
+            if (itemInventory is null)
+                throw new ApiException("محصول مورد نظر در انبار وجود ندارد");
+
+
+            if (!(await _inventoryHelper.IsInStock(itemInventory.Id)))
+                throw new ApiException("محصول مورد نظر در انبار وجود ندارد");
+
+            var product = await _productRepository.GetByIdAsync(itemInventory.ProductId);
+
+            var itemToReturn = new CartItemDto
             {
-                #region check inventory
+                Count = cartItem.Count,
+                Title = product.Title,
+                ProductId = cartItem.ProductId,
+                Slug = product.Slug,
+                UnitPrice = itemInventory.UnitPrice,
+                ImagePath = product.ImagePath,
+                ImageAlt = product.ImageAlt,
+                ImageTitle = product.ImageTitle
+            };
 
-                var filter = Builders<Inventory>.Filter.Eq(x => x.ProductId, cartItem.ProductId);
+            itemToReturn.CalculateTotalItemPrice();
 
-                var itemInventory = await _inventoryRepository.GetByFilter(filter);
-
-                if (itemInventory is null)
-                    throw new ApiException("محصول مورد نظر در انبار وجود ندارد");
-
-
-                if (!(await _inventoryHelper.IsInStock(itemInventory.Id)))
-                    throw new ApiException("محصول مورد نظر در انبار وجود ندارد");
-
-                var product = await _productRepository.GetByIdAsync(itemInventory.ProductId);
-
-                var itemToReturn = new CartItemDto
-                {
-                    Count = cartItem.Count,
-                    Title = product.Title,
-                    ProductId = cartItem.ProductId,
-                    UnitPrice = itemInventory.UnitPrice,
-                    ImagePath = product.ImagePath,
-                    ImageAlt = product.ImageAlt,
-                    ImageTitle = product.ImageTitle
-                };
-
-                itemToReturn.CalculateTotalItemPrice();
-
-                itemToReturn.IsInStock = (await _inventoryHelper.CalculateCurrentCount(itemInventory.Id)) >= cartItem.Count;
+            itemToReturn.IsInStock = (await _inventoryHelper.CalculateCurrentCount(itemInventory.Id)) >= cartItem.Count;
 
 
-                #endregion
+            #endregion
 
-                #region discount
+            #region discount
 
-                var productDiscount = productDiscounts.FirstOrDefault(x => x.ProductId == cartItem.ProductId);
+            var productDiscount = productDiscounts.FirstOrDefault(x => x.ProductId == cartItem.ProductId);
 
-                if (productDiscount is not null)
-                    itemToReturn.DiscountRate = productDiscount.Rate;
+            if (productDiscount is not null)
+                itemToReturn.DiscountRate = productDiscount.Rate;
 
-                itemToReturn.DiscountAmount = ((itemToReturn.TotalItemPrice * itemToReturn.DiscountRate) / 100);
-                itemToReturn.ItemPayAmount = itemToReturn.TotalItemPrice - itemToReturn.DiscountAmount;
+            itemToReturn.DiscountAmount = ((itemToReturn.TotalItemPrice * itemToReturn.DiscountRate) / 100);
+            itemToReturn.ItemPayAmount = itemToReturn.TotalItemPrice - itemToReturn.DiscountAmount;
 
-                #endregion
+            #endregion
 
-                cart.Items.Add(itemToReturn);
-            }
+            cart.Items.Add(itemToReturn);
         }
 
         for (int i = 0; i < cart.Items.Count; i++)

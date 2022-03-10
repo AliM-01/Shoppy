@@ -9,6 +9,9 @@ public class CartItemDto
     [JsonProperty("title")]
     public string Title { get; set; }
 
+    [JsonProperty("slug")]
+    public string Slug { get; set; }
+
     [JsonProperty("unitPrice")]
     public decimal UnitPrice { get; set; }
 
