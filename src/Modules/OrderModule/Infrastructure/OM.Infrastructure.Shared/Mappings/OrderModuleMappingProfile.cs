@@ -1,5 +1,6 @@
 ﻿using _0_Framework.Application.Extensions;
 using AutoMapper;
+using OM.Application.Contracts.Order.Commands;
 using OM.Application.Contracts.Order.DTOs;
 using OM.Domain.Order;
 
@@ -22,6 +23,28 @@ public class OrderModuleMappingProfile : Profile
         #region Order Item Dto
 
         CreateMap<OrderItem, OrderItemDto>();
+
+        #endregion
+
+        #region Place Order
+
+        CreateMap<PlaceOrderCommand, Domain.Order.Order>()
+            .ForMember(dest => dest.UserId,
+                    opt => opt.MapFrom(src => src.UserId))
+            .ForMember(dest => dest.PaymentAmount,
+                    opt => opt.MapFrom(src => src.Cart.PayAmount))
+            .ForMember(dest => dest.DiscountAmount,
+                    opt => opt.MapFrom(src => src.Cart.DiscountAmount))
+            .ForMember(dest => dest.TotalAmount,
+                    opt => opt.MapFrom(src => src.Cart.TotalAmount))
+            .ForMember(dest => dest.PaymentAmount,
+                    opt => opt.MapFrom(src => src.Cart.PaymentMethod));
+
+        #endregion
+
+        #region Order Item
+
+        CreateMap<CartItemDto, OrderItem>();
 
         #endregion
 

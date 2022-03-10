@@ -25,28 +25,22 @@ public class PlaceOrderCommandHandler : IRequestHandler<PlaceOrderCommand, Respo
 
     public async Task<Response<long>> Handle(PlaceOrderCommand request, CancellationToken cancellationToken)
     {
-        var order = new Domain.Order.Order
+        var order = _mapper.Map(request, new Domain.Order.Order
         {
-            UserId = request.UserId,
-            PaymentAmount = request.Cart.PayAmount,
-            TotalAmount = request.Cart.TotalAmount,
-            DiscountAmount = request.Cart.DiscountAmount,
-            PaymentMethod = request.Cart.PaymentMethod,
             IssueTrackingNo = Generators.GenerateCode(8)
-        };
+        });
+
+        _mapper.Map(request, order);
 
         await _orderRepository.InsertAsync(order);
 
         foreach (var cartItem in request.Cart.Items)
         {
-            var orderItem = new OrderItem
+            var orderItem = _mapper.Map(cartItem, new OrderItem
             {
-                ProductId = cartItem.ProductId,
-                Count = cartItem.Count,
-                UnitPrice = cartItem.UnitPrice,
-                DiscountRate = cartItem.DiscountRate,
-                OrderId = order.Id
-            };
+                OrderId = order.Id,
+                Order = order
+            });
 
             await _orderItemRepository.InsertAsync(orderItem);
         }
