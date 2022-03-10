@@ -13,13 +13,13 @@ public class Order : EntityBase
     public int PaymentMethod { get; set; }
 
     [BsonElement("totalAmount")]
-    public double TotalAmount { get; set; }
+    public decimal TotalAmount { get; set; }
 
     [BsonElement("discountAmount")]
-    public double DiscountAmount { get; set; }
+    public decimal DiscountAmount { get; set; }
 
     [BsonElement("paymentAmount")]
-    public double PaymentAmount { get; set; }
+    public decimal PaymentAmount { get; set; }
 
     [BsonElement("isPaid")]
     public bool IsPaid { get; set; }
@@ -29,6 +29,8 @@ public class Order : EntityBase
 
     [Display(Name = "کد پیگیری")]
     [BsonElement("issueTrackingNo")]
+    [Required]
+    [MaxLength(8)]
     public string IssueTrackingNo { get; set; }
 
     [Display(Name = "کد بازگشت درگاه پرداخت")]
