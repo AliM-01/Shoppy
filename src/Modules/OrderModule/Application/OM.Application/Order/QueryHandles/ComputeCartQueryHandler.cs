@@ -53,7 +53,12 @@ public class ComputeCartQueryHandler : IRequestHandler<ComputeCartQuery, Respons
 
                 var itemInventory = await _inventoryRepository.GetByFilter(filter);
 
-                if (itemInventory is null) return new Response<CartDto>(cart);
+                if (itemInventory is null)
+                    throw new ApiException("محصول مورد نظر در انبار وجود ندارد");
+
+
+                if (!(await _inventoryHelper.IsInStock(itemInventory.Id)))
+                    throw new ApiException("محصول مورد نظر در انبار وجود ندارد");
 
                 var product = await _productRepository.GetByIdAsync(itemInventory.ProductId);
 

@@ -100,6 +100,7 @@ public class FilterInventoryQueryHandler : IRequestHandler<FilterInventoryQuery,
         {
             inventory.Product = products.FirstOrDefault(x => x.Id == inventory.ProductId)?.Title;
             inventory.CurrentCount = _inventoryHelper.CalculateCurrentCount(inventory.Id).Result;
+            inventory.InStock = _inventoryHelper.IsInStock(inventory.Id).Result;
         });
 
         #endregion paging
