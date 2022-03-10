@@ -32,10 +32,10 @@ public class CartItemDto
     public decimal TotalItemPrice { get; set; }
 
     [JsonProperty("isNotInStock")]
-    public bool IsNotInStock { get; set; } = false;
+    public bool IsNotInStock { get; set; }
 
     [JsonProperty("itemInInventoryCountIsLowerThanRequestedCount")]
-    public bool ItemInInventoryCountIsLowerThanRequestedCount { get; set; } = false;
+    public bool ItemInInventoryCountIsLowerThanRequestedCount { get; set; }
 
     [JsonProperty("discountRate")]
     public int DiscountRate { get; set; }
@@ -49,6 +49,8 @@ public class CartItemDto
     public CartItemDto()
     {
         TotalItemPrice = UnitPrice * Count;
+        IsNotInStock = false;
+        ItemInInventoryCountIsLowerThanRequestedCount = false;
     }
 
     public void CalculateTotalItemPrice()
