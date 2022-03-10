@@ -26,5 +26,13 @@ public class OrderModuleMappingProfile : Profile
         #endregion
 
         #endregion
+
+        #region Cart
+
+        CreateMap<SM.Domain.Product.Product, CartItemDto>();
+
+        CreateMap<CartItemInCookieDto, CartItemDto>();
+
+        #endregion
     }
 }

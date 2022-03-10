@@ -31,8 +31,11 @@ public class CartItemDto
     [JsonProperty("totalItemPrice")]
     public decimal TotalItemPrice { get; set; }
 
-    [JsonProperty("isInStock")]
-    public bool IsInStock { get; set; }
+    [JsonProperty("isNotInStock")]
+    public bool IsNotInStock { get; set; } = false;
+
+    [JsonProperty("itemInInventoryCountIsLowerThanRequestedCount")]
+    public bool ItemInInventoryCountIsLowerThanRequestedCount { get; set; } = false;
 
     [JsonProperty("discountRate")]
     public int DiscountRate { get; set; }

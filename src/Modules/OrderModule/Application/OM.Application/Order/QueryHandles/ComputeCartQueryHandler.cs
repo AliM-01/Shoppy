@@ -64,20 +64,18 @@ public class ComputeCartQueryHandler : IRequestHandler<ComputeCartQuery, Respons
 
             var itemToReturn = new CartItemDto
             {
-                Count = cartItem.Count,
-                Title = product.Title,
-                ProductId = cartItem.ProductId,
-                Slug = product.Slug,
                 UnitPrice = itemInventory.UnitPrice,
-                ImagePath = product.ImagePath,
-                ImageAlt = product.ImageAlt,
-                ImageTitle = product.ImageTitle
             };
+
+            _mapper.Map(product, itemToReturn);
+            _mapper.Map(cartItem, itemToReturn);
 
             itemToReturn.CalculateTotalItemPrice();
 
-            itemToReturn.IsInStock = (await _inventoryHelper.CalculateCurrentCount(itemInventory.Id)) >= cartItem.Count;
+            long inventoryCount = await _inventoryHelper.CalculateCurrentCount(itemInventory.Id);
 
+            itemToReturn.IsNotInStock = (inventoryCount <= 0);
+            itemToReturn.ItemInInventoryCountIsLowerThanRequestedCount = (inventoryCount >= cartItem.Count);
 
             #endregion
 
