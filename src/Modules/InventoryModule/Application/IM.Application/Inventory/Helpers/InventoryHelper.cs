@@ -21,6 +21,17 @@ public class InventoryHelper : IInventoryHelper
 
     #endregion
 
+    #region IsInStock
+
+    public async Task<bool> IsInStock(string inventoryId)
+    {
+        var count = await CalculateCurrentCount(inventoryId);
+
+        return count > 0;
+    }
+
+    #endregion
+
     #region CalculateCurrentCount
 
     public async Task<long> CalculateCurrentCount(string inventoryId)
