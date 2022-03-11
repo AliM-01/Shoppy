@@ -14,7 +14,6 @@ public class SetOrderPaymentSuccessCommandHandler : IRequestHandler<SetOrderPaym
                                                     IMapper mapper)
     {
         _orderRepository = Guard.Against.Null(orderRepository, nameof(_orderRepository));
-        _orderItemRepository = Guard.Against.Null(orderItemRepository, nameof(_orderItemRepository));
         _mapper = Guard.Against.Null(mapper, nameof(_mapper));
     }
 
