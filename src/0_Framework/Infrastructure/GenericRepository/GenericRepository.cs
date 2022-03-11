@@ -1,7 +1,6 @@
 ﻿using _0_Framework.Application.Exceptions;
 using _0_Framework.Application.Models.Paging;
 using _0_Framework.Domain;
-using _0_Framework.Domain.Attributes;
 using Microsoft.Extensions.Options;
 using MongoDB.Driver;
 using MongoDB.Driver.Linq;
@@ -24,22 +23,7 @@ public class GenericRepository<TDocument, TSettings> : IGenericRepository<TDocum
     {
         _settings = settings.Value;
 
-        var mongoSettings = MongoClientSettings.FromConnectionString(_settings.ConnectionString);
-        mongoSettings.ServerApi = new ServerApi(ServerApiVersion.V1);
-
-        var client = new MongoClient(mongoSettings);
-
-        var database = client.GetDatabase(_settings.DbName);
-
-        _collection = database.GetCollection<TDocument>(GetCollectionName(typeof(TDocument)));
-    }
-
-    private protected string GetCollectionName(Type documentType)
-    {
-        return ((BsonCollectionAttribute)documentType.GetCustomAttributes(
-                typeof(BsonCollectionAttribute),
-                true)
-            .FirstOrDefault())?.CollectionName;
+        _collection = MongoDbConnector.Conncet<TDocument>(_settings);
     }
 
     #endregion
