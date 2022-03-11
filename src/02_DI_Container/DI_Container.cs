@@ -1,4 +1,5 @@
-﻿using _01_Shoppy.Query;
+﻿using _0_Framework.Application.ZarinPal;
+using _01_Shoppy.Query;
 using _02_DI_Container.Extensions.Startup;
 using AM.Application;
 using AM.Infrastructure.Configuration;
@@ -48,6 +49,8 @@ public static class DI_Container
         CommentModuletBootstrapper.Configure(services, config);
         BlogModuletBootstrapper.Configure(services, config);
         OrderModuletBootstrapper.Configure(services, config);
+
+        services.AddTransient<IZarinPalFactory, ZarinPalFactory>();
     }
 
     private static void AddGeneralSettings(IServiceCollection services)
