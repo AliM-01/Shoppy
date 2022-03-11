@@ -1,5 +1,4 @@
-﻿using _0_Framework.Application.Extensions;
-using OM.Application.Contracts.Order.Commands;
+﻿using OM.Application.Contracts.Order.Commands;
 using OM.Domain.Order;
 
 namespace OM.Application.Order.CommandHandles;
@@ -27,7 +26,7 @@ public class PlaceOrderCommandHandler : IRequestHandler<PlaceOrderCommand, Respo
     {
         var order = _mapper.Map(request, new Domain.Order.Order
         {
-            IssueTrackingNo = Generators.GenerateCode(8)
+            IssueTrackingNo = "0000-0000"
         });
 
         _mapper.Map(request, order);
