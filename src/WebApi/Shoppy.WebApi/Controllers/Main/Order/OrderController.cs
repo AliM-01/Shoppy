@@ -1,4 +1,7 @@
-﻿using OM.Application.Contracts.Order.DTOs;
+﻿using AM.Domain.Enums;
+using Microsoft.AspNetCore.Authorization;
+using OM.Application.Contracts.Order.Commands;
+using OM.Application.Contracts.Order.DTOs;
 using OM.Application.Contracts.Order.Queries;
 using System.Collections.Generic;
 
@@ -21,7 +24,7 @@ public class OrderController : BaseApiController
 
     #endregion
 
-    #region Compute Cart
+    #region Checkout
 
     [HttpPost(MainOrderApiEndpoints.Order.Checkout)]
     [SwaggerOperation(Summary = "پردازش سفارش", Tags = new[] { "Order" })]
@@ -29,6 +32,21 @@ public class OrderController : BaseApiController
     public async Task<IActionResult> Checkout([FromBody] List<CartItemInCookieDto> items)
     {
         var res = await Mediator.Send(new ComputeCartQuery(items, IsCheckout: true));
+
+        return JsonApiResult.Success(res);
+    }
+
+    #endregion
+
+    #region PlaceOrder
+
+    [HttpPost(MainOrderApiEndpoints.Order.PlaceOrder)]
+    [Authorize(Policy = RoleConstants.BasicUser)]
+    [SwaggerOperation(Summary = "ثبت سفارش", Tags = new[] { "Order" })]
+    [SwaggerResponse(200, "success")]
+    public async Task<IActionResult> PlaceOrder([FromBody] CartDto cart)
+    {
+        var res = await Mediator.Send(new PlaceOrderCommand(cart, User.GetUserId()));
 
         return JsonApiResult.Success(res);
     }

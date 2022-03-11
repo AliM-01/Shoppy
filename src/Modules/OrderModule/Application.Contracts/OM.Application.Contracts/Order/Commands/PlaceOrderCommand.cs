@@ -2,4 +2,4 @@
 
 namespace OM.Application.Contracts.Order.Commands;
 
-public record PlaceOrderCommand(CartDto Cart, string UserId) : IRequest<Response<long>>;
+public record PlaceOrderCommand(CartDto Cart, string UserId) : IRequest<Response<string>>;
