@@ -4,7 +4,7 @@ using OM.Domain.Order;
 
 namespace OM.Application.Order.CommandHandles;
 
-public class PlaceOrderCommandHandler : IRequestHandler<PlaceOrderCommand, Response<string>>
+public class PlaceOrderCommandHandler : IRequestHandler<PlaceOrderCommand, Response<PlaceOrderResponseDto>>
 {
     #region Ctor
 
@@ -23,7 +23,7 @@ public class PlaceOrderCommandHandler : IRequestHandler<PlaceOrderCommand, Respo
 
     #endregion
 
-    public async Task<Response<string>> Handle(PlaceOrderCommand request, CancellationToken cancellationToken)
+    public async Task<Response<PlaceOrderResponseDto>> Handle(PlaceOrderCommand request, CancellationToken cancellationToken)
     {
         var order = _mapper.Map(request, new Domain.Order.Order
         {
@@ -45,6 +45,6 @@ public class PlaceOrderCommandHandler : IRequestHandler<PlaceOrderCommand, Respo
             await _orderItemRepository.InsertAsync(orderItem);
         }
 
-        return new Response<string>(order.Id);
+        return new Response<PlaceOrderResponseDto>(new PlaceOrderResponseDto(order.Id));
     }
 }
