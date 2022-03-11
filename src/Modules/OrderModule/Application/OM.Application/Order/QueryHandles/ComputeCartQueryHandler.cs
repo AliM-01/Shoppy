@@ -44,6 +44,8 @@ public class ComputeCartQueryHandler : IRequestHandler<ComputeCartQuery, Respons
 
         foreach (var cartItem in request.Items)
         {
+            var itemToReturn = new CartItemDto();
+
             if (!(await _inventoryRepository.ExistsAsync(x => x.ProductId == cartItem.ProductId)))
                 continue;
 
@@ -54,18 +56,19 @@ public class ComputeCartQueryHandler : IRequestHandler<ComputeCartQuery, Respons
             var itemInventory = await _inventoryRepository.GetByFilter(filter);
 
             if (itemInventory is null)
-                throw new ApiException("محصول مورد نظر در انبار وجود ندارد");
-
-
-            if (!(await _inventoryHelper.IsInStock(itemInventory.Id)))
-                throw new ApiException("محصول مورد نظر در انبار وجود ندارد");
-
-            var product = await _productRepository.GetByIdAsync(itemInventory.ProductId);
-
-            var itemToReturn = new CartItemDto
             {
-                UnitPrice = itemInventory.UnitPrice,
-            };
+                if (request.IsCheckout)
+                    continue;
+                else
+                    itemToReturn.IsNotInStock = true;
+            }
+
+            if (!(await _inventoryHelper.IsInStock(itemInventory?.Id)))
+                itemToReturn.IsNotInStock = true;
+
+            var product = await _productRepository.GetByIdAsync(itemInventory?.ProductId);
+
+            itemToReturn.UnitPrice = itemInventory.UnitPrice;
 
             _mapper.Map(product, itemToReturn);
             _mapper.Map(cartItem, itemToReturn);
