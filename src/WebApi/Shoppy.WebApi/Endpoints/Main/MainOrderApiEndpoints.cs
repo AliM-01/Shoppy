@@ -7,5 +7,7 @@ public class MainOrderApiEndpoints
     public static class Order
     {
         public const string ComputeCart = BaseMainOrderRoute + "/compute-cart";
+
+        public const string Checkout = BaseMainOrderRoute + "/checkout";
     }
 }
