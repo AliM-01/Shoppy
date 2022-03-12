@@ -3,6 +3,7 @@ using CM.Domain.Comment;
 using CM.Infrastructure.Persistence.Context;
 using CM.Infrastructure.Persistence.Settings;
 using MediatR;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using System;
 
@@ -14,8 +15,6 @@ public static class CommentModuletBootstrapper
     {
         services.Configure<CommentDbSettings>(config.GetSection("CommentDbSettings"));
 
-        services.AddScoped<ICommentDbContext, CommentDbContext>();
-
         services.AddScoped<IGenericRepository<Comment>, GenericRepository<Comment, CommentDbSettings>>();
 
         services.AddMediatR(typeof(CommentModuletBootstrapper).Assembly);
@@ -24,8 +23,9 @@ public static class CommentModuletBootstrapper
         {
             try
             {
-                var commentService = scope.ServiceProvider.GetRequiredService<ICommentDbContext>();
-                CommentDbContextSeed.SeedData(commentService.Comments);
+                var dbSettings = (CommentDbSettings)config.GetSection("CommentDbSettings").Get(typeof(CommentDbSettings));
+
+                CommentDbContextSeed.SeedData(dbSettings);
             }
             catch (Exception ex)
             {
