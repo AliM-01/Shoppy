@@ -21,10 +21,10 @@ public class InitializePaymentRequestCommandHandler : IRequestHandler<Initialize
 
     public async Task<Response<InitializePaymentResponseDto>> Handle(InitializePaymentRequestCommand request, CancellationToken cancellationToken)
     {
-        var order = _orderRepository.GetByIdAsync(request.OrderId);
+        var order = await _orderRepository.GetByIdAsync(request.Payment.OrderId);
 
         var paymentResponse = await _zarinPalFactory
-                .CreatePaymentRequest(request.CallBackUrl, request.Amount, "", "", order.Id);
+                .CreatePaymentRequest(request.Payment.CallBackUrl, request.Payment.Amount, request.Payment.Email, order.Id);
 
         var redirectUrl = "https://sandbox.zarinpal.com/pg/StartPay/" + paymentResponse.Authority;
 

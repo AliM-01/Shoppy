@@ -2,4 +2,4 @@
 
 namespace OM.Application.Contracts.Order.Commands;
 
-public record InitializePaymentRequestCommand(string OrderId, string Amount, string CallBackUrl) : IRequest<Response<InitializePaymentResponseDto>>;
+public record InitializePaymentRequestCommand(InitializePaymentRequestDto Payment) : IRequest<Response<InitializePaymentResponseDto>>;

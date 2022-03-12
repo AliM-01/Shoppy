@@ -22,7 +22,7 @@ public class ZarinPalFactory : IZarinPalFactory
         Prefix = "sandbox";
     }
 
-    public async Task<PaymentResponse> CreatePaymentRequest(string callBackUrl, string amount, string email, long orderId)
+    public async Task<PaymentResponse> CreatePaymentRequest(string callBackUrl, string amount, string email, string orderId)
     {
         amount = amount.Replace(",", "");
         var finalAmount = int.Parse(amount);
