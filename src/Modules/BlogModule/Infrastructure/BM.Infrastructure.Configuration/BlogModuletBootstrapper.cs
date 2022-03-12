@@ -1,7 +1,6 @@
 ﻿using _0_Framework.Infrastructure.Helpers;
 using BM.Domain.Article;
 using BM.Domain.ArticleCategory;
-using BM.Infrastructure.Persistence.Context;
 using BM.Infrastructure.Persistence.Seed;
 using BM.Infrastructure.Persistence.Settings;
 using MediatR;
@@ -16,8 +15,6 @@ public class BlogModuletBootstrapper
     public static void Configure(IServiceCollection services, Microsoft.Extensions.Configuration.IConfiguration config)
     {
         services.Configure<BlogDbSettings>(config.GetSection("BlogDbSettings"));
-
-        services.AddScoped<IBlogDbContext, BlogDbContext>();
 
         services.AddScoped<IGenericRepository<ArticleCategory>, GenericRepository<ArticleCategory, BlogDbSettings>>();
         services.AddScoped<IGenericRepository<Article>, GenericRepository<Article, BlogDbSettings>>();
