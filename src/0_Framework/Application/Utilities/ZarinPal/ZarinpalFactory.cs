@@ -1,24 +1,28 @@
-﻿using Microsoft.Extensions.Configuration;
-using Newtonsoft.Json;
+﻿using Newtonsoft.Json;
 using RestSharp;
 
 namespace _0_Framework.Application.ZarinPal;
 
 public class ZarinPalFactory : IZarinPalFactory
 {
-    private readonly IConfiguration _configuration;
+    //private readonly IConfiguration _configuration;
 
     private string Prefix { get; set; }
     //private string MerchantId { get; }
 
-    public ZarinPalFactory(IConfiguration configuration)
+    //public ZarinPalFactory(IConfiguration configuration)
+    //{
+    //    _configuration = configuration;
+    //    Prefix = _configuration.GetSection("payment")["method"];
+    //    MerchantId = _configuration.GetSection("payment")["merchant"];
+    //}
+
+    public ZarinPalFactory()
     {
-        _configuration = configuration;
-        Prefix = "sandbox"; //_configuration.GetSection("payment")["method"]
-                            //MerchantId = _configuration.GetSection("payment")["merchant"];
+        Prefix = "sandbox";
     }
 
-    public async Task<PaymentResponse> CreatePaymentRequest(string callBackUrl, string amount, string mobile, string email, long orderId)
+    public async Task<PaymentResponse> CreatePaymentRequest(string callBackUrl, string amount, string email, long orderId)
     {
         amount = amount.Replace(",", "");
         var finalAmount = int.Parse(amount);
@@ -28,10 +32,10 @@ public class ZarinPalFactory : IZarinPalFactory
         request.AddHeader("Content-Type", "application/json");
         var body = new PaymentRequest
         {
-            Mobile = mobile,
+            Email = email,
+            Mobile = "0000-000-0000",
             CallbackURL = $"{callBackUrl}/{orderId}",
             Description = $"خرید سفارش کد : {orderId}",
-            Email = email,
             Amount = finalAmount
         };
         request.AddJsonBody(body);
