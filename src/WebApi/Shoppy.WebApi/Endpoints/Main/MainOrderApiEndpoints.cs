@@ -11,5 +11,7 @@ public class MainOrderApiEndpoints
         public const string Checkout = BaseMainOrderRoute + "/checkout";
 
         public const string PlaceOrder = BaseMainOrderRoute + "/place-order";
+
+        public const string InitializePayment = BaseMainOrderRoute + "/initialize-payment";
     }
 }

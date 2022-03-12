@@ -52,4 +52,19 @@ public class OrderController : BaseApiController
     }
 
     #endregion
+
+    #region InitializePayment
+
+    [HttpPost(MainOrderApiEndpoints.Order.InitializePayment)]
+    [Authorize(Policy = RoleConstants.BasicUser)]
+    [SwaggerOperation(Summary = "ثبت پرداخت", Tags = new[] { "Order" })]
+    [SwaggerResponse(200, "success")]
+    public async Task<IActionResult> InitializePayment([FromQuery] InitializePaymentRequestDto payment)
+    {
+        var res = await Mediator.Send(new InitializePaymentRequestCommand(payment));
+
+        return JsonApiResult.Success(res);
+    }
+
+    #endregion
 }
