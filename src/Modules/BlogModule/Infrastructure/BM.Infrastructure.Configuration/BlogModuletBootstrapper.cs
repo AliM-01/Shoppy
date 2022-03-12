@@ -1,10 +1,10 @@
 ﻿using _0_Framework.Infrastructure.Helpers;
 using BM.Domain.Article;
 using BM.Domain.ArticleCategory;
-using BM.Infrastructure.Persistence.Context;
 using BM.Infrastructure.Persistence.Seed;
 using BM.Infrastructure.Persistence.Settings;
 using MediatR;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using System;
 
@@ -16,8 +16,6 @@ public class BlogModuletBootstrapper
     {
         services.Configure<BlogDbSettings>(config.GetSection("BlogDbSettings"));
 
-        services.AddScoped<IBlogDbContext, BlogDbContext>();
-
         services.AddScoped<IGenericRepository<ArticleCategory>, GenericRepository<ArticleCategory, BlogDbSettings>>();
         services.AddScoped<IGenericRepository<Article>, GenericRepository<Article, BlogDbSettings>>();
 
@@ -27,10 +25,10 @@ public class BlogModuletBootstrapper
         {
             try
             {
-                var articleService = scope.ServiceProvider.GetRequiredService<IBlogDbContext>();
+                var dbSettings = (BlogDbSettings)config.GetSection("BlogDbSettings").Get(typeof(BlogDbSettings));
 
-                var categories = BlogDbDataSeed.SeedArticleCategoryData(articleService.ArticleCategories);
-                BlogDbDataSeed.SeedArticleData(articleService.Articles, categories);
+                var categories = BlogDbDataSeed.SeedArticleCategoryData(dbSettings);
+                BlogDbDataSeed.SeedArticleData(dbSettings, categories);
             }
             catch (Exception)
             {

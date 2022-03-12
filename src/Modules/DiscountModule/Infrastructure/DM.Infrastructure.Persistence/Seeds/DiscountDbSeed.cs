@@ -1,6 +1,8 @@
 ﻿using _0_Framework.Application.Extensions;
+using _0_Framework.Infrastructure;
 using DM.Domain.DiscountCode;
 using DM.Domain.ProductDiscount;
+using DM.Infrastructure.Persistence.Settings;
 using MongoDB.Driver;
 using SM.Infrastructure.Persistence.Seeds;
 
@@ -8,9 +10,11 @@ namespace DM.Infrastructure.Persistence.Seeds;
 
 public static class DiscountDbSeed
 {
-    public static void SeedDiscountCodes(IMongoCollection<DiscountCode> discounts)
+    public static void SeedDiscountCodes(DiscountDbSettings dbSettings)
     {
-        bool existsDiscount = discounts.Find(_ => true).Any();
+        var collection = MongoDbConnector.Conncet<DiscountCode>(dbSettings);
+
+        bool existsDiscount = collection.Find(_ => true).Any();
 
         if (!existsDiscount)
         {
@@ -51,13 +55,15 @@ public static class DiscountDbSeed
                     EndDate = DateTime.UtcNow.AddDays(30),
                 }
             };
-            discounts.InsertManyAsync(discountToAdd);
+            collection.InsertManyAsync(discountToAdd);
         }
     }
 
-    public static void SeedProductDiscounts(IMongoCollection<ProductDiscount> discounts)
+    public static void SeedProductDiscounts(DiscountDbSettings dbSettings)
     {
-        bool existsDiscount = discounts.Find(_ => true).Any();
+        var collection = MongoDbConnector.Conncet<ProductDiscount>(dbSettings);
+
+        bool existsDiscount = collection.Find(_ => true).Any();
 
         if (!existsDiscount)
         {
@@ -120,7 +126,7 @@ public static class DiscountDbSeed
                     EndDate = DateTime.UtcNow.AddDays(30),
                 }
             };
-            discounts.InsertManyAsync(inventoryToAdd);
+            collection.InsertManyAsync(inventoryToAdd);
         }
     }
 

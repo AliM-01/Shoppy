@@ -1,14 +1,18 @@
 ﻿using _0_Framework.Application.Extensions;
+using _0_Framework.Infrastructure;
 using BM.Domain.Article;
 using BM.Domain.ArticleCategory;
+using BM.Infrastructure.Persistence.Settings;
 using MongoDB.Driver;
 
 namespace BM.Infrastructure.Persistence.Seed;
 
 public static class BlogDbDataSeed
 {
-    public static ArticleCategory[] SeedArticleCategoryData(IMongoCollection<ArticleCategory> collection)
+    public static ArticleCategory[] SeedArticleCategoryData(BlogDbSettings dbSettings)
     {
+        var collection = MongoDbConnector.Conncet<ArticleCategory>(dbSettings);
+
         bool existsAny = collection.Find(_ => true).Any();
 
         if (!existsAny)
@@ -65,10 +69,12 @@ public static class BlogDbDataSeed
         return null;
     }
 
-    public static void SeedArticleData(IMongoCollection<Article> collection, ArticleCategory[] categories)
+    public static void SeedArticleData(BlogDbSettings dbSettings, ArticleCategory[] categories)
     {
         if (categories is null)
             return;
+
+        var collection = MongoDbConnector.Conncet<Article>(dbSettings);
 
         bool existsAny = collection.Find(_ => true).Any();
 

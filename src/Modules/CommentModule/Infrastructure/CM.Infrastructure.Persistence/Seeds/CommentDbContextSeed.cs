@@ -1,4 +1,6 @@
-﻿using CM.Domain.Comment;
+﻿using _0_Framework.Infrastructure;
+using CM.Domain.Comment;
+using CM.Infrastructure.Persistence.Settings;
 using MongoDB.Driver;
 using SM.Infrastructure.Persistence.Seeds;
 using System.Collections.Generic;
@@ -7,9 +9,11 @@ namespace CM.Infrastructure.Persistence.Context;
 
 public static class CommentDbContextSeed
 {
-    public static void SeedData(IMongoCollection<Comment> comments)
+    public static void SeedData(CommentDbSettings dbSettings)
     {
-        bool existsComment = comments.Find(_ => true).Any();
+        var collection = MongoDbConnector.Conncet<Comment>(dbSettings);
+
+        bool existsComment = collection.Find(_ => true).Any();
 
         if (!existsComment)
         {
@@ -56,7 +60,7 @@ public static class CommentDbContextSeed
                     ParentId = null
                 }
             };
-            comments.InsertManyAsync(commentToAdd);
+            collection.InsertManyAsync(commentToAdd);
         }
     }
 }

@@ -1,13 +1,13 @@
 ﻿using _0_Framework.Infrastructure.Helpers;
 using _01_Shoppy.Query.Helpers.Product;
 using MediatR;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using SM.Domain.Product;
 using SM.Domain.ProductCategory;
 using SM.Domain.ProductFeature;
 using SM.Domain.ProductPicture;
 using SM.Domain.Slider;
-using SM.Infrastructure.Persistence.Context;
 using SM.Infrastructure.Persistence.Seeds;
 using SM.Infrastructure.Persistence.Settings;
 using System;
@@ -22,8 +22,6 @@ public static class ShopModuletBootstrapper
 
         services.Configure<ShopDbSettings>(config.GetSection("ShopDbSettings"));
 
-        services.AddScoped<IShopDbContext, ShopDbContext>();
-
         services.AddTransient<IGenericRepository<ProductCategory>, GenericRepository<ProductCategory, ShopDbSettings>>();
         services.AddTransient<IGenericRepository<ProductPicture>, GenericRepository<ProductPicture, ShopDbSettings>>();
         services.AddTransient<IGenericRepository<ProductFeature>, GenericRepository<ProductFeature, ShopDbSettings>>();
@@ -37,12 +35,13 @@ public static class ShopModuletBootstrapper
         {
             try
             {
-                var shopContext = scope.ServiceProvider.GetRequiredService<IShopDbContext>();
-                var categories = ShopDbSeed.SeedProductCategories(shopContext.ProductCategories);
-                ShopDbSeed.SeedProducts(shopContext.Products, categories);
-                ShopDbSeed.SeedProductPictures(shopContext.ProductPictures);
-                ShopDbSeed.SeedProductFeatures(shopContext.ProductFeatures);
-                ShopDbSeed.SeedSliders(shopContext.Sliders);
+                var dbSettings = (ShopDbSettings)config.GetSection("ShopDbSettings").Get(typeof(ShopDbSettings));
+
+                var categories = ShopDbSeed.SeedProductCategories(dbSettings);
+                ShopDbSeed.SeedProducts(dbSettings, categories);
+                ShopDbSeed.SeedProductPictures(dbSettings);
+                ShopDbSeed.SeedProductFeatures(dbSettings);
+                ShopDbSeed.SeedSliders(dbSettings);
 
             }
             catch (Exception ex)
