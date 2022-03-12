@@ -1,4 +1,6 @@
-﻿using IM.Domain.Inventory;
+﻿using _0_Framework.Infrastructure;
+using IM.Domain.Inventory;
+using IM.Infrastructure.Persistence.Settings;
 using MongoDB.Driver;
 using SM.Infrastructure.Persistence.Seeds;
 using System.Collections.Generic;
@@ -7,9 +9,11 @@ namespace IM.Infrastructure.Persistence.Seeds;
 
 public static class InventoryDbSeed
 {
-    public static Inventory[] SeedInventories(IMongoCollection<Inventory> inventorys)
+    public static Inventory[] SeedInventories(InventoryDbSettings dbSettings)
     {
-        bool existsInventory = inventorys.Find(_ => true).Any();
+        var collection = MongoDbConnector.Conncet<Inventory>(dbSettings);
+
+        bool existsInventory = collection.Find(_ => true).Any();
 
         if (!existsInventory)
         {
@@ -71,7 +75,7 @@ public static class InventoryDbSeed
                     UnitPrice = 30000000
                 }
             };
-            inventorys.InsertManyAsync(inventoryToAdd);
+            collection.InsertManyAsync(inventoryToAdd);
 
             return inventoryToAdd;
         }
@@ -79,12 +83,14 @@ public static class InventoryDbSeed
         return null;
     }
 
-    public static void SeedInventoryOperations(IMongoCollection<InventoryOperation> operations, Inventory[] inventories)
+    public static void SeedInventoryOperations(InventoryDbSettings dbSettings, Inventory[] inventories)
     {
         if (inventories is null)
             return;
 
-        bool existsInventory = operations.Find(_ => true).Any();
+        var collection = MongoDbConnector.Conncet<InventoryOperation>(dbSettings);
+
+        bool existsInventory = collection.Find(_ => true).Any();
 
         if (!existsInventory)
         {
@@ -109,7 +115,7 @@ public static class InventoryDbSeed
                 new InventoryOperation(true, 7, 0, 7, Increase, 0, inventories[10].Id),
             };
 
-            operations.InsertManyAsync(operationToAdd);
+            collection.InsertManyAsync(operationToAdd);
         }
     }
 }
