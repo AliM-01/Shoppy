@@ -38,7 +38,7 @@ public class OrderModuleMappingProfile : Profile
             .ForMember(dest => dest.TotalAmount,
                     opt => opt.MapFrom(src => src.Cart.TotalAmount))
             .ForMember(dest => dest.PaymentAmount,
-                    opt => opt.MapFrom(src => src.Cart.PaymentMethod));
+                    opt => opt.MapFrom(src => src.Cart.PayAmount));
 
         #endregion
 

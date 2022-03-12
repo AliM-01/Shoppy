@@ -9,9 +9,6 @@ public class Order : EntityBase
     [BsonElement("userId")]
     public string UserId { get; set; }
 
-    [BsonElement("paymentMethod")]
-    public int PaymentMethod { get; set; }
-
     [BsonElement("totalAmount")]
     public decimal TotalAmount { get; set; }
 

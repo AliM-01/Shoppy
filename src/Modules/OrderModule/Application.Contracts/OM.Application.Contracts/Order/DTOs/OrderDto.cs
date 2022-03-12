@@ -13,14 +13,6 @@ public class OrderDto
     [JsonProperty("userFullName")]
     public string UserFullName { get; set; }
 
-    [Display(Name = "روش پرداخت")]
-    [JsonProperty("paymentMethod")]
-    public int PaymentMethod { get; set; }
-
-    [Display(Name = "روش پرداخت")]
-    [JsonProperty("paymentMethodId")]
-    public int PaymentMethodId { get; set; }
-
     [Display(Name = "حساب")]
     [JsonProperty("totalAmount")]
     public double TotalAmount { get; set; }
