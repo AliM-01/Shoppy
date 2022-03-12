@@ -6,7 +6,7 @@ public class InitializePaymentRequestDto
     public string OrderId { get; set; }
 
     [JsonProperty("amount")]
-    public string Amount { get; set; }
+    public decimal Amount { get; set; }
 
     [JsonProperty("callBackUrl")]
     public string CallBackUrl { get; set; }

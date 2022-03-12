@@ -1,5 +1,6 @@
 ﻿using _0_Framework.Application.ZarinPal;
 using OM.Application.Contracts.Order.Commands;
+using System.Globalization;
 
 namespace OM.Application.Order.CommandHandles;
 
@@ -27,7 +28,7 @@ public class InitializePaymentRequestCommandHandler : IRequestHandler<Initialize
             throw new NotFoundApiException();
 
         var paymentResponse = await _zarinPalFactory
-                .CreatePaymentRequest(request.Payment.CallBackUrl, request.Payment.Amount, request.Payment.Email, order.Id);
+                .CreatePaymentRequest(request.Payment.CallBackUrl, request.Payment.Amount.ToString(CultureInfo.InvariantCulture), request.Payment.Email, order.Id);
 
         var redirectUrl = "https://sandbox.zarinpal.com/pg/StartPay/" + paymentResponse.Authority;
 
