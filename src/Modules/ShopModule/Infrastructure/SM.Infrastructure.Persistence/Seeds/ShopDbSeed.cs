@@ -1,4 +1,5 @@
 ﻿using _0_Framework.Application.Extensions;
+using _0_Framework.Infrastructure;
 using MongoDB.Bson;
 using MongoDB.Driver;
 using SM.Domain.Product;
@@ -6,15 +7,18 @@ using SM.Domain.ProductCategory;
 using SM.Domain.ProductFeature;
 using SM.Domain.ProductPicture;
 using SM.Domain.Slider;
+using SM.Infrastructure.Persistence.Settings;
 using System.Collections.Generic;
 
 namespace SM.Infrastructure.Persistence.Seeds;
 
 public static class ShopDbSeed
 {
-    public static ProductCategory[] SeedProductCategories(IMongoCollection<ProductCategory> categories)
+    public static ProductCategory[] SeedProductCategories(ShopDbSettings dbSettings)
     {
-        bool existsCategories = categories.Find(_ => true).Any();
+        var collection = MongoDbConnector.Conncet<ProductCategory>(dbSettings);
+
+        bool existsCategories = collection.Find(_ => true).Any();
 
         if (!existsCategories)
         {
@@ -43,7 +47,7 @@ public static class ShopDbSeed
                     MetaDescription = "ساعت هوشمند"
                 }
             };
-            categories.InsertManyAsync(data);
+            collection.InsertManyAsync(data);
 
             return data;
         }
@@ -51,9 +55,11 @@ public static class ShopDbSeed
         return null;
     }
 
-    public static void SeedProducts(IMongoCollection<Product> products, ProductCategory[] categories)
+    public static void SeedProducts(ShopDbSettings dbSettings, ProductCategory[] categories)
     {
-        bool existsProducts = products.Find(_ => true).Any();
+        var collection = MongoDbConnector.Conncet<Product>(dbSettings);
+
+        bool existsProducts = collection.Find(_ => true).Any();
 
         if (!existsProducts)
         {
@@ -239,13 +245,16 @@ public static class ShopDbSeed
                     MetaKeywords = watchTags.Replace("سامسونگ", "اپل"),
                 }
             };
-            products.InsertManyAsync(productToAdd);
+
+            collection.InsertManyAsync(productToAdd);
         }
     }
 
-    public static void SeedProductPictures(IMongoCollection<ProductPicture> productPictures)
+    public static void SeedProductPictures(ShopDbSettings dbSettings)
     {
-        bool existsProductPictures = productPictures.Find(_ => true).Any();
+        var collection = MongoDbConnector.Conncet<ProductPicture>(dbSettings);
+
+        bool existsProductPictures = collection.Find(_ => true).Any();
 
         if (!existsProductPictures)
         {
@@ -457,13 +466,15 @@ public static class ShopDbSeed
                     ImagePath = "2022_01_16_22-03_03_71a7.jpg"
                 },
             };
-            productPictures.InsertManyAsync(productPictureToAdd);
+            collection.InsertManyAsync(productPictureToAdd);
         }
     }
 
-    public static void SeedProductFeatures(IMongoCollection<ProductFeature> productFeatures)
+    public static void SeedProductFeatures(ShopDbSettings dbSettings)
     {
-        bool existsProductFeatures = productFeatures.Find(_ => true).Any();
+        var collection = MongoDbConnector.Conncet<ProductFeature>(dbSettings);
+
+        bool existsProductFeatures = collection.Find(_ => true).Any();
 
         if (!existsProductFeatures)
         {
@@ -542,13 +553,15 @@ public static class ShopDbSeed
                     FeatureValue = "44mm"
                 },
             };
-            productFeatures.InsertManyAsync(productFeatureToAdd);
+            collection.InsertManyAsync(productFeatureToAdd);
         }
     }
 
-    public static void SeedSliders(IMongoCollection<Slider> sliders)
+    public static void SeedSliders(ShopDbSettings dbSettings)
     {
-        bool existsSliders = sliders.Find(_ => true).Any();
+        var collection = MongoDbConnector.Conncet<Slider>(dbSettings);
+
+        bool existsSliders = collection.Find(_ => true).Any();
 
         if (!existsSliders)
         {
@@ -575,7 +588,7 @@ public static class ShopDbSeed
                     ImageAlt = "فروش ویژه آیفون 13"
                 }
             };
-            sliders.InsertManyAsync(sliderToAdd);
+            collection.InsertManyAsync(sliderToAdd);
         }
     }
 
