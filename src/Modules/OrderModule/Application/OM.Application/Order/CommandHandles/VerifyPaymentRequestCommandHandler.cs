@@ -1,4 +1,5 @@
-﻿using _0_Framework.Application.ZarinPal;
+﻿using _0_Framework.Application.Extensions;
+using _0_Framework.Application.ZarinPal;
 using OM.Application.Contracts.Order.Commands;
 using System.Globalization;
 
@@ -27,10 +28,19 @@ public class VerifyPaymentRequestCommandHandler : IRequestHandler<VerifyPaymentR
         if (order is null)
             throw new NotFoundApiException();
 
-        var verificationResponse =
-                _zarinPalFactory.CreateVerificationRequest(request.Payment.Authority,
+        var verificationResponse = await _zarinPalFactory
+            .CreateVerificationRequest(request.Payment.Authority,
                     order.PaymentAmount.ToString(CultureInfo.InvariantCulture));
 
-        return new Response<string>("");
+        if (!(verificationResponse.Status >= 100))
+            throw new ApiException("پرداخت با موفقیت انجام نشد. درصورت کسر وجه از حساب، مبلغ تا 24 ساعت دیگر به حساب شما بازگردانده خواهد شد.");
+
+        order.IsPaid = true;
+        order.RefId = verificationResponse.RefID;
+        order.IssueTrackingNo = Generators.GenerateCode(8);
+
+        await _orderRepository.UpdateAsync(order);
+
+        return new Response<string>("پرداخت با موفقیت انجام شد");
     }
 }
