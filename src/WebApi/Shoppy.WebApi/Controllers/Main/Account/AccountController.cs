@@ -47,8 +47,6 @@ public class AccountController : BaseApiController
     [SwaggerResponse(400, "not active")]
     public async Task<IActionResult> Login([FromForm] AuthenticateUserRequestDto login)
     {
-        await HttpContext.SignOutAsync();
-
         var res = await Mediator.Send(new AuthenticateUserCommand(login));
 
         return JsonApiResult.Success(res);
@@ -101,8 +99,6 @@ public class AccountController : BaseApiController
         var userId = claimsIdentity.FindFirst(ClaimTypes.UserData)?.Value;
 
         await _tokenStoreService.RevokeUserBearerTokens(userId, token.RefreshToken);
-
-        await HttpContext.SignOutAsync();
 
         return JsonApiResult.Success();
     }
