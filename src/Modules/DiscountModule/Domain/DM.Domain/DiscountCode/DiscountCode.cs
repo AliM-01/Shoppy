@@ -2,6 +2,7 @@
 
 namespace DM.Domain.DiscountCode;
 
+[BsonCollection("discountCodes")]
 public class DiscountCode : EntityBase
 {
     [BsonElement("code")]
