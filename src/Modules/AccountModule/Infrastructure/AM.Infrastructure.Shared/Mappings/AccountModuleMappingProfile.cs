@@ -19,7 +19,7 @@ public class AccountModuleMappingProfile : Profile
             .ForMember(dest => dest.FullName,
                 opt => opt.MapFrom(src => $"{src.FirstName} {src.LastName}"))
             .ForMember(dest => dest.RegisterDate,
-                opt => opt.MapFrom(src => src.RegisterDate.ToShamsi()));
+                opt => opt.MapFrom(src => src.CreatedOn.ToShamsi()));
 
         #endregion
 
@@ -28,8 +28,6 @@ public class AccountModuleMappingProfile : Profile
         CreateMap<RegisterAccountDto, Account>()
                        .ForMember(dest => dest.Avatar,
                            opt => opt.MapFrom(src => "default-avatar.png"))
-                       .ForMember(dest => dest.Email,
-                           opt => opt.MapFrom(src => src.Email.Trim()))
                        .ForMember(dest => dest.UserName,
                            opt => opt.MapFrom(src => Generators.GenerateRandomUsername()));
 

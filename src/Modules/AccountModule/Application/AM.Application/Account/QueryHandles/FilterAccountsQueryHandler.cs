@@ -40,11 +40,11 @@ public class FilterAccountsQueryHandler : IRequestHandler<FilterAccountsQuery, R
         switch (request.Filter.SortDateOrder)
         {
             case PagingDataSortCreationDateOrder.DES:
-                query = query.OrderByDescending(x => x.RegisterDate);
+                query = query.OrderByDescending(x => x.CreatedOn);
                 break;
 
             case PagingDataSortCreationDateOrder.ASC:
-                query = query.OrderBy(x => x.RegisterDate);
+                query = query.OrderBy(x => x.CreatedOn);
                 break;
         }
 

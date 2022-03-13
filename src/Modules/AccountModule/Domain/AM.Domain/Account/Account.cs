@@ -27,10 +27,6 @@ public class Account : MongoIdentityUser<Guid>
     [Required(ErrorMessage = DomainErrorMessage.RequiredMessage)]
     public string Avatar { get; set; }
 
-    [BsonElement("registerDate")]
-    [BsonRepresentation(BsonType.DateTime)]
-    public DateTime RegisterDate { get; set; } = DateTime.Now;
-
     [BsonElement("serialNumber")]
     public string SerialNumber { get; set; }
 
