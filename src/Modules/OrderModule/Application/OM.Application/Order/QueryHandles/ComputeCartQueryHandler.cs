@@ -78,7 +78,7 @@ public class ComputeCartQueryHandler : IRequestHandler<ComputeCartQuery, Respons
             long inventoryCount = await _inventoryHelper.CalculateCurrentCount(itemInventory.Id);
 
             itemToReturn.IsNotInStock = (inventoryCount <= 0);
-            itemToReturn.ItemInInventoryCountIsLowerThanRequestedCount = (inventoryCount >= cartItem.Count);
+            itemToReturn.ItemInInventoryCountIsLowerThanRequestedCount = (inventoryCount < cartItem.Count);
 
             #endregion
 
