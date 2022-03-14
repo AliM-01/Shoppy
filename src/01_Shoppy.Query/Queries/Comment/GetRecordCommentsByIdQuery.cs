@@ -1,7 +1,6 @@
 ﻿using _0_Framework.Infrastructure;
 using _01_Shoppy.Query.Helpers.Comment;
 using _01_Shoppy.Query.Models.Comment;
-using AutoMapper;
 using CM.Domain.Comment;
 
 namespace _01_Shoppy.Query.Queries.Comment;
@@ -28,7 +27,7 @@ public class GetRecordCommentsByIdQueryHandler : IRequestHandler<GetRecordCommen
     public async Task<Response<List<CommentQueryModel>>> Handle(GetRecordCommentsByIdQuery request, CancellationToken cancellationToken)
     {
         var comments = (await
-            _commentRepository.AsQueryable()
+            _commentRepository.AsQueryable(cancellationToken: cancellationToken)
             .Where(x => x.ParentId == null)
             .Where(x => x.OwnerRecordId == request.RecordId && x.State == CommentState.Confirmed)
             .ToListAsyncSafe()

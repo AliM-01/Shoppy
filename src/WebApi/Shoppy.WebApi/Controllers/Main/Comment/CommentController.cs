@@ -12,9 +12,9 @@ public class CommentController : BaseApiController
     [HttpGet(MainCommentApiEndpoints.Comment.GetRecordCommentsById)]
     [SwaggerOperation(Summary = "دریافت کامنت های محصول/مقاله", Tags = new[] { "Comment" })]
     [SwaggerResponse(200, "success")]
-    public async Task<IActionResult> GetRecordCommentsById([FromRoute] string recordId)
+    public async Task<IActionResult> GetRecordCommentsById([FromRoute] string recordId, CancellationToken cancellationToken)
     {
-        var res = await Mediator.Send(new GetRecordCommentsByIdQuery(recordId));
+        var res = await Mediator.Send(new GetRecordCommentsByIdQuery(recordId), cancellationToken);
 
         return JsonApiResult.Success(res);
     }
