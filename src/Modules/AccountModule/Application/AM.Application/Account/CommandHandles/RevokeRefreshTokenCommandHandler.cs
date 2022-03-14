@@ -31,6 +31,8 @@ ITokenStoreService tokenStoreService)
 
     public async Task<Response<AuthenticateUserResponseDto>> Handle(RevokeRefreshTokenCommand request, CancellationToken cancellationToken)
     {
+        cancellationToken.ThrowIfCancellationRequested();
+
         if (string.IsNullOrWhiteSpace(request.Token.RefreshToken))
             throw new ApiException("لطفا توکن معتبر وارد کنید");
 

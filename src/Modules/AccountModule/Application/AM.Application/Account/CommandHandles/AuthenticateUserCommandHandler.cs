@@ -30,6 +30,8 @@ ITokenStoreService tokenStoreService)
 
     public async Task<Response<AuthenticateUserResponseDto>> Handle(AuthenticateUserCommand request, CancellationToken cancellationToken)
     {
+        cancellationToken.ThrowIfCancellationRequested();
+
         var user = await _userManager.FindByEmailAsync(request.Account.Email);
 
         if (user is null)

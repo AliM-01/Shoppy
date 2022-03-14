@@ -23,6 +23,8 @@ public class RegisterAccountCommandHandler : IRequestHandler<RegisterAccountComm
 
     public async Task<Response<string>> Handle(RegisterAccountCommand request, CancellationToken cancellationToken)
     {
+        cancellationToken.ThrowIfCancellationRequested();
+
         var userWithSameEmail = await _userManager.FindByEmailAsync(request.Account.Email);
 
         if (userWithSameEmail != null)

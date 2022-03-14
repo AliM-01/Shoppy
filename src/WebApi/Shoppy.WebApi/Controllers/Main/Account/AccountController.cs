@@ -31,9 +31,11 @@ public class AccountController : BaseApiController
     [SwaggerOperation(Summary = "ثبت نام", Tags = new[] { "Account" })]
     [SwaggerResponse(200, "success")]
     [SwaggerResponse(400, "duplicate email")]
-    public async Task<IActionResult> Register([FromForm] RegisterAccountDto register)
+    public async Task<IActionResult> Register([FromForm] RegisterAccountDto register, CancellationToken cancellationToken)
     {
-        var res = await Mediator.Send(new RegisterAccountCommand(register));
+        cancellationToken.ThrowIfCancellationRequested();
+
+        var res = await Mediator.Send(new RegisterAccountCommand(register), cancellationToken);
 
         return JsonApiResult.Success(res);
     }
@@ -47,8 +49,10 @@ public class AccountController : BaseApiController
     [SwaggerOperation(Summary = "ورود به حساب", Tags = new[] { "Account" })]
     [SwaggerResponse(200, "success")]
     [SwaggerResponse(400, "not active")]
-    public async Task<IActionResult> Login([FromForm] AuthenticateUserRequestDto login)
+    public async Task<IActionResult> Login([FromForm] AuthenticateUserRequestDto login, CancellationToken cancellationToken)
     {
+        cancellationToken.ThrowIfCancellationRequested();
+
         var res = await Mediator.Send(new AuthenticateUserCommand(login));
 
         return JsonApiResult.Success(res);
@@ -65,8 +69,7 @@ public class AccountController : BaseApiController
     [SwaggerResponse(404, "not found")]
     public async Task<IActionResult> RefreshToken([FromForm] RevokeRefreshTokenRequestDto token, CancellationToken cancellationToken)
     {
-        if (cancellationToken.IsCancellationRequested)
-            return JsonApiResult.Canceled();
+        cancellationToken.ThrowIfCancellationRequested();
 
         var res = await Mediator.Send(new RevokeRefreshTokenCommand(token), cancellationToken);
 
@@ -119,8 +122,7 @@ public class AccountController : BaseApiController
     [SwaggerResponse(401, "un-authorized")]
     public IActionResult IsAuthenticated(CancellationToken cancellationToken)
     {
-        if (cancellationToken.IsCancellationRequested)
-            return JsonApiResult.Canceled();
+        cancellationToken.ThrowIfCancellationRequested();
 
         if (!(this.User.Identity.IsAuthenticated))
             return JsonApiResult.Unauthorized();
@@ -139,8 +141,7 @@ public class AccountController : BaseApiController
     [SwaggerResponse(401, "un-authorized")]
     public IActionResult GetCurrentUser(CancellationToken cancellationToken)
     {
-        if (cancellationToken.IsCancellationRequested)
-            return JsonApiResult.Canceled();
+        cancellationToken.ThrowIfCancellationRequested();
 
         var claimsIdentity = User.Identity as ClaimsIdentity;
 
