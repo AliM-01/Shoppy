@@ -63,9 +63,15 @@ public class ErrorHandlerMiddleware
                     }
                     break;
 
-                case SecurityTokenExpiredException e:
+                case SecurityTokenExpiredException:
                     response.StatusCode = (int)HttpStatusCode.Unauthorized;
                     errorMessage = "token expired";
+                    break;
+
+                case OperationCanceledException:
+                    status = "canceled";
+                    response.StatusCode = 499; // 499 Client Closed Request
+                    errorMessage = "عملیات متوقف شد";
                     break;
 
                 default:

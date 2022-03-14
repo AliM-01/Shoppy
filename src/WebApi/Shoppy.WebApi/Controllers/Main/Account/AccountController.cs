@@ -2,8 +2,8 @@
 using AM.Application.Contracts.Account.DTOs;
 using AM.Application.Contracts.Services;
 using Ardalis.GuardClauses;
-using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.Extensions.Logging;
 using System.Security.Claims;
 
 namespace Shoppy.WebApi.Controllers.Main.Account;
@@ -14,10 +14,12 @@ public class AccountController : BaseApiController
     #region ctor
 
     private readonly ITokenStoreService _tokenStoreService;
+    private readonly ILogger<AccountController> _logger;
 
-    public AccountController(ITokenStoreService tokenStoreService)
+    public AccountController(ITokenStoreService tokenStoreService, ILogger<AccountController> logger)
     {
         _tokenStoreService = Guard.Against.Null(tokenStoreService, nameof(_tokenStoreService));
+        _logger = Guard.Against.Null(logger, nameof(_logger));
     }
 
     #endregion
@@ -61,9 +63,12 @@ public class AccountController : BaseApiController
     [SwaggerOperation(Summary = "refresh token", Tags = new[] { "Account" })]
     [SwaggerResponse(200, "success")]
     [SwaggerResponse(404, "not found")]
-    public async Task<IActionResult> RefreshToken([FromForm] RevokeRefreshTokenRequestDto token)
+    public async Task<IActionResult> RefreshToken([FromForm] RevokeRefreshTokenRequestDto token, CancellationToken cancellationToken)
     {
-        var res = await Mediator.Send(new RevokeRefreshTokenCommand(token));
+        if (cancellationToken.IsCancellationRequested)
+            return JsonApiResult.Canceled();
+
+        var res = await Mediator.Send(new RevokeRefreshTokenCommand(token), cancellationToken);
 
         return JsonApiResult.Success(res);
     }
@@ -107,13 +112,19 @@ public class AccountController : BaseApiController
 
     #region IsAuthenticated
 
-    [Authorize]
+    [AllowAnonymous]
     [HttpGet(MainAccountApiEndpoints.Account.IsAuthenticated)]
     [SwaggerOperation(Summary = "Is Authenticated", Tags = new[] { "Account" })]
     [SwaggerResponse(200, "success")]
     [SwaggerResponse(401, "un-authorized")]
-    public IActionResult IsAuthenticated()
+    public IActionResult IsAuthenticated(CancellationToken cancellationToken)
     {
+        if (cancellationToken.IsCancellationRequested)
+            return JsonApiResult.Canceled();
+
+        if (!(this.User.Identity.IsAuthenticated))
+            return JsonApiResult.Unauthorized();
+
         return JsonApiResult.Success("احراز هویت با موفقیت انجام شد");
     }
 
@@ -126,8 +137,11 @@ public class AccountController : BaseApiController
     [SwaggerOperation(Summary = "Get CurrentUser", Tags = new[] { "Account" })]
     [SwaggerResponse(200, "success")]
     [SwaggerResponse(401, "un-authorized")]
-    public IActionResult GetCurrentUser()
+    public IActionResult GetCurrentUser(CancellationToken cancellationToken)
     {
+        if (cancellationToken.IsCancellationRequested)
+            return JsonApiResult.Canceled();
+
         var claimsIdentity = User.Identity as ClaimsIdentity;
 
         return Ok(CustonJsonConverter.Serialize(new { username = claimsIdentity.Name }));

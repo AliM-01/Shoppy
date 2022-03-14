@@ -36,9 +36,9 @@ public class SearchArticleQueryHandler : IRequestHandler<SearchArticleQuery, Res
 
             foreach (var categorySlug in request.Search.SelectedCategories)
             {
-                if (await _articleCategoryRepository.ExistsAsync(x => x.Slug.Trim() == categorySlug.Trim()))
+                if (await _articleCategoryRepository.ExistsAsync(x => x.Slug == categorySlug.Trim()))
                 {
-                    var filter = Builders<BM.Domain.ArticleCategory.ArticleCategory>.Filter.Eq(x => x.Slug.Trim(), categorySlug.Trim());
+                    var filter = Builders<BM.Domain.ArticleCategory.ArticleCategory>.Filter.Eq(x => x.Slug, categorySlug.Trim());
                     var category = await _articleCategoryRepository.GetByFilter(filter);
                     selectedCategoriesId.Add(category.Id);
                 }
