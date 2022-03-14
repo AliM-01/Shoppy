@@ -13,9 +13,9 @@ public class AdminArticleCategoryController : BaseAdminApiController
     [SwaggerOperation(Summary = "دریافت لیست دسته بندی مقالات", Tags = new[] { "AdminArticleCategory" })]
     [SwaggerResponse(200, "success")]
     [SwaggerResponse(404, "not-found")]
-    public async Task<IActionResult> GetArticleCategoriesSelectList()
+    public async Task<IActionResult> GetArticleCategoriesSelectList(CancellationToken cancellationToken)
     {
-        var res = await Mediator.Send(new GetArticleCategoriesSelectListQuery());
+        var res = await Mediator.Send(new GetArticleCategoriesSelectListQuery(), cancellationToken);
 
         return JsonApiResult.Success(res);
     }
@@ -27,9 +27,9 @@ public class AdminArticleCategoryController : BaseAdminApiController
     [HttpGet(AdminBlogApiEndpoints.ArticleCategory.FilterArticleCategories)]
     [SwaggerOperation(Summary = "فیلتر دسته بندی مقالات", Tags = new[] { "AdminArticleCategory" })]
     [SwaggerResponse(200, "success")]
-    public async Task<IActionResult> FilterArticleCategories([FromQuery] FilterArticleCategoryDto filter)
+    public async Task<IActionResult> FilterArticleCategories([FromQuery] FilterArticleCategoryDto filter, CancellationToken cancellationToken)
     {
-        var res = await Mediator.Send(new FilterArticleCategoriesQuery(filter));
+        var res = await Mediator.Send(new FilterArticleCategoriesQuery(filter), cancellationToken);
 
         return JsonApiResult.Success(res);
     }
@@ -42,9 +42,9 @@ public class AdminArticleCategoryController : BaseAdminApiController
     [SwaggerOperation(Summary = "دریافت جزییات دسته بندی مقاله", Tags = new[] { "AdminArticleCategory" })]
     [SwaggerResponse(200, "success")]
     [SwaggerResponse(404, "not-found")]
-    public async Task<IActionResult> GetArticleCategoryDetails([FromRoute] Guid id)
+    public async Task<IActionResult> GetArticleCategoryDetails([FromRoute] string id, CancellationToken cancellationToken)
     {
-        var res = await Mediator.Send(new GetArticleCategoryDetailsQuery(id.ToString()));
+        var res = await Mediator.Send(new GetArticleCategoryDetailsQuery(id), cancellationToken);
 
         return JsonApiResult.Success(res);
     }
@@ -88,9 +88,9 @@ public class AdminArticleCategoryController : BaseAdminApiController
     [SwaggerOperation(Summary = "حذف دسته بندی مقاله", Tags = new[] { "AdminArticleCategory" })]
     [SwaggerResponse(201, "success : created")]
     [SwaggerResponse(404, "not-found")]
-    public async Task<IActionResult> DeleteArticleCategory([FromRoute] Guid id)
+    public async Task<IActionResult> DeleteArticleCategory([FromRoute] string id)
     {
-        var res = await Mediator.Send(new DeleteArticleCategoryCommand(id.ToString()));
+        var res = await Mediator.Send(new DeleteArticleCategoryCommand(id));
 
         return JsonApiResult.Success(res);
     }

@@ -19,7 +19,7 @@ public class GetArticleCategoryDetailsQueryHandler : IRequestHandler<GetArticleC
 
     public async Task<Response<EditArticleCategoryDto>> Handle(GetArticleCategoryDetailsQuery request, CancellationToken cancellationToken)
     {
-        var articleCategory = await _articleCategoryRepository.GetByIdAsync(request.Id);
+        var articleCategory = await _articleCategoryRepository.GetByIdAsync(request.Id, cancellationToken);
 
         if (articleCategory is null)
             throw new NotFoundApiException();

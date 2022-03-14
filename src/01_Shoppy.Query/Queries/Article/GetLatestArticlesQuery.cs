@@ -28,7 +28,7 @@ public class GetLatestArticlesQueryHandler : IRequestHandler<GetLatestArticlesQu
     {
         var latestArticles =
             (await _articleRepository
-               .AsQueryable()
+               .AsQueryable(cancellationToken: cancellationToken)
                .OrderByDescending(x => x.LastUpdateDate)
                .Take(2)
                .ToListAsyncSafe())

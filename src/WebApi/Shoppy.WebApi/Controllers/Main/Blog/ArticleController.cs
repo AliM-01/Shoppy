@@ -14,9 +14,9 @@ public class ArticleController : BaseApiController
     [SwaggerResponse(200, "success")]
     [SwaggerResponse(400, "error : no data with requested filter")]
     [SwaggerResponse(404, "not-found")]
-    public async Task<IActionResult> Search([FromQuery] SearchArticleQueryModel search)
+    public async Task<IActionResult> Search([FromQuery] SearchArticleQueryModel search, CancellationToken cancellationToken)
     {
-        var res = await Mediator.Send(new SearchArticleQuery(search));
+        var res = await Mediator.Send(new SearchArticleQuery(search), cancellationToken);
 
         return JsonApiResult.Success(res);
     }
@@ -29,9 +29,9 @@ public class ArticleController : BaseApiController
     [SwaggerOperation(Summary = "دریافت جزییات مقاله", Tags = new[] { "Article" })]
     [SwaggerResponse(200, "success")]
     [SwaggerResponse(404, "not-found")]
-    public async Task<IActionResult> GetArticleDetails([FromRoute] string slug)
+    public async Task<IActionResult> GetArticleDetails([FromRoute] string slug, CancellationToken cancellationToken)
     {
-        var res = await Mediator.Send(new GetArticleDetailsQuery(slug));
+        var res = await Mediator.Send(new GetArticleDetailsQuery(slug), cancellationToken);
 
         return JsonApiResult.Success(res);
     }
@@ -43,9 +43,9 @@ public class ArticleController : BaseApiController
     [HttpGet(MainBlogApiEndpoints.Article.GetLatestArticles)]
     [SwaggerOperation(Summary = "دریافت جدید ترین مقالات", Tags = new[] { "Article" })]
     [SwaggerResponse(200, "success")]
-    public async Task<IActionResult> GetLatestArticles()
+    public async Task<IActionResult> GetLatestArticles(CancellationToken cancellationToken)
     {
-        var res = await Mediator.Send(new GetLatestArticlesQuery());
+        var res = await Mediator.Send(new GetLatestArticlesQuery(), cancellationToken);
 
         return JsonApiResult.Success(res);
     }
@@ -57,9 +57,9 @@ public class ArticleController : BaseApiController
     [HttpGet(MainBlogApiEndpoints.Article.GetRelatedArticles)]
     [SwaggerOperation(Summary = "دریافت مقالات مرتبط", Tags = new[] { "Article" })]
     [SwaggerResponse(200, "success")]
-    public async Task<IActionResult> GetRelatedArticles([FromRoute] string categoryId)
+    public async Task<IActionResult> GetRelatedArticles([FromRoute] string categoryId, CancellationToken cancellationToken)
     {
-        var res = await Mediator.Send(new GetRelatedArticlesQuery(categoryId));
+        var res = await Mediator.Send(new GetRelatedArticlesQuery(categoryId), cancellationToken);
 
         return JsonApiResult.Success(res);
     }

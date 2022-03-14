@@ -19,9 +19,9 @@ public class FilterArticlesQueryHandler : IRequestHandler<FilterArticlesQuery, R
 
     #endregion
 
-    public async Task<Response<FilterArticleDto>> Handle(FilterArticlesQuery request, CancellationToken cancellationToken)
+    public Task<Response<FilterArticleDto>> Handle(FilterArticlesQuery request, CancellationToken cancellationToken)
     {
-        var query = _articleRepository.AsQueryable();
+        var query = _articleRepository.AsQueryable(cancellationToken: cancellationToken);
 
         #region filter
 
@@ -57,11 +57,11 @@ public class FilterArticlesQueryHandler : IRequestHandler<FilterArticlesQuery, R
 
         #region paging
 
-        var pager = request.Filter.BuildPager(query.Count());
+        var pager = request.Filter.BuildPager(query.Count(), cancellationToken);
 
         var allEntities =
             _articleRepository
-            .ApplyPagination(query, pager)
+            .ApplyPagination(query, pager, cancellationToken)
             .Select(article =>
                 _mapper.Map(article, new ArticleDto()));
 
@@ -75,6 +75,6 @@ public class FilterArticlesQueryHandler : IRequestHandler<FilterArticlesQuery, R
         if (returnData.PageId > returnData.GetLastPage() && returnData.GetLastPage() != 0)
             throw new NotFoundApiException();
 
-        return new Response<FilterArticleDto>(returnData);
+        return Task.FromResult(new Response<FilterArticleDto>(returnData));
     }
 }

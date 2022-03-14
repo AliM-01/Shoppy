@@ -25,12 +25,14 @@ public class GetArticleDetailsQueryHandler : IRequestHandler<GetArticleDetailsQu
 
     public async Task<Response<ArticleDetailsQueryModel>> Handle(GetArticleDetailsQuery request, CancellationToken cancellationToken)
     {
+        cancellationToken.ThrowIfCancellationRequested();
+
         if (string.IsNullOrEmpty(request.Slug))
             throw new NotFoundApiException();
 
         var filter = Builders<BM.Domain.Article.Article>.Filter.Eq(x => x.Slug, request.Slug);
 
-        var article = await _articleRepository.GetByFilter(filter);
+        var article = await _articleRepository.GetByFilter(filter, cancellationToken);
 
         var meppedArticle = _mapper.Map(article, new ArticleDetailsQueryModel());
 

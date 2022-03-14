@@ -30,8 +30,10 @@ public class GenericRepository<TDocument, TSettings> : IGenericRepository<TDocum
 
     #region GetQuery
 
-    public IMongoQueryable<TDocument> AsQueryable(bool isDeletedFilter = true)
+    public IMongoQueryable<TDocument> AsQueryable(bool isDeletedFilter = true, CancellationToken cancellationToken = default)
     {
+        cancellationToken.ThrowIfCancellationRequested();
+
         if (!isDeletedFilter)
             return _collection.AsQueryable();
 
@@ -42,8 +44,10 @@ public class GenericRepository<TDocument, TSettings> : IGenericRepository<TDocum
 
     #region GetPagination
 
-    public List<TDocument> ApplyPagination(IMongoQueryable<TDocument> query, BasePaging pager)
+    public List<TDocument> ApplyPagination(IMongoQueryable<TDocument> query, BasePaging pager, CancellationToken cancellationToken = default)
     {
+        cancellationToken.ThrowIfCancellationRequested();
+
         return query
                 .DocumentPaging(pager)
                 .ToListSafe();
@@ -62,8 +66,10 @@ public class GenericRepository<TDocument, TSettings> : IGenericRepository<TDocum
 
     #region GetByFilter
 
-    public async Task<TDocument> GetByFilter(FilterDefinition<TDocument> filter)
+    public async Task<TDocument> GetByFilter(FilterDefinition<TDocument> filter, CancellationToken cancellationToken = default)
     {
+        cancellationToken.ThrowIfCancellationRequested();
+
         var res = await _collection.FindAsync(filter);
 
         var document = await res.FirstOrDefaultAsync();
@@ -78,8 +84,10 @@ public class GenericRepository<TDocument, TSettings> : IGenericRepository<TDocum
 
     #region GetByIdAsync
 
-    public async Task<TDocument> GetByIdAsync(string id)
+    public async Task<TDocument> GetByIdAsync(string id, CancellationToken cancellationToken = default)
     {
+        cancellationToken.ThrowIfCancellationRequested();
+
         var filter = MongoDbFilters<TDocument>.GetByIdFilter(id);
 
         var res = await _collection.FindAsync(filter);

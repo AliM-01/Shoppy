@@ -2,8 +2,10 @@
 
 public static class Pager
 {
-    public static BasePaging BuildPager(this BasePaging page, int allPagesCount)
+    public static BasePaging BuildPager(this BasePaging page, int allPagesCount, CancellationToken cancellationToken = default)
     {
+        cancellationToken.ThrowIfCancellationRequested();
+
         var pageCount = Convert.ToInt32(Math.Ceiling(allPagesCount / (double)page.TakePage));
         return new BasePaging
         {

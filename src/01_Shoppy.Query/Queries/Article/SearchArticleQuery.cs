@@ -26,7 +26,7 @@ public class SearchArticleQueryHandler : IRequestHandler<SearchArticleQuery, Res
 
     public async Task<Response<SearchArticleQueryModel>> Handle(SearchArticleQuery request, CancellationToken cancellationToken)
     {
-        var query = _articleRepository.AsQueryable();
+        var query = _articleRepository.AsQueryable(cancellationToken: cancellationToken);
 
         #region filter selected categories slugs
 
@@ -61,11 +61,11 @@ public class SearchArticleQueryHandler : IRequestHandler<SearchArticleQuery, Res
 
         #region paging
 
-        var pager = request.Search.BuildPager(query.Count());
+        var pager = request.Search.BuildPager(query.Count(), cancellationToken);
 
         var allEntities =
              _articleRepository
-             .ApplyPagination(query, pager)
+             .ApplyPagination(query, pager, cancellationToken)
              .Select(article =>
                    _mapper.Map(article, new ArticleQueryModel()))
              .ToList();

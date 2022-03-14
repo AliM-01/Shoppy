@@ -28,7 +28,7 @@ public class GetRelatedArticlesQueryHandler : IRequestHandler<GetRelatedArticles
     {
         var relatedArticles =
             (await _articleRepository
-               .AsQueryable()
+               .AsQueryable(cancellationToken: cancellationToken)
                .OrderByDescending(x => x.LastUpdateDate)
                .Where(x => x.CategoryId == request.CategoryId)
                .Take(2)

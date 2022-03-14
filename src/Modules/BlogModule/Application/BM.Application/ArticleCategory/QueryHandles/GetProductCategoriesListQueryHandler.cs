@@ -21,7 +21,7 @@ public class GetArticleCategoriesSelectListQueryHandler : IRequestHandler<GetArt
     {
         var categories = (await
             _articleCategoryRepository
-            .AsQueryable()
+            .AsQueryable(cancellationToken: cancellationToken)
             .OrderByDescending(p => p.LastUpdateDate)
             .ToListAsyncSafe()
             )

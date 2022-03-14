@@ -12,9 +12,9 @@ public class AdminArticleController : BaseAdminApiController
     [HttpGet(AdminBlogApiEndpoints.Article.FilterArticles)]
     [SwaggerOperation(Summary = "فیلتر  مقالات", Tags = new[] { "AdminArticle" })]
     [SwaggerResponse(200, "success")]
-    public async Task<IActionResult> FilterArticles([FromQuery] FilterArticleDto filter)
+    public async Task<IActionResult> FilterArticles([FromQuery] FilterArticleDto filter, CancellationToken cancellationToken)
     {
-        var res = await Mediator.Send(new FilterArticlesQuery(filter));
+        var res = await Mediator.Send(new FilterArticlesQuery(filter), cancellationToken);
 
         return JsonApiResult.Success(res);
     }
@@ -27,9 +27,9 @@ public class AdminArticleController : BaseAdminApiController
     [SwaggerOperation(Summary = "دریافت جزییات  مقاله", Tags = new[] { "AdminArticle" })]
     [SwaggerResponse(200, "success")]
     [SwaggerResponse(404, "not-found")]
-    public async Task<IActionResult> GetArticleDetails([FromRoute] Guid id)
+    public async Task<IActionResult> GetArticleDetails([FromRoute] string id, CancellationToken cancellationToken)
     {
-        var res = await Mediator.Send(new GetArticleDetailsQuery(id.ToString()));
+        var res = await Mediator.Send(new GetArticleDetailsQuery(id), cancellationToken);
 
         return JsonApiResult.Success(res);
     }
@@ -73,9 +73,9 @@ public class AdminArticleController : BaseAdminApiController
     [SwaggerOperation(Summary = "حذف  مقاله", Tags = new[] { "AdminArticle" })]
     [SwaggerResponse(201, "success : created")]
     [SwaggerResponse(404, "not-found")]
-    public async Task<IActionResult> DeleteArticle([FromRoute] Guid id)
+    public async Task<IActionResult> DeleteArticle([FromRoute] string id)
     {
-        var res = await Mediator.Send(new DeleteArticleCommand(id.ToString()));
+        var res = await Mediator.Send(new DeleteArticleCommand(id));
 
         return JsonApiResult.Success(res);
     }

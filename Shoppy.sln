@@ -136,8 +136,6 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "docs", "docs", "{BE267BF2-B
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{9027A6CC-AE67-406D-9ADB-C553D0C106C7}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Api", "Api", "{B485E0E4-5172-4FFB-BBB1-C174EE1AA43F}"
-EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Api", "Api", "{4A20A220-094A-431F-ADEC-2F28E0422D8C}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Api", "Api", "{945BE282-6002-48BF-A943-017ACAAAA29F}"
@@ -186,9 +184,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OM.Application", "src\Modul
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OM.Infrastructure.Persistence", "src\Modules\OrderModule\Infrastructure\OM.Infrastructure.Persistence\OM.Infrastructure.Persistence.csproj", "{76DA23AB-46AB-4327-A0B5-3F8310980750}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OM.Infrastructure.Configuration", "src\Modules\OrderModule\Infrastructure\OM.Infrastructure.Configuration\OM.Infrastructure.Configuration.csproj", "{A8D31E52-FBAA-4F17-A9A9-85F13D370A4E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OM.Infrastructure.Configuration", "src\Modules\OrderModule\Infrastructure\OM.Infrastructure.Configuration\OM.Infrastructure.Configuration.csproj", "{A8D31E52-FBAA-4F17-A9A9-85F13D370A4E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OM.Infrastructure.Shared", "src\Modules\OrderModule\Infrastructure\OM.Infrastructure.Shared\OM.Infrastructure.Shared.csproj", "{92A86AFC-2F66-48A8-9F5A-D8DCACA7B313}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OM.Infrastructure.Shared", "src\Modules\OrderModule\Infrastructure\OM.Infrastructure.Shared\OM.Infrastructure.Shared.csproj", "{92A86AFC-2F66-48A8-9F5A-D8DCACA7B313}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -446,7 +444,6 @@ Global
 		{69AC1D30-E43E-4259-8126-AB42DAF50651} = {EF77943A-F78B-4815-B846-4398BBD3F946}
 		{2AF8FEBA-32E7-410D-8F06-FFAAD0037E65} = {EF77943A-F78B-4815-B846-4398BBD3F946}
 		{FCD3AF63-A1B6-4EA8-A0DB-44AE95D012EF} = {EF77943A-F78B-4815-B846-4398BBD3F946}
-		{B485E0E4-5172-4FFB-BBB1-C174EE1AA43F} = {9A29C8E2-1BAD-4E85-9DEF-0EC9F79B2AA1}
 		{4A20A220-094A-431F-ADEC-2F28E0422D8C} = {C8A123F7-6220-49AA-8821-A8B963BEA87A}
 		{945BE282-6002-48BF-A943-017ACAAAA29F} = {2246184A-3099-42EF-A407-5ABEC85D273E}
 		{FA637368-909F-44DA-BADE-3F574AFE916E} = {E61A8890-8A4A-4C4C-B54E-81D9DF596E58}

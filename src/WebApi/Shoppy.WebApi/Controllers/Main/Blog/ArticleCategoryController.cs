@@ -11,9 +11,9 @@ public class ArticleCategoryController : BaseApiController
     [HttpGet(MainBlogApiEndpoints.ArticleCategory.GetArticleCategoryList)]
     [SwaggerOperation(Summary = "دریافت دسته بندی های مقالات", Tags = new[] { "ProductCategory" })]
     [SwaggerResponse(200, "success")]
-    public async Task<IActionResult> GetArticleCategoryList()
+    public async Task<IActionResult> GetArticleCategoryList(CancellationToken cancellationToken)
     {
-        var res = await Mediator.Send(new GetArticleCategoryListQuery());
+        var res = await Mediator.Send(new GetArticleCategoryListQuery(), cancellationToken);
 
         return JsonApiResult.Success(res);
     }
@@ -26,9 +26,9 @@ public class ArticleCategoryController : BaseApiController
     [SwaggerOperation(Summary = "دریافت دسته بندی مقاله", Tags = new[] { "ArticleCategory" })]
     [SwaggerResponse(200, "success")]
     [SwaggerResponse(404, "not-found")]
-    public async Task<IActionResult> GetArticleCategory([FromQuery] FilterArticleCategoryDetailsModel filter)
+    public async Task<IActionResult> GetArticleCategory([FromQuery] FilterArticleCategoryDetailsModel filter, CancellationToken cancellationToken)
     {
-        var res = await Mediator.Send(new GetArticleCategoryWithArticlesByQuery(filter));
+        var res = await Mediator.Send(new GetArticleCategoryWithArticlesByQuery(filter), cancellationToken);
 
         return JsonApiResult.Success(res);
     }

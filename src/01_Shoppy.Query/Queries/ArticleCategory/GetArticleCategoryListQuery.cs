@@ -23,9 +23,12 @@ public class GetArticleCategoryListQueryHandler : IRequestHandler<GetArticleCate
 
     public async Task<Response<IEnumerable<ArticleCategoryQueryModel>>> Handle(GetArticleCategoryListQuery request, CancellationToken cancellationToken)
     {
-        var articleCategories = (await _articleCategoryRepository.AsQueryable().ToListAsyncSafe())
-                .Select(articleCategory => _mapper.Map(articleCategory, new ArticleCategoryQueryModel()))
-                .ToList();
+        var articleCategories = (await
+            _articleCategoryRepository.AsQueryable(cancellationToken: cancellationToken)
+            .ToListAsyncSafe()
+            )
+            .Select(articleCategory => _mapper.Map(articleCategory, new ArticleCategoryQueryModel()))
+            .ToList();
 
         return new Response<IEnumerable<ArticleCategoryQueryModel>>(articleCategories);
     }
