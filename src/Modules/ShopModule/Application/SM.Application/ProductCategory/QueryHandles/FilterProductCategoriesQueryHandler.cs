@@ -63,7 +63,7 @@ public class FilterProductCategoriesQueryHandler : IRequestHandler<FilterProduct
 
         #region paging
 
-        var pager = request.Filter.BuildPager(query.Count());
+        var pager = request.Filter.BuildPager((await query.CountAsync()));
 
         var allEntities =
              _productCategoryRepository

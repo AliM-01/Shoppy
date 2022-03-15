@@ -45,7 +45,7 @@ public class GetArticleCategoryWithArticlesByQueryHandler : IRequestHandler<GetA
         var articlesQuery = _articleRepository.AsQueryable(cancellationToken: cancellationToken)
              .Where(x => x.CategoryId == articleCategoryData.Id);
 
-        var pager = request.Filter.BuildPager(articlesQuery.Count(), cancellationToken);
+        var pager = request.Filter.BuildPager(articles(await query.CountAsync()), cancellationToken);
 
         var allEntities =
             _articleRepository

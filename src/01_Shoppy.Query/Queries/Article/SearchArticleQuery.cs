@@ -61,7 +61,7 @@ public class SearchArticleQueryHandler : IRequestHandler<SearchArticleQuery, Res
 
         #region paging
 
-        var pager = request.Search.BuildPager(query.Count(), cancellationToken);
+        var pager = request.Search.BuildPager((await query.CountAsync()), cancellationToken);
 
         var allEntities =
              _articleRepository

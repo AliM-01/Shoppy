@@ -114,7 +114,7 @@ public class SearchQueryHandler : IRequestHandler<SearchQuery, Response<SearchPr
 
         #region paging
 
-        var pager = request.Search.BuildPager(query.Count());
+        var pager = request.Search.BuildPager((await query.CountAsync()));
 
         var allEntities =
              _productRepository

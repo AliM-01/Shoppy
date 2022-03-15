@@ -19,7 +19,7 @@ public class FilterOrdersQueryHandler : IRequestHandler<FilterOrdersQuery, Respo
 
     #endregion
 
-    public Task<Response<FilterOrderDto>> Handle(FilterOrdersQuery request, CancellationToken cancellationToken)
+    public async Task<Response<FilterOrderDto>> Handle(FilterOrdersQuery request, CancellationToken cancellationToken)
     {
         var query = _orderRepository.AsQueryable();
 
@@ -62,7 +62,7 @@ public class FilterOrdersQueryHandler : IRequestHandler<FilterOrdersQuery, Respo
 
         #region paging
 
-        var pager = request.Filter.BuildPager(query.Count());
+        var pager = request.Filter.BuildPager((await query.CountAsync()));
 
         var allEntities =
              _orderRepository
@@ -81,6 +81,6 @@ public class FilterOrdersQueryHandler : IRequestHandler<FilterOrdersQuery, Respo
         if (returnData.PageId > returnData.GetLastPage() && returnData.GetLastPage() != 0)
             throw new NotFoundApiException();
 
-        return Task.FromResult(new Response<FilterOrderDto>(returnData));
+        return new Response<FilterOrderDto>(returnData);
     }
 }

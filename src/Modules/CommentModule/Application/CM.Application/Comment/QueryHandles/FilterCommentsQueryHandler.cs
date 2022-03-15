@@ -22,7 +22,7 @@ public class FilterCommentsQueryHandler : IRequestHandler<FilterCommentsQuery, R
 
     #endregion
 
-    public Task<Response<FilterCommentDto>> Handle(FilterCommentsQuery request, CancellationToken cancellationToken)
+    public async Task<Response<FilterCommentDto>> Handle(FilterCommentsQuery request, CancellationToken cancellationToken)
     {
         var query = _commentRepository.AsQueryable(cancellationToken: cancellationToken);
 
@@ -50,7 +50,7 @@ public class FilterCommentsQueryHandler : IRequestHandler<FilterCommentsQuery, R
 
         #region paging
 
-        var pager = request.Filter.BuildPager(query.Count(), cancellationToken);
+        var pager = request.Filter.BuildPager((await query.CountAsync()), cancellationToken);
 
         var allEntities =
              _commentRepository
@@ -68,6 +68,6 @@ public class FilterCommentsQueryHandler : IRequestHandler<FilterCommentsQuery, R
         if (returnData.PageId > returnData.GetLastPage() && returnData.GetLastPage() != 0)
             throw new NotFoundApiException();
 
-        return Task.FromResult(new Response<FilterCommentDto>(returnData));
+        return new Response<FilterCommentDto>(returnData);
     }
 }

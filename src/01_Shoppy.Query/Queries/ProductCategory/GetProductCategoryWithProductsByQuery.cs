@@ -64,7 +64,7 @@ public class GetProductCategoryWithProductsByQueryHandler : IRequestHandler<GetP
         var productsQuery = _productRepository.AsQueryable()
              .Where(x => x.CategoryId == productCategoryData.Id);
 
-        var pager = request.Filter.BuildPager(productsQuery.Count());
+        var pager = request.Filter.BuildPager(products(await query.CountAsync()));
 
         var allEntities =
              _productRepository

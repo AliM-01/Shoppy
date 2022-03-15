@@ -21,7 +21,7 @@ public class FilterDiscountCodesQueryHandler : IRequestHandler<FilterDiscountCod
 
     public async Task<Response<FilterDiscountCodeDto>> Handle(FilterDiscountCodesQuery request, CancellationToken cancellationToken)
     {
-        var query = _discountCodeRepository.AsQueryable();
+        var query = _discountCodeRepository.AsQueryable(cancellationToken: cancellationToken);
 
         #region filter
 
@@ -60,7 +60,7 @@ public class FilterDiscountCodesQueryHandler : IRequestHandler<FilterDiscountCod
 
         #region paging
 
-        var pager = request.Filter.BuildPager(query.Count());
+        var pager = request.Filter.BuildPager((await query.CountAsync()));
 
         var allEntities =
             _discountCodeRepository
@@ -79,6 +79,6 @@ public class FilterDiscountCodesQueryHandler : IRequestHandler<FilterDiscountCod
         if (returnData.PageId > returnData.GetLastPage() && returnData.GetLastPage() != 0)
             throw new NotFoundApiException();
 
-        return new Response<FilterDiscountCodeDto>(returnData);
+        return Task.FromResult(new Response<FilterDiscountCodeDto>(returnData));
     }
 }

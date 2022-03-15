@@ -66,7 +66,7 @@ public class FilterAccountsQueryHandler : IRequestHandler<FilterAccountsQuery, R
 
         #region paging
 
-        var pager = request.Filter.BuildPager(query.Count());
+        var pager = request.Filter.BuildPager((await query.CountAsync()));
 
         var allEntities = (await
             query
