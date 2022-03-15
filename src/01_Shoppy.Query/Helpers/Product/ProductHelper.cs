@@ -1,7 +1,6 @@
 ﻿using _0_Framework.Application.Extensions;
 using _0_Framework.Infrastructure;
 using _01_Shoppy.Query.Models.ProductPicture;
-using AutoMapper;
 using DM.Domain.ProductDiscount;
 using IM.Application.Contracts.Inventory.Helpers;
 using IM.Domain.Inventory;
@@ -47,20 +46,21 @@ public class ProductHelper : IProductHelper
 
     public async Task<ProductQueryModel> MapProductsFromProductCategories(SM.Domain.Product.Product product)
     {
-        var mappedProduct = _mapper.Map(product, new ProductQueryModel
-        {
-            CategoryId = product.CategoryId
-        });
+        var mappedProduct = await MapProducts<ProductQueryModel>(product);
 
-        return await MapProducts(mappedProduct);
+        mappedProduct.CategoryId = product.CategoryId;
+
+        return mappedProduct;
     }
 
     #endregion
 
     #region MapProducts
 
-    public async Task<T> MapProducts<T>(T product, bool hotDiscountQuery = false) where T : ProductQueryModel
+    public async Task<T> MapProducts<T>(SM.Domain.Product.Product req, bool hotDiscountQuery = false) where T : ProductQueryModel
     {
+        var product = _mapper.Map(req, default(T));
+
         #region all discounts query
 
         var discounts = await _productDiscount.AsQueryable()
@@ -114,7 +114,7 @@ public class ProductHelper : IProductHelper
         }
 
 
-        return product;
+        return (T)product;
     }
 
     #endregion

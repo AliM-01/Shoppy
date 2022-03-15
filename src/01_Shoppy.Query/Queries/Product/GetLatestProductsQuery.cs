@@ -1,6 +1,5 @@
 ﻿using _0_Framework.Infrastructure;
 using _01_Shoppy.Query.Helpers.Product;
-using AutoMapper;
 
 namespace _01_Shoppy.Query.Queries.Product;
 
@@ -26,22 +25,13 @@ public class GetLatestProductsQueryHandler : IRequestHandler<GetLatestProductsQu
 
     public async Task<Response<List<ProductQueryModel>>> Handle(GetLatestProductsQuery request, CancellationToken cancellationToken)
     {
-        var latestProducts = (await _productRepository.AsQueryable()
-               .OrderByDescending(x => x.LastUpdateDate)
-               .Take(8)
+        var latestProducts = (await _productRepository.AsQueryable(cancellationToken: cancellationToken)
+               .OrderByDescending(x => x.CreationDate)
+               .Take(6)
                .ToListAsyncSafe())
-               .Select(product =>
-                   _mapper.Map(product, new ProductQueryModel()))
+               .Select(x => _productHelper.MapProducts<ProductQueryModel>(x).Result)
                .ToList();
 
-        var returnData = new List<ProductQueryModel>();
-
-        latestProducts.ForEach(p =>
-        {
-            var mappedProduct = _productHelper.MapProducts<ProductQueryModel>(p).Result;
-            returnData.Add(mappedProduct);
-        });
-
-        return new Response<List<ProductQueryModel>>(returnData);
+        return new Response<List<ProductQueryModel>>(latestProducts);
     }
 }

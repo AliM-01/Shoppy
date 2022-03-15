@@ -1,7 +1,5 @@
 ﻿using _0_Framework.Infrastructure;
-using _0_Framework.Infrastructure.Helpers;
 using _01_Shoppy.Query.Helpers.Product;
-using AutoMapper;
 using DM.Domain.ProductDiscount;
 
 namespace _01_Shoppy.Query.Queries.Product;
@@ -35,27 +33,18 @@ public class GetHotestDiscountProductsQueryHandler : IRequestHandler<GetHotestDi
             .AsQueryable()
             .Where(x => x.StartDate < DateTime.Now && x.EndDate > DateTime.Now)
             .Where(x => x.Rate >= 25)
-            .Take(8)
+            .Take(6)
             .ToListAsyncSafe())
             .Select(x => x.ProductId).ToList();
 
         var products = (await _productRepository.AsQueryable()
                .Where(x => hotDiscountRateIds.Contains(x.Id))
                .OrderByDescending(x => x.LastUpdateDate)
-               .Take(8)
+               .Take(6)
                .ToListAsyncSafe())
-               .Select(product =>
-                   _mapper.Map(product, new ProductQueryModel()))
-               .ToList();
+               .Select(x => _productHelper.MapProducts<ProductQueryModel>(x, true).Result)
+               .ToList(); ;
 
-        var returnData = new List<ProductQueryModel>();
-
-        products.ForEach(p =>
-        {
-            var mappedProduct = _productHelper.MapProducts<ProductQueryModel>(p, true).Result;
-            returnData.Add(mappedProduct);
-        });
-
-        return new Response<List<ProductQueryModel>>(returnData);
+        return new Response<List<ProductQueryModel>>(products);
     }
 }

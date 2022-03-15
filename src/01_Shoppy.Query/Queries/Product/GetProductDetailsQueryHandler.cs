@@ -1,7 +1,5 @@
-﻿using _0_Framework.Application.Exceptions;
-using _0_Framework.Infrastructure;
+﻿using _0_Framework.Infrastructure;
 using _01_Shoppy.Query.Helpers.Product;
-using AutoMapper;
 
 namespace _01_Shoppy.Query.Queries.Product;
 
@@ -53,9 +51,8 @@ public class GetProductDetailsQueryHandler : IRequestHandler<GetProductDetailsQu
             throw new NotFoundApiException("محصولی با این مشخصات پیدا نشد");
 
         var dbProduct = await _productRepository.GetByIdAsync(existsProductId);
-        var product = _mapper.Map(dbProduct, new ProductDetailsQueryModel());
 
-        product = await _productHelper.MapProducts<ProductDetailsQueryModel>(product);
+        var product = await _productHelper.MapProducts<ProductDetailsQueryModel>(dbProduct);
 
         var inventory = await _productHelper.GetProductInventory(product.Id);
 

@@ -118,10 +118,7 @@ public class SearchQueryHandler : IRequestHandler<SearchQuery, Response<SearchPr
 
         var allEntities =
              _productRepository
-             .ApplyPagination(query, pager)
-             .Select(product =>
-                   _mapper.Map(product, new ProductQueryModel()))
-             .ToList();
+             .ApplyPagination(query, pager);
 
         var mappedProducts = new List<ProductQueryModel>();
 
