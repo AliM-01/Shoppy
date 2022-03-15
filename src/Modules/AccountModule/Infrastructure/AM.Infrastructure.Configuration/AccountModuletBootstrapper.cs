@@ -1,4 +1,5 @@
 ﻿using _0_Framework.Api;
+using _0_Framework.Application.Wrappers;
 using _0_Framework.Infrastructure.Helpers;
 using AM.Application.Contracts.Common.Settings;
 using AM.Application.Contracts.Services;
@@ -146,10 +147,6 @@ public class AccountModuletBootstrapper
 
     private static string ProduceUnAuthorizedResponse(string message = "لطفا به حساب کاربری خود وارد شوید")
     {
-        return CustonJsonConverter.Serialize(new
-        {
-            status = "un-authorized",
-            message = message
-        });
+        return CustonJsonConverter.Serialize(new Response<string>().Unauthorized(message));
     }
 }

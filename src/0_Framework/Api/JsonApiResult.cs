@@ -9,13 +9,9 @@ public static class JsonApiResult
 
     public static OkObjectResult Success(string msg = "عملیات با موفقیت انجام شد")
     {
-        var res = CustonJsonConverter.Serialize(new
-        {
-            status = "success",
-            message = msg
-        });
+        var res = new Response<string>(msg);
 
-        return new OkObjectResult(res);
+        return new OkObjectResult(CustonJsonConverter.Serialize(res));
     }
 
     public static OkObjectResult Success<T>(Response<T> response)
@@ -42,13 +38,9 @@ public static class JsonApiResult
 
     public static BadRequestObjectResult Error(string msg = "عملیات با خطا مواجه شد")
     {
-        var res = CustonJsonConverter.Serialize(new
-        {
-            status = "error",
-            message = msg
-        });
+        var res = new Response<string>().Error(msg);
 
-        return new BadRequestObjectResult(res);
+        return new BadRequestObjectResult(CustonJsonConverter.Serialize(res));
     }
 
     public static BadRequestObjectResult Error<T>(Response<T> response)
@@ -64,13 +56,9 @@ public static class JsonApiResult
 
     public static UnauthorizedObjectResult Unauthorized(string msg = "لطفا به حساب کاربری خود وارد شوید")
     {
-        var res = CustonJsonConverter.Serialize(new
-        {
-            status = "un-authorized",
-            message = msg
-        });
+        var res = new Response<string>().Unauthorized(msg);
 
-        return new UnauthorizedObjectResult(res);
+        return new UnauthorizedObjectResult(CustonJsonConverter.Serialize(res));
     }
 
     #endregion
