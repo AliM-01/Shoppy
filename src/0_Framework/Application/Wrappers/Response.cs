@@ -55,6 +55,7 @@ public class Response<T>
     public List<string> Errors { get; set; }
 }
 
+[JsonConverter(typeof(Newtonsoft.Json.Converters.StringEnumConverter))]
 public enum ResponseType
 {
     [EnumMember(Value = "success")]
@@ -62,5 +63,11 @@ public enum ResponseType
     [EnumMember(Value = "error")]
     ERROR,
     [EnumMember(Value = "un-authorized")]
-    UNAUTHORIZED
+    UNAUTHORIZED,
+    [EnumMember(Value = "not-found")]
+    NOTFOUND,
+    [EnumMember(Value = "no-content")]
+    NOCONTENT,
+    [EnumMember(Value = "canceled")]
+    CANCELED
 }

@@ -1,5 +1,6 @@
 ﻿using _0_Framework.Api;
 using _0_Framework.Application.Exceptions;
+using _0_Framework.Application.Wrappers;
 using Microsoft.AspNetCore.Http;
 using Microsoft.IdentityModel.Tokens;
 using System.Net;
@@ -25,7 +26,7 @@ public class ErrorHandlerMiddleware
         {
             var response = context.Response;
             response.ContentType = "application/json";
-            var status = "error";
+            var status = ResponseType.ERROR;
             var errors = new List<string>();
             var errorMessage = error.Message;
 
@@ -41,7 +42,7 @@ public class ErrorHandlerMiddleware
 
                 case NotFoundApiException e:
                     // custom not-found application error
-                    status = "not-found";
+                    status = ResponseType.NOTFOUND;
                     errorMessage = e.Message;
                     response.StatusCode = (int)HttpStatusCode.NotFound;
                     break;
@@ -49,7 +50,7 @@ public class ErrorHandlerMiddleware
                 case NoContentApiException e:
                     // custom no-content application error
                     errorMessage = e.Message;
-                    status = "no-content";
+                    status = ResponseType.NOCONTENT;
                     response.StatusCode = (int)HttpStatusCode.NoContent;
                     break;
 
@@ -69,7 +70,7 @@ public class ErrorHandlerMiddleware
                     break;
 
                 case OperationCanceledException:
-                    status = "canceled";
+                    status = ResponseType.CANCELED;
                     response.StatusCode = 499; // 499 Client Closed Request
                     errorMessage = "عملیات متوقف شد";
                     break;
