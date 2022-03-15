@@ -51,6 +51,20 @@ public class ProductController : BaseApiController
 
     #endregion
 
+    #region Get Latest Products
+
+    [HttpGet(MainShopApiEndpoints.Product.GetRelatedProducts)]
+    [SwaggerOperation(Summary = "دریافت محصولات مرتبط", Tags = new[] { "Product" })]
+    [SwaggerResponse(200, "success")]
+    public async Task<IActionResult> GetRelatedProducts([FromRoute] string categoryId)
+    {
+        var res = await Mediator.Send(new GetRelatedProductsQuery(categoryId));
+
+        return JsonApiResult.Success(res);
+    }
+
+    #endregion
+
     #region Get Hotest Discount Products
 
     [HttpGet(MainShopApiEndpoints.Product.GetHotestDiscountProducts)]
