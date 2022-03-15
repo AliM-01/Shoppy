@@ -79,6 +79,6 @@ public class FilterDiscountCodesQueryHandler : IRequestHandler<FilterDiscountCod
         if (returnData.PageId > returnData.GetLastPage() && returnData.GetLastPage() != 0)
             throw new NotFoundApiException();
 
-        return Task.FromResult(new Response<FilterDiscountCodeDto>(returnData));
+        return new Response<FilterDiscountCodeDto>(returnData);
     }
 }

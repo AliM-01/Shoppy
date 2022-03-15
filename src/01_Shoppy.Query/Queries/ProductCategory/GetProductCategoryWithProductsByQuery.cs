@@ -1,10 +1,7 @@
-﻿using _0_Framework.Application.ErrorMessages;
-using _0_Framework.Application.Exceptions;
-using _0_Framework.Application.Models.Paging;
+﻿using _0_Framework.Application.Models.Paging;
 using _0_Framework.Infrastructure;
 using _01_Shoppy.Query.Helpers.Product;
 using _01_Shoppy.Query.Models.ProductCategory;
-using AutoMapper;
 
 namespace _01_Shoppy.Query.Queries.ProductCategory;
 
@@ -64,7 +61,7 @@ public class GetProductCategoryWithProductsByQueryHandler : IRequestHandler<GetP
         var productsQuery = _productRepository.AsQueryable()
              .Where(x => x.CategoryId == productCategoryData.Id);
 
-        var pager = request.Filter.BuildPager(products(await query.CountAsync()));
+        var pager = request.Filter.BuildPager((await productsQuery.CountAsync()), cancellationToken);
 
         var allEntities =
              _productRepository
