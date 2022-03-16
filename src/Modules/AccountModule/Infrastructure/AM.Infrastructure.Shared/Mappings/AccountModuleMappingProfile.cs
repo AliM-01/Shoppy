@@ -29,7 +29,7 @@ public class AccountModuleMappingProfile : Profile
                        .ForMember(dest => dest.Avatar,
                            opt => opt.MapFrom(src => "default-avatar.png"))
                        .ForMember(dest => dest.UserName,
-                           opt => opt.MapFrom(src => Generator.GenerateRandomUsername()));
+                           opt => opt.MapFrom(src => Generator.UserName()));
 
         #endregion
 

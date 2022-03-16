@@ -14,23 +14,23 @@ public static class Generator
 
     #endregion
 
-    #region GenerateCode
+    #region Code
 
-    public static string GenerateCode()
+    public static string Code()
     {
         return Guid.NewGuid().ToString().ToUpper().Substring(0, 5);
     }
 
-    public static string GenerateCode(int subString = 5)
+    public static string Code(int subString = 5)
     {
         return Guid.NewGuid().ToString().ToUpper().Substring(0, subString);
     }
 
     #endregion
 
-    #region GenerateIssueTrackingCode
+    #region IssueTrackingCode
 
-    public static string GenerateIssueTrackingCode()
+    public static string IssueTrackingCode()
     {
         string section1 = "";
         string section2 = "";
@@ -64,9 +64,9 @@ public static class Generator
 
     #endregion
 
-    #region GenerateRandomUsername
+    #region UserName
 
-    public static string GenerateRandomUsername()
+    public static string UserName()
     {
         string result = "";
 
@@ -100,9 +100,9 @@ public static class Generator
 
     #endregion
 
-    #region GenerateUserPassword
+    #region Password
 
-    public static string GenerateUserPassword()
+    public static string Password()
     {
         var random = new Random();
         var password = Guid.NewGuid().ToString().Substring(4, 9);

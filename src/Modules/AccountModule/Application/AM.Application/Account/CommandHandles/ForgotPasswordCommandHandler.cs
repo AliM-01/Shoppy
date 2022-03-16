@@ -26,7 +26,7 @@ public class ForgotPasswordCommandHandler : IRequestHandler<ForgotPasswordComman
         if (user is null)
             throw new ApiException("کاربری با این مشخصات پیدا نشد");
 
-        var newPassword = Generator.GenerateUserPassword();
+        var newPassword = Generator.Password();
 
         await _userManager.RemovePasswordAsync(user);
 
