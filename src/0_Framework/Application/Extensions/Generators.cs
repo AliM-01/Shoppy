@@ -4,6 +4,16 @@ namespace _0_Framework.Application.Extensions;
 
 public static class Generators
 {
+    #region Constants
+
+    private readonly static char[] Letters = "ABCDEFGHJKMNPQRSTUVWXYZ".ToCharArray();
+
+    private readonly static char[] Numbers = "0123456789".ToCharArray();
+
+    private readonly static char[] Chars = "$%#@!*?;:abcdefghijklmnopqrstuvxxyzABCDEFGHIJKLMNOPQRSTUVWXYZ^&".ToCharArray();
+
+    #endregion
+
     #region GenerateCode
 
     public static string GenerateCode()
@@ -25,28 +35,26 @@ public static class Generators
         string section1 = "";
         string section2 = "";
 
-        char[] numbers = new char[] { '0', '1', '2', '3', '4', '5', '6', '7', '8', '9' };
-
-        int n = numbers.Length;
+        int n = Numbers.Length;
 
         Random random = new Random();
 
         for (int i = 0; i < 4; i++)
         {
-            string character = numbers[random.Next(0, n)].ToString();
+            string character = Numbers[random.Next(0, n)].ToString();
 
             while (section1.Contains(character))
-                character = numbers[random.Next(0, n)].ToString().ToUpper();
+                character = Numbers[random.Next(0, n)].ToString().ToUpper();
 
             section1 += character;
         }
 
         for (int i = 0; i < 4; i++)
         {
-            string character = numbers[random.Next(0, n)].ToString();
+            string character = Numbers[random.Next(0, n)].ToString();
 
             while (section2.Contains(character))
-                character = numbers[random.Next(0, n)].ToString().ToUpper();
+                character = Numbers[random.Next(0, n)].ToString().ToUpper();
 
             section2 += character;
         }
@@ -62,30 +70,27 @@ public static class Generators
     {
         string result = "";
 
-        char[] letters = new char[] { 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'J', 'K', 'M', 'N', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z' };
-        char[] numbers = new char[] { '0', '1', '2', '3', '4', '5', '6', '7', '8', '9' };
-
-        int l = letters.Length;
-        int n = numbers.Length;
+        int l = Letters.Length;
+        int n = Numbers.Length;
 
         Random random = new Random();
 
         for (int i = 0; i < 4; i++)
         {
-            string character = letters[random.Next(0, l)].ToString();
+            string character = Letters[random.Next(0, l)].ToString();
 
             while (result.Contains(character))
-                character = letters[random.Next(0, l)].ToString().ToUpper();
+                character = Letters[random.Next(0, l)].ToString().ToUpper();
 
             result += character;
         }
 
         for (int i = 0; i < 4; i++)
         {
-            string character = numbers[random.Next(0, n)].ToString();
+            string character = Numbers[random.Next(0, n)].ToString();
 
             while (result.Contains(character))
-                character = numbers[random.Next(0, l)].ToString().ToUpper();
+                character = Numbers[random.Next(0, l)].ToString().ToUpper();
 
             result += character;
         }
@@ -99,15 +104,13 @@ public static class Generators
 
     public static string GenerateUserPassword()
     {
-        var chars = "$%#@!*?;:abcdefghijklmnopqrstuvxxyzABCDEFGHIJKLMNOPQRSTUVWXYZ^&".ToCharArray();
-
         var random = new Random();
         var password = Guid.NewGuid().ToString().Substring(4, 9);
 
         var regex = new Regex("^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{6,}$");
 
         while (!regex.IsMatch(password))
-            password += chars[random.Next(chars.Length)].ToString();
+            password += Chars[random.Next(Chars.Length)].ToString();
 
         return password;
     }
