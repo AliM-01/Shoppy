@@ -1,4 +1,4 @@
-﻿using _0_Framework.Infrastructure.Helpers;
+﻿using _0_Framework.Infrastructure.IRepository;
 using _01_Shoppy.Query.Helpers.Product;
 using MediatR;
 using Microsoft.Extensions.Configuration;

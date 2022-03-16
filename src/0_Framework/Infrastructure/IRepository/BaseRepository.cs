@@ -8,7 +8,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 
-namespace _0_Framework.Infrastructure.Helpers;
+namespace _0_Framework.Infrastructure.IRepository;
 
 public class BaseRepository<TDocument, TSettings> : IRepository<TDocument>
     where TDocument : EntityBase

@@ -1,5 +1,5 @@
 ﻿using _0_Framework.Infrastructure;
-using _0_Framework.Infrastructure.Helpers;
+using _0_Framework.Infrastructure.IRepository;
 using _01_Shoppy.Query.Models.ProductCategory;
 using AutoMapper;
 

@@ -1,4 +1,4 @@
-﻿using _0_Framework.Infrastructure.Helpers;
+﻿using _0_Framework.Infrastructure.IRepository;
 using BM.Domain.Article;
 using BM.Domain.ArticleCategory;
 using BM.Infrastructure.Persistence.Seed;

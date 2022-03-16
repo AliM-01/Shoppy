@@ -1,6 +1,6 @@
 ﻿using _0_Framework.Api;
 using _0_Framework.Application.Wrappers;
-using _0_Framework.Infrastructure.Helpers;
+using _0_Framework.Infrastructure.IRepository;
 using AM.Application.Contracts.Common.Settings;
 using AM.Application.Contracts.Services;
 using AM.Application.Services;

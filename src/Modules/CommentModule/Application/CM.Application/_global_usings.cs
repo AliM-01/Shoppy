@@ -1,7 +1,7 @@
 ﻿global using _0_Framework.Application.ErrorMessages;
 global using _0_Framework.Application.Exceptions;
 global using _0_Framework.Application.Wrappers;
-global using _0_Framework.Infrastructure.Helpers;
+global using _0_Framework.Infrastructure.IRepository;
 global using Ardalis.GuardClauses;
 global using AutoMapper;
 global using CM.Application.Contracts.Comment.Commands;

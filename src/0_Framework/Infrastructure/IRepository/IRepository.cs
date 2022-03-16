@@ -5,7 +5,7 @@ using MongoDB.Driver.Linq;
 using System.Collections.Generic;
 using System.Linq.Expressions;
 
-namespace _0_Framework.Infrastructure.Helpers;
+namespace _0_Framework.Infrastructure.IRepository;
 
 public interface IRepository<TDocument>
     where TDocument : EntityBase

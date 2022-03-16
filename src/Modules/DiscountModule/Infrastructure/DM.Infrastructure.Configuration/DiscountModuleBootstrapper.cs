@@ -1,4 +1,4 @@
-﻿using _0_Framework.Infrastructure.Helpers;
+﻿using _0_Framework.Infrastructure.IRepository;
 using DM.Domain.DiscountCode;
 using DM.Domain.ProductDiscount;
 using DM.Infrastructure.Persistence.Seeds;
