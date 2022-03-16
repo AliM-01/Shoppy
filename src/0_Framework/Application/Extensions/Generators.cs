@@ -13,6 +13,47 @@ public static class Generators
     {
         return Guid.NewGuid().ToString().ToUpper().Substring(0, subString);
     }
+
+    #region GenerateIssueTrackingCode
+
+    public static string GenerateIssueTrackingCode()
+    {
+        string section1 = "";
+        string section2 = "";
+
+        char[] numbers = new char[] { '0', '1', '2', '3', '4', '5', '6', '7', '8', '9' };
+
+        int n = numbers.Length;
+
+        Random random = new Random();
+
+        for (int i = 0; i < 4; i++)
+        {
+            string character = numbers[random.Next(0, n)].ToString();
+
+            while (section1.Contains(character))
+                character = numbers[random.Next(0, n)].ToString().ToUpper();
+
+            section1 += character;
+        }
+
+        for (int i = 0; i < 4; i++)
+        {
+            string character = numbers[random.Next(0, n)].ToString();
+
+            while (section2.Contains(character))
+                character = numbers[random.Next(0, n)].ToString().ToUpper();
+
+            section2 += character;
+        }
+
+        return $"{section1}-{section2}";
+    }
+
+    #endregion
+
+
+
     public static string GenerateRandomUsername()
     {
         string result = "";
