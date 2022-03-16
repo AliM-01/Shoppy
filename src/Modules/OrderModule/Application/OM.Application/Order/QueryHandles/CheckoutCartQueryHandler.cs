@@ -7,7 +7,7 @@ using SM.Domain.Product;
 
 namespace OM.Application.Order.QueryHandles;
 
-public class ComputeCartQueryHandler : IRequestHandler<ComputeCartQuery, Response<CartDto>>
+public class CheckoutCartQueryHandler : IRequestHandler<CheckoutCartQuery, Response<CartDto>>
 {
     #region Ctor
 
@@ -17,7 +17,7 @@ public class ComputeCartQueryHandler : IRequestHandler<ComputeCartQuery, Respons
     private readonly IInventoryHelper _inventoryHelper;
     private readonly IMapper _mapper;
 
-    public ComputeCartQueryHandler(IGenericRepository<Product> productRepository,
+    public CheckoutCartQueryHandler(IGenericRepository<Product> productRepository,
                                                     IGenericRepository<Inventory> inventoryRepository,
                                                     IGenericRepository<ProductDiscount> productDiscountRepository,
                                                     IInventoryHelper inventoryHelper,
@@ -32,7 +32,7 @@ public class ComputeCartQueryHandler : IRequestHandler<ComputeCartQuery, Respons
 
     #endregion
 
-    public async Task<Response<CartDto>> Handle(ComputeCartQuery request, CancellationToken cancellationToken)
+    public async Task<Response<CartDto>> Handle(CheckoutCartQuery request, CancellationToken cancellationToken)
     {
         var cart = new CartDto();
 
@@ -44,6 +44,9 @@ public class ComputeCartQueryHandler : IRequestHandler<ComputeCartQuery, Respons
 
         foreach (var cartItem in request.Items)
         {
+            if (cartItem.Count <= 0)
+                continue;
+
             var itemToReturn = new CartItemDto();
 
             if (!(await _inventoryRepository.ExistsAsync(x => x.ProductId == cartItem.ProductId)))
@@ -55,11 +58,16 @@ public class ComputeCartQueryHandler : IRequestHandler<ComputeCartQuery, Respons
 
             var itemInventory = await _inventoryRepository.GetByFilter(filter);
 
-            if (itemInventory is null)
-                itemToReturn.IsNotInStock = true;
-
             if (!(await _inventoryHelper.IsInStock(itemInventory?.Id)))
-                itemToReturn.IsNotInStock = true;
+                continue;
+
+            long inventoryCount = await _inventoryHelper.CalculateCurrentCount(itemInventory?.Id);
+
+            if (inventoryCount <= 0)
+                continue;
+
+            if ((inventoryCount < cartItem.Count))
+                continue;
 
             var product = await _productRepository.GetByIdAsync(itemInventory?.ProductId);
 
@@ -69,11 +77,6 @@ public class ComputeCartQueryHandler : IRequestHandler<ComputeCartQuery, Respons
             _mapper.Map(cartItem, itemToReturn);
 
             itemToReturn.CalculateTotalItemPrice();
-
-            long inventoryCount = await _inventoryHelper.CalculateCurrentCount(itemInventory.Id);
-
-            itemToReturn.IsNotInStock = (inventoryCount <= 0);
-            itemToReturn.ItemInInventoryCountIsLowerThanRequestedCount = (inventoryCount < cartItem.Count);
 
             #endregion
 

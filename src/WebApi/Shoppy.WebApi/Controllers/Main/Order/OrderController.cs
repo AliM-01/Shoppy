@@ -17,7 +17,7 @@ public class OrderController : BaseApiController
     [SwaggerResponse(200, "success")]
     public async Task<IActionResult> ComputeCart([FromBody] List<CartItemInCookieDto> items)
     {
-        var res = await Mediator.Send(new ComputeCartQuery(items, IsCheckout: false));
+        var res = await Mediator.Send(new ComputeCartQuery(items));
 
         return JsonApiResult.Success(res);
     }
@@ -31,7 +31,7 @@ public class OrderController : BaseApiController
     [SwaggerResponse(200, "success")]
     public async Task<IActionResult> Checkout([FromBody] List<CartItemInCookieDto> items)
     {
-        var res = await Mediator.Send(new ComputeCartQuery(items, IsCheckout: true));
+        var res = await Mediator.Send(new CheckoutCartQuery(items));
 
         return JsonApiResult.Success(res);
     }
