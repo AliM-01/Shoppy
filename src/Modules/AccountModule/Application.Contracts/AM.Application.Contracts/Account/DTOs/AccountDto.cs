@@ -5,8 +5,8 @@ public class AccountDto
     [JsonProperty("id")]
     public string Id { get; set; }
 
-    [JsonProperty("role")]
-    public string Role { get; set; }
+    [JsonProperty("roles")]
+    public HashSet<string> Roles { get; set; }
 
     [JsonProperty("fullName")]
     public string FullName { get; set; }

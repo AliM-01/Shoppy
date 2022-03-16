@@ -74,12 +74,8 @@ public class OrderController : BaseApiController
     [Authorize(Policy = RoleConstants.BasicUser)]
     [SwaggerOperation(Summary = "تایید پرداخت", Tags = new[] { "Order" })]
     [SwaggerResponse(200, "success")]
-    public async Task<IActionResult> VerifyPayment([FromQuery] string authority, [FromQuery] string status,
-            [FromQuery] string oId)
+    public async Task<IActionResult> VerifyPayment([FromQuery] string authority, [FromQuery] string oId)
     {
-        if (status != "OK")
-            return JsonApiResult.Error();
-
         var res = await Mediator.Send(new VerifyPaymentRequestCommand(new VerifyPaymentRequestDto
         {
             OrderId = oId,

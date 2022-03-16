@@ -5,6 +5,7 @@ using _0_Framework.Infrastructure;
 using AM.Application.Contracts.Account.DTOs;
 using AM.Application.Contracts.Account.Queries;
 using Microsoft.EntityFrameworkCore;
+using MongoDB.Driver.Linq;
 
 namespace AM.Application.Account.QueryHandles;
 
@@ -66,7 +67,7 @@ public class FilterAccountsQueryHandler : IRequestHandler<FilterAccountsQuery, R
 
         #region paging
 
-        var pager = request.Filter.BuildPager((await query.CountAsync()));
+        var pager = request.Filter.BuildPager(query.Count());
 
         var allEntities = (await
             query
@@ -75,6 +76,15 @@ public class FilterAccountsQueryHandler : IRequestHandler<FilterAccountsQuery, R
             .Select(user =>
                 _mapper.Map(user, new AccountDto()))
             .ToList();
+
+        for (int i = 0; i < allEntities.Count; i++)
+        {
+            allEntities[i].Roles = default;
+
+            var user = await _userManager.FindByIdAsync(allEntities[i].Id);
+
+            allEntities[i].Roles = (await _userManager.GetRolesAsync(user)).ToHashSet<string>();
+        }
 
         #endregion paging
 

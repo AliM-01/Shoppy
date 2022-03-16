@@ -10,7 +10,7 @@ public class AdminAccountController : BaseAdminApiController
     #region Filter Accounts
 
     [HttpGet(AdminAccountApiEndpoints.Account.FilterAccounts)]
-    [SwaggerOperation(Summary = "فیلتر  مقالات", Tags = new[] { "AdminAccount" })]
+    [SwaggerOperation(Summary = "فیلتر  کاربران", Tags = new[] { "AdminAccount" })]
     [SwaggerResponse(200, "success")]
     public async Task<IActionResult> FilterAccounts([FromQuery] FilterAccountDto filter)
     {
