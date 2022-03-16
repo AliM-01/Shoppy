@@ -4,6 +4,8 @@ namespace _0_Framework.Application.Extensions;
 
 public static class Generators
 {
+    #region GenerateCode
+
     public static string GenerateCode()
     {
         return Guid.NewGuid().ToString().ToUpper().Substring(0, 5);
@@ -13,6 +15,8 @@ public static class Generators
     {
         return Guid.NewGuid().ToString().ToUpper().Substring(0, subString);
     }
+
+    #endregion
 
     #region GenerateIssueTrackingCode
 
@@ -52,7 +56,7 @@ public static class Generators
 
     #endregion
 
-
+    #region GenerateRandomUsername
 
     public static string GenerateRandomUsername()
     {
@@ -89,6 +93,10 @@ public static class Generators
         return result;
     }
 
+    #endregion
+
+    #region GenerateUserPassword
+
     public static string GenerateUserPassword()
     {
         var chars = "$%#@!*?;:abcdefghijklmnopqrstuvxxyzABCDEFGHIJKLMNOPQRSTUVWXYZ^&".ToCharArray();
@@ -103,4 +111,6 @@ public static class Generators
 
         return password;
     }
+
+    #endregion
 }
