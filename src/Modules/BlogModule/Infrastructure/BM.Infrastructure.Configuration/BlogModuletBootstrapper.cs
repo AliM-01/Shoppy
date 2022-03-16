@@ -16,8 +16,8 @@ public class BlogModuletBootstrapper
     {
         services.Configure<BlogDbSettings>(config.GetSection("BlogDbSettings"));
 
-        services.AddScoped<IGenericRepository<ArticleCategory>, GenericRepository<ArticleCategory, BlogDbSettings>>();
-        services.AddScoped<IGenericRepository<Article>, GenericRepository<Article, BlogDbSettings>>();
+        services.AddScoped<IRepository<ArticleCategory>, BaseRepository<ArticleCategory, BlogDbSettings>>();
+        services.AddScoped<IRepository<Article>, BaseRepository<Article, BlogDbSettings>>();
 
         services.AddMediatR(typeof(BlogModuletBootstrapper).Assembly);
 

@@ -7,7 +7,7 @@ using System.Linq.Expressions;
 
 namespace _0_Framework.Infrastructure.Helpers;
 
-public interface IGenericRepository<TDocument>
+public interface IRepository<TDocument>
     where TDocument : EntityBase
 {
     IMongoQueryable<TDocument> AsQueryable(bool isDeletedFilter = true, CancellationToken cancellationToken = default);

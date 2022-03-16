@@ -10,13 +10,13 @@ public class GetHotestDiscountProductsQueryHandler : IRequestHandler<GetHotestDi
 {
     #region Ctor
 
-    private readonly IGenericRepository<SM.Domain.Product.Product> _productRepository;
-    private readonly IGenericRepository<ProductDiscount> _productDiscount;
+    private readonly IRepository<SM.Domain.Product.Product> _productRepository;
+    private readonly IRepository<ProductDiscount> _productDiscount;
     private readonly IMapper _mapper;
     private readonly IProductHelper _productHelper;
 
     public GetHotestDiscountProductsQueryHandler(
-        IGenericRepository<SM.Domain.Product.Product> productRepository, IGenericRepository<ProductDiscount> productDiscount,
+        IRepository<SM.Domain.Product.Product> productRepository, IRepository<ProductDiscount> productDiscount,
         IMapper mapper, IProductHelper productHelper)
     {
         _productRepository = Guard.Against.Null(productRepository, nameof(_productRepository));

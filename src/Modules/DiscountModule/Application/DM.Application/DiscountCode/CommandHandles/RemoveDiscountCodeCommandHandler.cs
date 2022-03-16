@@ -6,9 +6,9 @@ public class RemoveDiscountCodeCommandHandler : IRequestHandler<RemoveDiscountCo
 {
     #region Ctor
 
-    private readonly IGenericRepository<Domain.DiscountCode.DiscountCode> _discountCodeRepository;
+    private readonly IRepository<Domain.DiscountCode.DiscountCode> _discountCodeRepository;
 
-    public RemoveDiscountCodeCommandHandler(IGenericRepository<Domain.DiscountCode.DiscountCode> discountCodeRepository)
+    public RemoveDiscountCodeCommandHandler(IRepository<Domain.DiscountCode.DiscountCode> discountCodeRepository)
     {
         _discountCodeRepository = Guard.Against.Null(discountCodeRepository, nameof(_discountCodeRepository));
     }

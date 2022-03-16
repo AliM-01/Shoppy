@@ -8,10 +8,10 @@ public class FilterDiscountCodesQueryHandler : IRequestHandler<FilterDiscountCod
 {
     #region Ctor
 
-    private readonly IGenericRepository<Domain.DiscountCode.DiscountCode> _discountCodeRepository;
+    private readonly IRepository<Domain.DiscountCode.DiscountCode> _discountCodeRepository;
     private readonly IMapper _mapper;
 
-    public FilterDiscountCodesQueryHandler(IGenericRepository<Domain.DiscountCode.DiscountCode> discountCodeRepository, IMapper mapper)
+    public FilterDiscountCodesQueryHandler(IRepository<Domain.DiscountCode.DiscountCode> discountCodeRepository, IMapper mapper)
     {
         _discountCodeRepository = Guard.Against.Null(discountCodeRepository, nameof(_discountCodeRepository));
         _mapper = Guard.Against.Null(mapper, nameof(_mapper));

@@ -10,10 +10,10 @@ public class GetSlidersQueryHandler : IRequestHandler<GetSlidersQuery, Response<
 {
     #region Ctor
 
-    private readonly IGenericRepository<SM.Domain.Slider.Slider> _sliderRepository;
+    private readonly IRepository<SM.Domain.Slider.Slider> _sliderRepository;
     private readonly IMapper _mapper;
 
-    public GetSlidersQueryHandler(IGenericRepository<SM.Domain.Slider.Slider> sliderRepository, IMapper mapper)
+    public GetSlidersQueryHandler(IRepository<SM.Domain.Slider.Slider> sliderRepository, IMapper mapper)
     {
         _sliderRepository = Guard.Against.Null(sliderRepository, nameof(_sliderRepository));
         _mapper = Guard.Against.Null(mapper, nameof(_mapper));

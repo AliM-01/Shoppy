@@ -6,9 +6,9 @@ public class DeleteProductCategoryCommandHandler : IRequestHandler<DeleteProduct
 {
     #region Ctor
 
-    private readonly IGenericRepository<Domain.ProductCategory.ProductCategory> _productCategoryRepository;
+    private readonly IRepository<Domain.ProductCategory.ProductCategory> _productCategoryRepository;
 
-    public DeleteProductCategoryCommandHandler(IGenericRepository<Domain.ProductCategory.ProductCategory> productCategoryRepository)
+    public DeleteProductCategoryCommandHandler(IRepository<Domain.ProductCategory.ProductCategory> productCategoryRepository)
     {
         _productCategoryRepository = Guard.Against.Null(productCategoryRepository, nameof(_productCategoryRepository));
     }

@@ -9,10 +9,10 @@ public class GetProductCategoriesListQueryHandler : IRequestHandler<GetProductCa
 {
     #region Ctor
 
-    private readonly IGenericRepository<Domain.ProductCategory.ProductCategory> _productCategoryRepository;
+    private readonly IRepository<Domain.ProductCategory.ProductCategory> _productCategoryRepository;
     private readonly IMapper _mapper;
 
-    public GetProductCategoriesListQueryHandler(IGenericRepository<Domain.ProductCategory.ProductCategory> productCategoryRepository, IMapper mapper)
+    public GetProductCategoriesListQueryHandler(IRepository<Domain.ProductCategory.ProductCategory> productCategoryRepository, IMapper mapper)
     {
         _productCategoryRepository = Guard.Against.Null(productCategoryRepository, nameof(_productCategoryRepository));
         _mapper = Guard.Against.Null(mapper, nameof(_mapper));

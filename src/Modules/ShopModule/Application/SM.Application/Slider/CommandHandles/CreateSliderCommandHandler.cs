@@ -8,10 +8,10 @@ public class CreateSliderCommandHandler : IRequestHandler<CreateSliderCommand, R
 {
     #region Ctor
 
-    private readonly IGenericRepository<Domain.Slider.Slider> _sliderRepository;
+    private readonly IRepository<Domain.Slider.Slider> _sliderRepository;
     private readonly IMapper _mapper;
 
-    public CreateSliderCommandHandler(IGenericRepository<Domain.Slider.Slider> sliderRepository, IMapper mapper)
+    public CreateSliderCommandHandler(IRepository<Domain.Slider.Slider> sliderRepository, IMapper mapper)
     {
         _sliderRepository = Guard.Against.Null(sliderRepository, nameof(_sliderRepository));
         _mapper = Guard.Against.Null(mapper, nameof(_mapper));

@@ -8,10 +8,10 @@ public class InitializePaymentRequestCommandHandler : IRequestHandler<Initialize
 {
     #region Ctor
 
-    private readonly IGenericRepository<Domain.Order.Order> _orderRepository;
+    private readonly IRepository<Domain.Order.Order> _orderRepository;
     private readonly IZarinPalFactory _zarinPalFactory;
 
-    public InitializePaymentRequestCommandHandler(IGenericRepository<Domain.Order.Order> orderRepository,
+    public InitializePaymentRequestCommandHandler(IRepository<Domain.Order.Order> orderRepository,
                                                     IZarinPalFactory zarinPalFactory)
     {
         _orderRepository = Guard.Against.Null(orderRepository, nameof(_orderRepository));

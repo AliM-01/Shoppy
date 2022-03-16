@@ -11,15 +11,15 @@ public class GetProductCategoryWithProductsByQueryHandler : IRequestHandler<GetP
 {
     #region Ctor
 
-    private readonly IGenericRepository<SM.Domain.ProductCategory.ProductCategory> _productCategoryRepository;
-    private readonly IGenericRepository<SM.Domain.Product.Product> _productRepository;
+    private readonly IRepository<SM.Domain.ProductCategory.ProductCategory> _productCategoryRepository;
+    private readonly IRepository<SM.Domain.Product.Product> _productRepository;
     private readonly IProductHelper _productHelper;
     private readonly IMapper _mapper;
 
-    public GetProductCategoryWithProductsByQueryHandler(IGenericRepository<SM.Domain.ProductCategory.ProductCategory> productCategoryRepository,
+    public GetProductCategoryWithProductsByQueryHandler(IRepository<SM.Domain.ProductCategory.ProductCategory> productCategoryRepository,
                                                         IProductHelper productHelper,
                                                         IMapper mapper,
-                                                        IGenericRepository<SM.Domain.Product.Product> productRepository)
+                                                        IRepository<SM.Domain.Product.Product> productRepository)
     {
         _productHelper = Guard.Against.Null(productHelper, nameof(_productHelper));
         _productCategoryRepository = Guard.Against.Null(productCategoryRepository, nameof(_productCategoryRepository));

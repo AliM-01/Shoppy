@@ -10,13 +10,13 @@ public class GetArticleCategoryWithArticlesByQueryHandler : IRequestHandler<GetA
 {
     #region Ctor
 
-    private readonly IGenericRepository<BM.Domain.ArticleCategory.ArticleCategory> _articleCategoryRepository;
-    private readonly IGenericRepository<BM.Domain.Article.Article> _articleRepository;
+    private readonly IRepository<BM.Domain.ArticleCategory.ArticleCategory> _articleCategoryRepository;
+    private readonly IRepository<BM.Domain.Article.Article> _articleRepository;
     private readonly IMapper _mapper;
 
     public GetArticleCategoryWithArticlesByQueryHandler(
-        IGenericRepository<BM.Domain.ArticleCategory.ArticleCategory> articleCategoryRepository,
-        IGenericRepository<BM.Domain.Article.Article> articleRepository, IMapper mapper)
+        IRepository<BM.Domain.ArticleCategory.ArticleCategory> articleCategoryRepository,
+        IRepository<BM.Domain.Article.Article> articleRepository, IMapper mapper)
     {
         _articleCategoryRepository = Guard.Against.Null(articleCategoryRepository, nameof(_articleCategoryRepository));
         _articleRepository = Guard.Against.Null(articleRepository, nameof(_articleRepository));

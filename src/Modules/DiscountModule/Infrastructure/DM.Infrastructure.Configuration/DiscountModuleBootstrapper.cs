@@ -15,8 +15,8 @@ public static class DiscountModuleBootstrapper
     {
         services.Configure<DiscountDbSettings>(config.GetSection("DiscountDbSettings"));
 
-        services.AddScoped<IGenericRepository<DiscountCode>, GenericRepository<DiscountCode, DiscountDbSettings>>();
-        services.AddScoped<IGenericRepository<ProductDiscount>, GenericRepository<ProductDiscount, DiscountDbSettings>>();
+        services.AddScoped<IRepository<DiscountCode>, BaseRepository<DiscountCode, DiscountDbSettings>>();
+        services.AddScoped<IRepository<ProductDiscount>, BaseRepository<ProductDiscount, DiscountDbSettings>>();
 
         services.AddMediatR(typeof(DiscountModuleBootstrapper).Assembly);
 

@@ -9,10 +9,10 @@ public class VerifyPaymentRequestCommandHandler : IRequestHandler<VerifyPaymentR
 {
     #region Ctor
 
-    private readonly IGenericRepository<Domain.Order.Order> _orderRepository;
+    private readonly IRepository<Domain.Order.Order> _orderRepository;
     private readonly IZarinPalFactory _zarinPalFactory;
 
-    public VerifyPaymentRequestCommandHandler(IGenericRepository<Domain.Order.Order> orderRepository,
+    public VerifyPaymentRequestCommandHandler(IRepository<Domain.Order.Order> orderRepository,
                                                     IZarinPalFactory zarinPalFactory)
     {
         _orderRepository = Guard.Against.Null(orderRepository, nameof(_orderRepository));

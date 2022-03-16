@@ -8,11 +8,11 @@ public class InventoryHelper : IInventoryHelper
 {
     #region Ctor
 
-    private readonly IGenericRepository<Domain.Inventory.Inventory> _inventoryRepository;
-    private readonly IGenericRepository<InventoryOperation> _inventoryOperationHelper;
+    private readonly IRepository<Domain.Inventory.Inventory> _inventoryRepository;
+    private readonly IRepository<InventoryOperation> _inventoryOperationHelper;
 
-    public InventoryHelper(IGenericRepository<Domain.Inventory.Inventory> inventoryRepository,
-        IGenericRepository<InventoryOperation> inventoryOperationHelper)
+    public InventoryHelper(IRepository<Domain.Inventory.Inventory> inventoryRepository,
+        IRepository<InventoryOperation> inventoryOperationHelper)
     {
         _inventoryRepository = Guard.Against.Null(inventoryRepository, nameof(_inventoryRepository));
         _inventoryOperationHelper = Guard.Against.Null(inventoryOperationHelper, nameof(_inventoryOperationHelper));

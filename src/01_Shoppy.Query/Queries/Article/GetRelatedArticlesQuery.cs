@@ -9,13 +9,13 @@ public class GetRelatedArticlesQueryHandler : IRequestHandler<GetRelatedArticles
 {
     #region Ctor
 
-    private readonly IGenericRepository<BM.Domain.Article.Article> _articleRepository;
-    private readonly IGenericRepository<BM.Domain.ArticleCategory.ArticleCategory> _articleCategoryRepository;
+    private readonly IRepository<BM.Domain.Article.Article> _articleRepository;
+    private readonly IRepository<BM.Domain.ArticleCategory.ArticleCategory> _articleCategoryRepository;
     private readonly IMapper _mapper;
 
     public GetRelatedArticlesQueryHandler(
-        IGenericRepository<BM.Domain.Article.Article> articleRepository, IMapper mapper,
-        IGenericRepository<BM.Domain.ArticleCategory.ArticleCategory> articleCategoryRepository)
+        IRepository<BM.Domain.Article.Article> articleRepository, IMapper mapper,
+        IRepository<BM.Domain.ArticleCategory.ArticleCategory> articleCategoryRepository)
     {
         _articleRepository = Guard.Against.Null(articleRepository, nameof(_articleRepository));
         _mapper = Guard.Against.Null(mapper, nameof(_mapper));

@@ -9,13 +9,13 @@ public class SearchArticleQueryHandler : IRequestHandler<SearchArticleQuery, Res
 {
     #region Ctor
 
-    private readonly IGenericRepository<BM.Domain.Article.Article> _articleRepository;
-    private readonly IGenericRepository<BM.Domain.ArticleCategory.ArticleCategory> _articleCategoryRepository;
+    private readonly IRepository<BM.Domain.Article.Article> _articleRepository;
+    private readonly IRepository<BM.Domain.ArticleCategory.ArticleCategory> _articleCategoryRepository;
     private readonly IMapper _mapper;
 
     public SearchArticleQueryHandler(
-        IGenericRepository<BM.Domain.Article.Article> articleRepository,
-        IGenericRepository<BM.Domain.ArticleCategory.ArticleCategory> articleCategoryRepository, IMapper mapper)
+        IRepository<BM.Domain.Article.Article> articleRepository,
+        IRepository<BM.Domain.ArticleCategory.ArticleCategory> articleCategoryRepository, IMapper mapper)
     {
         _articleRepository = Guard.Against.Null(articleRepository, nameof(_articleRepository));
         _articleCategoryRepository = Guard.Against.Null(articleCategoryRepository, nameof(_articleCategoryRepository));

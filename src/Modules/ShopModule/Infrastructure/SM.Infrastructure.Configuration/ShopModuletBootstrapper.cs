@@ -18,14 +18,14 @@ public static class ShopModuletBootstrapper
 {
     public static void Configure(IServiceCollection services, Microsoft.Extensions.Configuration.IConfiguration config)
     {
-        services.AddScoped<IGenericRepository<Product>, GenericRepository<Product, ShopDbSettings>>();
+        services.AddScoped<IRepository<Product>, BaseRepository<Product, ShopDbSettings>>();
 
         services.Configure<ShopDbSettings>(config.GetSection("ShopDbSettings"));
 
-        services.AddTransient<IGenericRepository<ProductCategory>, GenericRepository<ProductCategory, ShopDbSettings>>();
-        services.AddTransient<IGenericRepository<ProductPicture>, GenericRepository<ProductPicture, ShopDbSettings>>();
-        services.AddTransient<IGenericRepository<ProductFeature>, GenericRepository<ProductFeature, ShopDbSettings>>();
-        services.AddTransient<IGenericRepository<Slider>, GenericRepository<Slider, ShopDbSettings>>();
+        services.AddTransient<IRepository<ProductCategory>, BaseRepository<ProductCategory, ShopDbSettings>>();
+        services.AddTransient<IRepository<ProductPicture>, BaseRepository<ProductPicture, ShopDbSettings>>();
+        services.AddTransient<IRepository<ProductFeature>, BaseRepository<ProductFeature, ShopDbSettings>>();
+        services.AddTransient<IRepository<Slider>, BaseRepository<Slider, ShopDbSettings>>();
 
         services.AddScoped<IProductHelper, ProductHelper>();
 

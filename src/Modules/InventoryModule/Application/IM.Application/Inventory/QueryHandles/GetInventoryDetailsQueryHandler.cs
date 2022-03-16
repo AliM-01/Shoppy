@@ -6,10 +6,10 @@ public class GetInventoryDetailsQueryHandler : IRequestHandler<GetInventoryDetai
 {
     #region Ctor
 
-    private readonly IGenericRepository<Domain.Inventory.Inventory> _inventoryRepository;
+    private readonly IRepository<Domain.Inventory.Inventory> _inventoryRepository;
     private readonly IMapper _mapper;
 
-    public GetInventoryDetailsQueryHandler(IGenericRepository<Domain.Inventory.Inventory> inventoryRepository, IMapper mapper)
+    public GetInventoryDetailsQueryHandler(IRepository<Domain.Inventory.Inventory> inventoryRepository, IMapper mapper)
     {
         _inventoryRepository = Guard.Against.Null(inventoryRepository, nameof(_inventoryRepository));
         _mapper = Guard.Against.Null(mapper, nameof(_mapper));

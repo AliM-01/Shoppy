@@ -9,12 +9,12 @@ public class GetProductPicturesQueryHandler : IRequestHandler<GetProductPictures
 {
     #region Ctor
 
-    private readonly IGenericRepository<Domain.ProductPicture.ProductPicture> _productPictureRepository;
-    private readonly IGenericRepository<Domain.Product.Product> _productRepository;
+    private readonly IRepository<Domain.ProductPicture.ProductPicture> _productPictureRepository;
+    private readonly IRepository<Domain.Product.Product> _productRepository;
     private readonly IMapper _mapper;
 
-    public GetProductPicturesQueryHandler(IGenericRepository<Domain.ProductPicture.ProductPicture> productPictureRepository,
-        IGenericRepository<Domain.Product.Product> productRepository, IMapper mapper)
+    public GetProductPicturesQueryHandler(IRepository<Domain.ProductPicture.ProductPicture> productPictureRepository,
+        IRepository<Domain.Product.Product> productRepository, IMapper mapper)
     {
         _productPictureRepository = Guard.Against.Null(productPictureRepository, nameof(_productPictureRepository));
         _productRepository = Guard.Against.Null(productRepository, nameof(_productPictureRepository));

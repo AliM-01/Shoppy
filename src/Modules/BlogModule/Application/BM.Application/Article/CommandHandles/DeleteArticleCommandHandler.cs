@@ -5,9 +5,9 @@ public class DeleteArticleCommandHandler : IRequestHandler<DeleteArticleCommand,
 {
     #region Ctor
 
-    private readonly IGenericRepository<Domain.Article.Article> _articleRepository;
+    private readonly IRepository<Domain.Article.Article> _articleRepository;
 
-    public DeleteArticleCommandHandler(IGenericRepository<Domain.Article.Article> articleRepository)
+    public DeleteArticleCommandHandler(IRepository<Domain.Article.Article> articleRepository)
     {
         _articleRepository = Guard.Against.Null(articleRepository, nameof(_articleRepository));
     }

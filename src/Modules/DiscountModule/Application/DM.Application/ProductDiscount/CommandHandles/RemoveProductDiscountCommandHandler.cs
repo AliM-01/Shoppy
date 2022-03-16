@@ -6,9 +6,9 @@ public class RemoveProductDiscountCommandHandler : IRequestHandler<RemoveProduct
 {
     #region Ctor
 
-    private readonly IGenericRepository<Domain.ProductDiscount.ProductDiscount> _productDiscountRepository;
+    private readonly IRepository<Domain.ProductDiscount.ProductDiscount> _productDiscountRepository;
 
-    public RemoveProductDiscountCommandHandler(IGenericRepository<Domain.ProductDiscount.ProductDiscount> productDiscountRepository)
+    public RemoveProductDiscountCommandHandler(IRepository<Domain.ProductDiscount.ProductDiscount> productDiscountRepository)
     {
         _productDiscountRepository = Guard.Against.Null(productDiscountRepository, nameof(_productDiscountRepository));
     }

@@ -6,10 +6,10 @@ public class ConfirmCommentCommandHandler : IRequestHandler<ConfirmCommentComman
 {
     #region Ctor
 
-    private readonly IGenericRepository<Domain.Comment.Comment> _commentRepository;
+    private readonly IRepository<Domain.Comment.Comment> _commentRepository;
     private readonly IMapper _mapper;
 
-    public ConfirmCommentCommandHandler(IGenericRepository<Domain.Comment.Comment> commentRepository, IMapper mapper)
+    public ConfirmCommentCommandHandler(IRepository<Domain.Comment.Comment> commentRepository, IMapper mapper)
     {
         _commentRepository = Guard.Against.Null(commentRepository, nameof(_commentRepository));
         _mapper = Guard.Against.Null(mapper, nameof(_mapper));

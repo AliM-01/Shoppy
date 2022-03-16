@@ -7,10 +7,10 @@ public class DefineDiscountCodeCommandHandler : IRequestHandler<DefineDiscountCo
 {
     #region Ctor
 
-    private readonly IGenericRepository<Domain.DiscountCode.DiscountCode> _discountCodeRepository;
+    private readonly IRepository<Domain.DiscountCode.DiscountCode> _discountCodeRepository;
     private readonly IMapper _mapper;
 
-    public DefineDiscountCodeCommandHandler(IGenericRepository<Domain.DiscountCode.DiscountCode> discountCodeRepository, IMapper mapper)
+    public DefineDiscountCodeCommandHandler(IRepository<Domain.DiscountCode.DiscountCode> discountCodeRepository, IMapper mapper)
     {
         _discountCodeRepository = Guard.Against.Null(discountCodeRepository, nameof(_discountCodeRepository));
         _mapper = Guard.Against.Null(mapper, nameof(_mapper));

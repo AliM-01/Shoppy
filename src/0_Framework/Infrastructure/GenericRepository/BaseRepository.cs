@@ -10,7 +10,7 @@ using System.Linq.Expressions;
 
 namespace _0_Framework.Infrastructure.Helpers;
 
-public class GenericRepository<TDocument, TSettings> : IGenericRepository<TDocument>
+public class BaseRepository<TDocument, TSettings> : IRepository<TDocument>
     where TDocument : EntityBase
     where TSettings : BaseDbSettings
 {
@@ -19,7 +19,7 @@ public class GenericRepository<TDocument, TSettings> : IGenericRepository<TDocum
     private readonly IMongoCollection<TDocument> _collection;
     private readonly TSettings _settings;
 
-    public GenericRepository(IOptionsSnapshot<TSettings> settings)
+    public BaseRepository(IOptionsSnapshot<TSettings> settings)
     {
         _settings = settings.Value;
 

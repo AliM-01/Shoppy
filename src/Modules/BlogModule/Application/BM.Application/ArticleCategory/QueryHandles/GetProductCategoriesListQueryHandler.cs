@@ -6,10 +6,10 @@ public class GetArticleCategoriesSelectListQueryHandler : IRequestHandler<GetArt
 {
     #region Ctor
 
-    private readonly IGenericRepository<Domain.ArticleCategory.ArticleCategory> _articleCategoryRepository;
+    private readonly IRepository<Domain.ArticleCategory.ArticleCategory> _articleCategoryRepository;
     private readonly IMapper _mapper;
 
-    public GetArticleCategoriesSelectListQueryHandler(IGenericRepository<Domain.ArticleCategory.ArticleCategory> articleCategoryRepository, IMapper mapper)
+    public GetArticleCategoriesSelectListQueryHandler(IRepository<Domain.ArticleCategory.ArticleCategory> articleCategoryRepository, IMapper mapper)
     {
         _articleCategoryRepository = Guard.Against.Null(articleCategoryRepository, nameof(_articleCategoryRepository));
         _mapper = Guard.Against.Null(mapper, nameof(_mapper));

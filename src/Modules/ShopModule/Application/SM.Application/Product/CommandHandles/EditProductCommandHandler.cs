@@ -7,10 +7,10 @@ public class EditProductCommandHandler : IRequestHandler<EditProductCommand, Res
 {
     #region Ctor
 
-    private readonly IGenericRepository<Domain.Product.Product> _productRepository;
+    private readonly IRepository<Domain.Product.Product> _productRepository;
     private readonly IMapper _mapper;
 
-    public EditProductCommandHandler(IGenericRepository<Domain.Product.Product> productRepository, IMapper mapper)
+    public EditProductCommandHandler(IRepository<Domain.Product.Product> productRepository, IMapper mapper)
     {
         _productRepository = Guard.Against.Null(productRepository, nameof(_productRepository));
         _mapper = Guard.Against.Null(mapper, nameof(_mapper));

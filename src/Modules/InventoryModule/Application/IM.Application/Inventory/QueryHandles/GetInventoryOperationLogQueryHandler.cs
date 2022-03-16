@@ -10,13 +10,13 @@ public class GetInventoryOperationLogQueryHandler : IRequestHandler<GetInventory
 {
     #region Ctor
 
-    private readonly IGenericRepository<Domain.Inventory.Inventory> _inventoryRepository;
-    private readonly IGenericRepository<InventoryOperation> _inventoryOperationRepository;
-    private readonly IGenericRepository<Product> _productRepository;
+    private readonly IRepository<Domain.Inventory.Inventory> _inventoryRepository;
+    private readonly IRepository<InventoryOperation> _inventoryOperationRepository;
+    private readonly IRepository<Product> _productRepository;
     private readonly IMapper _mapper;
 
-    public GetInventoryOperationLogQueryHandler(IGenericRepository<Domain.Inventory.Inventory> inventoryRepository,
-        IGenericRepository<InventoryOperation> inventoryOperationRepository, IGenericRepository<Product> productRepository, IMapper mapper)
+    public GetInventoryOperationLogQueryHandler(IRepository<Domain.Inventory.Inventory> inventoryRepository,
+        IRepository<InventoryOperation> inventoryOperationRepository, IRepository<Product> productRepository, IMapper mapper)
     {
         _productRepository = Guard.Against.Null(productRepository, nameof(_productRepository));
         _inventoryRepository = Guard.Against.Null(inventoryRepository, nameof(_inventoryRepository));

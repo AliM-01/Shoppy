@@ -7,10 +7,10 @@ public class CreateArticleCommandHandler : IRequestHandler<CreateArticleCommand,
 {
     #region Ctor
 
-    private readonly IGenericRepository<Domain.Article.Article> _articleRepository;
+    private readonly IRepository<Domain.Article.Article> _articleRepository;
     private readonly IMapper _mapper;
 
-    public CreateArticleCommandHandler(IGenericRepository<Domain.Article.Article> articleRepository, IMapper mapper)
+    public CreateArticleCommandHandler(IRepository<Domain.Article.Article> articleRepository, IMapper mapper)
     {
         _articleRepository = Guard.Against.Null(articleRepository, nameof(_articleRepository));
         _mapper = Guard.Against.Null(mapper, nameof(_mapper));

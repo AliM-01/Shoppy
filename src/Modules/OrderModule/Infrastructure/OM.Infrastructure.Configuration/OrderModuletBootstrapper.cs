@@ -12,8 +12,8 @@ public static class OrderModuletBootstrapper
     {
         services.Configure<OrderDbSettings>(config.GetSection("OrderDbSettings"));
 
-        services.AddScoped<IGenericRepository<Order>, GenericRepository<Order, OrderDbSettings>>();
-        services.AddScoped<IGenericRepository<OrderItem>, GenericRepository<OrderItem, OrderDbSettings>>();
+        services.AddScoped<IRepository<Order>, BaseRepository<Order, OrderDbSettings>>();
+        services.AddScoped<IRepository<OrderItem>, BaseRepository<OrderItem, OrderDbSettings>>();
 
         services.AddMediatR(typeof(OrderModuletBootstrapper).Assembly);
     }

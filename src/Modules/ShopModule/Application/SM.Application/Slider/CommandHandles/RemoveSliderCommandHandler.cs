@@ -6,9 +6,9 @@ public class RemoveSliderCommandHandler : IRequestHandler<RemoveSliderCommand, R
 {
     #region Ctor
 
-    private readonly IGenericRepository<Domain.Slider.Slider> _sliderRepository;
+    private readonly IRepository<Domain.Slider.Slider> _sliderRepository;
 
-    public RemoveSliderCommandHandler(IGenericRepository<Domain.Slider.Slider> sliderRepository)
+    public RemoveSliderCommandHandler(IRepository<Domain.Slider.Slider> sliderRepository)
     {
         _sliderRepository = Guard.Against.Null(sliderRepository, nameof(_sliderRepository));
     }

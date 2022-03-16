@@ -6,10 +6,10 @@ public class ExistsProductIdQueryHandler : IRequestHandler<ExistsProductIdQuery,
 {
     #region Ctor
 
-    private readonly IGenericRepository<Domain.Product.Product> _productRepository;
+    private readonly IRepository<Domain.Product.Product> _productRepository;
     private readonly IMapper _mapper;
 
-    public ExistsProductIdQueryHandler(IGenericRepository<Domain.Product.Product> productRepository, IMapper mapper)
+    public ExistsProductIdQueryHandler(IRepository<Domain.Product.Product> productRepository, IMapper mapper)
     {
         _productRepository = Guard.Against.Null(productRepository, nameof(_productRepository));
         _mapper = Guard.Against.Null(mapper, nameof(_mapper));

@@ -7,12 +7,12 @@ public class PlaceOrderCommandHandler : IRequestHandler<PlaceOrderCommand, Respo
 {
     #region Ctor
 
-    private readonly IGenericRepository<Domain.Order.Order> _orderRepository;
-    private readonly IGenericRepository<Domain.Order.OrderItem> _orderItemRepository;
+    private readonly IRepository<Domain.Order.Order> _orderRepository;
+    private readonly IRepository<Domain.Order.OrderItem> _orderItemRepository;
     private readonly IMapper _mapper;
 
-    public PlaceOrderCommandHandler(IGenericRepository<Domain.Order.Order> orderRepository,
-        IGenericRepository<Domain.Order.OrderItem> orderItemRepository,
+    public PlaceOrderCommandHandler(IRepository<Domain.Order.Order> orderRepository,
+        IRepository<Domain.Order.OrderItem> orderItemRepository,
                                                     IMapper mapper)
     {
         _orderRepository = Guard.Against.Null(orderRepository, nameof(_orderRepository));

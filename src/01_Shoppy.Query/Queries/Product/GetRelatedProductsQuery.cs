@@ -9,12 +9,12 @@ public class GetRelatedProductsQueryHandler : IRequestHandler<GetRelatedProducts
 {
     #region Ctor
 
-    private readonly IGenericRepository<SM.Domain.Product.Product> _productRepository;
+    private readonly IRepository<SM.Domain.Product.Product> _productRepository;
     private readonly IProductHelper _productHelper;
     private readonly IMapper _mapper;
 
     public GetRelatedProductsQueryHandler(
-        IGenericRepository<SM.Domain.Product.Product> productRepository, IProductHelper productHelper, IMapper mapper)
+        IRepository<SM.Domain.Product.Product> productRepository, IProductHelper productHelper, IMapper mapper)
     {
         _productRepository = Guard.Against.Null(productRepository, nameof(_productRepository));
         _productHelper = Guard.Against.Null(productHelper, nameof(_productHelper));

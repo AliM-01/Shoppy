@@ -6,9 +6,9 @@ public class RestoreSliderCommandHandler : IRequestHandler<RestoreSliderCommand,
 {
     #region Ctor
 
-    private readonly IGenericRepository<Domain.Slider.Slider> _sliderRepository;
+    private readonly IRepository<Domain.Slider.Slider> _sliderRepository;
 
-    public RestoreSliderCommandHandler(IGenericRepository<Domain.Slider.Slider> sliderRepository)
+    public RestoreSliderCommandHandler(IRepository<Domain.Slider.Slider> sliderRepository)
     {
         _sliderRepository = Guard.Against.Null(sliderRepository, nameof(_sliderRepository));
     }

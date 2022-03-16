@@ -12,11 +12,11 @@ public class GetRecordCommentsByIdQueryHandler : IRequestHandler<GetRecordCommen
 {
     #region Ctor
 
-    private readonly IGenericRepository<CM.Domain.Comment.Comment> _commentRepository;
+    private readonly IRepository<CM.Domain.Comment.Comment> _commentRepository;
     private readonly IMapper _mapper;
 
     public GetRecordCommentsByIdQueryHandler(
-        IGenericRepository<CM.Domain.Comment.Comment> commentRepository, IMapper mapper)
+        IRepository<CM.Domain.Comment.Comment> commentRepository, IMapper mapper)
     {
         _commentRepository = Guard.Against.Null(commentRepository, nameof(_commentRepository));
         _mapper = Guard.Against.Null(mapper, nameof(_mapper));

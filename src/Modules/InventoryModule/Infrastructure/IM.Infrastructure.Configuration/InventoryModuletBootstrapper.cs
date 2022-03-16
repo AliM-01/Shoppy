@@ -17,8 +17,8 @@ public static class InventoryModuletBootstrapper
     {
         services.Configure<InventoryDbSettings>(config.GetSection("InventoryDbSettings"));
 
-        services.AddScoped<IGenericRepository<Inventory>, GenericRepository<Inventory, InventoryDbSettings>>();
-        services.AddScoped<IGenericRepository<InventoryOperation>, GenericRepository<InventoryOperation, InventoryDbSettings>>();
+        services.AddScoped<IRepository<Inventory>, BaseRepository<Inventory, InventoryDbSettings>>();
+        services.AddScoped<IRepository<InventoryOperation>, BaseRepository<InventoryOperation, InventoryDbSettings>>();
 
         services.AddScoped<IInventoryHelper, InventoryHelper>();
 

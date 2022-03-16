@@ -11,15 +11,15 @@ public class CheckoutCartQueryHandler : IRequestHandler<CheckoutCartQuery, Respo
 {
     #region Ctor
 
-    private readonly IGenericRepository<Inventory> _inventoryRepository;
-    private readonly IGenericRepository<Product> _productRepository;
-    private readonly IGenericRepository<ProductDiscount> _productDiscountRepository;
+    private readonly IRepository<Inventory> _inventoryRepository;
+    private readonly IRepository<Product> _productRepository;
+    private readonly IRepository<ProductDiscount> _productDiscountRepository;
     private readonly IInventoryHelper _inventoryHelper;
     private readonly IMapper _mapper;
 
-    public CheckoutCartQueryHandler(IGenericRepository<Product> productRepository,
-                                                    IGenericRepository<Inventory> inventoryRepository,
-                                                    IGenericRepository<ProductDiscount> productDiscountRepository,
+    public CheckoutCartQueryHandler(IRepository<Product> productRepository,
+                                                    IRepository<Inventory> inventoryRepository,
+                                                    IRepository<ProductDiscount> productDiscountRepository,
                                                     IInventoryHelper inventoryHelper,
                                                     IMapper mapper)
     {

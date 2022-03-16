@@ -7,9 +7,9 @@ public class RemoveProductPictureCommandHandler : IRequestHandler<RemoveProductP
 {
     #region Ctor
 
-    private readonly IGenericRepository<Domain.ProductPicture.ProductPicture> _productPictureRepository;
+    private readonly IRepository<Domain.ProductPicture.ProductPicture> _productPictureRepository;
 
-    public RemoveProductPictureCommandHandler(IGenericRepository<Domain.ProductPicture.ProductPicture> productPictureRepository)
+    public RemoveProductPictureCommandHandler(IRepository<Domain.ProductPicture.ProductPicture> productPictureRepository)
     {
         _productPictureRepository = Guard.Against.Null(productPictureRepository, nameof(_productPictureRepository));
     }

@@ -10,12 +10,12 @@ public class FilterProductDiscountsQueryHandler : IRequestHandler<FilterProductD
 {
     #region Ctor
 
-    private readonly IGenericRepository<Domain.ProductDiscount.ProductDiscount> _productDiscountRepository;
-    private readonly IGenericRepository<Product> _productRepository;
+    private readonly IRepository<Domain.ProductDiscount.ProductDiscount> _productDiscountRepository;
+    private readonly IRepository<Product> _productRepository;
     private readonly IMapper _mapper;
 
-    public FilterProductDiscountsQueryHandler(IGenericRepository<Domain.ProductDiscount.ProductDiscount> productDiscountRepository,
-        IGenericRepository<Product> productRepository, IMapper mapper)
+    public FilterProductDiscountsQueryHandler(IRepository<Domain.ProductDiscount.ProductDiscount> productDiscountRepository,
+        IRepository<Product> productRepository, IMapper mapper)
     {
         _productDiscountRepository = Guard.Against.Null(productDiscountRepository, nameof(_productDiscountRepository));
         _productRepository = Guard.Against.Null(productRepository, nameof(_productRepository));

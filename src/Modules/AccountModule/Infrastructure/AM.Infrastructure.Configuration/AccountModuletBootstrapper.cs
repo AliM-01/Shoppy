@@ -49,7 +49,7 @@ public class AccountModuletBootstrapper
             .AddDefaultTokenProviders()
             .AddErrorDescriber<PersianIdentity.PersianIdentityErrorDescriber>();
 
-        services.AddScoped<IGenericRepository<UserToken>, GenericRepository<UserToken, AccountDbSettings>>();
+        services.AddScoped<IRepository<UserToken>, BaseRepository<UserToken, AccountDbSettings>>();
 
         services.AddMediatR(typeof(AccountModuletBootstrapper).Assembly);
 

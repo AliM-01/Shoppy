@@ -9,11 +9,11 @@ public class GetProductDetailsQueryHandler : IRequestHandler<GetProductDetailsQu
 {
     #region Ctor
 
-    private readonly IGenericRepository<SM.Domain.Product.Product> _productRepository;
+    private readonly IRepository<SM.Domain.Product.Product> _productRepository;
     private readonly IProductHelper _productHelper;
     private readonly IMapper _mapper;
 
-    public GetProductDetailsQueryHandler(IGenericRepository<SM.Domain.Product.Product> productRepository,
+    public GetProductDetailsQueryHandler(IRepository<SM.Domain.Product.Product> productRepository,
                                          IProductHelper productHelper,
                                          IMapper mapper)
     {

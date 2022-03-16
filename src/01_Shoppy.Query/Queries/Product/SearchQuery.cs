@@ -11,15 +11,15 @@ public class SearchQueryHandler : IRequestHandler<SearchQuery, Response<SearchPr
 {
     #region Ctor
 
-    private readonly IGenericRepository<SM.Domain.Product.Product> _productRepository;
-    private readonly IGenericRepository<SM.Domain.ProductCategory.ProductCategory> _productCategoryRepository;
+    private readonly IRepository<SM.Domain.Product.Product> _productRepository;
+    private readonly IRepository<SM.Domain.ProductCategory.ProductCategory> _productCategoryRepository;
     private readonly IProductHelper _productHelper;
-    private readonly IGenericRepository<Inventory> _inventoryContext;
+    private readonly IRepository<Inventory> _inventoryContext;
     private readonly IMapper _mapper;
 
-    public SearchQueryHandler(IGenericRepository<SM.Domain.Product.Product> productRepository,
-                              IGenericRepository<SM.Domain.ProductCategory.ProductCategory> productCategoryRepository,
-                              IGenericRepository<Inventory> inventoryContext,
+    public SearchQueryHandler(IRepository<SM.Domain.Product.Product> productRepository,
+                              IRepository<SM.Domain.ProductCategory.ProductCategory> productCategoryRepository,
+                              IRepository<Inventory> inventoryContext,
                               IProductHelper productHelper,
                               IMapper mapper)
     {

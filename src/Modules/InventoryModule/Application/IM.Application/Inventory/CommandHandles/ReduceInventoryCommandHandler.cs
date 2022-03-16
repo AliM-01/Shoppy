@@ -6,11 +6,11 @@ public class ReduceInventoryCommandHandler : IRequestHandler<ReduceInventoryComm
 {
     #region Ctor
 
-    private readonly IGenericRepository<Domain.Inventory.Inventory> _inventoryRepository;
+    private readonly IRepository<Domain.Inventory.Inventory> _inventoryRepository;
     private readonly IMapper _mapper;
     private readonly IInventoryHelper _inventoryHelper;
 
-    public ReduceInventoryCommandHandler(IGenericRepository<Domain.Inventory.Inventory> inventoryRepository,
+    public ReduceInventoryCommandHandler(IRepository<Domain.Inventory.Inventory> inventoryRepository,
         IMapper mapper, IInventoryHelper inventoryHelper)
     {
         _inventoryRepository = Guard.Against.Null(inventoryRepository, nameof(_inventoryRepository));

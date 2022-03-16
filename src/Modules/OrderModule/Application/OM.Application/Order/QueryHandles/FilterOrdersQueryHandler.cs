@@ -8,10 +8,10 @@ public class FilterOrdersQueryHandler : IRequestHandler<FilterOrdersQuery, Respo
 {
     #region Ctor
 
-    private readonly IGenericRepository<Domain.Order.Order> _orderRepository;
+    private readonly IRepository<Domain.Order.Order> _orderRepository;
     private readonly IMapper _mapper;
 
-    public FilterOrdersQueryHandler(IGenericRepository<Domain.Order.Order> orderRepository, IMapper mapper)
+    public FilterOrdersQueryHandler(IRepository<Domain.Order.Order> orderRepository, IMapper mapper)
     {
         _orderRepository = Guard.Against.Null(orderRepository, nameof(_orderRepository));
         _mapper = Guard.Against.Null(mapper, nameof(_mapper));

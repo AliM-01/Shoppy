@@ -12,14 +12,14 @@ public class TokenStoreService : ITokenStoreService
     #region ctor
 
     private readonly ISecurityService _securityService;
-    private readonly IGenericRepository<UserToken> _userTokenRepository;
+    private readonly IRepository<UserToken> _userTokenRepository;
     private readonly UserManager<Domain.Account.Account> _userManager;
     private readonly BearerTokenSettings _tokenSettings;
     private readonly ITokenFactoryService _tokenFactoryService;
 
     public TokenStoreService(
         UserManager<Domain.Account.Account> userManager,
-        IGenericRepository<UserToken> userTokenRepository,
+        IRepository<UserToken> userTokenRepository,
         ISecurityService securityService,
         IOptionsSnapshot<BearerTokenSettings> tokenSettings,
         ITokenFactoryService tokenFactoryService)

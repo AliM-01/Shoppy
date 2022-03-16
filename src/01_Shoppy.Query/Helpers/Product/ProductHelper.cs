@@ -12,21 +12,21 @@ public class ProductHelper : IProductHelper
 {
     #region Ctor
 
-    private readonly IGenericRepository<SM.Domain.Product.Product> _productRepository;
-    private readonly IGenericRepository<SM.Domain.ProductCategory.ProductCategory> _productCategoryRepository;
-    private readonly IGenericRepository<SM.Domain.ProductPicture.ProductPicture> _productPictureRepository;
-    private readonly IGenericRepository<SM.Domain.ProductFeature.ProductFeature> _productFeatureRepository;
-    private readonly IGenericRepository<ProductDiscount> _productDiscount;
-    private readonly IGenericRepository<Inventory> _inventoryContext;
+    private readonly IRepository<SM.Domain.Product.Product> _productRepository;
+    private readonly IRepository<SM.Domain.ProductCategory.ProductCategory> _productCategoryRepository;
+    private readonly IRepository<SM.Domain.ProductPicture.ProductPicture> _productPictureRepository;
+    private readonly IRepository<SM.Domain.ProductFeature.ProductFeature> _productFeatureRepository;
+    private readonly IRepository<ProductDiscount> _productDiscount;
+    private readonly IRepository<Inventory> _inventoryContext;
     private readonly IMapper _mapper;
     private readonly IInventoryHelper _inventoryHelper;
 
-    public ProductHelper(IGenericRepository<SM.Domain.Product.Product> productRepository,
-                         IGenericRepository<ProductDiscount> productDiscount,
-                         IGenericRepository<Inventory> inventoryContext,
-                         IGenericRepository<SM.Domain.ProductPicture.ProductPicture> productPictureRepository,
-                         IGenericRepository<SM.Domain.ProductFeature.ProductFeature> productFeatureRepository,
-                         IGenericRepository<SM.Domain.ProductCategory.ProductCategory> productCategoryRepository,
+    public ProductHelper(IRepository<SM.Domain.Product.Product> productRepository,
+                         IRepository<ProductDiscount> productDiscount,
+                         IRepository<Inventory> inventoryContext,
+                         IRepository<SM.Domain.ProductPicture.ProductPicture> productPictureRepository,
+                         IRepository<SM.Domain.ProductFeature.ProductFeature> productFeatureRepository,
+                         IRepository<SM.Domain.ProductCategory.ProductCategory> productCategoryRepository,
                          IMapper mapper,
                          IInventoryHelper inventoryHelper)
     {

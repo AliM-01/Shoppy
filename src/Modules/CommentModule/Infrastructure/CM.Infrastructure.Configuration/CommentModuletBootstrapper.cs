@@ -15,7 +15,7 @@ public static class CommentModuletBootstrapper
     {
         services.Configure<CommentDbSettings>(config.GetSection("CommentDbSettings"));
 
-        services.AddScoped<IGenericRepository<Comment>, GenericRepository<Comment, CommentDbSettings>>();
+        services.AddScoped<IRepository<Comment>, BaseRepository<Comment, CommentDbSettings>>();
 
         services.AddMediatR(typeof(CommentModuletBootstrapper).Assembly);
 

@@ -9,10 +9,10 @@ public class FilterProductFeaturesQueryHandler : IRequestHandler<FilterProductFe
 {
     #region Ctor
 
-    private readonly IGenericRepository<Domain.ProductFeature.ProductFeature> _productFeatureRepository;
+    private readonly IRepository<Domain.ProductFeature.ProductFeature> _productFeatureRepository;
     private readonly IMapper _mapper;
 
-    public FilterProductFeaturesQueryHandler(IGenericRepository<Domain.ProductFeature.ProductFeature> productFeatureRepository, IMapper mapper)
+    public FilterProductFeaturesQueryHandler(IRepository<Domain.ProductFeature.ProductFeature> productFeatureRepository, IMapper mapper)
     {
         _productFeatureRepository = Guard.Against.Null(productFeatureRepository, nameof(_productFeatureRepository));
         _mapper = Guard.Against.Null(mapper, nameof(_mapper));

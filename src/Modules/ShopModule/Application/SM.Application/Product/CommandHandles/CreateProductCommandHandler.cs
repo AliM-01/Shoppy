@@ -10,13 +10,13 @@ public class CreateProductCommandHandler : IRequestHandler<CreateProductCommand,
 {
     #region Ctor
 
-    private readonly IGenericRepository<Domain.Product.Product> _productRepository;
-    private readonly IGenericRepository<Domain.ProductPicture.ProductPicture> _productPictureRepository;
+    private readonly IRepository<Domain.Product.Product> _productRepository;
+    private readonly IRepository<Domain.ProductPicture.ProductPicture> _productPictureRepository;
 
     private readonly IMapper _mapper;
 
-    public CreateProductCommandHandler(IGenericRepository<Domain.Product.Product> productRepository,
-            IGenericRepository<Domain.ProductPicture.ProductPicture> productPictureRepository, IMapper mapper)
+    public CreateProductCommandHandler(IRepository<Domain.Product.Product> productRepository,
+            IRepository<Domain.ProductPicture.ProductPicture> productPictureRepository, IMapper mapper)
     {
         _productRepository = Guard.Against.Null(productRepository, nameof(_productRepository));
         _productPictureRepository = Guard.Against.Null(productPictureRepository, nameof(_productPictureRepository));
