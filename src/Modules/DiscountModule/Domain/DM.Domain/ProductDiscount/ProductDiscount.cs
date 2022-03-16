@@ -9,22 +9,22 @@ public class ProductDiscount : EntityBase
 
     [Display(Name = "درصد")]
     [BsonElement("rate")]
-    [Range(1, 100, ErrorMessage = DomainErrorMessage.RequiredMessage)]
+    [Range(1, 100, ErrorMessage = DomainErrorMessage.Required)]
     public int Rate { get; set; }
 
     [BsonElement("startDate")]
     [BsonRepresentation(BsonType.DateTime)]
-    [Required(ErrorMessage = DomainErrorMessage.RequiredMessage)]
+    [Required(ErrorMessage = DomainErrorMessage.Required)]
     public DateTime StartDate { get; set; }
 
     [BsonElement("endDate")]
     [BsonRepresentation(BsonType.DateTime)]
-    [Required(ErrorMessage = DomainErrorMessage.RequiredMessage)]
+    [Required(ErrorMessage = DomainErrorMessage.Required)]
     public DateTime EndDate { get; set; }
 
     [BsonElement("description")]
-    [Required(ErrorMessage = DomainErrorMessage.RequiredMessage)]
-    [MaxLength(250, ErrorMessage = DomainErrorMessage.MaxLengthMessage)]
+    [Required(ErrorMessage = DomainErrorMessage.Required)]
+    [MaxLength(250, ErrorMessage = DomainErrorMessage.MaxLength)]
     public string Description { get; set; }
 
     [BsonElement("isExpired")]
@@ -41,7 +41,7 @@ public class ProductDiscount : EntityBase
 
     [Display(Name = "محصول")]
     [BsonElement("productId")]
-    [Required(ErrorMessage = DomainErrorMessage.RequiredMessage)]
+    [Required(ErrorMessage = DomainErrorMessage.Required)]
     public string ProductId { get; set; }
 
     #endregion

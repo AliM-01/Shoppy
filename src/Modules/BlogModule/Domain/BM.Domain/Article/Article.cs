@@ -13,30 +13,30 @@ public class Article : SeoPropertiesForDomainModels
 
     [Display(Name = "عنوان")]
     [BsonElement("title")]
-    [Required(ErrorMessage = DomainErrorMessage.RequiredMessage)]
-    [MaxLength(100, ErrorMessage = DomainErrorMessage.MaxLengthMessage)]
+    [Required(ErrorMessage = DomainErrorMessage.Required)]
+    [MaxLength(100, ErrorMessage = DomainErrorMessage.MaxLength)]
     public string Title { get; set; }
 
     [Display(Name = "توضیحات کوتاه")]
     [BsonElement("summary")]
-    [Required(ErrorMessage = DomainErrorMessage.RequiredMessage)]
-    [MaxLength(100, ErrorMessage = DomainErrorMessage.MaxLengthMessage)]
+    [Required(ErrorMessage = DomainErrorMessage.Required)]
+    [MaxLength(100, ErrorMessage = DomainErrorMessage.MaxLength)]
     public string Summary { get; set; }
 
     [Display(Name = "متن")]
     [BsonElement("text")]
-    [Required(ErrorMessage = DomainErrorMessage.RequiredMessage)]
-    [MinLength(35, ErrorMessage = DomainErrorMessage.MinLengthMessage)]
+    [Required(ErrorMessage = DomainErrorMessage.Required)]
+    [MinLength(35, ErrorMessage = DomainErrorMessage.MinLength)]
     public string Text { get; set; }
 
     [Display(Name = "تصویر")]
     [BsonElement("imagePath")]
-    [Required(ErrorMessage = DomainErrorMessage.RequiredMessage)]
+    [Required(ErrorMessage = DomainErrorMessage.Required)]
     public string ImagePath { get; set; }
 
     [Display(Name = "عنوان لینک")]
     [BsonElement("slug")]
-    [Required(ErrorMessage = DomainErrorMessage.RequiredMessage)]
+    [Required(ErrorMessage = DomainErrorMessage.Required)]
     public string Slug { get; set; }
 
     [Display(Name = "عنوان لینک")]

@@ -8,13 +8,13 @@ public class ImagePropertiesForApplicationModels
 {
     [Display(Name = "جزییات تصویر")]
     [JsonProperty("imageAlt")]
-    [Required(ErrorMessage = DomainErrorMessage.RequiredMessage)]
-    [MaxLength(200, ErrorMessage = DomainErrorMessage.MaxLengthMessage)]
+    [Required(ErrorMessage = DomainErrorMessage.Required)]
+    [MaxLength(200, ErrorMessage = DomainErrorMessage.MaxLength)]
     public string ImageAlt { get; set; }
 
     [Display(Name = "عنوان تصویر")]
     [JsonProperty("imageTitle")]
-    [Required(ErrorMessage = DomainErrorMessage.RequiredMessage)]
-    [MaxLength(200, ErrorMessage = DomainErrorMessage.MaxLengthMessage)]
+    [Required(ErrorMessage = DomainErrorMessage.Required)]
+    [MaxLength(200, ErrorMessage = DomainErrorMessage.MaxLength)]
     public string ImageTitle { get; set; }
 }

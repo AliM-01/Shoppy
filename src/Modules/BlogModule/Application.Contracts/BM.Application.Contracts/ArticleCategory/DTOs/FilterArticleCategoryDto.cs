@@ -8,7 +8,7 @@ public class FilterArticleCategoryDto : BasePaging
 
     [JsonProperty("Title")]
     [Display(Name = "عنوان")]
-    [MaxLength(100, ErrorMessage = DomainErrorMessage.MaxLengthMessage)]
+    [MaxLength(100, ErrorMessage = DomainErrorMessage.MaxLength)]
     public string Title { get; set; }
 
     [JsonProperty("articleCategories")]

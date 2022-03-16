@@ -11,12 +11,12 @@ public class DefineProductDiscountDto
 
     [Display(Name = "تاریخ شروع")]
     [JsonProperty("startDate")]
-    [Required(ErrorMessage = DomainErrorMessage.RequiredMessage)]
+    [Required(ErrorMessage = DomainErrorMessage.Required)]
     public string StartDate { get; set; }
 
     [Display(Name = "تاریخ پایان")]
     [JsonProperty("endDate")]
-    [Required(ErrorMessage = DomainErrorMessage.RequiredMessage)]
+    [Required(ErrorMessage = DomainErrorMessage.Required)]
     public string EndDate { get; set; }
 
     [Display(Name = "توضیحات")]

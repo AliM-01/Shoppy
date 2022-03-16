@@ -14,17 +14,17 @@ public class Account : MongoIdentityUser<Guid>
 
     [Display(Name = "نام")]
     [BsonElement("firstName")]
-    [Required(ErrorMessage = DomainErrorMessage.RequiredMessage)]
+    [Required(ErrorMessage = DomainErrorMessage.Required)]
     public string FirstName { get; set; }
 
     [Display(Name = "نام خانوادگی")]
     [BsonElement("lastName")]
-    [Required(ErrorMessage = DomainErrorMessage.RequiredMessage)]
+    [Required(ErrorMessage = DomainErrorMessage.Required)]
     public string LastName { get; set; }
 
     [Display(Name = "تصویر")]
     [BsonElement("avatar")]
-    [Required(ErrorMessage = DomainErrorMessage.RequiredMessage)]
+    [Required(ErrorMessage = DomainErrorMessage.Required)]
     public string Avatar { get; set; }
 
     [BsonElement("serialNumber")]
