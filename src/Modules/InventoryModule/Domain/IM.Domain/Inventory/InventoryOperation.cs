@@ -9,8 +9,8 @@ public class InventoryOperation : EntityBase
 {
     protected InventoryOperation() { }
 
-    public InventoryOperation(bool operationType, long count, long operatorId, long currentCount,
-        string description, long orderId, string invetoryId)
+    public InventoryOperation(bool operationType, long count, string operatorId, long currentCount,
+        string description, string orderId, string invetoryId)
     {
         OperationType = operationType;
         Count = count;
@@ -48,10 +48,10 @@ public class InventoryOperation : EntityBase
     public string InventoryId { get; set; }
 
     [BsonElement("operatorId")]
-    public long OperatorId { get; set; }
+    public string OperatorId { get; set; }
 
     [BsonElement("orderId")]
-    public long OrderId { get; set; }
+    public string OrderId { get; set; }
 
     #endregion
 }

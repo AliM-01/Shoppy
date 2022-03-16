@@ -3,4 +3,4 @@
 namespace IM.Application.Contracts.Inventory.Commands;
 
 public record ReduceInventoryCommand
-    (ReduceInventoryDto Inventory) : IRequest<Response<string>>;
+    (ReduceInventoryDto Inventory, string UserId) : IRequest<Response<string>>;

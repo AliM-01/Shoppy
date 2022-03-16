@@ -8,7 +8,7 @@ public interface IInventoryHelper
 
     Task<long> CalculateCurrentCount(string inventoryId);
 
-    Task Increase(string inventoryId, long count, long operatorId, string description);
+    Task Increase(string inventoryId, long count, string operatorId, string description);
 
-    Task Reduce(string inventoryId, long count, long operatorId, string description, long orderId);
+    Task Reduce(string inventoryId, long count, string operatorId, string description, string orderId);
 }

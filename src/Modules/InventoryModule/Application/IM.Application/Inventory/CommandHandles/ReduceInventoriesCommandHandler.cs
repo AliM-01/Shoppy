@@ -22,8 +22,6 @@ public class ReduceInventoriesCommandHandler : IRequestHandler<ReduceInventories
 
     public async Task<Response<string>> Handle(ReduceInventoriesCommand request, CancellationToken cancellationToken)
     {
-        const long operatorId = 1;
-
         for (int i = 0; i < request.Inventories.Count; i++)
         {
             var inventory = await _inventoryRepository.GetByIdAsync(request.Inventories[i].InventoryId);
@@ -32,7 +30,7 @@ public class ReduceInventoriesCommandHandler : IRequestHandler<ReduceInventories
                 throw new NotFoundApiException();
 
             await _inventoryHelper.Reduce(inventory.Id, request.Inventories[i].Count,
-                operatorId, request.Inventories[i].Description, request.Inventories[i].OrderId);
+                request.UserId, request.Inventories[i].Description, request.Inventories[i].OrderId);
         }
 
 

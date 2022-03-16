@@ -27,10 +27,8 @@ public class IncreaseInventoryCommandHandler : IRequestHandler<IncreaseInventory
         if (inventory is null)
             throw new NotFoundApiException();
 
-        const long operatorId = 1;
-
         await _inventoryHelper.Increase(inventory.Id, request.Inventory.Count,
-            operatorId, request.Inventory.Description);
+            request.UserId, request.Inventory.Description);
 
         return new Response<string>();
     }

@@ -4,4 +4,4 @@ using System.Collections.Generic;
 namespace IM.Application.Contracts.Inventory.Commands;
 
 public record ReduceInventoriesCommand
-    (List<ReduceInventoryDto> Inventories) : IRequest<Response<string>>;
+    (List<ReduceInventoryDto> Inventories, string UserId) : IRequest<Response<string>>;

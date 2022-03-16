@@ -53,7 +53,7 @@ public class InventoryHelper : IInventoryHelper
 
     #region Increase
 
-    public async Task Increase(string inventoryId, long count, long operatorId, string description)
+    public async Task Increase(string inventoryId, long count, string operatorId, string description)
     {
         var inventory = await _inventoryRepository.GetByIdAsync(inventoryId);
 
@@ -63,7 +63,7 @@ public class InventoryHelper : IInventoryHelper
         var currentCount = await CalculateCurrentCount(inventory.Id);
         currentCount += count;
 
-        var operation = new InventoryOperation(true, count, operatorId, currentCount, description, 0, inventoryId);
+        var operation = new InventoryOperation(true, count, operatorId, currentCount, description, "0000-0000", inventoryId);
 
         await _inventoryOperationHelper.InsertAsync(operation);
 
@@ -77,7 +77,7 @@ public class InventoryHelper : IInventoryHelper
 
     #region Reduce
 
-    public async Task Reduce(string inventoryId, long count, long operatorId, string description, long orderId)
+    public async Task Reduce(string inventoryId, long count, string operatorId, string description, string orderId)
     {
         var inventory = await _inventoryRepository.GetByIdAsync(inventoryId);
 

@@ -75,7 +75,7 @@ public class AdminInventoryController : BaseAdminApiController
     [SwaggerResponse(404, "not-found")]
     public async Task<IActionResult> IncreaseInventory([FromForm] IncreaseInventoryDto increaseRequest)
     {
-        var res = await Mediator.Send(new IncreaseInventoryCommand(increaseRequest));
+        var res = await Mediator.Send(new IncreaseInventoryCommand(increaseRequest, User.GetUserId()));
 
         return JsonApiResult.Success(res);
     }
@@ -90,7 +90,7 @@ public class AdminInventoryController : BaseAdminApiController
     [SwaggerResponse(404, "not-found")]
     public async Task<IActionResult> ReduceInventory([FromForm] ReduceInventoryDto reduceRequest)
     {
-        var res = await Mediator.Send(new ReduceInventoryCommand(reduceRequest));
+        var res = await Mediator.Send(new ReduceInventoryCommand(reduceRequest, User.GetUserId()));
 
         return JsonApiResult.Success(res);
     }

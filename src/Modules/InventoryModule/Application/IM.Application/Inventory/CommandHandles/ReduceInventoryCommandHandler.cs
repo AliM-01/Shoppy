@@ -27,9 +27,8 @@ public class ReduceInventoryCommandHandler : IRequestHandler<ReduceInventoryComm
         if (inventory is null)
             throw new NotFoundApiException();
 
-        const long operatorId = 1;
         await _inventoryHelper.Reduce(inventory.Id, request.Inventory.Count,
-            operatorId, request.Inventory.Description, 0);
+            request.UserId, request.Inventory.Description, "0000-0000");
 
         return new Response<string>();
     }

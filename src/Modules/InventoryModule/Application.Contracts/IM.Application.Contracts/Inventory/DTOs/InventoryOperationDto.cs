@@ -24,11 +24,11 @@ public class InventoryOperationDto
     public string InventoryId { get; set; }
 
     [JsonProperty("operatorId")]
-    public long OperatorId { get; set; }
+    public string OperatorId { get; set; }
 
     [JsonProperty("operator")]
     public string Operator { get; set; }
 
     [JsonProperty("orderId")]
-    public long OrderId { get; set; }
+    public string OrderId { get; set; }
 }
