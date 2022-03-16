@@ -11,7 +11,7 @@ public static class InventoryDbSeed
 {
     public static Inventory[] SeedInventories(InventoryDbSettings dbSettings)
     {
-        var collection = MongoDbConnector.Conncet<Inventory>(dbSettings);
+        var collection = DbConnection.Conncet<Inventory>(dbSettings);
 
         bool existsInventory = collection.Find(_ => true).Any();
 
@@ -88,7 +88,7 @@ public static class InventoryDbSeed
         if (inventories is null)
             return;
 
-        var collection = MongoDbConnector.Conncet<InventoryOperation>(dbSettings);
+        var collection = DbConnection.Conncet<InventoryOperation>(dbSettings);
 
         bool existsInventory = collection.Find(_ => true).Any();
 

@@ -11,7 +11,7 @@ public static class CommentDbContextSeed
 {
     public static void SeedData(CommentDbSettings dbSettings)
     {
-        var collection = MongoDbConnector.Conncet<Comment>(dbSettings);
+        var collection = DbConnection.Conncet<Comment>(dbSettings);
 
         bool existsComment = collection.Find(_ => true).Any();
 

@@ -23,7 +23,7 @@ public class GenericRepository<TDocument, TSettings> : IGenericRepository<TDocum
     {
         _settings = settings.Value;
 
-        _collection = MongoDbConnector.Conncet<TDocument>(_settings);
+        _collection = DbConnection.Conncet<TDocument>(_settings);
     }
 
     #endregion
