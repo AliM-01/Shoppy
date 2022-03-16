@@ -1,6 +1,6 @@
 ﻿namespace _0_Framework.Infrastructure;
 
-public abstract class BaseMongoDbSettings
+public abstract class BaseDbSettings
 {
     public string ConnectionString { get; set; }
 

@@ -2,7 +2,7 @@
 
 namespace BM.Infrastructure.Persistence.Settings;
 
-public class BlogDbSettings : BaseMongoDbSettings
+public class BlogDbSettings : BaseDbSettings
 {
     public string ArticleCategoryCollection { get; set; }
 

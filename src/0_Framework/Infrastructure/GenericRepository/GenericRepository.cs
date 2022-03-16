@@ -12,7 +12,7 @@ namespace _0_Framework.Infrastructure.Helpers;
 
 public class GenericRepository<TDocument, TSettings> : IGenericRepository<TDocument>
     where TDocument : EntityBase
-    where TSettings : BaseMongoDbSettings
+    where TSettings : BaseDbSettings
 {
     #region Ctor
 

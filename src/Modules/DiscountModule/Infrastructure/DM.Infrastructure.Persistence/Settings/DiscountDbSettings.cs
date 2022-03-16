@@ -2,7 +2,7 @@
 
 namespace DM.Infrastructure.Persistence.Settings;
 
-public class DiscountDbSettings : BaseMongoDbSettings
+public class DiscountDbSettings : BaseDbSettings
 {
     public string ProductDiscountCollection { get; set; }
 

@@ -2,7 +2,7 @@
 
 namespace CM.Infrastructure.Persistence.Settings;
 
-public class CommentDbSettings : BaseMongoDbSettings
+public class CommentDbSettings : BaseDbSettings
 {
     public string CommentCollection { get; set; }
 }

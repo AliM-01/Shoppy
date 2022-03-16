@@ -2,7 +2,7 @@
 
 namespace AM.Infrastructure.Persistence.Settings;
 
-public class AccountDbSettings : BaseMongoDbSettings
+public class AccountDbSettings : BaseDbSettings
 {
     public string UserTokenCollection { get; set; }
 }

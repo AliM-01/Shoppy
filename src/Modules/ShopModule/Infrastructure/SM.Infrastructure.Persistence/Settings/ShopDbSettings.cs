@@ -2,7 +2,7 @@
 
 namespace SM.Infrastructure.Persistence.Settings;
 
-public class ShopDbSettings : BaseMongoDbSettings
+public class ShopDbSettings : BaseDbSettings
 {
     public string ProductCollection { get; set; }
 

@@ -8,7 +8,7 @@ public static class DbConnection
 {
     #region Conncet
 
-    public static IMongoCollection<TDocument> Conncet<TDocument>(BaseMongoDbSettings dbSettings)
+    public static IMongoCollection<TDocument> Conncet<TDocument>(BaseDbSettings dbSettings)
     {
         var mongoSettings = MongoClientSettings.FromConnectionString(dbSettings.ConnectionString);
         mongoSettings.ServerApi = new ServerApi(ServerApiVersion.V1);
@@ -24,7 +24,7 @@ public static class DbConnection
 
     #region ConncetAndReturnClient
 
-    public static (MongoClient, IMongoCollection<TDocument>) ConncetAndReturnClient<TDocument>(BaseMongoDbSettings dbSettings)
+    public static (MongoClient, IMongoCollection<TDocument>) ConncetAndReturnClient<TDocument>(BaseDbSettings dbSettings)
     {
         var mongoSettings = MongoClientSettings.FromConnectionString(dbSettings.ConnectionString);
         mongoSettings.ServerApi = new ServerApi(ServerApiVersion.V1);

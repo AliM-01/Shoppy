@@ -2,7 +2,7 @@
 
 namespace OM.Infrastructure.Persistence.Settings;
 
-public class OrderDbSettings : BaseMongoDbSettings
+public class OrderDbSettings : BaseDbSettings
 {
     public string OrderCollection { get; set; }
 
