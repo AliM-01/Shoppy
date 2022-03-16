@@ -37,7 +37,7 @@ public class VerifyPaymentRequestCommandHandler : IRequestHandler<VerifyPaymentR
 
         order.IsPaid = true;
         order.RefId = verificationResponse.RefID;
-        order.IssueTrackingNo = Generators.GenerateCode(8);
+        order.IssueTrackingNo = Generator.GenerateCode(8);
 
         await _orderRepository.UpdateAsync(order);
 

@@ -2,7 +2,7 @@
 
 namespace _0_Framework.Application.Extensions;
 
-public static class Generators
+public static class Generator
 {
     #region Constants
 

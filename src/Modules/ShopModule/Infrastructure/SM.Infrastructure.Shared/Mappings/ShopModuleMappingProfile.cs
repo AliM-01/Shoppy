@@ -78,7 +78,7 @@ public class ShopModuleMappingProfile : Profile
                 .ForMember(dest => dest.Slug,
                      opt => opt.MapFrom(src => src.Title.ToSlug()))
                 .ForMember(dest => dest.Code,
-                     opt => opt.MapFrom(src => Generators.GenerateCode()));
+                     opt => opt.MapFrom(src => Generator.GenerateCode()));
 
         #endregion
 

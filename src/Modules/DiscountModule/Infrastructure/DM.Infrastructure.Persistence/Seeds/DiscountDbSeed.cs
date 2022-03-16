@@ -25,7 +25,7 @@ public static class DiscountDbSeed
                 new DiscountCode
                 {
                     Description = description,
-                    Code = Generators.GenerateCode(),
+                    Code = Generator.GenerateCode(),
                     Rate = 10,
                     StartDate = DateTime.UtcNow,
                     EndDate = DateTime.UtcNow.AddDays(30),
@@ -33,7 +33,7 @@ public static class DiscountDbSeed
                 new DiscountCode
                 {
                     Description = description,
-                    Code = Generators.GenerateCode(),
+                    Code = Generator.GenerateCode(),
                     Rate = 75,
                     StartDate = DateTime.UtcNow,
                     EndDate = DateTime.UtcNow.AddDays(30),
@@ -41,7 +41,7 @@ public static class DiscountDbSeed
                 new DiscountCode
                 {
                     Description = description,
-                    Code = Generators.GenerateCode(),
+                    Code = Generator.GenerateCode(),
                     Rate = 50,
                     StartDate = DateTime.UtcNow,
                     EndDate = DateTime.UtcNow.AddDays(30),
@@ -49,7 +49,7 @@ public static class DiscountDbSeed
                 new DiscountCode
                 {
                     Description = description,
-                    Code = Generators.GenerateCode(),
+                    Code = Generator.GenerateCode(),
                     Rate = 99,
                     StartDate = DateTime.UtcNow,
                     EndDate = DateTime.UtcNow.AddDays(30),
