@@ -56,12 +56,7 @@ public class ComputeCartQueryHandler : IRequestHandler<ComputeCartQuery, Respons
             var itemInventory = await _inventoryRepository.GetByFilter(filter);
 
             if (itemInventory is null)
-            {
-                if (request.IsCheckout)
-                    continue;
-                else
-                    itemToReturn.IsNotInStock = true;
-            }
+                itemToReturn.IsNotInStock = true;
 
             if (!(await _inventoryHelper.IsInStock(itemInventory?.Id)))
                 itemToReturn.IsNotInStock = true;
