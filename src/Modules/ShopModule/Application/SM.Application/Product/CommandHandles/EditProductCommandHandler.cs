@@ -26,7 +26,7 @@ public class EditProductCommandHandler : IRequestHandler<EditProductCommand, Res
             throw new NotFoundApiException();
 
         if (await _productRepository.ExistsAsync(x => x.Title == request.Product.Title && x.Id != request.Product.Id))
-            throw new ApiException(ApplicationErrorMessage.IsDuplicatedMessage);
+            throw new ApiException(ApplicationErrorMessage.DuplicatedRecordExists);
 
         _mapper.Map(request.Product, product);
 

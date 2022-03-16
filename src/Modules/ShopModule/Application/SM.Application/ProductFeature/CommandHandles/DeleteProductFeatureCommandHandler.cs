@@ -24,6 +24,6 @@ public class DeleteProductFeatureCommandHandler : IRequestHandler<DeleteProductF
 
         await _productFeatureRepository.DeletePermanentAsync(productFeature.Id);
 
-        return new Response<string>(ApplicationErrorMessage.RecordDeletedMessage);
+        return new Response<string>(ApplicationErrorMessage.RecordDeleted);
     }
 }

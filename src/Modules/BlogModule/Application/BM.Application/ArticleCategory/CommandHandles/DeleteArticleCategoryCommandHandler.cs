@@ -26,6 +26,6 @@ public class DeleteArticleCategoryCommandHandler : IRequestHandler<DeleteArticle
 
         await _articleCategoryRepository.DeletePermanentAsync(request.ArticleCategoryId);
 
-        return new Response<string>(ApplicationErrorMessage.RecordDeletedMessage);
+        return new Response<string>(ApplicationErrorMessage.RecordDeleted);
     }
 }

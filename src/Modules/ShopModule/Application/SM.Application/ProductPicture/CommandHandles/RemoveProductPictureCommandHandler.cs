@@ -28,6 +28,6 @@ public class RemoveProductPictureCommandHandler : IRequestHandler<RemoveProductP
 
         await _productPictureRepository.DeletePermanentAsync(productPicture.Id);
 
-        return new Response<string>(ApplicationErrorMessage.RecordDeletedMessage);
+        return new Response<string>(ApplicationErrorMessage.RecordDeleted);
     }
 }

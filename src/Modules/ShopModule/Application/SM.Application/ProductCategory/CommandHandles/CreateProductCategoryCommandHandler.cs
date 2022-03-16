@@ -23,7 +23,7 @@ public class CreateProductCategoryCommandHandler : IRequestHandler<CreateProduct
     public async Task<Response<string>> Handle(CreateProductCategoryCommand request, CancellationToken cancellationToken)
     {
         if (await _productCategoryRepository.ExistsAsync(x => x.Title == request.ProductCategory.Title))
-            throw new ApiException(ApplicationErrorMessage.IsDuplicatedMessage);
+            throw new ApiException(ApplicationErrorMessage.DuplicatedRecordExists);
 
         var productCategory =
             _mapper.Map(request.ProductCategory, new Domain.ProductCategory.ProductCategory());
@@ -37,6 +37,6 @@ public class CreateProductCategoryCommandHandler : IRequestHandler<CreateProduct
 
         await _productCategoryRepository.InsertAsync(productCategory);
 
-        return new Response<string>(ApplicationErrorMessage.OperationSucceddedMessage);
+        return new Response<string>(ApplicationErrorMessage.OperationSuccedded);
     }
 }

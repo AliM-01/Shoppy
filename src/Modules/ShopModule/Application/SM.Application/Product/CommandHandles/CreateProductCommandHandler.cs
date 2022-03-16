@@ -28,7 +28,7 @@ public class CreateProductCommandHandler : IRequestHandler<CreateProductCommand,
     public async Task<Response<CreateProductResponseDto>> Handle(CreateProductCommand request, CancellationToken cancellationToken)
     {
         if (await _productRepository.ExistsAsync(x => x.Title == request.Product.Title))
-            throw new ApiException(ApplicationErrorMessage.IsDuplicatedMessage);
+            throw new ApiException(ApplicationErrorMessage.DuplicatedRecordExists);
 
         var product =
             _mapper.Map(request.Product, new Domain.Product.Product());

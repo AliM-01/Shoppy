@@ -108,7 +108,7 @@ public class FilterInventoryQueryHandler : IRequestHandler<FilterInventoryQuery,
         var returnData = request.Filter.SetData(allEntities).SetPaging(pager);
 
         if (returnData.Inventories is null)
-            throw new ApiException(ApplicationErrorMessage.FilteredRecordsNotFoundMessage);
+            throw new ApiException(ApplicationErrorMessage.FilteredRecordsNotFound);
 
         if (returnData.PageId > returnData.GetLastPage() && returnData.GetLastPage() != 0)
             throw new NotFoundApiException();

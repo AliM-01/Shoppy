@@ -24,6 +24,6 @@ public class RemoveSliderCommandHandler : IRequestHandler<RemoveSliderCommand, R
 
         await _sliderRepository.DeleteAsync(slider.Id);
 
-        return new Response<string>(ApplicationErrorMessage.RecordDeletedMessage);
+        return new Response<string>(ApplicationErrorMessage.RecordDeleted);
     }
 }

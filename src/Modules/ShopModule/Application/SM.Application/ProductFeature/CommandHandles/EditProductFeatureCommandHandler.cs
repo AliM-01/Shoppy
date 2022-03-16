@@ -26,7 +26,7 @@ public class EditProductFeatureCommandHandler : IRequestHandler<EditProductFeatu
 
         if (await _productFeatureRepository.ExistsAsync(x => x.ProductId == request.ProductFeature.ProductId
                 && x.FeatureTitle == request.ProductFeature.FeatureTitle && x.Id != request.ProductFeature.Id))
-            throw new ApiException(ApplicationErrorMessage.IsDuplicatedMessage);
+            throw new ApiException(ApplicationErrorMessage.DuplicatedRecordExists);
 
         _mapper.Map(request.ProductFeature, productFeature);
 

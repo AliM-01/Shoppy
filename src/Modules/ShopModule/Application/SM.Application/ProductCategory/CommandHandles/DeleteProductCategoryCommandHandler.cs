@@ -24,6 +24,6 @@ public class DeleteProductCategoryCommandHandler : IRequestHandler<DeleteProduct
 
         await _productCategoryRepository.DeleteAsync(productCategory.Id);
 
-        return new Response<string>(ApplicationErrorMessage.RecordDeletedMessage);
+        return new Response<string>(ApplicationErrorMessage.RecordDeleted);
     }
 }

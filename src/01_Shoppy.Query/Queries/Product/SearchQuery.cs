@@ -154,7 +154,7 @@ public class SearchQueryHandler : IRequestHandler<SearchQuery, Response<SearchPr
         #endregion
 
         if (returnData.Products is null)
-            throw new ApiException(ApplicationErrorMessage.FilteredRecordsNotFoundMessage);
+            throw new ApiException(ApplicationErrorMessage.FilteredRecordsNotFound);
 
         if (returnData.PageId > returnData.GetLastPage() && returnData.GetLastPage() != 0)
             throw new NotFoundApiException();

@@ -29,13 +29,13 @@ public class CreateInventoryCommandHandler : IRequestHandler<CreateInventoryComm
             throw new NotFoundApiException("محصولی با این شناسه پیدا نشد");
 
         if (await _inventoryRepository.ExistsAsync(x => x.ProductId == request.Inventory.ProductId))
-            throw new ApiException(ApplicationErrorMessage.IsDuplicatedMessage);
+            throw new ApiException(ApplicationErrorMessage.DuplicatedRecordExists);
 
         var inventory = new Domain.Inventory.Inventory(request.Inventory.ProductId,
                 request.Inventory.UnitPrice);
 
         await _inventoryRepository.InsertAsync(inventory);
 
-        return new Response<string>(ApplicationErrorMessage.OperationSucceddedMessage);
+        return new Response<string>(ApplicationErrorMessage.OperationSuccedded);
     }
 }

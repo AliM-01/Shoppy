@@ -24,6 +24,6 @@ public class RemoveDiscountCodeCommandHandler : IRequestHandler<RemoveDiscountCo
 
         await _discountCodeRepository.DeletePermanentAsync(discountCode.Id);
 
-        return new Response<string>(ApplicationErrorMessage.RecordDeletedMessage);
+        return new Response<string>(ApplicationErrorMessage.RecordDeleted);
     }
 }

@@ -37,6 +37,6 @@ public class CreateProductPictureCommandHandler : IRequestHandler<CreateProductP
         }
 
 
-        return new Response<string>(ApplicationErrorMessage.OperationSucceddedMessage);
+        return new Response<string>(ApplicationErrorMessage.OperationSuccedded);
     }
 }

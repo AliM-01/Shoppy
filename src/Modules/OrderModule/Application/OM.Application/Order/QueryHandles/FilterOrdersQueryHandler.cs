@@ -76,7 +76,7 @@ public class FilterOrdersQueryHandler : IRequestHandler<FilterOrdersQuery, Respo
         var returnData = request.Filter.SetData(allEntities).SetPaging(pager);
 
         if (returnData.Orders is null)
-            throw new ApiException(ApplicationErrorMessage.FilteredRecordsNotFoundMessage);
+            throw new ApiException(ApplicationErrorMessage.FilteredRecordsNotFound);
 
         if (returnData.PageId > returnData.GetLastPage() && returnData.GetLastPage() != 0)
             throw new NotFoundApiException();

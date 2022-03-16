@@ -26,7 +26,7 @@ public class EditArticleCategoryCommandHandler : IRequestHandler<EditArticleCate
             throw new NotFoundApiException();
 
         if (await _articleCategoryRepository.ExistsAsync(x => x.Title == request.ArticleCategory.Title && x.Id != request.ArticleCategory.Id))
-            throw new ApiException(ApplicationErrorMessage.IsDuplicatedMessage);
+            throw new ApiException(ApplicationErrorMessage.DuplicatedRecordExists);
 
         _mapper.Map(request.ArticleCategory, articleCategory);
 

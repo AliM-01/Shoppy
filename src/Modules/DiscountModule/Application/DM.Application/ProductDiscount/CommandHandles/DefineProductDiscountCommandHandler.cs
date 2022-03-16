@@ -37,6 +37,6 @@ public class DefineProductDiscountCommandHandler : IRequestHandler<DefineProduct
 
         await _productDiscountRepository.InsertAsync(productDiscount);
 
-        return new Response<string>(ApplicationErrorMessage.OperationSucceddedMessage);
+        return new Response<string>(ApplicationErrorMessage.OperationSuccedded);
     }
 }

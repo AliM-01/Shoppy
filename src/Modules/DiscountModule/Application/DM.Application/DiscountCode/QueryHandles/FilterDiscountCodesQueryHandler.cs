@@ -74,7 +74,7 @@ public class FilterDiscountCodesQueryHandler : IRequestHandler<FilterDiscountCod
         var returnData = request.Filter.SetData(allEntities).SetPaging(pager);
 
         if (returnData.Discounts is null)
-            throw new ApiException(ApplicationErrorMessage.FilteredRecordsNotFoundMessage);
+            throw new ApiException(ApplicationErrorMessage.FilteredRecordsNotFound);
 
         if (returnData.PageId > returnData.GetLastPage() && returnData.GetLastPage() != 0)
             throw new NotFoundApiException();

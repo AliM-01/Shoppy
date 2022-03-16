@@ -35,7 +35,7 @@ public class EditInventoryCommandHandler : IRequestHandler<EditInventoryCommand,
             throw new NotFoundApiException();
 
         if (await _inventoryRepository.ExistsAsync(x => x.ProductId == request.Inventory.ProductId && x.Id != request.Inventory.Id))
-            throw new ApiException(ApplicationErrorMessage.IsDuplicatedMessage);
+            throw new ApiException(ApplicationErrorMessage.DuplicatedRecordExists);
 
         _mapper.Map(request.Inventory, inventory);
 

@@ -25,7 +25,7 @@ public class EditArticleCommandHandler : IRequestHandler<EditArticleCommand, Res
             throw new NotFoundApiException();
 
         if (await _articleRepository.ExistsAsync(x => x.Title == request.Article.Title && x.Id != request.Article.Id))
-            throw new ApiException(ApplicationErrorMessage.IsDuplicatedMessage);
+            throw new ApiException(ApplicationErrorMessage.DuplicatedRecordExists);
 
         _mapper.Map(request.Article, article);
 

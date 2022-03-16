@@ -9,7 +9,7 @@ public class Response<T>
     public Response()
     {
         Status = ResponseType.SUCCESS;
-        Message = ApplicationErrorMessage.OperationSucceddedMessage;
+        Message = ApplicationErrorMessage.OperationSuccedded;
         Data = default;
         Errors = default;
     }
@@ -17,7 +17,7 @@ public class Response<T>
     public Response(T data, string message = null)
     {
         Status = ResponseType.SUCCESS;
-        Message = (string.IsNullOrEmpty(message) ? ApplicationErrorMessage.OperationSucceddedMessage : message);
+        Message = (string.IsNullOrEmpty(message) ? ApplicationErrorMessage.OperationSuccedded : message);
         Data = data;
         Errors = default;
     }
@@ -25,7 +25,7 @@ public class Response<T>
     public Response<T> Error(string message = null)
     {
         Status = ResponseType.ERROR;
-        Message = (string.IsNullOrEmpty(message) ? ApplicationErrorMessage.UnknownErrorMessage : message);
+        Message = (string.IsNullOrEmpty(message) ? ApplicationErrorMessage.UnknownError : message);
         Data = default;
         Errors = default;
 
@@ -35,7 +35,7 @@ public class Response<T>
     public Response<T> Unauthorized(string message = null)
     {
         Status = ResponseType.UNAUTHORIZED;
-        Message = (string.IsNullOrEmpty(message) ? ApplicationErrorMessage.UnauthorizedErrorMessage : message);
+        Message = (string.IsNullOrEmpty(message) ? ApplicationErrorMessage.Unauthorized : message);
         Data = default;
         Errors = default;
 

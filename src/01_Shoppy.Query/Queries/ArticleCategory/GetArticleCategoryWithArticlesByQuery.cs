@@ -58,7 +58,7 @@ public class GetArticleCategoryWithArticlesByQueryHandler : IRequestHandler<GetA
         var filteredData = request.Filter.SetData(allEntities).SetPaging(pager);
 
         if (filteredData.Articles is null)
-            throw new ApiException(ApplicationErrorMessage.FilteredRecordsNotFoundMessage);
+            throw new ApiException(ApplicationErrorMessage.FilteredRecordsNotFound);
 
         if (filteredData.PageId > filteredData.GetLastPage() && filteredData.GetLastPage() != 0)
             throw new NotFoundApiException();

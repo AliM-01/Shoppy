@@ -25,7 +25,7 @@ public class FilterProductFeaturesQueryHandler : IRequestHandler<FilterProductFe
         var query = _productFeatureRepository.AsQueryable();
 
         if (string.IsNullOrEmpty(request.Filter.ProductId))
-            throw new ApiException(ApplicationErrorMessage.FilteredRecordsNotFoundMessage);
+            throw new ApiException(ApplicationErrorMessage.FilteredRecordsNotFound);
 
         #region filter
 
@@ -49,7 +49,7 @@ public class FilterProductFeaturesQueryHandler : IRequestHandler<FilterProductFe
         var returnData = request.Filter.SetData(allEntities).SetPaging(pager);
 
         if (returnData.ProductFeatures is null)
-            throw new ApiException(ApplicationErrorMessage.FilteredRecordsNotFoundMessage);
+            throw new ApiException(ApplicationErrorMessage.FilteredRecordsNotFound);
 
         if (returnData.PageId > returnData.GetLastPage() && returnData.GetLastPage() != 0)
             throw new NotFoundApiException();

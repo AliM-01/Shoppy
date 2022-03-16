@@ -32,6 +32,6 @@ public class DefineDiscountCodeCommandHandler : IRequestHandler<DefineDiscountCo
 
         await _discountCodeRepository.InsertAsync(discountCode);
 
-        return new Response<string>(ApplicationErrorMessage.OperationSucceddedMessage);
+        return new Response<string>(ApplicationErrorMessage.OperationSuccedded);
     }
 }

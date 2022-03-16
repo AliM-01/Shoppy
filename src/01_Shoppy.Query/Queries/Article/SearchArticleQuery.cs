@@ -75,7 +75,7 @@ public class SearchArticleQueryHandler : IRequestHandler<SearchArticleQuery, Res
         var returnData = request.Search.SetData(allEntities).SetPaging(pager);
 
         if (returnData.Articles is null)
-            throw new ApiException(ApplicationErrorMessage.FilteredRecordsNotFoundMessage);
+            throw new ApiException(ApplicationErrorMessage.FilteredRecordsNotFound);
 
         if (returnData.PageId > returnData.GetLastPage() && returnData.GetLastPage() != 0)
             throw new NotFoundApiException();

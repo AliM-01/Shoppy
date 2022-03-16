@@ -32,6 +32,6 @@ public class CreateSliderCommandHandler : IRequestHandler<CreateSliderCommand, R
 
         await _sliderRepository.InsertAsync(slider);
 
-        return new Response<string>(ApplicationErrorMessage.OperationSucceddedMessage);
+        return new Response<string>(ApplicationErrorMessage.OperationSuccedded);
     }
 }

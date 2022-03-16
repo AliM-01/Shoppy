@@ -21,7 +21,7 @@ public class CreateArticleCommandHandler : IRequestHandler<CreateArticleCommand,
     public async Task<Response<string>> Handle(CreateArticleCommand request, CancellationToken cancellationToken)
     {
         if (await _articleRepository.ExistsAsync(x => x.Title == request.Article.Title))
-            throw new ApiException(ApplicationErrorMessage.IsDuplicatedMessage);
+            throw new ApiException(ApplicationErrorMessage.DuplicatedRecordExists);
 
         var article = _mapper.Map(request.Article, new Domain.Article.Article());
 
@@ -34,6 +34,6 @@ public class CreateArticleCommandHandler : IRequestHandler<CreateArticleCommand,
 
         await _articleRepository.InsertAsync(article);
 
-        return new Response<string>(ApplicationErrorMessage.OperationSucceddedMessage);
+        return new Response<string>(ApplicationErrorMessage.OperationSuccedded);
     }
 }
