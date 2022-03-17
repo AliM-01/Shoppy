@@ -22,6 +22,8 @@ public class GetCurrentUserQueryHandler : IRequestHandler<GetCurrentUserQuery, R
 
     public async Task<Response<AccountDto>> Handle(GetCurrentUserQuery request, CancellationToken cancellationToken)
     {
+        cancellationToken.ThrowIfCancellationRequested();
+
         var account = await _userManager.FindByIdAsync(request.UserId);
 
         if (account is null)
