@@ -15,6 +15,9 @@ public class CartItemDto
     [JsonProperty("unitPrice")]
     public decimal UnitPrice { get; set; }
 
+    [JsonProperty("unitPriceWithDiscount")]
+    public decimal UnitPriceWithDiscount { get; set; }
+
     [Display(Name = "تصویر")]
     [JsonProperty("imagePath")]
     public string ImagePath { get; set; }

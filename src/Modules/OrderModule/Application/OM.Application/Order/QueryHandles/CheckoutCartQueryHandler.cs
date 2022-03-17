@@ -85,7 +85,14 @@ public class CheckoutCartQueryHandler : IRequestHandler<CheckoutCartQuery, Respo
             var productDiscount = productDiscounts.FirstOrDefault(x => x.ProductId == cartItem.ProductId);
 
             if (productDiscount is not null)
+            {
                 itemToReturn.DiscountRate = productDiscount.Rate;
+                itemToReturn.UnitPriceWithDiscount = ((itemToReturn.UnitPrice * itemToReturn.DiscountRate) / 100);
+            }
+            else
+            {
+                itemToReturn.UnitPriceWithDiscount = itemToReturn.UnitPrice;
+            }
 
             itemToReturn.DiscountAmount = ((itemToReturn.TotalItemPrice * itemToReturn.DiscountRate) / 100);
             itemToReturn.ItemPayAmount = itemToReturn.TotalItemPrice - itemToReturn.DiscountAmount;
