@@ -1,5 +1,6 @@
 ﻿using AM.Application.Contracts.Account.Commands;
 using AM.Application.Contracts.Account.DTOs;
+using AM.Application.Contracts.Account.Queries;
 using AM.Application.Contracts.Services;
 using Ardalis.GuardClauses;
 using Microsoft.AspNetCore.Authorization;
@@ -139,13 +140,13 @@ public class AccountController : BaseApiController
     [SwaggerOperation(Summary = "Get CurrentUser", Tags = new[] { "Account" })]
     [SwaggerResponse(200, "success")]
     [SwaggerResponse(401, "un-authorized")]
-    public IActionResult GetCurrentUser(CancellationToken cancellationToken)
+    public async Task<IActionResult> GetCurrentUser(CancellationToken cancellationToken)
     {
         cancellationToken.ThrowIfCancellationRequested();
 
-        var claimsIdentity = User.Identity as ClaimsIdentity;
+        var res = await Mediator.Send(new GetCurrentUserQuery(User.GetUserId()), cancellationToken);
 
-        return Ok(CustonJsonConverter.Serialize(new { username = claimsIdentity.Name }));
+        return JsonApiResult.Success(res);
     }
 
     #endregion
