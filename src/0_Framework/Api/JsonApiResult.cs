@@ -9,7 +9,7 @@ public static class JsonApiResult
 
     public static OkObjectResult Success(string msg = "عملیات با موفقیت انجام شد")
     {
-        var res = new Response<string>(msg);
+        var res = new Response<string>(msg, msg);
 
         return new OkObjectResult(CustonJsonConverter.Serialize(res));
     }

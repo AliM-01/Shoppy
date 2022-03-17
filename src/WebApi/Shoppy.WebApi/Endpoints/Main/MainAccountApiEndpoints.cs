@@ -18,6 +18,8 @@ public class MainAccountApiEndpoints
 
         public const string IsAuthenticated = BaseMainAccountRoute + "/is-authenticated";
 
+        public const string IsInRole = BaseMainAccountRoute + "/is-role";
+
         public const string GetCurrentUser = BaseMainAccountRoute + "/get-currentUser";
     }
 }
