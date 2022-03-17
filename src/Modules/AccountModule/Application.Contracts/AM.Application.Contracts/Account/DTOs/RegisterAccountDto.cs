@@ -1,4 +1,6 @@
-﻿namespace AM.Application.Contracts.Account.DTOs;
+﻿using _0_Framework.Domain;
+
+namespace AM.Application.Contracts.Account.DTOs;
 
 public class RegisterAccountDto
 {
@@ -15,5 +17,6 @@ public class RegisterAccountDto
     public string Password { get; set; }
 
     [JsonProperty("confirmPassword")]
+    [Compare(nameof(Password), ErrorMessage = DomainErrorMessage.Compare)]
     public string ConfirmPassword { get; set; }
 }
