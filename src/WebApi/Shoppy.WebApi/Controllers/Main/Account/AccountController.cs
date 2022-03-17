@@ -17,19 +17,16 @@ public class AccountController : BaseApiController
     #region ctor
 
     private readonly ITokenStoreService _tokenStoreService;
-    private readonly UserManager<AM.Domain.Account.Account> _userManager;
     private readonly RoleManager<AccountRole> _roleManager;
     private readonly ILogger<AccountController> _logger;
 
     public AccountController(ITokenStoreService tokenStoreService,
                              ILogger<AccountController> logger,
-                             RoleManager<AccountRole> roleManager,
-                             UserManager<AM.Domain.Account.Account> userManager)
+                             RoleManager<AccountRole> roleManager)
     {
         _tokenStoreService = Guard.Against.Null(tokenStoreService, nameof(_tokenStoreService));
         _logger = Guard.Against.Null(logger, nameof(_logger));
         _roleManager = Guard.Against.Null(roleManager, nameof(_roleManager));
-        _userManager = Guard.Against.Null(userManager, nameof(_userManager));
     }
 
     #endregion
@@ -156,14 +153,12 @@ public class AccountController : BaseApiController
         if (!(this.User.Identity.IsAuthenticated))
             return JsonApiResult.Unauthorized();
 
-        var user = await _userManager.FindByIdAsync(User.GetUserId());
-
         foreach (var role in roles)
         {
             if (!(await _roleManager.RoleExistsAsync(role)))
                 return JsonApiResult.Error("نقش مورد نظر وجود ندارد");
 
-            if (!(await _userManager.IsInRoleAsync(user, role)))
+            if (!(this.User.IsInRole(role)))
                 return JsonApiResult.Unauthorized();
         }
 
