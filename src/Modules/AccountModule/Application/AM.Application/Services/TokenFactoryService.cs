@@ -138,6 +138,7 @@ public class TokenFactoryService : ITokenFactoryService
                 new Claim(JwtRegisteredClaimNames.Iat, DateTimeOffset.UtcNow.ToUnixTimeSeconds().ToString(), ClaimValueTypes.Integer64, _tokentSettings.Issuer),
                 new Claim(ClaimTypes.NameIdentifier, user.Id.ToString(), ClaimValueTypes.String, _tokentSettings.Issuer),
                 new Claim(ClaimTypes.Name, user.UserName, ClaimValueTypes.String, _tokentSettings.Issuer),
+                new Claim(ClaimTypes.Email, user.Email, ClaimValueTypes.String, _tokentSettings.Issuer),
                 new Claim("DisplayName", $"{user.FirstName} {user.LastName}", ClaimValueTypes.String, _tokentSettings.Issuer),
                 new Claim(ClaimTypes.SerialNumber, user.SerialNumber, ClaimValueTypes.String, _tokentSettings.Issuer),
                 new Claim(ClaimTypes.UserData, user.Id.ToString(), ClaimValueTypes.String, _tokentSettings.Issuer)

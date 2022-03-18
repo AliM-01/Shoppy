@@ -59,8 +59,17 @@ public class OrderController : BaseApiController
     [Authorize(Policy = RoleConstants.BasicUser)]
     [SwaggerOperation(Summary = "ثبت پرداخت", Tags = new[] { "Order" })]
     [SwaggerResponse(200, "success")]
-    public async Task<IActionResult> InitializePayment([FromQuery] InitializePaymentRequestDto payment)
+    public async Task<IActionResult> InitializePayment([FromQuery] string oId,
+            [FromQuery] decimal amount, [FromQuery] string callBack)
     {
+        var payment = new InitializePaymentRequestDto
+        {
+            OrderId = oId,
+            Amount = amount,
+            CallBackUrl = callBack,
+            Email = User.GetUserEmail()
+        };
+
         var res = await Mediator.Send(new InitializePaymentRequestCommand(payment));
 
         return JsonApiResult.Success(res);

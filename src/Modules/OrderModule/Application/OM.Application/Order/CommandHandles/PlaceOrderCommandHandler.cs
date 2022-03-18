@@ -33,6 +33,8 @@ public class PlaceOrderCommandHandler : IRequestHandler<PlaceOrderCommand, Respo
 
         await _orderRepository.InsertAsync(order);
 
+        var items = new List<OrderItem>();
+
         foreach (var cartItem in request.Cart.Items)
         {
             var orderItem = _mapper.Map(cartItem, new OrderItem
@@ -40,9 +42,14 @@ public class PlaceOrderCommandHandler : IRequestHandler<PlaceOrderCommand, Respo
                 OrderId = order.Id,
                 Order = order
             });
+            items.Add(orderItem);
 
             await _orderItemRepository.InsertAsync(orderItem);
         }
+
+        order.Items = items;
+
+        await _orderRepository.UpdateAsync(order);
 
         return new Response<PlaceOrderResponseDto>(new PlaceOrderResponseDto(order.Id));
     }

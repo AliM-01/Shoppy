@@ -15,4 +15,10 @@ public static class AuthUserExtension
         var result = claim?.FindFirst(ClaimTypes.SerialNumber);
         return result?.Value;
     }
+
+    public static string GetUserEmail(this ClaimsPrincipal claim)
+    {
+        var result = claim?.FindFirst(ClaimTypes.Email);
+        return result?.Value;
+    }
 }
