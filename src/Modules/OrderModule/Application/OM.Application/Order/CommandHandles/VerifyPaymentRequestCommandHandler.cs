@@ -63,7 +63,7 @@ public class VerifyPaymentRequestCommandHandler : IRequestHandler<VerifyPaymentR
             order.RefId = verificationResponse.RefID;
             order.IssueTrackingNo = Generator.Code(8);
 
-            order.Items = (await orderItemsInTransactions.FindAsync(x => x.OrderId == order.Id)).ToList();
+            var orderItems = (await orderItemsInTransactions.FindAsync(x => x.OrderId == order.Id)).ToList();
 
             var updateOrderFilter = MongoDbFilters<OM.Domain.Order.Order>.GetByIdFilter(order.Id);
 
@@ -78,7 +78,7 @@ public class VerifyPaymentRequestCommandHandler : IRequestHandler<VerifyPaymentR
             var inventoriesInTransactions = inventoryDb.GetCollection<IM.Domain.Inventory.Inventory>(_inventoryDbSettings.InventoryCollection);
             var inventoryOperationsInTransactions = inventoryDb.GetCollection<IM.Domain.Inventory.InventoryOperation>(_inventoryDbSettings.InventoryOperationCollection);
 
-            foreach (var item in order.Items)
+            foreach (var item in orderItems)
             {
                 var inventory = (await inventoriesInTransactions
                                             .FindAsync(x => x.ProductId == item.ProductId)).Single();

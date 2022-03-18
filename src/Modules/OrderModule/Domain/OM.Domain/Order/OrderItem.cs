@@ -18,7 +18,4 @@ public class OrderItem : EntityBase
     [BsonElement("orderId")]
     [BsonRepresentation(MongoDB.Bson.BsonType.ObjectId)]
     public string OrderId { get; set; }
-
-    [BsonElement("items")]
-    public Order Order { get; set; }
 }

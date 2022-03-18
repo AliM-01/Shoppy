@@ -34,8 +34,5 @@ public class Order : EntityBase
     [BsonElement("refId")]
     public long RefId { get; set; }
 
-    [BsonElement("items")]
-    public List<OrderItem> Items { get; set; }
-
     #endregion
 }

@@ -8,7 +8,7 @@ public class ZarinPalFactory : IZarinPalFactory
     //private readonly IConfiguration _configuration;
 
     private string Prefix { get; set; }
-    //private string MerchantId { get; }
+    private string MerchantId { get; }
 
     //public ZarinPalFactory(IConfiguration configuration)
     //{
@@ -20,6 +20,7 @@ public class ZarinPalFactory : IZarinPalFactory
     public ZarinPalFactory()
     {
         Prefix = "sandbox";
+        MerchantId = "c632f574-bd37-15e7-99ca-000c295eb9d3";
     }
 
     public async Task<PaymentResponse> CreatePaymentRequest(string callBackUrl, string amount, string email, string orderId)
@@ -33,10 +34,11 @@ public class ZarinPalFactory : IZarinPalFactory
         var body = new PaymentRequest
         {
             Email = email,
-            Mobile = "0000-000-0000",
-            CallbackURL = $"{callBackUrl}/{orderId}",
+            Mobile = "09123456789",
+            CallbackURL = $"{callBackUrl}",
             Description = $"خرید سفارش کد : {orderId}",
-            Amount = finalAmount
+            Amount = finalAmount,
+            MerchantID = MerchantId
         };
         request.AddJsonBody(body);
         var response = await client.ExecuteAsync(request);
@@ -55,6 +57,7 @@ public class ZarinPalFactory : IZarinPalFactory
 
         request.AddJsonBody(new VerificationRequest
         {
+            MerchantID = MerchantId,
             Amount = finalAmount,
             Authority = authority
         });
