@@ -80,7 +80,7 @@ public class OrderController : BaseApiController
         {
             OrderId = oId,
             Authority = authority,
-        }));
+        }, User.GetUserId()));
 
         return JsonApiResult.Success(res);
     }
