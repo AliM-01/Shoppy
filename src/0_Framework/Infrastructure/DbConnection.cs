@@ -24,16 +24,14 @@ public static class DbConnection
 
     #region ConncetAndReturnClient
 
-    public static (MongoClient, IMongoCollection<TDocument>) ConncetAndReturnClient<TDocument>(BaseDbSettings dbSettings)
+    public static MongoClient Client(string connectionString)
     {
-        var mongoSettings = MongoClientSettings.FromConnectionString(dbSettings.ConnectionString);
+        var mongoSettings = MongoClientSettings.FromConnectionString(connectionString);
         mongoSettings.ServerApi = new ServerApi(ServerApiVersion.V1);
 
         var client = new MongoClient(mongoSettings);
 
-        var db = client.GetDatabase(dbSettings.DbName);
-
-        return (client, db.GetCollection<TDocument>(GetCollectionName(typeof(TDocument))));
+        return client;
     }
 
     #endregion

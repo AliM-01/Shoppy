@@ -2,4 +2,4 @@
 
 namespace OM.Application.Contracts.Order.Commands;
 
-public record VerifyPaymentRequestCommand(VerifyPaymentRequestDto Payment) : IRequest<Response<string>>;
+public record VerifyPaymentRequestCommand(VerifyPaymentRequestDto Payment, string UserId) : IRequest<Response<string>>;
