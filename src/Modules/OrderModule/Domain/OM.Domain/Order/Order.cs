@@ -27,7 +27,7 @@ public class Order : EntityBase
     [Display(Name = "کد پیگیری")]
     [BsonElement("issueTrackingNo")]
     [Required]
-    [MaxLength(8)]
+    [MaxLength(10)]
     public string IssueTrackingNo { get; set; }
 
     [Display(Name = "کد بازگشت درگاه پرداخت")]

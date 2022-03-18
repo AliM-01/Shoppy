@@ -10,7 +10,7 @@ using System.Globalization;
 
 namespace OM.Application.Order.CommandHandles;
 
-public class VerifyPaymentRequestCommandHandler : IRequestHandler<VerifyPaymentRequestCommand, Response<string>>
+public class VerifyPaymentRequestCommandHandler : IRequestHandler<VerifyPaymentRequestCommand, Response<VerifyPaymentResponseDto>>
 {
     #region Ctor
 
@@ -30,7 +30,7 @@ public class VerifyPaymentRequestCommandHandler : IRequestHandler<VerifyPaymentR
 
     #endregion
 
-    public async Task<Response<string>> Handle(VerifyPaymentRequestCommand request, CancellationToken cancellationToken)
+    public async Task<Response<VerifyPaymentResponseDto>> Handle(VerifyPaymentRequestCommand request, CancellationToken cancellationToken)
     {
         var client = DbConnection.Client(_orderDbSettings.ConnectionString);
 
@@ -114,7 +114,11 @@ public class VerifyPaymentRequestCommandHandler : IRequestHandler<VerifyPaymentR
 
             await session.CommitTransactionAsync();
 
-            return new Response<string>("پرداخت با موفقیت انجام شد");
+            return new Response<VerifyPaymentResponseDto>(new VerifyPaymentResponseDto
+            {
+                ResultMessage = "پرداخت با موفقیت انجام شد",
+                IssueTracking = order.IssueTrackingNo
+            });
 
         }
         catch (Exception)
