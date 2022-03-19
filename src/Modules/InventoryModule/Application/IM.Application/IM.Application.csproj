@@ -12,6 +12,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\..\..\0_Framework\0_Framework.csproj" />
+    <ProjectReference Include="..\..\..\AccountModule\Domain\AM.Domain\AM.Domain.csproj" />
     <ProjectReference Include="..\..\..\ShopModule\Domain\SM.Domin\SM.Domain.csproj" />
     <ProjectReference Include="..\..\..\ShopModule\Infrastructure\SM.Infrastructure.Persistence\SM.Infrastructure.Persistence.csproj" />
     <ProjectReference Include="..\..\Application.Contracts\IM.Application.Contracts\IM.Application.Contracts.csproj" />
