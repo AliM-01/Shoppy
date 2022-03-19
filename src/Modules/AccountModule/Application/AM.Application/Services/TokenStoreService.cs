@@ -77,7 +77,7 @@ public class TokenStoreService : ITokenStoreService
 
         for (int i = 0; i < expiredTokens.Count; i++)
         {
-            await _userTokenRepository.DeleteAsync(expiredTokens[i].Id);
+            await _userTokenRepository.DeletePermanentAsync(expiredTokens[i].Id);
         }
     }
 
@@ -90,7 +90,7 @@ public class TokenStoreService : ITokenStoreService
         var token = await FindToken(refreshTokenValue);
 
         if (token != null)
-            await _userTokenRepository.DeleteAsync(token.Id);
+            await _userTokenRepository.DeletePermanentAsync(token.Id);
     }
 
     #endregion
@@ -111,7 +111,7 @@ public class TokenStoreService : ITokenStoreService
 
         for (int i = 0; i < tokens.Count; i++)
         {
-            await _userTokenRepository.DeleteAsync(tokens[i].Id);
+            await _userTokenRepository.DeletePermanentAsync(tokens[i].Id);
         }
     }
 
@@ -176,7 +176,7 @@ public class TokenStoreService : ITokenStoreService
 
         for (int i = 0; i < tokens.Count; i++)
         {
-            await _userTokenRepository.DeleteAsync(tokens[i].Id);
+            await _userTokenRepository.DeletePermanentAsync(tokens[i].Id);
         }
     }
 
