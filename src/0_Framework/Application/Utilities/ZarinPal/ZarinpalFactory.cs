@@ -1,5 +1,6 @@
 ﻿using Newtonsoft.Json;
-using RestSharp;
+using System.Net.Http;
+using System.Text;
 
 namespace _0_Framework.Application.ZarinPal;
 
@@ -28,41 +29,44 @@ public class ZarinPalFactory : IZarinPalFactory
         amount = amount.Replace(",", "");
         var finalAmount = int.Parse(amount);
 
-        var client = new RestClient($"https://{Prefix}.zarinpal.com/pg/rest/WebGate/PaymentRequest.json");
-        var request = new RestRequest(Method.POST);
-        request.AddHeader("Content-Type", "application/json");
-        var body = new PaymentRequest
+        using (HttpClient httpClient = new HttpClient())
         {
-            Email = email,
-            Mobile = "09123456789",
-            CallbackURL = $"{callBackUrl}",
-            Description = $"خرید سفارش کد : {orderId}",
-            Amount = finalAmount,
-            MerchantID = MerchantId
-        };
-        request.AddJsonBody(body);
-        var response = await client.ExecuteAsync(request);
+            string content = JsonConvert.SerializeObject(new PaymentRequest
+            {
+                Email = email,
+                Mobile = "09123456789",
+                CallbackURL = $"{callBackUrl}",
+                Description = $"خرید سفارش کد : {orderId}",
+                Amount = finalAmount,
+                MerchantID = MerchantId
+            });
 
-        return JsonConvert.DeserializeObject<PaymentResponse>(response.Content);
+            using (HttpResponseMessage httpResponseMessage = await httpClient.PostAsync($"https://{Prefix}.zarinpal.com/pg/rest/WebGate/PaymentRequest.json",
+                new StringContent(content, Encoding.UTF8, "application/json")))
+            {
+                return JsonConvert.DeserializeObject<PaymentResponse>(await httpResponseMessage.Content.ReadAsStringAsync());
+            }
+        }
     }
 
     public async Task<VerificationResponse> CreateVerificationRequest(string authority, string amount)
     {
-        var client = new RestClient($"https://{Prefix}.zarinpal.com/pg/rest/WebGate/PaymentVerification.json");
-        var request = new RestRequest(Method.POST);
-        request.AddHeader("Content-Type", "application/json");
-
         amount = amount.Replace(",", "");
         var finalAmount = int.Parse(amount);
 
-        request.AddJsonBody(new VerificationRequest
+        using (HttpClient httpClient = new HttpClient())
         {
-            MerchantID = MerchantId,
-            Amount = finalAmount,
-            Authority = authority
-        });
-        var response = await client.ExecuteAsync(request);
+            string content = JsonConvert.SerializeObject(new VerificationRequest
+            {
+                MerchantID = MerchantId,
+                Amount = finalAmount,
+                Authority = authority
+            });
 
-        return JsonConvert.DeserializeObject<VerificationResponse>(response.Content);
+            using (HttpResponseMessage httpResponseMessage = await httpClient.PostAsync($"https://{Prefix}.zarinpal.com/pg/rest/WebGate/PaymentVerification.json", new StringContent(content, Encoding.UTF8, "application/json")))
+            {
+                return JsonConvert.DeserializeObject<VerificationResponse>(await httpResponseMessage.Content.ReadAsStringAsync());
+            }
+        }
     }
 }
