@@ -6,6 +6,7 @@
 
 	<ItemGroup>
 	  <ProjectReference Include="..\..\..\..\0_Framework\0_Framework.csproj" />
+	  <ProjectReference Include="..\..\..\AccountModule\Infrastructure\AM.Infrastructure.Persistence\AM.Infrastructure.Persistence.csproj" />
 	  <ProjectReference Include="..\..\..\ShopModule\Infrastructure\SM.Infrastructure.Persistence\SM.Infrastructure.Persistence.csproj" />
 	  <ProjectReference Include="..\..\Domain\IM.Domain\IM.Domain.csproj" />
 	</ItemGroup>

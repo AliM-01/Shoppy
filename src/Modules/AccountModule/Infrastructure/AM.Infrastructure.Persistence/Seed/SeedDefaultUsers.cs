@@ -12,7 +12,7 @@ public static class SeedDefaultUsers
         {
             Id = Guid.Parse(SeedUserIdConstants.AdminUser),
             UserName = Generator.UserName(),
-            Email = "admin1@g.com",
+            Email = "ali@gmail.com",
             FirstName = "ادمین",
             LastName = "ادمینی",
             PhoneNumber = "09123456789",
