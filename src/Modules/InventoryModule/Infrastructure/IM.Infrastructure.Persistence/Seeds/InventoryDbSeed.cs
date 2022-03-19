@@ -1,4 +1,5 @@
 ﻿using _0_Framework.Infrastructure;
+using AM.Infrastructure.Persistence.Seed;
 using IM.Domain.Inventory;
 using IM.Infrastructure.Persistence.Settings;
 using MongoDB.Driver;
@@ -96,24 +97,25 @@ public static class InventoryDbSeed
         {
             const string Increase = "افزایش";
             const string Reduce = "کاهش";
-            const string operatorId = "0000-0000";
+            const string orderId = "0";
+            const string operatorId = SeedUserIdConstants.BasicUser;
 
             List<InventoryOperation> operationToAdd = new()
             {
-                new InventoryOperation(true, 100, operatorId, 100, Increase, operatorId, inventories[0].Id),
-                new InventoryOperation(false, 50, operatorId, 50, Reduce, operatorId, inventories[0].Id),
+                new InventoryOperation(true, 100, operatorId, 100, Increase, orderId, inventories[0].Id),
+                new InventoryOperation(false, 50, operatorId, 50, Reduce, orderId, inventories[0].Id),
 
-                new InventoryOperation(true, 20, operatorId, 20, Increase, operatorId, inventories[1].Id),
-                new InventoryOperation(false, 3, operatorId, 17, Reduce, operatorId, inventories[1].Id),
-                new InventoryOperation(true, 10, operatorId, 10, Increase, operatorId, inventories[2].Id),
-                new InventoryOperation(true, 5, operatorId, 5, Increase, operatorId, inventories[3].Id),
-                new InventoryOperation(true, 25, operatorId, 25, Increase, operatorId, inventories[4].Id),
-                new InventoryOperation(true, 20, operatorId, 20, Increase, operatorId, inventories[5].Id),
-                new InventoryOperation(true, 50, operatorId, 50, Increase, operatorId, inventories[6].Id),
-                new InventoryOperation(true, 10, operatorId, 10, Increase, operatorId, inventories[7].Id),
-                new InventoryOperation(true, 25, operatorId, 25, Increase, operatorId, inventories[8].Id),
-                new InventoryOperation(true, 9, operatorId, 9, Increase, operatorId, inventories[9].Id),
-                new InventoryOperation(true, 7, operatorId, 7, Increase, operatorId, inventories[10].Id),
+                new InventoryOperation(true, 20, operatorId, 20, Increase, orderId, inventories[1].Id),
+                new InventoryOperation(false, 3, operatorId, 17, Reduce, orderId, inventories[1].Id),
+                new InventoryOperation(true, 10, operatorId, 10, Increase, orderId, inventories[2].Id),
+                new InventoryOperation(true, 5, operatorId, 5, Increase, orderId, inventories[3].Id),
+                new InventoryOperation(true, 25, operatorId, 25, Increase, orderId, inventories[4].Id),
+                new InventoryOperation(true, 20, operatorId, 20, Increase, orderId, inventories[5].Id),
+                new InventoryOperation(true, 50, operatorId, 50, Increase, orderId, inventories[6].Id),
+                new InventoryOperation(true, 10, operatorId, 10, Increase, orderId, inventories[7].Id),
+                new InventoryOperation(true, 25, operatorId, 25, Increase, orderId, inventories[8].Id),
+                new InventoryOperation(true, 9, operatorId, 9, Increase, orderId, inventories[9].Id),
+                new InventoryOperation(true, 7, operatorId, 7, Increase, orderId, inventories[10].Id),
             };
 
             collection.InsertManyAsync(operationToAdd);
