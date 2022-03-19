@@ -27,9 +27,9 @@ public class AdminAccountController : BaseAdminApiController
     [SwaggerOperation(Summary = "دریافت جزییات  کاربر", Tags = new[] { "AdminAccount" })]
     [SwaggerResponse(200, "success")]
     [SwaggerResponse(404, "not-found")]
-    public async Task<IActionResult> GetAccountDetails([FromRoute] Guid id)
+    public async Task<IActionResult> GetAccountDetails([FromRoute] string id)
     {
-        var res = await Mediator.Send(new GetAccountDetailsQuery(id.ToString()));
+        var res = await Mediator.Send(new GetAccountDetailsQuery(id));
 
         return JsonApiResult.Success(res);
     }
@@ -58,9 +58,9 @@ public class AdminAccountController : BaseAdminApiController
     [SwaggerOperation(Summary = "فعال کردن حساب  کاربر", Tags = new[] { "AdminAccount" })]
     [SwaggerResponse(201, "success : created")]
     [SwaggerResponse(404, "not-found")]
-    public async Task<IActionResult> ActivateAccount([FromRoute] Guid id)
+    public async Task<IActionResult> ActivateAccount([FromRoute] string id)
     {
-        var res = await Mediator.Send(new ActivateAccountByAdminCommand(id.ToString()));
+        var res = await Mediator.Send(new ActivateAccountByAdminCommand(id));
 
         return JsonApiResult.Success(res);
     }
@@ -73,9 +73,9 @@ public class AdminAccountController : BaseAdminApiController
     [SwaggerOperation(Summary = "غیر فعال کردن حساب  کاربر", Tags = new[] { "AdminAccount" })]
     [SwaggerResponse(201, "success : created")]
     [SwaggerResponse(404, "not-found")]
-    public async Task<IActionResult> DeActivateAccount([FromRoute] Guid id)
+    public async Task<IActionResult> DeActivateAccount([FromRoute] string id)
     {
-        var res = await Mediator.Send(new DeActivateAccountCommand(id.ToString()));
+        var res = await Mediator.Send(new DeActivateAccountCommand(id));
 
         return JsonApiResult.Success(res);
     }

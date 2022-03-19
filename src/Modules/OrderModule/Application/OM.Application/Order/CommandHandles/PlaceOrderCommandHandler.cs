@@ -37,7 +37,7 @@ public class PlaceOrderCommandHandler : IRequestHandler<PlaceOrderCommand, Respo
         {
             var orderItem = _mapper.Map(cartItem, new OrderItem
             {
-                OrderId = order.Id
+                OrderId = order.Id.ToString()
             });
 
             await _orderItemRepository.InsertAsync(orderItem);

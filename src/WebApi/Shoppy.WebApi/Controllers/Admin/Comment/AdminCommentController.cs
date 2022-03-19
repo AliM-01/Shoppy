@@ -27,9 +27,9 @@ public class AdminCommentController : BaseAdminApiController
     [SwaggerOperation(Summary = "تایید کامنت", Tags = new[] { "AdminComment" })]
     [SwaggerResponse(200, "success")]
     [SwaggerResponse(404, "not-found")]
-    public async Task<IActionResult> ConfirmComment([FromRoute] Guid id)
+    public async Task<IActionResult> ConfirmComment([FromRoute] string id)
     {
-        var res = await Mediator.Send(new ConfirmCommentCommand(id.ToString()));
+        var res = await Mediator.Send(new ConfirmCommentCommand(id));
 
         return JsonApiResult.Success(res);
     }
@@ -42,9 +42,9 @@ public class AdminCommentController : BaseAdminApiController
     [SwaggerOperation(Summary = "حذف کامنت", Tags = new[] { "AdminComment" })]
     [SwaggerResponse(200, "success")]
     [SwaggerResponse(404, "not-found")]
-    public async Task<IActionResult> CancelComment([FromRoute] Guid id)
+    public async Task<IActionResult> CancelComment([FromRoute] string id)
     {
-        var res = await Mediator.Send(new CancelCommentCommand(id.ToString()));
+        var res = await Mediator.Send(new CancelCommentCommand(id));
 
         return JsonApiResult.Success(res);
     }

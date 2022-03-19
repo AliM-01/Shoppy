@@ -21,7 +21,7 @@ public class FilterOrdersQueryHandler : IRequestHandler<FilterOrdersQuery, Respo
 
     public async Task<Response<FilterOrderDto>> Handle(FilterOrdersQuery request, CancellationToken cancellationToken)
     {
-        var query = _orderRepository.AsQueryable();
+        var query = _orderRepository.AsQueryable(cancellationToken: cancellationToken);
 
         #region filter
 
@@ -62,13 +62,13 @@ public class FilterOrdersQueryHandler : IRequestHandler<FilterOrdersQuery, Respo
 
         #region paging
 
-        var pager = request.Filter.BuildPager((await query.CountAsync()));
+        var pager = request.Filter.BuildPager((await query.CountAsync()), cancellationToken);
 
         var allEntities =
              _orderRepository
-             .ApplyPagination(query, pager)
-             .Select(Order =>
-                _mapper.Map(Order, new OrderDto()))
+             .ApplyPagination(query, pager, cancellationToken)
+             .Select(x =>
+                _mapper.Map(x, new OrderDto()))
              .ToList();
 
         #endregion paging

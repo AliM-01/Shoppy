@@ -7,7 +7,7 @@ public static class AuthUserExtension
     public static string GetUserId(this ClaimsPrincipal claim)
     {
         var result = claim?.FindFirst(ClaimTypes.NameIdentifier);
-        return result?.Value;
+        return result?.Value.ToString();
     }
 
     public static string GetUserSerialNumber(this ClaimsPrincipal claim)
