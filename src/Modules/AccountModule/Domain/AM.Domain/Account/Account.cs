@@ -25,7 +25,7 @@ public class Account : MongoIdentityUser<Guid>
     [Display(Name = "تصویر")]
     [BsonElement("avatar")]
     [Required(ErrorMessage = DomainErrorMessage.Required)]
-    public string Avatar { get; set; }
+    public string Avatar { get; set; } = "default-avatar.png";
 
     [BsonElement("serialNumber")]
     public string SerialNumber { get; set; }

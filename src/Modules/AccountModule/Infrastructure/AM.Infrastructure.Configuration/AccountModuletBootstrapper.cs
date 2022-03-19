@@ -58,7 +58,10 @@ public class AccountModuletBootstrapper
             try
             {
                 var roleManager = scope.ServiceProvider.GetRequiredService<RoleManager<AccountRole>>();
+                var userManager = scope.ServiceProvider.GetRequiredService<UserManager<Account>>();
                 await SeedDefaultRoles.SeedAsync(roleManager);
+                await SeedDefaultUsers.SeedAdminAsync(userManager);
+                await SeedDefaultUsers.SeedBasicUserAsync(userManager);
 
             }
             catch (Exception)
