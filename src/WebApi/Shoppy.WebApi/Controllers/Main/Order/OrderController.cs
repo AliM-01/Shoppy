@@ -77,7 +77,7 @@ public class OrderController : BaseApiController
 
     #endregion
 
-    #region InitializePayment
+    #region VerifyPayment
 
     [HttpPost(MainOrderApiEndpoints.Order.VerifyPayment)]
     [Authorize(Policy = RoleConstants.BasicUser)]

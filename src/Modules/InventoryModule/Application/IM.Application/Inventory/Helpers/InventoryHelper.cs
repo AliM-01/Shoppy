@@ -60,8 +60,7 @@ public class InventoryHelper : IInventoryHelper
         if (inventory is null)
             throw new NotFoundApiException();
 
-        var currentCount = await CalculateCurrentCount(inventory.Id);
-        currentCount += count;
+        var currentCount = (await CalculateCurrentCount(inventory.Id)) + count;
 
         var operation = new InventoryOperation(true, count, operatorId, currentCount, description, "0000-0000", inventoryId);
 
@@ -84,8 +83,7 @@ public class InventoryHelper : IInventoryHelper
         if (inventory is null)
             throw new NotFoundApiException();
 
-        var currentCount = await CalculateCurrentCount(inventory.Id);
-        currentCount += count;
+        var currentCount = (await CalculateCurrentCount(inventory.Id)) - count;
 
         var operation = new InventoryOperation(false, count, operatorId, currentCount, description, orderId, inventoryId);
 

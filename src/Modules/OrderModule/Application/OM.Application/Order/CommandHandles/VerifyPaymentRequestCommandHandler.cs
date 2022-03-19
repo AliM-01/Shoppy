@@ -61,7 +61,7 @@ public class VerifyPaymentRequestCommandHandler : IRequestHandler<VerifyPaymentR
 
             order.IsPaid = true;
             order.RefId = verificationResponse.RefID;
-            order.IssueTrackingNo = Generator.Code(8);
+            order.IssueTrackingNo = Generator.IssueTrackingCode();
 
             var orderItems = (await orderItemsInTransactions.FindAsync(x => x.OrderId == order.Id)).ToList();
 
@@ -92,8 +92,7 @@ public class VerifyPaymentRequestCommandHandler : IRequestHandler<VerifyPaymentR
                 var minus = inventoryOperationsInTransactions.AsQueryable()
                         .Where(x => x.InventoryId == inventory.Id && !x.OperationType).Sum(x => x.Count);
 
-                var currentCount = (plus - minus);
-                currentCount += item.Count;
+                var currentCount = (plus - minus) - item.Count;
 
                 var description = $"برداشت سفارش {order.Id} کاربر {order.UserId}";
 
@@ -102,7 +101,6 @@ public class VerifyPaymentRequestCommandHandler : IRequestHandler<VerifyPaymentR
 
                 await inventoryOperationsInTransactions.InsertOneAsync(operation);
 
-                inventory.Operations.Add(operation);
                 inventory.InStock = currentCount > 0;
 
                 var updateInventoryFilter = MongoDbFilters<IM.Domain.Inventory.Inventory>.GetByIdFilter(inventory.Id);
