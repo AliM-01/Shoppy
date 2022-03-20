@@ -28,7 +28,7 @@ public class Account : MongoIdentityUser<Guid>
     public string Avatar { get; set; } = "default-avatar.png";
 
     [BsonElement("serialNumber")]
-    public string SerialNumber { get; set; }
+    public string SerialNumber { get; set; } = Guid.NewGuid().ToString("N");
 
     [BsonElement("authenticationTokens")]
     public List<UserToken> AuthenticationTokens { get; set; }

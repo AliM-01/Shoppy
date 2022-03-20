@@ -36,7 +36,7 @@ public static class SeedDefaultUsers
             Email = "user1@g.com",
             FirstName = "کاربر",
             LastName = "کاربری",
-            PhoneNumber = "09123456789",
+            PhoneNumber = "09223456789",
             EmailConfirmed = true,
             PhoneNumberConfirmed = true
         };
