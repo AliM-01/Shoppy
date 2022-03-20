@@ -90,7 +90,7 @@ public static class Generator
             string character = Numbers[random.Next(0, n)].ToString();
 
             while (result.Contains(character))
-                character = Numbers[random.Next(0, l)].ToString().ToUpper();
+                character = Numbers[random.Next(0, n)].ToString().ToUpper();
 
             result += character;
         }

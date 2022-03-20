@@ -18,7 +18,7 @@ public static class SeedDefaultUsers
             PhoneNumber = "09123456789",
             EmailConfirmed = true
         };
-        var user = await userManager.FindByNameAsync(adminUser.PhoneNumber);
+        var user = await userManager.FindByEmailAsync(adminUser.Email);
         if (user == null)
         {
             await userManager.CreateAsync(adminUser, "123Pa$$word!");
@@ -40,7 +40,7 @@ public static class SeedDefaultUsers
             EmailConfirmed = true,
             PhoneNumberConfirmed = true
         };
-        var user = await userManager.FindByNameAsync(defaultUser.PhoneNumber);
+        var user = await userManager.FindByEmailAsync(defaultUser.Email);
         if (user == null)
         {
             await userManager.CreateAsync(defaultUser, "123Pa$$word!");
