@@ -1,4 +1,6 @@
-﻿using SM.Application.Contracts.Product.Commands;
+﻿using IM.Application.Contracts.Inventory.Commands;
+using IM.Application.Contracts.Inventory.DTOs;
+using SM.Application.Contracts.Product.Commands;
 using SM.Application.Contracts.Product.DTOs;
 using SM.Application.Contracts.Product.Queries;
 
@@ -60,6 +62,12 @@ public class AdminProductController : BaseAdminApiController
     public async Task<IActionResult> CreateProduct([FromForm] CreateProductDto createRequest)
     {
         var res = await Mediator.Send(new CreateProductCommand(createRequest));
+
+        await Mediator.Send(new CreateInventoryCommand(new CreateInventoryDto
+        {
+            ProductId = res.Data.ProductId,
+            UnitPrice = 0
+        }));
 
         return JsonApiResult.Created(res);
     }

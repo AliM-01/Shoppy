@@ -36,22 +36,6 @@ public class AdminInventoryController : BaseAdminApiController
 
     #endregion
 
-    #region Create Inventory
-
-    [HttpPost(AdminInventoryApiEndpoints.Inventory.CreateInventory)]
-    [SwaggerOperation(Summary = "ایجاد انبار", Tags = new[] { "AdminInventory" })]
-    [SwaggerResponse(201, "success : created")]
-    [SwaggerResponse(400, "error : discount exists for product")]
-    [SwaggerResponse(404, "not-found")]
-    public async Task<IActionResult> CreateInventory([FromForm] CreateInventoryDto createRequest)
-    {
-        var res = await Mediator.Send(new CreateInventoryCommand(createRequest));
-
-        return JsonApiResult.Created(res);
-    }
-
-    #endregion
-
     #region Edit Inventory
 
     [HttpPut(AdminInventoryApiEndpoints.Inventory.EditInventory)]
