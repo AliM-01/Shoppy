@@ -24,11 +24,6 @@ public class EditInventoryCommandHandler : IRequestHandler<EditInventoryCommand,
 
     public async Task<Response<string>> Handle(EditInventoryCommand request, CancellationToken cancellationToken)
     {
-        var existsProduct = await _productRepository.ExistsAsync(p => p.Id == request.Inventory.ProductId);
-
-        if (!existsProduct)
-            throw new NotFoundApiException("محصولی با این شناسه پیدا نشد");
-
         var inventory = await _inventoryRepository.GetByIdAsync(request.Inventory.Id);
 
         if (inventory is null)

@@ -22,7 +22,7 @@ public static class DateConvertors
         var pc = new PersianCalendar();
         return pc.GetYear(value) + "/" + pc.GetMonth(value).ToString("00") + "/" +
                pc.GetDayOfMonth(value).ToString("00") + " " +
-               pc.GetHour(value) + ":" + pc.GetMinute(value) + ":" + pc.GetSecond(value);
+               pc.GetHour(value) + ":" + pc.GetMinute(value);
     }
 
     #endregion

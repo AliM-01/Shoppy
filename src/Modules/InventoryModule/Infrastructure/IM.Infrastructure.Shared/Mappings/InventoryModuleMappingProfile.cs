@@ -24,6 +24,8 @@ public class InventoryModuleMappingProfile : Profile
 
         CreateMap<EditInventoryDto, Inventory>()
             .ForMember(dest => dest.Id,
+                opt => opt.Ignore())
+             .ForMember(dest => dest.ProductId,
                 opt => opt.Ignore());
 
         #endregion
