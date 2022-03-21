@@ -1,4 +1,5 @@
-﻿using OM.Application.Contracts.Order.DTOs;
+﻿using OM.Application.Contracts.Order.Commands;
+using OM.Application.Contracts.Order.DTOs;
 using OM.Application.Contracts.Order.Queries;
 
 namespace Shoppy.WebApi.Controllers.Admin.Discount;
@@ -20,4 +21,17 @@ public class AdminOrderController : BaseAdminApiController
 
     #endregion
 
+    #region Cancel Order
+
+    [HttpDelete(AdminOrderApiEndpoints.Order.CancelOrder)]
+    [SwaggerOperation(Summary = "لغو سفارش", Tags = new[] { "AdminOrder" })]
+    [SwaggerResponse(200, "success")]
+    public async Task<IActionResult> CancelOrder([FromRoute] string orderId)
+    {
+        var res = await Mediator.Send(new CancelOrderByAdminCommand(orderId));
+
+        return JsonApiResult.Success(res);
+    }
+
+    #endregion
 }

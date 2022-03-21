@@ -2,7 +2,7 @@
 
 namespace OM.Application.Order.CommandHandles;
 
-public class CancelByAdminOrderCommandHandler : IRequestHandler<CancelByAdminOrderCommand, Response<string>>
+public class CancelOrderByAdminCommandHandler : IRequestHandler<CancelOrderByAdminCommand, Response<string>>
 {
     #region Ctor
 
@@ -10,7 +10,7 @@ public class CancelByAdminOrderCommandHandler : IRequestHandler<CancelByAdminOrd
     private readonly IRepository<Domain.Order.OrderItem> _orderItemRepository;
     private readonly IMapper _mapper;
 
-    public CancelByAdminOrderCommandHandler(IRepository<Domain.Order.Order> orderRepository,
+    public CancelOrderByAdminCommandHandler(IRepository<Domain.Order.Order> orderRepository,
         IRepository<Domain.Order.OrderItem> orderItemRepository,
                                                     IMapper mapper)
     {
@@ -21,7 +21,7 @@ public class CancelByAdminOrderCommandHandler : IRequestHandler<CancelByAdminOrd
 
     #endregion
 
-    public async Task<Response<string>> Handle(CancelByAdminOrderCommand request, CancellationToken cancellationToken)
+    public async Task<Response<string>> Handle(CancelOrderByAdminCommand request, CancellationToken cancellationToken)
     {
         var order = await _orderRepository.GetByIdAsync(request.OrderId);
 
