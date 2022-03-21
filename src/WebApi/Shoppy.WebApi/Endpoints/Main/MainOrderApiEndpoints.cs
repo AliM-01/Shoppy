@@ -12,6 +12,8 @@ public class MainOrderApiEndpoints
 
         public const string PlaceOrder = BaseMainOrderRoute + "/place-order";
 
+        public const string CancelOrder = BaseMainOrderRoute + "/cancel-order/{orderId}";
+
         public const string InitializePayment = BaseMainOrderRoute + "/initialize-payment";
 
         public const string VerifyPayment = BaseMainOrderRoute + "/verify-payment";

@@ -28,7 +28,11 @@ public class CancelOrderCommandHandler : IRequestHandler<CancelOrderCommand, Res
         if (order is null)
             throw new NotFoundApiException();
 
+        if (order.UserId != request.UserId)
+            throw new NotFoundApiException();
+
         order.IsCanceled = true;
+        order.IssueTrackingNo = "0000-0000";
 
         await _orderRepository.UpdateAsync(order);
 
