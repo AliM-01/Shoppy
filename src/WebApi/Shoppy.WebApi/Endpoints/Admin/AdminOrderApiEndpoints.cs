@@ -9,5 +9,7 @@ public class AdminOrderApiEndpoints
         private const string BaseOrderRoute = BaseAdminOrderRoute + "/order";
 
         public const string FilterOrders = BaseOrderRoute + "/filter";
+
+        public const string CancelOrder = BaseOrderRoute + "/cancel/{orderId}";
     }
 }

@@ -53,6 +53,21 @@ public class OrderController : BaseApiController
 
     #endregion
 
+    #region CancelOrder
+
+    [HttpPost(MainOrderApiEndpoints.Order.CancelOrder)]
+    [Authorize(Policy = RoleConstants.BasicUser)]
+    [SwaggerOperation(Summary = "لفو سفارش", Tags = new[] { "Order" })]
+    [SwaggerResponse(200, "success")]
+    public async Task<IActionResult> CancelOrder([FromRoute] string orderId)
+    {
+        var res = await Mediator.Send(new CancelOrderCommand(orderId, User.GetUserId()));
+
+        return JsonApiResult.Success(res);
+    }
+
+    #endregion
+
     #region InitializePayment
 
     [HttpPost(MainOrderApiEndpoints.Order.InitializePayment)]
