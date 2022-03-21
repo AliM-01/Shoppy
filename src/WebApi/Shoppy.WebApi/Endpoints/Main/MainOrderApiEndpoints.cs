@@ -6,16 +6,16 @@ public class MainOrderApiEndpoints
 
     public static class Order
     {
-        public const string ComputeCart = BaseMainOrderRoute + "/compute-cart";
+        public const string ComputeCart = BaseMainOrderRoute + "/cart/compute";
 
-        public const string Checkout = BaseMainOrderRoute + "/checkout";
+        public const string Checkout = BaseMainOrderRoute + "/cart/checkout";
 
-        public const string PlaceOrder = BaseMainOrderRoute + "/place-order";
+        public const string PlaceOrder = BaseMainOrderRoute + "/place";
 
-        public const string CancelOrder = BaseMainOrderRoute + "/cancel-order/{orderId}";
+        public const string CancelOrder = BaseMainOrderRoute + "/cancel/{orderId}";
 
-        public const string InitializePayment = BaseMainOrderRoute + "/initialize-payment";
+        public const string InitializePayment = BaseMainOrderRoute + "/payment/initialize";
 
-        public const string VerifyPayment = BaseMainOrderRoute + "/verify-payment";
+        public const string VerifyPayment = BaseMainOrderRoute + "/payment/verify";
     }
 }
