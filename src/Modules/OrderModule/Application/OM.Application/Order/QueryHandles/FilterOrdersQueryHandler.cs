@@ -1,4 +1,6 @@
 ﻿using _0_Framework.Application.Models.Paging;
+using AM.Domain.Account;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using OM.Application.Contracts.Order.Enums;
 
@@ -9,11 +11,15 @@ public class FilterOrdersQueryHandler : IRequestHandler<FilterOrdersQuery, Respo
     #region Ctor
 
     private readonly IRepository<Domain.Order.Order> _orderRepository;
+    private readonly UserManager<Account> _userManager;
     private readonly IMapper _mapper;
 
-    public FilterOrdersQueryHandler(IRepository<Domain.Order.Order> orderRepository, IMapper mapper)
+    public FilterOrdersQueryHandler(IRepository<Domain.Order.Order> orderRepository,
+                                    IMapper mapper,
+                                    UserManager<Account> userManager)
     {
         _orderRepository = Guard.Against.Null(orderRepository, nameof(_orderRepository));
+        _userManager = Guard.Against.Null(userManager, nameof(_userManager));
         _mapper = Guard.Against.Null(mapper, nameof(_mapper));
     }
 
@@ -70,6 +76,13 @@ public class FilterOrdersQueryHandler : IRequestHandler<FilterOrdersQuery, Respo
              .Select(x =>
                 _mapper.Map(x, new OrderDto()))
              .ToList();
+
+        for (int i = 0; i < allEntities.Count; i++)
+        {
+            var user = await _userManager.FindByIdAsync(allEntities[i].AccountId);
+
+            allEntities[i].UserFullName = user?.FirstName + ' ' + user?.LastName;
+        }
 
         #endregion paging
 

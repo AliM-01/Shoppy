@@ -15,6 +15,8 @@ public class OrderModuleMappingProfile : Profile
         #region Order Dto
 
         CreateMap<Order, OrderDto>()
+                .ForMember(dest => dest.AccountId,
+                    opt => opt.MapFrom(src => src.UserId.ToString()))
                 .ForMember(dest => dest.CreationDate,
                     opt => opt.MapFrom(src => src.CreationDate.ToShamsi()));
 
