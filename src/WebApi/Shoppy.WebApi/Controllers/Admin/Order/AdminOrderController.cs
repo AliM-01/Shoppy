@@ -21,6 +21,20 @@ public class AdminOrderController : BaseAdminApiController
 
     #endregion
 
+    #region Get Items
+
+    [HttpGet(AdminOrderApiEndpoints.Order.GetItems)]
+    [SwaggerOperation(Summary = "دریافت آیتم های سفارش", Tags = new[] { "AdminOrder" })]
+    [SwaggerResponse(200, "success")]
+    public async Task<IActionResult> GetItems([FromRoute] string orderId)
+    {
+        var res = await Mediator.Send(new GetInventoryItemsQuery(orderId, User.GetUserId(), true));
+
+        return JsonApiResult.Success(res);
+    }
+
+    #endregion
+
     #region Cancel Order
 
     [HttpDelete(AdminOrderApiEndpoints.Order.CancelOrder)]

@@ -10,6 +10,8 @@ public class AdminOrderApiEndpoints
 
         public const string FilterOrders = BaseOrderRoute + "/filter";
 
+        public const string GetItems = BaseOrderRoute + "/items/{orderId}";
+
         public const string CancelOrder = BaseOrderRoute + "/cancel/{orderId}";
     }
 }

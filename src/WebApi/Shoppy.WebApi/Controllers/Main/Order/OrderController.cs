@@ -55,7 +55,7 @@ public class OrderController : BaseApiController
 
     #region CancelOrder
 
-    [HttpPost(MainOrderApiEndpoints.Order.CancelOrder)]
+    [HttpDelete(MainOrderApiEndpoints.Order.CancelOrder)]
     [Authorize(Policy = RoleConstants.BasicUser)]
     [SwaggerOperation(Summary = "لفو سفارش", Tags = new[] { "Order" })]
     [SwaggerResponse(200, "success")]

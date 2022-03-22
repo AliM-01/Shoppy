@@ -19,7 +19,7 @@ public class OrderItemDto
 
     [Display(Name = "قیمت محصول")]
     [JsonProperty("unitPrice")]
-    public decimal UnitPrice { get; set; }
+    public string UnitPrice { get; set; }
 
     [Display(Name = "درصد تخفیف")]
     [JsonProperty("discountRate")]

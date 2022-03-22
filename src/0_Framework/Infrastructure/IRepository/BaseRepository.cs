@@ -80,6 +80,15 @@ public class BaseRepository<TDocument, TSettings> : IRepository<TDocument>
         return document;
     }
 
+    public async Task<List<TDocument>> GetManyByFilter(FilterDefinition<TDocument> filter, CancellationToken cancellationToken = default)
+    {
+        cancellationToken.ThrowIfCancellationRequested();
+
+        var res = await _collection.FindAsync(filter);
+
+        return await res.ToListAsync();
+    }
+
     #endregion
 
     #region GetByIdAsync

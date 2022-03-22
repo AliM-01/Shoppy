@@ -22,7 +22,9 @@ public class OrderModuleMappingProfile : Profile
 
         #region Order Item Dto
 
-        CreateMap<OrderItem, OrderItemDto>();
+        CreateMap<OrderItem, OrderItemDto>()
+            .ForMember(dest => dest.UnitPrice,
+                    opt => opt.MapFrom(src => src.UnitPrice.ToMoney()));
 
         #endregion
 
