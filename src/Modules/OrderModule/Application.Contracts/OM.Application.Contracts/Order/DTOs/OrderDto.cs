@@ -42,5 +42,5 @@ public class OrderDto
     public long RefId { get; set; }
 
     [JsonProperty("creationDate")]
-    public DateTime CreationDate { get; set; }
+    public string CreationDate { get; set; }
 }

@@ -53,7 +53,7 @@ public class FilterOrdersQueryHandler : IRequestHandler<FilterOrdersQuery, Respo
                 query = query.OrderBy(x => x.IsCanceled);
                 break;
 
-            case FilterOrderPaymentStatus.PaymenyPending:
+            case FilterOrderPaymentStatus.PaymentPending:
                 query = query.OrderBy(x => (!x.IsCanceled && !x.IsPaid));
                 break;
         }

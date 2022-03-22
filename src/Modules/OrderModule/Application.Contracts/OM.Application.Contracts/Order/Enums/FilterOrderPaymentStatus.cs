@@ -12,7 +12,7 @@ public enum FilterOrderPaymentStatus
     IsPaid,
     [Display(Name = "منتظر پرداخت")]
     [EnumMember(Value = "منتظر پرداخت")]
-    PaymenyPending,
+    PaymentPending,
     [Display(Name = "کنسل شده")]
     [EnumMember(Value = "کنسل شده")]
     IsCanceled,
