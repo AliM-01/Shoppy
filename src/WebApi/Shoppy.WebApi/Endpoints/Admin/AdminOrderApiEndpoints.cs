@@ -6,12 +6,10 @@ public class AdminOrderApiEndpoints
 
     public static class Order
     {
-        private const string BaseOrderRoute = BaseAdminOrderRoute + "/order";
+        public const string FilterOrders = BaseAdminOrderRoute + "/filter";
 
-        public const string FilterOrders = BaseOrderRoute + "/filter";
+        public const string GetItems = BaseAdminOrderRoute + "/items/{orderId}";
 
-        public const string GetItems = BaseOrderRoute + "/items/{orderId}";
-
-        public const string CancelOrder = BaseOrderRoute + "/cancel/{orderId}";
+        public const string CancelOrder = BaseAdminOrderRoute + "/cancel/{orderId}";
     }
 }
