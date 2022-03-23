@@ -49,9 +49,9 @@ public class ErrorHandlerMiddleware
 
                 case NoContentApiException e:
                     // custom no-content application error
+                    response.StatusCode = (int)HttpStatusCode.NoContent;
                     errorMessage = e.Message;
                     status = ResponseType.NOCONTENT;
-                    response.StatusCode = (int)HttpStatusCode.NoContent;
                     break;
 
                 case ValidationException e:

@@ -52,15 +52,15 @@ public class FilterOrdersQueryHandler : IRequestHandler<FilterOrdersQuery, Respo
                 break;
 
             case FilterOrderPaymentStatus.IsPaid:
-                query = query.OrderBy(x => x.IsPaid);
+                query = query.Where(x => x.IsPaid);
                 break;
 
             case FilterOrderPaymentStatus.IsCanceled:
-                query = query.OrderBy(x => x.IsCanceled);
+                query = query.Where(x => x.IsCanceled);
                 break;
 
             case FilterOrderPaymentStatus.PaymentPending:
-                query = query.OrderBy(x => (!x.IsCanceled && !x.IsPaid));
+                query = query.Where(x => (!x.IsCanceled && !x.IsPaid));
                 break;
         }
 
@@ -88,11 +88,11 @@ public class FilterOrdersQueryHandler : IRequestHandler<FilterOrdersQuery, Respo
 
         var returnData = request.Filter.SetData(allEntities).SetPaging(pager);
 
-        if (returnData.Orders is null)
-            throw new ApiException(ApplicationErrorMessage.FilteredRecordsNotFound);
+        if (!returnData.Orders.Any())
+            throw new NoContentApiException();
 
         if (returnData.PageId > returnData.GetLastPage() && returnData.GetLastPage() != 0)
-            throw new NotFoundApiException();
+            throw new NoContentApiException();
 
         return new Response<FilterOrderDto>(returnData);
     }
