@@ -1,5 +1,6 @@
 ﻿using MongoDB.Driver;
 using OM.Domain.Order;
+using SM.Domain.Product;
 
 namespace OM.Application.Order.QueryHandles;
 
@@ -9,14 +10,17 @@ public class GetInventoryItemsQueryHandler : IRequestHandler<GetInventoryItemsQu
 
     private readonly IRepository<Domain.Order.Order> _orderRepository;
     private readonly IRepository<Domain.Order.OrderItem> _orderItemRepository;
+    private readonly IRepository<Product> _productRepository;
     private readonly IMapper _mapper;
 
     public GetInventoryItemsQueryHandler(IRepository<Domain.Order.Order> orderRepository,
         IRepository<Domain.Order.OrderItem> orderItemRepository,
+        IRepository<Product> productRepository,
                                                     IMapper mapper)
     {
         _orderRepository = Guard.Against.Null(orderRepository, nameof(_orderRepository));
         _orderItemRepository = Guard.Against.Null(orderItemRepository, nameof(_orderItemRepository));
+        _productRepository = Guard.Against.Null(productRepository, nameof(_productRepository));
         _mapper = Guard.Against.Null(mapper, nameof(_mapper));
     }
 
@@ -40,6 +44,11 @@ public class GetInventoryItemsQueryHandler : IRequestHandler<GetInventoryItemsQu
         var items = (await _orderItemRepository.GetManyByFilter(filter))
             .Select(x => _mapper.Map(x, new OrderItemDto()))
             .ToList();
+
+        foreach (var item in items)
+        {
+            item.ProductImage = (await _productRepository.GetByIdAsync(item.ProductId)).ImagePath;
+        }
 
         return new Response<List<OrderItemDto>>(items);
     }

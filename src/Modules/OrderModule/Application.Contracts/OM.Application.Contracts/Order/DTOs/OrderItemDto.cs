@@ -13,6 +13,10 @@ public class OrderItemDto
     [JsonProperty("product")]
     public string Product { get; set; }
 
+    [Display(Name = "محصول")]
+    [JsonProperty("productImage")]
+    public string ProductImage { get; set; }
+
     [Display(Name = "تعداد")]
     [JsonProperty("count")]
     public int Count { get; set; }
