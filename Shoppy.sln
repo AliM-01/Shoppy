@@ -188,6 +188,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OM.Infrastructure.Configura
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OM.Infrastructure.Shared", "src\Modules\OrderModule\Infrastructure\OM.Infrastructure.Shared\OM.Infrastructure.Shared.csproj", "{92A86AFC-2F66-48A8-9F5A-D8DCACA7B313}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "03_Reports.Query", "src\03_Reports.Query\03_Reports.Query.csproj", "{89153781-B2D8-4658-8EB4-514D7DFFA8C5}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -378,6 +380,10 @@ Global
 		{92A86AFC-2F66-48A8-9F5A-D8DCACA7B313}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{92A86AFC-2F66-48A8-9F5A-D8DCACA7B313}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{92A86AFC-2F66-48A8-9F5A-D8DCACA7B313}.Release|Any CPU.Build.0 = Release|Any CPU
+		{89153781-B2D8-4658-8EB4-514D7DFFA8C5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{89153781-B2D8-4658-8EB4-514D7DFFA8C5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{89153781-B2D8-4658-8EB4-514D7DFFA8C5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{89153781-B2D8-4658-8EB4-514D7DFFA8C5}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -470,6 +476,7 @@ Global
 		{76DA23AB-46AB-4327-A0B5-3F8310980750} = {D1D52420-A4AF-4A89-BDF6-AF6AA8CA67BC}
 		{A8D31E52-FBAA-4F17-A9A9-85F13D370A4E} = {D1D52420-A4AF-4A89-BDF6-AF6AA8CA67BC}
 		{92A86AFC-2F66-48A8-9F5A-D8DCACA7B313} = {D1D52420-A4AF-4A89-BDF6-AF6AA8CA67BC}
+		{89153781-B2D8-4658-8EB4-514D7DFFA8C5} = {6F0BD421-4C02-43C5-A106-3F7EDE3B6076}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {615EA258-FFB2-45B7-9D73-B482C4E29616}
