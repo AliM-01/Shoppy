@@ -25,7 +25,7 @@ public class GetOrdersChartQueryHandler : IRequestHandler<GetOrdersChartQuery, R
 
         for (int i = 1; i <= 12; i++)
         {
-            int count = await _orderRepository.AsQueryable().Where(x => x.CreationDate.Month == i).CountAsync();
+            int count = await _orderRepository.AsQueryable().Where(x => x.CreationDate.Month == i && x.IsPaid).CountAsync();
             sales.Add(new ChartModel(i, count));
         }
 
