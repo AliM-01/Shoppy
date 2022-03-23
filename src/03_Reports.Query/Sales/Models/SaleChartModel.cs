@@ -11,6 +11,10 @@ public class SaleChartModel
     }
 
     [Display(Name = "ماه")]
+    [JsonProperty("monthOrder")]
+    public int MonthOrder { get; set; } = 0;
+
+    [Display(Name = "ماه")]
     [JsonProperty("month")]
     public int Month { get; set; }
 
