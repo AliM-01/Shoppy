@@ -1,15 +1,15 @@
 ﻿using _0_Framework.Application.Wrappers;
 using _0_Framework.Infrastructure.IRepository;
-using _03_Reports.Query.Sales.Models;
+using _03_Reports.Query.Models;
 using Ardalis.GuardClauses;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 
-namespace _03_Reports.Query.Sales.Queries;
+namespace _03_Reports.Query.Queries;
 
-public record GetSalesChartDataQuery() : IRequest<Response<List<SaleChartModel>>>;
+public record GetOrdersChartQuery() : IRequest<Response<List<ChartModel>>>;
 
-public class GetSalesChartDataQueryHandler : IRequestHandler<GetSalesChartDataQuery, Response<List<SaleChartModel>>>
+public class GetSalesChartDataQueryHandler : IRequestHandler<GetOrdersChartQuery, Response<List<ChartModel>>>
 {
     #region Ctor
 
@@ -22,16 +22,16 @@ public class GetSalesChartDataQueryHandler : IRequestHandler<GetSalesChartDataQu
 
     #endregion
 
-    public async Task<Response<List<SaleChartModel>>> Handle(GetSalesChartDataQuery request, CancellationToken cancellationToken)
+    public async Task<Response<List<ChartModel>>> Handle(GetOrdersChartQuery request, CancellationToken cancellationToken)
     {
         cancellationToken.ThrowIfCancellationRequested();
 
-        var sales = new List<SaleChartModel>();
+        var sales = new List<ChartModel>();
 
         for (int i = 1; i <= 12; i++)
         {
             int count = await _orderRepository.AsQueryable().Where(x => x.CreationDate.Month == i).CountAsync();
-            sales.Add(new SaleChartModel(i, count));
+            sales.Add(new ChartModel(i, count));
         }
 
         foreach (var item in sales)
@@ -84,6 +84,6 @@ public class GetSalesChartDataQueryHandler : IRequestHandler<GetSalesChartDataQu
 
         sales = sales.OrderBy(x => x.MonthOrder).ToList();
 
-        return new Response<List<SaleChartModel>>(sales);
+        return new Response<List<ChartModel>>(sales);
     }
 }

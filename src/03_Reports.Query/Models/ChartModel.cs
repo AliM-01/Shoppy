@@ -1,10 +1,10 @@
 ﻿using Newtonsoft.Json;
 using System.ComponentModel.DataAnnotations;
 
-namespace _03_Reports.Query.Sales.Models;
-public class SaleChartModel
+namespace _03_Reports.Query.Models;
+public class ChartModel
 {
-    public SaleChartModel(int month, int count)
+    public ChartModel(int month, int count)
     {
         Month = month;
         Count = count;
