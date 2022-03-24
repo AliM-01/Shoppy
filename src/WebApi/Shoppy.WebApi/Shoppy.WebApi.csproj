@@ -43,6 +43,7 @@
 
 	<ItemGroup>
 		<ProjectReference Include="..\..\02_DI_Container\02_DI_Container.csproj" />
+		<ProjectReference Include="..\..\03_Reports.Query\03_Reports.Query.csproj" />
 		<ProjectReference Include="..\..\0_Framework\0_Framework.csproj" />
 		<ProjectReference Include="..\..\Modules\CommentModule\Application.Contracts\CM.Application.Contracts\CM.Application.Contracts.csproj" />
 		<ProjectReference Include="..\..\Modules\DiscountModule\Application.Contracts\DM.Application.Contracts\DM.Application.Contracts.csproj" />
