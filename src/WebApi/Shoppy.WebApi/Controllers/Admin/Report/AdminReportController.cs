@@ -8,7 +8,7 @@ public class AdminReportController : BaseAdminApiController
     #region Order
 
     [HttpGet(AdminReportApiEndpoints.Orders)]
-    [SwaggerOperation(Summary = "گزارش سفارشات", Tags = new[] { "AdminOrder" })]
+    [SwaggerOperation(Summary = "گزارش سفارشات", Tags = new[] { "AdminReport" })]
     [SwaggerResponse(200, "success")]
     public async Task<IActionResult> OrdersReport()
     {
@@ -22,7 +22,7 @@ public class AdminReportController : BaseAdminApiController
     #region ProductSales
 
     [HttpGet(AdminReportApiEndpoints.ProductSales)]
-    [SwaggerOperation(Summary = "گزارش محصولات فروخته شده", Tags = new[] { "AdminOrder" })]
+    [SwaggerOperation(Summary = "گزارش محصولات فروخته شده", Tags = new[] { "AdminReport" })]
     [SwaggerResponse(200, "success")]
     public async Task<IActionResult> ProductSales()
     {

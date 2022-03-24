@@ -24,8 +24,8 @@ public class GetProductsSoldChartQueryHandler : IRequestHandler<GetProductsSoldC
         for (int i = 1; i <= 12; i++)
         {
             var items = await _orderItemRepository.AsQueryable()
-                .Select(x => new { x.Count, x.CreationDate })
-                .Where(x => x.CreationDate.Month == i)
+                .Select(x => new { x.Count, Month = x.CreationDate.Month })
+                .Where(x => x.Month == i)
                 .ToListAsyncSafe();
 
             int count = 0;

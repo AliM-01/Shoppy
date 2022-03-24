@@ -1,6 +1,4 @@
-﻿using Microsoft.EntityFrameworkCore;
-
-namespace _03_Reports.Query.Queries;
+﻿namespace _03_Reports.Query.Queries;
 
 public record GetOrdersChartQuery() : IRequest<Response<List<ChartModel>>>;
 
@@ -25,8 +23,12 @@ public class GetOrdersChartQueryHandler : IRequestHandler<GetOrdersChartQuery, R
 
         for (int i = 1; i <= 12; i++)
         {
-            int count = await _orderRepository.AsQueryable().Where(x => x.CreationDate.Month == i && x.IsPaid).CountAsync();
-            sales.Add(new ChartModel(i, count));
+            var count = await _orderRepository.AsQueryable()
+                .Select(x => new { Month = x.CreationDate.Month, x.IsPaid })
+                .Where(x => x.Month == i && x.IsPaid)
+                .ToListAsyncSafe();
+
+            sales.Add(new ChartModel(i, count.Count));
         }
 
         return new Response<List<ChartModel>>(sales.OrderMonth());
