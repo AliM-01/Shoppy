@@ -6,8 +6,13 @@ namespace SM.Infrastructure.Shared.RepositoryExtensions;
 
 public static class ProductRepositoryExtension
 {
+    #region ExistsProduct
+
     public static async Task<bool> ExistsProduct(this IRepository<Product> productRepository, string productId)
     {
         return await productRepository.ExistsAsync(p => p.Id == productId);
     }
+
+    #endregion
+
 }
