@@ -18,5 +18,6 @@
 		<ProjectReference Include="..\..\Application.Contracts\DM.Application.Contracts\DM.Application.Contracts.csproj" />
 		<ProjectReference Include="..\..\Application\DM.Application\DM.Application.csproj" />
 		<ProjectReference Include="..\..\Infrastructure\DM.Infrastructure.Persistence\DM.Infrastructure.Persistence.csproj" />
+		<ProjectReference Include="..\DM.Infrastructure.ProductAcl\DM.Infrastructure.ProductAcl.csproj" />
 	</ItemGroup>
 </Project>

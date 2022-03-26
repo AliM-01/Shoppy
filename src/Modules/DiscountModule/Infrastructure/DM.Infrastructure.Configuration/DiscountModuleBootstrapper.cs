@@ -1,8 +1,10 @@
 ﻿using _0_Framework.Infrastructure.IRepository;
+using DM.Application.Contracts.Sevices;
 using DM.Domain.DiscountCode;
 using DM.Domain.ProductDiscount;
 using DM.Infrastructure.Persistence.Seeds;
 using DM.Infrastructure.Persistence.Settings;
+using DM.Infrastructure.ProductAcl.Services;
 using MediatR;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -17,6 +19,7 @@ public static class DiscountModuleBootstrapper
 
         services.AddScoped<IRepository<DiscountCode>, BaseRepository<DiscountCode, DiscountDbSettings>>();
         services.AddScoped<IRepository<ProductDiscount>, BaseRepository<ProductDiscount, DiscountDbSettings>>();
+        services.AddScoped<IDMProucAclService, DMProucAclService>();
 
         services.AddMediatR(typeof(DiscountModuleBootstrapper).Assembly);
 
