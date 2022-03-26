@@ -22,15 +22,16 @@ public class DMProucAclService : IDMProucAclService
 
     #endregion
 
+    public async Task<bool> ExistsProduct(string productId)
+    {
+        return await _productRepository.ExistsAsync(p => p.Id == productId);
+    }
+
     public async Task<bool> ExistsProductDiscount(string productId)
     {
-        var existsProduct = await _productRepository.ExistsAsync(p => p.Id == productId);
-
-        if (!existsProduct)
+        if (!(await ExistsProduct(productId)))
             throw new NotFoundApiException("محصولی با این شناسه پیدا نشد");
 
-        bool existsDiscount = await _productDiscountRepository.ExistsAsync(x => x.ProductId == productId);
-
-        return existsDiscount;
+        return await _productDiscountRepository.ExistsAsync(x => x.ProductId == productId);
     }
 }
