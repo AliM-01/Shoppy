@@ -34,4 +34,12 @@ public class DMProucAclService : IDMProucAclService
 
         return await _productDiscountRepository.ExistsAsync(x => x.ProductId == productId);
     }
+
+    public async Task<string> GetProductTitle(string productId)
+    {
+        if (!(await ExistsProduct(productId)))
+            throw new NotFoundApiException("محصولی با این شناسه پیدا نشد");
+
+        return (await _productRepository.GetByIdAsync(productId)).Title;
+    }
 }
