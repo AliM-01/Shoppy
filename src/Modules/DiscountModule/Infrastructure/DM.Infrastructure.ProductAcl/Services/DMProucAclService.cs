@@ -52,7 +52,7 @@ public class DMProucAclService : IDMProucAclService
         if (!(await ExistsProduct(productId)))
             throw new NotFoundApiException("محصولی با این شناسه پیدا نشد");
 
-        return (await _productRepository.GetByIdAsync(productId)).Title;
+        return await _productRepository.GetProductTitle(productId);
     }
 
     #endregion
