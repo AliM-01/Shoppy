@@ -22,10 +22,16 @@ public class DMProucAclService : IDMProucAclService
 
     #endregion
 
+    #region ExistsProduct
+
     public async Task<bool> ExistsProduct(string productId)
     {
         return await _productRepository.ExistsAsync(p => p.Id == productId);
     }
+
+    #endregion
+
+    #region ExistsProductDiscount
 
     public async Task<bool> ExistsProductDiscount(string productId)
     {
@@ -35,6 +41,10 @@ public class DMProucAclService : IDMProucAclService
         return await _productDiscountRepository.ExistsAsync(x => x.ProductId == productId);
     }
 
+    #endregion
+
+    #region GetProductTitle
+
     public async Task<string> GetProductTitle(string productId)
     {
         if (!(await ExistsProduct(productId)))
@@ -42,4 +52,6 @@ public class DMProucAclService : IDMProucAclService
 
         return (await _productRepository.GetByIdAsync(productId)).Title;
     }
+
+    #endregion
 }
