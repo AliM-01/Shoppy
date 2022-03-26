@@ -4,7 +4,7 @@ using DM.Domain.DiscountCode;
 using DM.Domain.ProductDiscount;
 using DM.Infrastructure.Persistence.Seeds;
 using DM.Infrastructure.Persistence.Settings;
-using DM.Infrastructure.ProductAcl.Services;
+using DM.Infrastructure.ProductAcl;
 using MediatR;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;

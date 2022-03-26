@@ -6,7 +6,7 @@ using DM.Application.Contracts.Sevices;
 using SM.Domain.Product;
 using SM.Infrastructure.Shared.RepositoryExtensions;
 
-namespace DM.Infrastructure.ProductAcl.Services;
+namespace DM.Infrastructure.ProductAcl;
 public class DMProucAclService : IDMProucAclService
 {
     #region ctor
