@@ -78,7 +78,7 @@ public class FilterProductDiscountsQueryHandler : IRequestHandler<FilterProductD
 
         #region paging
 
-        var pager = request.Filter.BuildPager((await query.CountAsync()));
+        var pager = request.Filter.BuildPager((await query.CountAsync(cancellationToken)), cancellationToken);
 
         var allEntities =
             _productDiscountRepository

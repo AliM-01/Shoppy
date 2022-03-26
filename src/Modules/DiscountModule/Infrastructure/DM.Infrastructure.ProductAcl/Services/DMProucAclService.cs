@@ -1,7 +1,9 @@
 ﻿using _0_Framework.Application.Exceptions;
+using _0_Framework.Infrastructure;
 using _0_Framework.Infrastructure.IRepository;
 using Ardalis.GuardClauses;
 using DM.Application.Contracts.Sevices;
+using Microsoft.EntityFrameworkCore;
 using SM.Domain.Product;
 
 namespace DM.Infrastructure.ProductAcl.Services;
@@ -51,6 +53,26 @@ public class DMProucAclService : IDMProucAclService
             throw new NotFoundApiException("محصولی با این شناسه پیدا نشد");
 
         return (await _productRepository.GetByIdAsync(productId)).Title;
+    }
+
+    #endregion
+
+    #region GetProductIdsForFilterTitle
+
+    public async Task<HashSet<string>> GetProductIdsForFilterTitle(string filter)
+    {
+        var products = await _productRepository.AsQueryable()
+           .Select(x => new
+           {
+               x.Id,
+               x.Title
+           }).ToListAsyncSafe();
+
+        var ids = await _productRepository.AsQueryable()
+                .Where(s => EF.Functions.Like(s.Title, $"%{filter}%"))
+                .Select(x => x.Id).ToListAsyncSafe();
+
+        return ids.ToHashSet();
     }
 
     #endregion

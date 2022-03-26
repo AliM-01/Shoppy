@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace DM.Application.Contracts.Sevices;
 public interface IDMProucAclService
@@ -8,4 +9,6 @@ public interface IDMProucAclService
     Task<bool> ExistsProductDiscount(string productId);
 
     Task<string> GetProductTitle(string productId);
+
+    Task<HashSet<string>> GetProductIdsForFilterTitle(string filter);
 }
