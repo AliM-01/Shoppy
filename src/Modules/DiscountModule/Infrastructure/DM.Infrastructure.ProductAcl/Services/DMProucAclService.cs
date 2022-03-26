@@ -3,7 +3,6 @@ using _0_Framework.Infrastructure;
 using _0_Framework.Infrastructure.IRepository;
 using Ardalis.GuardClauses;
 using DM.Application.Contracts.Sevices;
-using Microsoft.EntityFrameworkCore;
 using SM.Domain.Product;
 
 namespace DM.Infrastructure.ProductAcl.Services;
@@ -57,9 +56,9 @@ public class DMProucAclService : IDMProucAclService
 
     #endregion
 
-    #region GetProductIdsForFilterTitle
+    #region Filter Title
 
-    public async Task<HashSet<string>> GetProductIdsForFilterTitle(string filter)
+    public async Task<HashSet<string>> FilterTitle(string filter)
     {
         var products = await _productRepository.AsQueryable()
            .Select(x => new
@@ -69,7 +68,7 @@ public class DMProucAclService : IDMProucAclService
            }).ToListAsyncSafe();
 
         var ids = await _productRepository.AsQueryable()
-                .Where(s => EF.Functions.Like(s.Title, $"%{filter}%"))
+                .Where(s => s.Title.Contains(filter))
                 .Select(x => x.Id).ToListAsyncSafe();
 
         return ids.ToHashSet();

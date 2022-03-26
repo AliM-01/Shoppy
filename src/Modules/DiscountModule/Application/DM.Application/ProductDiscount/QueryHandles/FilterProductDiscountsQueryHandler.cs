@@ -34,7 +34,7 @@ public class FilterProductDiscountsQueryHandler : IRequestHandler<FilterProductD
 
         if (!string.IsNullOrEmpty(request.Filter.ProductTitle))
         {
-            var filteredProductIds = await _productAcl.GetProductIdsForFilterTitle(request.Filter.ProductTitle);
+            var filteredProductIds = await _productAcl.FilterTitle(request.Filter.ProductTitle);
 
             query = query.Where(s => filteredProductIds.Contains(s.ProductId));
         }
