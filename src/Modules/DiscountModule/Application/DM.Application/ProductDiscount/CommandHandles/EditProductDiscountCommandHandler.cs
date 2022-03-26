@@ -1,5 +1,5 @@
 ﻿using DM.Application.Contracts.ProductDiscount.Commands;
-using SM.Domain.Product;
+using DM.Application.Contracts.Sevices;
 
 namespace DM.Application.ProductDiscount.CommandHandles;
 
@@ -9,13 +9,13 @@ public class EditProductDiscountCommandHandler : IRequestHandler<EditProductDisc
 
     private readonly IRepository<Domain.ProductDiscount.ProductDiscount> _productDiscountRepository;
     private readonly IMapper _mapper;
-    private readonly IRepository<Product> _productRepository;
+    private readonly IDMProucAclService _productAcl;
 
     public EditProductDiscountCommandHandler(IRepository<Domain.ProductDiscount.ProductDiscount> productDiscountRepository,
-         IRepository<Product> productRepository, IMapper mapper)
+         IDMProucAclService productAcl, IMapper mapper)
     {
         _productDiscountRepository = Guard.Against.Null(productDiscountRepository, nameof(_productDiscountRepository));
-        _productRepository = Guard.Against.Null(productRepository, nameof(_productRepository));
+        _productAcl = Guard.Against.Null(productAcl, nameof(_productAcl));
         _mapper = Guard.Against.Null(mapper, nameof(_mapper));
 
     }
@@ -24,19 +24,17 @@ public class EditProductDiscountCommandHandler : IRequestHandler<EditProductDisc
 
     public async Task<Response<string>> Handle(EditProductDiscountCommand request, CancellationToken cancellationToken)
     {
-        var existsProduct = await _productRepository.ExistsAsync(p => p.Id == request.ProductDiscount.ProductId);
-
-        if (!existsProduct)
+        if (!(await _productAcl.ExistsProduct(request.ProductDiscount.ProductId)))
             throw new NotFoundApiException("محصولی با این شناسه پیدا نشد");
 
-        var ProductDiscount = await _productDiscountRepository.GetByIdAsync(request.ProductDiscount.Id);
+        var productDiscount = await _productDiscountRepository.GetByIdAsync(request.ProductDiscount.Id);
 
-        if (ProductDiscount is null)
+        if (productDiscount is null)
             throw new NotFoundApiException();
 
-        _mapper.Map(request.ProductDiscount, ProductDiscount);
+        _mapper.Map(request.ProductDiscount, productDiscount);
 
-        await _productDiscountRepository.UpdateAsync(ProductDiscount);
+        await _productDiscountRepository.UpdateAsync(productDiscount);
 
         return new Response<string>();
     }
