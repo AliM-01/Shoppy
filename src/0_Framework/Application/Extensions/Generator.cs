@@ -32,34 +32,23 @@ public static class Generator
 
     public static string IssueTrackingCode()
     {
-        string section1 = "";
-        string section2 = "";
+        var sb = new StringBuilder();
 
-        int n = Numbers.Length;
-
-        Random random = new Random();
+        Random random = new();
 
         for (int i = 0; i < 4; i++)
         {
-            string character = Numbers[random.Next(0, n)].ToString();
-
-            while (section1.Contains(character))
-                character = Numbers[random.Next(0, n)].ToString().ToUpper();
-
-            section1 += character;
+            sb.Append(Numbers[random.Next(0, Numbers.Length)]);
         }
+
+        sb.Append('-');
 
         for (int i = 0; i < 4; i++)
         {
-            string character = Numbers[random.Next(0, n)].ToString();
-
-            while (section2.Contains(character))
-                character = Numbers[random.Next(0, n)].ToString().ToUpper();
-
-            section2 += character;
+            sb.Append(Numbers[random.Next(0, Numbers.Length)]);
         }
 
-        return $"{section1}-{section2}";
+        return sb.ToString().ToUpper();
     }
 
     #endregion
@@ -68,34 +57,17 @@ public static class Generator
 
     public static string UserName()
     {
-        string result = "";
+        var sb = new StringBuilder();
 
-        int l = Letters.Length;
-        int n = Numbers.Length;
-
-        Random random = new Random();
+        Random random = new();
 
         for (int i = 0; i < 4; i++)
-        {
-            string character = Letters[random.Next(0, l)].ToString();
-
-            while (result.Contains(character))
-                character = Letters[random.Next(0, l)].ToString().ToUpper();
-
-            result += character;
-        }
+            sb.Append(Letters[random.Next(0, Letters.Length)]);
 
         for (int i = 0; i < 4; i++)
-        {
-            string character = Numbers[random.Next(0, n)].ToString();
+            sb.Append(Numbers[random.Next(0, Numbers.Length)]);
 
-            while (result.Contains(character))
-                character = Numbers[random.Next(0, n)].ToString().ToUpper();
-
-            result += character;
-        }
-
-        return result;
+        return sb.ToString().ToUpper();
     }
 
     #endregion
