@@ -1,4 +1,5 @@
 ﻿using System.Globalization;
+using System.Text;
 
 namespace _0_Framework.Application.Extensions;
 
@@ -21,19 +22,19 @@ public static class DateConvertors
     {
         var sb = new StringBuilder();
 
-        var value = DateTime.UtcNow;
-
         var pc = new PersianCalendar();
 
         sb.Append(pc.GetYear(value));
         sb.Append('/');
-        sb.Append(pc.GetMonth(value));
+        sb.Append(pc.GetMonth(value).ToString("D2"));
         sb.Append('/');
-        sb.Append(pc.GetDayOfMonth(value));
+        sb.Append(pc.GetDayOfMonth(value).ToString("D2"));
         sb.Append(' ');
         sb.Append(pc.GetHour(value));
         sb.Append(':');
         sb.Append(pc.GetMinute(value));
+        sb.Append(':');
+        sb.Append(pc.GetSecond(value));
 
         return sb.ToString();
     }
@@ -45,12 +46,15 @@ public static class DateConvertors
     public static DateTime ToMiladi(this string persianDate)
     {
         persianDate = persianDate.ToEnglishNumber();
-        var year = Convert.ToInt32(persianDate.Substring(0, 4));
-        var month = Convert.ToInt32(persianDate.Substring(5, 2));
-        var day = Convert.ToInt32(persianDate.Substring(8, 2));
-        var hour = Convert.ToInt32(persianDate.Substring(11, 2));
-        var minute = Convert.ToInt32(persianDate.Substring(14, 2));
-        var seconds = Convert.ToInt32(persianDate.Substring(17, 2));
+
+        ReadOnlySpan<char> dateAsText = persianDate;
+
+        var year = int.Parse(dateAsText.Slice(0, 4));
+        var month = int.Parse(dateAsText.Slice(5, 2));
+        var day = int.Parse(dateAsText.Slice(8, 2));
+        var hour = int.Parse(dateAsText.Slice(11, 2));
+        var minute = int.Parse(dateAsText.Slice(14, 2));
+        var seconds = int.Parse(dateAsText.Slice(17, 2));
 
         var miladyDateTime = new DateTime(year, month, day, hour, minute, seconds, new PersianCalendar());
 
