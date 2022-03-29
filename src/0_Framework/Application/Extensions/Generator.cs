@@ -38,14 +38,14 @@ public static class Generator
 
         for (int i = 0; i < 4; i++)
         {
-            sb.Append(numbers[random.Next(0, numbers.Length)]);
+            sb.Append(Numbers[random.Next(0, Numbers.Length)]);
         }
 
         sb.Append('-');
 
         for (int i = 0; i < 4; i++)
         {
-            sb.Append(numbers[random.Next(0, numbers.Length)]);
+            sb.Append(Numbers[random.Next(0, Numbers.Length)]);
         }
 
         return sb.ToString().ToUpper();
@@ -62,10 +62,10 @@ public static class Generator
         Random random = new();
 
         for (int i = 0; i < 4; i++)
-            sb.Append(letters[random.Next(0, letters.Length)]);
+            sb.Append(Letters[random.Next(0, Letters.Length)]);
 
         for (int i = 0; i < 4; i++)
-            sb.Append(numbers[random.Next(0, numbers.Length)]);
+            sb.Append(Numbers[random.Next(0, Numbers.Length)]);
 
         return sb.ToString().ToUpper();
     }
