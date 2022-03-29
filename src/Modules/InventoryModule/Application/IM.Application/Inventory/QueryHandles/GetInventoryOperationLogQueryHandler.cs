@@ -2,9 +2,9 @@
 using AM.Domain.Account;
 using IM.Application.Contracts.Inventory.DTOs;
 using IM.Application.Contracts.Inventory.Queries;
+using IM.Application.Contracts.Sevices;
 using IM.Domain.Inventory;
 using Microsoft.AspNetCore.Identity;
-using SM.Domain.Product;
 using System.Linq;
 
 namespace IM.Application.Inventory.QueryHandles;
@@ -14,17 +14,17 @@ public class GetInventoryOperationLogQueryHandler : IRequestHandler<GetInventory
 
     private readonly IRepository<Domain.Inventory.Inventory> _inventoryRepository;
     private readonly IRepository<InventoryOperation> _inventoryOperationRepository;
-    private readonly IRepository<Product> _productRepository;
+    private readonly IIMProuctAclService _productAcl;
     private readonly UserManager<Account> _userManager;
     private readonly IMapper _mapper;
 
     public GetInventoryOperationLogQueryHandler(IRepository<Domain.Inventory.Inventory> inventoryRepository,
                                                 IRepository<InventoryOperation> inventoryOperationRepository,
-                                                IRepository<Product> productRepository,
+                                                IIMProuctAclService productAcl,
                                                 UserManager<Account> userManager,
                                                 IMapper mapper)
     {
-        _productRepository = Guard.Against.Null(productRepository, nameof(_productRepository));
+        _productAcl = Guard.Against.Null(productAcl, nameof(_productAcl));
         _inventoryRepository = Guard.Against.Null(inventoryRepository, nameof(_inventoryRepository));
         _inventoryOperationRepository = Guard.Against.Null(inventoryOperationRepository, nameof(_inventoryOperationRepository));
         _userManager = Guard.Against.Null(userManager, nameof(_userManager));
@@ -56,13 +56,9 @@ public class GetInventoryOperationLogQueryHandler : IRequestHandler<GetInventory
             logs[i].Operator = $"{user.FirstName} {user.LastName}";
         }
 
-        var returnData = new GetInventoryOperationsDto
-        {
-            InventoryId = inventory.Id,
-            ProductId = inventory.ProductId,
-            ProductTitle = (await _productRepository.GetByIdAsync(inventory.ProductId)).Title,
-            Operations = logs
-        };
+        var returnData = new GetInventoryOperationsDto(inventory.Id, inventory.ProductId, logs);
+
+        returnData.ProductTitle = await _productAcl.GetProductTitle(inventory.ProductId);
 
         return new Response<GetInventoryOperationsDto>(returnData);
     }

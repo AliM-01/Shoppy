@@ -2,6 +2,13 @@
 
 public class GetInventoryOperationsDto
 {
+    public GetInventoryOperationsDto(string inventoryId, string productId, InventoryOperationDto[] operations)
+    {
+        InventoryId = inventoryId;
+        ProductId = productId;
+        Operations = operations;
+    }
+
     [Display(Name = "شناسه انبار")]
     [JsonProperty("inventoryId")]
     public string InventoryId { get; set; }

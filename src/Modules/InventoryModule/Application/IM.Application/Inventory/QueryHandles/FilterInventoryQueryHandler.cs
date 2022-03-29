@@ -1,11 +1,10 @@
 ﻿using _0_Framework.Application.Models.Paging;
-using _0_Framework.Infrastructure;
 using IM.Application.Contracts.Inventory.DTOs;
 using IM.Application.Contracts.Inventory.Enums;
 using IM.Application.Contracts.Inventory.Helpers;
 using IM.Application.Contracts.Inventory.Queries;
+using IM.Application.Contracts.Sevices;
 using MongoDB.Driver.Linq;
-using SM.Domain.Product;
 using System.Linq;
 
 namespace IM.Application.Inventory.QueryHandles;
@@ -14,15 +13,15 @@ public class FilterInventoryQueryHandler : IRequestHandler<FilterInventoryQuery,
     #region Ctor
 
     private readonly IRepository<Domain.Inventory.Inventory> _inventoryRepository;
-    private readonly IRepository<Product> _productRepository;
+    private readonly IIMProuctAclService _productAcl;
     private readonly IMapper _mapper;
     private readonly IInventoryHelper _inventoryHelper;
 
     public FilterInventoryQueryHandler(IRepository<Domain.Inventory.Inventory> inventoryRepository,
-        IRepository<Product> productRepository, IMapper mapper, IInventoryHelper inventoryHelper)
+        IIMProuctAclService productAcl, IMapper mapper, IInventoryHelper inventoryHelper)
     {
         _inventoryRepository = Guard.Against.Null(inventoryRepository, nameof(_inventoryRepository));
-        _productRepository = Guard.Against.Null(productRepository, nameof(_productRepository));
+        _productAcl = Guard.Against.Null(productAcl, nameof(_productAcl));
         _mapper = Guard.Against.Null(mapper, nameof(_mapper));
         _inventoryHelper = Guard.Against.Null(inventoryHelper, nameof(_inventoryHelper));
     }
@@ -33,16 +32,14 @@ public class FilterInventoryQueryHandler : IRequestHandler<FilterInventoryQuery,
     {
         var query = _inventoryRepository.AsQueryable();
 
-        var products = await _productRepository.AsQueryable().Select(x => new
-        {
-            x.Id,
-            x.Title
-        }).ToListAsyncSafe();
-
         #region filter
 
         if (!string.IsNullOrEmpty(request.Filter.ProductId))
-            query = query.Where(s => s.ProductId == request.Filter.ProductId);
+        {
+            var filteredProductIds = await _productAcl.FilterTitle(request.Filter.ProductId);
+
+            query = query.Where(s => filteredProductIds.Contains(s.ProductId));
+        }
 
         switch (request.Filter.InStockState)
         {
@@ -96,12 +93,13 @@ public class FilterInventoryQueryHandler : IRequestHandler<FilterInventoryQuery,
                 _mapper.Map(inventory, new InventoryDto()))
              .ToList();
 
-        allEntities.ForEach(inventory =>
+        foreach (var inv in allEntities)
         {
-            inventory.Product = products.FirstOrDefault(x => x.Id == inventory.ProductId)?.Title;
-            inventory.CurrentCount = _inventoryHelper.CalculateCurrentCount(inventory.Id).Result;
-            inventory.InStock = _inventoryHelper.IsInStock(inventory.Id).Result;
-        });
+            inv.Product = await _productAcl.GetProductTitle(inv.ProductId);
+            inv.CurrentCount = await _inventoryHelper.CalculateCurrentCount(inv.Id);
+            inv.InStock = await _inventoryHelper.IsInStock(inv.Id);
+        }
+
 
         #endregion paging
 

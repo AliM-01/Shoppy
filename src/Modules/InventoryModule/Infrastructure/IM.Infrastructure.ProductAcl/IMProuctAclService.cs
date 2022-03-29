@@ -1,4 +1,5 @@
 ﻿using _0_Framework.Application.Exceptions;
+using _0_Framework.Infrastructure;
 using _0_Framework.Infrastructure.IRepository;
 using Ardalis.GuardClauses;
 using IM.Application.Contracts.Sevices;
@@ -40,6 +41,38 @@ public class IMProuctAclService : IIMProuctAclService
             throw new NotFoundApiException("محصولی با این شناسه پیدا نشد");
 
         return await _inventoryRepository.ExistsAsync(x => x.ProductId == productId);
+    }
+
+    #endregion
+
+    #region GetProductTitle
+
+    public async Task<string> GetProductTitle(string productId)
+    {
+        if (!(await ExistsProduct(productId)))
+            throw new NotFoundApiException("محصولی با این شناسه پیدا نشد");
+
+        return await _productRepository.GetProductTitle(productId);
+    }
+
+    #endregion
+
+    #region Filter Title
+
+    public async Task<HashSet<string>> FilterTitle(string filter)
+    {
+        var products = await _productRepository.AsQueryable()
+           .Select(x => new
+           {
+               x.Id,
+               x.Title
+           }).ToListAsyncSafe();
+
+        var ids = await _productRepository.AsQueryable()
+                .Where(s => s.Title.Contains(filter))
+                .Select(x => x.Id).ToListAsyncSafe();
+
+        return ids.ToHashSet();
     }
 
     #endregion
