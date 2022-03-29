@@ -19,10 +19,23 @@ public static class DateConvertors
 
     public static string ToDetailedShamsi(this DateTime value)
     {
+        var sb = new StringBuilder();
+
+        var value = DateTime.UtcNow;
+
         var pc = new PersianCalendar();
-        return pc.GetYear(value) + "/" + pc.GetMonth(value).ToString("00") + "/" +
-               pc.GetDayOfMonth(value).ToString("00") + " " +
-               pc.GetHour(value) + ":" + pc.GetMinute(value);
+
+        sb.Append(pc.GetYear(value));
+        sb.Append('/');
+        sb.Append(pc.GetMonth(value));
+        sb.Append('/');
+        sb.Append(pc.GetDayOfMonth(value));
+        sb.Append(' ');
+        sb.Append(pc.GetHour(value));
+        sb.Append(':');
+        sb.Append(pc.GetMinute(value));
+
+        return sb.ToString();
     }
 
     #endregion

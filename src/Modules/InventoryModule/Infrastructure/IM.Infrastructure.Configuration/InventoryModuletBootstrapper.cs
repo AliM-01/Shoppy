@@ -1,5 +1,6 @@
 ﻿using _0_Framework.Infrastructure.IRepository;
 using IM.Application.Contracts.Inventory.Helpers;
+using IM.Application.Contracts.Sevices;
 using IM.Application.Inventory.Helpers;
 using IM.Domain.Inventory;
 using IM.Infrastructure.Persistence.Seeds;
@@ -21,6 +22,7 @@ public static class InventoryModuletBootstrapper
         services.AddScoped<IRepository<InventoryOperation>, BaseRepository<InventoryOperation, InventoryDbSettings>>();
 
         services.AddScoped<IInventoryHelper, InventoryHelper>();
+        services.AddScoped<IIMProuctAclService, IMProuctAclService>();
 
         services.AddMediatR(typeof(InventoryModuletBootstrapper).Assembly);
 
