@@ -87,7 +87,7 @@ public class FilterInventoryQueryHandler : IRequestHandler<FilterInventoryQuery,
 
         #region paging
 
-        var pager = request.Filter.BuildPager((await query.CountAsync()));
+        var pager = request.Filter.BuildPager((await query.CountAsync()), cancellationToken);
 
         var allEntities =
              _inventoryRepository

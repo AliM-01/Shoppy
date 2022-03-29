@@ -16,6 +16,7 @@
 		<ProjectReference Include="..\..\Application.Contracts\IM.Application.Contracts\IM.Application.Contracts.csproj" />
 		<ProjectReference Include="..\..\Application\IM.Application\IM.Application.csproj" />
 		<ProjectReference Include="..\..\Infrastructure\IM.Infrastructure.Persistence\IM.Infrastructure.Persistence.csproj" />
+		<ProjectReference Include="..\IM.Infrastructure.ProductAcl\IM.Infrastructure.ProductAcl.csproj" />
 	</ItemGroup>
 
 </Project>

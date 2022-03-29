@@ -1,5 +1,5 @@
 ﻿using IM.Application.Contracts.Inventory.Commands;
-using SM.Domain.Product;
+using IM.Application.Contracts.Sevices;
 
 namespace IM.Application.Inventory.CommandHandles;
 
@@ -8,14 +8,14 @@ public class CreateInventoryCommandHandler : IRequestHandler<CreateInventoryComm
     #region Ctor
 
     private readonly IRepository<Domain.Inventory.Inventory> _inventoryRepository;
-    private readonly IRepository<Product> _productRepository;
+    private readonly IIMProuctAclService _productAcl;
     private readonly IMapper _mapper;
 
     public CreateInventoryCommandHandler(IRepository<Domain.Inventory.Inventory> inventoryRepository,
-        IMapper mapper, IRepository<Product> productRepository)
+        IMapper mapper, IIMProuctAclService productAcl)
     {
         _inventoryRepository = Guard.Against.Null(inventoryRepository, nameof(_inventoryRepository));
-        _productRepository = Guard.Against.Null(productRepository, nameof(_productRepository));
+        _productAcl = Guard.Against.Null(productAcl, nameof(_productAcl));
         _mapper = Guard.Against.Null(mapper, nameof(_mapper));
     }
 
@@ -23,12 +23,12 @@ public class CreateInventoryCommandHandler : IRequestHandler<CreateInventoryComm
 
     public async Task<Response<string>> Handle(CreateInventoryCommand request, CancellationToken cancellationToken)
     {
-        var existsProduct = await _productRepository.ExistsAsync(p => p.Id == request.Inventory.ProductId);
+        var existsProduct = await _productAcl.ExistsProduct(request.Inventory.ProductId);
 
         if (!existsProduct)
             throw new NotFoundApiException("محصولی با این شناسه پیدا نشد");
 
-        if (await _inventoryRepository.ExistsAsync(x => x.ProductId == request.Inventory.ProductId))
+        if (await _productAcl.ExistsInventory(request.Inventory.ProductId))
             throw new ApiException(ApplicationErrorMessage.DuplicatedRecordExists);
 
         var inventory = new Domain.Inventory.Inventory(request.Inventory.ProductId,

@@ -1,5 +1,4 @@
 ﻿using IM.Application.Contracts.Inventory.Commands;
-using SM.Domain.Product;
 
 namespace IM.Application.Inventory.CommandHandles;
 
@@ -8,14 +7,12 @@ public class EditInventoryCommandHandler : IRequestHandler<EditInventoryCommand,
     #region Ctor
 
     private readonly IRepository<Domain.Inventory.Inventory> _inventoryRepository;
-    private readonly IRepository<Product> _productRepository;
     private readonly IMapper _mapper;
 
     public EditInventoryCommandHandler(IRepository<Domain.Inventory.Inventory> inventoryRepository,
-        IMapper mapper, IRepository<Product> productRepository)
+        IMapper mapper)
     {
         _inventoryRepository = Guard.Against.Null(inventoryRepository, nameof(_inventoryRepository));
-        _productRepository = Guard.Against.Null(productRepository, nameof(_productRepository));
         _mapper = Guard.Against.Null(mapper, nameof(_mapper));
     }
 
@@ -24,7 +21,7 @@ public class EditInventoryCommandHandler : IRequestHandler<EditInventoryCommand,
 
     public async Task<Response<string>> Handle(EditInventoryCommand request, CancellationToken cancellationToken)
     {
-        var inventory = await _inventoryRepository.GetByIdAsync(request.Inventory.Id);
+        var inventory = await _inventoryRepository.GetByIdAsync(request.Inventory.Id, cancellationToken);
 
         if (inventory is null)
             throw new NotFoundApiException();
