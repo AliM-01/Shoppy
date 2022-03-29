@@ -57,34 +57,17 @@ public static class Generator
 
     public static string UserName()
     {
-        string result = "";
+        var sb = new StringBuilder();
 
-        int l = Letters.Length;
-        int n = Numbers.Length;
-
-        Random random = new Random();
+        Random random = new();
 
         for (int i = 0; i < 4; i++)
-        {
-            string character = Letters[random.Next(0, l)].ToString();
-
-            while (result.Contains(character))
-                character = Letters[random.Next(0, l)].ToString().ToUpper();
-
-            result += character;
-        }
+            sb.Append(letters[random.Next(0, letters.Length)]);
 
         for (int i = 0; i < 4; i++)
-        {
-            string character = Numbers[random.Next(0, n)].ToString();
+            sb.Append(numbers[random.Next(0, numbers.Length)]);
 
-            while (result.Contains(character))
-                character = Numbers[random.Next(0, n)].ToString().ToUpper();
-
-            result += character;
-        }
-
-        return result;
+        return sb.ToString().ToUpper();
     }
 
     #endregion
