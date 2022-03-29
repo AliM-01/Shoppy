@@ -6,7 +6,7 @@ using SM.Domain.Product;
 using SM.Infrastructure.Shared.RepositoryExtensions;
 
 namespace IM.Infrastructure.ProductAcl;
-internal class IMProuctAclService : IIMProuctAclService
+public class IMProuctAclService : IIMProuctAclService
 {
     #region ctor
 

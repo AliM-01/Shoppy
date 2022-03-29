@@ -5,6 +5,7 @@ using IM.Application.Inventory.Helpers;
 using IM.Domain.Inventory;
 using IM.Infrastructure.Persistence.Seeds;
 using IM.Infrastructure.Persistence.Settings;
+using IM.Infrastructure.ProductAcl;
 using MediatR;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
