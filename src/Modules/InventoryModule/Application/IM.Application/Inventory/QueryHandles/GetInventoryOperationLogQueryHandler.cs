@@ -48,7 +48,7 @@ public class GetInventoryOperationLogQueryHandler : IRequestHandler<GetInventory
             .Select(operation =>
                 _mapper.Map(operation, new InventoryOperationDto()))
             .ToArray();
-
+        // TODO
         for (int i = 0; i < logs.Length; i++)
         {
             var user = await _userManager.FindByIdAsync(logs[i].OperatorId);
@@ -56,7 +56,7 @@ public class GetInventoryOperationLogQueryHandler : IRequestHandler<GetInventory
             logs[i].Operator = $"{user.FirstName} {user.LastName}";
         }
 
-        var returnData = new GetInventoryOperationsDto(inventory.Id, inventory.ProductId, logs);
+        GetInventoryOperationsDto returnData = new(inventory.Id, inventory.ProductId, logs);
 
         returnData.ProductTitle = await _productAcl.GetProductTitle(inventory.ProductId);
 
