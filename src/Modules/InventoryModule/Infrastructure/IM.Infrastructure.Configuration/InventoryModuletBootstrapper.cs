@@ -3,6 +3,7 @@ using IM.Application.Contracts.Inventory.Helpers;
 using IM.Application.Contracts.Sevices;
 using IM.Application.Inventory.Helpers;
 using IM.Domain.Inventory;
+using IM.Infrastructure.AccountAcl;
 using IM.Infrastructure.Persistence.Seeds;
 using IM.Infrastructure.Persistence.Settings;
 using IM.Infrastructure.ProductAcl;
@@ -24,6 +25,7 @@ public static class InventoryModuletBootstrapper
 
         services.AddScoped<IInventoryHelper, InventoryHelper>();
         services.AddScoped<IIMProuctAclService, IMProuctAclService>();
+        services.AddScoped<IIMAccountAclService, IMAccountAclService>();
 
         services.AddMediatR(typeof(InventoryModuletBootstrapper).Assembly);
 

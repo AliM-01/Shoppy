@@ -5,13 +5,13 @@ using IM.Application.Contracts.Sevices;
 using Microsoft.AspNetCore.Identity;
 
 namespace IM.Infrastructure.AccountAcl;
-public class IMProuctAclService : IIMAccountAclService
+public class IMAccountAclService : IIMAccountAclService
 {
     #region ctor
 
     private readonly UserManager<Account> _userManager;
 
-    public IMProuctAclService(UserManager<Account> userManager)
+    public IMAccountAclService(UserManager<Account> userManager)
     {
         _userManager = Guard.Against.Null(userManager, nameof(_userManager));
     }
