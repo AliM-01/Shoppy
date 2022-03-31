@@ -1,10 +1,8 @@
 ﻿using _0_Framework.Infrastructure;
-using AM.Domain.Account;
 using IM.Application.Contracts.Inventory.DTOs;
 using IM.Application.Contracts.Inventory.Queries;
 using IM.Application.Contracts.Sevices;
 using IM.Domain.Inventory;
-using Microsoft.AspNetCore.Identity;
 using System.Linq;
 
 namespace IM.Application.Inventory.QueryHandles;
@@ -15,19 +13,19 @@ public class GetInventoryOperationLogQueryHandler : IRequestHandler<GetInventory
     private readonly IRepository<Domain.Inventory.Inventory> _inventoryRepository;
     private readonly IRepository<InventoryOperation> _inventoryOperationRepository;
     private readonly IIMProuctAclService _productAcl;
-    private readonly UserManager<Account> _userManager;
+    private readonly IIMAccountAclService _accountAcl;
     private readonly IMapper _mapper;
 
     public GetInventoryOperationLogQueryHandler(IRepository<Domain.Inventory.Inventory> inventoryRepository,
                                                 IRepository<InventoryOperation> inventoryOperationRepository,
                                                 IIMProuctAclService productAcl,
-                                                UserManager<Account> userManager,
+                                                IIMAccountAclService accountAcl,
                                                 IMapper mapper)
     {
         _productAcl = Guard.Against.Null(productAcl, nameof(_productAcl));
         _inventoryRepository = Guard.Against.Null(inventoryRepository, nameof(_inventoryRepository));
         _inventoryOperationRepository = Guard.Against.Null(inventoryOperationRepository, nameof(_inventoryOperationRepository));
-        _userManager = Guard.Against.Null(userManager, nameof(_userManager));
+        _accountAcl = Guard.Against.Null(accountAcl, nameof(_accountAcl));
         _mapper = Guard.Against.Null(mapper, nameof(_mapper));
     }
 
@@ -48,13 +46,9 @@ public class GetInventoryOperationLogQueryHandler : IRequestHandler<GetInventory
             .Select(operation =>
                 _mapper.Map(operation, new InventoryOperationDto()))
             .ToArray();
-        // TODO
-        for (int i = 0; i < logs.Length; i++)
-        {
-            var user = await _userManager.FindByIdAsync(logs[i].OperatorId);
 
-            logs[i].Operator = $"{user.FirstName} {user.LastName}";
-        }
+        for (int i = 0; i < logs.Length; i++)
+            logs[i].Operator = await _accountAcl.GetFullName(logs[i].OperatorId);
 
         GetInventoryOperationsDto returnData = new(inventory.Id, inventory.ProductId, logs);
 
