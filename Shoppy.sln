@@ -190,11 +190,15 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OM.Infrastructure.Shared", 
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "03_Reports.Query", "src\03_Reports.Query\03_Reports.Query.csproj", "{89153781-B2D8-4658-8EB4-514D7DFFA8C5}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DM.Infrastructure.ProductAcl", "src\Modules\DiscountModule\Infrastructure\DM.Infrastructure.ProductAcl\DM.Infrastructure.ProductAcl.csproj", "{8BCD4DC7-4452-4ED6-B77F-1D3822B0E9B0}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DM.Infrastructure.ProductAcl", "src\Modules\DiscountModule\Infrastructure\Acl\DM.Infrastructure.ProductAcl\DM.Infrastructure.ProductAcl.csproj", "{8BCD4DC7-4452-4ED6-B77F-1D3822B0E9B0}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IM.Infrastructure.ProductAcl", "src\Modules\InventoryModule\Infrastructure\IM.Infrastructure.ProductAcl\IM.Infrastructure.ProductAcl.csproj", "{0F8E1FE4-EDB3-41DA-8FF4-096D0C8E8C3B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IM.Infrastructure.ProductAcl", "src\Modules\InventoryModule\Infrastructure\Acl\IM.Infrastructure.ProductAcl\IM.Infrastructure.ProductAcl.csproj", "{0F8E1FE4-EDB3-41DA-8FF4-096D0C8E8C3B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IM.Infrastructure.AccountAcl", "src\Modules\InventoryModule\Infrastructure\IM.Infrastructure.AccountAcl\IM.Infrastructure.AccountAcl.csproj", "{ED6CA023-D402-4578-B125-0FF4221F2C33}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IM.Infrastructure.AccountAcl", "src\Modules\InventoryModule\Infrastructure\Acl\IM.Infrastructure.AccountAcl\IM.Infrastructure.AccountAcl.csproj", "{ED6CA023-D402-4578-B125-0FF4221F2C33}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Acl", "Acl", "{530F7601-2B4D-4D88-BE53-2E4CBA9769B6}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Acl", "Acl", "{093B862C-7B7A-45AC-B20B-4668B33D94AB}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -495,9 +499,11 @@ Global
 		{A8D31E52-FBAA-4F17-A9A9-85F13D370A4E} = {D1D52420-A4AF-4A89-BDF6-AF6AA8CA67BC}
 		{92A86AFC-2F66-48A8-9F5A-D8DCACA7B313} = {D1D52420-A4AF-4A89-BDF6-AF6AA8CA67BC}
 		{89153781-B2D8-4658-8EB4-514D7DFFA8C5} = {6F0BD421-4C02-43C5-A106-3F7EDE3B6076}
-		{8BCD4DC7-4452-4ED6-B77F-1D3822B0E9B0} = {E2D8DB07-6E85-4FC1-8234-7CE00853FAD7}
-		{0F8E1FE4-EDB3-41DA-8FF4-096D0C8E8C3B} = {CF03F503-0022-46D5-A4DD-AE4CCF106404}
-		{ED6CA023-D402-4578-B125-0FF4221F2C33} = {CF03F503-0022-46D5-A4DD-AE4CCF106404}
+		{8BCD4DC7-4452-4ED6-B77F-1D3822B0E9B0} = {093B862C-7B7A-45AC-B20B-4668B33D94AB}
+		{0F8E1FE4-EDB3-41DA-8FF4-096D0C8E8C3B} = {530F7601-2B4D-4D88-BE53-2E4CBA9769B6}
+		{ED6CA023-D402-4578-B125-0FF4221F2C33} = {530F7601-2B4D-4D88-BE53-2E4CBA9769B6}
+		{530F7601-2B4D-4D88-BE53-2E4CBA9769B6} = {CF03F503-0022-46D5-A4DD-AE4CCF106404}
+		{093B862C-7B7A-45AC-B20B-4668B33D94AB} = {E2D8DB07-6E85-4FC1-8234-7CE00853FAD7}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {615EA258-FFB2-45B7-9D73-B482C4E29616}
