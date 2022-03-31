@@ -1,5 +1,4 @@
-﻿using _0_Framework.Infrastructure;
-using IM.Application.Contracts.Inventory.DTOs;
+﻿using IM.Application.Contracts.Inventory.DTOs;
 using IM.Application.Contracts.Inventory.Queries;
 using IM.Application.Contracts.Sevices;
 using IM.Domain.Inventory;
@@ -38,11 +37,10 @@ public class GetInventoryOperationLogQueryHandler : IRequestHandler<GetInventory
         if (inventory is null)
             throw new NotFoundApiException();
 
-        var logs = (await _inventoryOperationRepository
-            .AsQueryable()
+        var logs = _inventoryOperationRepository.AsQueryable(cancellationToken: cancellationToken)
             .OrderByDescending(x => x.OperationDate)
             .Where(x => x.InventoryId == inventory.Id)
-            .ToListAsyncSafe())
+            .ToArray()
             .Select(operation =>
                 _mapper.Map(operation, new InventoryOperationDto()))
             .ToArray();

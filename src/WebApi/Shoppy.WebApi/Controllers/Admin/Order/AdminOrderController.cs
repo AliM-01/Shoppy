@@ -42,7 +42,7 @@ public class AdminOrderController : BaseAdminApiController
     [SwaggerResponse(200, "success")]
     public async Task<IActionResult> CancelOrder([FromRoute] string orderId)
     {
-        var res = await Mediator.Send(new CancelOrderByAdminCommand(orderId));
+        var res = await Mediator.Send(new CancelOrderCommand(orderId, User.GetUserId(), true));
 
         return JsonApiResult.Success(res);
     }

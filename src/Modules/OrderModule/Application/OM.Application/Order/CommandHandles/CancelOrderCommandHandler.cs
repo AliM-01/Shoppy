@@ -28,8 +28,11 @@ public class CancelOrderCommandHandler : IRequestHandler<CancelOrderCommand, Res
         if (order is null)
             throw new NotFoundApiException();
 
-        if (order.UserId != request.UserId)
-            throw new NotFoundApiException();
+        if (!request.IsAdmin)
+        {
+            if (order.UserId != request.UserId)
+                throw new NotFoundApiException();
+        }
 
         if (order.IsPaid)
             throw new ApiException("سفارش قبلا پرداخت شده و قابل لغو شدن نمی باشد");
