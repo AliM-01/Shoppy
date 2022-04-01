@@ -6,5 +6,5 @@ public class AdminReportEndpoints
 
     public const string Orders = Base + "/orders";
 
-    public const string ProductSales = Base + "/product-sale";
+    public const string ProductSales = Base + "/product-sales";
 }

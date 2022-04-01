@@ -8,7 +8,7 @@ public class AdminCommentEndpoints
     {
         public const string FilterComments = Base + "/filter";
 
-        public const string ConfirmComment = Base + "/cofirm/{id}";
+        public const string ConfirmComment = Base + "/confirm/{id}";
 
         public const string CancelComment = Base + "/cancel/{id}";
 
