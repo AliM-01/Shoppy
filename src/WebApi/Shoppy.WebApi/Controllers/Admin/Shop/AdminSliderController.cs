@@ -9,7 +9,7 @@ public class AdminSliderController : BaseAdminApiController
 {
     #region Get Sliders List
 
-    [HttpGet(AdminShopApiEndpoints.Slider.GetSlidersList)]
+    [HttpGet(AdminShopEndpoints.Slider.GetSlidersList)]
     [SwaggerOperation(Summary = "دریافت لیست اسلایدر ها", Tags = new[] { "AdminSlider" })]
     [SwaggerResponse(200, "success")]
     [SwaggerResponse(404, "not-found")]
@@ -24,7 +24,7 @@ public class AdminSliderController : BaseAdminApiController
 
     #region Get Slider Details
 
-    [HttpGet(AdminShopApiEndpoints.Slider.GetSliderDetails)]
+    [HttpGet(AdminShopEndpoints.Slider.GetSliderDetails)]
     [SwaggerOperation(Summary = "دریافت جزییات اسلایدر", Tags = new[] { "AdminSlider" })]
     [SwaggerResponse(200, "success")]
     [SwaggerResponse(404, "not-found")]
@@ -39,7 +39,7 @@ public class AdminSliderController : BaseAdminApiController
 
     #region Create Slider
 
-    [HttpPost(AdminShopApiEndpoints.Slider.CreateSlider)]
+    [HttpPost(AdminShopEndpoints.Slider.CreateSlider)]
     [SwaggerOperation(Summary = "ایجاد اسلایدر", Tags = new[] { "AdminSlider" })]
     [SwaggerResponse(201, "success : created")]
     public async Task<IActionResult> CreateSlider([FromForm] CreateSliderDto createRequest)
@@ -53,7 +53,7 @@ public class AdminSliderController : BaseAdminApiController
 
     #region Edit Slider
 
-    [HttpPut(AdminShopApiEndpoints.Slider.EditSlider)]
+    [HttpPut(AdminShopEndpoints.Slider.EditSlider)]
     [SwaggerOperation(Summary = "ویرایش اسلایدر", Tags = new[] { "AdminSlider" })]
     [SwaggerResponse(200, "success")]
     [SwaggerResponse(404, "not-found")]
@@ -68,7 +68,7 @@ public class AdminSliderController : BaseAdminApiController
 
     #region Remove Slider
 
-    [HttpDelete(AdminShopApiEndpoints.Slider.RemoveSlider)]
+    [HttpDelete(AdminShopEndpoints.Slider.RemoveSlider)]
     [SwaggerOperation(Summary = "غیر فعال کردن اسلایدر", Tags = new[] { "AdminSlider" })]
     [SwaggerResponse(200, "success")]
     [SwaggerResponse(404, "not-found")]
@@ -83,7 +83,7 @@ public class AdminSliderController : BaseAdminApiController
 
     #region Restore Slider
 
-    [HttpDelete(AdminShopApiEndpoints.Slider.RestoreSlider)]
+    [HttpDelete(AdminShopEndpoints.Slider.RestoreSlider)]
     [SwaggerOperation(Summary = "فعال کردن اسلایدر", Tags = new[] { "AdminSlider" })]
     [SwaggerResponse(200, "success")]
     [SwaggerResponse(404, "not-found")]

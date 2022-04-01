@@ -9,7 +9,7 @@ public class AdminArticleCategoryController : BaseAdminApiController
 {
     #region Get Article Categories Select List
 
-    [HttpGet(AdminBlogApiEndpoints.ArticleCategory.GetArticleCategoriesSelectList)]
+    [HttpGet(AdminBlogEndpoints.ArticleCategory.GetArticleCategoriesSelectList)]
     [SwaggerOperation(Summary = "دریافت لیست دسته بندی مقالات", Tags = new[] { "AdminArticleCategory" })]
     [SwaggerResponse(200, "success")]
     [SwaggerResponse(404, "not-found")]
@@ -24,7 +24,7 @@ public class AdminArticleCategoryController : BaseAdminApiController
 
     #region Filter Article Categories
 
-    [HttpGet(AdminBlogApiEndpoints.ArticleCategory.FilterArticleCategories)]
+    [HttpGet(AdminBlogEndpoints.ArticleCategory.FilterArticleCategories)]
     [SwaggerOperation(Summary = "فیلتر دسته بندی مقالات", Tags = new[] { "AdminArticleCategory" })]
     [SwaggerResponse(200, "success")]
     public async Task<IActionResult> FilterArticleCategories([FromQuery] FilterArticleCategoryDto filter, CancellationToken cancellationToken)
@@ -38,7 +38,7 @@ public class AdminArticleCategoryController : BaseAdminApiController
 
     #region Get ArticleCategory Details
 
-    [HttpGet(AdminBlogApiEndpoints.ArticleCategory.GetArticleCategoryDetails)]
+    [HttpGet(AdminBlogEndpoints.ArticleCategory.GetArticleCategoryDetails)]
     [SwaggerOperation(Summary = "دریافت جزییات دسته بندی مقاله", Tags = new[] { "AdminArticleCategory" })]
     [SwaggerResponse(200, "success")]
     [SwaggerResponse(404, "not-found")]
@@ -53,7 +53,7 @@ public class AdminArticleCategoryController : BaseAdminApiController
 
     #region Create Article Category
 
-    [HttpPost(AdminBlogApiEndpoints.ArticleCategory.CreateArticleCategory)]
+    [HttpPost(AdminBlogEndpoints.ArticleCategory.CreateArticleCategory)]
     [SwaggerOperation(Summary = "ایجاد دسته بندی مقاله", Tags = new[] { "AdminArticleCategory" })]
     [SwaggerResponse(201, "success : created")]
     [SwaggerResponse(400, "error : title is duplicated")]
@@ -68,7 +68,7 @@ public class AdminArticleCategoryController : BaseAdminApiController
 
     #region Edit Article Category
 
-    [HttpPut(AdminBlogApiEndpoints.ArticleCategory.EditArticleCategory)]
+    [HttpPut(AdminBlogEndpoints.ArticleCategory.EditArticleCategory)]
     [SwaggerOperation(Summary = "ویرایش دسته بندی مقاله", Tags = new[] { "AdminArticleCategory" })]
     [SwaggerResponse(201, "success : created")]
     [SwaggerResponse(400, "error : title is duplicated")]
@@ -84,7 +84,7 @@ public class AdminArticleCategoryController : BaseAdminApiController
 
     #region Delete Article Category
 
-    [HttpDelete(AdminBlogApiEndpoints.ArticleCategory.DeleteArticleCategory)]
+    [HttpDelete(AdminBlogEndpoints.ArticleCategory.DeleteArticleCategory)]
     [SwaggerOperation(Summary = "حذف دسته بندی مقاله", Tags = new[] { "AdminArticleCategory" })]
     [SwaggerResponse(201, "success : created")]
     [SwaggerResponse(404, "not-found")]

@@ -9,7 +9,7 @@ public class CommentController : BaseApiController
 {
     #region Get Record Comments By Id
 
-    [HttpGet(MainCommentApiEndpoints.Comment.GetRecordCommentsById)]
+    [HttpGet(MainCommentEndpoints.Comment.GetRecordCommentsById)]
     [SwaggerOperation(Summary = "دریافت کامنت های محصول/مقاله", Tags = new[] { "Comment" })]
     [SwaggerResponse(200, "success")]
     public async Task<IActionResult> GetRecordCommentsById([FromRoute] string recordId, CancellationToken cancellationToken)
@@ -23,7 +23,7 @@ public class CommentController : BaseApiController
 
     #region Add Comment
 
-    [HttpPost(MainCommentApiEndpoints.Comment.AddComment)]
+    [HttpPost(MainCommentEndpoints.Comment.AddComment)]
     [SwaggerOperation(Summary = "ایجاد کامنت", Tags = new[] { "Comment" })]
     [SwaggerResponse(201, "success : created")]
     public async Task<IActionResult> AddComment([FromForm] AddCommentDto addRequest)

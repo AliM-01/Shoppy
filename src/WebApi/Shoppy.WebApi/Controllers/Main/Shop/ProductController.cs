@@ -8,7 +8,7 @@ public class ProductController : BaseApiController
 {
     #region Get Product Details
 
-    [HttpGet(MainShopApiEndpoints.Product.GetProductDetails)]
+    [HttpGet(MainShopEndpoints.Product.GetProductDetails)]
     [SwaggerOperation(Summary = "دریافت جزییات محصول", Tags = new[] { "Product" })]
     [SwaggerResponse(200, "success")]
     [SwaggerResponse(404, "not-found")]
@@ -23,7 +23,7 @@ public class ProductController : BaseApiController
 
     #region Search
 
-    [HttpGet(MainShopApiEndpoints.Product.Search)]
+    [HttpGet(MainShopEndpoints.Product.Search)]
     [SwaggerOperation(Summary = "جستجو", Tags = new[] { "Product" })]
     [SwaggerResponse(200, "success")]
     [SwaggerResponse(400, "error : no data with requested filter")]
@@ -39,7 +39,7 @@ public class ProductController : BaseApiController
 
     #region Get Latest Products
 
-    [HttpGet(MainShopApiEndpoints.Product.GetLatestProducts)]
+    [HttpGet(MainShopEndpoints.Product.GetLatestProducts)]
     [SwaggerOperation(Summary = "دریافت جدید ترین محصولات", Tags = new[] { "Product" })]
     [SwaggerResponse(200, "success")]
     public async Task<IActionResult> GetLatestProducts()
@@ -53,7 +53,7 @@ public class ProductController : BaseApiController
 
     #region Get Latest Products
 
-    [HttpGet(MainShopApiEndpoints.Product.GetRelatedProducts)]
+    [HttpGet(MainShopEndpoints.Product.GetRelatedProducts)]
     [SwaggerOperation(Summary = "دریافت محصولات مرتبط", Tags = new[] { "Product" })]
     [SwaggerResponse(200, "success")]
     public async Task<IActionResult> GetRelatedProducts([FromRoute] string categoryId)
@@ -67,7 +67,7 @@ public class ProductController : BaseApiController
 
     #region Get Hotest Discount Products
 
-    [HttpGet(MainShopApiEndpoints.Product.GetHotestDiscountProducts)]
+    [HttpGet(MainShopEndpoints.Product.GetHotestDiscountProducts)]
     [SwaggerOperation(Summary = "دریافت داغ ترین تخفیف محصولات", Tags = new[] { "Product" })]
     [SwaggerResponse(200, "success")]
     public async Task<IActionResult> GetHotestDiscountProducts()

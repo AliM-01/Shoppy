@@ -34,7 +34,7 @@ public class AccountController : BaseApiController
     #region Register
 
     [AllowAnonymous]
-    [HttpPost(MainAccountApiEndpoints.Account.Register)]
+    [HttpPost(MainAccountEndpoints.Account.Register)]
     [SwaggerOperation(Summary = "ثبت نام", Tags = new[] { "Account" })]
     [SwaggerResponse(200, "success")]
     [SwaggerResponse(400, "duplicate email")]
@@ -52,7 +52,7 @@ public class AccountController : BaseApiController
     #region Login
 
     [AllowAnonymous]
-    [HttpPost(MainAccountApiEndpoints.Account.Login)]
+    [HttpPost(MainAccountEndpoints.Account.Login)]
     [SwaggerOperation(Summary = "ورود به حساب", Tags = new[] { "Account" })]
     [SwaggerResponse(200, "success")]
     [SwaggerResponse(400, "not active")]
@@ -70,7 +70,7 @@ public class AccountController : BaseApiController
     #region RefreshToken
 
     [AllowAnonymous]
-    [HttpPost(MainAccountApiEndpoints.Account.RefreshToken)]
+    [HttpPost(MainAccountEndpoints.Account.RefreshToken)]
     [SwaggerOperation(Summary = "refresh token", Tags = new[] { "Account" })]
     [SwaggerResponse(200, "success")]
     [SwaggerResponse(404, "not found")]
@@ -88,7 +88,7 @@ public class AccountController : BaseApiController
     #region ForgotPassword
 
     [AllowAnonymous]
-    [HttpPost(MainAccountApiEndpoints.Account.ForgotPassword)]
+    [HttpPost(MainAccountEndpoints.Account.ForgotPassword)]
     [SwaggerOperation(Summary = "فراموشی رمز عبور", Tags = new[] { "Account" })]
     [SwaggerResponse(200, "success")]
     [SwaggerResponse(404, "not-found")]
@@ -104,7 +104,7 @@ public class AccountController : BaseApiController
     #region Logout
 
     [AllowAnonymous]
-    [HttpPost(MainAccountApiEndpoints.Account.Logout)]
+    [HttpPost(MainAccountEndpoints.Account.Logout)]
     [SwaggerOperation(Summary = "خروج از حساب", Tags = new[] { "Account" })]
     [SwaggerResponse(200, "success")]
     [SwaggerResponse(404, "not-found")]
@@ -123,7 +123,7 @@ public class AccountController : BaseApiController
     #region IsAuthenticated
 
     [AllowAnonymous]
-    [HttpGet(MainAccountApiEndpoints.Account.IsAuthenticated)]
+    [HttpGet(MainAccountEndpoints.Account.IsAuthenticated)]
     [SwaggerOperation(Summary = "Is Authenticated", Tags = new[] { "Account" })]
     [SwaggerResponse(200, "success")]
     [SwaggerResponse(401, "un-authorized")]
@@ -142,7 +142,7 @@ public class AccountController : BaseApiController
     #region IsInRole
 
     [AllowAnonymous]
-    [HttpGet(MainAccountApiEndpoints.Account.IsInRole)]
+    [HttpGet(MainAccountEndpoints.Account.IsInRole)]
     [SwaggerOperation(Summary = "Is InRole", Tags = new[] { "Account" })]
     [SwaggerResponse(200, "success")]
     [SwaggerResponse(401, "un-authorized")]
@@ -170,7 +170,7 @@ public class AccountController : BaseApiController
     #region GetCurrentUser
 
     [Authorize]
-    [HttpGet(MainAccountApiEndpoints.Account.GetCurrentUser)]
+    [HttpGet(MainAccountEndpoints.Account.GetCurrentUser)]
     [SwaggerOperation(Summary = "Get CurrentUser", Tags = new[] { "Account" })]
     [SwaggerResponse(200, "success")]
     [SwaggerResponse(401, "un-authorized")]

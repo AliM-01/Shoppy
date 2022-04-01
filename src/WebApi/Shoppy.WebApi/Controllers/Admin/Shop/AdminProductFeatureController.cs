@@ -9,7 +9,7 @@ public class AdminProductFeatureController : BaseAdminApiController
 {
     #region Filter Product Features
 
-    [HttpGet(AdminShopApiEndpoints.ProductFeature.FilterProductFeatures)]
+    [HttpGet(AdminShopEndpoints.ProductFeature.FilterProductFeatures)]
     [SwaggerOperation(Summary = "فیلتر ویژگی محصولات", Tags = new[] { "AdminProductFeature" })]
     [SwaggerResponse(200, "success")]
     public async Task<IActionResult> FilterProductFeatures([FromQuery] FilterProductFeatureDto filter)
@@ -23,7 +23,7 @@ public class AdminProductFeatureController : BaseAdminApiController
 
     #region Get Product Feature Details
 
-    [HttpGet(AdminShopApiEndpoints.ProductFeature.GetProductFeatureDetails)]
+    [HttpGet(AdminShopEndpoints.ProductFeature.GetProductFeatureDetails)]
     [SwaggerOperation(Summary = "دریافت جزییات ویژگی محصول", Tags = new[] { "AdminProductFeature" })]
     [SwaggerResponse(200, "success")]
     [SwaggerResponse(404, "not-found")]
@@ -38,7 +38,7 @@ public class AdminProductFeatureController : BaseAdminApiController
 
     #region Create Product Feature
 
-    [HttpPost(AdminShopApiEndpoints.ProductFeature.CreateProductFeature)]
+    [HttpPost(AdminShopEndpoints.ProductFeature.CreateProductFeature)]
     [SwaggerOperation(Summary = "ایجاد ویژگی محصول", Tags = new[] { "AdminProductFeature" })]
     [SwaggerResponse(201, "success : created")]
     [SwaggerResponse(400, "error : title is duplicated")]
@@ -53,7 +53,7 @@ public class AdminProductFeatureController : BaseAdminApiController
 
     #region Edit Product Feature
 
-    [HttpPut(AdminShopApiEndpoints.ProductFeature.EditProductFeature)]
+    [HttpPut(AdminShopEndpoints.ProductFeature.EditProductFeature)]
     [SwaggerOperation(Summary = "ویرایش ویژگی محصول", Tags = new[] { "AdminProductFeature" })]
     [SwaggerResponse(200, "success")]
     [SwaggerResponse(400, "error : title is duplicated")]
@@ -69,7 +69,7 @@ public class AdminProductFeatureController : BaseAdminApiController
 
     #region Delete Product Feature
 
-    [HttpDelete(AdminShopApiEndpoints.ProductFeature.DeleteProductFeature)]
+    [HttpDelete(AdminShopEndpoints.ProductFeature.DeleteProductFeature)]
     [SwaggerOperation(Summary = "حذف ویژگی محصول", Tags = new[] { "AdminProductFeature" })]
     [SwaggerResponse(200, "success")]
     [SwaggerResponse(404, "not-found")]

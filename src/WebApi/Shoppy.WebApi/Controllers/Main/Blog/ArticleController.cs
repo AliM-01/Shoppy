@@ -9,7 +9,7 @@ public class ArticleController : BaseApiController
 {
     #region Search
 
-    [HttpGet(MainBlogApiEndpoints.Article.Search)]
+    [HttpGet(MainBlogEndpoints.Article.Search)]
     [SwaggerOperation(Summary = "جستجو", Tags = new[] { "Article" })]
     [SwaggerResponse(200, "success")]
     [SwaggerResponse(400, "error : no data with requested filter")]
@@ -25,7 +25,7 @@ public class ArticleController : BaseApiController
 
     #region Get Article Details
 
-    [HttpGet(MainBlogApiEndpoints.Article.GetArticleDetails)]
+    [HttpGet(MainBlogEndpoints.Article.GetArticleDetails)]
     [SwaggerOperation(Summary = "دریافت جزییات مقاله", Tags = new[] { "Article" })]
     [SwaggerResponse(200, "success")]
     [SwaggerResponse(404, "not-found")]
@@ -40,7 +40,7 @@ public class ArticleController : BaseApiController
 
     #region Get Latest Articles
 
-    [HttpGet(MainBlogApiEndpoints.Article.GetLatestArticles)]
+    [HttpGet(MainBlogEndpoints.Article.GetLatestArticles)]
     [SwaggerOperation(Summary = "دریافت جدید ترین مقالات", Tags = new[] { "Article" })]
     [SwaggerResponse(200, "success")]
     public async Task<IActionResult> GetLatestArticles(CancellationToken cancellationToken)
@@ -54,7 +54,7 @@ public class ArticleController : BaseApiController
 
     #region Get Related Articles
 
-    [HttpGet(MainBlogApiEndpoints.Article.GetRelatedArticles)]
+    [HttpGet(MainBlogEndpoints.Article.GetRelatedArticles)]
     [SwaggerOperation(Summary = "دریافت مقالات مرتبط", Tags = new[] { "Article" })]
     [SwaggerResponse(200, "success")]
     public async Task<IActionResult> GetRelatedArticles([FromRoute] string categoryId, CancellationToken cancellationToken)

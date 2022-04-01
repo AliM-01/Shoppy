@@ -12,7 +12,7 @@ public class OrderController : BaseApiController
 {
     #region Compute Cart
 
-    [HttpPost(MainOrderApiEndpoints.Order.ComputeCart)]
+    [HttpPost(MainOrderEndpoints.Cart.ComputeCart)]
     [SwaggerOperation(Summary = "پردازش سفارش", Tags = new[] { "Order" })]
     [SwaggerResponse(200, "success")]
     public async Task<IActionResult> ComputeCart([FromBody] List<CartItemInCookieDto> items)
@@ -26,7 +26,7 @@ public class OrderController : BaseApiController
 
     #region Checkout
 
-    [HttpPost(MainOrderApiEndpoints.Order.Checkout)]
+    [HttpPost(MainOrderEndpoints.Cart.Checkout)]
     [SwaggerOperation(Summary = "پردازش سفارش", Tags = new[] { "Order" })]
     [SwaggerResponse(200, "success")]
     public async Task<IActionResult> Checkout([FromBody] List<CartItemInCookieDto> items)
@@ -40,7 +40,7 @@ public class OrderController : BaseApiController
 
     #region PlaceOrder
 
-    [HttpPost(MainOrderApiEndpoints.Order.PlaceOrder)]
+    [HttpPost(MainOrderEndpoints.Order.PlaceOrder)]
     [Authorize(Policy = RoleConstants.BasicUser)]
     [SwaggerOperation(Summary = "ثبت سفارش", Tags = new[] { "Order" })]
     [SwaggerResponse(200, "success")]
@@ -55,7 +55,7 @@ public class OrderController : BaseApiController
 
     #region CancelOrder
 
-    [HttpDelete(MainOrderApiEndpoints.Order.CancelOrder)]
+    [HttpDelete(MainOrderEndpoints.Order.CancelOrder)]
     [Authorize(Policy = RoleConstants.BasicUser)]
     [SwaggerOperation(Summary = "لفو سفارش", Tags = new[] { "Order" })]
     [SwaggerResponse(200, "success")]
@@ -70,7 +70,7 @@ public class OrderController : BaseApiController
 
     #region InitializePayment
 
-    [HttpPost(MainOrderApiEndpoints.Order.InitializePayment)]
+    [HttpPost(MainOrderEndpoints.Payment.InitializePayment)]
     [Authorize(Policy = RoleConstants.BasicUser)]
     [SwaggerOperation(Summary = "ثبت پرداخت", Tags = new[] { "Order" })]
     [SwaggerResponse(200, "success")]
@@ -94,7 +94,7 @@ public class OrderController : BaseApiController
 
     #region VerifyPayment
 
-    [HttpPost(MainOrderApiEndpoints.Order.VerifyPayment)]
+    [HttpPost(MainOrderEndpoints.Payment.VerifyPayment)]
     [Authorize(Policy = RoleConstants.BasicUser)]
     [SwaggerOperation(Summary = "تایید پرداخت", Tags = new[] { "Order" })]
     [SwaggerResponse(200, "success")]

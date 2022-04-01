@@ -8,7 +8,7 @@ public class ProductCategoryController : BaseApiController
 {
     #region Get ProductCategory List
 
-    [HttpGet(MainShopApiEndpoints.ProductCategory.GetProductCategoryList)]
+    [HttpGet(MainShopEndpoints.ProductCategory.GetProductCategoryList)]
     [SwaggerOperation(Summary = "دریافت دسته بندی های محصولات", Tags = new[] { "ProductCategory" })]
     [SwaggerResponse(200, "success")]
     public async Task<IActionResult> GetProductCategoryList()
@@ -22,7 +22,7 @@ public class ProductCategoryController : BaseApiController
 
     #region Get Product Category
 
-    [HttpGet(MainShopApiEndpoints.ProductCategory.GetProductCategory)]
+    [HttpGet(MainShopEndpoints.ProductCategory.GetProductCategory)]
     [SwaggerOperation(Summary = "دریافت دسته بندی محصول", Tags = new[] { "ProductCategory" })]
     [SwaggerResponse(200, "success")]
     [SwaggerResponse(404, "not-found")]

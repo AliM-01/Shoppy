@@ -8,7 +8,7 @@ public class ArticleCategoryController : BaseApiController
 {
     #region Get ArticleCategory List
 
-    [HttpGet(MainBlogApiEndpoints.ArticleCategory.GetArticleCategoryList)]
+    [HttpGet(MainBlogEndpoints.ArticleCategory.GetArticleCategoryList)]
     [SwaggerOperation(Summary = "دریافت دسته بندی های مقالات", Tags = new[] { "ProductCategory" })]
     [SwaggerResponse(200, "success")]
     public async Task<IActionResult> GetArticleCategoryList(CancellationToken cancellationToken)
@@ -22,7 +22,7 @@ public class ArticleCategoryController : BaseApiController
 
     #region Get Article Category
 
-    [HttpGet(MainBlogApiEndpoints.ArticleCategory.GetArticleCategory)]
+    [HttpGet(MainBlogEndpoints.ArticleCategory.GetArticleCategory)]
     [SwaggerOperation(Summary = "دریافت دسته بندی مقاله", Tags = new[] { "ArticleCategory" })]
     [SwaggerResponse(200, "success")]
     [SwaggerResponse(404, "not-found")]

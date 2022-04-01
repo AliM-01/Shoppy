@@ -9,7 +9,7 @@ public class AdminOrderController : BaseAdminApiController
 {
     #region Filter Order
 
-    [HttpGet(AdminOrderApiEndpoints.Order.FilterOrders)]
+    [HttpGet(AdminOrderEndpoints.Order.FilterOrders)]
     [SwaggerOperation(Summary = "فیلتر سفارشات", Tags = new[] { "AdminOrder" })]
     [SwaggerResponse(200, "success")]
     public async Task<IActionResult> FilterInventories([FromQuery] FilterOrderDto filter)
@@ -23,7 +23,7 @@ public class AdminOrderController : BaseAdminApiController
 
     #region Get Items
 
-    [HttpGet(AdminOrderApiEndpoints.Order.GetItems)]
+    [HttpGet(AdminOrderEndpoints.Order.GetItems)]
     [SwaggerOperation(Summary = "دریافت آیتم های سفارش", Tags = new[] { "AdminOrder" })]
     [SwaggerResponse(200, "success")]
     public async Task<IActionResult> GetItems([FromRoute] string orderId)
@@ -37,7 +37,7 @@ public class AdminOrderController : BaseAdminApiController
 
     #region Cancel Order
 
-    [HttpDelete(AdminOrderApiEndpoints.Order.CancelOrder)]
+    [HttpDelete(AdminOrderEndpoints.Order.CancelOrder)]
     [SwaggerOperation(Summary = "لغو سفارش", Tags = new[] { "AdminOrder" })]
     [SwaggerResponse(200, "success")]
     public async Task<IActionResult> CancelOrder([FromRoute] string orderId)

@@ -9,7 +9,7 @@ public class AdminProductCategoryController : BaseAdminApiController
 {
     #region Get ProductCategories List
 
-    [HttpGet(AdminShopApiEndpoints.ProductCategory.GetProductCategoriesList)]
+    [HttpGet(AdminShopEndpoints.ProductCategory.GetProductCategoriesList)]
     [SwaggerOperation(Summary = "دریافت لیست دسته بندی محصولات", Tags = new[] { "AdminProductCategory" })]
     [SwaggerResponse(200, "success")]
     [SwaggerResponse(404, "not-found")]
@@ -24,7 +24,7 @@ public class AdminProductCategoryController : BaseAdminApiController
 
     #region Filter Product Categories
 
-    [HttpGet(AdminShopApiEndpoints.ProductCategory.FilterProductCategories)]
+    [HttpGet(AdminShopEndpoints.ProductCategory.FilterProductCategories)]
     [SwaggerOperation(Summary = "فیلتر دسته بندی محصولات", Tags = new[] { "AdminProductCategory" })]
     [SwaggerResponse(200, "success")]
     public async Task<IActionResult> FilterProductCategories([FromQuery] FilterProductCategoryDto filter)
@@ -38,7 +38,7 @@ public class AdminProductCategoryController : BaseAdminApiController
 
     #region Get ProductCategory Details
 
-    [HttpGet(AdminShopApiEndpoints.ProductCategory.GetProductCategoryDetails)]
+    [HttpGet(AdminShopEndpoints.ProductCategory.GetProductCategoryDetails)]
     [SwaggerOperation(Summary = "دریافت جزییات دسته بندی محصول", Tags = new[] { "AdminProductCategory" })]
     [SwaggerResponse(200, "success")]
     [SwaggerResponse(404, "not-found")]
@@ -53,7 +53,7 @@ public class AdminProductCategoryController : BaseAdminApiController
 
     #region Create Product Category
 
-    [HttpPost(AdminShopApiEndpoints.ProductCategory.CreateProductCategory)]
+    [HttpPost(AdminShopEndpoints.ProductCategory.CreateProductCategory)]
     [SwaggerOperation(Summary = "ایجاد دسته بندی محصول", Tags = new[] { "AdminProductCategory" })]
     [SwaggerResponse(201, "success : created")]
     [SwaggerResponse(400, "error : title is duplicated")]
@@ -68,7 +68,7 @@ public class AdminProductCategoryController : BaseAdminApiController
 
     #region Edit Product Category
 
-    [HttpPut(AdminShopApiEndpoints.ProductCategory.EditProductCategory)]
+    [HttpPut(AdminShopEndpoints.ProductCategory.EditProductCategory)]
     [SwaggerOperation(Summary = "ویرایش دسته بندی محصول", Tags = new[] { "AdminProductCategory" })]
     [SwaggerResponse(201, "success : created")]
     [SwaggerResponse(400, "error : title is duplicated")]
@@ -84,7 +84,7 @@ public class AdminProductCategoryController : BaseAdminApiController
 
     #region Delete Product Category
 
-    [HttpDelete(AdminShopApiEndpoints.ProductCategory.DeleteProductCategory)]
+    [HttpDelete(AdminShopEndpoints.ProductCategory.DeleteProductCategory)]
     [SwaggerOperation(Summary = "حذف دسته بندی محصول", Tags = new[] { "AdminProductCategory" })]
     [SwaggerResponse(201, "success : created")]
     [SwaggerResponse(404, "not-found")]

@@ -11,7 +11,7 @@ public class AdminProductController : BaseAdminApiController
 {
     #region Filter Products
 
-    [HttpGet(AdminShopApiEndpoints.Product.FilterProducts)]
+    [HttpGet(AdminShopEndpoints.Product.FilterProducts)]
     [SwaggerOperation(Summary = "فیلتر محصولات", Tags = new[] { "AdminProduct" })]
     [SwaggerResponse(200, "success")]
     public async Task<IActionResult> FilterProducts([FromQuery] FilterProductDto filter)
@@ -25,7 +25,7 @@ public class AdminProductController : BaseAdminApiController
 
     #region Exists Product Id
 
-    [HttpGet(AdminShopApiEndpoints.Product.ExistsProductId)]
+    [HttpGet(AdminShopEndpoints.Product.ExistsProductId)]
     [SwaggerOperation(Summary = "چک کردن وجود شناسه محصول", Tags = new[] { "AdminProduct" })]
     [SwaggerResponse(200, "success")]
     [SwaggerResponse(404, "not-found")]
@@ -40,7 +40,7 @@ public class AdminProductController : BaseAdminApiController
 
     #region Get Product Details
 
-    [HttpGet(AdminShopApiEndpoints.Product.GetProductDetails)]
+    [HttpGet(AdminShopEndpoints.Product.GetProductDetails)]
     [SwaggerOperation(Summary = "دریافت جزییات محصول", Tags = new[] { "AdminProduct" })]
     [SwaggerResponse(200, "success")]
     [SwaggerResponse(404, "not-found")]
@@ -55,7 +55,7 @@ public class AdminProductController : BaseAdminApiController
 
     #region Create Product
 
-    [HttpPost(AdminShopApiEndpoints.Product.CreateProduct)]
+    [HttpPost(AdminShopEndpoints.Product.CreateProduct)]
     [SwaggerOperation(Summary = "ایجاد محصول", Tags = new[] { "AdminProduct" })]
     [SwaggerResponse(201, "success : created")]
     [SwaggerResponse(400, "error : title is duplicated")]
@@ -76,7 +76,7 @@ public class AdminProductController : BaseAdminApiController
 
     #region Edit Product
 
-    [HttpPut(AdminShopApiEndpoints.Product.EditProduct)]
+    [HttpPut(AdminShopEndpoints.Product.EditProduct)]
     [SwaggerOperation(Summary = "ویرایش محصول", Tags = new[] { "AdminProduct" })]
     [SwaggerResponse(200, "success")]
     [SwaggerResponse(400, "error : title is duplicated")]
@@ -92,7 +92,7 @@ public class AdminProductController : BaseAdminApiController
 
     #region Delete Product
 
-    [HttpDelete(AdminShopApiEndpoints.Product.DeleteProduct)]
+    [HttpDelete(AdminShopEndpoints.Product.DeleteProduct)]
     [SwaggerOperation(Summary = "حذف محصول", Tags = new[] { "AdminProduct" })]
     [SwaggerResponse(200, "success")]
     [SwaggerResponse(404, "not-found")]

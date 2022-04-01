@@ -9,7 +9,7 @@ public class AdminInventoryController : BaseAdminApiController
 {
     #region Filter Inventory
 
-    [HttpGet(AdminInventoryApiEndpoints.Inventory.FilterInventories)]
+    [HttpGet(AdminInventoryEndpoints.Inventory.FilterInventories)]
     [SwaggerOperation(Summary = "فیلتر انبار", Tags = new[] { "AdminInventory" })]
     [SwaggerResponse(200, "success")]
     public async Task<IActionResult> FilterInventories([FromQuery] FilterInventoryDto filter)
@@ -23,7 +23,7 @@ public class AdminInventoryController : BaseAdminApiController
 
     #region Get Inventory Details
 
-    [HttpGet(AdminInventoryApiEndpoints.Inventory.GetInventoryDetails)]
+    [HttpGet(AdminInventoryEndpoints.Inventory.GetInventoryDetails)]
     [SwaggerOperation(Summary = "دریافت انبار", Tags = new[] { "AdminInventory" })]
     [SwaggerResponse(200, "success")]
     [SwaggerResponse(404, "not-found")]
@@ -38,7 +38,7 @@ public class AdminInventoryController : BaseAdminApiController
 
     #region Edit Inventory
 
-    [HttpPut(AdminInventoryApiEndpoints.Inventory.EditInventory)]
+    [HttpPut(AdminInventoryEndpoints.Inventory.EditInventory)]
     [SwaggerOperation(Summary = "ویرایش انبار", Tags = new[] { "AdminInventory" })]
     [SwaggerResponse(200, "success")]
     [SwaggerResponse(404, "not-found")]
@@ -53,7 +53,7 @@ public class AdminInventoryController : BaseAdminApiController
 
     #region Increase Inventory
 
-    [HttpPost(AdminInventoryApiEndpoints.Inventory.IncreaseInventory)]
+    [HttpPost(AdminInventoryEndpoints.Inventory.IncreaseInventory)]
     [SwaggerOperation(Summary = "افزایش موجودی انبار", Tags = new[] { "AdminInventory" })]
     [SwaggerResponse(200, "success")]
     [SwaggerResponse(404, "not-found")]
@@ -68,7 +68,7 @@ public class AdminInventoryController : BaseAdminApiController
 
     #region Reduce Inventory
 
-    [HttpPost(AdminInventoryApiEndpoints.Inventory.ReduceInventory)]
+    [HttpPost(AdminInventoryEndpoints.Inventory.ReduceInventory)]
     [SwaggerOperation(Summary = "کاهش موجودی انبار", Tags = new[] { "AdminInventory" })]
     [SwaggerResponse(200, "success")]
     [SwaggerResponse(404, "not-found")]
@@ -83,7 +83,7 @@ public class AdminInventoryController : BaseAdminApiController
 
     #region Get Inventory Operation Log
 
-    [HttpGet(AdminInventoryApiEndpoints.Inventory.GetInventoryOperationLog)]
+    [HttpGet(AdminInventoryEndpoints.Inventory.GetInventoryOperationLog)]
     [SwaggerOperation(Summary = "دریافت لاگ های انبار", Tags = new[] { "AdminInventory" })]
     [SwaggerResponse(200, "success")]
     [SwaggerResponse(404, "not-found")]

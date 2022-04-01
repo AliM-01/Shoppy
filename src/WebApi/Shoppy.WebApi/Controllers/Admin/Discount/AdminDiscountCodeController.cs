@@ -9,7 +9,7 @@ public class AdminDiscountCodeController : BaseAdminApiController
 {
     #region Filter Customer Discounts
 
-    [HttpGet(AdminDiscountApiEndpoints.DiscountCode.FilterDiscountCodes)]
+    [HttpGet(AdminDiscountEndpoints.DiscountCode.FilterDiscountCodes)]
     [SwaggerOperation(Summary = "فیلتر کد های تخفیف", Tags = new[] { "AdminDiscountCode" })]
     [SwaggerResponse(200, "success")]
     public async Task<IActionResult> FilterDiscountCodes([FromQuery] FilterDiscountCodeDto filter)
@@ -23,7 +23,7 @@ public class AdminDiscountCodeController : BaseAdminApiController
 
     #region Get DiscountCode Details
 
-    [HttpGet(AdminDiscountApiEndpoints.DiscountCode.GetDiscountCodeDetails)]
+    [HttpGet(AdminDiscountEndpoints.DiscountCode.GetDiscountCodeDetails)]
     [SwaggerOperation(Summary = "دریافت کد تخفیف", Tags = new[] { "AdminDiscountCode" })]
     [SwaggerResponse(200, "success")]
     [SwaggerResponse(404, "not-found")]
@@ -38,7 +38,7 @@ public class AdminDiscountCodeController : BaseAdminApiController
 
     #region Define Customer Discount
 
-    [HttpPost(AdminDiscountApiEndpoints.DiscountCode.DefineDiscountCode)]
+    [HttpPost(AdminDiscountEndpoints.DiscountCode.DefineDiscountCode)]
     [SwaggerOperation(Summary = "تعریف کد تخفیف", Tags = new[] { "AdminDiscountCode" })]
     [SwaggerResponse(201, "success : created")]
     [SwaggerResponse(404, "not-found")]
@@ -53,7 +53,7 @@ public class AdminDiscountCodeController : BaseAdminApiController
 
     #region Edit Customer Discount
 
-    [HttpPut(AdminDiscountApiEndpoints.DiscountCode.EditDiscountCode)]
+    [HttpPut(AdminDiscountEndpoints.DiscountCode.EditDiscountCode)]
     [SwaggerOperation(Summary = "ویرایش کد تخفیف", Tags = new[] { "AdminDiscountCode" })]
     [SwaggerResponse(200, "success")]
     [SwaggerResponse(404, "not-found")]
@@ -68,7 +68,7 @@ public class AdminDiscountCodeController : BaseAdminApiController
 
     #region Remove Customer Discount
 
-    [HttpDelete(AdminDiscountApiEndpoints.DiscountCode.RemoveDiscountCode)]
+    [HttpDelete(AdminDiscountEndpoints.DiscountCode.RemoveDiscountCode)]
     [SwaggerOperation(Summary = "حذف کد تخفیف", Tags = new[] { "AdminDiscountCode" })]
     [SwaggerResponse(200, "success")]
     [SwaggerResponse(404, "not-found")]

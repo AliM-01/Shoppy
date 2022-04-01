@@ -9,7 +9,7 @@ public class AdminAccountController : BaseAdminApiController
 {
     #region Filter Accounts
 
-    [HttpGet(AdminAccountApiEndpoints.Account.FilterAccounts)]
+    [HttpGet(AdminAccountEndpoints.Account.FilterAccounts)]
     [SwaggerOperation(Summary = "فیلتر  کاربران", Tags = new[] { "AdminAccount" })]
     [SwaggerResponse(200, "success")]
     public async Task<IActionResult> FilterAccounts([FromQuery] FilterAccountDto filter)
@@ -23,7 +23,7 @@ public class AdminAccountController : BaseAdminApiController
 
     #region Get Account Details
 
-    [HttpGet(AdminAccountApiEndpoints.Account.GetAccountDetails)]
+    [HttpGet(AdminAccountEndpoints.Account.GetAccountDetails)]
     [SwaggerOperation(Summary = "دریافت جزییات  کاربر", Tags = new[] { "AdminAccount" })]
     [SwaggerResponse(200, "success")]
     [SwaggerResponse(404, "not-found")]
@@ -38,7 +38,7 @@ public class AdminAccountController : BaseAdminApiController
 
     #region Edit Account 
 
-    [HttpPut(AdminAccountApiEndpoints.Account.EditAccount)]
+    [HttpPut(AdminAccountEndpoints.Account.EditAccount)]
     [SwaggerOperation(Summary = "ویرایش  کاربر", Tags = new[] { "AdminAccount" })]
     [SwaggerResponse(201, "success : created")]
     [SwaggerResponse(400, "error : title is duplicated")]
@@ -54,7 +54,7 @@ public class AdminAccountController : BaseAdminApiController
 
     #region Activate Account 
 
-    [HttpPost(AdminAccountApiEndpoints.Account.ActivateAccount)]
+    [HttpPost(AdminAccountEndpoints.Account.ActivateAccount)]
     [SwaggerOperation(Summary = "فعال کردن حساب  کاربر", Tags = new[] { "AdminAccount" })]
     [SwaggerResponse(201, "success : created")]
     [SwaggerResponse(404, "not-found")]
@@ -69,7 +69,7 @@ public class AdminAccountController : BaseAdminApiController
 
     #region DeActivate Account 
 
-    [HttpDelete(AdminAccountApiEndpoints.Account.DeActivateAccount)]
+    [HttpDelete(AdminAccountEndpoints.Account.DeActivateAccount)]
     [SwaggerOperation(Summary = "غیر فعال کردن حساب  کاربر", Tags = new[] { "AdminAccount" })]
     [SwaggerResponse(201, "success : created")]
     [SwaggerResponse(404, "not-found")]
