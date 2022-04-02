@@ -28,8 +28,8 @@ public class FilterProductsQueryHandler : IRequestHandler<FilterProductsQuery, R
         #region filter
 
         if (!string.IsNullOrEmpty(request.Filter.Search))
-            query = query.Where(s => EF.Functions.Like(s.Title, $"%{request.Filter.Search}%") ||
-             EF.Functions.Like(s.Code, $"%{request.Filter.Search}%"));
+            query = query.Where(s => s.Title.Contains(request.Filter.Search) ||
+             s.Code.Contains(request.Filter.Search));
 
         if (!string.IsNullOrEmpty(request.Filter.CategoryId))
             query = query.Where(s => s.CategoryId == request.Filter.CategoryId);

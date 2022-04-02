@@ -26,7 +26,7 @@ public class FilterArticlesQueryHandler : IRequestHandler<FilterArticlesQuery, R
         #region filter
 
         if (!string.IsNullOrEmpty(request.Filter.Title))
-            query = query.Where(s => EF.Functions.Like(s.Title, $"%{request.Filter.Title}%"));
+            query = query.Where(s => s.Title.Contains(request.Filter.Title));
 
         switch (request.Filter.SortDateOrder)
         {

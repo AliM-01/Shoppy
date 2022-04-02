@@ -34,7 +34,7 @@ public class FilterOrdersQueryHandler : IRequestHandler<FilterOrdersQuery, Respo
         if (!string.IsNullOrEmpty(request.Filter.UserNames))
             query = query.Where(s => EF.Functions.Like(s.UserId, $"%{request.Filter.UserNames}%") ||
              EF.Functions.Like(s.UserId, $"%{request.Filter.UserNames}%"));
-
+        // TODO
         switch (request.Filter.SortDateOrder)
         {
             case PagingDataSortCreationDateOrder.DES:

@@ -4,7 +4,6 @@ using _0_Framework.Application.Models.Paging;
 using _0_Framework.Infrastructure;
 using AM.Application.Contracts.Account.DTOs;
 using AM.Application.Contracts.Account.Queries;
-using Microsoft.EntityFrameworkCore;
 using MongoDB.Driver.Linq;
 
 namespace AM.Application.Account.QueryHandles;
@@ -32,11 +31,11 @@ public class FilterAccountsQueryHandler : IRequestHandler<FilterAccountsQuery, R
         #region filter
 
         if (!string.IsNullOrEmpty(request.Filter.FullName))
-            query = query.Where(s => EF.Functions.Like(s.FirstName, $"%{request.Filter.FullName}%")
-            || EF.Functions.Like(s.LastName, $"%{request.Filter.FullName}%"));
+            query = query.Where(s => s.FirstName.Contains(request.Filter.FullName)
+            || s.LastName.Contains(request.Filter.FullName));
 
         if (!string.IsNullOrEmpty(request.Filter.Email))
-            query = query.Where(s => EF.Functions.Like(s.Email, $"%{request.Filter.Email}%"));
+            query = query.Where(s => s.Email.Contains(request.Filter.Email));
 
         switch (request.Filter.SortDateOrder)
         {
