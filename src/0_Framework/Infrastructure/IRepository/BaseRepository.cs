@@ -55,6 +55,23 @@ public class BaseRepository<TDocument, TSettings> : IRepository<TDocument>
 
     #endregion
 
+    #region FullTextSearch
+
+    public async Task<List<TDocument>> FullTextSearch(Expression<Func<TDocument, object>> field, string filter, CancellationToken cancellationToken = default)
+    {
+        cancellationToken.ThrowIfCancellationRequested();
+
+        var keys = Builders<TDocument>.IndexKeys.Text(field);
+        await _collection.Indexes.CreateOneAsync(keys);
+
+        var queryFilter = Builders<TDocument>.Filter.Text(filter);
+
+        var res = await _collection.FindAsync(queryFilter);
+        return await res.ToListAsync();
+    }
+
+    #endregion
+
     #region Exists
 
     public async Task<bool> ExistsAsync(Expression<Func<TDocument, bool>> expression)

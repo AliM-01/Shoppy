@@ -18,6 +18,8 @@ public interface IRepository<TDocument>
 
     Task<TDocument> GetByFilter(FilterDefinition<TDocument> filter, CancellationToken cancellationToken = default);
 
+    Task<List<TDocument>> FullTextSearch(Expression<Func<TDocument, object>> field, string filter, CancellationToken cancellationToken = default);
+
     Task<List<TDocument>> GetManyByFilter(FilterDefinition<TDocument> filter, CancellationToken cancellationToken = default);
 
     Task<TDocument> GetByIdAsync(string id, CancellationToken cancellationToken = default);
