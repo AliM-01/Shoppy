@@ -32,9 +32,20 @@ public class FilterOrdersQueryHandler : IRequestHandler<FilterOrdersQuery, Respo
         #region filter
 
         if (!string.IsNullOrEmpty(request.Filter.UserNames))
-            query = query.Where(s => EF.Functions.Like(s.UserId, $"%{request.Filter.UserNames}%") ||
-             EF.Functions.Like(s.UserId, $"%{request.Filter.UserNames}%"));
-        // TODO
+        {
+            string serchTerm = request.Filter.UserNames.Trim();
+
+            var filterUserIds = _userManager.Users
+                .Where(s => s.FirstName.Contains(serchTerm) ||
+                    s.LastName.Contains(serchTerm) ||
+                    s.Email.Contains(serchTerm))
+                .Select(x => x.Id.ToString())
+                .ToList()
+                .ToHashSet();
+
+            query = query.Where(s => filterUserIds.Any(x => x == s.UserId));
+        }
+
         switch (request.Filter.SortDateOrder)
         {
             case PagingDataSortCreationDateOrder.DES:

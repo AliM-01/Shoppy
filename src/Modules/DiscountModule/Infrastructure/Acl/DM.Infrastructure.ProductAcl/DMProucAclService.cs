@@ -61,13 +61,6 @@ public class DMProucAclService : IDMProucAclService
 
     public async Task<HashSet<string>> FilterTitle(string filter)
     {
-        var products = await _productRepository.AsQueryable()
-           .Select(x => new
-           {
-               x.Id,
-               x.Title
-           }).ToListAsyncSafe();
-
         var ids = await _productRepository.AsQueryable()
                 .Where(s => s.Title.Contains(filter))
                 .Select(x => x.Id).ToListAsyncSafe();
