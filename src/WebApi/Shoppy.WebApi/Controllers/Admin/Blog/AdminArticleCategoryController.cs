@@ -1,7 +1,6 @@
 ﻿using BM.Application.Contracts.ArticleCategory.Commands;
 using BM.Application.Contracts.ArticleCategory.DTOs;
 using BM.Application.Contracts.ArticleCategory.Queries;
-using System.Collections.Generic;
 
 namespace Shoppy.WebApi.Controllers.Admin.Blog;
 

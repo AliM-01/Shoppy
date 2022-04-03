@@ -3,7 +3,6 @@ using Microsoft.AspNetCore.Authorization;
 using OM.Application.Contracts.Order.Commands;
 using OM.Application.Contracts.Order.DTOs;
 using OM.Application.Contracts.Order.Queries;
-using System.Collections.Generic;
 
 namespace Shoppy.WebApi.Controllers.Main.Order;
 

@@ -1,6 +1,5 @@
 ﻿using _01_Shoppy.Query.Models.Blog.ArticleCategory;
 using _01_Shoppy.Query.Queries.ArticleCategory;
-using System.Collections.Generic;
 
 namespace Shoppy.WebApi.Controllers.Main.Article;
 
