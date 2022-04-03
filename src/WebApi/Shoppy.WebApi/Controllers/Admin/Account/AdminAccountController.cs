@@ -1,4 +1,5 @@
-﻿using AM.Application.Contracts.Account.Commands;
+﻿using _0_Framework.Application.Wrappers;
+using AM.Application.Contracts.Account.Commands;
 using AM.Application.Contracts.Account.DTOs;
 using AM.Application.Contracts.Account.Queries;
 
@@ -12,6 +13,9 @@ public class AdminAccountController : BaseAdminApiController
     [HttpGet(AdminAccountEndpoints.Account.FilterAccounts)]
     [SwaggerOperation(Summary = "فیلتر  کاربران", Tags = new[] { "AdminAccount" })]
     [SwaggerResponse(200, "success")]
+    [SwaggerResponse(400, "error")]
+    [ProducesResponseType(typeof(Response<FilterAccountDto>), 200)]
+    [ProducesResponseType(typeof(Response<string>), 400)]
     public async Task<IActionResult> FilterAccounts([FromQuery] FilterAccountDto filter)
     {
         var res = await Mediator.Send(new FilterAccountsQuery(filter));
@@ -27,6 +31,8 @@ public class AdminAccountController : BaseAdminApiController
     [SwaggerOperation(Summary = "دریافت جزییات  کاربر", Tags = new[] { "AdminAccount" })]
     [SwaggerResponse(200, "success")]
     [SwaggerResponse(404, "not-found")]
+    [ProducesResponseType(typeof(Response<EditAccountDto>), 200)]
+    [ProducesResponseType(typeof(Response<string>), 404)]
     public async Task<IActionResult> GetAccountDetails([FromRoute] string id)
     {
         var res = await Mediator.Send(new GetAccountDetailsQuery(id));
@@ -43,6 +49,9 @@ public class AdminAccountController : BaseAdminApiController
     [SwaggerResponse(201, "success : created")]
     [SwaggerResponse(400, "error : title is duplicated")]
     [SwaggerResponse(404, "not-found")]
+    [ProducesResponseType(typeof(Response<string>), 200)]
+    [ProducesResponseType(typeof(Response<string>), 400)]
+    [ProducesResponseType(typeof(Response<string>), 404)]
     public async Task<IActionResult> EditAccount([FromForm] EditAccountDto editRequest)
     {
         var res = await Mediator.Send(new EditAccountCommand(editRequest));
@@ -56,8 +65,10 @@ public class AdminAccountController : BaseAdminApiController
 
     [HttpPost(AdminAccountEndpoints.Account.ActivateAccount)]
     [SwaggerOperation(Summary = "فعال کردن حساب  کاربر", Tags = new[] { "AdminAccount" })]
-    [SwaggerResponse(201, "success : created")]
+    [SwaggerResponse(200, "success")]
     [SwaggerResponse(404, "not-found")]
+    [ProducesResponseType(typeof(Response<string>), 200)]
+    [ProducesResponseType(typeof(Response<string>), 404)]
     public async Task<IActionResult> ActivateAccount([FromRoute] string id)
     {
         var res = await Mediator.Send(new ActivateAccountByAdminCommand(id));
@@ -71,8 +82,10 @@ public class AdminAccountController : BaseAdminApiController
 
     [HttpDelete(AdminAccountEndpoints.Account.DeActivateAccount)]
     [SwaggerOperation(Summary = "غیر فعال کردن حساب  کاربر", Tags = new[] { "AdminAccount" })]
-    [SwaggerResponse(201, "success : created")]
+    [SwaggerResponse(200, "success")]
     [SwaggerResponse(404, "not-found")]
+    [ProducesResponseType(typeof(Response<string>), 200)]
+    [ProducesResponseType(typeof(Response<string>), 404)]
     public async Task<IActionResult> DeActivateAccount([FromRoute] string id)
     {
         var res = await Mediator.Send(new DeActivateAccountCommand(id));

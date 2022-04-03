@@ -1,4 +1,5 @@
 ﻿global using _0_Framework.Api;
+global using _0_Framework.Application.Wrappers;
 global using Microsoft.AspNetCore.Mvc;
 global using Shoppy.WebApi.Endpoints.Admin;
 global using Shoppy.WebApi.Endpoints.Main;
