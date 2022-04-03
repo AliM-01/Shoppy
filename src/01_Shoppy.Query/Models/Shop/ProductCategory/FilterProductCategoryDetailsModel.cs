@@ -1,4 +1,5 @@
 ﻿using _0_Framework.Application.Models.Paging;
+using Microsoft.AspNetCore.Mvc.ModelBinding;
 
 namespace _01_Shoppy.Query.Models.ProductCategory;
 
@@ -12,6 +13,7 @@ public class FilterProductCategoryDetailsModel : BasePaging
 
     [Display(Name = "محصولات")]
     [JsonProperty("products")]
+    [BindNever]
     public IEnumerable<ProductQueryModel> Products { get; set; }
 
     #endregion

@@ -1,4 +1,5 @@
 ﻿using _0_Framework.Application.Models.Paging;
+using Microsoft.AspNetCore.Mvc.ModelBinding;
 
 namespace AM.Application.Contracts.Account.DTOs;
 
@@ -14,6 +15,7 @@ public class FilterAccountDto : BasePaging
     public string Email { get; set; }
 
     [JsonProperty("accounts")]
+    [BindNever]
     public IEnumerable<AccountDto> Accounts { get; set; }
 
     #endregion

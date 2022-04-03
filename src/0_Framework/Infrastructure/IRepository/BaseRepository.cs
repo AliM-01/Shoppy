@@ -57,7 +57,7 @@ public class BaseRepository<TDocument, TSettings> : IRepository<TDocument>
 
     #region FullTextSearch
 
-    public async Task<List<TDocument>> FullTextSearch(Expression<Func<TDocument, object>> field, string filter, CancellationToken cancellationToken = default)
+    public async Task<HashSet<string>> FullTextSearch(Expression<Func<TDocument, object>> field, string filter, CancellationToken cancellationToken = default)
     {
         cancellationToken.ThrowIfCancellationRequested();
 
@@ -67,7 +67,7 @@ public class BaseRepository<TDocument, TSettings> : IRepository<TDocument>
         var queryFilter = Builders<TDocument>.Filter.Text(filter);
 
         var res = await _collection.FindAsync(queryFilter);
-        return await res.ToListAsync();
+        return (await res.ToListAsync(cancellationToken)).Select(x => x.Id).ToHashSet();
     }
 
     #endregion

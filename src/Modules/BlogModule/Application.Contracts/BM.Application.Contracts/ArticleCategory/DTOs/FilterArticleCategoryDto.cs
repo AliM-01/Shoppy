@@ -1,4 +1,5 @@
 ﻿using _0_Framework.Application.Models.Paging;
+using Microsoft.AspNetCore.Mvc.ModelBinding;
 
 namespace BM.Application.Contracts.ArticleCategory.DTOs;
 
@@ -12,6 +13,7 @@ public class FilterArticleCategoryDto : BasePaging
     public string Title { get; set; }
 
     [JsonProperty("articleCategories")]
+    [BindNever]
     public IEnumerable<ArticleCategoryDto> ArticleCategories { get; set; }
 
     #endregion

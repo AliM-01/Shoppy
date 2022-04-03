@@ -1,5 +1,6 @@
 ﻿using _0_Framework.Application.Models.Paging;
 using IM.Application.Contracts.Inventory.Enums;
+using Microsoft.AspNetCore.Mvc.ModelBinding;
 using System.Collections.Generic;
 
 namespace IM.Application.Contracts.Inventory.DTOs;
@@ -8,9 +9,9 @@ public class FilterInventoryDto : BasePaging
 {
     #region Properties
 
-    [Display(Name = "شناسه محصول")]
-    [JsonProperty("productId")]
-    public string ProductId { get; set; }
+    [Display(Name = "عنوان محصول")]
+    [JsonProperty("productTitle")]
+    public string ProductTitle { get; set; }
 
     [Display(Name = "وضعیت")]
     [JsonConverter(typeof(Newtonsoft.Json.Converters.StringEnumConverter))]
@@ -18,6 +19,7 @@ public class FilterInventoryDto : BasePaging
     public FilterInventoryInStockStateEnum InStockState { get; set; } = FilterInventoryInStockStateEnum.All;
 
     [Display(Name = "انبار ها")]
+    [BindNever]
     [JsonProperty("inventories")]
     public IEnumerable<InventoryDto> Inventories { get; set; }
 

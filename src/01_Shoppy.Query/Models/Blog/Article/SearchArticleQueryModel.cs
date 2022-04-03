@@ -1,4 +1,5 @@
 ﻿using _0_Framework.Application.Models.Paging;
+using Microsoft.AspNetCore.Mvc.ModelBinding;
 
 namespace _01_Shoppy.Query.Models.Blog.Article;
 
@@ -16,6 +17,7 @@ public class SearchArticleQueryModel : BasePaging
 
     [Display(Name = "مقالات")]
     [JsonProperty("articles")]
+    [BindNever]
     public IEnumerable<ArticleQueryModel> Articles { get; set; }
     #endregion
 

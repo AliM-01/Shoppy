@@ -1,4 +1,5 @@
 ﻿using _0_Framework.Application.Models.Paging;
+using Microsoft.AspNetCore.Mvc.ModelBinding;
 using Newtonsoft.Json.Converters;
 using System.Collections.Generic;
 
@@ -20,6 +21,7 @@ public class FilterCommentDto : BasePaging
 
     [Display(Name = "کامنت ها")]
     [JsonProperty("comments")]
+    [BindNever]
     public IEnumerable<CommentDto> Comments { get; set; }
 
     #endregion

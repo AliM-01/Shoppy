@@ -1,4 +1,5 @@
 ﻿using _0_Framework.Application.Models.Paging;
+using Microsoft.AspNetCore.Mvc.ModelBinding;
 using System.Collections.Generic;
 
 namespace SM.Application.Contracts.Product.DTOs;
@@ -16,6 +17,7 @@ public class FilterProductDto : BasePaging
     public string CategoryId { get; set; }
 
     [JsonProperty("products")]
+    [BindNever]
     public IEnumerable<ProductDto> Products { get; set; }
 
     #endregion
@@ -42,6 +44,4 @@ public class FilterProductDto : BasePaging
     }
 
     #endregion
-
-
 }

@@ -1,4 +1,5 @@
-﻿using Newtonsoft.Json;
+﻿using Microsoft.AspNetCore.Mvc.ModelBinding;
+using Newtonsoft.Json;
 using System.ComponentModel.DataAnnotations;
 using System.Runtime.Serialization;
 
@@ -15,9 +16,11 @@ public class BasePaging
     public int PageId { get; set; }
 
     [JsonProperty("pageCount")]
+    [BindNever]
     public int PageCount { get; set; }
 
     [JsonProperty("allPagesCount")]
+    [BindNever]
     public int AllPagesCount { get; set; }
 
     [JsonProperty("startPage")]
@@ -33,6 +36,7 @@ public class BasePaging
     public int SkipPage { get; set; }
 
     [JsonProperty("shownPages")]
+    [BindNever]
     public int ShownPages { get; set; }
 
     [JsonProperty("sortCreationDateOrder")]

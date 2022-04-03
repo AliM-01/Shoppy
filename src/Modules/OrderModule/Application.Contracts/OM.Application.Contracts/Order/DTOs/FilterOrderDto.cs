@@ -1,4 +1,5 @@
 ﻿using _0_Framework.Application.Models.Paging;
+using Microsoft.AspNetCore.Mvc.ModelBinding;
 using OM.Application.Contracts.Order.Enums;
 
 namespace OM.Application.Contracts.Order.DTOs;
@@ -16,6 +17,7 @@ public class FilterOrderDto : BasePaging
     public FilterOrderPaymentStatus PaymentState { get; set; } = FilterOrderPaymentStatus.All;
 
     [JsonProperty("orders")]
+    [BindNever]
     public IEnumerable<OrderDto> Orders { get; set; }
 
     #endregion

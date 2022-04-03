@@ -61,13 +61,11 @@ public class IMProuctAclService : IIMProuctAclService
 
     public async Task<HashSet<string>> FilterTitle(string filter)
     {
-        var t = await _productRepository.FullTextSearch(x => x.Title, filter);
-
         var ids = await _productRepository.AsQueryable()
                 .Where(s => s.Title.Contains(filter))
                 .Select(x => x.Id).ToListAsyncSafe();
 
-        return ids.ToHashSet();
+        return await _productRepository.FullTextSearch(x => x.Title, filter);
     }
 
     #endregion
