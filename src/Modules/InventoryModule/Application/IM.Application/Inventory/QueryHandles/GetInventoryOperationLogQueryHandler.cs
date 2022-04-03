@@ -5,7 +5,7 @@ using IM.Domain.Inventory;
 using System.Linq;
 
 namespace IM.Application.Inventory.QueryHandles;
-public class GetInventoryOperationLogQueryHandler : IRequestHandler<GetInventoryOperationLogQuery, Response<GetInventoryOperationsDto>>
+public class GetInventoryOperationLogQueryHandler : IRequestHandler<GetInventoryOperationLogQuery, Response<InventoryLogsDto>>
 {
     #region Ctor
 
@@ -30,7 +30,7 @@ public class GetInventoryOperationLogQueryHandler : IRequestHandler<GetInventory
 
     #endregion
 
-    public async Task<Response<GetInventoryOperationsDto>> Handle(GetInventoryOperationLogQuery request, CancellationToken cancellationToken)
+    public async Task<Response<InventoryLogsDto>> Handle(GetInventoryOperationLogQuery request, CancellationToken cancellationToken)
     {
         var inventory = await _inventoryRepository.GetByIdAsync(request.Id);
 
@@ -48,10 +48,10 @@ public class GetInventoryOperationLogQueryHandler : IRequestHandler<GetInventory
         for (int i = 0; i < logs.Length; i++)
             logs[i].Operator = await _accountAcl.GetFullName(logs[i].OperatorId);
 
-        GetInventoryOperationsDto returnData = new(inventory.Id, inventory.ProductId, logs);
+        InventoryLogsDto returnData = new(inventory.Id, inventory.ProductId, logs);
 
         returnData.ProductTitle = await _productAcl.GetProductTitle(inventory.ProductId);
 
-        return new Response<GetInventoryOperationsDto>(returnData);
+        return new Response<InventoryLogsDto>(returnData);
     }
 }
