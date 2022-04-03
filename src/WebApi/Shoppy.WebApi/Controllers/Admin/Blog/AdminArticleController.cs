@@ -12,6 +12,7 @@ public class AdminArticleController : BaseAdminApiController
     [HttpGet(AdminBlogEndpoints.Article.FilterArticles)]
     [SwaggerOperation(Summary = "فیلتر  مقالات", Tags = new[] { "AdminArticle" })]
     [SwaggerResponse(200, "success")]
+    [ProducesResponseType(typeof(Response<FilterArticleDto>), 200)]
     public async Task<IActionResult> FilterArticles([FromQuery] FilterArticleDto filter, CancellationToken cancellationToken)
     {
         var res = await Mediator.Send(new FilterArticlesQuery(filter), cancellationToken);
@@ -27,6 +28,8 @@ public class AdminArticleController : BaseAdminApiController
     [SwaggerOperation(Summary = "دریافت جزییات  مقاله", Tags = new[] { "AdminArticle" })]
     [SwaggerResponse(200, "success")]
     [SwaggerResponse(404, "not-found")]
+    [ProducesResponseType(typeof(Response<EditArticleDto>), 200)]
+    [ProducesResponseType(typeof(Response<string>), 404)]
     public async Task<IActionResult> GetArticleDetails([FromRoute] string id, CancellationToken cancellationToken)
     {
         var res = await Mediator.Send(new GetArticleDetailsQuery(id), cancellationToken);
@@ -42,6 +45,8 @@ public class AdminArticleController : BaseAdminApiController
     [SwaggerOperation(Summary = "ایجاد  مقاله", Tags = new[] { "AdminArticle" })]
     [SwaggerResponse(201, "success : created")]
     [SwaggerResponse(400, "error : title is duplicated")]
+    [ProducesResponseType(typeof(Response<string>), 201)]
+    [ProducesResponseType(typeof(Response<string>), 400)]
     public async Task<IActionResult> CreateArticle([FromForm] CreateArticleDto createRequest)
     {
         var res = await Mediator.Send(new CreateArticleCommand(createRequest));
@@ -55,9 +60,12 @@ public class AdminArticleController : BaseAdminApiController
 
     [HttpPut(AdminBlogEndpoints.Article.EditArticle)]
     [SwaggerOperation(Summary = "ویرایش  مقاله", Tags = new[] { "AdminArticle" })]
-    [SwaggerResponse(201, "success : created")]
+    [SwaggerResponse(200, "success")]
     [SwaggerResponse(400, "error : title is duplicated")]
     [SwaggerResponse(404, "not-found")]
+    [ProducesResponseType(typeof(Response<string>), 200)]
+    [ProducesResponseType(typeof(Response<string>), 400)]
+    [ProducesResponseType(typeof(Response<string>), 404)]
     public async Task<IActionResult> EditArticle([FromForm] EditArticleDto editRequest)
     {
         var res = await Mediator.Send(new EditArticleCommand(editRequest));
@@ -71,8 +79,10 @@ public class AdminArticleController : BaseAdminApiController
 
     [HttpDelete(AdminBlogEndpoints.Article.DeleteArticle)]
     [SwaggerOperation(Summary = "حذف  مقاله", Tags = new[] { "AdminArticle" })]
-    [SwaggerResponse(201, "success : created")]
+    [SwaggerResponse(200, "success")]
     [SwaggerResponse(404, "not-found")]
+    [ProducesResponseType(typeof(Response<string>), 200)]
+    [ProducesResponseType(typeof(Response<string>), 404)]
     public async Task<IActionResult> DeleteArticle([FromRoute] string id)
     {
         var res = await Mediator.Send(new DeleteArticleCommand(id));
