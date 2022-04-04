@@ -16,6 +16,7 @@ public class ChartModel
 
     [Display(Name = "ماه")]
     [JsonProperty("month")]
+    [JsonIgnore]
     public int Month { get; set; }
 
     [Display(Name = "تعداد")]
