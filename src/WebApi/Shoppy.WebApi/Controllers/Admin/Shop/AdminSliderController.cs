@@ -13,6 +13,8 @@ public class AdminSliderController : BaseAdminApiController
     [SwaggerOperation(Summary = "دریافت لیست اسلایدر ها", Tags = new[] { "AdminSlider" })]
     [SwaggerResponse(200, "success")]
     [SwaggerResponse(404, "not-found")]
+    [ProducesResponseType(typeof(Response<List<SliderDto>>), 200)]
+    [ProducesResponseType(typeof(Response<string>), 404)]
     public async Task<IActionResult> GetSlidersList()
     {
         var res = await Mediator.Send(new GetSlidersListQuery());
@@ -28,6 +30,8 @@ public class AdminSliderController : BaseAdminApiController
     [SwaggerOperation(Summary = "دریافت جزییات اسلایدر", Tags = new[] { "AdminSlider" })]
     [SwaggerResponse(200, "success")]
     [SwaggerResponse(404, "not-found")]
+    [ProducesResponseType(typeof(Response<EditSliderDto>), 200)]
+    [ProducesResponseType(typeof(Response<string>), 404)]
     public async Task<IActionResult> GetSliderDetails([FromRoute] string id)
     {
         var res = await Mediator.Send(new GetSliderDetailsQuery(id));
@@ -42,6 +46,9 @@ public class AdminSliderController : BaseAdminApiController
     [HttpPost(AdminShopEndpoints.Slider.CreateSlider)]
     [SwaggerOperation(Summary = "ایجاد اسلایدر", Tags = new[] { "AdminSlider" })]
     [SwaggerResponse(201, "success : created")]
+    [SwaggerResponse(404, "not-found")]
+    [ProducesResponseType(typeof(Response<string>), 201)]
+    [ProducesResponseType(typeof(Response<string>), 404)]
     public async Task<IActionResult> CreateSlider([FromForm] CreateSliderDto createRequest)
     {
         var res = await Mediator.Send(new CreateSliderCommand(createRequest));
@@ -57,6 +64,8 @@ public class AdminSliderController : BaseAdminApiController
     [SwaggerOperation(Summary = "ویرایش اسلایدر", Tags = new[] { "AdminSlider" })]
     [SwaggerResponse(200, "success")]
     [SwaggerResponse(404, "not-found")]
+    [ProducesResponseType(typeof(Response<string>), 200)]
+    [ProducesResponseType(typeof(Response<string>), 404)]
     public async Task<IActionResult> EditSlider([FromForm] EditSliderDto editRequest)
     {
         var res = await Mediator.Send(new EditSliderCommand(editRequest));
@@ -72,6 +81,8 @@ public class AdminSliderController : BaseAdminApiController
     [SwaggerOperation(Summary = "غیر فعال کردن اسلایدر", Tags = new[] { "AdminSlider" })]
     [SwaggerResponse(200, "success")]
     [SwaggerResponse(404, "not-found")]
+    [ProducesResponseType(typeof(Response<string>), 200)]
+    [ProducesResponseType(typeof(Response<string>), 404)]
     public async Task<IActionResult> RemoveSlider([FromRoute] string id)
     {
         var res = await Mediator.Send(new RemoveSliderCommand(id));
@@ -87,6 +98,8 @@ public class AdminSliderController : BaseAdminApiController
     [SwaggerOperation(Summary = "فعال کردن اسلایدر", Tags = new[] { "AdminSlider" })]
     [SwaggerResponse(200, "success")]
     [SwaggerResponse(404, "not-found")]
+    [ProducesResponseType(typeof(Response<string>), 200)]
+    [ProducesResponseType(typeof(Response<string>), 404)]
     public async Task<IActionResult> RestoreSlider([FromRoute] string id)
     {
         var res = await Mediator.Send(new RestoreSliderCommand(id));

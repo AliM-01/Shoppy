@@ -5,7 +5,6 @@ global using _0_Framework.Infrastructure.IRepository;
 global using Ardalis.GuardClauses;
 global using AutoMapper;
 global using CM.Application.Contracts.Comment.Commands;
-global using CM.Infrastructure.Persistence.Context;
 global using MediatR;
 global using MongoDB.Driver;
 global using System.Threading;

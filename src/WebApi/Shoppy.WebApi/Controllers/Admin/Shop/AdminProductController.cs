@@ -14,6 +14,9 @@ public class AdminProductController : BaseAdminApiController
     [HttpGet(AdminShopEndpoints.Product.FilterProducts)]
     [SwaggerOperation(Summary = "فیلتر محصولات", Tags = new[] { "AdminProduct" })]
     [SwaggerResponse(200, "success")]
+    [SwaggerResponse(404, "not-found")]
+    [ProducesResponseType(typeof(Response<FilterProductDto>), 200)]
+    [ProducesResponseType(typeof(Response<string>), 404)]
     public async Task<IActionResult> FilterProducts([FromQuery] FilterProductDto filter)
     {
         var res = await Mediator.Send(new FilterProductsQuery(filter));
@@ -29,6 +32,8 @@ public class AdminProductController : BaseAdminApiController
     [SwaggerOperation(Summary = "چک کردن وجود شناسه محصول", Tags = new[] { "AdminProduct" })]
     [SwaggerResponse(200, "success")]
     [SwaggerResponse(404, "not-found")]
+    [ProducesResponseType(typeof(Response<ExistsProductIdResponseDto>), 200)]
+    [ProducesResponseType(typeof(Response<string>), 404)]
     public async Task<IActionResult> ExistsProductid([FromRoute] string id)
     {
         var res = await Mediator.Send(new ExistsProductIdQuery(id));
@@ -44,6 +49,8 @@ public class AdminProductController : BaseAdminApiController
     [SwaggerOperation(Summary = "دریافت جزییات محصول", Tags = new[] { "AdminProduct" })]
     [SwaggerResponse(200, "success")]
     [SwaggerResponse(404, "not-found")]
+    [ProducesResponseType(typeof(Response<EditProductDto>), 200)]
+    [ProducesResponseType(typeof(Response<string>), 404)]
     public async Task<IActionResult> GetProductDetails([FromRoute] string id)
     {
         var res = await Mediator.Send(new GetProductDetailsQuery(id));
@@ -59,6 +66,8 @@ public class AdminProductController : BaseAdminApiController
     [SwaggerOperation(Summary = "ایجاد محصول", Tags = new[] { "AdminProduct" })]
     [SwaggerResponse(201, "success : created")]
     [SwaggerResponse(400, "error : title is duplicated")]
+    [ProducesResponseType(typeof(Response<CreateProductResponseDto>), 201)]
+    [ProducesResponseType(typeof(Response<string>), 404)]
     public async Task<IActionResult> CreateProduct([FromForm] CreateProductDto createRequest)
     {
         var res = await Mediator.Send(new CreateProductCommand(createRequest));
@@ -81,6 +90,9 @@ public class AdminProductController : BaseAdminApiController
     [SwaggerResponse(200, "success")]
     [SwaggerResponse(400, "error : title is duplicated")]
     [SwaggerResponse(404, "not-found")]
+    [ProducesResponseType(typeof(Response<string>), 200)]
+    [ProducesResponseType(typeof(Response<string>), 400)]
+    [ProducesResponseType(typeof(Response<string>), 404)]
     public async Task<IActionResult> EditProduct([FromForm] EditProductDto editRequest)
     {
         var res = await Mediator.Send(new EditProductCommand(editRequest));
@@ -96,6 +108,8 @@ public class AdminProductController : BaseAdminApiController
     [SwaggerOperation(Summary = "حذف محصول", Tags = new[] { "AdminProduct" })]
     [SwaggerResponse(200, "success")]
     [SwaggerResponse(404, "not-found")]
+    [ProducesResponseType(typeof(Response<string>), 200)]
+    [ProducesResponseType(typeof(Response<string>), 404)]
     public async Task<IActionResult> DeleteProduct([FromRoute] string id)
     {
         var res = await Mediator.Send(new DeleteProductCommand(id));

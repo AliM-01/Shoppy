@@ -1,5 +1,4 @@
 ﻿using _01_Shoppy.Query.Models.Comment;
-using AutoMapper;
 
 namespace _01_Shoppy.Query.Helpers.Comment;
 

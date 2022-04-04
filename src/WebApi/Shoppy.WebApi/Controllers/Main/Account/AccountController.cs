@@ -36,8 +36,10 @@ public class AccountController : BaseApiController
     [AllowAnonymous]
     [HttpPost(MainAccountEndpoints.Account.Register)]
     [SwaggerOperation(Summary = "ثبت نام", Tags = new[] { "Account" })]
-    [SwaggerResponse(200, "success")]
+    [SwaggerResponse(201, "success : created")]
     [SwaggerResponse(400, "duplicate email")]
+    [ProducesResponseType(typeof(Response<string>), 201)]
+    [ProducesResponseType(typeof(Response<string>), 400)]
     public async Task<IActionResult> Register([FromForm] RegisterAccountDto register, CancellationToken cancellationToken)
     {
         cancellationToken.ThrowIfCancellationRequested();
@@ -56,11 +58,13 @@ public class AccountController : BaseApiController
     [SwaggerOperation(Summary = "ورود به حساب", Tags = new[] { "Account" })]
     [SwaggerResponse(200, "success")]
     [SwaggerResponse(400, "not active")]
+    [ProducesResponseType(typeof(Response<AuthenticateUserResponseDto>), 200)]
+    [ProducesResponseType(typeof(Response<string>), 400)]
     public async Task<IActionResult> Login([FromForm] AuthenticateUserRequestDto login, CancellationToken cancellationToken)
     {
         cancellationToken.ThrowIfCancellationRequested();
 
-        var res = await Mediator.Send(new AuthenticateUserCommand(login));
+        var res = await Mediator.Send(new AuthenticateUserCommand(login), cancellationToken);
 
         return JsonApiResult.Success(res);
     }
@@ -74,6 +78,8 @@ public class AccountController : BaseApiController
     [SwaggerOperation(Summary = "refresh token", Tags = new[] { "Account" })]
     [SwaggerResponse(200, "success")]
     [SwaggerResponse(404, "not found")]
+    [ProducesResponseType(typeof(Response<AuthenticateUserResponseDto>), 200)]
+    [ProducesResponseType(typeof(Response<string>), 404)]
     public async Task<IActionResult> RefreshToken([FromForm] RevokeRefreshTokenRequestDto token, CancellationToken cancellationToken)
     {
         cancellationToken.ThrowIfCancellationRequested();
@@ -92,6 +98,8 @@ public class AccountController : BaseApiController
     [SwaggerOperation(Summary = "فراموشی رمز عبور", Tags = new[] { "Account" })]
     [SwaggerResponse(200, "success")]
     [SwaggerResponse(404, "not-found")]
+    [ProducesResponseType(typeof(Response<string>), 200)]
+    [ProducesResponseType(typeof(Response<string>), 404)]
     public async Task<IActionResult> ForgotPassword([FromForm] ForgotPasswordDto forgotPassword)
     {
         var res = await Mediator.Send(new ForgotPasswordCommand(forgotPassword));
@@ -108,6 +116,8 @@ public class AccountController : BaseApiController
     [SwaggerOperation(Summary = "خروج از حساب", Tags = new[] { "Account" })]
     [SwaggerResponse(200, "success")]
     [SwaggerResponse(404, "not-found")]
+    [ProducesResponseType(typeof(Response<string>), 200)]
+    [ProducesResponseType(typeof(Response<string>), 404)]
     public async Task<IActionResult> Logout([FromForm] RevokeRefreshTokenRequestDto token)
     {
         var claimsIdentity = this.User.Identity as ClaimsIdentity;
@@ -127,6 +137,8 @@ public class AccountController : BaseApiController
     [SwaggerOperation(Summary = "Is Authenticated", Tags = new[] { "Account" })]
     [SwaggerResponse(200, "success")]
     [SwaggerResponse(401, "un-authorized")]
+    [ProducesResponseType(typeof(Response<string>), 200)]
+    [ProducesResponseType(typeof(Response<string>), 401)]
     public IActionResult IsAuthenticated(CancellationToken cancellationToken)
     {
         cancellationToken.ThrowIfCancellationRequested();
@@ -146,6 +158,8 @@ public class AccountController : BaseApiController
     [SwaggerOperation(Summary = "Is InRole", Tags = new[] { "Account" })]
     [SwaggerResponse(200, "success")]
     [SwaggerResponse(401, "un-authorized")]
+    [ProducesResponseType(typeof(Response<string>), 200)]
+    [ProducesResponseType(typeof(Response<string>), 401)]
     public async Task<IActionResult> IsInRole([FromQuery] string[] roles, CancellationToken cancellationToken)
     {
         cancellationToken.ThrowIfCancellationRequested();
@@ -174,6 +188,8 @@ public class AccountController : BaseApiController
     [SwaggerOperation(Summary = "Get CurrentUser", Tags = new[] { "Account" })]
     [SwaggerResponse(200, "success")]
     [SwaggerResponse(401, "un-authorized")]
+    [ProducesResponseType(typeof(Response<string>), 200)]
+    [ProducesResponseType(typeof(Response<string>), 401)]
     public async Task<IActionResult> GetCurrentUser(CancellationToken cancellationToken)
     {
         cancellationToken.ThrowIfCancellationRequested();

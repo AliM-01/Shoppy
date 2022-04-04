@@ -1,8 +1,8 @@
 ﻿namespace IM.Application.Contracts.Inventory.DTOs;
 
-public class GetInventoryOperationsDto
+public class InventoryLogsDto
 {
-    public GetInventoryOperationsDto(string inventoryId, string productId, InventoryOperationDto[] operations)
+    public InventoryLogsDto(string inventoryId, string productId, InventoryOperationDto[] operations)
     {
         InventoryId = inventoryId;
         ProductId = productId;

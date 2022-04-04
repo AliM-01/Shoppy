@@ -1,6 +1,5 @@
 ﻿using _0_Framework.Infrastructure;
 using _01_Shoppy.Query.Models.Slider;
-using AutoMapper;
 
 namespace _01_Shoppy.Query.Queries.Slider;
 
