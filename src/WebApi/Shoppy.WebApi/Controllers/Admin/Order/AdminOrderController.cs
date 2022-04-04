@@ -34,7 +34,9 @@ public class AdminOrderController : BaseAdminApiController
     [ProducesResponseType(typeof(Response<string>), 404)]
     public async Task<IActionResult> GetItems([FromRoute] string orderId)
     {
-        var res = await Mediator.Send(new GetInventoryItemsQuery(orderId, User.GetUserId(), true));
+        var res = await Mediator.Send(new GetInventoryItemsQuery(orderId,
+                                                                 User.GetUserId(),
+                                                                 true));
 
         return JsonApiResult.Success(res);
     }
@@ -51,7 +53,9 @@ public class AdminOrderController : BaseAdminApiController
     [ProducesResponseType(typeof(Response<string>), 404)]
     public async Task<IActionResult> CancelOrder([FromRoute] string orderId)
     {
-        var res = await Mediator.Send(new CancelOrderCommand(orderId, User.GetUserId(), true));
+        var res = await Mediator.Send(new CancelOrderCommand(orderId,
+                                                             User.GetUserId(),
+                                                             true));
 
         return JsonApiResult.Success(res);
     }
