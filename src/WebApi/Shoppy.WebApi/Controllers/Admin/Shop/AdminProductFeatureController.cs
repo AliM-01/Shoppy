@@ -12,6 +12,9 @@ public class AdminProductFeatureController : BaseAdminApiController
     [HttpGet(AdminShopEndpoints.ProductFeature.FilterProductFeatures)]
     [SwaggerOperation(Summary = "فیلتر ویژگی محصولات", Tags = new[] { "AdminProductFeature" })]
     [SwaggerResponse(200, "success")]
+    [SwaggerResponse(404, "not-found")]
+    [ProducesResponseType(typeof(Response<FilterProductFeatureDto>), 200)]
+    [ProducesResponseType(typeof(Response<string>), 404)]
     public async Task<IActionResult> FilterProductFeatures([FromQuery] FilterProductFeatureDto filter)
     {
         var res = await Mediator.Send(new FilterProductFeaturesQuery(filter));
@@ -27,6 +30,8 @@ public class AdminProductFeatureController : BaseAdminApiController
     [SwaggerOperation(Summary = "دریافت جزییات ویژگی محصول", Tags = new[] { "AdminProductFeature" })]
     [SwaggerResponse(200, "success")]
     [SwaggerResponse(404, "not-found")]
+    [ProducesResponseType(typeof(Response<EditProductFeatureDto>), 200)]
+    [ProducesResponseType(typeof(Response<string>), 404)]
     public async Task<IActionResult> GetProductFeatureDetails([FromRoute] string id)
     {
         var res = await Mediator.Send(new GetProductFeatureDetailsQuery(id));
@@ -42,6 +47,8 @@ public class AdminProductFeatureController : BaseAdminApiController
     [SwaggerOperation(Summary = "ایجاد ویژگی محصول", Tags = new[] { "AdminProductFeature" })]
     [SwaggerResponse(201, "success : created")]
     [SwaggerResponse(400, "error : title is duplicated")]
+    [ProducesResponseType(typeof(Response<string>), 201)]
+    [ProducesResponseType(typeof(Response<string>), 400)]
     public async Task<IActionResult> CreateProductFeature([FromForm] CreateProductFeatureDto createRequest)
     {
         var res = await Mediator.Send(new CreateProductFeatureCommand(createRequest));
@@ -58,6 +65,9 @@ public class AdminProductFeatureController : BaseAdminApiController
     [SwaggerResponse(200, "success")]
     [SwaggerResponse(400, "error : title is duplicated")]
     [SwaggerResponse(404, "not-found")]
+    [ProducesResponseType(typeof(Response<string>), 200)]
+    [ProducesResponseType(typeof(Response<string>), 400)]
+    [ProducesResponseType(typeof(Response<string>), 404)]
     public async Task<IActionResult> EditProductFeature([FromForm] EditProductFeatureDto editRequest)
     {
         var res = await Mediator.Send(new EditProductFeatureCommand(editRequest));
@@ -73,6 +83,8 @@ public class AdminProductFeatureController : BaseAdminApiController
     [SwaggerOperation(Summary = "حذف ویژگی محصول", Tags = new[] { "AdminProductFeature" })]
     [SwaggerResponse(200, "success")]
     [SwaggerResponse(404, "not-found")]
+    [ProducesResponseType(typeof(Response<string>), 200)]
+    [ProducesResponseType(typeof(Response<string>), 404)]
     public async Task<IActionResult> DeleteProductFeature([FromRoute] string id)
     {
         var res = await Mediator.Send(new DeleteProductFeatureCommand(id));

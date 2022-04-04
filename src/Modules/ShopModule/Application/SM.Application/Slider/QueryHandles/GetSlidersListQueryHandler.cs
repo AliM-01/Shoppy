@@ -22,7 +22,7 @@ public class GetSlidersListQueryHandler : IRequestHandler<GetSlidersListQuery, R
 
     public async Task<Response<IEnumerable<SliderDto>>> Handle(GetSlidersListQuery request, CancellationToken cancellationToken)
     {
-        var query = _sliderRepository.AsQueryable();
+        var query = _sliderRepository.AsQueryable(false, cancellationToken);
 
         var sliders = (await query
             .OrderByDescending(p => p.LastUpdateDate)
