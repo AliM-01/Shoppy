@@ -48,7 +48,7 @@ public class SearchQueryHandler : IRequestHandler<SearchQuery, Response<SearchPr
 
         var inventoryIds = inventories.Select(x => x.ProductId).ToArray();
 
-        query = query.Where(p => inventoryIds.Contains(p.Id));
+        query = query.Where(x => inventoryIds.Contains(x.Id));
 
         #endregion
 
@@ -97,7 +97,7 @@ public class SearchQueryHandler : IRequestHandler<SearchQuery, Response<SearchPr
             var titleIds = await _productRepository.FullTextSearch(x => x.Title,
                 request.Search.Phrase, cancellationToken);
 
-            query = query.Where(x => titleIds.Contains(x.CategoryId));
+            query = query.Where(x => titleIds.Contains(x.Id));
         }
 
         #endregion
