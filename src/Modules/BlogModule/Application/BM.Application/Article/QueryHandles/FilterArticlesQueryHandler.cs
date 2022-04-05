@@ -26,7 +26,13 @@ public class FilterArticlesQueryHandler : IRequestHandler<FilterArticlesQuery, R
         #region filter
 
         if (!string.IsNullOrEmpty(request.Filter.Title))
-            query = query.Where(s => s.Title.Contains(request.Filter.Title));
+        {
+            var ids = await _articleRepository.FullTextSearch(x => x.Title,
+                request.Filter.Title, cancellationToken);
+
+            query.Where(x => ids.Contains(x.Id));
+
+        }
 
         switch (request.Filter.SortDateOrder)
         {
