@@ -1,5 +1,4 @@
 ﻿using _0_Framework.Application.Exceptions;
-using _0_Framework.Infrastructure;
 using _0_Framework.Infrastructure.IRepository;
 using Ardalis.GuardClauses;
 using IM.Application.Contracts.Sevices;
@@ -61,10 +60,6 @@ public class IMProuctAclService : IIMProuctAclService
 
     public async Task<HashSet<string>> FilterTitle(string filter)
     {
-        var ids = await _productRepository.AsQueryable()
-                .Where(s => s.Title.Contains(filter))
-                .Select(x => x.Id).ToListAsyncSafe();
-
         return await _productRepository.FullTextSearch(x => x.Title, filter);
     }
 

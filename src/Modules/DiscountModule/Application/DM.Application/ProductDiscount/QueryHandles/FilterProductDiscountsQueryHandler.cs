@@ -29,9 +29,6 @@ public class FilterProductDiscountsQueryHandler : IRequestHandler<FilterProductD
 
         #region filter
 
-        if (!string.IsNullOrEmpty(request.Filter.ProductId))
-            query = query.Where(s => s.ProductId == request.Filter.ProductId);
-
         if (!string.IsNullOrEmpty(request.Filter.ProductTitle))
         {
             var filteredProductIds = await _productAcl.FilterTitle(request.Filter.ProductTitle);
