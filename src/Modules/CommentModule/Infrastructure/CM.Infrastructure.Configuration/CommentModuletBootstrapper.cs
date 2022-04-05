@@ -1,6 +1,7 @@
 ﻿using _0_Framework.Infrastructure.IRepository;
 using CM.Application.Contracts.Sevices;
 using CM.Domain.Comment;
+using CM.Infrastructure.ArticleAcl;
 using CM.Infrastructure.Persistence.Context;
 using CM.Infrastructure.Persistence.Settings;
 using CM.Infrastructure.ProductAcl;
@@ -19,6 +20,7 @@ public static class CommentModuletBootstrapper
 
         services.AddScoped<IRepository<Comment>, BaseRepository<Comment, CommentDbSettings>>();
         services.AddScoped<ICMProductAcl, CMProuctAclService>();
+        services.AddScoped<ICMArticleAcl, CMArticleAclService>();
 
         services.AddMediatR(typeof(CommentModuletBootstrapper).Assembly);
 
