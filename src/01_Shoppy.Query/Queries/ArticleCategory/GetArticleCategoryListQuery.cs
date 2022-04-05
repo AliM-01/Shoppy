@@ -1,5 +1,4 @@
-﻿using _0_Framework.Infrastructure;
-using _01_Shoppy.Query.Models.Blog.ArticleCategory;
+﻿using _01_Shoppy.Query.Models.Blog.ArticleCategory;
 
 namespace _01_Shoppy.Query.Queries.ArticleCategory;
 
@@ -21,15 +20,15 @@ public class GetArticleCategoryListQueryHandler : IRequestHandler<GetArticleCate
 
     #endregion
 
-    public async Task<Response<IEnumerable<ArticleCategoryQueryModel>>> Handle(GetArticleCategoryListQuery request, CancellationToken cancellationToken)
+    public Task<Response<IEnumerable<ArticleCategoryQueryModel>>> Handle(GetArticleCategoryListQuery request, CancellationToken cancellationToken)
     {
-        var articleCategories = (await
-            _articleCategoryRepository.AsQueryable(cancellationToken: cancellationToken)
-            .ToListAsyncSafe()
-            )
+        var articleCategories =
+            _articleCategoryRepository
+            .AsQueryable(cancellationToken: cancellationToken)
+            .ToList()
             .Select(articleCategory => _mapper.Map(articleCategory, new ArticleCategoryQueryModel()))
             .ToList();
 
-        return new Response<IEnumerable<ArticleCategoryQueryModel>>(articleCategories);
+        return Task.FromResult(new Response<IEnumerable<ArticleCategoryQueryModel>>(articleCategories));
     }
 }

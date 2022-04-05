@@ -1,5 +1,4 @@
-﻿using _0_Framework.Infrastructure;
-using _01_Shoppy.Query.Models.ProductCategory;
+﻿using _01_Shoppy.Query.Models.ProductCategory;
 
 namespace _01_Shoppy.Query.Queries.ProductCategory;
 
@@ -20,12 +19,14 @@ public class GetProductCategoriesQueryHandler : IRequestHandler<GetProductCatego
 
     #endregion
 
-    public async Task<Response<IEnumerable<ProductCategoryQueryModel>>> Handle(GetProductCategoriesQuery request, CancellationToken cancellationToken)
+    public Task<Response<IEnumerable<ProductCategoryQueryModel>>> Handle(GetProductCategoriesQuery request, CancellationToken cancellationToken)
     {
-        var productCategories = (await _productCategoryRepository.AsQueryable().ToListAsyncSafe())
-             .Select(productCategory => _mapper.Map(productCategory, new ProductCategoryQueryModel()))
-             .ToList();
+        var productCategories = _productCategoryRepository.AsQueryable()
+                                                          .ToList()
+                                                          .Select(c =>
+                                                            _mapper.Map(c, new ProductCategoryQueryModel()))
+                                                          .ToList();
 
-        return new Response<IEnumerable<ProductCategoryQueryModel>>(productCategories);
+        return Task.FromResult(new Response<IEnumerable<ProductCategoryQueryModel>>(productCategories));
     }
 }

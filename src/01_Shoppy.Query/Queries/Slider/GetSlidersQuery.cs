@@ -1,5 +1,4 @@
-﻿using _0_Framework.Infrastructure;
-using _01_Shoppy.Query.Models.Slider;
+﻿using _01_Shoppy.Query.Models.Slider;
 
 namespace _01_Shoppy.Query.Queries.Slider;
 
@@ -20,12 +19,13 @@ public class GetSlidersQueryHandler : IRequestHandler<GetSlidersQuery, Response<
 
     #endregion
 
-    public async Task<Response<IEnumerable<SliderQueryModel>>> Handle(GetSlidersQuery request, CancellationToken cancellationToken)
+    public Task<Response<IEnumerable<SliderQueryModel>>> Handle(GetSlidersQuery request, CancellationToken cancellationToken)
     {
-        var sliders = (await _sliderRepository.AsQueryable().ToListAsyncSafe())
-             .Select(slider => _mapper.Map(slider, new SliderQueryModel()))
-             .ToList();
+        var sliders = _sliderRepository.AsQueryable()
+                                        .ToList()
+                                        .Select(slider => _mapper.Map(slider, new SliderQueryModel()))
+                                        .ToList();
 
-        return new Response<IEnumerable<SliderQueryModel>>(sliders);
+        return Task.FromResult(new Response<IEnumerable<SliderQueryModel>>(sliders));
     }
 }
