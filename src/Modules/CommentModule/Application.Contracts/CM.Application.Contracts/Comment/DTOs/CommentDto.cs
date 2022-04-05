@@ -19,7 +19,11 @@ public class CommentDto
 
     [Display(Name = "نوع")]
     [JsonProperty("type")]
-    public string Type { get; set; }
+    public string TypeTitle { get; set; }
+
+    [Display(Name = "نوع")]
+    [JsonIgnore]
+    public CommentType Type { get; set; }
 
     [Display(Name = "وضعیت")]
     [JsonProperty("state")]

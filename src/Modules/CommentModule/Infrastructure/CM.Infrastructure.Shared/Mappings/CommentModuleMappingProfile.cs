@@ -19,7 +19,7 @@ public class CommentModuleMappingProfile : Profile
                 opt => opt.MapFrom(src => src.CreationDate.ToShamsi()))
             .ForMember(dest => dest.State,
                 opt => opt.MapFrom(src => src.State.GetEnumDisplayName()))
-            .ForMember(dest => dest.Type,
+            .ForMember(dest => dest.TypeTitle,
                 opt => opt.MapFrom(src => src.Type.GetEnumDisplayName())).ReverseMap();
 
         #endregion
