@@ -36,10 +36,10 @@ public class GetRecordCommentsByIdQueryHandler : IRequestHandler<GetRecordCommen
 
         for (int i = 0; i < comments.Count; i++)
         {
-            var replies = (await
-                _commentRepository.AsQueryable().Where(x => x.ParentId == comments[i].Id.ToString())
-                .ToListAsyncSafe()
-                )
+            var replies = _commentRepository
+                .AsQueryable()
+                .Where(x => x.ParentId == comments[i].Id.ToString())
+                .ToList()
                 .MapComments(_mapper)
                 .ToArray();
 

@@ -1,5 +1,4 @@
-﻿using _0_Framework.Infrastructure;
-using _01_Shoppy.Query.Helpers.Product;
+﻿using _01_Shoppy.Query.Helpers.Product;
 using DM.Domain.ProductDiscount;
 
 namespace _01_Shoppy.Query.Queries.Product;
@@ -27,24 +26,25 @@ public class GetHotestDiscountProductsQueryHandler : IRequestHandler<GetHotestDi
 
     #endregion
 
-    public async Task<Response<List<ProductQueryModel>>> Handle(GetHotestDiscountProductsQuery request, CancellationToken cancellationToken)
+    public Task<Response<List<ProductQueryModel>>> Handle(GetHotestDiscountProductsQuery request, CancellationToken cancellationToken)
     {
-        List<string> hotDiscountRateIds = (await _productDiscount
+        List<string> hotDiscountRateIds = _productDiscount
             .AsQueryable()
             .Where(x => x.StartDate < DateTime.Now && x.EndDate > DateTime.Now)
             .Where(x => x.Rate >= 25)
             .Take(6)
-            .ToListAsyncSafe())
-            .Select(x => x.ProductId).ToList();
+            .ToList()
+            .Select(x => x.ProductId)
+            .ToList();
 
-        var products = (await _productRepository.AsQueryable()
-               .Where(x => hotDiscountRateIds.Contains(x.Id))
-               .OrderByDescending(x => x.LastUpdateDate)
-               .Take(6)
-               .ToListAsyncSafe())
-               .Select(x => _productHelper.MapProducts<ProductQueryModel>(x, true).Result)
-               .ToList(); ;
+        var products = _productRepository.AsQueryable()
+                                         .Where(x => hotDiscountRateIds.Contains(x.Id))
+                                         .OrderByDescending(x => x.LastUpdateDate)
+                                         .Take(6)
+                                         .ToList()
+                                         .Select(x => _productHelper.MapProducts<ProductQueryModel>(x, true).Result)
+                                         .ToList(); ;
 
-        return new Response<List<ProductQueryModel>>(products);
+        return Task.FromResult(new Response<List<ProductQueryModel>>(products));
     }
 }

@@ -1,5 +1,4 @@
-﻿using _0_Framework.Infrastructure;
-using _01_Shoppy.Query.Helpers.Product;
+﻿using _01_Shoppy.Query.Helpers.Product;
 
 namespace _01_Shoppy.Query.Queries.Product;
 
@@ -23,15 +22,15 @@ public class GetLatestProductsQueryHandler : IRequestHandler<GetLatestProductsQu
 
     #endregion
 
-    public async Task<Response<List<ProductQueryModel>>> Handle(GetLatestProductsQuery request, CancellationToken cancellationToken)
+    public Task<Response<List<ProductQueryModel>>> Handle(GetLatestProductsQuery request, CancellationToken cancellationToken)
     {
-        var latestProducts = (await _productRepository.AsQueryable(cancellationToken: cancellationToken)
-               .OrderByDescending(x => x.CreationDate)
-               .Take(6)
-               .ToListAsyncSafe())
-               .Select(x => _productHelper.MapProducts<ProductQueryModel>(x).Result)
-               .ToList();
+        var latestProducts = _productRepository.AsQueryable(cancellationToken: cancellationToken)
+                                                .OrderByDescending(x => x.CreationDate)
+                                                .Take(6)
+                                                .ToList()
+                                                .Select(x => _productHelper.MapProducts<ProductQueryModel>(x).Result)
+                                                .ToList();
 
-        return new Response<List<ProductQueryModel>>(latestProducts);
+        return Task.FromResult(new Response<List<ProductQueryModel>>(latestProducts));
     }
 }

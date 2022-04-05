@@ -53,8 +53,10 @@ public class SearchArticleQueryHandler : IRequestHandler<SearchArticleQuery, Res
 
         if (!string.IsNullOrEmpty(request.Search.Phrase))
         {
-            query = query.Where(s => s.Title.Contains(request.Search.Phrase)
-            || s.Summary.Contains(request.Search.Phrase) || s.MetaKeywords.Contains(request.Search.Phrase));
+            var titleIds = await _articleRepository.FullTextSearch(x => x.Title,
+                request.Search.Phrase, cancellationToken);
+
+            query = query.Where(x => titleIds.Contains(x.Id));
         }
 
         #endregion
