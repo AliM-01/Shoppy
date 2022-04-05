@@ -1,0 +1,20 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+	<PropertyGroup>
+		<TargetFramework>net6.0</TargetFramework>
+		<ImplicitUsings>enable</ImplicitUsings>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<PackageReference Include="Ardalis.GuardClauses" Version="4.0.0" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<ProjectReference Include="..\..\..\..\..\0_Framework\0_Framework.csproj" />
+		<ProjectReference Include="..\..\..\..\BlogModule\Domain\BM.Domin\BM.Domain.csproj" />
+		<ProjectReference Include="..\..\..\..\BlogModule\Infrastructure\BM.Infrastructure.Shared\BM.Infrastructure.Shared.csproj" />
+		<ProjectReference Include="..\..\..\Application.Contracts\CM.Application.Contracts\CM.Application.Contracts.csproj" />
+		<ProjectReference Include="..\..\..\Domain\CM.Domain\CM.Domain.csproj" />
+	</ItemGroup>
+
+</Project>

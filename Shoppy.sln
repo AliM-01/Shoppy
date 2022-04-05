@@ -198,6 +198,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Acl", "Acl", "{3704DEEA-74F
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CM.Infrastructure.ProductAcl", "src\Modules\CommentModule\Infrastructure\Acl\CM.Infrastructure.ProductAcl\CM.Infrastructure.ProductAcl.csproj", "{CF1C1A6A-3037-46B0-B8D9-BD2F0225728C}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CM.Infrastructure.ArticleAcl", "src\Modules\CommentModule\Infrastructure\Acl\CM.Infrastructure.ArticleAcl\CM.Infrastructure.ArticleAcl.csproj", "{696691B5-282A-49F2-9758-FC74AD6656ED}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -408,6 +410,10 @@ Global
 		{CF1C1A6A-3037-46B0-B8D9-BD2F0225728C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{CF1C1A6A-3037-46B0-B8D9-BD2F0225728C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{CF1C1A6A-3037-46B0-B8D9-BD2F0225728C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{696691B5-282A-49F2-9758-FC74AD6656ED}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{696691B5-282A-49F2-9758-FC74AD6656ED}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{696691B5-282A-49F2-9758-FC74AD6656ED}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{696691B5-282A-49F2-9758-FC74AD6656ED}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -505,6 +511,7 @@ Global
 		{093B862C-7B7A-45AC-B20B-4668B33D94AB} = {E2D8DB07-6E85-4FC1-8234-7CE00853FAD7}
 		{3704DEEA-74F6-4903-B153-BE8BE038ED48} = {82BBFFE2-9001-4025-887F-4B1A9C69C0E8}
 		{CF1C1A6A-3037-46B0-B8D9-BD2F0225728C} = {3704DEEA-74F6-4903-B153-BE8BE038ED48}
+		{696691B5-282A-49F2-9758-FC74AD6656ED} = {3704DEEA-74F6-4903-B153-BE8BE038ED48}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {615EA258-FFB2-45B7-9D73-B482C4E29616}
