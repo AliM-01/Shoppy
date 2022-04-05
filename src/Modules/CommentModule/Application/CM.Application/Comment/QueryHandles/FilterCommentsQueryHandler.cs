@@ -58,6 +58,11 @@ public class FilterCommentsQueryHandler : IRequestHandler<FilterCommentsQuery, R
              .Select(c => _mapper.Map(c, new CommentDto()))
              .ToList();
 
+        foreach (var item in allEntities)
+        {
+
+        }
+
         #endregion paging
 
         var returnData = request.Filter.SetData(allEntities).SetPaging(pager);
