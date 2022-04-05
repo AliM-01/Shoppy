@@ -77,11 +77,16 @@ public class SearchQueryHandler : IRequestHandler<SearchQuery, Response<SearchPr
 
         #region filter price
 
-        var maxPrice = inventories?.OrderByDescending(p => p.UnitPrice).FirstOrDefault();
+        var maxPrice = inventories?
+            .OrderByDescending(p => p.UnitPrice)
+            .FirstOrDefault();
+
         request.Search.FilterMaxPrice = maxPrice != null ? maxPrice.UnitPrice : 0;
 
         if (request.Search.SelectedMaxPrice == 0)
+        {
             request.Search.SelectedMaxPrice = maxPrice != null ? maxPrice.UnitPrice : 0;
+        }
 
         #endregion
 
@@ -89,8 +94,10 @@ public class SearchQueryHandler : IRequestHandler<SearchQuery, Response<SearchPr
 
         if (!string.IsNullOrEmpty(request.Search.Phrase))
         {
-            query = query.Where(s => s.Title.Contains(request.Search.Phrase)
-            || s.ShortDescription.Contains(request.Search.Phrase) || s.MetaKeywords.Contains(request.Search.Phrase));
+            var titleIds = await _productRepository.FullTextSearch(x => x.Title,
+                request.Search.Phrase, cancellationToken);
+
+            query = query.Where(x => titleIds.Contains(x.CategoryId));
         }
 
         #endregion
@@ -122,11 +129,10 @@ public class SearchQueryHandler : IRequestHandler<SearchQuery, Response<SearchPr
 
         var mappedProducts = new List<ProductQueryModel>();
 
-        allEntities.ForEach(p =>
+        for (int i = 0; i < allEntities.Count; i++)
         {
-            var mappedProduct = _productHelper.MapProducts<ProductQueryModel>(p).Result;
-            mappedProducts.Add(mappedProduct);
-        });
+            mappedProducts.Add(await _productHelper.MapProducts<ProductQueryModel>(allEntities[i]));
+        }
 
         #endregion paging
 

@@ -63,10 +63,9 @@ public class BaseRepository<TDocument, TSettings> : IRepository<TDocument>
 
         var keys = Builders<TDocument>.IndexKeys.Text(field);
         await _collection.Indexes.CreateOneAsync(keys);
-
         var queryFilter = Builders<TDocument>.Filter.Text(filter);
-
         var res = await _collection.FindAsync(queryFilter);
+
         return (await res.ToListAsync(cancellationToken)).Select(x => x.Id).ToHashSet();
     }
 
