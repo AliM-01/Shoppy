@@ -49,7 +49,7 @@ public static class DI_Container
         InventoryModuleBootstrapper.Configure(services, config);
         CommentModuleBootstrapper.Configure(services, config);
         BlogModuleBootstrapper.Configure(services, config);
-        OrderModuletBootstrapper.Configure(services, config);
+        OrderModuleBootstrapper.Configure(services, config);
 
         services.AddTransient<IZarinPalFactory, ZarinPalFactory>();
     }
