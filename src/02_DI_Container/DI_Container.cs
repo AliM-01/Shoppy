@@ -44,7 +44,7 @@ public static class DI_Container
     private static async Task ConfigureModules(IServiceCollection services, IConfiguration config)
     {
         await AccountModuleBootstrapper.ConfigureAsync(services, config);
-        ShopModuletBootstrapper.Configure(services, config);
+        ShopModuleBootstrapper.Configure(services, config);
         DiscountModuleBootstrapper.Configure(services, config);
         InventoryModuleBootstrapper.Configure(services, config);
         CommentModuleBootstrapper.Configure(services, config);

@@ -3,6 +3,7 @@ using _01_Shoppy.Query.Helpers.Product;
 using MediatR;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Logging;
 using SM.Domain.Product;
 using SM.Domain.ProductCategory;
 using SM.Domain.ProductFeature;
@@ -14,7 +15,7 @@ using System;
 
 namespace SM.Infrastructure.Configuration;
 
-public static class ShopModuletBootstrapper
+public class ShopModuleBootstrapper
 {
     public static void Configure(IServiceCollection services, Microsoft.Extensions.Configuration.IConfiguration config)
     {
@@ -29,10 +30,12 @@ public static class ShopModuletBootstrapper
 
         services.AddScoped<IProductHelper, ProductHelper>();
 
-        services.AddMediatR(typeof(ShopModuletBootstrapper).Assembly);
+        services.AddMediatR(typeof(ShopModuleBootstrapper).Assembly);
 
-        using (var scope = services.BuildServiceProvider().CreateScope())
+        using (var scope = services.BuildServiceProvider())
         {
+            var logger = scope.GetRequiredService<ILogger<ShopModuleBootstrapper>>();
+
             try
             {
                 var dbSettings = (ShopDbSettings)config.GetSection("ShopDbSettings").Get(typeof(ShopDbSettings));
@@ -43,10 +46,11 @@ public static class ShopModuletBootstrapper
                 ShopDbSeed.SeedProductFeatures(dbSettings);
                 ShopDbSeed.SeedSliders(dbSettings);
 
+                logger.LogInformation("Shop Module Db Seed Finished Successfully");
             }
             catch (Exception ex)
             {
-                throw;
+                logger.LogError("Shop Module Db Seed Was Unsuccessfull. Execption : {0}", ex.Message);
             }
         }
 
