@@ -6,11 +6,12 @@ using BM.Infrastructure.Persistence.Settings;
 using MediatR;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Logging;
 using System;
 
 namespace BM.Infrastructure.Configuration;
 
-public class BlogModuletBootstrapper
+public class BlogModuleBootstrapper
 {
     public static void Configure(IServiceCollection services, Microsoft.Extensions.Configuration.IConfiguration config)
     {
@@ -19,20 +20,24 @@ public class BlogModuletBootstrapper
         services.AddScoped<IRepository<ArticleCategory>, BaseRepository<ArticleCategory, BlogDbSettings>>();
         services.AddScoped<IRepository<Article>, BaseRepository<Article, BlogDbSettings>>();
 
-        services.AddMediatR(typeof(BlogModuletBootstrapper).Assembly);
+        services.AddMediatR(typeof(BlogModuleBootstrapper).Assembly);
 
-        using (var scope = services.BuildServiceProvider().CreateScope())
+        using (var scope = services.BuildServiceProvider())
         {
+            var logger = scope.GetRequiredService<ILogger<BlogModuleBootstrapper>>();
+
             try
             {
                 var dbSettings = (BlogDbSettings)config.GetSection("BlogDbSettings").Get(typeof(BlogDbSettings));
 
                 var categories = BlogDbDataSeed.SeedArticleCategoryData(dbSettings);
                 BlogDbDataSeed.SeedArticleData(dbSettings, categories);
+
+                logger.LogInformation("Blog Module Db Seed Finished Successfully");
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                throw;
+                logger.LogError("Blog Module Db Seed Was Unsuccessfull. Execption : {0}", ex.Message);
             }
         }
     }
