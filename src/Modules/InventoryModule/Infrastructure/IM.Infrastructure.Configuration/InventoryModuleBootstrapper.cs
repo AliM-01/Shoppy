@@ -10,11 +10,12 @@ using IM.Infrastructure.ProductAcl;
 using MediatR;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Logging;
 using System;
 
 namespace IM.Infrastructure.Configuration;
 
-public static class InventoryModuletBootstrapper
+public class InventoryModuleBootstrapper
 {
     public static void Configure(IServiceCollection services, Microsoft.Extensions.Configuration.IConfiguration config)
     {
@@ -27,20 +28,24 @@ public static class InventoryModuletBootstrapper
         services.AddScoped<IIMProuctAclService, IMProuctAclService>();
         services.AddScoped<IIMAccountAclService, IMAccountAclService>();
 
-        services.AddMediatR(typeof(InventoryModuletBootstrapper).Assembly);
+        services.AddMediatR(typeof(InventoryModuleBootstrapper).Assembly);
 
-        using (var scope = services.BuildServiceProvider().CreateScope())
+        using (var scope = services.BuildServiceProvider())
         {
+            var logger = scope.GetRequiredService<ILogger<InventoryModuleBootstrapper>>();
+
             try
             {
                 var dbSettings = (InventoryDbSettings)config.GetSection("InventoryDbSettings").Get(typeof(InventoryDbSettings));
 
                 var inventories = InventoryDbSeed.SeedInventories(dbSettings);
                 InventoryDbSeed.SeedInventoryOperations(dbSettings, inventories);
+
+                logger.LogInformation("Inventory Module Db Seed Finished Successfully");
             }
             catch (Exception ex)
             {
-                throw;
+                logger.LogError("Inventory Module Db Seed Was Unsuccessfull. Execption : {0}", ex.Message);
             }
         }
     }

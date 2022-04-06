@@ -46,7 +46,7 @@ public static class DI_Container
         await AccountModuleBootstrapper.ConfigureAsync(services, config);
         ShopModuletBootstrapper.Configure(services, config);
         DiscountModuleBootstrapper.Configure(services, config);
-        InventoryModuletBootstrapper.Configure(services, config);
+        InventoryModuleBootstrapper.Configure(services, config);
         CommentModuleBootstrapper.Configure(services, config);
         BlogModuleBootstrapper.Configure(services, config);
         OrderModuletBootstrapper.Configure(services, config);
