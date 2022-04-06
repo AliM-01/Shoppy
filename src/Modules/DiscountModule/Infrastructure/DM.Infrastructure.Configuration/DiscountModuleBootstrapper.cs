@@ -8,10 +8,11 @@ using DM.Infrastructure.ProductAcl;
 using MediatR;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Logging;
 
 namespace DM.Infrastructure.Configuration;
 
-public static class DiscountModuleBootstrapper
+public class DiscountModuleBootstrapper
 {
     public static void Configure(IServiceCollection services, IConfiguration config)
     {
@@ -23,19 +24,27 @@ public static class DiscountModuleBootstrapper
 
         services.AddMediatR(typeof(DiscountModuleBootstrapper).Assembly);
 
-        using (var scope = services.BuildServiceProvider().CreateScope())
-        {
-            try
-            {
-                var dbSettings = (DiscountDbSettings)config.GetSection("DiscountDbSettings").Get(typeof(DiscountDbSettings));
+        #region Db Seed
 
-                DiscountDbSeed.SeedDiscountCodes(dbSettings);
-                DiscountDbSeed.SeedProductDiscounts(dbSettings);
-            }
-            catch (Exception ex)
-            {
-                throw;
-            }
+        using var scope = services.BuildServiceProvider().CreateScope();
+        var sp = scope.ServiceProvider;
+
+        var logger = sp.GetRequiredService<ILogger<DiscountModuleBootstrapper>>();
+
+        try
+        {
+            var dbSettings = (DiscountDbSettings)config.GetSection("DiscountDbSettings").Get(typeof(DiscountDbSettings));
+
+            DiscountDbSeed.SeedDiscountCodes(dbSettings);
+            DiscountDbSeed.SeedProductDiscounts(dbSettings);
+
+            logger.LogInformation("Discount Module Db Seed Finished Successfully");
         }
+        catch (Exception ex)
+        {
+            logger.LogError("Discount Module Db Seed Was Unsuccessfull. Execption : {0}", ex.Message);
+        }
+
+        #endregion
     }
 }

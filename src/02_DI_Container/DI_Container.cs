@@ -43,13 +43,13 @@ public static class DI_Container
 
     private static async Task ConfigureModules(IServiceCollection services, IConfiguration config)
     {
-        await AccountModuletBootstrapper.ConfigureAsync(services, config);
-        ShopModuletBootstrapper.Configure(services, config);
+        await AccountModuleBootstrapper.ConfigureAsync(services, config);
+        ShopModuleBootstrapper.Configure(services, config);
         DiscountModuleBootstrapper.Configure(services, config);
-        InventoryModuletBootstrapper.Configure(services, config);
-        CommentModuletBootstrapper.Configure(services, config);
-        BlogModuletBootstrapper.Configure(services, config);
-        OrderModuletBootstrapper.Configure(services, config);
+        InventoryModuleBootstrapper.Configure(services, config);
+        CommentModuleBootstrapper.Configure(services, config);
+        BlogModuleBootstrapper.Configure(services, config);
+        OrderModuleBootstrapper.Configure(services, config);
 
         services.AddTransient<IZarinPalFactory, ZarinPalFactory>();
     }

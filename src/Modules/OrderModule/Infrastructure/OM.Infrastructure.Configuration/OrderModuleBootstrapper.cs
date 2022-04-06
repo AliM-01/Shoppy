@@ -6,7 +6,7 @@ using OM.Infrastructure.Persistence.Settings;
 
 namespace OM.Infrastructure.Configuration;
 
-public static class OrderModuletBootstrapper
+public static class OrderModuleBootstrapper
 {
     public static void Configure(IServiceCollection services, Microsoft.Extensions.Configuration.IConfiguration config)
     {
@@ -15,6 +15,6 @@ public static class OrderModuletBootstrapper
         services.AddScoped<IRepository<Order>, BaseRepository<Order, OrderDbSettings>>();
         services.AddScoped<IRepository<OrderItem>, BaseRepository<OrderItem, OrderDbSettings>>();
 
-        services.AddMediatR(typeof(OrderModuletBootstrapper).Assembly);
+        services.AddMediatR(typeof(OrderModuleBootstrapper).Assembly);
     }
 }

@@ -14,6 +14,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Logging;
 using Microsoft.IdentityModel.Tokens;
 using System;
 using System.Text;
@@ -21,7 +22,7 @@ using System.Threading.Tasks;
 
 namespace AM.Infrastructure.Configuration;
 
-public class AccountModuletBootstrapper
+public class AccountModuleBootstrapper
 {
     public static async Task ConfigureAsync(IServiceCollection services, IConfiguration config)
     {
@@ -51,24 +52,31 @@ public class AccountModuletBootstrapper
 
         services.AddScoped<IRepository<UserToken>, BaseRepository<UserToken, AccountDbSettings>>();
 
-        services.AddMediatR(typeof(AccountModuletBootstrapper).Assembly);
+        services.AddMediatR(typeof(AccountModuleBootstrapper).Assembly);
+
+        #region Db Seed
 
         using (var scope = services.BuildServiceProvider().CreateScope())
         {
+            var sp = scope.ServiceProvider;
+            var logger = sp.GetRequiredService<ILogger<AccountModuleBootstrapper>>();
+
             try
             {
-                var roleManager = scope.ServiceProvider.GetRequiredService<RoleManager<AccountRole>>();
-                var userManager = scope.ServiceProvider.GetRequiredService<UserManager<Account>>();
+                var roleManager = sp.GetRequiredService<RoleManager<AccountRole>>();
+                var userManager = sp.GetRequiredService<UserManager<Account>>();
                 await SeedDefaultRoles.SeedAsync(roleManager);
                 await SeedDefaultUsers.SeedAdminAsync(userManager);
                 await SeedDefaultUsers.SeedBasicUserAsync(userManager);
-
+                logger.LogInformation("Account Module Db Seed Finished Successfully");
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                throw;
+                logger.LogError("Account Module Db Seed Was Unsuccessfull. Execption : {0}", ex.Message);
             }
         }
+
+        #endregion
 
         #endregion
 

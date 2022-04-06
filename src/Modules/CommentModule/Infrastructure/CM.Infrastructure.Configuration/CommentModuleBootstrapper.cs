@@ -8,11 +8,12 @@ using CM.Infrastructure.ProductAcl;
 using MediatR;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Logging;
 using System;
 
 namespace CM.Infrastructure.Configuration;
 
-public static class CommentModuletBootstrapper
+public class CommentModuleBootstrapper
 {
     public static void Configure(IServiceCollection services, Microsoft.Extensions.Configuration.IConfiguration config)
     {
@@ -22,20 +23,27 @@ public static class CommentModuletBootstrapper
         services.AddScoped<ICMProductAcl, CMProuctAclService>();
         services.AddScoped<ICMArticleAcl, CMArticleAclService>();
 
-        services.AddMediatR(typeof(CommentModuletBootstrapper).Assembly);
+        services.AddMediatR(typeof(CommentModuleBootstrapper).Assembly);
 
-        using (var scope = services.BuildServiceProvider().CreateScope())
+        #region Db Seed
+
+        using var scope = services.BuildServiceProvider().CreateScope();
+        var sp = scope.ServiceProvider;
+        var logger = sp.GetRequiredService<ILogger<CommentModuleBootstrapper>>();
+
+        try
         {
-            try
-            {
-                var dbSettings = (CommentDbSettings)config.GetSection("CommentDbSettings").Get(typeof(CommentDbSettings));
+            var dbSettings = (CommentDbSettings)config.GetSection("CommentDbSettings").Get(typeof(CommentDbSettings));
 
-                CommentDbContextSeed.SeedData(dbSettings);
-            }
-            catch (Exception ex)
-            {
-                throw;
-            }
+            CommentDbContextSeed.SeedData(dbSettings);
+
+            logger.LogInformation("Comment Module Db Seed Finished Successfully");
         }
+        catch (Exception ex)
+        {
+            logger.LogError("Comment Module Db Seed Was Unsuccessfull. Execption : {0}", ex.Message);
+        }
+
+        #endregion
     }
 }
