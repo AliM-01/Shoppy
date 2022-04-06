@@ -25,22 +25,25 @@ public class CommentModuleBootstrapper
 
         services.AddMediatR(typeof(CommentModuleBootstrapper).Assembly);
 
-        using (var scope = services.BuildServiceProvider())
+        #region Db Seed
+
+        using var scope = services.BuildServiceProvider().CreateScope();
+        var sp = scope.ServiceProvider;
+        var logger = sp.GetRequiredService<ILogger<CommentModuleBootstrapper>>();
+
+        try
         {
-            var logger = scope.GetRequiredService<ILogger<CommentModuleBootstrapper>>();
+            var dbSettings = (CommentDbSettings)config.GetSection("CommentDbSettings").Get(typeof(CommentDbSettings));
 
-            try
-            {
-                var dbSettings = (CommentDbSettings)config.GetSection("CommentDbSettings").Get(typeof(CommentDbSettings));
+            CommentDbContextSeed.SeedData(dbSettings);
 
-                CommentDbContextSeed.SeedData(dbSettings);
-
-                logger.LogInformation("Comment Module Db Seed Finished Successfully");
-            }
-            catch (Exception ex)
-            {
-                logger.LogError("Comment Module Db Seed Was Unsuccessfull. Execption : {0}", ex.Message);
-            }
+            logger.LogInformation("Comment Module Db Seed Finished Successfully");
         }
+        catch (Exception ex)
+        {
+            logger.LogError("Comment Module Db Seed Was Unsuccessfull. Execption : {0}", ex.Message);
+        }
+
+        #endregion
     }
 }

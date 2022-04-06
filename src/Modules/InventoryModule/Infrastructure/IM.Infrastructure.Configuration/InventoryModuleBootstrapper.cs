@@ -30,23 +30,27 @@ public class InventoryModuleBootstrapper
 
         services.AddMediatR(typeof(InventoryModuleBootstrapper).Assembly);
 
-        using (var scope = services.BuildServiceProvider())
+        #region Db Seed
+
+        using var scope = services.BuildServiceProvider().CreateScope();
+        var sp = scope.ServiceProvider;
+
+        var logger = sp.GetRequiredService<ILogger<InventoryModuleBootstrapper>>();
+
+        try
         {
-            var logger = scope.GetRequiredService<ILogger<InventoryModuleBootstrapper>>();
+            var dbSettings = (InventoryDbSettings)config.GetSection("InventoryDbSettings").Get(typeof(InventoryDbSettings));
 
-            try
-            {
-                var dbSettings = (InventoryDbSettings)config.GetSection("InventoryDbSettings").Get(typeof(InventoryDbSettings));
+            var inventories = InventoryDbSeed.SeedInventories(dbSettings);
+            InventoryDbSeed.SeedInventoryOperations(dbSettings, inventories);
 
-                var inventories = InventoryDbSeed.SeedInventories(dbSettings);
-                InventoryDbSeed.SeedInventoryOperations(dbSettings, inventories);
-
-                logger.LogInformation("Inventory Module Db Seed Finished Successfully");
-            }
-            catch (Exception ex)
-            {
-                logger.LogError("Inventory Module Db Seed Was Unsuccessfull. Execption : {0}", ex.Message);
-            }
+            logger.LogInformation("Inventory Module Db Seed Finished Successfully");
         }
+        catch (Exception ex)
+        {
+            logger.LogError("Inventory Module Db Seed Was Unsuccessfull. Execption : {0}", ex.Message);
+        }
+
+        #endregion
     }
 }

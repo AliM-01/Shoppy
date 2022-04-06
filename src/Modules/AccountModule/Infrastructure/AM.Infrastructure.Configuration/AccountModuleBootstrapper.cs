@@ -54,14 +54,17 @@ public class AccountModuleBootstrapper
 
         services.AddMediatR(typeof(AccountModuleBootstrapper).Assembly);
 
-        using (var scope = services.BuildServiceProvider())
+        #region Db Seed
+
+        using (var scope = services.BuildServiceProvider().CreateScope())
         {
-            var logger = scope.GetRequiredService<ILogger<AccountModuleBootstrapper>>();
+            var sp = scope.ServiceProvider;
+            var logger = sp.GetRequiredService<ILogger<AccountModuleBootstrapper>>();
 
             try
             {
-                var roleManager = scope.GetRequiredService<RoleManager<AccountRole>>();
-                var userManager = scope.GetRequiredService<UserManager<Account>>();
+                var roleManager = sp.GetRequiredService<RoleManager<AccountRole>>();
+                var userManager = sp.GetRequiredService<UserManager<Account>>();
                 await SeedDefaultRoles.SeedAsync(roleManager);
                 await SeedDefaultUsers.SeedAdminAsync(userManager);
                 await SeedDefaultUsers.SeedBasicUserAsync(userManager);
@@ -72,6 +75,8 @@ public class AccountModuleBootstrapper
                 logger.LogError("Account Module Db Seed Was Unsuccessfull. Execption : {0}", ex.Message);
             }
         }
+
+        #endregion
 
         #endregion
 

@@ -13,7 +13,7 @@ namespace BM.Infrastructure.Configuration;
 
 public class BlogModuleBootstrapper
 {
-    public static void Configure(IServiceCollection services, Microsoft.Extensions.Configuration.IConfiguration config)
+    public static void Configure(IServiceCollection services, IConfiguration config)
     {
         services.Configure<BlogDbSettings>(config.GetSection("BlogDbSettings"));
 
@@ -22,24 +22,27 @@ public class BlogModuleBootstrapper
 
         services.AddMediatR(typeof(BlogModuleBootstrapper).Assembly);
 
-        using (var scope = services.BuildServiceProvider())
+        #region Db Seed
+
+        using var scope = services.BuildServiceProvider().CreateScope();
+        var sp = scope.ServiceProvider;
+        var logger = sp.GetRequiredService<ILogger<BlogModuleBootstrapper>>();
+
+        try
         {
-            var logger = scope.GetRequiredService<ILogger<BlogModuleBootstrapper>>();
+            var dbSettings = (BlogDbSettings)config.GetSection("BlogDbSettings").Get(typeof(BlogDbSettings));
 
-            try
-            {
-                var dbSettings = (BlogDbSettings)config.GetSection("BlogDbSettings").Get(typeof(BlogDbSettings));
+            var categories = BlogDbDataSeed.SeedArticleCategoryData(dbSettings);
+            BlogDbDataSeed.SeedArticleData(dbSettings, categories);
 
-                var categories = BlogDbDataSeed.SeedArticleCategoryData(dbSettings);
-                BlogDbDataSeed.SeedArticleData(dbSettings, categories);
-
-                logger.LogInformation("Blog Module Db Seed Finished Successfully");
-            }
-            catch (Exception ex)
-            {
-                logger.LogError("Blog Module Db Seed Was Unsuccessfull. Execption : {0}", ex.Message);
-            }
+            logger.LogInformation("Blog Module Db Seed Finished Successfully");
         }
+        catch (Exception ex)
+        {
+            logger.LogError("Blog Module Db Seed Was Unsuccessfull. Execption : {0}", ex.Message);
+        }
+
+        #endregion
     }
 }
 

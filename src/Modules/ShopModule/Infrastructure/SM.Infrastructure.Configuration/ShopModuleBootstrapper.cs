@@ -32,27 +32,30 @@ public class ShopModuleBootstrapper
 
         services.AddMediatR(typeof(ShopModuleBootstrapper).Assembly);
 
-        using (var scope = services.BuildServiceProvider())
+        #region Db Seed
+
+        using var scope = services.BuildServiceProvider().CreateScope();
+        var sp = scope.ServiceProvider;
+
+        var logger = sp.GetRequiredService<ILogger<ShopModuleBootstrapper>>();
+
+        try
         {
-            var logger = scope.GetRequiredService<ILogger<ShopModuleBootstrapper>>();
+            var dbSettings = (ShopDbSettings)config.GetSection("ShopDbSettings").Get(typeof(ShopDbSettings));
 
-            try
-            {
-                var dbSettings = (ShopDbSettings)config.GetSection("ShopDbSettings").Get(typeof(ShopDbSettings));
+            var categories = ShopDbSeed.SeedProductCategories(dbSettings);
+            ShopDbSeed.SeedProducts(dbSettings, categories);
+            ShopDbSeed.SeedProductPictures(dbSettings);
+            ShopDbSeed.SeedProductFeatures(dbSettings);
+            ShopDbSeed.SeedSliders(dbSettings);
 
-                var categories = ShopDbSeed.SeedProductCategories(dbSettings);
-                ShopDbSeed.SeedProducts(dbSettings, categories);
-                ShopDbSeed.SeedProductPictures(dbSettings);
-                ShopDbSeed.SeedProductFeatures(dbSettings);
-                ShopDbSeed.SeedSliders(dbSettings);
-
-                logger.LogInformation("Shop Module Db Seed Finished Successfully");
-            }
-            catch (Exception ex)
-            {
-                logger.LogError("Shop Module Db Seed Was Unsuccessfull. Execption : {0}", ex.Message);
-            }
+            logger.LogInformation("Shop Module Db Seed Finished Successfully");
+        }
+        catch (Exception ex)
+        {
+            logger.LogError("Shop Module Db Seed Was Unsuccessfull. Execption : {0}", ex.Message);
         }
 
+        #endregion
     }
 }

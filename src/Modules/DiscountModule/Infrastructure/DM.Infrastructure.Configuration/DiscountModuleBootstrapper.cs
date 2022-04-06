@@ -24,23 +24,27 @@ public class DiscountModuleBootstrapper
 
         services.AddMediatR(typeof(DiscountModuleBootstrapper).Assembly);
 
-        using (var scope = services.BuildServiceProvider())
+        #region Db Seed
+
+        using var scope = services.BuildServiceProvider().CreateScope();
+        var sp = scope.ServiceProvider;
+
+        var logger = sp.GetRequiredService<ILogger<DiscountModuleBootstrapper>>();
+
+        try
         {
-            var logger = scope.GetRequiredService<ILogger<DiscountModuleBootstrapper>>();
+            var dbSettings = (DiscountDbSettings)config.GetSection("DiscountDbSettings").Get(typeof(DiscountDbSettings));
 
-            try
-            {
-                var dbSettings = (DiscountDbSettings)config.GetSection("DiscountDbSettings").Get(typeof(DiscountDbSettings));
+            DiscountDbSeed.SeedDiscountCodes(dbSettings);
+            DiscountDbSeed.SeedProductDiscounts(dbSettings);
 
-                DiscountDbSeed.SeedDiscountCodes(dbSettings);
-                DiscountDbSeed.SeedProductDiscounts(dbSettings);
-
-                logger.LogInformation("Discount Module Db Seed Finished Successfully");
-            }
-            catch (Exception ex)
-            {
-                logger.LogError("Discount Module Db Seed Was Unsuccessfull. Execption : {0}", ex.Message);
-            }
+            logger.LogInformation("Discount Module Db Seed Finished Successfully");
         }
+        catch (Exception ex)
+        {
+            logger.LogError("Discount Module Db Seed Was Unsuccessfull. Execption : {0}", ex.Message);
+        }
+
+        #endregion
     }
 }
