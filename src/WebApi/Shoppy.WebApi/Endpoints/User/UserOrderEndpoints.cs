@@ -6,5 +6,6 @@ public class UserOrderEndpoints
 
     public static class Order
     {
+        public const string GetOrders = Base + "/all";
     }
 }

@@ -21,3 +21,12 @@ public abstract class BaseAdminApiController : ControllerBase
     private IMediator _mediator;
     protected IMediator Mediator => _mediator ??= HttpContext.RequestServices.GetService<IMediator>();
 }
+
+[ApiController]
+[EnableCors("CorsPolicy")]
+//[Authorize(Policy = "BasicUser")]
+public abstract class BaseUserApiController : ControllerBase
+{
+    private IMediator _mediator;
+    protected IMediator Mediator => _mediator ??= HttpContext.RequestServices.GetService<IMediator>();
+}
