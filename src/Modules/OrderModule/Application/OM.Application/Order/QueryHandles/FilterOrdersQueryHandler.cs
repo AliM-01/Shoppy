@@ -1,5 +1,6 @@
 ﻿using _0_Framework.Application.Models.Paging;
 using AM.Domain.Account;
+using AM.Infrastructure.Shared.RepositoryExtensions;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using OM.Application.Contracts.Order.Enums;
@@ -89,11 +90,7 @@ public class FilterOrdersQueryHandler : IRequestHandler<FilterOrdersQuery, Respo
              .ToList();
 
         for (int i = 0; i < allEntities.Count; i++)
-        {
-            var user = await _userManager.FindByIdAsync(allEntities[i].AccountId);
-
-            allEntities[i].UserFullName = user?.FirstName + ' ' + user?.LastName;
-        }
+            allEntities[i].UserFullName = await _userManager.GetFullName(allEntities[i].AccountId);
 
         #endregion paging
 
