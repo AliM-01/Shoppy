@@ -6,7 +6,7 @@ public class UserOrderEndpoints
 
     public static class Order
     {
-        public const string GetOrders = Base + "/all";
+        public const string GetMyOrders = Base + "/my-orders";
 
         public const string PlaceOrder = Base + "/place";
 
