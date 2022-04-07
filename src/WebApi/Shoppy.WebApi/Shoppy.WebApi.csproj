@@ -52,7 +52,6 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <Folder Include="Controllers\User\" />
 	  <Folder Include="wwwroot\editor-upload\" />
 	</ItemGroup>
 
