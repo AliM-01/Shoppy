@@ -4,7 +4,7 @@ using SM.Domain.Product;
 
 namespace OM.Application.Order.QueryHandles;
 
-public class GetInventoryItemsQueryHandler : IRequestHandler<GetInventoryItemsQuery, Response<List<OrderItemDto>>>
+public class GetOrderItemsQueryHandler : IRequestHandler<GetOrderItemsQuery, Response<List<OrderItemDto>>>
 {
     #region Ctor
 
@@ -13,7 +13,7 @@ public class GetInventoryItemsQueryHandler : IRequestHandler<GetInventoryItemsQu
     private readonly IRepository<Product> _productRepository;
     private readonly IMapper _mapper;
 
-    public GetInventoryItemsQueryHandler(IRepository<Domain.Order.Order> orderRepository,
+    public GetOrderItemsQueryHandler(IRepository<Domain.Order.Order> orderRepository,
         IRepository<Domain.Order.OrderItem> orderItemRepository,
         IRepository<Product> productRepository,
                                                     IMapper mapper)
@@ -26,7 +26,7 @@ public class GetInventoryItemsQueryHandler : IRequestHandler<GetInventoryItemsQu
 
     #endregion
 
-    public async Task<Response<List<OrderItemDto>>> Handle(GetInventoryItemsQuery request, CancellationToken cancellationToken)
+    public async Task<Response<List<OrderItemDto>>> Handle(GetOrderItemsQuery request, CancellationToken cancellationToken)
     {
         var order = await _orderRepository.GetByIdAsync(request.OrderId);
 

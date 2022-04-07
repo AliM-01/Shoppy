@@ -1,6 +1,5 @@
 ﻿using AM.Domain.Account;
 using Microsoft.AspNetCore.Identity;
-using Microsoft.EntityFrameworkCore;
 using MongoDB.Driver;
 
 namespace OM.Application.Order.QueryHandles;
@@ -26,7 +25,7 @@ public class GetUserOrdersQueryHandler : IRequestHandler<GetUserOrdersQuery, Res
 
     public async Task<Response<List<OrderDto>>> Handle(GetUserOrdersQuery request, CancellationToken cancellationToken)
     {
-        var user = await _userManager.Users.AnyAsync(x => x.Id == Guid.Parse(request.UserId));
+        var user = _userManager.Users.Any(x => x.Id == Guid.Parse(request.UserId));
 
         if (user is false)
             throw new NotFoundApiException("کاربری با این شناسه یافت نشد");

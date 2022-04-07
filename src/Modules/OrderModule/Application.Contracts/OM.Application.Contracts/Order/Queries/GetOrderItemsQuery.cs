@@ -2,5 +2,5 @@
 
 namespace OM.Application.Contracts.Order.Queries;
 
-public record GetInventoryItemsQuery
+public record GetOrderItemsQuery
     (string OrderId, string UserId, bool IsAdmin) : IRequest<Response<List<OrderItemDto>>>;

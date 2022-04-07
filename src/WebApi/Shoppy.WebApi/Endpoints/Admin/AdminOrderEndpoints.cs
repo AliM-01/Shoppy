@@ -8,6 +8,8 @@ public class AdminOrderEndpoints
     {
         public const string FilterOrders = Base + "/filter";
 
+        public const string GetUserOrders = Base + "/{userId}";
+
         public const string GetItems = Base + "/{orderId}/items/";
 
         public const string CancelOrder = Base + "/cancel/{orderId}";

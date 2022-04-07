@@ -24,6 +24,25 @@ public class AdminOrderController : BaseAdminApiController
 
     #endregion
 
+    #region Get User Orders
+
+    [HttpGet(AdminOrderEndpoints.Order.GetUserOrders)]
+    [SwaggerOperation(Summary = "دریافت سفارش های کاربر", Tags = new[] { "AdminOrder" })]
+    [SwaggerResponse(200, "success")]
+    [SwaggerResponse(204, "no-content")]
+    [SwaggerResponse(404, "not-found")]
+    [ProducesResponseType(typeof(Response<List<OrderItemDto>>), 200)]
+    [ProducesResponseType(typeof(Response<string>), 204)]
+    [ProducesResponseType(typeof(Response<string>), 404)]
+    public async Task<IActionResult> GetUserOrders([FromRoute] string userId)
+    {
+        var res = await Mediator.Send(new GetUserOrdersQuery(userId));
+
+        return JsonApiResult.Success(res);
+    }
+
+    #endregion
+
     #region Get Items
 
     [HttpGet(AdminOrderEndpoints.Order.GetItems)]
@@ -34,7 +53,7 @@ public class AdminOrderController : BaseAdminApiController
     [ProducesResponseType(typeof(Response<string>), 404)]
     public async Task<IActionResult> GetItems([FromRoute] string orderId)
     {
-        var res = await Mediator.Send(new GetInventoryItemsQuery(orderId,
+        var res = await Mediator.Send(new GetOrderItemsQuery(orderId,
                                                                  User.GetUserId(),
                                                                  true));
 
