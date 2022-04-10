@@ -18,9 +18,9 @@ public class DiscountModuleMappingProfile : Profile
           .ForMember(dest => dest.CreationDate,
               opt => opt.MapFrom(src => src.CreationDate.ToShamsi()))
           .ForMember(dest => dest.StartDate,
-              opt => opt.MapFrom(src => src.StartDate.ToDetailedShamsi()))
+              opt => opt.MapFrom(src => src.StartDate.ToLongShamsi()))
           .ForMember(dest => dest.EndDate,
-              opt => opt.MapFrom(src => src.EndDate.ToDetailedShamsi()));
+              opt => opt.MapFrom(src => src.EndDate.ToLongShamsi()));
 
         #endregion
 
@@ -38,9 +38,9 @@ public class DiscountModuleMappingProfile : Profile
 
         CreateMap<ProductDiscount, EditProductDiscountDto>()
             .ForMember(dest => dest.StartDate,
-                opt => opt.MapFrom(src => src.StartDate.ToDetailedShamsi()))
+                opt => opt.MapFrom(src => src.StartDate.ToLongShamsi()))
             .ForMember(dest => dest.EndDate,
-                opt => opt.MapFrom(src => src.EndDate.ToDetailedShamsi()));
+                opt => opt.MapFrom(src => src.EndDate.ToLongShamsi()));
 
         CreateMap<EditProductDiscountDto, ProductDiscount>()
             .ForMember(dest => dest.Id,
@@ -60,9 +60,9 @@ public class DiscountModuleMappingProfile : Profile
 
         CreateMap<DiscountCode, DiscountCodeDto>()
           .ForMember(dest => dest.StartDate,
-              opt => opt.MapFrom(src => src.StartDate.ToDetailedShamsi()))
+              opt => opt.MapFrom(src => src.StartDate.ToLongShamsi()))
           .ForMember(dest => dest.EndDate,
-              opt => opt.MapFrom(src => src.EndDate.ToDetailedShamsi()));
+              opt => opt.MapFrom(src => src.EndDate.ToLongShamsi()));
 
         #endregion
 
@@ -80,9 +80,9 @@ public class DiscountModuleMappingProfile : Profile
 
         CreateMap<DiscountCode, EditDiscountCodeDto>()
             .ForMember(dest => dest.StartDate,
-                opt => opt.MapFrom(src => src.StartDate.ToDetailedShamsi()))
+                opt => opt.MapFrom(src => src.StartDate.ToLongShamsi()))
             .ForMember(dest => dest.EndDate,
-                opt => opt.MapFrom(src => src.EndDate.ToDetailedShamsi()));
+                opt => opt.MapFrom(src => src.EndDate.ToLongShamsi()));
 
         CreateMap<EditDiscountCodeDto, DiscountCode>()
             .ForMember(dest => dest.Id,

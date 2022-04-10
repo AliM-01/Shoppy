@@ -34,7 +34,7 @@ public class CommentModuleMappingProfile : Profile
 
         CreateMap<Comment, CommentQueryModel>()
             .ForMember(dest => dest.CreationDate,
-                opt => opt.MapFrom(src => src.CreationDate.ToDetailedShamsi()));
+                opt => opt.MapFrom(src => src.CreationDate.ToLongShamsi()));
 
         #endregion
 
