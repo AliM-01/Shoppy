@@ -28,8 +28,7 @@ public static class DateConvertors
 
     public static DateTime ToMiladi(this string persianDate)
     {
-        persianDate = persianDate.ToEnglishNumber();
-        ReadOnlySpan<char> dateAsText = persianDate;
+        ReadOnlySpan<char> dateAsText = new PersianDateShamsi().ToEnglishNumber(persianDate);
         var year = int.Parse(dateAsText.Slice(0, 4));
         var month = int.Parse(dateAsText.Slice(5, 2));
         var day = int.Parse(dateAsText.Slice(8, 2));
@@ -53,30 +52,6 @@ public static class DateConvertors
     }
 
     #endregion
-
-    #region Private Tools
-
-    private static readonly string[] Pn = { "۰", "۱", "۲", "۳", "۴", "۵", "۶", "۷", "۸", "۹" };
-    private static readonly string[] En = { "0", "1", "2", "3", "4", "5", "6", "7", "8", "9" };
-
-    private static string ToEnglishNumber(this string stringNum)
-    {
-        var cash = stringNum;
-        for (var i = 0; i < 10; i++)
-            cash = cash.Replace(Pn[i], En[i]);
-
-        return cash;
-    }
-    private static string ToFarsiNumber(this int intNum)
-    {
-        var cash = intNum.ToString();
-        for (var i = 0; i < 10; i++)
-            cash = cash.Replace(En[i], Pn[i]);
-
-        return cash;
-    }
-
-    #endregion
 }
 
 public class PersianDateShamsi
@@ -87,6 +62,8 @@ public class PersianDateShamsi
     private readonly string[] DaysOfWeek;
     private readonly string[] DaysOfWeekShort;
     private readonly string[] Months;
+    private readonly string[] Pn;
+    private readonly string[] En;
 
     public PersianDateShamsi()
     {
@@ -94,6 +71,8 @@ public class PersianDateShamsi
         DaysOfWeek = new string[] { "شنبه", "يكشنبه", "دوشنبه", "سه شنبه", "چهارشنبه", "پنجشنبه", "جمعه" };
         DaysOfWeekShort = new string[] { "ش", "ي", "د", "س", "چ", "پ", "ج" };
         Months = new string[] { "فروردین", "اردیبهشت", "خرداد", "تیر", "مرداد", "شهریور", "مهر", "آبان", "آذر", "دی", "بهمن", "اسفند" };
+        Pn = new string[] { "۰", "۱", "۲", "۳", "۴", "۵", "۶", "۷", "۸", "۹" };
+        En = new string[] { "0", "1", "2", "3", "4", "5", "6", "7", "8", "9" };
     }
 
     #endregion
@@ -205,5 +184,27 @@ public class PersianDateShamsi
     {
         return DaysOfWeekShort[(int)persianCalendar.GetDayOfWeek(dateTime) + 1];
     }
+    #endregion
+
+    #region Numbers
+
+    public string ToEnglishNumber(string stringNum)
+    {
+        var cash = stringNum;
+        for (var i = 0; i < 10; i++)
+            cash = cash.Replace(Pn[i], En[i]);
+
+        return cash;
+    }
+
+    public string ToFarsiNumber(int intNum)
+    {
+        var cash = intNum.ToString();
+        for (var i = 0; i < 10; i++)
+            cash = cash.Replace(En[i], Pn[i]);
+
+        return cash;
+    }
+
     #endregion
 }
