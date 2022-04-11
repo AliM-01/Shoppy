@@ -4,6 +4,7 @@ global using Microsoft.AspNetCore.Mvc;
 global using Shoppy.WebApi.Endpoints.Admin;
 global using Shoppy.WebApi.Endpoints.Main;
 global using Shoppy.WebApi.Endpoints.User;
+global using Shoppy.WebApi.Shared;
 global using Swashbuckle.AspNetCore.Annotations;
 global using System;
 global using System.Collections.Generic;

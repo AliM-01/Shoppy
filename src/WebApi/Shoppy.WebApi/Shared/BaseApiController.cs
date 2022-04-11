@@ -1,9 +1,10 @@
-﻿using MediatR;
+﻿using AM.Domain.Enums;
+using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Cors;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace _0_Framework.Api;
+namespace Shoppy.WebApi.Shared;
 
 [ApiController]
 [EnableCors("CorsPolicy")]
@@ -15,7 +16,7 @@ public abstract class BaseApiController : ControllerBase
 
 [ApiController]
 [EnableCors("CorsPolicy")]
-//[Authorize(Policy = "Admin")]
+[Authorize(Policy = RoleConstants.Admin)]
 public abstract class BaseAdminApiController : ControllerBase
 {
     private IMediator _mediator;
@@ -24,7 +25,7 @@ public abstract class BaseAdminApiController : ControllerBase
 
 [ApiController]
 [EnableCors("CorsPolicy")]
-//[Authorize(Policy = "BasicUser")]
+[Authorize(Policy = RoleConstants.BasicUser)]
 public abstract class BaseUserApiController : ControllerBase
 {
     private IMediator _mediator;
