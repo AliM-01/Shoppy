@@ -9,7 +9,7 @@ public static class DateConvertors
     public static string ToShamsi(this DateTime value)
     {
         var pd = new PersianDateShamsi();
-        return $"{pd.GetShamsiYear(value)}/{pd.GetShamsiMonthString(value)}/{pd.GetShamsiDayString(value)}";
+        return $"{pd.GetShamsiDayName(value)} {pd.GetShamsiDay(value)} {pd.GetShamsiMonthName(value)} {pd.GetShamsiYear(value)}";
     }
 
     #endregion
@@ -18,8 +18,9 @@ public static class DateConvertors
 
     public static string ToLongShamsi(this DateTime value)
     {
+        var pc = new PersianCalendar();
         var pd = new PersianDateShamsi();
-        return $"{pd.GetShamsiDayName(value)} {pd.GetShamsiDay(value)} {pd.GetShamsiMonthName(value)} {pd.GetShamsiYear(value)}";
+        return $"{pc.GetHour(value)} {pd.GetShamsiDayName(value)} {pd.GetShamsiDay(value)} {pd.GetShamsiMonthName(value)} {pd.GetShamsiYear(value)}";
     }
 
     #endregion
