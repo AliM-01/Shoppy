@@ -72,3 +72,82 @@ public enum ResponseType
     [EnumMember(Value = "canceled")]
     CANCELED
 }
+
+public record ApiResult<T>(
+    [JsonProperty("status")]
+    short Status,
+    [JsonProperty("message")]
+    string Message,
+    [JsonProperty("data")]
+    T Result);
+
+public record ApiResult(
+    short Code,
+    string Message);
+
+public static class ApiResponse
+{
+    #region Success
+
+    public static ApiResult<T> Success<T>(T result, string message = ApplicationErrorMessage.OperationSuccedded)
+    {
+        return new(200, message, result);
+    }
+
+    #endregion
+
+    #region No Content
+
+    public static ApiResult NoContent()
+    {
+        return new(204, "No Content");
+    }
+
+    #endregion
+
+    #region Error
+
+    public static ApiResult Error(string message)
+    {
+        return new(400, message);
+    }
+
+    #endregion
+
+    #region Not Found
+
+    public static ApiResult NotFound(string message = ApplicationErrorMessage.RecordNotFound)
+    {
+        return new(404, message);
+    }
+
+    #endregion
+
+    #region Access Denied
+
+    public static ApiResult AccessDenied(string message = ApplicationErrorMessage.Unauthorized)
+    {
+        return new(403, message);
+    }
+
+    #endregion
+
+    #region Client Closed Request
+
+    public static ApiResult ClientClosedRequest()
+    {
+        // 499 Client Closed Request
+        return new(499, "Client Closed Request");
+    }
+
+    #endregion
+
+    #region Internal Server Error
+
+    public static ApiResult InternalServerError()
+    {
+        return new(500, "Internal Server Error - 500");
+    }
+
+    #endregion
+}
