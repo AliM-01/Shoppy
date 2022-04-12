@@ -43,6 +43,7 @@ public class Response<T>
     }
 
     [JsonProperty("status")]
+    [JsonConverter(typeof(Newtonsoft.Json.Converters.StringEnumConverter))]
     public ResponseType Status { get; set; }
 
     [JsonProperty("message")]
@@ -55,9 +56,9 @@ public class Response<T>
     public List<string> Errors { get; set; }
 }
 
-[JsonConverter(typeof(Newtonsoft.Json.Converters.StringEnumConverter))]
 public enum ResponseType
 {
+
     [EnumMember(Value = "success")]
     SUCCESS,
     [EnumMember(Value = "error")]

@@ -14,9 +14,10 @@ public static class AppExtensions
             c.DisplayRequestDuration();
             c.SwaggerEndpoint("/swagger/v1/swagger.json", title);
             c.InjectStylesheet("/swagger-ui/css/custom.css");
-            c.DefaultModelExpandDepth(2);
-            c.DefaultModelRendering(Swashbuckle.AspNetCore.SwaggerUI.ModelRendering.Model);
+            c.DefaultModelExpandDepth(3);
+            c.DefaultModelRendering(Swashbuckle.AspNetCore.SwaggerUI.ModelRendering.Example);
             c.DocExpansion(Swashbuckle.AspNetCore.SwaggerUI.DocExpansion.None);
+            c.EnablePersistAuthorization();
             c.EnableDeepLinking();
             c.DisplayOperationId();
         });
