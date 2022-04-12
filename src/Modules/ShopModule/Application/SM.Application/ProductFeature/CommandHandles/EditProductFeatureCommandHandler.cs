@@ -2,7 +2,7 @@
 
 namespace SM.Application.ProductFeature.CommandHandles;
 
-public class EditProductFeatureCommandHandler : IRequestHandler<EditProductFeatureCommand, Response<string>>
+public class EditProductFeatureCommandHandler : IRequestHandler<EditProductFeatureCommand, ApiResult>
 {
     #region Ctor
 
@@ -17,7 +17,7 @@ public class EditProductFeatureCommandHandler : IRequestHandler<EditProductFeatu
 
     #endregion
 
-    public async Task<Response<string>> Handle(EditProductFeatureCommand request, CancellationToken cancellationToken)
+    public async Task<ApiResult> Handle(EditProductFeatureCommand request, CancellationToken cancellationToken)
     {
         var productFeature = await _productFeatureRepository.GetByIdAsync(request.ProductFeature.Id);
 
@@ -32,6 +32,6 @@ public class EditProductFeatureCommandHandler : IRequestHandler<EditProductFeatu
 
         await _productFeatureRepository.UpdateAsync(productFeature);
 
-        return new Response<string>();
+        return ApiResponse.Success();
     }
 }

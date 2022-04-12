@@ -3,7 +3,7 @@ using IM.Application.Contracts.Sevices;
 
 namespace IM.Application.Inventory.CommandHandles;
 
-public class CreateInventoryCommandHandler : IRequestHandler<CreateInventoryCommand, Response<string>>
+public class CreateInventoryCommandHandler : IRequestHandler<CreateInventoryCommand, ApiResult>
 {
     #region Ctor
 
@@ -21,7 +21,7 @@ public class CreateInventoryCommandHandler : IRequestHandler<CreateInventoryComm
 
     #endregion
 
-    public async Task<Response<string>> Handle(CreateInventoryCommand request, CancellationToken cancellationToken)
+    public async Task<ApiResult> Handle(CreateInventoryCommand request, CancellationToken cancellationToken)
     {
         var existsProduct = await _productAcl.ExistsProduct(request.Inventory.ProductId);
 
@@ -36,6 +36,6 @@ public class CreateInventoryCommandHandler : IRequestHandler<CreateInventoryComm
 
         await _inventoryRepository.InsertAsync(inventory);
 
-        return new Response<string>(ApplicationErrorMessage.OperationSuccedded);
+        return ApiResponse.Success();
     }
 }

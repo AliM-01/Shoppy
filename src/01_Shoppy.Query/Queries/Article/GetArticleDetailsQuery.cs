@@ -2,9 +2,9 @@
 
 namespace _01_Shoppy.Query.Queries.Blog.Article;
 
-public record GetArticleDetailsQuery(string Slug) : IRequest<Response<ArticleDetailsQueryModel>>;
+public record GetArticleDetailsQuery(string Slug) : IRequest<ApiResult<ArticleDetailsQueryModel>>;
 
-public class GetArticleDetailsQueryHandler : IRequestHandler<GetArticleDetailsQuery, Response<ArticleDetailsQueryModel>>
+public class GetArticleDetailsQueryHandler : IRequestHandler<GetArticleDetailsQuery, ApiResult<ArticleDetailsQueryModel>>
 {
     #region Ctor
 
@@ -23,7 +23,7 @@ public class GetArticleDetailsQueryHandler : IRequestHandler<GetArticleDetailsQu
 
     #endregion
 
-    public async Task<Response<ArticleDetailsQueryModel>> Handle(GetArticleDetailsQuery request, CancellationToken cancellationToken)
+    public async Task<ApiResult<ArticleDetailsQueryModel>> Handle(GetArticleDetailsQuery request, CancellationToken cancellationToken)
     {
         cancellationToken.ThrowIfCancellationRequested();
 
@@ -38,6 +38,6 @@ public class GetArticleDetailsQueryHandler : IRequestHandler<GetArticleDetailsQu
 
         meppedArticle.Category = (await _articleCategoryRepository.GetByIdAsync(article.CategoryId)).Title;
 
-        return new Response<ArticleDetailsQueryModel>(meppedArticle);
+        return ApiResponse.Success<ArticleDetailsQueryModel>(meppedArticle);
     }
 }

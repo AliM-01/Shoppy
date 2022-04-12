@@ -10,7 +10,7 @@ namespace _0_Framework.Application.Exceptions
             Errors = new List<string>();
         }
         public List<string> Errors { get; }
-        public ValidationException(IEnumerable<ValidationFailure> failures)
+        public ValidationException(List<ValidationFailure> failures)
             : this()
         {
             foreach (var failure in failures)

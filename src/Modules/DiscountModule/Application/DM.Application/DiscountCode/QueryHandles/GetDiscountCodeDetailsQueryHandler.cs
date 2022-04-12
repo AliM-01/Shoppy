@@ -2,7 +2,7 @@
 using DM.Application.Contracts.DiscountCode.Queries;
 
 namespace DM.Application.DiscountCode.QueryHandles;
-public class GetDiscountCodeDetailsQueryHandler : IRequestHandler<GetDiscountCodeDetailsQuery, Response<EditDiscountCodeDto>>
+public class GetDiscountCodeDetailsQueryHandler : IRequestHandler<GetDiscountCodeDetailsQuery, ApiResult<EditDiscountCodeDto>>
 {
     #region Ctor
 
@@ -17,7 +17,7 @@ public class GetDiscountCodeDetailsQueryHandler : IRequestHandler<GetDiscountCod
 
     #endregion
 
-    public async Task<Response<EditDiscountCodeDto>> Handle(GetDiscountCodeDetailsQuery request, CancellationToken cancellationToken)
+    public async Task<ApiResult<EditDiscountCodeDto>> Handle(GetDiscountCodeDetailsQuery request, CancellationToken cancellationToken)
     {
         var discountCode = await _discountCodeRepository.GetByIdAsync(request.Id);
 
@@ -26,6 +26,6 @@ public class GetDiscountCodeDetailsQueryHandler : IRequestHandler<GetDiscountCod
 
         var mappedDiscountCode = _mapper.Map<EditDiscountCodeDto>(discountCode);
 
-        return new Response<EditDiscountCodeDto>(mappedDiscountCode);
+        return ApiResponse.Success<EditDiscountCodeDto>(mappedDiscountCode);
     }
 }

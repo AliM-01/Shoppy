@@ -3,9 +3,9 @@ using _01_Shoppy.Query.Helpers.Product;
 
 namespace _01_Shoppy.Query.Queries.Product;
 
-public record GetProductDetailsQuery(string Slug) : IRequest<Response<ProductDetailsQueryModel>>;
+public record GetProductDetailsQuery(string Slug) : IRequest<ApiResult<ProductDetailsQueryModel>>;
 
-public class GetProductDetailsQueryHandler : IRequestHandler<GetProductDetailsQuery, Response<ProductDetailsQueryModel>>
+public class GetProductDetailsQueryHandler : IRequestHandler<GetProductDetailsQuery, ApiResult<ProductDetailsQueryModel>>
 {
     #region Ctor
 
@@ -24,7 +24,7 @@ public class GetProductDetailsQueryHandler : IRequestHandler<GetProductDetailsQu
 
     #endregion
 
-    public async Task<Response<ProductDetailsQueryModel>> Handle(GetProductDetailsQuery request, CancellationToken cancellationToken)
+    public async Task<ApiResult<ProductDetailsQueryModel>> Handle(GetProductDetailsQuery request, CancellationToken cancellationToken)
     {
         if (string.IsNullOrEmpty(request.Slug))
             throw new NotFoundApiException();
@@ -60,6 +60,6 @@ public class GetProductDetailsQueryHandler : IRequestHandler<GetProductDetailsQu
         product.ProductPictures = _productHelper.GetProductPictures(product.Id);
         product.ProductFeatures = _productHelper.GetProductFeatures(product.Id);
 
-        return new Response<ProductDetailsQueryModel>(product);
+        return ApiResponse.Success<ProductDetailsQueryModel>(product);
     }
 }

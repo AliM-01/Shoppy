@@ -3,4 +3,4 @@
 namespace DM.Application.Contracts.ProductDiscount.Queries;
 
 public record GetProductDiscountDetailsQuery
-    (string Id) : IRequest<Response<EditProductDiscountDto>>;
+    (string Id) : IRequest<ApiResult<EditProductDiscountDto>>;

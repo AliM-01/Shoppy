@@ -13,8 +13,8 @@ public class AdminOrderController : BaseAdminApiController
     [SwaggerOperation(Summary = "فیلتر سفارشات", Tags = new[] { "AdminOrder" })]
     [SwaggerResponse(200, "success")]
     [SwaggerResponse(404, "not-found")]
-    [ProducesResponseType(typeof(Response<FilterOrderDto>), 200)]
-    [ProducesResponseType(typeof(Response<string>), 404)]
+    [ProducesResponseType(typeof(ApiResult<FilterOrderDto>), 200)]
+    [ProducesResponseType(typeof(ApiResult), 404)]
     public async Task<IActionResult> FilterInventories([FromQuery] FilterOrderDto filter)
     {
         var res = await Mediator.Send(new FilterOrdersQuery(filter));
@@ -31,9 +31,9 @@ public class AdminOrderController : BaseAdminApiController
     [SwaggerResponse(200, "success")]
     [SwaggerResponse(204, "no-content")]
     [SwaggerResponse(404, "not-found")]
-    [ProducesResponseType(typeof(Response<List<OrderItemDto>>), 200)]
-    [ProducesResponseType(typeof(Response<string>), 204)]
-    [ProducesResponseType(typeof(Response<string>), 404)]
+    [ProducesResponseType(typeof(ApiResult<List<OrderItemDto>>), 200)]
+    [ProducesResponseType(typeof(ApiResult), 204)]
+    [ProducesResponseType(typeof(ApiResult), 404)]
     public async Task<IActionResult> GetUserOrders([FromRoute] string userId)
     {
         var res = await Mediator.Send(new GetUserOrdersQuery(userId));
@@ -49,8 +49,8 @@ public class AdminOrderController : BaseAdminApiController
     [SwaggerOperation(Summary = "دریافت آیتم های سفارش", Tags = new[] { "AdminOrder" })]
     [SwaggerResponse(200, "success")]
     [SwaggerResponse(404, "not-found")]
-    [ProducesResponseType(typeof(Response<List<OrderItemDto>>), 200)]
-    [ProducesResponseType(typeof(Response<string>), 404)]
+    [ProducesResponseType(typeof(ApiResult<List<OrderItemDto>>), 200)]
+    [ProducesResponseType(typeof(ApiResult), 404)]
     public async Task<IActionResult> GetItems([FromRoute] string orderId)
     {
         var res = await Mediator.Send(new GetOrderItemsQuery(orderId,
@@ -68,8 +68,8 @@ public class AdminOrderController : BaseAdminApiController
     [SwaggerOperation(Summary = "لغو سفارش", Tags = new[] { "AdminOrder" })]
     [SwaggerResponse(200, "success")]
     [SwaggerResponse(404, "not-found")]
-    [ProducesResponseType(typeof(Response<string>), 200)]
-    [ProducesResponseType(typeof(Response<string>), 404)]
+    [ProducesResponseType(typeof(ApiResult), 200)]
+    [ProducesResponseType(typeof(ApiResult), 404)]
     public async Task<IActionResult> CancelOrder([FromRoute] string orderId)
     {
         var res = await Mediator.Send(new CancelOrderCommand(orderId,

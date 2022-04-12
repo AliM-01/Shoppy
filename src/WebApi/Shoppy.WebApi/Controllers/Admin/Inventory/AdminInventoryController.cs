@@ -13,8 +13,8 @@ public class AdminInventoryController : BaseAdminApiController
     [SwaggerOperation(Summary = "فیلتر انبار", Tags = new[] { "AdminInventory" })]
     [SwaggerResponse(200, "success")]
     [SwaggerResponse(404, "not-found")]
-    [ProducesResponseType(typeof(Response<FilterInventoryDto>), 200)]
-    [ProducesResponseType(typeof(Response<string>), 404)]
+    [ProducesResponseType(typeof(ApiResult<FilterInventoryDto>), 200)]
+    [ProducesResponseType(typeof(ApiResult), 404)]
     public async Task<IActionResult> FilterInventories([FromQuery] FilterInventoryDto filter)
     {
         var res = await Mediator.Send(new FilterInventoryQuery(filter));
@@ -30,8 +30,8 @@ public class AdminInventoryController : BaseAdminApiController
     [SwaggerOperation(Summary = "دریافت انبار", Tags = new[] { "AdminInventory" })]
     [SwaggerResponse(200, "success")]
     [SwaggerResponse(404, "not-found")]
-    [ProducesResponseType(typeof(Response<EditInventoryDto>), 200)]
-    [ProducesResponseType(typeof(Response<string>), 404)]
+    [ProducesResponseType(typeof(ApiResult<EditInventoryDto>), 200)]
+    [ProducesResponseType(typeof(ApiResult), 404)]
     public async Task<IActionResult> GetInventoryDetails([FromRoute] string id)
     {
         var res = await Mediator.Send(new GetInventoryDetailsQuery(id));
@@ -47,8 +47,8 @@ public class AdminInventoryController : BaseAdminApiController
     [SwaggerOperation(Summary = "ویرایش انبار", Tags = new[] { "AdminInventory" })]
     [SwaggerResponse(200, "success")]
     [SwaggerResponse(404, "not-found")]
-    [ProducesResponseType(typeof(Response<string>), 200)]
-    [ProducesResponseType(typeof(Response<string>), 404)]
+    [ProducesResponseType(typeof(ApiResult), 200)]
+    [ProducesResponseType(typeof(ApiResult), 404)]
     public async Task<IActionResult> EditInventory([FromForm] EditInventoryDto editRequest)
     {
         var res = await Mediator.Send(new EditInventoryCommand(editRequest));
@@ -64,8 +64,8 @@ public class AdminInventoryController : BaseAdminApiController
     [SwaggerOperation(Summary = "افزایش موجودی انبار", Tags = new[] { "AdminInventory" })]
     [SwaggerResponse(200, "success")]
     [SwaggerResponse(404, "not-found")]
-    [ProducesResponseType(typeof(Response<string>), 200)]
-    [ProducesResponseType(typeof(Response<string>), 404)]
+    [ProducesResponseType(typeof(ApiResult), 200)]
+    [ProducesResponseType(typeof(ApiResult), 404)]
     public async Task<IActionResult> IncreaseInventory([FromForm] IncreaseInventoryDto increaseRequest)
     {
         var res = await Mediator.Send(new IncreaseInventoryCommand(increaseRequest,
@@ -82,8 +82,8 @@ public class AdminInventoryController : BaseAdminApiController
     [SwaggerOperation(Summary = "کاهش موجودی انبار", Tags = new[] { "AdminInventory" })]
     [SwaggerResponse(200, "success")]
     [SwaggerResponse(404, "not-found")]
-    [ProducesResponseType(typeof(Response<string>), 200)]
-    [ProducesResponseType(typeof(Response<string>), 404)]
+    [ProducesResponseType(typeof(ApiResult), 200)]
+    [ProducesResponseType(typeof(ApiResult), 404)]
     public async Task<IActionResult> ReduceInventory([FromForm] ReduceInventoryDto reduceRequest)
     {
         var res = await Mediator.Send(new ReduceInventoryCommand(reduceRequest,
@@ -100,8 +100,8 @@ public class AdminInventoryController : BaseAdminApiController
     [SwaggerOperation(Summary = "دریافت لاگ های انبار", Tags = new[] { "AdminInventory" })]
     [SwaggerResponse(200, "success")]
     [SwaggerResponse(404, "not-found")]
-    [ProducesResponseType(typeof(Response<InventoryLogsDto>), 200)]
-    [ProducesResponseType(typeof(Response<string>), 404)]
+    [ProducesResponseType(typeof(ApiResult<InventoryLogsDto>), 200)]
+    [ProducesResponseType(typeof(ApiResult), 404)]
     public async Task<IActionResult> GetInventoryOperationLog([FromRoute] string id)
     {
         var res = await Mediator.Send(new GetInventoryOperationLogQuery(id));

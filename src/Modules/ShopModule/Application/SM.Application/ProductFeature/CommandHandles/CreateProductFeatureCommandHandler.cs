@@ -2,7 +2,7 @@
 
 namespace SM.Application.ProductFeature.CommandHandles;
 
-public class CreateProductFeatureCommandHandler : IRequestHandler<CreateProductFeatureCommand, Response<string>>
+public class CreateProductFeatureCommandHandler : IRequestHandler<CreateProductFeatureCommand, ApiResult>
 {
     #region Ctor
 
@@ -17,7 +17,7 @@ public class CreateProductFeatureCommandHandler : IRequestHandler<CreateProductF
 
     #endregion
 
-    public async Task<Response<string>> Handle(CreateProductFeatureCommand request, CancellationToken cancellationToken)
+    public async Task<ApiResult> Handle(CreateProductFeatureCommand request, CancellationToken cancellationToken)
     {
         if (await _productFeatureRepository.ExistsAsync(x => x.ProductId == request.ProductFeature.ProductId
                 && x.FeatureTitle == request.ProductFeature.FeatureTitle))
@@ -28,6 +28,6 @@ public class CreateProductFeatureCommandHandler : IRequestHandler<CreateProductF
 
         await _productFeatureRepository.InsertAsync(productFeature);
 
-        return new Response<string>(ApplicationErrorMessage.OperationSuccedded);
+        return ApiResponse.Success();
     }
 }

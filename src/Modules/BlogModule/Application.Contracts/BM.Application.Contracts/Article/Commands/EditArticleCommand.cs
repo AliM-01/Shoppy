@@ -3,4 +3,4 @@
 namespace BM.Application.Contracts.Article.Commands;
 
 public record EditArticleCommand
-    (EditArticleDto Article) : IRequest<Response<string>>;
+    (EditArticleDto Article) : IRequest<ApiResult>;

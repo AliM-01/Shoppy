@@ -3,4 +3,4 @@
 namespace OM.Application.Contracts.Order.Queries;
 
 public record FilterOrdersQuery
-    (FilterOrderDto Filter) : IRequest<Response<FilterOrderDto>>;
+    (FilterOrderDto Filter) : IRequest<ApiResult<FilterOrderDto>>;

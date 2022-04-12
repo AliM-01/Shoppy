@@ -21,13 +21,13 @@ public class FilterInventoryDto : BasePaging
     [Display(Name = "انبار ها")]
     [BindNever]
     [JsonProperty("inventories")]
-    public IEnumerable<InventoryDto> Inventories { get; set; }
+    public List<InventoryDto> Inventories { get; set; }
 
     #endregion
 
     #region Methods
 
-    public FilterInventoryDto SetData(IEnumerable<InventoryDto> inventories)
+    public FilterInventoryDto SetData(List<InventoryDto> inventories)
     {
         this.Inventories = inventories;
         return this;

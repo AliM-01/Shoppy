@@ -12,8 +12,8 @@ public class ProductController : BaseApiController
     [SwaggerOperation(Summary = "دریافت جزییات محصول", Tags = new[] { "Product" })]
     [SwaggerResponse(200, "success")]
     [SwaggerResponse(404, "not-found")]
-    [ProducesResponseType(typeof(Response<ProductDetailsQueryModel>), 200)]
-    [ProducesResponseType(typeof(Response<string>), 404)]
+    [ProducesResponseType(typeof(ApiResult<ProductDetailsQueryModel>), 200)]
+    [ProducesResponseType(typeof(ApiResult), 404)]
     public async Task<IActionResult> GetProductDetails([FromRoute] string slug)
     {
         var res = await Mediator.Send(new GetProductDetailsQuery(slug));
@@ -30,9 +30,9 @@ public class ProductController : BaseApiController
     [SwaggerResponse(200, "success")]
     [SwaggerResponse(400, "error : no data with requested filter")]
     [SwaggerResponse(404, "not-found")]
-    [ProducesResponseType(typeof(Response<SearchProductQueryModel>), 200)]
-    [ProducesResponseType(typeof(Response<string>), 400)]
-    [ProducesResponseType(typeof(Response<string>), 404)]
+    [ProducesResponseType(typeof(ApiResult<SearchProductQueryModel>), 200)]
+    [ProducesResponseType(typeof(ApiResult), 400)]
+    [ProducesResponseType(typeof(ApiResult), 404)]
     public async Task<IActionResult> Search([FromQuery] SearchProductQueryModel search)
     {
         var res = await Mediator.Send(new SearchQuery(search));
@@ -47,7 +47,7 @@ public class ProductController : BaseApiController
     [HttpGet(MainShopEndpoints.Product.GetLatestProducts)]
     [SwaggerOperation(Summary = "دریافت جدید ترین محصولات", Tags = new[] { "Product" })]
     [SwaggerResponse(200, "success")]
-    [ProducesResponseType(typeof(Response<List<ProductQueryModel>>), 200)]
+    [ProducesResponseType(typeof(ApiResult<List<ProductQueryModel>>), 200)]
     public async Task<IActionResult> GetLatestProducts()
     {
         var res = await Mediator.Send(new GetLatestProductsQuery());
@@ -63,8 +63,8 @@ public class ProductController : BaseApiController
     [SwaggerOperation(Summary = "دریافت محصولات مرتبط", Tags = new[] { "Product" })]
     [SwaggerResponse(200, "success")]
     [SwaggerResponse(404, "not-found")]
-    [ProducesResponseType(typeof(Response<List<ProductQueryModel>>), 200)]
-    [ProducesResponseType(typeof(Response<string>), 404)]
+    [ProducesResponseType(typeof(ApiResult<List<ProductQueryModel>>), 200)]
+    [ProducesResponseType(typeof(ApiResult), 404)]
     public async Task<IActionResult> GetRelatedProducts([FromRoute] string categoryId)
     {
         var res = await Mediator.Send(new GetRelatedProductsQuery(categoryId));
@@ -79,7 +79,7 @@ public class ProductController : BaseApiController
     [HttpGet(MainShopEndpoints.Product.GetHotestDiscountProducts)]
     [SwaggerOperation(Summary = "دریافت داغ ترین تخفیف محصولات", Tags = new[] { "Product" })]
     [SwaggerResponse(200, "success")]
-    [ProducesResponseType(typeof(Response<List<ProductQueryModel>>), 200)]
+    [ProducesResponseType(typeof(ApiResult<List<ProductQueryModel>>), 200)]
     public async Task<IActionResult> GetHotestDiscountProducts()
     {
         var res = await Mediator.Send(new GetHotestDiscountProductsQuery());

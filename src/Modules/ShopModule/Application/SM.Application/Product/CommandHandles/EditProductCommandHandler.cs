@@ -3,7 +3,7 @@ using System.IO;
 
 namespace SM.Application.Product.CommandHandles;
 
-public class EditProductCommandHandler : IRequestHandler<EditProductCommand, Response<string>>
+public class EditProductCommandHandler : IRequestHandler<EditProductCommand, ApiResult>
 {
     #region Ctor
 
@@ -18,7 +18,7 @@ public class EditProductCommandHandler : IRequestHandler<EditProductCommand, Res
 
     #endregion
 
-    public async Task<Response<string>> Handle(EditProductCommand request, CancellationToken cancellationToken)
+    public async Task<ApiResult> Handle(EditProductCommand request, CancellationToken cancellationToken)
     {
         var product = await _productRepository.GetByIdAsync(request.Product.Id);
 
@@ -42,6 +42,6 @@ public class EditProductCommandHandler : IRequestHandler<EditProductCommand, Res
 
         await _productRepository.UpdateAsync(product);
 
-        return new Response<string>();
+        return ApiResponse.Success();
     }
 }

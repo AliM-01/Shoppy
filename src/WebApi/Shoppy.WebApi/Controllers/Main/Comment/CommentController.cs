@@ -14,8 +14,8 @@ public class CommentController : BaseApiController
     [SwaggerOperation(Summary = "دریافت کامنت های محصول/مقاله", Tags = new[] { "Comment" })]
     [SwaggerResponse(200, "success")]
     [SwaggerResponse(404, "not-found")]
-    [ProducesResponseType(typeof(Response<List<CommentQueryModel>>), 404)]
-    [ProducesResponseType(typeof(Response<string>), 404)]
+    [ProducesResponseType(typeof(ApiResult<List<CommentQueryModel>>), 404)]
+    [ProducesResponseType(typeof(ApiResult), 404)]
     public async Task<IActionResult> GetRecordCommentsById([FromRoute] string recordId, CancellationToken cancellationToken)
     {
         var res = await Mediator.Send(new GetRecordCommentsByIdQuery(recordId), cancellationToken);
@@ -30,7 +30,7 @@ public class CommentController : BaseApiController
     [HttpPost(MainCommentEndpoints.Comment.AddComment)]
     [SwaggerOperation(Summary = "ایجاد کامنت", Tags = new[] { "Comment" })]
     [SwaggerResponse(201, "success : created")]
-    [ProducesResponseType(typeof(Response<string>), 201)]
+    [ProducesResponseType(typeof(ApiResult), 201)]
     public async Task<IActionResult> AddComment([FromForm] AddCommentDto addRequest)
     {
         var res = await Mediator.Send(new AddCommentCommand(addRequest));

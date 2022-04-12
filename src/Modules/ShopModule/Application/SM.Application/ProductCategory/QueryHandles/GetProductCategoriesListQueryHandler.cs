@@ -5,7 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 
 namespace SM.Application.ProductCategory.QueryHandles;
-public class GetProductCategoriesListQueryHandler : IRequestHandler<GetProductCategoriesListQuery, Response<IEnumerable<ProductCategoryForSelectListDto>>>
+public class GetProductCategoriesListQueryHandler : IRequestHandler<GetProductCategoriesListQuery, ApiResult<List<ProductCategoryForSelectListDto>>>
 {
     #region Ctor
 
@@ -20,7 +20,7 @@ public class GetProductCategoriesListQueryHandler : IRequestHandler<GetProductCa
 
     #endregion
 
-    public async Task<Response<IEnumerable<ProductCategoryForSelectListDto>>> Handle(GetProductCategoriesListQuery request, CancellationToken cancellationToken)
+    public async Task<ApiResult<List<ProductCategoryForSelectListDto>>> Handle(GetProductCategoriesListQuery request, CancellationToken cancellationToken)
     {
         var categories = (
             await _productCategoryRepository
@@ -37,6 +37,6 @@ public class GetProductCategoriesListQueryHandler : IRequestHandler<GetProductCa
         if (categories is null)
             throw new NotFoundApiException();
 
-        return new Response<IEnumerable<ProductCategoryForSelectListDto>>(categories);
+        return ApiResponse.Success<List<ProductCategoryForSelectListDto>>(categories);
     }
 }

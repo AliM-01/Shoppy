@@ -4,7 +4,7 @@ using BM.Application.Contracts.ArticleCategory.Queries;
 using Microsoft.EntityFrameworkCore;
 
 namespace BM.Application.ArticleCategory.QueryHandles;
-public class FilterArticleCategoriesQueryHandler : IRequestHandler<FilterArticleCategoriesQuery, Response<FilterArticleCategoryDto>>
+public class FilterArticleCategoriesQueryHandler : IRequestHandler<FilterArticleCategoriesQuery, ApiResult<FilterArticleCategoryDto>>
 {
     #region Ctor
 
@@ -19,7 +19,7 @@ public class FilterArticleCategoriesQueryHandler : IRequestHandler<FilterArticle
 
     #endregion
 
-    public async Task<Response<FilterArticleCategoryDto>> Handle(FilterArticleCategoriesQuery request, CancellationToken cancellationToken)
+    public async Task<ApiResult<FilterArticleCategoryDto>> Handle(FilterArticleCategoriesQuery request, CancellationToken cancellationToken)
     {
         var query = _articleCategoryRepository.AsQueryable(cancellationToken: cancellationToken);
 
@@ -76,6 +76,6 @@ public class FilterArticleCategoriesQueryHandler : IRequestHandler<FilterArticle
         if (returnData.PageId > returnData.GetLastPage() && returnData.GetLastPage() != 0)
             throw new NotFoundApiException();
 
-        return new Response<FilterArticleCategoryDto>(returnData);
+        return ApiResponse.Success<FilterArticleCategoryDto>(returnData);
     }
 }

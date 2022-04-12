@@ -3,4 +3,4 @@
 namespace BM.Application.Contracts.Article.Commands;
 
 public record CreateArticleCommand
-    (CreateArticleDto Article) : IRequest<Response<string>>;
+    (CreateArticleDto Article) : IRequest<ApiResult>;

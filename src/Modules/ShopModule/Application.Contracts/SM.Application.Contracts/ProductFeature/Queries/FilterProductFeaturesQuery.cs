@@ -3,4 +3,4 @@
 namespace SM.Application.Contracts.ProductFeature.Queries;
 
 public record FilterProductFeaturesQuery
-    (FilterProductFeatureDto Filter) : IRequest<Response<FilterProductFeatureDto>>;
+    (FilterProductFeatureDto Filter) : IRequest<ApiResult<FilterProductFeatureDto>>;

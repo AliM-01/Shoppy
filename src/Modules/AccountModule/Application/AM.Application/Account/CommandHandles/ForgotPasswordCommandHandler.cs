@@ -3,7 +3,7 @@ using _0_Framework.Application.Extensions;
 
 namespace AM.Application.Account.CommandHandles;
 
-public class ForgotPasswordCommandHandler : IRequestHandler<ForgotPasswordCommand, Response<string>>
+public class ForgotPasswordCommandHandler : IRequestHandler<ForgotPasswordCommand, ApiResult>
 {
     #region Ctor
 
@@ -19,7 +19,7 @@ public class ForgotPasswordCommandHandler : IRequestHandler<ForgotPasswordComman
 
     #endregion Ctor
 
-    public async Task<Response<string>> Handle(ForgotPasswordCommand request, CancellationToken cancellationToken)
+    public async Task<ApiResult> Handle(ForgotPasswordCommand request, CancellationToken cancellationToken)
     {
         var user = await _userManager.FindByEmailAsync(request.Password.Email);
 
@@ -36,6 +36,6 @@ public class ForgotPasswordCommandHandler : IRequestHandler<ForgotPasswordComman
 
         await _userManager.UpdateAsync(user);
 
-        return new Response<string>("رمز عبور شما تغییر کرد و برای شما ارسال شد. لطفا بعد از ورود به حساب آن را تغییر دهید");
+        return ApiResponse.Success("رمز عبور شما تغییر کرد و برای شما ارسال شد. لطفا بعد از ورود به حساب آن را تغییر دهید");
     }
 }

@@ -3,4 +3,4 @@
 namespace SM.Application.Contracts.Slider.Queries;
 
 public record GetSliderDetailsQuery
-    (string Id) : IRequest<Response<EditSliderDto>>;
+    (string Id) : IRequest<ApiResult<EditSliderDto>>;

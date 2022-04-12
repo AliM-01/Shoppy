@@ -2,7 +2,7 @@
 using SM.Application.Contracts.Product.Queries;
 
 namespace SM.Application.Product.QueryHandles;
-public class GetProductDetailsQueryHandler : IRequestHandler<GetProductDetailsQuery, Response<EditProductDto>>
+public class GetProductDetailsQueryHandler : IRequestHandler<GetProductDetailsQuery, ApiResult<EditProductDto>>
 {
     #region Ctor
 
@@ -17,7 +17,7 @@ public class GetProductDetailsQueryHandler : IRequestHandler<GetProductDetailsQu
 
     #endregion
 
-    public async Task<Response<EditProductDto>> Handle(GetProductDetailsQuery request, CancellationToken cancellationToken)
+    public async Task<ApiResult<EditProductDto>> Handle(GetProductDetailsQuery request, CancellationToken cancellationToken)
     {
         var product = await _productRepository.GetByIdAsync(request.Id);
 
@@ -26,6 +26,6 @@ public class GetProductDetailsQueryHandler : IRequestHandler<GetProductDetailsQu
 
         var mappedProduct = _mapper.Map<EditProductDto>(product);
 
-        return new Response<EditProductDto>(mappedProduct);
+        return ApiResponse.Success<EditProductDto>(mappedProduct);
     }
 }

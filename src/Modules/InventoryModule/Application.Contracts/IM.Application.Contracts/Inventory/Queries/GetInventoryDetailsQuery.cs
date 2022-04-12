@@ -2,4 +2,4 @@
 
 namespace IM.Application.Contracts.Inventory.Queries;
 
-public record GetInventoryDetailsQuery(string Id) : IRequest<Response<EditInventoryDto>>;
+public record GetInventoryDetailsQuery(string Id) : IRequest<ApiResult<EditInventoryDto>>;

@@ -4,4 +4,4 @@ using System.Collections.Generic;
 namespace SM.Application.Contracts.ProductPicture.Queries;
 
 public record GetProductPicturesQuery
-    (string ProductId) : IRequest<Response<IEnumerable<ProductPictureDto>>>;
+    (string ProductId) : IRequest<ApiResult<List<ProductPictureDto>>>;

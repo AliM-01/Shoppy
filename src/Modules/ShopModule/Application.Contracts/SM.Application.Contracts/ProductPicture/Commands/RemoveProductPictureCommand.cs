@@ -1,4 +1,4 @@
 ﻿namespace SM.Application.Contracts.ProductPicture.Commands;
 
 public record RemoveProductPictureCommand
-    (string ProductPictureId) : IRequest<Response<string>>;
+    (string ProductPictureId) : IRequest<ApiResult>;

@@ -5,7 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 
 namespace SM.Application.Slider.QueryHandles;
-public class GetSlidersListQueryHandler : IRequestHandler<GetSlidersListQuery, Response<IEnumerable<SliderDto>>>
+public class GetSlidersListQueryHandler : IRequestHandler<GetSlidersListQuery, ApiResult<List<SliderDto>>>
 {
     #region Ctor
 
@@ -20,7 +20,7 @@ public class GetSlidersListQueryHandler : IRequestHandler<GetSlidersListQuery, R
 
     #endregion
 
-    public async Task<Response<IEnumerable<SliderDto>>> Handle(GetSlidersListQuery request, CancellationToken cancellationToken)
+    public async Task<ApiResult<List<SliderDto>>> Handle(GetSlidersListQuery request, CancellationToken cancellationToken)
     {
         var query = _sliderRepository.AsQueryable(false, cancellationToken);
 
@@ -33,6 +33,6 @@ public class GetSlidersListQueryHandler : IRequestHandler<GetSlidersListQuery, R
         if (sliders is null)
             throw new NotFoundApiException();
 
-        return new Response<IEnumerable<SliderDto>>(sliders);
+        return ApiResponse.Success<List<SliderDto>>(sliders);
     }
 }

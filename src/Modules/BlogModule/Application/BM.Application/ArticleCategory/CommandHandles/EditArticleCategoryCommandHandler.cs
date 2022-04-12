@@ -3,7 +3,7 @@ using BM.Application.Contracts.ArticleCategory.Commands;
 
 namespace BM.Application.ArticleCategory.CommandHandles;
 
-public class EditArticleCategoryCommandHandler : IRequestHandler<EditArticleCategoryCommand, Response<string>>
+public class EditArticleCategoryCommandHandler : IRequestHandler<EditArticleCategoryCommand, ApiResult>
 {
     #region Ctor
 
@@ -18,7 +18,7 @@ public class EditArticleCategoryCommandHandler : IRequestHandler<EditArticleCate
 
     #endregion
 
-    public async Task<Response<string>> Handle(EditArticleCategoryCommand request, CancellationToken cancellationToken)
+    public async Task<ApiResult> Handle(EditArticleCategoryCommand request, CancellationToken cancellationToken)
     {
         var articleCategory = await _articleCategoryRepository.GetByIdAsync(request.ArticleCategory.Id);
 
@@ -42,6 +42,6 @@ public class EditArticleCategoryCommandHandler : IRequestHandler<EditArticleCate
 
         await _articleCategoryRepository.UpdateAsync(articleCategory);
 
-        return new Response<string>();
+        return ApiResponse.Success();
     }
 }

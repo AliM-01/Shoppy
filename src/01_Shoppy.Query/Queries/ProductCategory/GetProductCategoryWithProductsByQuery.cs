@@ -5,9 +5,9 @@ using _01_Shoppy.Query.Models.ProductCategory;
 
 namespace _01_Shoppy.Query.Queries.ProductCategory;
 
-public record GetProductCategoryWithProductsByQuery(FilterProductCategoryDetailsModel Filter) : IRequest<Response<ProductCategoryDetailsQueryModel>>;
+public record GetProductCategoryWithProductsByQuery(FilterProductCategoryDetailsModel Filter) : IRequest<ApiResult<ProductCategoryDetailsQueryModel>>;
 
-public class GetProductCategoryWithProductsByQueryHandler : IRequestHandler<GetProductCategoryWithProductsByQuery, Response<ProductCategoryDetailsQueryModel>>
+public class GetProductCategoryWithProductsByQueryHandler : IRequestHandler<GetProductCategoryWithProductsByQuery, ApiResult<ProductCategoryDetailsQueryModel>>
 {
     #region Ctor
 
@@ -29,7 +29,7 @@ public class GetProductCategoryWithProductsByQueryHandler : IRequestHandler<GetP
 
     #endregion
 
-    public async Task<Response<ProductCategoryDetailsQueryModel>> Handle(GetProductCategoryWithProductsByQuery request, CancellationToken cancellationToken)
+    public async Task<ApiResult<ProductCategoryDetailsQueryModel>> Handle(GetProductCategoryWithProductsByQuery request, CancellationToken cancellationToken)
     {
         if (string.IsNullOrEmpty(request.Filter.Slug))
             throw new NotFoundApiException();
@@ -85,6 +85,6 @@ public class GetProductCategoryWithProductsByQueryHandler : IRequestHandler<GetP
         returnData.ProductCategory = _mapper.Map(productCategoryData, new ProductCategoryQueryModel());
         returnData.FilterData = filteredData;
 
-        return new Response<ProductCategoryDetailsQueryModel>(returnData);
+        return ApiResponse.Success<ProductCategoryDetailsQueryModel>(returnData);
     }
 }

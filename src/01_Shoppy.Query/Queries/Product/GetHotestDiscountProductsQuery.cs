@@ -3,9 +3,9 @@ using DM.Domain.ProductDiscount;
 
 namespace _01_Shoppy.Query.Queries.Product;
 
-public record GetHotestDiscountProductsQuery() : IRequest<Response<List<ProductQueryModel>>>;
+public record GetHotestDiscountProductsQuery() : IRequest<ApiResult<List<ProductQueryModel>>>;
 
-public class GetHotestDiscountProductsQueryHandler : IRequestHandler<GetHotestDiscountProductsQuery, Response<List<ProductQueryModel>>>
+public class GetHotestDiscountProductsQueryHandler : IRequestHandler<GetHotestDiscountProductsQuery, ApiResult<List<ProductQueryModel>>>
 {
     #region Ctor
 
@@ -26,7 +26,7 @@ public class GetHotestDiscountProductsQueryHandler : IRequestHandler<GetHotestDi
 
     #endregion
 
-    public Task<Response<List<ProductQueryModel>>> Handle(GetHotestDiscountProductsQuery request, CancellationToken cancellationToken)
+    public Task<ApiResult<List<ProductQueryModel>>> Handle(GetHotestDiscountProductsQuery request, CancellationToken cancellationToken)
     {
         List<string> hotDiscountRateIds = _productDiscount
             .AsQueryable()
@@ -45,6 +45,6 @@ public class GetHotestDiscountProductsQueryHandler : IRequestHandler<GetHotestDi
                                          .Select(x => _productHelper.MapProducts<ProductQueryModel>(x, true).Result)
                                          .ToList(); ;
 
-        return Task.FromResult(new Response<List<ProductQueryModel>>(products));
+        return Task.FromResult(ApiResponse.Success<List<ProductQueryModel>>(products));
     }
 }

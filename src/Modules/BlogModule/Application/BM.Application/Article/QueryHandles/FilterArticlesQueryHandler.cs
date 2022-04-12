@@ -4,7 +4,7 @@ using BM.Application.Contracts.Article.Queries;
 using Microsoft.EntityFrameworkCore;
 
 namespace BM.Application.Article.QueryHandles;
-public class FilterArticlesQueryHandler : IRequestHandler<FilterArticlesQuery, Response<FilterArticleDto>>
+public class FilterArticlesQueryHandler : IRequestHandler<FilterArticlesQuery, ApiResult<FilterArticleDto>>
 {
     #region Ctor
 
@@ -19,7 +19,7 @@ public class FilterArticlesQueryHandler : IRequestHandler<FilterArticlesQuery, R
 
     #endregion
 
-    public async Task<Response<FilterArticleDto>> Handle(FilterArticlesQuery request, CancellationToken cancellationToken)
+    public async Task<ApiResult<FilterArticleDto>> Handle(FilterArticlesQuery request, CancellationToken cancellationToken)
     {
         var query = _articleRepository.AsQueryable(cancellationToken: cancellationToken);
 
@@ -69,7 +69,8 @@ public class FilterArticlesQueryHandler : IRequestHandler<FilterArticlesQuery, R
             _articleRepository
             .ApplyPagination(query, pager, cancellationToken)
             .Select(article =>
-                _mapper.Map(article, new ArticleDto()));
+                _mapper.Map(article, new ArticleDto()))
+            .ToList();
 
         #endregion paging
 
@@ -81,6 +82,6 @@ public class FilterArticlesQueryHandler : IRequestHandler<FilterArticlesQuery, R
         if (returnData.PageId > returnData.GetLastPage() && returnData.GetLastPage() != 0)
             throw new NotFoundApiException();
 
-        return new Response<FilterArticleDto>(returnData);
+        return ApiResponse.Success<FilterArticleDto>(returnData);
     }
 }

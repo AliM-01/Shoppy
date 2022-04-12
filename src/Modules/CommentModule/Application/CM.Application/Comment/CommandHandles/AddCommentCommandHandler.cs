@@ -2,7 +2,7 @@
 
 namespace CM.Application.Comment.CommandHandles;
 
-public class AddCommentCommandHandler : IRequestHandler<AddCommentCommand, Response<string>>
+public class AddCommentCommandHandler : IRequestHandler<AddCommentCommand, ApiResult>
 {
     #region Ctor
 
@@ -17,7 +17,7 @@ public class AddCommentCommandHandler : IRequestHandler<AddCommentCommand, Respo
 
     #endregion
 
-    public async Task<Response<string>> Handle(AddCommentCommand request, CancellationToken cancellationToken)
+    public async Task<ApiResult> Handle(AddCommentCommand request, CancellationToken cancellationToken)
     {
         var comment = _mapper.Map(request.Comment, new Domain.Comment.Comment());
 
@@ -26,7 +26,7 @@ public class AddCommentCommandHandler : IRequestHandler<AddCommentCommand, Respo
 
         await _commentRepository.InsertAsync(comment);
 
-        return new Response<string>("کامنت با موفقیت ثبت شد و پس از تایید توسط ادمین در سایت نمایش داده خواهد شد");
+        return ApiResponse.Success("کامنت با موفقیت ثبت شد و پس از تایید توسط ادمین در سایت نمایش داده خواهد شد");
     }
 }
 

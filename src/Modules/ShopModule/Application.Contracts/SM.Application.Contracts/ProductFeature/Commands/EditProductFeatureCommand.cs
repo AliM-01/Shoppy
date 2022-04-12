@@ -3,4 +3,4 @@
 namespace SM.Application.Contracts.ProductFeature.Commands;
 
 public record EditProductFeatureCommand
-    (EditProductFeatureDto ProductFeature) : IRequest<Response<string>>;
+    (EditProductFeatureDto ProductFeature) : IRequest<ApiResult>;

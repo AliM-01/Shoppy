@@ -2,7 +2,7 @@
 
 namespace BM.Application.Article.CommandHandles;
 
-public class EditArticleCommandHandler : IRequestHandler<EditArticleCommand, Response<string>>
+public class EditArticleCommandHandler : IRequestHandler<EditArticleCommand, ApiResult>
 {
     #region Ctor
 
@@ -17,7 +17,7 @@ public class EditArticleCommandHandler : IRequestHandler<EditArticleCommand, Res
 
     #endregion
 
-    public async Task<Response<string>> Handle(EditArticleCommand request, CancellationToken cancellationToken)
+    public async Task<ApiResult> Handle(EditArticleCommand request, CancellationToken cancellationToken)
     {
         var article = await _articleRepository.GetByIdAsync(request.Article.Id);
 
@@ -41,6 +41,6 @@ public class EditArticleCommandHandler : IRequestHandler<EditArticleCommand, Res
 
         await _articleRepository.UpdateAsync(article);
 
-        return new Response<string>();
+        return ApiResponse.Success();
     }
 }

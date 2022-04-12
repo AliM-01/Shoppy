@@ -7,7 +7,7 @@ using OM.Application.Contracts.Order.Enums;
 
 namespace OM.Application.Order.QueryHandles;
 
-public class FilterOrdersQueryHandler : IRequestHandler<FilterOrdersQuery, Response<FilterOrderDto>>
+public class FilterOrdersQueryHandler : IRequestHandler<FilterOrdersQuery, ApiResult<FilterOrderDto>>
 {
     #region Ctor
 
@@ -26,7 +26,7 @@ public class FilterOrdersQueryHandler : IRequestHandler<FilterOrdersQuery, Respo
 
     #endregion
 
-    public async Task<Response<FilterOrderDto>> Handle(FilterOrdersQuery request, CancellationToken cancellationToken)
+    public async Task<ApiResult<FilterOrderDto>> Handle(FilterOrdersQuery request, CancellationToken cancellationToken)
     {
         var query = _orderRepository.AsQueryable(cancellationToken: cancellationToken);
 
@@ -102,6 +102,6 @@ public class FilterOrdersQueryHandler : IRequestHandler<FilterOrdersQuery, Respo
         if (returnData.PageId > returnData.GetLastPage() && returnData.GetLastPage() != 0)
             throw new NoContentApiException();
 
-        return new Response<FilterOrderDto>(returnData);
+        return ApiResponse.Success<FilterOrderDto>(returnData);
     }
 }

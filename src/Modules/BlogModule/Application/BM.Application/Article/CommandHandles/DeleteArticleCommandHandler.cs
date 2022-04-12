@@ -1,7 +1,7 @@
 ﻿
 namespace BM.Application.Article.CommandHandles;
 
-public class DeleteArticleCommandHandler : IRequestHandler<DeleteArticleCommand, Response<string>>
+public class DeleteArticleCommandHandler : IRequestHandler<DeleteArticleCommand, ApiResult>
 {
     #region Ctor
 
@@ -14,7 +14,7 @@ public class DeleteArticleCommandHandler : IRequestHandler<DeleteArticleCommand,
 
     #endregion
 
-    public async Task<Response<string>> Handle(DeleteArticleCommand request, CancellationToken cancellationToken)
+    public async Task<ApiResult> Handle(DeleteArticleCommand request, CancellationToken cancellationToken)
     {
         var article = await _articleRepository.GetByIdAsync(request.ArticleId);
 
@@ -26,6 +26,6 @@ public class DeleteArticleCommandHandler : IRequestHandler<DeleteArticleCommand,
 
         await _articleRepository.DeletePermanentAsync(article.Id);
 
-        return new Response<string>(ApplicationErrorMessage.RecordDeleted);
+        return ApiResponse.Success(ApplicationErrorMessage.RecordDeleted);
     }
 }

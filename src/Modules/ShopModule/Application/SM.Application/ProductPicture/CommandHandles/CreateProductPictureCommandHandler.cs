@@ -5,7 +5,7 @@ using System.IO;
 
 namespace SM.Application.ProductPicture.CommandHandles;
 
-public class CreateProductPictureCommandHandler : IRequestHandler<CreateProductPictureCommand, Response<string>>
+public class CreateProductPictureCommandHandler : IRequestHandler<CreateProductPictureCommand, ApiResult>
 {
     #region Ctor
 
@@ -20,7 +20,7 @@ public class CreateProductPictureCommandHandler : IRequestHandler<CreateProductP
 
     #endregion
 
-    public async Task<Response<string>> Handle(CreateProductPictureCommand request, CancellationToken cancellationToken)
+    public async Task<ApiResult> Handle(CreateProductPictureCommand request, CancellationToken cancellationToken)
     {
         for (int i = 0; i < request.ProductPicture.ImageFiles.Count; i++)
         {
@@ -37,6 +37,6 @@ public class CreateProductPictureCommandHandler : IRequestHandler<CreateProductP
         }
 
 
-        return new Response<string>(ApplicationErrorMessage.OperationSuccedded);
+        return ApiResponse.Success();
     }
 }

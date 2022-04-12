@@ -6,9 +6,9 @@ using CM.Domain.Comment;
 namespace _01_Shoppy.Query.Queries.Comment;
 
 public record GetRecordCommentsByIdQuery
-    (string RecordId) : IRequest<Response<List<CommentQueryModel>>>;
+    (string RecordId) : IRequest<ApiResult<List<CommentQueryModel>>>;
 
-public class GetRecordCommentsByIdQueryHandler : IRequestHandler<GetRecordCommentsByIdQuery, Response<List<CommentQueryModel>>>
+public class GetRecordCommentsByIdQueryHandler : IRequestHandler<GetRecordCommentsByIdQuery, ApiResult<List<CommentQueryModel>>>
 {
     #region Ctor
 
@@ -24,7 +24,7 @@ public class GetRecordCommentsByIdQueryHandler : IRequestHandler<GetRecordCommen
 
     #endregion
 
-    public async Task<Response<List<CommentQueryModel>>> Handle(GetRecordCommentsByIdQuery request, CancellationToken cancellationToken)
+    public async Task<ApiResult<List<CommentQueryModel>>> Handle(GetRecordCommentsByIdQuery request, CancellationToken cancellationToken)
     {
         var comments = (await
             _commentRepository.AsQueryable(cancellationToken: cancellationToken)
@@ -46,6 +46,6 @@ public class GetRecordCommentsByIdQueryHandler : IRequestHandler<GetRecordCommen
             comments[i].Replies = replies;
         }
 
-        return new Response<List<CommentQueryModel>>(comments);
+        return ApiResponse.Success<List<CommentQueryModel>>(comments);
     }
 }

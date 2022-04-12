@@ -3,4 +3,4 @@
 namespace DM.Application.Contracts.ProductDiscount.Commands;
 
 public record DefineProductDiscountCommand
-    (DefineProductDiscountDto ProductDiscount) : IRequest<Response<string>>;
+    (DefineProductDiscountDto ProductDiscount) : IRequest<ApiResult>;

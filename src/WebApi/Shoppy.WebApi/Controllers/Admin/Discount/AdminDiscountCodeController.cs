@@ -13,8 +13,8 @@ public class AdminDiscountCodeController : BaseAdminApiController
     [SwaggerOperation(Summary = "فیلتر کد های تخفیف", Tags = new[] { "AdminDiscountCode" })]
     [SwaggerResponse(200, "success")]
     [SwaggerResponse(404, "not-found")]
-    [ProducesResponseType(typeof(Response<FilterDiscountCodeDto>), 200)]
-    [ProducesResponseType(typeof(Response<string>), 404)]
+    [ProducesResponseType(typeof(ApiResult<FilterDiscountCodeDto>), 200)]
+    [ProducesResponseType(typeof(ApiResult), 404)]
     public async Task<IActionResult> FilterDiscountCodes([FromQuery] FilterDiscountCodeDto filter)
     {
         var res = await Mediator.Send(new FilterDiscountCodesQuery(filter));
@@ -30,8 +30,8 @@ public class AdminDiscountCodeController : BaseAdminApiController
     [SwaggerOperation(Summary = "دریافت کد تخفیف", Tags = new[] { "AdminDiscountCode" })]
     [SwaggerResponse(200, "success")]
     [SwaggerResponse(404, "not-found")]
-    [ProducesResponseType(typeof(Response<EditDiscountCodeDto>), 200)]
-    [ProducesResponseType(typeof(Response<string>), 404)]
+    [ProducesResponseType(typeof(ApiResult<EditDiscountCodeDto>), 200)]
+    [ProducesResponseType(typeof(ApiResult), 404)]
     public async Task<IActionResult> GetDiscountCodeDetails([FromRoute] string id)
     {
         var res = await Mediator.Send(new GetDiscountCodeDetailsQuery(id));
@@ -47,8 +47,8 @@ public class AdminDiscountCodeController : BaseAdminApiController
     [SwaggerOperation(Summary = "تعریف کد تخفیف", Tags = new[] { "AdminDiscountCode" })]
     [SwaggerResponse(201, "success : created")]
     [SwaggerResponse(404, "not-found")]
-    [ProducesResponseType(typeof(Response<string>), 201)]
-    [ProducesResponseType(typeof(Response<string>), 404)]
+    [ProducesResponseType(typeof(ApiResult), 201)]
+    [ProducesResponseType(typeof(ApiResult), 404)]
     public async Task<IActionResult> DefineDiscountCode([FromForm] DefineDiscountCodeDto createRequest)
     {
         var res = await Mediator.Send(new DefineDiscountCodeCommand(createRequest));
@@ -64,8 +64,8 @@ public class AdminDiscountCodeController : BaseAdminApiController
     [SwaggerOperation(Summary = "ویرایش کد تخفیف", Tags = new[] { "AdminDiscountCode" })]
     [SwaggerResponse(200, "success")]
     [SwaggerResponse(404, "not-found")]
-    [ProducesResponseType(typeof(Response<string>), 200)]
-    [ProducesResponseType(typeof(Response<string>), 404)]
+    [ProducesResponseType(typeof(ApiResult), 200)]
+    [ProducesResponseType(typeof(ApiResult), 404)]
     public async Task<IActionResult> EditDiscountCode([FromForm] EditDiscountCodeDto editRequest)
     {
         var res = await Mediator.Send(new EditDiscountCodeCommand(editRequest));
@@ -81,8 +81,8 @@ public class AdminDiscountCodeController : BaseAdminApiController
     [SwaggerOperation(Summary = "حذف کد تخفیف", Tags = new[] { "AdminDiscountCode" })]
     [SwaggerResponse(200, "success")]
     [SwaggerResponse(404, "not-found")]
-    [ProducesResponseType(typeof(Response<string>), 200)]
-    [ProducesResponseType(typeof(Response<string>), 404)]
+    [ProducesResponseType(typeof(ApiResult), 200)]
+    [ProducesResponseType(typeof(ApiResult), 404)]
     public async Task<IActionResult> RemoveDiscountCode([FromRoute] string id)
     {
         var res = await Mediator.Send(new RemoveDiscountCodeCommand(id));

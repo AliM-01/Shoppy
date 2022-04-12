@@ -11,7 +11,7 @@ public class AdminReportController : BaseAdminApiController
     [HttpGet(AdminReportEndpoints.Orders)]
     [SwaggerOperation(Summary = "گزارش سفارشات", Tags = new[] { "AdminReport" })]
     [SwaggerResponse(200, "success")]
-    [ProducesResponseType(typeof(Response<List<ChartModel>>), 200)]
+    [ProducesResponseType(typeof(ApiResult<List<ChartModel>>), 200)]
     public async Task<IActionResult> OrdersReport()
     {
         var res = await Mediator.Send(new GetOrdersChartQuery());
@@ -26,7 +26,7 @@ public class AdminReportController : BaseAdminApiController
     [HttpGet(AdminReportEndpoints.ProductSales)]
     [SwaggerOperation(Summary = "گزارش محصولات فروخته شده", Tags = new[] { "AdminReport" })]
     [SwaggerResponse(200, "success")]
-    [ProducesResponseType(typeof(Response<List<ChartModel>>), 200)]
+    [ProducesResponseType(typeof(ApiResult<List<ChartModel>>), 200)]
     public async Task<IActionResult> ProductSales()
     {
         var res = await Mediator.Send(new GetProductsSoldChartQuery());

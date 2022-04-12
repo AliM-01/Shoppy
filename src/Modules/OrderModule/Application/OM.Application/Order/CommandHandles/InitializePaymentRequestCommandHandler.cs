@@ -4,7 +4,7 @@ using System.Globalization;
 
 namespace OM.Application.Order.CommandHandles;
 
-public class InitializePaymentRequestCommandHandler : IRequestHandler<InitializePaymentRequestCommand, Response<InitializePaymentResponseDto>>
+public class InitializePaymentRequestCommandHandler : IRequestHandler<InitializePaymentRequestCommand, ApiResult<InitializePaymentResponseDto>>
 {
     #region Ctor
 
@@ -20,7 +20,7 @@ public class InitializePaymentRequestCommandHandler : IRequestHandler<Initialize
 
     #endregion
 
-    public async Task<Response<InitializePaymentResponseDto>> Handle(InitializePaymentRequestCommand request, CancellationToken cancellationToken)
+    public async Task<ApiResult<InitializePaymentResponseDto>> Handle(InitializePaymentRequestCommand request, CancellationToken cancellationToken)
     {
         var order = await _orderRepository.GetByIdAsync(request.Payment.OrderId);
 
@@ -32,6 +32,6 @@ public class InitializePaymentRequestCommandHandler : IRequestHandler<Initialize
 
         var redirectUrl = "https://sandbox.zarinpal.com/pg/StartPay/" + paymentResponse.Authority;
 
-        return new Response<InitializePaymentResponseDto>(new InitializePaymentResponseDto(redirectUrl));
+        return ApiResponse.Success<InitializePaymentResponseDto>(new InitializePaymentResponseDto(redirectUrl));
     }
 }

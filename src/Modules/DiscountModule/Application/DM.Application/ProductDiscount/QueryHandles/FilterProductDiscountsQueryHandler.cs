@@ -5,7 +5,7 @@ using DM.Application.Contracts.Sevices;
 using MongoDB.Driver.Linq;
 
 namespace DM.Application.ProductDiscount.QueryHandles;
-public class FilterProductDiscountsQueryHandler : IRequestHandler<FilterProductDiscountsQuery, Response<FilterProductDiscountDto>>
+public class FilterProductDiscountsQueryHandler : IRequestHandler<FilterProductDiscountsQuery, ApiResult<FilterProductDiscountDto>>
 {
     #region Ctor
 
@@ -23,7 +23,7 @@ public class FilterProductDiscountsQueryHandler : IRequestHandler<FilterProductD
 
     #endregion
 
-    public async Task<Response<FilterProductDiscountDto>> Handle(FilterProductDiscountsQuery request, CancellationToken cancellationToken)
+    public async Task<ApiResult<FilterProductDiscountDto>> Handle(FilterProductDiscountsQuery request, CancellationToken cancellationToken)
     {
         var query = _productDiscountRepository.AsQueryable();
 
@@ -89,6 +89,6 @@ public class FilterProductDiscountsQueryHandler : IRequestHandler<FilterProductD
         if (returnData.PageId > returnData.GetLastPage() && returnData.GetLastPage() != 0)
             throw new NotFoundApiException();
 
-        return new Response<FilterProductDiscountDto>(returnData);
+        return ApiResponse.Success<FilterProductDiscountDto>(returnData);
     }
 }

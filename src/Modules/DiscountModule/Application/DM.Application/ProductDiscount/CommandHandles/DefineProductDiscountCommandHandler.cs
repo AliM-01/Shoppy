@@ -3,7 +3,7 @@ using DM.Application.Contracts.Sevices;
 
 namespace DM.Application.ProductDiscount.CommandHandles;
 
-public class DefineProductDiscountCommandHandler : IRequestHandler<DefineProductDiscountCommand, Response<string>>
+public class DefineProductDiscountCommandHandler : IRequestHandler<DefineProductDiscountCommand, ApiResult>
 {
     #region Ctor
 
@@ -22,7 +22,7 @@ public class DefineProductDiscountCommandHandler : IRequestHandler<DefineProduct
 
     #endregion
 
-    public async Task<Response<string>> Handle(DefineProductDiscountCommand request, CancellationToken cancellationToken)
+    public async Task<ApiResult> Handle(DefineProductDiscountCommand request, CancellationToken cancellationToken)
     {
         if (await _productAcl.ExistsProductDiscount(request.ProductDiscount.ProductId))
             throw new ApiException("برای این محصول قبلا تخفیف در نظر گرفته شده است");
@@ -32,6 +32,6 @@ public class DefineProductDiscountCommandHandler : IRequestHandler<DefineProduct
 
         await _productDiscountRepository.InsertAsync(productDiscount);
 
-        return new Response<string>(ApplicationErrorMessage.OperationSuccedded);
+        return ApiResponse.Success();
     }
 }

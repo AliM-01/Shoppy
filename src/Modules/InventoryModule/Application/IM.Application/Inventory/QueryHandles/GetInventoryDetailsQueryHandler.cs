@@ -2,7 +2,7 @@
 using IM.Application.Contracts.Inventory.Queries;
 
 namespace IM.Application.Inventory.QueryHandles;
-public class GetInventoryDetailsQueryHandler : IRequestHandler<GetInventoryDetailsQuery, Response<EditInventoryDto>>
+public class GetInventoryDetailsQueryHandler : IRequestHandler<GetInventoryDetailsQuery, ApiResult<EditInventoryDto>>
 {
     #region Ctor
 
@@ -17,7 +17,7 @@ public class GetInventoryDetailsQueryHandler : IRequestHandler<GetInventoryDetai
 
     #endregion
 
-    public async Task<Response<EditInventoryDto>> Handle(GetInventoryDetailsQuery request, CancellationToken cancellationToken)
+    public async Task<ApiResult<EditInventoryDto>> Handle(GetInventoryDetailsQuery request, CancellationToken cancellationToken)
     {
         var inventory = await _inventoryRepository.GetByIdAsync(request.Id);
 
@@ -26,6 +26,6 @@ public class GetInventoryDetailsQueryHandler : IRequestHandler<GetInventoryDetai
 
         var mappedInventory = _mapper.Map<EditInventoryDto>(inventory);
 
-        return new Response<EditInventoryDto>(mappedInventory);
+        return ApiResponse.Success<EditInventoryDto>(mappedInventory);
     }
 }

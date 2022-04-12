@@ -1,7 +1,7 @@
 ﻿using _0_Framework.Application.Exceptions;
 namespace AM.Application.Account.CommandHandles;
 
-public class ChangePasswordCommandHandler : IRequestHandler<ChangePasswordCommand, Response<string>>
+public class ChangePasswordCommandHandler : IRequestHandler<ChangePasswordCommand, ApiResult>
 {
     #region Ctor
 
@@ -17,7 +17,7 @@ public class ChangePasswordCommandHandler : IRequestHandler<ChangePasswordComman
 
     #endregion Ctor
 
-    public async Task<Response<string>> Handle(ChangePasswordCommand request, CancellationToken cancellationToken)
+    public async Task<ApiResult> Handle(ChangePasswordCommand request, CancellationToken cancellationToken)
     {
         var user = await _userManager.FindByIdAsync(request.UserId);
 
@@ -44,6 +44,6 @@ public class ChangePasswordCommandHandler : IRequestHandler<ChangePasswordComman
 
         await _userManager.UpdateAsync(user);
 
-        return new Response<string>("حساب کاربری شما با موفقیت ویرایش شد");
+        return ApiResponse.Success("حساب کاربری شما با موفقیت ویرایش شد");
     }
 }

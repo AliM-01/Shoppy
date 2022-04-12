@@ -2,9 +2,9 @@
 
 namespace _01_Shoppy.Query.Queries.Slider;
 
-public record GetSlidersQuery() : IRequest<Response<IEnumerable<SliderQueryModel>>>;
+public record GetSlidersQuery() : IRequest<ApiResult<List<SliderQueryModel>>>;
 
-public class GetSlidersQueryHandler : IRequestHandler<GetSlidersQuery, Response<IEnumerable<SliderQueryModel>>>
+public class GetSlidersQueryHandler : IRequestHandler<GetSlidersQuery, ApiResult<List<SliderQueryModel>>>
 {
     #region Ctor
 
@@ -19,13 +19,13 @@ public class GetSlidersQueryHandler : IRequestHandler<GetSlidersQuery, Response<
 
     #endregion
 
-    public Task<Response<IEnumerable<SliderQueryModel>>> Handle(GetSlidersQuery request, CancellationToken cancellationToken)
+    public Task<ApiResult<List<SliderQueryModel>>> Handle(GetSlidersQuery request, CancellationToken cancellationToken)
     {
         var sliders = _sliderRepository.AsQueryable()
                                         .ToList()
                                         .Select(slider => _mapper.Map(slider, new SliderQueryModel()))
                                         .ToList();
 
-        return Task.FromResult(new Response<IEnumerable<SliderQueryModel>>(sliders));
+        return Task.FromResult(ApiResponse.Success<List<SliderQueryModel>>(sliders));
     }
 }

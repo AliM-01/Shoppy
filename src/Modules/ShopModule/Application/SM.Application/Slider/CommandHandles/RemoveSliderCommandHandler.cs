@@ -2,7 +2,7 @@
 
 namespace SM.Application.Slider.CommandHandles;
 
-public class RemoveSliderCommandHandler : IRequestHandler<RemoveSliderCommand, Response<string>>
+public class RemoveSliderCommandHandler : IRequestHandler<RemoveSliderCommand, ApiResult>
 {
     #region Ctor
 
@@ -15,7 +15,7 @@ public class RemoveSliderCommandHandler : IRequestHandler<RemoveSliderCommand, R
 
     #endregion
 
-    public async Task<Response<string>> Handle(RemoveSliderCommand request, CancellationToken cancellationToken)
+    public async Task<ApiResult> Handle(RemoveSliderCommand request, CancellationToken cancellationToken)
     {
         var slider = await _sliderRepository.GetByIdAsync(request.SliderId);
 
@@ -24,6 +24,6 @@ public class RemoveSliderCommandHandler : IRequestHandler<RemoveSliderCommand, R
 
         await _sliderRepository.DeleteAsync(slider.Id);
 
-        return new Response<string>(ApplicationErrorMessage.RecordDeleted);
+        return ApiResponse.Success(ApplicationErrorMessage.RecordDeleted);
     }
 }

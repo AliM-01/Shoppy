@@ -2,7 +2,7 @@
 
 namespace SM.Application.ProductCategory.CommandHandles;
 
-public class DeleteProductCommandHandler : IRequestHandler<DeleteProductCommand, Response<string>>
+public class DeleteProductCommandHandler : IRequestHandler<DeleteProductCommand, ApiResult>
 {
     #region Ctor
 
@@ -15,7 +15,7 @@ public class DeleteProductCommandHandler : IRequestHandler<DeleteProductCommand,
 
     #endregion
 
-    public async Task<Response<string>> Handle(DeleteProductCommand request, CancellationToken cancellationToken)
+    public async Task<ApiResult> Handle(DeleteProductCommand request, CancellationToken cancellationToken)
     {
         var product = await _productRepository.GetByIdAsync(request.ProductId);
 
@@ -24,6 +24,6 @@ public class DeleteProductCommandHandler : IRequestHandler<DeleteProductCommand,
 
         await _productRepository.DeleteAsync(product.Id);
 
-        return new Response<string>(ApplicationErrorMessage.RecordDeleted);
+        return ApiResponse.Success(ApplicationErrorMessage.RecordDeleted);
     }
 }

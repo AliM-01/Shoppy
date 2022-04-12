@@ -2,4 +2,4 @@
 
 namespace IM.Application.Contracts.Inventory.Commands;
 
-public record EditInventoryCommand(EditInventoryDto Inventory) : IRequest<Response<string>>;
+public record EditInventoryCommand(EditInventoryDto Inventory) : IRequest<ApiResult>;

@@ -4,7 +4,7 @@ using AM.Application.Contracts.Account.Queries;
 
 namespace AM.Application.Account.QueryHandles;
 
-public class GetAccountDetailsQueryHandler : IRequestHandler<GetAccountDetailsQuery, Response<EditAccountDto>>
+public class GetAccountDetailsQueryHandler : IRequestHandler<GetAccountDetailsQuery, ApiResult<EditAccountDto>>
 {
     #region Ctor
 
@@ -20,7 +20,7 @@ public class GetAccountDetailsQueryHandler : IRequestHandler<GetAccountDetailsQu
 
     #endregion Ctor
 
-    public async Task<Response<EditAccountDto>> Handle(GetAccountDetailsQuery request, CancellationToken cancellationToken)
+    public async Task<ApiResult<EditAccountDto>> Handle(GetAccountDetailsQuery request, CancellationToken cancellationToken)
     {
         var account = await _userManager.FindByIdAsync(request.UserId);
 
@@ -29,6 +29,6 @@ public class GetAccountDetailsQueryHandler : IRequestHandler<GetAccountDetailsQu
 
         var mappedAccount = _mapper.Map<EditAccountDto>(account);
 
-        return new Response<EditAccountDto>(mappedAccount);
+        return ApiResponse.Success<EditAccountDto>(mappedAccount);
     }
 }

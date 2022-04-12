@@ -3,7 +3,7 @@ using _0_Framework.Application.Extensions;
 
 namespace BM.Application.Article.CommandHandles;
 
-public class CreateArticleCommandHandler : IRequestHandler<CreateArticleCommand, Response<string>>
+public class CreateArticleCommandHandler : IRequestHandler<CreateArticleCommand, ApiResult>
 {
     #region Ctor
 
@@ -18,7 +18,7 @@ public class CreateArticleCommandHandler : IRequestHandler<CreateArticleCommand,
 
     #endregion
 
-    public async Task<Response<string>> Handle(CreateArticleCommand request, CancellationToken cancellationToken)
+    public async Task<ApiResult> Handle(CreateArticleCommand request, CancellationToken cancellationToken)
     {
         if (await _articleRepository.ExistsAsync(x => x.Title == request.Article.Title))
             throw new ApiException(ApplicationErrorMessage.DuplicatedRecordExists);
@@ -34,6 +34,6 @@ public class CreateArticleCommandHandler : IRequestHandler<CreateArticleCommand,
 
         await _articleRepository.InsertAsync(article);
 
-        return new Response<string>(ApplicationErrorMessage.OperationSuccedded);
+        return ApiResponse.Success();
     }
 }

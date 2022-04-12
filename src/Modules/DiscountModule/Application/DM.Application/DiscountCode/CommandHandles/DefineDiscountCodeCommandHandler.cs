@@ -3,7 +3,7 @@ using MongoDB.Driver;
 
 namespace DM.Application.DiscountCode.CommandHandles;
 
-public class DefineDiscountCodeCommandHandler : IRequestHandler<DefineDiscountCodeCommand, Response<string>>
+public class DefineDiscountCodeCommandHandler : IRequestHandler<DefineDiscountCodeCommand, ApiResult>
 {
     #region Ctor
 
@@ -19,7 +19,7 @@ public class DefineDiscountCodeCommandHandler : IRequestHandler<DefineDiscountCo
 
     #endregion
 
-    public async Task<Response<string>> Handle(DefineDiscountCodeCommand request, CancellationToken cancellationToken)
+    public async Task<ApiResult> Handle(DefineDiscountCodeCommand request, CancellationToken cancellationToken)
     {
         var filter = Builders<Domain.DiscountCode.DiscountCode>.Filter.Eq(x => x.Code, request.DiscountCode.Code);
         var existsDiscount = await _discountCodeRepository.GetByFilter(filter);
@@ -32,6 +32,6 @@ public class DefineDiscountCodeCommandHandler : IRequestHandler<DefineDiscountCo
 
         await _discountCodeRepository.InsertAsync(discountCode);
 
-        return new Response<string>(ApplicationErrorMessage.OperationSuccedded);
+        return ApiResponse.Success();
     }
 }

@@ -3,4 +3,4 @@
 namespace DM.Application.Contracts.ProductDiscount.Queries;
 
 public record CheckProductHasProductDiscountQuery
-    (string ProductId) : IRequest<Response<CheckProductHasProductDiscountResponseDto>>;
+    (string ProductId) : IRequest<ApiResult<CheckProductHasProductDiscountResponseDto>>;

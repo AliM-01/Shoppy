@@ -3,4 +3,4 @@
 namespace AM.Application.Contracts.Account.Commands;
 
 public record RevokeRefreshTokenCommand
-    (RevokeRefreshTokenRequestDto Token) : IRequest<Response<AuthenticateUserResponseDto>>;
+    (RevokeRefreshTokenRequestDto Token) : IRequest<ApiResult<AuthenticateUserResponseDto>>;

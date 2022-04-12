@@ -2,7 +2,7 @@
 
 namespace DM.Application.ProductDiscount.CommandHandles;
 
-public class RemoveProductDiscountCommandHandler : IRequestHandler<RemoveProductDiscountCommand, Response<string>>
+public class RemoveProductDiscountCommandHandler : IRequestHandler<RemoveProductDiscountCommand, ApiResult>
 {
     #region Ctor
 
@@ -15,7 +15,7 @@ public class RemoveProductDiscountCommandHandler : IRequestHandler<RemoveProduct
 
     #endregion
 
-    public async Task<Response<string>> Handle(RemoveProductDiscountCommand request, CancellationToken cancellationToken)
+    public async Task<ApiResult> Handle(RemoveProductDiscountCommand request, CancellationToken cancellationToken)
     {
         var productDiscount = await _productDiscountRepository.GetByIdAsync(request.ProductDiscountId);
 
@@ -24,6 +24,6 @@ public class RemoveProductDiscountCommandHandler : IRequestHandler<RemoveProduct
 
         await _productDiscountRepository.DeletePermanentAsync(productDiscount.Id);
 
-        return new Response<string>(ApplicationErrorMessage.RecordDeleted);
+        return ApiResponse.Success(ApplicationErrorMessage.RecordDeleted);
     }
 }

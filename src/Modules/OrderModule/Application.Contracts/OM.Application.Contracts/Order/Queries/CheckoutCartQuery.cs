@@ -3,4 +3,4 @@
 namespace OM.Application.Contracts.Order.Queries;
 
 public record CheckoutCartQuery
-    (List<CartItemInCookieDto> Items) : IRequest<Response<CartDto>>;
+    (List<CartItemInCookieDto> Items) : IRequest<ApiResult<CartDto>>;

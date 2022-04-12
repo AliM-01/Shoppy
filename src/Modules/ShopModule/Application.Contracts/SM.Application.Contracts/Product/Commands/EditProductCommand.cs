@@ -3,4 +3,4 @@
 namespace SM.Application.Contracts.Product.Commands;
 
 public record EditProductCommand
-    (EditProductDto Product) : IRequest<Response<string>>;
+    (EditProductDto Product) : IRequest<ApiResult>;

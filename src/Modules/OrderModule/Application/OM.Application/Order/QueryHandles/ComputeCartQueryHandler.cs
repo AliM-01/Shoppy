@@ -7,7 +7,7 @@ using SM.Domain.Product;
 
 namespace OM.Application.Order.QueryHandles;
 
-public class ComputeCartQueryHandler : IRequestHandler<ComputeCartQuery, Response<CartDto>>
+public class ComputeCartQueryHandler : IRequestHandler<ComputeCartQuery, ApiResult<CartDto>>
 {
     #region Ctor
 
@@ -32,7 +32,7 @@ public class ComputeCartQueryHandler : IRequestHandler<ComputeCartQuery, Respons
 
     #endregion
 
-    public async Task<Response<CartDto>> Handle(ComputeCartQuery request, CancellationToken cancellationToken)
+    public async Task<ApiResult<CartDto>> Handle(ComputeCartQuery request, CancellationToken cancellationToken)
     {
         var cart = new CartDto();
 
@@ -106,6 +106,6 @@ public class ComputeCartQueryHandler : IRequestHandler<ComputeCartQuery, Respons
             cart.DiscountAmount += cart.Items[i].DiscountAmount;
         }
 
-        return new Response<CartDto>(cart);
+        return ApiResponse.Success<CartDto>(cart);
     }
 }
