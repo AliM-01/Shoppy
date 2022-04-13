@@ -158,6 +158,6 @@ public class AccountModuleBootstrapper
 
     private static string ProduceUnAuthorizedResponse()
     {
-        return CustonJsonConverter.Serialize(ApiResponse.AccessDenied());
+        return JsonSerializer.Serialize(ApiResponse.AccessDenied());
     }
 }

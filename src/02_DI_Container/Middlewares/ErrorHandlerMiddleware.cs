@@ -68,7 +68,7 @@ public class ErrorHandlerMiddleware
                     break;
             }
 
-            var result = CustonJsonConverter.Serialize(apiResult);
+            var result = JsonSerializer.Serialize(apiResult);
 
             await response.WriteAsync(result);
         }
