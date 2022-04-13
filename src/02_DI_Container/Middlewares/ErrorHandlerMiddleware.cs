@@ -1,7 +1,9 @@
 ﻿using _0_Framework.Api;
 using _0_Framework.Application.Exceptions;
 using _0_Framework.Application.Wrappers;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
+using Microsoft.Extensions.Hosting;
 using Microsoft.IdentityModel.Tokens;
 
 namespace _02_DI_Container.Middlewares;
@@ -15,7 +17,7 @@ public class ErrorHandlerMiddleware
         _next = next;
     }
 
-    public async Task Invoke(HttpContext context)
+    public async Task Invoke(HttpContext context, IWebHostEnvironment env)
     {
         try
         {
@@ -55,7 +57,14 @@ public class ErrorHandlerMiddleware
                     break;
 
                 default:
-                    apiResult = ApiResponse.InternalServerError();
+                    if (env.IsDevelopment())
+                    {
+                        apiResult = ApiResponse.InternalServerError($"Internal Server Error : {error.Message}");
+                    }
+                    else
+                    {
+                        apiResult = ApiResponse.InternalServerError();
+                    }
                     break;
             }
 

@@ -9,10 +9,12 @@ public record ApiResult<T>(
     [JsonProperty("message")]
     string Message,
     [JsonProperty("data")]
-    T Result);
+    T Data);
 
 public record ApiResult(
-    short Code,
+    [JsonProperty("status")]
+    short Status,
+    [JsonProperty("message")]
     string Message);
 
 public static class ApiResponse
@@ -79,9 +81,9 @@ public static class ApiResponse
 
     #region Internal Server Error
 
-    public static ApiResult InternalServerError()
+    public static ApiResult InternalServerError(string msg = "Internal Server Error")
     {
-        return new(500, "Internal Server Error - 500");
+        return new(500, msg);
     }
 
     #endregion

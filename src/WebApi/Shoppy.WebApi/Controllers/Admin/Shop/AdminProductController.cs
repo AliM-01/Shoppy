@@ -74,7 +74,7 @@ public class AdminProductController : BaseAdminApiController
 
         await Mediator.Send(new CreateInventoryCommand(new CreateInventoryDto
         {
-            ProductId = res.Result.ProductId,
+            ProductId = res.Data.ProductId,
             UnitPrice = 0
         }));
 
