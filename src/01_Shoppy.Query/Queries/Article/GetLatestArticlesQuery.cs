@@ -3,9 +3,9 @@ using _01_Shoppy.Query.Models.Blog.Article;
 
 namespace _01_Shoppy.Query.Queries.Article;
 
-public record GetLatestArticlesQuery() : IRequest<Response<IEnumerable<ArticleQueryModel>>>;
+public record GetLatestArticlesQuery() : IRequest<ApiResult<List<ArticleQueryModel>>>;
 
-public class GetLatestArticlesQueryHandler : IRequestHandler<GetLatestArticlesQuery, Response<IEnumerable<ArticleQueryModel>>>
+public class GetLatestArticlesQueryHandler : IRequestHandler<GetLatestArticlesQuery, ApiResult<List<ArticleQueryModel>>>
 {
     #region Ctor
 
@@ -24,7 +24,7 @@ public class GetLatestArticlesQueryHandler : IRequestHandler<GetLatestArticlesQu
 
     #endregion
 
-    public async Task<Response<IEnumerable<ArticleQueryModel>>> Handle(GetLatestArticlesQuery request, CancellationToken cancellationToken)
+    public async Task<ApiResult<List<ArticleQueryModel>>> Handle(GetLatestArticlesQuery request, CancellationToken cancellationToken)
     {
         var latestArticles =
             (await _articleRepository
@@ -41,6 +41,6 @@ public class GetLatestArticlesQueryHandler : IRequestHandler<GetLatestArticlesQu
             latestArticles[i].Category = (await _articleCategoryRepository.GetByIdAsync(latestArticles[i].CategoryId)).Title;
         }
 
-        return new Response<IEnumerable<ArticleQueryModel>>(latestArticles);
+        return ApiResponse.Success<List<ArticleQueryModel>>(latestArticles);
     }
 }

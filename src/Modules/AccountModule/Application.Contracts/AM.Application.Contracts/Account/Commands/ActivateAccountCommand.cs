@@ -3,4 +3,4 @@
 namespace AM.Application.Contracts.Account.Commands;
 
 public record ActivateAccountCommand
-    (ActivateAccountDto Account) : IRequest<Response<string>>;
+    (ActivateAccountDto Account) : IRequest<ApiResult>;

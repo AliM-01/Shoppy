@@ -4,9 +4,9 @@ using _01_Shoppy.Query.Models.Blog.ArticleCategory;
 
 namespace _01_Shoppy.Query.Queries.ArticleCategory;
 
-public record GetArticleCategoryWithArticlesByQuery(FilterArticleCategoryDetailsModel Filter) : IRequest<Response<ArticleCategoryDetailsQueryModel>>;
+public record GetArticleCategoryWithArticlesByQuery(FilterArticleCategoryDetailsModel Filter) : IRequest<ApiResult<ArticleCategoryDetailsQueryModel>>;
 
-public class GetArticleCategoryWithArticlesByQueryHandler : IRequestHandler<GetArticleCategoryWithArticlesByQuery, Response<ArticleCategoryDetailsQueryModel>>
+public class GetArticleCategoryWithArticlesByQueryHandler : IRequestHandler<GetArticleCategoryWithArticlesByQuery, ApiResult<ArticleCategoryDetailsQueryModel>>
 {
     #region Ctor
 
@@ -25,7 +25,7 @@ public class GetArticleCategoryWithArticlesByQueryHandler : IRequestHandler<GetA
 
     #endregion
 
-    public async Task<Response<ArticleCategoryDetailsQueryModel>> Handle(GetArticleCategoryWithArticlesByQuery request, CancellationToken cancellationToken)
+    public async Task<ApiResult<ArticleCategoryDetailsQueryModel>> Handle(GetArticleCategoryWithArticlesByQuery request, CancellationToken cancellationToken)
     {
         cancellationToken.ThrowIfCancellationRequested();
 
@@ -47,8 +47,7 @@ public class GetArticleCategoryWithArticlesByQueryHandler : IRequestHandler<GetA
 
         var pager = request.Filter.BuildPager((await articlesQuery.CountAsync()), cancellationToken);
 
-        var allEntities =
-            _articleRepository
+        var allEntities = _articleRepository
             .ApplyPagination(articlesQuery, pager, cancellationToken)
             .Select(article =>
                 _mapper.Map(article, new ArticleDetailsQueryModel()));
@@ -69,6 +68,6 @@ public class GetArticleCategoryWithArticlesByQueryHandler : IRequestHandler<GetA
             FilterData = filteredData
         };
 
-        return new Response<ArticleCategoryDetailsQueryModel>(returnData);
+        return ApiResponse.Success<ArticleCategoryDetailsQueryModel>(returnData);
     }
 }

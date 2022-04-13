@@ -5,7 +5,7 @@ using System.IO;
 
 namespace SM.Application.ProductCategory.CommandHandles;
 
-public class CreateProductCategoryCommandHandler : IRequestHandler<CreateProductCategoryCommand, Response<string>>
+public class CreateProductCategoryCommandHandler : IRequestHandler<CreateProductCategoryCommand, ApiResult>
 {
     #region Ctor
 
@@ -20,7 +20,7 @@ public class CreateProductCategoryCommandHandler : IRequestHandler<CreateProduct
 
     #endregion
 
-    public async Task<Response<string>> Handle(CreateProductCategoryCommand request, CancellationToken cancellationToken)
+    public async Task<ApiResult> Handle(CreateProductCategoryCommand request, CancellationToken cancellationToken)
     {
         if (await _productCategoryRepository.ExistsAsync(x => x.Title == request.ProductCategory.Title))
             throw new ApiException(ApplicationErrorMessage.DuplicatedRecordExists);
@@ -37,6 +37,6 @@ public class CreateProductCategoryCommandHandler : IRequestHandler<CreateProduct
 
         await _productCategoryRepository.InsertAsync(productCategory);
 
-        return new Response<string>(ApplicationErrorMessage.OperationSuccedded);
+        return ApiResponse.Success();
     }
 }

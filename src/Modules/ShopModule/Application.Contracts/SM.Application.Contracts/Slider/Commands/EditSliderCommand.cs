@@ -3,4 +3,4 @@
 namespace SM.Application.Contracts.Slider.Commands;
 
 public record EditSliderCommand
-    (EditSliderDto Slider) : IRequest<Response<string>>;
+    (EditSliderDto Slider) : IRequest<ApiResult>;

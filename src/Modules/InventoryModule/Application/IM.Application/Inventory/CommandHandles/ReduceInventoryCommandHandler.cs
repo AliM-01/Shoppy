@@ -2,7 +2,7 @@
 
 namespace IM.Application.Contracts.Inventory.Commands;
 
-public class ReduceInventoryCommandHandler : IRequestHandler<ReduceInventoryCommand, Response<string>>
+public class ReduceInventoryCommandHandler : IRequestHandler<ReduceInventoryCommand, ApiResult>
 {
     #region Ctor
 
@@ -20,7 +20,7 @@ public class ReduceInventoryCommandHandler : IRequestHandler<ReduceInventoryComm
 
     #endregion
 
-    public async Task<Response<string>> Handle(ReduceInventoryCommand request, CancellationToken cancellationToken)
+    public async Task<ApiResult> Handle(ReduceInventoryCommand request, CancellationToken cancellationToken)
     {
         var inventory = await _inventoryRepository.GetByIdAsync(request.Inventory.InventoryId);
 
@@ -30,6 +30,6 @@ public class ReduceInventoryCommandHandler : IRequestHandler<ReduceInventoryComm
         await _inventoryHelper.Reduce(inventory.Id, request.Inventory.Count,
             request.UserId, request.Inventory.Description, "0000-0000");
 
-        return new Response<string>();
+        return ApiResponse.Success();
     }
 }

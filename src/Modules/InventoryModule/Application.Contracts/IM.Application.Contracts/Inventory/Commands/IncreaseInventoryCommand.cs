@@ -3,4 +3,4 @@
 namespace IM.Application.Contracts.Inventory.Commands;
 
 public record IncreaseInventoryCommand
-    (IncreaseInventoryDto Inventory, string UserId) : IRequest<Response<string>>;
+    (IncreaseInventoryDto Inventory, string UserId) : IRequest<ApiResult>;

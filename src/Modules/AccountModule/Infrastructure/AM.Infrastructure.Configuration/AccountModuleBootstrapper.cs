@@ -126,7 +126,7 @@ public class AccountModuleBootstrapper
                         {
                             context.Response.StatusCode = 401;
                             context.Response.ContentType = "application/json";
-                            return context.Response.WriteAsync(ProduceUnAuthorizedResponse(context.Exception.Message));
+                            return context.Response.WriteAsync(ProduceUnAuthorizedResponse());
                         },
                         OnTokenValidated = context =>
                         {
@@ -156,8 +156,8 @@ public class AccountModuleBootstrapper
         #endregion
     }
 
-    private static string ProduceUnAuthorizedResponse(string message = "لطفا به حساب کاربری خود وارد شوید")
+    private static string ProduceUnAuthorizedResponse()
     {
-        return CustonJsonConverter.Serialize(new Response<string>().Unauthorized(message));
+        return JsonSerializer.Serialize(ApiResponse.AccessDenied());
     }
 }

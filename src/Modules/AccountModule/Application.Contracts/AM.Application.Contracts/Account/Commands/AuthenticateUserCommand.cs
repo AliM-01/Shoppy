@@ -3,4 +3,4 @@
 namespace AM.Application.Contracts.Account.Commands;
 
 public record AuthenticateUserCommand
-    (AuthenticateUserRequestDto Account) : IRequest<Response<AuthenticateUserResponseDto>>;
+    (AuthenticateUserRequestDto Account) : IRequest<ApiResult<AuthenticateUserResponseDto>>;

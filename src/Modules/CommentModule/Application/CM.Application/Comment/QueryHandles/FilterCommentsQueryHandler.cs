@@ -8,7 +8,7 @@ using System.Linq;
 
 namespace CM.Application.Comment.QueryHandles;
 
-public class FilterCommentsQueryHandler : IRequestHandler<FilterCommentsQuery, Response<FilterCommentDto>>
+public class FilterCommentsQueryHandler : IRequestHandler<FilterCommentsQuery, ApiResult<FilterCommentDto>>
 {
     #region Ctor
 
@@ -30,7 +30,7 @@ public class FilterCommentsQueryHandler : IRequestHandler<FilterCommentsQuery, R
 
     #endregion
 
-    public async Task<Response<FilterCommentDto>> Handle(FilterCommentsQuery request, CancellationToken cancellationToken)
+    public async Task<ApiResult<FilterCommentDto>> Handle(FilterCommentsQuery request, CancellationToken cancellationToken)
     {
         var query = _commentRepository.AsQueryable(cancellationToken: cancellationToken);
 
@@ -93,6 +93,6 @@ public class FilterCommentsQueryHandler : IRequestHandler<FilterCommentsQuery, R
         if (returnData.PageId > returnData.GetLastPage() && returnData.GetLastPage() != 0)
             throw new NotFoundApiException();
 
-        return new Response<FilterCommentDto>(returnData);
+        return ApiResponse.Success<FilterCommentDto>(returnData);
     }
 }

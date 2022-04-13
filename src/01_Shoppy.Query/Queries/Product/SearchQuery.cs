@@ -5,9 +5,9 @@ using IM.Domain.Inventory;
 
 namespace _01_Shoppy.Query.Queries.Product;
 
-public record SearchQuery(SearchProductQueryModel Search) : IRequest<Response<SearchProductQueryModel>>;
+public record SearchQuery(SearchProductQueryModel Search) : IRequest<ApiResult<SearchProductQueryModel>>;
 
-public class SearchQueryHandler : IRequestHandler<SearchQuery, Response<SearchProductQueryModel>>
+public class SearchQueryHandler : IRequestHandler<SearchQuery, ApiResult<SearchProductQueryModel>>
 {
     #region Ctor
 
@@ -32,7 +32,7 @@ public class SearchQueryHandler : IRequestHandler<SearchQuery, Response<SearchPr
 
     #endregion
 
-    public async Task<Response<SearchProductQueryModel>> Handle(SearchQuery request, CancellationToken cancellationToken)
+    public async Task<ApiResult<SearchProductQueryModel>> Handle(SearchQuery request, CancellationToken cancellationToken)
     {
         var query = _productRepository.AsQueryable();
 
@@ -165,6 +165,6 @@ public class SearchQueryHandler : IRequestHandler<SearchQuery, Response<SearchPr
         if (returnData.PageId > returnData.GetLastPage() && returnData.GetLastPage() != 0)
             throw new NotFoundApiException();
 
-        return new Response<SearchProductQueryModel>(returnData);
+        return ApiResponse.Success<SearchProductQueryModel>(returnData);
     }
 }

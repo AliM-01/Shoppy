@@ -3,7 +3,7 @@ using OM.Domain.Order;
 
 namespace OM.Application.Order.CommandHandles;
 
-public class PlaceOrderCommandHandler : IRequestHandler<PlaceOrderCommand, Response<PlaceOrderResponseDto>>
+public class PlaceOrderCommandHandler : IRequestHandler<PlaceOrderCommand, ApiResult<PlaceOrderResponseDto>>
 {
     #region Ctor
 
@@ -22,7 +22,7 @@ public class PlaceOrderCommandHandler : IRequestHandler<PlaceOrderCommand, Respo
 
     #endregion
 
-    public async Task<Response<PlaceOrderResponseDto>> Handle(PlaceOrderCommand request, CancellationToken cancellationToken)
+    public async Task<ApiResult<PlaceOrderResponseDto>> Handle(PlaceOrderCommand request, CancellationToken cancellationToken)
     {
         var order = _mapper.Map(request, new Domain.Order.Order
         {
@@ -43,6 +43,6 @@ public class PlaceOrderCommandHandler : IRequestHandler<PlaceOrderCommand, Respo
             await _orderItemRepository.InsertAsync(orderItem);
         }
 
-        return new Response<PlaceOrderResponseDto>(new PlaceOrderResponseDto(order.Id));
+        return ApiResponse.Success<PlaceOrderResponseDto>(new PlaceOrderResponseDto(order.Id));
     }
 }

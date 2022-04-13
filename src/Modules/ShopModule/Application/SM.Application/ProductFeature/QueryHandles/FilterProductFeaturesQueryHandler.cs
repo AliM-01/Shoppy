@@ -5,7 +5,7 @@ using SM.Application.Contracts.ProductFeature.Queries;
 using System.Linq;
 
 namespace SM.Application.ProductFeature.QueryHandles;
-public class FilterProductFeaturesQueryHandler : IRequestHandler<FilterProductFeaturesQuery, Response<FilterProductFeatureDto>>
+public class FilterProductFeaturesQueryHandler : IRequestHandler<FilterProductFeaturesQuery, ApiResult<FilterProductFeatureDto>>
 {
     #region Ctor
 
@@ -20,7 +20,7 @@ public class FilterProductFeaturesQueryHandler : IRequestHandler<FilterProductFe
 
     #endregion
 
-    public async Task<Response<FilterProductFeatureDto>> Handle(FilterProductFeaturesQuery request, CancellationToken cancellationToken)
+    public async Task<ApiResult<FilterProductFeatureDto>> Handle(FilterProductFeaturesQuery request, CancellationToken cancellationToken)
     {
         var query = _productFeatureRepository.AsQueryable();
 
@@ -54,6 +54,6 @@ public class FilterProductFeaturesQueryHandler : IRequestHandler<FilterProductFe
         if (returnData.PageId > returnData.GetLastPage() && returnData.GetLastPage() != 0)
             throw new NotFoundApiException();
 
-        return new Response<FilterProductFeatureDto>(returnData);
+        return ApiResponse.Success<FilterProductFeatureDto>(returnData);
     }
 }

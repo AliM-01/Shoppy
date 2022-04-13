@@ -4,7 +4,7 @@ using MongoDB.Driver;
 
 namespace OM.Application.Order.QueryHandles;
 
-public class GetUserOrdersQueryHandler : IRequestHandler<GetUserOrdersQuery, Response<List<OrderDto>>>
+public class GetUserOrdersQueryHandler : IRequestHandler<GetUserOrdersQuery, ApiResult<List<OrderDto>>>
 {
     #region Ctor
 
@@ -23,7 +23,7 @@ public class GetUserOrdersQueryHandler : IRequestHandler<GetUserOrdersQuery, Res
 
     #endregion
 
-    public async Task<Response<List<OrderDto>>> Handle(GetUserOrdersQuery request, CancellationToken cancellationToken)
+    public async Task<ApiResult<List<OrderDto>>> Handle(GetUserOrdersQuery request, CancellationToken cancellationToken)
     {
         var user = _userManager.Users.Any(x => x.Id == Guid.Parse(request.UserId));
 
@@ -37,7 +37,7 @@ public class GetUserOrdersQueryHandler : IRequestHandler<GetUserOrdersQuery, Res
         if (!orders.Any())
             throw new NoContentApiException("کاربر سفارشی ندارد");
 
-        return new Response<List<OrderDto>>(orders
+        return ApiResponse.Success<List<OrderDto>>(orders
                                                   .Select(x =>
                                                         _mapper.Map(x, new OrderDto()))
                                                   .ToList());

@@ -3,4 +3,4 @@
 namespace AM.Application.Contracts.Account.Commands;
 
 public record EditAccountCommand
-    (EditAccountDto Account) : IRequest<Response<string>>;
+    (EditAccountDto Account) : IRequest<ApiResult>;

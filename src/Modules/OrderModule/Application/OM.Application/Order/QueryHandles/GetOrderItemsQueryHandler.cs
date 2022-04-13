@@ -4,7 +4,7 @@ using SM.Domain.Product;
 
 namespace OM.Application.Order.QueryHandles;
 
-public class GetOrderItemsQueryHandler : IRequestHandler<GetOrderItemsQuery, Response<List<OrderItemDto>>>
+public class GetOrderItemsQueryHandler : IRequestHandler<GetOrderItemsQuery, ApiResult<List<OrderItemDto>>>
 {
     #region Ctor
 
@@ -26,7 +26,7 @@ public class GetOrderItemsQueryHandler : IRequestHandler<GetOrderItemsQuery, Res
 
     #endregion
 
-    public async Task<Response<List<OrderItemDto>>> Handle(GetOrderItemsQuery request, CancellationToken cancellationToken)
+    public async Task<ApiResult<List<OrderItemDto>>> Handle(GetOrderItemsQuery request, CancellationToken cancellationToken)
     {
         var order = await _orderRepository.GetByIdAsync(request.OrderId);
 
@@ -50,6 +50,6 @@ public class GetOrderItemsQueryHandler : IRequestHandler<GetOrderItemsQuery, Res
             item.ProductImage = (await _productRepository.GetByIdAsync(item.ProductId)).ImagePath;
         }
 
-        return new Response<List<OrderItemDto>>(items);
+        return ApiResponse.Success<List<OrderItemDto>>(items);
     }
 }

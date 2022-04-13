@@ -3,7 +3,7 @@ using System.IO;
 
 namespace SM.Application.ProductPicture.CommandHandles;
 
-public class RemoveProductPictureCommandHandler : IRequestHandler<RemoveProductPictureCommand, Response<string>>
+public class RemoveProductPictureCommandHandler : IRequestHandler<RemoveProductPictureCommand, ApiResult>
 {
     #region Ctor
 
@@ -16,7 +16,7 @@ public class RemoveProductPictureCommandHandler : IRequestHandler<RemoveProductP
 
     #endregion
 
-    public async Task<Response<string>> Handle(RemoveProductPictureCommand request, CancellationToken cancellationToken)
+    public async Task<ApiResult> Handle(RemoveProductPictureCommand request, CancellationToken cancellationToken)
     {
         var productPicture = await _productPictureRepository.GetByIdAsync(request.ProductPictureId);
 
@@ -28,6 +28,6 @@ public class RemoveProductPictureCommandHandler : IRequestHandler<RemoveProductP
 
         await _productPictureRepository.DeletePermanentAsync(productPicture.Id);
 
-        return new Response<string>(ApplicationErrorMessage.RecordDeleted);
+        return ApiResponse.Success(ApplicationErrorMessage.RecordDeleted);
     }
 }

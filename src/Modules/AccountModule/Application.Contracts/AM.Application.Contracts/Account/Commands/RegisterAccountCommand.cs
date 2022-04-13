@@ -3,4 +3,4 @@
 namespace AM.Application.Contracts.Account.Commands;
 
 public record RegisterAccountCommand
-    (RegisterAccountDto Account) : IRequest<Response<string>>;
+    (RegisterAccountDto Account) : IRequest<ApiResult<string>>;

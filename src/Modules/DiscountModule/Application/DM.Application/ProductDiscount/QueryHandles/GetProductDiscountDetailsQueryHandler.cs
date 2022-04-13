@@ -2,7 +2,7 @@
 using DM.Application.Contracts.ProductDiscount.Queries;
 
 namespace DM.Application.ProductDiscount.QueryHandles;
-public class GetProductDiscountDetailsQueryHandler : IRequestHandler<GetProductDiscountDetailsQuery, Response<EditProductDiscountDto>>
+public class GetProductDiscountDetailsQueryHandler : IRequestHandler<GetProductDiscountDetailsQuery, ApiResult<EditProductDiscountDto>>
 {
     #region Ctor
 
@@ -17,7 +17,7 @@ public class GetProductDiscountDetailsQueryHandler : IRequestHandler<GetProductD
 
     #endregion
 
-    public async Task<Response<EditProductDiscountDto>> Handle(GetProductDiscountDetailsQuery request, CancellationToken cancellationToken)
+    public async Task<ApiResult<EditProductDiscountDto>> Handle(GetProductDiscountDetailsQuery request, CancellationToken cancellationToken)
     {
         var productDiscount = await _productDiscountRepository.GetByIdAsync(request.Id);
 
@@ -26,6 +26,6 @@ public class GetProductDiscountDetailsQueryHandler : IRequestHandler<GetProductD
 
         var mappedProductDiscount = _mapper.Map<EditProductDiscountDto>(productDiscount);
 
-        return new Response<EditProductDiscountDto>(mappedProductDiscount);
+        return ApiResponse.Success<EditProductDiscountDto>(mappedProductDiscount);
     }
 }

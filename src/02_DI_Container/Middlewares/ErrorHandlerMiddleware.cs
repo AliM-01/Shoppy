@@ -1,9 +1,10 @@
 ﻿using _0_Framework.Api;
 using _0_Framework.Application.Exceptions;
 using _0_Framework.Application.Wrappers;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
+using Microsoft.Extensions.Hosting;
 using Microsoft.IdentityModel.Tokens;
-using System.Net;
 
 namespace _02_DI_Container.Middlewares;
 
@@ -16,7 +17,7 @@ public class ErrorHandlerMiddleware
         _next = next;
     }
 
-    public async Task Invoke(HttpContext context)
+    public async Task Invoke(HttpContext context, IWebHostEnvironment env)
     {
         try
         {
@@ -24,69 +25,50 @@ public class ErrorHandlerMiddleware
         }
         catch (Exception error)
         {
+            ApiResult apiResult = ApiResponse.InternalServerError();
+
             var response = context.Response;
             response.ContentType = "application/json";
-            var status = ResponseType.ERROR;
-            var errors = new List<string>();
-            var errorMessage = error.Message;
-
-            errors.Add(errorMessage);
 
             switch (error)
             {
                 case ApiException e:
-                    // custom application error
-                    response.StatusCode = (int)HttpStatusCode.BadRequest;
-                    errorMessage = e.Message;
+                    apiResult = ApiResponse.Error(e.Message);
                     break;
 
                 case NotFoundApiException e:
-                    // custom not-found application error
-                    status = ResponseType.NOTFOUND;
-                    errorMessage = e.Message;
-                    response.StatusCode = (int)HttpStatusCode.NotFound;
+                    apiResult = ApiResponse.NotFound(e.Message);
                     break;
 
-                case NoContentApiException e:
-                    // custom no-content application error
-                    response.StatusCode = (int)HttpStatusCode.NoContent;
-                    errorMessage = e.Message;
-                    status = ResponseType.NOCONTENT;
+                case NoContentApiException:
+                    apiResult = ApiResponse.NoContent();
                     break;
 
                 case ValidationException e:
-                    // custom application error
-                    errorMessage = e.Message;
-                    response.StatusCode = (int)HttpStatusCode.BadRequest;
-                    for (int i = 0; i < e.Errors.Count; i++)
-                    {
-                        errors.Add(e.Errors[i].ToString());
-                    }
+                    apiResult = ApiResponse.Error(e.Message);
                     break;
 
                 case SecurityTokenExpiredException:
-                    response.StatusCode = (int)HttpStatusCode.Unauthorized;
-                    errorMessage = "token expired";
+                    apiResult = ApiResponse.AccessDenied();
                     break;
 
                 case OperationCanceledException:
-                    status = ResponseType.CANCELED;
-                    response.StatusCode = 499; // 499 Client Closed Request
-                    errorMessage = "عملیات متوقف شد";
+                    apiResult = ApiResponse.ClientClosedRequest();
                     break;
 
                 default:
-                    // unhandled error
-                    response.StatusCode = (int)HttpStatusCode.InternalServerError;
+                    if (env.IsDevelopment())
+                    {
+                        apiResult = ApiResponse.InternalServerError($"Internal Server Error : {error.Message}");
+                    }
+                    else
+                    {
+                        apiResult = ApiResponse.InternalServerError();
+                    }
                     break;
             }
 
-            var result = CustonJsonConverter.Serialize(new
-            {
-                status = status,
-                message = errorMessage,
-                errors = errors
-            });
+            var result = JsonSerializer.Serialize(apiResult);
 
             await response.WriteAsync(result);
         }

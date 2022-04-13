@@ -5,7 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 
 namespace SM.Application.ProductPicture.QueryHandles;
-public class GetProductPicturesQueryHandler : IRequestHandler<GetProductPicturesQuery, Response<IEnumerable<ProductPictureDto>>>
+public class GetProductPicturesQueryHandler : IRequestHandler<GetProductPicturesQuery, ApiResult<List<ProductPictureDto>>>
 {
     #region Ctor
 
@@ -23,7 +23,7 @@ public class GetProductPicturesQueryHandler : IRequestHandler<GetProductPictures
 
     #endregion
 
-    public async Task<Response<IEnumerable<ProductPictureDto>>> Handle(GetProductPicturesQuery request, CancellationToken cancellationToken)
+    public async Task<ApiResult<List<ProductPictureDto>>> Handle(GetProductPicturesQuery request, CancellationToken cancellationToken)
     {
         var product = await _productRepository.GetByIdAsync(request.ProductId);
 
@@ -45,6 +45,6 @@ public class GetProductPicturesQueryHandler : IRequestHandler<GetProductPictures
                 _mapper.Map(productPicture, new ProductPictureDto()))
             .ToList();
 
-        return new Response<IEnumerable<ProductPictureDto>>(productPictures);
+        return ApiResponse.Success<List<ProductPictureDto>>(productPictures);
     }
 }

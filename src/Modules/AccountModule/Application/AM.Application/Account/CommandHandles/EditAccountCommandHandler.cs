@@ -3,7 +3,7 @@ using _0_Framework.Application.Extensions;
 using _0_Framework.Application.Utilities.ImageRelated;
 namespace AM.Application.Account.CommandHandles;
 
-public class EditAccountCommandHandler : IRequestHandler<EditAccountCommand, Response<string>>
+public class EditAccountCommandHandler : IRequestHandler<EditAccountCommand, ApiResult>
 {
     #region Ctor
 
@@ -19,7 +19,7 @@ public class EditAccountCommandHandler : IRequestHandler<EditAccountCommand, Res
 
     #endregion Ctor
 
-    public async Task<Response<string>> Handle(EditAccountCommand request, CancellationToken cancellationToken)
+    public async Task<ApiResult> Handle(EditAccountCommand request, CancellationToken cancellationToken)
     {
         var user = await _userManager.FindByIdAsync(request.Account.Id);
 
@@ -42,6 +42,6 @@ public class EditAccountCommandHandler : IRequestHandler<EditAccountCommand, Res
         if (!result.Succeeded)
             throw new ApiException($"${result.Errors.First().Description}");
 
-        return new Response<string>("کاربر با موفقیت ویرایش شد");
+        return ApiResponse.Success("کاربر با موفقیت ویرایش شد");
     }
 }

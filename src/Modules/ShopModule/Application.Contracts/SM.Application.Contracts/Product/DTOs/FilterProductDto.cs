@@ -18,13 +18,13 @@ public class FilterProductDto : BasePaging
 
     [JsonProperty("products")]
     [BindNever]
-    public IEnumerable<ProductDto> Products { get; set; }
+    public List<ProductDto> Products { get; set; }
 
     #endregion
 
     #region Methods
 
-    public FilterProductDto SetData(IEnumerable<ProductDto> product)
+    public FilterProductDto SetData(List<ProductDto> product)
     {
         this.Products = product;
         return this;

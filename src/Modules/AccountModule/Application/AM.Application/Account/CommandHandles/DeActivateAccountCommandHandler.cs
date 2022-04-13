@@ -2,7 +2,7 @@
 
 namespace AM.Application.Account.CommandHandles;
 
-public class DeActivateAccountCommandHandler : IRequestHandler<DeActivateAccountCommand, Response<string>>
+public class DeActivateAccountCommandHandler : IRequestHandler<DeActivateAccountCommand, ApiResult>
 {
     #region Ctor
 
@@ -18,7 +18,7 @@ public class DeActivateAccountCommandHandler : IRequestHandler<DeActivateAccount
 
     #endregion Ctor
 
-    public async Task<Response<string>> Handle(DeActivateAccountCommand request, CancellationToken cancellationToken)
+    public async Task<ApiResult> Handle(DeActivateAccountCommand request, CancellationToken cancellationToken)
     {
         var user = await _userManager.FindByIdAsync(request.AccountId);
 
@@ -29,6 +29,6 @@ public class DeActivateAccountCommandHandler : IRequestHandler<DeActivateAccount
 
         await _userManager.UpdateAsync(user);
 
-        return new Response<string>();
+        return ApiResponse.Success();
     }
 }

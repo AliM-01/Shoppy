@@ -4,7 +4,7 @@ using AM.Application.Contracts.Account.Queries;
 
 namespace AM.Application.Account.QueryHandles;
 
-public class GetCurrentUserQueryHandler : IRequestHandler<GetCurrentUserQuery, Response<AccountDto>>
+public class GetCurrentUserQueryHandler : IRequestHandler<GetCurrentUserQuery, ApiResult<AccountDto>>
 {
     #region Ctor
 
@@ -20,7 +20,7 @@ public class GetCurrentUserQueryHandler : IRequestHandler<GetCurrentUserQuery, R
 
     #endregion Ctor
 
-    public async Task<Response<AccountDto>> Handle(GetCurrentUserQuery request, CancellationToken cancellationToken)
+    public async Task<ApiResult<AccountDto>> Handle(GetCurrentUserQuery request, CancellationToken cancellationToken)
     {
         cancellationToken.ThrowIfCancellationRequested();
 
@@ -33,6 +33,6 @@ public class GetCurrentUserQueryHandler : IRequestHandler<GetCurrentUserQuery, R
 
         mappedAccount.Roles = (await _userManager.GetRolesAsync(account)).ToHashSet<string>();
 
-        return new Response<AccountDto>(mappedAccount);
+        return ApiResponse.Success<AccountDto>(mappedAccount);
     }
 }

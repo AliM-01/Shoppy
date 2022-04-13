@@ -22,13 +22,13 @@ public class FilterCommentDto : BasePaging
     [Display(Name = "کامنت ها")]
     [JsonProperty("comments")]
     [BindNever]
-    public IEnumerable<CommentDto> Comments { get; set; }
+    public List<CommentDto> Comments { get; set; }
 
     #endregion
 
     #region Methods
 
-    public FilterCommentDto SetData(IEnumerable<CommentDto> comments)
+    public FilterCommentDto SetData(List<CommentDto> comments)
     {
         this.Comments = comments;
         return this;

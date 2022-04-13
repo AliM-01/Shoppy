@@ -4,7 +4,7 @@ using System.IO;
 
 namespace SM.Application.Slider.CommandHandles;
 
-public class EditSliderCommandHandler : IRequestHandler<EditSliderCommand, Response<string>>
+public class EditSliderCommandHandler : IRequestHandler<EditSliderCommand, ApiResult>
 {
     #region Ctor
 
@@ -19,7 +19,7 @@ public class EditSliderCommandHandler : IRequestHandler<EditSliderCommand, Respo
 
     #endregion
 
-    public async Task<Response<string>> Handle(EditSliderCommand request, CancellationToken cancellationToken)
+    public async Task<ApiResult> Handle(EditSliderCommand request, CancellationToken cancellationToken)
     {
         var slider = await _sliderRepository.GetByIdAsync(request.Slider.Id);
 
@@ -39,6 +39,6 @@ public class EditSliderCommandHandler : IRequestHandler<EditSliderCommand, Respo
 
         await _sliderRepository.UpdateAsync(slider);
 
-        return new Response<string>();
+        return ApiResponse.Success();
     }
 }

@@ -4,7 +4,7 @@ using AM.Application.Contracts.Services;
 
 namespace AM.Application.Account.CommandHandles;
 
-public class RevokeRefreshTokenCommandHandler : IRequestHandler<RevokeRefreshTokenCommand, Response<AuthenticateUserResponseDto>>
+public class RevokeRefreshTokenCommandHandler : IRequestHandler<RevokeRefreshTokenCommand, ApiResult<AuthenticateUserResponseDto>>
 {
     #region Ctor
 
@@ -29,7 +29,7 @@ ITokenStoreService tokenStoreService)
 
     #endregion Ctor
 
-    public async Task<Response<AuthenticateUserResponseDto>> Handle(RevokeRefreshTokenCommand request, CancellationToken cancellationToken)
+    public async Task<ApiResult<AuthenticateUserResponseDto>> Handle(RevokeRefreshTokenCommand request, CancellationToken cancellationToken)
     {
         cancellationToken.ThrowIfCancellationRequested();
 
@@ -50,7 +50,7 @@ ITokenStoreService tokenStoreService)
         await _tokenStoreService.AddUserToken(user, result.RefreshTokenSerial, result.AccessToken,
                 _tokenFactoryService.GetRefreshTokenSerial(request.Token.RefreshToken));
 
-        return new Response<AuthenticateUserResponseDto>(new AuthenticateUserResponseDto(result));
+        return ApiResponse.Success<AuthenticateUserResponseDto>(new AuthenticateUserResponseDto(result));
     }
 }
 

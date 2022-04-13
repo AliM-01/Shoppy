@@ -2,7 +2,7 @@
 using BM.Application.Contracts.ArticleCategory.Queries;
 
 namespace BM.Application.ArticleCategory.QueryHandles;
-public class GetArticleCategoriesSelectListQueryHandler : IRequestHandler<GetArticleCategoriesSelectListQuery, Response<IEnumerable<ArticleCategoryForSelectListDto>>>
+public class GetArticleCategoriesSelectListQueryHandler : IRequestHandler<GetArticleCategoriesSelectListQuery, ApiResult<List<ArticleCategoryForSelectListDto>>>
 {
     #region Ctor
 
@@ -17,7 +17,7 @@ public class GetArticleCategoriesSelectListQueryHandler : IRequestHandler<GetArt
 
     #endregion
 
-    public async Task<Response<IEnumerable<ArticleCategoryForSelectListDto>>> Handle(GetArticleCategoriesSelectListQuery request, CancellationToken cancellationToken)
+    public async Task<ApiResult<List<ArticleCategoryForSelectListDto>>> Handle(GetArticleCategoriesSelectListQuery request, CancellationToken cancellationToken)
     {
         var categories = (await
             _articleCategoryRepository
@@ -35,6 +35,6 @@ public class GetArticleCategoriesSelectListQueryHandler : IRequestHandler<GetArt
         if (categories is null)
             throw new NotFoundApiException();
 
-        return new Response<IEnumerable<ArticleCategoryForSelectListDto>>(categories);
+        return ApiResponse.Success<List<ArticleCategoryForSelectListDto>>(categories);
     }
 }

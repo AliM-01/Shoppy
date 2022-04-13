@@ -3,4 +3,4 @@
 namespace SM.Application.Contracts.ProductPicture.Commands;
 
 public record CreateProductPictureCommand
-    (CreateProductPictureDto ProductPicture) : IRequest<Response<string>>;
+    (CreateProductPictureDto ProductPicture) : IRequest<ApiResult>;

@@ -33,15 +33,21 @@ public static class DI_Container
 {
     public static async Task RegisterServicesAsync(this IServiceCollection services, Type assemblyMarker, IConfiguration config)
     {
-        await ConfigureModules(services, config);
-        AddCors(services);
-        AddGeneralSettings(services);
-        AddFluentValidation(services);
-        AddAutoMapper(services, assemblyMarker);
-        AddMediator(services, assemblyMarker);
-    }
+        DI_ContainerTools tools = new();
 
-    private static async Task ConfigureModules(IServiceCollection services, IConfiguration config)
+        await tools.ConfigureModules(services, config);
+        tools.AddCors(services);
+        tools.AddGeneralSettings(services);
+        tools.AddFluentValidation(services);
+        tools.AddAutoMapper(services, assemblyMarker);
+        tools.AddMediator(services, assemblyMarker);
+    }
+}
+
+
+internal class DI_ContainerTools
+{
+    public async Task ConfigureModules(IServiceCollection services, IConfiguration config)
     {
         await AccountModuleBootstrapper.ConfigureAsync(services, config);
         ShopModuleBootstrapper.Configure(services, config);
@@ -54,7 +60,7 @@ public static class DI_Container
         services.AddTransient<IZarinPalFactory, ZarinPalFactory>();
     }
 
-    private static void AddGeneralSettings(IServiceCollection services)
+    public void AddGeneralSettings(IServiceCollection services)
     {
         services.AddOptions();
         services.AddControllers().AddNewtonsoftJson(options =>
@@ -66,7 +72,7 @@ public static class DI_Container
         });
     }
 
-    private static void AddCors(IServiceCollection services)
+    public void AddCors(IServiceCollection services)
     {
         services.AddCors(options =>
         {
@@ -80,7 +86,7 @@ public static class DI_Container
         });
     }
 
-    private static void AddMediator(IServiceCollection services, Type assemblyMarker)
+    public void AddMediator(IServiceCollection services, Type assemblyMarker)
     {
         services.AddMediatorExtension(new List<Type>
         {
@@ -97,7 +103,7 @@ public static class DI_Container
         });
     }
 
-    private static void AddFluentValidation(IServiceCollection services)
+    public void AddFluentValidation(IServiceCollection services)
     {
         var assemblyTypes = new List<Type>
         {
@@ -112,7 +118,7 @@ public static class DI_Container
         services.AddFluentValidationExtension(assemblyTypes);
     }
 
-    private static void AddAutoMapper(IServiceCollection services, Type assemblyMarker)
+    public void AddAutoMapper(IServiceCollection services, Type assemblyMarker)
     {
         services.AddAutoMapperExtension(assemblyMarker, new List<Type>
         {

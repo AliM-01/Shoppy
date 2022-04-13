@@ -6,7 +6,7 @@ using System.IO;
 
 namespace SM.Application.Product.CommandHandles;
 
-public class CreateProductCommandHandler : IRequestHandler<CreateProductCommand, Response<CreateProductResponseDto>>
+public class CreateProductCommandHandler : IRequestHandler<CreateProductCommand, ApiResult<CreateProductResponseDto>>
 {
     #region Ctor
 
@@ -25,7 +25,7 @@ public class CreateProductCommandHandler : IRequestHandler<CreateProductCommand,
 
     #endregion
 
-    public async Task<Response<CreateProductResponseDto>> Handle(CreateProductCommand request, CancellationToken cancellationToken)
+    public async Task<ApiResult<CreateProductResponseDto>> Handle(CreateProductCommand request, CancellationToken cancellationToken)
     {
         if (await _productRepository.ExistsAsync(x => x.Title == request.Product.Title))
             throw new ApiException(ApplicationErrorMessage.DuplicatedRecordExists);
@@ -48,6 +48,6 @@ public class CreateProductCommandHandler : IRequestHandler<CreateProductCommand,
             ImagePath = imagePath
         });
 
-        return new Response<CreateProductResponseDto>(new CreateProductResponseDto(product.Id));
+        return ApiResponse.Success<CreateProductResponseDto>(new CreateProductResponseDto(product.Id));
     }
 }

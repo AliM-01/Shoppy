@@ -4,7 +4,7 @@ using BM.Application.Contracts.ArticleCategory.Commands;
 
 namespace BM.Application.ArticleCategory.CommandHandles;
 
-public class CreateArticleCategoryCommandHandler : IRequestHandler<CreateArticleCategoryCommand, Response<string>>
+public class CreateArticleCategoryCommandHandler : IRequestHandler<CreateArticleCategoryCommand, ApiResult>
 {
     #region Ctor
 
@@ -19,7 +19,7 @@ public class CreateArticleCategoryCommandHandler : IRequestHandler<CreateArticle
 
     #endregion
 
-    public async Task<Response<string>> Handle(CreateArticleCategoryCommand request, CancellationToken cancellationToken)
+    public async Task<ApiResult> Handle(CreateArticleCategoryCommand request, CancellationToken cancellationToken)
     {
         if (await _articleCategoryRepository.ExistsAsync(x => x.Title == request.ArticleCategory.Title))
             throw new ApiException(ApplicationErrorMessage.DuplicatedRecordExists);
@@ -36,6 +36,6 @@ public class CreateArticleCategoryCommandHandler : IRequestHandler<CreateArticle
 
         await _articleCategoryRepository.InsertAsync(articleCategory);
 
-        return new Response<string>(ApplicationErrorMessage.OperationSuccedded);
+        return ApiResponse.Success();
     }
 }

@@ -2,7 +2,7 @@
 using SM.Application.Contracts.Slider.Queries;
 
 namespace SM.Application.Slider.QueryHandles;
-public class GetSliderDetailsQueryHandler : IRequestHandler<GetSliderDetailsQuery, Response<EditSliderDto>>
+public class GetSliderDetailsQueryHandler : IRequestHandler<GetSliderDetailsQuery, ApiResult<EditSliderDto>>
 {
     #region Ctor
 
@@ -17,7 +17,7 @@ public class GetSliderDetailsQueryHandler : IRequestHandler<GetSliderDetailsQuer
 
     #endregion
 
-    public async Task<Response<EditSliderDto>> Handle(GetSliderDetailsQuery request, CancellationToken cancellationToken)
+    public async Task<ApiResult<EditSliderDto>> Handle(GetSliderDetailsQuery request, CancellationToken cancellationToken)
     {
         var slider = await _sliderRepository.GetByIdAsync(request.Id);
 
@@ -26,6 +26,6 @@ public class GetSliderDetailsQueryHandler : IRequestHandler<GetSliderDetailsQuer
 
         var mappedSlider = _mapper.Map<EditSliderDto>(slider);
 
-        return new Response<EditSliderDto>(mappedSlider);
+        return ApiResponse.Success<EditSliderDto>(mappedSlider);
     }
 }

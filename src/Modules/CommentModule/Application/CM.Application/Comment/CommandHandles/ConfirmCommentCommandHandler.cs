@@ -2,7 +2,7 @@
 
 namespace CM.Application.Comment.CommandHandles;
 
-public class ConfirmCommentCommandHandler : IRequestHandler<ConfirmCommentCommand, Response<string>>
+public class ConfirmCommentCommandHandler : IRequestHandler<ConfirmCommentCommand, ApiResult>
 {
     #region Ctor
 
@@ -17,7 +17,7 @@ public class ConfirmCommentCommandHandler : IRequestHandler<ConfirmCommentComman
 
     #endregion
 
-    public async Task<Response<string>> Handle(ConfirmCommentCommand request, CancellationToken cancellationToken)
+    public async Task<ApiResult> Handle(ConfirmCommentCommand request, CancellationToken cancellationToken)
     {
         var comment = await _commentRepository.GetByIdAsync(request.CommentId);
 
@@ -28,6 +28,6 @@ public class ConfirmCommentCommandHandler : IRequestHandler<ConfirmCommentComman
 
         await _commentRepository.UpdateAsync(comment);
 
-        return new Response<string>("کامنت مورد نظر با موفقیت تایید شد");
+        return ApiResponse.Success("کامنت مورد نظر با موفقیت تایید شد");
     }
 }

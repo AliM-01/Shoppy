@@ -3,9 +3,9 @@ using _01_Shoppy.Query.Helpers.Product;
 
 namespace _01_Shoppy.Query.Queries.Product;
 
-public record GetRelatedProductsQuery(string CategoryId) : IRequest<Response<List<ProductQueryModel>>>;
+public record GetRelatedProductsQuery(string CategoryId) : IRequest<ApiResult<List<ProductQueryModel>>>;
 
-public class GetRelatedProductsQueryHandler : IRequestHandler<GetRelatedProductsQuery, Response<List<ProductQueryModel>>>
+public class GetRelatedProductsQueryHandler : IRequestHandler<GetRelatedProductsQuery, ApiResult<List<ProductQueryModel>>>
 {
     #region Ctor
 
@@ -23,7 +23,7 @@ public class GetRelatedProductsQueryHandler : IRequestHandler<GetRelatedProducts
 
     #endregion
 
-    public async Task<Response<List<ProductQueryModel>>> Handle(GetRelatedProductsQuery request, CancellationToken cancellationToken)
+    public async Task<ApiResult<List<ProductQueryModel>>> Handle(GetRelatedProductsQuery request, CancellationToken cancellationToken)
     {
         var relatedArticles =
             (await _productRepository
@@ -35,6 +35,6 @@ public class GetRelatedProductsQueryHandler : IRequestHandler<GetRelatedProducts
                .Select(x => _productHelper.MapProducts<ProductQueryModel>(x).Result)
                .ToList();
 
-        return new Response<List<ProductQueryModel>>(relatedArticles);
+        return ApiResponse.Success<List<ProductQueryModel>>(relatedArticles);
     }
 }

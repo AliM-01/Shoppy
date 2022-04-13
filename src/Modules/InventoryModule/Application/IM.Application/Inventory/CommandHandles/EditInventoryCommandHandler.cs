@@ -2,7 +2,7 @@
 
 namespace IM.Application.Inventory.CommandHandles;
 
-public class EditInventoryCommandHandler : IRequestHandler<EditInventoryCommand, Response<string>>
+public class EditInventoryCommandHandler : IRequestHandler<EditInventoryCommand, ApiResult>
 {
     #region Ctor
 
@@ -19,7 +19,7 @@ public class EditInventoryCommandHandler : IRequestHandler<EditInventoryCommand,
 
     #endregion
 
-    public async Task<Response<string>> Handle(EditInventoryCommand request, CancellationToken cancellationToken)
+    public async Task<ApiResult> Handle(EditInventoryCommand request, CancellationToken cancellationToken)
     {
         var inventory = await _inventoryRepository.GetByIdAsync(request.Inventory.Id, cancellationToken);
 
@@ -33,6 +33,6 @@ public class EditInventoryCommandHandler : IRequestHandler<EditInventoryCommand,
 
         await _inventoryRepository.UpdateAsync(inventory);
 
-        return new Response<string>();
+        return ApiResponse.Success();
     }
 }

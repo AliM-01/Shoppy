@@ -2,7 +2,7 @@
 
 namespace AM.Application.Account.CommandHandles;
 
-public class ActivateAccountByAdminCommandHandler : IRequestHandler<ActivateAccountByAdminCommand, Response<string>>
+public class ActivateAccountByAdminCommandHandler : IRequestHandler<ActivateAccountByAdminCommand, ApiResult>
 {
     #region Ctor
 
@@ -18,7 +18,7 @@ public class ActivateAccountByAdminCommandHandler : IRequestHandler<ActivateAcco
 
     #endregion Ctor
 
-    public async Task<Response<string>> Handle(ActivateAccountByAdminCommand request, CancellationToken cancellationToken)
+    public async Task<ApiResult> Handle(ActivateAccountByAdminCommand request, CancellationToken cancellationToken)
     {
         var user = await _userManager.FindByIdAsync(request.UserId);
 
@@ -29,6 +29,6 @@ public class ActivateAccountByAdminCommandHandler : IRequestHandler<ActivateAcco
 
         await _userManager.UpdateAsync(user);
 
-        return new Response<string>();
+        return ApiResponse.Success();
     }
 }

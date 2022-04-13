@@ -3,4 +3,4 @@
 namespace DM.Application.Contracts.DiscountCode.Queries;
 
 public record FilterDiscountCodesQuery
-    (FilterDiscountCodeDto Filter) : IRequest<Response<FilterDiscountCodeDto>>;
+    (FilterDiscountCodeDto Filter) : IRequest<ApiResult<FilterDiscountCodeDto>>;

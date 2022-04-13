@@ -3,7 +3,7 @@ using MongoDB.Driver;
 
 namespace DM.Application.DiscountCode.CommandHandles;
 
-public class EditDiscountCodeCommandHandler : IRequestHandler<EditDiscountCodeCommand, Response<string>>
+public class EditDiscountCodeCommandHandler : IRequestHandler<EditDiscountCodeCommand, ApiResult>
 {
     #region Ctor
 
@@ -19,7 +19,7 @@ public class EditDiscountCodeCommandHandler : IRequestHandler<EditDiscountCodeCo
 
     #endregion
 
-    public async Task<Response<string>> Handle(EditDiscountCodeCommand request, CancellationToken cancellationToken)
+    public async Task<ApiResult> Handle(EditDiscountCodeCommand request, CancellationToken cancellationToken)
     {
         var discountCode = await _discountCodeRepository.GetByIdAsync(request.DiscountCode.Id);
 
@@ -36,6 +36,6 @@ public class EditDiscountCodeCommandHandler : IRequestHandler<EditDiscountCodeCo
 
         await _discountCodeRepository.UpdateAsync(discountCode);
 
-        return new Response<string>();
+        return ApiResponse.Success();
     }
 }

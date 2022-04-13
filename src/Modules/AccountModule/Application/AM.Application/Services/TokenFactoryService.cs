@@ -126,7 +126,7 @@ public class TokenFactoryService : ITokenFactoryService
 
     #region Create AccessToken Async
 
-    private async Task<(string AccessToken, IEnumerable<Claim> Claims)> CreateAccessTokenAsync(Domain.Account.Account user)
+    private async Task<(string AccessToken, List<Claim> Claims)> CreateAccessTokenAsync(Domain.Account.Account user)
     {
         var claims = new List<Claim>
             {

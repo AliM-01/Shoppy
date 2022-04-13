@@ -2,7 +2,7 @@
 
 namespace OM.Application.Order.CommandHandles;
 
-public class CancelOrderCommandHandler : IRequestHandler<CancelOrderCommand, Response<string>>
+public class CancelOrderCommandHandler : IRequestHandler<CancelOrderCommand, ApiResult>
 {
     #region Ctor
 
@@ -21,7 +21,7 @@ public class CancelOrderCommandHandler : IRequestHandler<CancelOrderCommand, Res
 
     #endregion
 
-    public async Task<Response<string>> Handle(CancelOrderCommand request, CancellationToken cancellationToken)
+    public async Task<ApiResult> Handle(CancelOrderCommand request, CancellationToken cancellationToken)
     {
         var order = await _orderRepository.GetByIdAsync(request.OrderId);
 
@@ -42,6 +42,6 @@ public class CancelOrderCommandHandler : IRequestHandler<CancelOrderCommand, Res
 
         await _orderRepository.UpdateAsync(order);
 
-        return new Response<string>(ApplicationErrorMessage.OperationSuccedded);
+        return ApiResponse.Success();
     }
 }

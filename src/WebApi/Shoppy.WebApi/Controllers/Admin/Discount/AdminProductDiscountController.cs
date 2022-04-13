@@ -13,8 +13,8 @@ public class AdminProductDiscountController : BaseAdminApiController
     [SwaggerOperation(Summary = "فیلتر تخفیفات محصول", Tags = new[] { "AdminProductDiscount" })]
     [SwaggerResponse(200, "success")]
     [SwaggerResponse(404, "not-found")]
-    [ProducesResponseType(typeof(Response<FilterProductDiscountDto>), 200)]
-    [ProducesResponseType(typeof(Response<string>), 404)]
+    [ProducesResponseType(typeof(ApiResult<FilterProductDiscountDto>), 200)]
+    [ProducesResponseType(typeof(ApiResult), 404)]
     public async Task<IActionResult> FilterProductDiscounts([FromQuery] FilterProductDiscountDto filter)
     {
         var res = await Mediator.Send(new FilterProductDiscountsQuery(filter));
@@ -30,8 +30,8 @@ public class AdminProductDiscountController : BaseAdminApiController
     [SwaggerOperation(Summary = "دریافت تخفیف محصول", Tags = new[] { "AdminProductDiscount" })]
     [SwaggerResponse(200, "success")]
     [SwaggerResponse(404, "not-found")]
-    [ProducesResponseType(typeof(Response<EditProductDiscountDto>), 200)]
-    [ProducesResponseType(typeof(Response<string>), 404)]
+    [ProducesResponseType(typeof(ApiResult<EditProductDiscountDto>), 200)]
+    [ProducesResponseType(typeof(ApiResult), 404)]
     public async Task<IActionResult> GetProductDiscountDetails([FromRoute] string id)
     {
         var res = await Mediator.Send(new GetProductDiscountDetailsQuery(id));
@@ -48,9 +48,9 @@ public class AdminProductDiscountController : BaseAdminApiController
     [SwaggerResponse(201, "success : created")]
     [SwaggerResponse(400, "error : discount exists for product")]
     [SwaggerResponse(404, "not-found")]
-    [ProducesResponseType(typeof(Response<string>), 201)]
-    [ProducesResponseType(typeof(Response<string>), 400)]
-    [ProducesResponseType(typeof(Response<string>), 404)]
+    [ProducesResponseType(typeof(ApiResult), 201)]
+    [ProducesResponseType(typeof(ApiResult), 400)]
+    [ProducesResponseType(typeof(ApiResult), 404)]
     public async Task<IActionResult> DefineProductDiscount([FromForm] DefineProductDiscountDto createRequest)
     {
         var res = await Mediator.Send(new DefineProductDiscountCommand(createRequest));
@@ -66,8 +66,8 @@ public class AdminProductDiscountController : BaseAdminApiController
     [SwaggerOperation(Summary = "ویرایش تخفیف محصول", Tags = new[] { "AdminProductDiscount" })]
     [SwaggerResponse(200, "success")]
     [SwaggerResponse(404, "not-found")]
-    [ProducesResponseType(typeof(Response<string>), 200)]
-    [ProducesResponseType(typeof(Response<string>), 404)]
+    [ProducesResponseType(typeof(ApiResult), 200)]
+    [ProducesResponseType(typeof(ApiResult), 404)]
     public async Task<IActionResult> EditProductDiscount([FromForm] EditProductDiscountDto editRequest)
     {
         var res = await Mediator.Send(new EditProductDiscountCommand(editRequest));
@@ -83,8 +83,8 @@ public class AdminProductDiscountController : BaseAdminApiController
     [SwaggerOperation(Summary = "حذف تخفیف محصول", Tags = new[] { "AdminProductDiscount" })]
     [SwaggerResponse(200, "success")]
     [SwaggerResponse(404, "not-found")]
-    [ProducesResponseType(typeof(Response<string>), 200)]
-    [ProducesResponseType(typeof(Response<string>), 404)]
+    [ProducesResponseType(typeof(ApiResult), 200)]
+    [ProducesResponseType(typeof(ApiResult), 404)]
     public async Task<IActionResult> RemoveProductDiscount([FromRoute] string id)
     {
         var res = await Mediator.Send(new RemoveProductDiscountCommand(id));
@@ -100,8 +100,8 @@ public class AdminProductDiscountController : BaseAdminApiController
     [SwaggerOperation(Summary = "چک کردن وجود تخفیف محصول برای محصول", Tags = new[] { "AdminProductDiscount" })]
     [SwaggerResponse(200, "success")]
     [SwaggerResponse(404, "not-found")]
-    [ProducesResponseType(typeof(Response<CheckProductHasProductDiscountResponseDto>), 200)]
-    [ProducesResponseType(typeof(Response<string>), 404)]
+    [ProducesResponseType(typeof(ApiResult<CheckProductHasProductDiscountResponseDto>), 200)]
+    [ProducesResponseType(typeof(ApiResult), 404)]
     public async Task<IActionResult> CheckProductHasProductDiscount([FromRoute] string productId)
     {
         var res = await Mediator.Send(new CheckProductHasProductDiscountQuery(productId));

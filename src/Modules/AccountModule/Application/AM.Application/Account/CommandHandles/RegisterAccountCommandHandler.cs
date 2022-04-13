@@ -2,7 +2,7 @@
 using AM.Domain.Enums;
 namespace AM.Application.Account.CommandHandles;
 
-public class RegisterAccountCommandHandler : IRequestHandler<RegisterAccountCommand, Response<string>>
+public class RegisterAccountCommandHandler : IRequestHandler<RegisterAccountCommand, ApiResult<string>>
 {
     #region Ctor
 
@@ -21,7 +21,7 @@ public class RegisterAccountCommandHandler : IRequestHandler<RegisterAccountComm
 
     #endregion Ctor
 
-    public async Task<Response<string>> Handle(RegisterAccountCommand request, CancellationToken cancellationToken)
+    public async Task<ApiResult<string>> Handle(RegisterAccountCommand request, CancellationToken cancellationToken)
     {
         cancellationToken.ThrowIfCancellationRequested();
 
@@ -42,6 +42,6 @@ public class RegisterAccountCommandHandler : IRequestHandler<RegisterAccountComm
         await _userManager.AddToRoleAsync(user, Roles.BasicUser.ToString());
         await _userManager.AddToRoleAsync(user, Roles.Admin.ToString());
 
-        return new Response<string>(user.Id.ToString());
+        return ApiResponse.Success<string>(user.Id.ToString());
     }
 }

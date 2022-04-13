@@ -2,7 +2,7 @@
 
 namespace AM.Application.Account.CommandHandles;
 
-public class ActivateAccountCommandHandler : IRequestHandler<ActivateAccountCommand, Response<string>>
+public class ActivateAccountCommandHandler : IRequestHandler<ActivateAccountCommand, ApiResult>
 {
     #region Ctor
 
@@ -18,7 +18,7 @@ public class ActivateAccountCommandHandler : IRequestHandler<ActivateAccountComm
 
     #endregion Ctor
 
-    public async Task<Response<string>> Handle(ActivateAccountCommand request, CancellationToken cancellationToken)
+    public async Task<ApiResult> Handle(ActivateAccountCommand request, CancellationToken cancellationToken)
     {
         var user = await _userManager.FindByEmailAsync(request.Account.Email);
 
@@ -29,6 +29,6 @@ public class ActivateAccountCommandHandler : IRequestHandler<ActivateAccountComm
 
         await _userManager.UpdateAsync(user);
 
-        return new Response<string>("حساب کاربری شما با موفقیت فعال شد");
+        return ApiResponse.Success("حساب کاربری شما با موفقیت فعال شد");
     }
 }

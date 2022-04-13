@@ -3,4 +3,4 @@
 namespace SM.Application.Contracts.ProductCategory.Commands;
 
 public record CreateProductCategoryCommand
-    (CreateProductCategoryDto ProductCategory) : IRequest<Response<string>>;
+    (CreateProductCategoryDto ProductCategory) : IRequest<ApiResult>;

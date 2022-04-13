@@ -2,9 +2,9 @@
 
 namespace _0_Framework.Api;
 
-public static class CustonJsonConverter
+public static class JsonSerializer
 {
-    public static string Serialize(object? value)
+    public static string Serialize(object value)
     {
         return JsonConvert.SerializeObject(value, Formatting.Indented);
     }

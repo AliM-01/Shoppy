@@ -4,7 +4,7 @@ using System.IO;
 
 namespace SM.Application.ProductCategory.CommandHandles;
 
-public class EditProductCategoryCommandHandler : IRequestHandler<EditProductCategoryCommand, Response<string>>
+public class EditProductCategoryCommandHandler : IRequestHandler<EditProductCategoryCommand, ApiResult>
 {
     #region Ctor
 
@@ -19,7 +19,7 @@ public class EditProductCategoryCommandHandler : IRequestHandler<EditProductCate
 
     #endregion
 
-    public async Task<Response<string>> Handle(EditProductCategoryCommand request, CancellationToken cancellationToken)
+    public async Task<ApiResult> Handle(EditProductCategoryCommand request, CancellationToken cancellationToken)
     {
         var productCategory = await _productCategoryRepository.GetByIdAsync(request.ProductCategory.Id);
 
@@ -43,6 +43,6 @@ public class EditProductCategoryCommandHandler : IRequestHandler<EditProductCate
 
         await _productCategoryRepository.UpdateAsync(productCategory);
 
-        return new Response<string>();
+        return ApiResponse.Success();
     }
 }

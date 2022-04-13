@@ -3,4 +3,4 @@
 namespace SM.Application.Contracts.ProductCategory.Queries;
 
 public record GetProductCategoryDetailsQuery
-    (string Id) : IRequest<Response<EditProductCategoryDto>>;
+    (string Id) : IRequest<ApiResult<EditProductCategoryDto>>;

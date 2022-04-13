@@ -13,8 +13,8 @@ public class AdminProductCategoryController : BaseAdminApiController
     [SwaggerOperation(Summary = "دریافت لیست دسته بندی محصولات", Tags = new[] { "AdminProductCategory" })]
     [SwaggerResponse(200, "success")]
     [SwaggerResponse(404, "not-found")]
-    [ProducesResponseType(typeof(Response<List<ProductCategoryForSelectListDto>>), 200)]
-    [ProducesResponseType(typeof(Response<string>), 404)]
+    [ProducesResponseType(typeof(ApiResult<List<ProductCategoryForSelectListDto>>), 200)]
+    [ProducesResponseType(typeof(ApiResult), 404)]
     public async Task<IActionResult> GetProductCategoriesList()
     {
         var res = await Mediator.Send(new GetProductCategoriesListQuery());
@@ -30,8 +30,8 @@ public class AdminProductCategoryController : BaseAdminApiController
     [SwaggerOperation(Summary = "فیلتر دسته بندی محصولات", Tags = new[] { "AdminProductCategory" })]
     [SwaggerResponse(200, "success")]
     [SwaggerResponse(404, "not-found")]
-    [ProducesResponseType(typeof(Response<FilterProductCategoryDto>), 200)]
-    [ProducesResponseType(typeof(Response<string>), 404)]
+    [ProducesResponseType(typeof(ApiResult<FilterProductCategoryDto>), 200)]
+    [ProducesResponseType(typeof(ApiResult), 404)]
     public async Task<IActionResult> FilterProductCategories([FromQuery] FilterProductCategoryDto filter)
     {
         var res = await Mediator.Send(new FilterProductCategoriesQuery(filter));
@@ -47,8 +47,8 @@ public class AdminProductCategoryController : BaseAdminApiController
     [SwaggerOperation(Summary = "دریافت جزییات دسته بندی محصول", Tags = new[] { "AdminProductCategory" })]
     [SwaggerResponse(200, "success")]
     [SwaggerResponse(404, "not-found")]
-    [ProducesResponseType(typeof(Response<EditProductCategoryDto>), 200)]
-    [ProducesResponseType(typeof(Response<string>), 404)]
+    [ProducesResponseType(typeof(ApiResult<EditProductCategoryDto>), 200)]
+    [ProducesResponseType(typeof(ApiResult), 404)]
     public async Task<IActionResult> GetProductCategoryDetails([FromRoute] string id)
     {
         var res = await Mediator.Send(new GetProductCategoryDetailsQuery(id));
@@ -64,8 +64,8 @@ public class AdminProductCategoryController : BaseAdminApiController
     [SwaggerOperation(Summary = "ایجاد دسته بندی محصول", Tags = new[] { "AdminProductCategory" })]
     [SwaggerResponse(201, "success : created")]
     [SwaggerResponse(400, "error : title is duplicated")]
-    [ProducesResponseType(typeof(Response<string>), 201)]
-    [ProducesResponseType(typeof(Response<string>), 400)]
+    [ProducesResponseType(typeof(ApiResult), 201)]
+    [ProducesResponseType(typeof(ApiResult), 400)]
     public async Task<IActionResult> CreateProductCategory([FromForm] CreateProductCategoryDto createRequest)
     {
         var res = await Mediator.Send(new CreateProductCategoryCommand(createRequest));
@@ -82,9 +82,9 @@ public class AdminProductCategoryController : BaseAdminApiController
     [SwaggerResponse(201, "success : created")]
     [SwaggerResponse(400, "error : title is duplicated")]
     [SwaggerResponse(404, "not-found")]
-    [ProducesResponseType(typeof(Response<string>), 200)]
-    [ProducesResponseType(typeof(Response<string>), 400)]
-    [ProducesResponseType(typeof(Response<string>), 404)]
+    [ProducesResponseType(typeof(ApiResult), 200)]
+    [ProducesResponseType(typeof(ApiResult), 400)]
+    [ProducesResponseType(typeof(ApiResult), 404)]
     public async Task<IActionResult> EditProductCategory([FromForm] EditProductCategoryDto editRequest)
     {
         var res = await Mediator.Send(new EditProductCategoryCommand(editRequest));
@@ -100,8 +100,8 @@ public class AdminProductCategoryController : BaseAdminApiController
     [SwaggerOperation(Summary = "حذف دسته بندی محصول", Tags = new[] { "AdminProductCategory" })]
     [SwaggerResponse(200, "success")]
     [SwaggerResponse(404, "not-found")]
-    [ProducesResponseType(typeof(Response<string>), 200)]
-    [ProducesResponseType(typeof(Response<string>), 404)]
+    [ProducesResponseType(typeof(ApiResult), 200)]
+    [ProducesResponseType(typeof(ApiResult), 404)]
     public async Task<IActionResult> DeleteProductCategory([FromRoute] string id)
     {
         var res = await Mediator.Send(new DeleteProductCategoryCommand(id));

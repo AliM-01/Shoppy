@@ -13,8 +13,8 @@ public class AdminArticleCategoryController : BaseAdminApiController
     [SwaggerOperation(Summary = "دریافت لیست دسته بندی مقالات", Tags = new[] { "AdminArticleCategory" })]
     [SwaggerResponse(200, "success")]
     [SwaggerResponse(404, "not-found")]
-    [ProducesResponseType(typeof(Response<List<ArticleCategoryForSelectListDto>>), 200)]
-    [ProducesResponseType(typeof(Response<string>), 404)]
+    [ProducesResponseType(typeof(ApiResult<List<ArticleCategoryForSelectListDto>>), 200)]
+    [ProducesResponseType(typeof(ApiResult), 404)]
     public async Task<IActionResult> GetArticleCategoriesSelectList(CancellationToken cancellationToken)
     {
         var res = await Mediator.Send(new GetArticleCategoriesSelectListQuery(), cancellationToken);
@@ -30,8 +30,8 @@ public class AdminArticleCategoryController : BaseAdminApiController
     [SwaggerOperation(Summary = "فیلتر دسته بندی مقالات", Tags = new[] { "AdminArticleCategory" })]
     [SwaggerResponse(200, "success")]
     [SwaggerResponse(404, "not-found")]
-    [ProducesResponseType(typeof(Response<FilterArticleCategoryDto>), 200)]
-    [ProducesResponseType(typeof(Response<string>), 404)]
+    [ProducesResponseType(typeof(ApiResult<FilterArticleCategoryDto>), 200)]
+    [ProducesResponseType(typeof(ApiResult), 404)]
     public async Task<IActionResult> FilterArticleCategories([FromQuery] FilterArticleCategoryDto filter, CancellationToken cancellationToken)
     {
         var res = await Mediator.Send(new FilterArticleCategoriesQuery(filter), cancellationToken);
@@ -47,8 +47,8 @@ public class AdminArticleCategoryController : BaseAdminApiController
     [SwaggerOperation(Summary = "دریافت جزییات دسته بندی مقاله", Tags = new[] { "AdminArticleCategory" })]
     [SwaggerResponse(200, "success")]
     [SwaggerResponse(404, "not-found")]
-    [ProducesResponseType(typeof(Response<EditArticleCategoryDto>), 200)]
-    [ProducesResponseType(typeof(Response<string>), 404)]
+    [ProducesResponseType(typeof(ApiResult<EditArticleCategoryDto>), 200)]
+    [ProducesResponseType(typeof(ApiResult), 404)]
     public async Task<IActionResult> GetArticleCategoryDetails([FromRoute] string id, CancellationToken cancellationToken)
     {
         var res = await Mediator.Send(new GetArticleCategoryDetailsQuery(id), cancellationToken);
@@ -64,8 +64,8 @@ public class AdminArticleCategoryController : BaseAdminApiController
     [SwaggerOperation(Summary = "ایجاد دسته بندی مقاله", Tags = new[] { "AdminArticleCategory" })]
     [SwaggerResponse(201, "success : created")]
     [SwaggerResponse(400, "error : title is duplicated")]
-    [ProducesResponseType(typeof(Response<string>), 201)]
-    [ProducesResponseType(typeof(Response<string>), 404)]
+    [ProducesResponseType(typeof(ApiResult), 201)]
+    [ProducesResponseType(typeof(ApiResult), 404)]
     public async Task<IActionResult> CreateArticleCategory([FromForm] CreateArticleCategoryDto createRequest)
     {
         var res = await Mediator.Send(new CreateArticleCategoryCommand(createRequest));
@@ -82,9 +82,9 @@ public class AdminArticleCategoryController : BaseAdminApiController
     [SwaggerResponse(201, "success : created")]
     [SwaggerResponse(400, "error : title is duplicated")]
     [SwaggerResponse(404, "not-found")]
-    [ProducesResponseType(typeof(Response<string>), 201)]
-    [ProducesResponseType(typeof(Response<string>), 400)]
-    [ProducesResponseType(typeof(Response<string>), 404)]
+    [ProducesResponseType(typeof(ApiResult), 201)]
+    [ProducesResponseType(typeof(ApiResult), 400)]
+    [ProducesResponseType(typeof(ApiResult), 404)]
     public async Task<IActionResult> EditArticleCategory([FromForm] EditArticleCategoryDto editRequest)
     {
         var res = await Mediator.Send(new EditArticleCategoryCommand(editRequest));
@@ -100,8 +100,8 @@ public class AdminArticleCategoryController : BaseAdminApiController
     [SwaggerOperation(Summary = "حذف دسته بندی مقاله", Tags = new[] { "AdminArticleCategory" })]
     [SwaggerResponse(200, "success")]
     [SwaggerResponse(404, "not-found")]
-    [ProducesResponseType(typeof(Response<string>), 200)]
-    [ProducesResponseType(typeof(Response<string>), 404)]
+    [ProducesResponseType(typeof(ApiResult), 200)]
+    [ProducesResponseType(typeof(ApiResult), 404)]
     public async Task<IActionResult> DeleteArticleCategory([FromRoute] string id)
     {
         var res = await Mediator.Send(new DeleteArticleCategoryCommand(id));

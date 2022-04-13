@@ -4,7 +4,7 @@ using System.IO;
 
 namespace SM.Application.Slider.CommandHandles;
 
-public class CreateSliderCommandHandler : IRequestHandler<CreateSliderCommand, Response<string>>
+public class CreateSliderCommandHandler : IRequestHandler<CreateSliderCommand, ApiResult>
 {
     #region Ctor
 
@@ -19,7 +19,7 @@ public class CreateSliderCommandHandler : IRequestHandler<CreateSliderCommand, R
 
     #endregion
 
-    public async Task<Response<string>> Handle(CreateSliderCommand request, CancellationToken cancellationToken)
+    public async Task<ApiResult> Handle(CreateSliderCommand request, CancellationToken cancellationToken)
     {
         var slider =
             _mapper.Map(request.Slider, new Domain.Slider.Slider());
@@ -32,6 +32,6 @@ public class CreateSliderCommandHandler : IRequestHandler<CreateSliderCommand, R
 
         await _sliderRepository.InsertAsync(slider);
 
-        return new Response<string>(ApplicationErrorMessage.OperationSuccedded);
+        return ApiResponse.Success();
     }
 }

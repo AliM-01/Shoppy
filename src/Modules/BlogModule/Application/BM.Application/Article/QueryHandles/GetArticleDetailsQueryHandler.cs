@@ -2,7 +2,7 @@
 using BM.Application.Contracts.Article.Queries;
 
 namespace BM.Application.Article.QueryHandles;
-public class GetArticleDetailsQueryHandler : IRequestHandler<GetArticleDetailsQuery, Response<EditArticleDto>>
+public class GetArticleDetailsQueryHandler : IRequestHandler<GetArticleDetailsQuery, ApiResult<EditArticleDto>>
 {
     #region Ctor
 
@@ -17,7 +17,7 @@ public class GetArticleDetailsQueryHandler : IRequestHandler<GetArticleDetailsQu
 
     #endregion
 
-    public async Task<Response<EditArticleDto>> Handle(GetArticleDetailsQuery request, CancellationToken cancellationToken)
+    public async Task<ApiResult<EditArticleDto>> Handle(GetArticleDetailsQuery request, CancellationToken cancellationToken)
     {
         var article = await _articleRepository.GetByIdAsync(request.Id, cancellationToken);
 
@@ -26,6 +26,6 @@ public class GetArticleDetailsQueryHandler : IRequestHandler<GetArticleDetailsQu
 
         var mappedArticle = _mapper.Map<EditArticleDto>(article);
 
-        return new Response<EditArticleDto>(mappedArticle);
+        return ApiResponse.Success<EditArticleDto>(mappedArticle);
     }
 }

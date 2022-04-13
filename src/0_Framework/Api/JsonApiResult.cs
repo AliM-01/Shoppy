@@ -7,16 +7,19 @@ public static class JsonApiResult
 {
     #region Success
 
-    public static OkObjectResult Success(string msg = "عملیات با موفقیت انجام شد")
+    public static OkObjectResult Success()
     {
-        var res = new Response<string>(msg, msg);
-
-        return new OkObjectResult(CustonJsonConverter.Serialize(res));
+        return new OkObjectResult(JsonSerializer.Serialize(ApiResponse.Success()));
     }
 
-    public static OkObjectResult Success<T>(Response<T> response)
+    public static OkObjectResult Success(ApiResult response)
     {
-        var res = CustonJsonConverter.Serialize(response);
+        return new OkObjectResult(JsonSerializer.Serialize(response));
+    }
+
+    public static OkObjectResult Success<T>(ApiResult<T> response)
+    {
+        var res = JsonSerializer.Serialize(response.Data);
 
         return new OkObjectResult(res);
     }
@@ -25,9 +28,16 @@ public static class JsonApiResult
 
     #region Created
 
-    public static CreatedResult Created<T>(Response<T> response)
+    public static CreatedResult Created(string msg)
     {
-        var res = CustonJsonConverter.Serialize(response);
+        var res = JsonSerializer.Serialize(new ApiResult(201, msg));
+
+        return new CreatedResult("", res);
+    }
+
+    public static CreatedResult Created(ApiResult response)
+    {
+        var res = JsonSerializer.Serialize(response);
 
         return new CreatedResult("", res);
     }
@@ -38,14 +48,12 @@ public static class JsonApiResult
 
     public static BadRequestObjectResult Error(string msg = "عملیات با خطا مواجه شد")
     {
-        var res = new Response<string>().Error(msg);
-
-        return new BadRequestObjectResult(CustonJsonConverter.Serialize(res));
+        return new BadRequestObjectResult(JsonSerializer.Serialize(ApiResponse.Error(msg)));
     }
 
-    public static BadRequestObjectResult Error<T>(Response<T> response)
+    public static BadRequestObjectResult Error<T>(ApiResult<T> response)
     {
-        var res = CustonJsonConverter.Serialize(response);
+        var res = JsonSerializer.Serialize(response);
 
         return new BadRequestObjectResult(res);
     }
@@ -56,9 +64,7 @@ public static class JsonApiResult
 
     public static UnauthorizedObjectResult Unauthorized(string msg = "لطفا به حساب کاربری خود وارد شوید")
     {
-        var res = new Response<string>().Unauthorized(msg);
-
-        return new UnauthorizedObjectResult(CustonJsonConverter.Serialize(res));
+        return new UnauthorizedObjectResult(JsonSerializer.Serialize(ApiResponse.AccessDenied()));
     }
 
     #endregion

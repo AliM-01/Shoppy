@@ -3,9 +3,9 @@ using _01_Shoppy.Query.Models.Blog.Article;
 
 namespace _01_Shoppy.Query.Queries.Article;
 
-public record SearchArticleQuery(SearchArticleQueryModel Search) : IRequest<Response<SearchArticleQueryModel>>;
+public record SearchArticleQuery(SearchArticleQueryModel Search) : IRequest<ApiResult<SearchArticleQueryModel>>;
 
-public class SearchArticleQueryHandler : IRequestHandler<SearchArticleQuery, Response<SearchArticleQueryModel>>
+public class SearchArticleQueryHandler : IRequestHandler<SearchArticleQuery, ApiResult<SearchArticleQueryModel>>
 {
     #region Ctor
 
@@ -24,7 +24,7 @@ public class SearchArticleQueryHandler : IRequestHandler<SearchArticleQuery, Res
 
     #endregion
 
-    public async Task<Response<SearchArticleQueryModel>> Handle(SearchArticleQuery request, CancellationToken cancellationToken)
+    public async Task<ApiResult<SearchArticleQueryModel>> Handle(SearchArticleQuery request, CancellationToken cancellationToken)
     {
         var query = _articleRepository.AsQueryable(cancellationToken: cancellationToken);
 
@@ -82,7 +82,7 @@ public class SearchArticleQueryHandler : IRequestHandler<SearchArticleQuery, Res
         if (returnData.PageId > returnData.GetLastPage() && returnData.GetLastPage() != 0)
             throw new NotFoundApiException();
 
-        return new Response<SearchArticleQueryModel>(returnData);
+        return ApiResponse.Success<SearchArticleQueryModel>(returnData);
 
     }
 

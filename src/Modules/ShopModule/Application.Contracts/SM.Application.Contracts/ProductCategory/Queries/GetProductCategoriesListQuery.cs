@@ -4,4 +4,4 @@ using System.Collections.Generic;
 namespace SM.Application.Contracts.ProductCategory.Queries;
 
 public record GetProductCategoriesListQuery
-    : IRequest<Response<IEnumerable<ProductCategoryForSelectListDto>>>;
+    : IRequest<ApiResult<List<ProductCategoryForSelectListDto>>>;

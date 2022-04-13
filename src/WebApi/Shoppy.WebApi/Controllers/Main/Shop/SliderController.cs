@@ -11,7 +11,7 @@ public class SliderController : BaseApiController
     [HttpGet(MainShopEndpoints.Slider.GetSliders)]
     [SwaggerOperation(Summary = "دریافت اسلایدر ها", Tags = new[] { "Slider" })]
     [SwaggerResponse(200, "success")]
-    [ProducesResponseType(typeof(Response<List<SliderQueryModel>>), 200)]
+    [ProducesResponseType(typeof(ApiResult<List<SliderQueryModel>>), 200)]
     public async Task<IActionResult> GetSliders()
     {
         var res = await Mediator.Send(new GetSlidersQuery());

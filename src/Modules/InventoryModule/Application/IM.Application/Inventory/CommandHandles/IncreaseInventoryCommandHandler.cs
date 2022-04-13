@@ -2,7 +2,7 @@
 
 namespace IM.Application.Contracts.Inventory.Commands;
 
-public class IncreaseInventoryCommandHandler : IRequestHandler<IncreaseInventoryCommand, Response<string>>
+public class IncreaseInventoryCommandHandler : IRequestHandler<IncreaseInventoryCommand, ApiResult>
 {
     #region Ctor
 
@@ -20,7 +20,7 @@ public class IncreaseInventoryCommandHandler : IRequestHandler<IncreaseInventory
 
     #endregion
 
-    public async Task<Response<string>> Handle(IncreaseInventoryCommand request, CancellationToken cancellationToken)
+    public async Task<ApiResult> Handle(IncreaseInventoryCommand request, CancellationToken cancellationToken)
     {
         var inventory = await _inventoryRepository.GetByIdAsync(request.Inventory.InventoryId);
 
@@ -30,6 +30,6 @@ public class IncreaseInventoryCommandHandler : IRequestHandler<IncreaseInventory
         await _inventoryHelper.Increase(inventory.Id, request.Inventory.Count,
             request.UserId, request.Inventory.Description);
 
-        return new Response<string>();
+        return ApiResponse.Success();
     }
 }

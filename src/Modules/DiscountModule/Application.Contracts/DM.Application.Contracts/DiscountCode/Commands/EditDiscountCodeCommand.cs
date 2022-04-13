@@ -3,4 +3,4 @@
 namespace DM.Application.Contracts.DiscountCode.Commands;
 
 public record EditDiscountCodeCommand
-    (EditDiscountCodeDto DiscountCode) : IRequest<Response<string>>;
+    (EditDiscountCodeDto DiscountCode) : IRequest<ApiResult>;

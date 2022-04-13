@@ -3,4 +3,4 @@
 namespace BM.Application.Contracts.ArticleCategory.Commands;
 
 public record CreateArticleCategoryCommand
-    (CreateArticleCategoryDto ArticleCategory) : IRequest<Response<string>>;
+    (CreateArticleCategoryDto ArticleCategory) : IRequest<ApiResult>;

@@ -3,4 +3,4 @@
 namespace BM.Application.Contracts.ArticleCategory.Commands;
 
 public record EditArticleCategoryCommand
-    (EditArticleCategoryDto ArticleCategory) : IRequest<Response<string>>;
+    (EditArticleCategoryDto ArticleCategory) : IRequest<ApiResult>;

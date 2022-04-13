@@ -2,9 +2,9 @@
 
 namespace _01_Shoppy.Query.Queries.ArticleCategory;
 
-public record GetArticleCategoryListQuery() : IRequest<Response<IEnumerable<ArticleCategoryQueryModel>>>;
+public record GetArticleCategoryListQuery() : IRequest<ApiResult<List<ArticleCategoryQueryModel>>>;
 
-public class GetArticleCategoryListQueryHandler : IRequestHandler<GetArticleCategoryListQuery, Response<IEnumerable<ArticleCategoryQueryModel>>>
+public class GetArticleCategoryListQueryHandler : IRequestHandler<GetArticleCategoryListQuery, ApiResult<List<ArticleCategoryQueryModel>>>
 {
     #region Ctor
 
@@ -20,7 +20,7 @@ public class GetArticleCategoryListQueryHandler : IRequestHandler<GetArticleCate
 
     #endregion
 
-    public Task<Response<IEnumerable<ArticleCategoryQueryModel>>> Handle(GetArticleCategoryListQuery request, CancellationToken cancellationToken)
+    public Task<ApiResult<List<ArticleCategoryQueryModel>>> Handle(GetArticleCategoryListQuery request, CancellationToken cancellationToken)
     {
         var articleCategories =
             _articleCategoryRepository
@@ -29,6 +29,6 @@ public class GetArticleCategoryListQueryHandler : IRequestHandler<GetArticleCate
             .Select(articleCategory => _mapper.Map(articleCategory, new ArticleCategoryQueryModel()))
             .ToList();
 
-        return Task.FromResult(new Response<IEnumerable<ArticleCategoryQueryModel>>(articleCategories));
+        return Task.FromResult(ApiResponse.Success<List<ArticleCategoryQueryModel>>(articleCategories));
     }
 }

@@ -3,4 +3,4 @@
 namespace OM.Application.Contracts.Order.Queries;
 
 public record GetOrderItemsQuery
-    (string OrderId, string UserId, bool IsAdmin) : IRequest<Response<List<OrderItemDto>>>;
+    (string OrderId, string UserId, bool IsAdmin) : IRequest<ApiResult<List<OrderItemDto>>>;

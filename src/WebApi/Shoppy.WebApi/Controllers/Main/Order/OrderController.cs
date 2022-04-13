@@ -11,7 +11,7 @@ public class OrderController : BaseApiController
     [HttpPost(MainOrderEndpoints.Cart.ComputeCart)]
     [SwaggerOperation(Summary = "پردازش سفارش", Tags = new[] { "Order" })]
     [SwaggerResponse(200, "success")]
-    [ProducesResponseType(typeof(Response<CartDto>), 200)]
+    [ProducesResponseType(typeof(ApiResult<CartDto>), 200)]
     public async Task<IActionResult> ComputeCart([FromBody] List<CartItemInCookieDto> items)
     {
         var res = await Mediator.Send(new ComputeCartQuery(items));
@@ -26,7 +26,7 @@ public class OrderController : BaseApiController
     [HttpPost(MainOrderEndpoints.Cart.Checkout)]
     [SwaggerOperation(Summary = "پردازش سفارش", Tags = new[] { "Order" })]
     [SwaggerResponse(200, "success")]
-    [ProducesResponseType(typeof(Response<CartDto>), 200)]
+    [ProducesResponseType(typeof(ApiResult<CartDto>), 200)]
     public async Task<IActionResult> Checkout([FromBody] List<CartItemInCookieDto> items)
     {
         var res = await Mediator.Send(new CheckoutCartQuery(items));

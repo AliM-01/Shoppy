@@ -3,4 +3,4 @@
 namespace AM.Application.Contracts.Account.Queries;
 
 public record GetAccountDetailsQuery
-    (string UserId) : IRequest<Response<EditAccountDto>>;
+    (string UserId) : IRequest<ApiResult<EditAccountDto>>;
