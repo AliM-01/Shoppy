@@ -64,7 +64,7 @@ public static class JsonApiResult
 
     public static UnauthorizedObjectResult Unauthorized(string msg = "لطفا به حساب کاربری خود وارد شوید")
     {
-        return new UnauthorizedObjectResult(JsonSerializer.Serialize(ApiResponse.AccessDenied()));
+        return new UnauthorizedObjectResult(JsonSerializer.Serialize(ApiResponse.Unauthorized()));
     }
 
     #endregion

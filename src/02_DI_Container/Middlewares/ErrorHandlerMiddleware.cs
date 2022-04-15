@@ -49,7 +49,7 @@ public class ErrorHandlerMiddleware
                     break;
 
                 case SecurityTokenExpiredException:
-                    apiResult = ApiResponse.AccessDenied();
+                    apiResult = ApiResponse.Unauthorized();
                     break;
 
                 case OperationCanceledException:

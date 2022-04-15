@@ -60,9 +60,18 @@ public static class ApiResponse
 
     #endregion
 
+    #region Unauthorized
+
+    public static ApiResult Unauthorized(string message = ApplicationErrorMessage.Unauthorized)
+    {
+        return new(401, message);
+    }
+
+    #endregion
+
     #region Access Denied
 
-    public static ApiResult AccessDenied(string message = ApplicationErrorMessage.Unauthorized)
+    public static ApiResult AccessDenied(string message = ApplicationErrorMessage.AccessDenied)
     {
         return new(403, message);
     }

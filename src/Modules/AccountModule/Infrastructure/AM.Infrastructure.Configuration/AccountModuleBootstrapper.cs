@@ -146,9 +146,9 @@ public class AccountModuleBootstrapper
                         },
                         OnForbidden = context =>
                         {
-                            context.Response.StatusCode = 401;
+                            context.Response.StatusCode = 403;
                             context.Response.ContentType = "application/json";
-                            return context.Response.WriteAsync(ProduceUnAuthorizedResponse());
+                            return context.Response.WriteAsync(ProduceAccessDeniedResponse());
                         }
                     };
                 });
@@ -157,6 +157,11 @@ public class AccountModuleBootstrapper
     }
 
     private static string ProduceUnAuthorizedResponse()
+    {
+        return JsonSerializer.Serialize(ApiResponse.Unauthorized());
+    }
+
+    private static string ProduceAccessDeniedResponse()
     {
         return JsonSerializer.Serialize(ApiResponse.AccessDenied());
     }

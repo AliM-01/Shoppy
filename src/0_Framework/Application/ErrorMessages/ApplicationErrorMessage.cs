@@ -7,6 +7,8 @@ public class ApplicationErrorMessage
 
     public const string Unauthorized = "لطفا به حساب کاربری خود وارد شوید";
 
+    public const string AccessDenied = "شما به این بخش دسترسی ندارید";
+
     public const string RecordDeleted = "رکورد مورد نظر با موفقیت حذف شد";
 
     public const string FilteredRecordsNotFound = "رکوردی با این فیلتر بندی پیدا نشد. لطفا دوباره امتحان کنید";
