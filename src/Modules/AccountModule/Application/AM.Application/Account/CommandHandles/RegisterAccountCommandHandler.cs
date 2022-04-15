@@ -28,7 +28,7 @@ public class RegisterAccountCommandHandler : IRequestHandler<RegisterAccountComm
         var userWithSameEmail = await _userManager.FindByEmailAsync(request.Account.Email);
 
         if (userWithSameEmail != null)
-            throw new ApiException($"ایمیل وارد شده <${request.Account.Email}> تکراری می‌ باشد");
+            throw new ApiException($"ایمیل وارد شده {request.Account.Email} تکراری می‌ باشد");
 
         var user = _mapper.Map(request.Account, new Domain.Account.Account());
 
@@ -37,7 +37,7 @@ public class RegisterAccountCommandHandler : IRequestHandler<RegisterAccountComm
         var result = await _userManager.CreateAsync(user, request.Account.Password);
 
         if (!result.Succeeded)
-            throw new ApiException($"${result.Errors.First().Description}");
+            throw new ApiException(result.Errors.First().Description);
 
         await _userManager.AddToRoleAsync(user, Roles.BasicUser.ToString());
         await _userManager.AddToRoleAsync(user, Roles.Admin.ToString());
