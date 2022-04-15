@@ -1,7 +1,6 @@
 ﻿using _0_Framework.Api;
 using _0_Framework.Application.Wrappers;
 using _0_Framework.Infrastructure.IRepository;
-using AM.Application.Contracts.Common.Settings;
 using AM.Application.Contracts.Services;
 using AM.Application.Services;
 using AM.Domain.Account;
@@ -79,6 +78,8 @@ public class AccountModuleBootstrapper
         #endregion
 
         #endregion
+
+        services.AddScoped<IEmailSenderService, EmailSenderService>();
 
         services.AddScoped<ISecurityService, SecurityService>();
         services.AddScoped<ITokenFactoryService, TokenFactoryService>();
