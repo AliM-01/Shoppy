@@ -25,7 +25,7 @@ public class AccountModuleMappingProfile : Profile
 
         #region Register Account
 
-        CreateMap<RegisterAccountDto, Account>()
+        CreateMap<RegisterAccountRequestDto, Account>()
                        .ForMember(dest => dest.Avatar,
                            opt => opt.MapFrom(src => "default-avatar.png"))
                        .ForMember(dest => dest.UserName,

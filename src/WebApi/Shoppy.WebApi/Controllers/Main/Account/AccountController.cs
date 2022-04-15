@@ -40,7 +40,7 @@ public class AccountController : BaseApiController
     [SwaggerResponse(400, "duplicate email")]
     [ProducesResponseType(typeof(ApiResult), 201)]
     [ProducesResponseType(typeof(ApiResult), 400)]
-    public async Task<IActionResult> Register([FromForm] RegisterAccountDto register, CancellationToken cancellationToken)
+    public async Task<IActionResult> Register([FromForm] RegisterAccountRequestDto register, CancellationToken cancellationToken)
     {
         cancellationToken.ThrowIfCancellationRequested();
 
