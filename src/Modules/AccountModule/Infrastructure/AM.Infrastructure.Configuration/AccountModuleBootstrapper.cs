@@ -80,7 +80,7 @@ public class AccountModuleBootstrapper
         #endregion
 
         services.AddScoped<IEmailSenderService, EmailSenderService>();
-
+        services.AddScoped<IViewRenderService, ViewRenderService>();
         services.AddScoped<ISecurityService, SecurityService>();
         services.AddScoped<ITokenFactoryService, TokenFactoryService>();
         services.AddScoped<ITokenStoreService, TokenStoreService>();
