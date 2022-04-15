@@ -32,7 +32,8 @@ public class EditAccountCommandHandler : IRequestHandler<EditAccountCommand, Api
         {
             var imagePath = DateTime.Now.ToFileName() + Path.GetExtension(request.Account.ImageFile.FileName);
 
-            request.Account.ImageFile.CropAndAddImageToServer(imagePath, PathExtension.AccountImage, 150, 150);
+            request.Account.ImageFile.CropAndAddImageToServer(imagePath, PathExtension.Avatar200, 200, 200);
+            request.Account.ImageFile.CropAndAddImageToServer(imagePath, PathExtension.Avatar60, 60, 60);
 
             user.Avatar = imagePath;
         }

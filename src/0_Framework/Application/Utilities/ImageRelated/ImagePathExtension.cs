@@ -6,8 +6,11 @@ public static class PathExtension
 {
     #region Account
 
-    public static string AccountImage =
-        Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/upload/avatar/");
+    public static string Avatar200 =
+        Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/upload/avatar/200/");
+
+    public static string Avatar60 =
+        Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/upload/avatar/60/");
 
     #endregion
 

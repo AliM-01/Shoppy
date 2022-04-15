@@ -2,8 +2,11 @@
 using System.IO;
 
 namespace _0_Framework.Application.Utilities.ImageRelated;
+
 public static class SaveImageExtension
 {
+    #region AddImageToServer
+
     public static bool AddImageToServer(this IFormFile image, string fileName, string orginalPath, int? width, int? height, string thumbPath = null, string deletefileName = null)
     {
         if (image != null && image.IsImage())
@@ -47,6 +50,10 @@ public static class SaveImageExtension
         return false;
     }
 
+    #endregion
+
+    #region CropAndAddImageToServer
+
     public static void CropAndAddImageToServer(this IFormFile image, string fileName, string orginalPath, int width, int height)
     {
         if (image != null && image.IsImage())
@@ -54,20 +61,28 @@ public static class SaveImageExtension
             if (!Directory.Exists(orginalPath))
                 Directory.CreateDirectory(orginalPath);
 
-            string OriginPath = orginalPath + fileName;
+            string tempPath = orginalPath + "temp" + fileName;
 
-            using (var stream = new FileStream(OriginPath, FileMode.Create))
+            using (var stream = new FileStream(tempPath, FileMode.Create))
             {
-                ImageOptimizer resizer = new ImageOptimizer();
-
-                resizer.ImageResizer(orginalPath + fileName, orginalPath + fileName, width, height);
+                image.CopyTo(stream);
             }
+
+            ImageOptimizer resizer = new ImageOptimizer();
+
+            resizer.ImageResizer(tempPath, orginalPath + fileName, width, height);
+
+            File.Delete(tempPath);
 
             return;
         }
 
         return;
     }
+
+    #endregion
+
+    #region DeleteImage
 
     public static void DeleteImage(this string imageName, string OriginPath, string ThumbPath)
     {
@@ -83,4 +98,7 @@ public static class SaveImageExtension
             }
         }
     }
+
+    #endregion
+
 }

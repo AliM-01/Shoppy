@@ -53,6 +53,8 @@
 
 	<ItemGroup>
 	  <Folder Include="wwwroot\editor-upload\" />
+	  <Folder Include="wwwroot\upload\avatar\60\" />
+	  <Folder Include="wwwroot\upload\avatar\200\" />
 	</ItemGroup>
 
 </Project>
