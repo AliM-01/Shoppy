@@ -1,8 +1,12 @@
 ﻿using _0_Framework.Application.Exceptions;
+using AM.Application.Contracts.Account.DTOs;
 using AM.Domain.Enums;
+using Microsoft.AspNetCore.WebUtilities;
+using System.Text;
+
 namespace AM.Application.Account.CommandHandles;
 
-public class RegisterAccountCommandHandler : IRequestHandler<RegisterAccountCommand, ApiResult<string>>
+public class RegisterAccountCommandHandler : IRequestHandler<RegisterAccountCommand, ApiResult<RegisterAccountResponseDto>>
 {
     #region Ctor
 
@@ -21,7 +25,7 @@ public class RegisterAccountCommandHandler : IRequestHandler<RegisterAccountComm
 
     #endregion Ctor
 
-    public async Task<ApiResult<string>> Handle(RegisterAccountCommand request, CancellationToken cancellationToken)
+    public async Task<ApiResult<RegisterAccountResponseDto>> Handle(RegisterAccountCommand request, CancellationToken cancellationToken)
     {
         cancellationToken.ThrowIfCancellationRequested();
 
@@ -42,6 +46,11 @@ public class RegisterAccountCommandHandler : IRequestHandler<RegisterAccountComm
         await _userManager.AddToRoleAsync(user, Roles.BasicUser.ToString());
         await _userManager.AddToRoleAsync(user, Roles.Admin.ToString());
 
-        return ApiResponse.Success<string>(user.Id.ToString());
+        var userToConfirm = await _userManager.FindByEmailAsync(user.Email);
+
+        string token = await _userManager.GenerateEmailConfirmationTokenAsync(userToConfirm);
+        token = WebEncoders.Base64UrlEncode(Encoding.UTF8.GetBytes(token));
+
+        return ApiResponse.Success<RegisterAccountResponseDto>(new RegisterAccountResponseDto(token));
     }
 }
