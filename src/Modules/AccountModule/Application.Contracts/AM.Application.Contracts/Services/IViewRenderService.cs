@@ -2,5 +2,5 @@
 
 public interface IViewRenderService
 {
-    string RenderToStringAsync(string viewName, object model);
+    string RenderToString(string viewName, object model);
 }

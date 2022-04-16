@@ -25,7 +25,7 @@ public class ViewRenderService : IViewRenderService
         _serviceProvider = serviceProvider;
     }
 
-    public string RenderToStringAsync(string viewName, object model)
+    public string RenderToString(string viewName, object model)
     {
         var httpContext = new DefaultHttpContext { RequestServices = _serviceProvider };
         var actionContext = new ActionContext(httpContext, new RouteData(), new ActionDescriptor());

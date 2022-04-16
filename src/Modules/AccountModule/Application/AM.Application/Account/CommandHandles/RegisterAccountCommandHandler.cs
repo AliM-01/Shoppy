@@ -51,6 +51,9 @@ public class RegisterAccountCommandHandler : IRequestHandler<RegisterAccountComm
         string token = await _userManager.GenerateEmailConfirmationTokenAsync(userToConfirm);
         token = WebEncoders.Base64UrlEncode(Encoding.UTF8.GetBytes(token));
 
-        return ApiResponse.Success<RegisterAccountResponseDto>(new RegisterAccountResponseDto(token));
+        return ApiResponse.Success<RegisterAccountResponseDto>(new RegisterAccountResponseDto(token,
+                                                                                              WebEncoders.Base64UrlEncode(Encoding.UTF8.GetBytes(user.Id.ToString())),
+                                                                                              user.Email,
+                                                                                              $"{user.FirstName} {user.LastName}"));
     }
 }

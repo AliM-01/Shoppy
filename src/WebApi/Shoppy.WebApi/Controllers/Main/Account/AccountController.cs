@@ -17,14 +17,20 @@ public class AccountController : BaseApiController
     #region ctor
 
     private readonly ITokenStoreService _tokenStoreService;
+    private readonly IEmailSenderService _emailSender;
+    private readonly IViewRenderService _viewRenderService;
     private readonly RoleManager<AccountRole> _roleManager;
     private readonly ILogger<AccountController> _logger;
 
     public AccountController(ITokenStoreService tokenStoreService,
+                             IEmailSenderService emailSender,
+                             IViewRenderService viewRenderService,
                              ILogger<AccountController> logger,
                              RoleManager<AccountRole> roleManager)
     {
         _tokenStoreService = Guard.Against.Null(tokenStoreService, nameof(_tokenStoreService));
+        _emailSender = Guard.Against.Null(emailSender, nameof(_emailSender));
+        _viewRenderService = Guard.Against.Null(viewRenderService, nameof(_viewRenderService));
         _logger = Guard.Against.Null(logger, nameof(_logger));
         _roleManager = Guard.Against.Null(roleManager, nameof(_roleManager));
     }
@@ -46,6 +52,12 @@ public class AccountController : BaseApiController
 
         var res = await Mediator.Send(new RegisterAccountCommand(register), cancellationToken);
 
+        res.Data.CallBackUrl = $"{MainAccountEndpoints.Account.ConfirmEmail}?tId={res.Data.Token}";
+
+        string emailBody = _viewRenderService.RenderToString("_ActivateEmail.cshtml", res.Data.CallBackUrl);
+
+        _emailSender.SendEmail(res.Data.UserEmail, res.Data.UserFullName, "فعالسازی حساب", emailBody);
+
         return JsonApiResult.Success(res);
     }
 
@@ -65,6 +77,28 @@ public class AccountController : BaseApiController
         cancellationToken.ThrowIfCancellationRequested();
 
         var res = await Mediator.Send(new AuthenticateUserCommand(login), cancellationToken);
+
+        return JsonApiResult.Success(res);
+    }
+
+    #endregion
+
+    #region ConfirmEmail
+
+    [AllowAnonymous]
+    [HttpPost(MainAccountEndpoints.Account.ConfirmEmail)]
+    [SwaggerOperation(Summary = "فعالسازی حساب", Tags = new[] { "Account" })]
+    [SwaggerResponse(200, "success")]
+    [SwaggerResponse(400, "error")]
+    [ProducesResponseType(typeof(ApiResult), 200)]
+    [ProducesResponseType(typeof(ApiResult), 400)]
+    public async Task<IActionResult> ConfirmEmail([FromQuery(Name = "uId")] string userId,
+                                                  [FromQuery(Name = "tId")] string activationToken,
+                                                  CancellationToken cancellationToken)
+    {
+        cancellationToken.ThrowIfCancellationRequested();
+        var res = await Mediator.Send(new ActivateAccountCommand(new ActivateAccountRequestDto(userId,
+                                                                                               activationToken)), cancellationToken);
 
         return JsonApiResult.Success(res);
     }
