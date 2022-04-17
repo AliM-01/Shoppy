@@ -31,7 +31,7 @@ public class ViewRenderService : IViewRenderService
         var actionContext = new ActionContext(httpContext, new RouteData(), new ActionDescriptor());
 
         using var sw = new StringWriter();
-        var viewResult = _razorViewEngine.FindView(actionContext, viewName, false);
+        var viewResult = _razorViewEngine.GetView(viewName, viewName, false);
 
         if (viewResult.View == null)
         {

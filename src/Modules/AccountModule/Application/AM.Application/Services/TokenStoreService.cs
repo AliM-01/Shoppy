@@ -1,8 +1,8 @@
 ﻿using _0_Framework.Infrastructure;
 using _0_Framework.Infrastructure.IRepository;
-using AM.Application.Contracts.Common.Settings;
 using AM.Application.Contracts.Services;
 using AM.Domain.Account;
+using AM.Infrastructure.Persistence.Settings;
 using MongoDB.Driver;
 
 namespace AM.Application.Services;

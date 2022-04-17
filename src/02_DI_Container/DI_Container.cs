@@ -63,7 +63,7 @@ internal class DI_ContainerTools
     public void AddGeneralSettings(IServiceCollection services)
     {
         services.AddOptions();
-        services.AddControllers().AddNewtonsoftJson(options =>
+        services.AddControllersWithViews().AddNewtonsoftJson(options =>
         {
             options.SerializerSettings.NullValueHandling = NullValueHandling.Include;
             options.SerializerSettings.MaxDepth = int.MaxValue;

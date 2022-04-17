@@ -52,9 +52,9 @@ public class AccountController : BaseApiController
 
         var res = await Mediator.Send(new RegisterAccountCommand(register), cancellationToken);
 
-        res.Data.CallBackUrl = $"{MainAccountEndpoints.Account.ConfirmEmail}?tId={res.Data.Token}";
+        res.Data.CallBackUrl = $"https://localhost:5001/{MainAccountEndpoints.Account.ConfirmEmail}?tId={res.Data.Token}?uId{res.Data.UserId}";
 
-        string emailBody = _viewRenderService.RenderToString("_ActivateEmail.cshtml", res.Data.CallBackUrl);
+        string emailBody = _viewRenderService.RenderToString("~/Shared/Views/_ActivateEmail.cshtml", res.Data.CallBackUrl);
 
         _emailSender.SendEmail(res.Data.UserEmail, res.Data.UserFullName, "فعالسازی حساب", emailBody);
 
