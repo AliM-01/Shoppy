@@ -34,7 +34,20 @@ public abstract class BaseApiController : ControllerBase
 
     #endregion
 
+    #region ErrorResult
 
+    protected BadRequestObjectResult ErrorResult(string msg = "عملیات با خطا مواجه شد")
+    {
+        return new BadRequestObjectResult(JsonSerializer.Serialize(ApiResponse.Error(msg)));
+    }
+
+    protected BadRequestObjectResult ErrorResult<T>(ApiResult<T> response)
+    {
+        string res = JsonSerializer.Serialize(response);
+
+        return new BadRequestObjectResult(res);
+    }
+    #endregion
 }
 
 [ApiController]
