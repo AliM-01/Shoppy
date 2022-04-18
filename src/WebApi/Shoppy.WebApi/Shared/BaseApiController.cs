@@ -12,6 +12,29 @@ public abstract class BaseApiController : ControllerBase
 {
     private IMediator _mediator;
     protected IMediator Mediator => _mediator ??= HttpContext.RequestServices.GetService<IMediator>();
+
+    #region SuccessResult
+
+    protected OkObjectResult SuccessResult()
+    {
+        return new OkObjectResult(JsonSerializer.Serialize(ApiResponse.Success()));
+    }
+
+    protected OkObjectResult SuccessResult(ApiResult response)
+    {
+        return new OkObjectResult(JsonSerializer.Serialize(response));
+    }
+
+    protected OkObjectResult SuccessResult<TData>(ApiResult<TData> response)
+    {
+        string res = JsonSerializer.Serialize(response.Data);
+
+        return new OkObjectResult(res);
+    }
+
+    #endregion
+
+
 }
 
 [ApiController]
