@@ -34,6 +34,24 @@ public abstract class BaseApiController : ControllerBase
 
     #endregion
 
+    #region CreatedResult
+
+    protected CreatedResult CreatedResult(string msg)
+    {
+        string res = JsonSerializer.Serialize(new ApiResult(201, msg));
+
+        return new CreatedResult("", res);
+    }
+
+    protected CreatedResult CreatedResult(ApiResult response)
+    {
+        var res = JsonSerializer.Serialize(response);
+
+        return new CreatedResult("", res);
+    }
+
+    #endregion
+
     #region ErrorResult
 
     protected BadRequestObjectResult ErrorResult(string msg = "عملیات با خطا مواجه شد")
