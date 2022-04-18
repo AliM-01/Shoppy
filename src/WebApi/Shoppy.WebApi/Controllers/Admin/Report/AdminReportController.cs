@@ -16,7 +16,7 @@ public class AdminReportController : BaseAdminApiController
     {
         var res = await Mediator.Send(new GetOrdersChartQuery());
 
-        return JsonApiResult.Success(res);
+        return SuccessResult(res);
     }
 
     #endregion
@@ -31,7 +31,7 @@ public class AdminReportController : BaseAdminApiController
     {
         var res = await Mediator.Send(new GetProductsSoldChartQuery());
 
-        return JsonApiResult.Success(res);
+        return SuccessResult(res);
     }
 
     #endregion

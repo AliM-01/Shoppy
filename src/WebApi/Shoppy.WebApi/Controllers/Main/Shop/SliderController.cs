@@ -16,7 +16,7 @@ public class SliderController : BaseApiController
     {
         var res = await Mediator.Send(new GetSlidersQuery());
 
-        return JsonApiResult.Success(res);
+        return SuccessResult(res);
     }
 
     #endregion

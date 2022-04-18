@@ -21,7 +21,7 @@ public class ArticleController : BaseApiController
     {
         var res = await Mediator.Send(new SearchArticleQuery(search), cancellationToken);
 
-        return JsonApiResult.Success(res);
+        return SuccessResult(res);
     }
 
     #endregion
@@ -38,7 +38,7 @@ public class ArticleController : BaseApiController
     {
         var res = await Mediator.Send(new GetArticleDetailsQuery(slug), cancellationToken);
 
-        return JsonApiResult.Success(res);
+        return SuccessResult(res);
     }
 
     #endregion
@@ -53,7 +53,7 @@ public class ArticleController : BaseApiController
     {
         var res = await Mediator.Send(new GetLatestArticlesQuery(), cancellationToken);
 
-        return JsonApiResult.Success(res);
+        return SuccessResult(res);
     }
 
     #endregion
@@ -68,7 +68,7 @@ public class ArticleController : BaseApiController
     {
         var res = await Mediator.Send(new GetRelatedArticlesQuery(categoryId), cancellationToken);
 
-        return JsonApiResult.Success(res);
+        return SuccessResult(res);
     }
 
     #endregion

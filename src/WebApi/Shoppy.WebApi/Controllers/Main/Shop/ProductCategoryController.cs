@@ -16,7 +16,7 @@ public class ProductCategoryController : BaseApiController
     {
         var res = await Mediator.Send(new GetProductCategoriesQuery());
 
-        return JsonApiResult.Success(res);
+        return SuccessResult(res);
     }
 
     #endregion
@@ -33,7 +33,7 @@ public class ProductCategoryController : BaseApiController
     {
         var res = await Mediator.Send(new GetProductCategoryWithProductsByQuery(filter));
 
-        return JsonApiResult.Success(res);
+        return SuccessResult(res);
     }
 
     #endregion

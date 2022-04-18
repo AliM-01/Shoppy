@@ -19,7 +19,7 @@ public class AdminProductFeatureController : BaseAdminApiController
     {
         var res = await Mediator.Send(new FilterProductFeaturesQuery(filter));
 
-        return JsonApiResult.Success(res);
+        return SuccessResult(res);
     }
 
     #endregion
@@ -36,7 +36,7 @@ public class AdminProductFeatureController : BaseAdminApiController
     {
         var res = await Mediator.Send(new GetProductFeatureDetailsQuery(id));
 
-        return JsonApiResult.Success(res);
+        return SuccessResult(res);
     }
 
     #endregion
@@ -53,7 +53,7 @@ public class AdminProductFeatureController : BaseAdminApiController
     {
         var res = await Mediator.Send(new CreateProductFeatureCommand(createRequest));
 
-        return JsonApiResult.Created(res);
+        return CreatedResult(res);
     }
 
     #endregion
@@ -72,7 +72,7 @@ public class AdminProductFeatureController : BaseAdminApiController
     {
         var res = await Mediator.Send(new EditProductFeatureCommand(editRequest));
 
-        return JsonApiResult.Success(res);
+        return SuccessResult(res);
     }
 
     #endregion
@@ -89,7 +89,7 @@ public class AdminProductFeatureController : BaseAdminApiController
     {
         var res = await Mediator.Send(new DeleteProductFeatureCommand(id));
 
-        return JsonApiResult.Success(res);
+        return SuccessResult(res);
     }
 
     #endregion

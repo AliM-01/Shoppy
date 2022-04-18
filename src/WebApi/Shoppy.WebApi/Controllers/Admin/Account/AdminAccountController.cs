@@ -19,7 +19,7 @@ public class AdminAccountController : BaseAdminApiController
     {
         var res = await Mediator.Send(new FilterAccountsQuery(filter));
 
-        return JsonApiResult.Success(res);
+        return SuccessResult(res);
     }
 
     #endregion
@@ -36,7 +36,7 @@ public class AdminAccountController : BaseAdminApiController
     {
         var res = await Mediator.Send(new GetAccountDetailsQuery(id));
 
-        return JsonApiResult.Success(res);
+        return SuccessResult(res);
     }
 
     #endregion
@@ -55,7 +55,7 @@ public class AdminAccountController : BaseAdminApiController
     {
         var res = await Mediator.Send(new EditAccountCommand(editRequest));
 
-        return JsonApiResult.Success(res);
+        return SuccessResult(res);
     }
 
     #endregion
@@ -72,7 +72,7 @@ public class AdminAccountController : BaseAdminApiController
     {
         var res = await Mediator.Send(new ActivateAccountByAdminCommand(id));
 
-        return JsonApiResult.Success(res);
+        return SuccessResult(res);
     }
 
     #endregion
@@ -89,7 +89,7 @@ public class AdminAccountController : BaseAdminApiController
     {
         var res = await Mediator.Send(new DeActivateAccountCommand(id));
 
-        return JsonApiResult.Success(res);
+        return SuccessResult(res);
     }
 
     #endregion

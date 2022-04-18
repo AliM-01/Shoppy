@@ -21,7 +21,7 @@ public class AdminProductController : BaseAdminApiController
     {
         var res = await Mediator.Send(new FilterProductsQuery(filter));
 
-        return JsonApiResult.Success(res);
+        return SuccessResult(res);
     }
 
     #endregion
@@ -38,7 +38,7 @@ public class AdminProductController : BaseAdminApiController
     {
         var res = await Mediator.Send(new ExistsProductIdQuery(id));
 
-        return JsonApiResult.Success(res);
+        return SuccessResult(res);
     }
 
     #endregion
@@ -55,7 +55,7 @@ public class AdminProductController : BaseAdminApiController
     {
         var res = await Mediator.Send(new GetProductDetailsQuery(id));
 
-        return JsonApiResult.Success(res);
+        return SuccessResult(res);
     }
 
     #endregion
@@ -78,7 +78,7 @@ public class AdminProductController : BaseAdminApiController
             UnitPrice = 0
         }));
 
-        return JsonApiResult.Created("محصول با موفقیت ساخته شد");
+        return CreatedResult("محصول با موفقیت ساخته شد");
     }
 
     #endregion
@@ -97,7 +97,7 @@ public class AdminProductController : BaseAdminApiController
     {
         var res = await Mediator.Send(new EditProductCommand(editRequest));
 
-        return JsonApiResult.Success(res);
+        return SuccessResult(res);
     }
 
     #endregion
@@ -114,7 +114,7 @@ public class AdminProductController : BaseAdminApiController
     {
         var res = await Mediator.Send(new DeleteProductCommand(id));
 
-        return JsonApiResult.Success(res);
+        return SuccessResult(res);
     }
 
     #endregion

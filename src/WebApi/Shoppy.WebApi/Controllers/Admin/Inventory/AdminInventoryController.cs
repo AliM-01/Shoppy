@@ -19,7 +19,7 @@ public class AdminInventoryController : BaseAdminApiController
     {
         var res = await Mediator.Send(new FilterInventoryQuery(filter));
 
-        return JsonApiResult.Success(res);
+        return SuccessResult(res);
     }
 
     #endregion
@@ -36,7 +36,7 @@ public class AdminInventoryController : BaseAdminApiController
     {
         var res = await Mediator.Send(new GetInventoryDetailsQuery(id));
 
-        return JsonApiResult.Success(res);
+        return SuccessResult(res);
     }
 
     #endregion
@@ -53,7 +53,7 @@ public class AdminInventoryController : BaseAdminApiController
     {
         var res = await Mediator.Send(new EditInventoryCommand(editRequest));
 
-        return JsonApiResult.Success(res);
+        return SuccessResult(res);
     }
 
     #endregion
@@ -71,7 +71,7 @@ public class AdminInventoryController : BaseAdminApiController
         var res = await Mediator.Send(new IncreaseInventoryCommand(increaseRequest,
                                                                    User.GetUserId()));
 
-        return JsonApiResult.Success(res);
+        return SuccessResult(res);
     }
 
     #endregion
@@ -89,7 +89,7 @@ public class AdminInventoryController : BaseAdminApiController
         var res = await Mediator.Send(new ReduceInventoryCommand(reduceRequest,
                                                                  User.GetUserId()));
 
-        return JsonApiResult.Success(res);
+        return SuccessResult(res);
     }
 
     #endregion
@@ -106,7 +106,7 @@ public class AdminInventoryController : BaseAdminApiController
     {
         var res = await Mediator.Send(new GetInventoryOperationLogQuery(id));
 
-        return JsonApiResult.Success(res);
+        return SuccessResult(res);
     }
 
     #endregion

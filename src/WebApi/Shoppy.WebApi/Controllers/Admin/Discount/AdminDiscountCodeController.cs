@@ -19,7 +19,7 @@ public class AdminDiscountCodeController : BaseAdminApiController
     {
         var res = await Mediator.Send(new FilterDiscountCodesQuery(filter));
 
-        return JsonApiResult.Success(res);
+        return SuccessResult(res);
     }
 
     #endregion
@@ -36,7 +36,7 @@ public class AdminDiscountCodeController : BaseAdminApiController
     {
         var res = await Mediator.Send(new GetDiscountCodeDetailsQuery(id));
 
-        return JsonApiResult.Success(res);
+        return SuccessResult(res);
     }
 
     #endregion
@@ -53,7 +53,7 @@ public class AdminDiscountCodeController : BaseAdminApiController
     {
         var res = await Mediator.Send(new DefineDiscountCodeCommand(createRequest));
 
-        return JsonApiResult.Created(res);
+        return CreatedResult(res);
     }
 
     #endregion
@@ -70,7 +70,7 @@ public class AdminDiscountCodeController : BaseAdminApiController
     {
         var res = await Mediator.Send(new EditDiscountCodeCommand(editRequest));
 
-        return JsonApiResult.Success(res);
+        return SuccessResult(res);
     }
 
     #endregion
@@ -87,7 +87,7 @@ public class AdminDiscountCodeController : BaseAdminApiController
     {
         var res = await Mediator.Send(new RemoveDiscountCodeCommand(id));
 
-        return JsonApiResult.Success(res);
+        return SuccessResult(res);
     }
 
     #endregion

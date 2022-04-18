@@ -20,7 +20,7 @@ public class CommentController : BaseApiController
     {
         var res = await Mediator.Send(new GetRecordCommentsByIdQuery(recordId), cancellationToken);
 
-        return JsonApiResult.Success(res);
+        return SuccessResult(res);
     }
 
     #endregion
@@ -35,7 +35,7 @@ public class CommentController : BaseApiController
     {
         var res = await Mediator.Send(new AddCommentCommand(addRequest));
 
-        return JsonApiResult.Created(res);
+        return CreatedResult(res);
     }
 
     #endregion

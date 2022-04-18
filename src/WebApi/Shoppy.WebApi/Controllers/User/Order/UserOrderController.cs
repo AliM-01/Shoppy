@@ -21,7 +21,7 @@ public class UserOrderController : BaseUserApiController
     {
         var res = await Mediator.Send(new GetUserOrdersQuery(User.GetUserId()));
 
-        return JsonApiResult.Success(res);
+        return SuccessResult(res);
     }
 
     #endregion
@@ -37,7 +37,7 @@ public class UserOrderController : BaseUserApiController
         var res = await Mediator.Send(new PlaceOrderCommand(cart,
                                                             User.GetUserId()));
 
-        return JsonApiResult.Success(res);
+        return SuccessResult(res);
     }
 
     #endregion
@@ -56,7 +56,7 @@ public class UserOrderController : BaseUserApiController
                                                              User.GetUserId(),
                                                              false));
 
-        return JsonApiResult.Success(res);
+        return SuccessResult(res);
     }
 
     #endregion
@@ -77,7 +77,7 @@ public class UserOrderController : BaseUserApiController
 
         var res = await Mediator.Send(new InitializePaymentRequestCommand(payment));
 
-        return JsonApiResult.Success(res);
+        return SuccessResult(res);
     }
 
     #endregion
@@ -95,7 +95,7 @@ public class UserOrderController : BaseUserApiController
         var res = await Mediator.Send(new VerifyPaymentRequestCommand(new VerifyPaymentRequestDto(oId, authority),
                                                                       User.GetUserId()));
 
-        return JsonApiResult.Success(res);
+        return SuccessResult(res);
     }
 
     #endregion

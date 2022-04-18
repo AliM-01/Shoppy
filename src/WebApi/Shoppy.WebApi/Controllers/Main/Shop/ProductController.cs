@@ -18,7 +18,7 @@ public class ProductController : BaseApiController
     {
         var res = await Mediator.Send(new GetProductDetailsQuery(slug));
 
-        return JsonApiResult.Success(res);
+        return SuccessResult(res);
     }
 
     #endregion
@@ -37,7 +37,7 @@ public class ProductController : BaseApiController
     {
         var res = await Mediator.Send(new SearchQuery(search));
 
-        return JsonApiResult.Success(res);
+        return SuccessResult(res);
     }
 
     #endregion
@@ -52,7 +52,7 @@ public class ProductController : BaseApiController
     {
         var res = await Mediator.Send(new GetLatestProductsQuery());
 
-        return JsonApiResult.Success(res);
+        return SuccessResult(res);
     }
 
     #endregion
@@ -69,7 +69,7 @@ public class ProductController : BaseApiController
     {
         var res = await Mediator.Send(new GetRelatedProductsQuery(categoryId));
 
-        return JsonApiResult.Success(res);
+        return SuccessResult(res);
     }
 
     #endregion
@@ -84,7 +84,7 @@ public class ProductController : BaseApiController
     {
         var res = await Mediator.Send(new GetHotestDiscountProductsQuery());
 
-        return JsonApiResult.Success(res);
+        return SuccessResult(res);
     }
 
     #endregion

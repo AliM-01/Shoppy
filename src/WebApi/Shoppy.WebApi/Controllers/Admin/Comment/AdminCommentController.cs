@@ -19,7 +19,7 @@ public class AdminCommentController : BaseAdminApiController
     {
         var res = await Mediator.Send(new FilterCommentsQuery(filter), cancellationToken);
 
-        return JsonApiResult.Success(res);
+        return SuccessResult(res);
     }
 
     #endregion
@@ -36,7 +36,7 @@ public class AdminCommentController : BaseAdminApiController
     {
         var res = await Mediator.Send(new ConfirmCommentCommand(id));
 
-        return JsonApiResult.Success(res);
+        return SuccessResult(res);
     }
 
     #endregion
@@ -53,7 +53,7 @@ public class AdminCommentController : BaseAdminApiController
     {
         var res = await Mediator.Send(new CancelCommentCommand(id));
 
-        return JsonApiResult.Success(res);
+        return SuccessResult(res);
     }
 
     #endregion

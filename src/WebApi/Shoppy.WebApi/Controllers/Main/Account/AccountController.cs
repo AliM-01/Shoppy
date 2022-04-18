@@ -67,11 +67,11 @@ public class AccountController : BaseApiController
         bool emailRes = _emailSender.SendEmail(res.Data.UserEmail, res.Data.UserFullName, "فعالسازی حساب", emailBody);
 
         if (!emailRes)
-            return JsonApiResult.Error();
+            return ErrorResult();
 
         #endregion
 
-        return JsonApiResult.Success(ApiResponse.Success("ثبت نام شما با موفقیت انجام شد. لطفا ایمیل خود را تایید کنید"));
+        return SuccessResult(ApiResponse.Success("ثبت نام شما با موفقیت انجام شد. لطفا ایمیل خود را تایید کنید"));
     }
 
     #endregion
@@ -91,7 +91,7 @@ public class AccountController : BaseApiController
 
         var res = await Mediator.Send(new AuthenticateUserCommand(login), cancellationToken);
 
-        return JsonApiResult.Success(res);
+        return SuccessResult(res);
     }
 
     #endregion
@@ -113,7 +113,7 @@ public class AccountController : BaseApiController
         var res = await Mediator.Send(new ActivateAccountCommand(new ActivateAccountRequestDto(userId,
                                                                                                activationToken)), cancellationToken);
 
-        return JsonApiResult.Success(res);
+        return SuccessResult(res);
     }
 
     #endregion
@@ -133,7 +133,7 @@ public class AccountController : BaseApiController
 
         var res = await Mediator.Send(new RevokeRefreshTokenCommand(token), cancellationToken);
 
-        return JsonApiResult.Success(res);
+        return SuccessResult(res);
     }
 
     #endregion
@@ -151,7 +151,7 @@ public class AccountController : BaseApiController
     {
         var res = await Mediator.Send(new ForgotPasswordCommand(forgotPassword));
 
-        return JsonApiResult.Success(res);
+        return SuccessResult(res);
     }
 
     #endregion
@@ -172,7 +172,7 @@ public class AccountController : BaseApiController
 
         await _tokenStoreService.RevokeUserBearerTokens(userId, token.RefreshToken);
 
-        return JsonApiResult.Success();
+        return SuccessResult();
     }
 
     #endregion
@@ -191,9 +191,9 @@ public class AccountController : BaseApiController
         cancellationToken.ThrowIfCancellationRequested();
 
         if (!(this.User.Identity.IsAuthenticated))
-            return JsonApiResult.Unauthorized();
+            return UnauthorizedResult();
 
-        return JsonApiResult.Success(ApiResponse.Success("احراز هویت با موفقیت انجام شد"));
+        return SuccessResult(ApiResponse.Success("احراز هویت با موفقیت انجام شد"));
     }
 
     #endregion
@@ -212,18 +212,18 @@ public class AccountController : BaseApiController
         cancellationToken.ThrowIfCancellationRequested();
 
         if (!(this.User.Identity.IsAuthenticated))
-            return JsonApiResult.Unauthorized();
+            return UnauthorizedResult();
 
         foreach (var role in roles)
         {
             if (!(await _roleManager.RoleExistsAsync(role)))
-                return JsonApiResult.Error("نقش مورد نظر وجود ندارد");
+                return ErrorResult("نقش مورد نظر وجود ندارد");
 
             if (!(this.User.IsInRole(role)))
-                return JsonApiResult.Unauthorized();
+                return UnauthorizedResult();
         }
 
-        return JsonApiResult.Success(ApiResponse.Success("احراز هویت با موفقیت انجام شد"));
+        return SuccessResult(ApiResponse.Success("احراز هویت با موفقیت انجام شد"));
     }
 
     #endregion
@@ -243,7 +243,7 @@ public class AccountController : BaseApiController
 
         var res = await Mediator.Send(new GetCurrentUserQuery(User.GetUserId()), cancellationToken);
 
-        return JsonApiResult.Success(res);
+        return SuccessResult(res);
     }
 
     #endregion

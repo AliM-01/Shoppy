@@ -16,7 +16,7 @@ public class OrderController : BaseApiController
     {
         var res = await Mediator.Send(new ComputeCartQuery(items));
 
-        return JsonApiResult.Success(res);
+        return SuccessResult(res);
     }
 
     #endregion
@@ -31,7 +31,7 @@ public class OrderController : BaseApiController
     {
         var res = await Mediator.Send(new CheckoutCartQuery(items));
 
-        return JsonApiResult.Success(res);
+        return SuccessResult(res);
     }
 
     #endregion

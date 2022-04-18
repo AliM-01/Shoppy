@@ -77,20 +77,12 @@ public abstract class BaseApiController : ControllerBase
     #endregion
 }
 
-[ApiController]
-[EnableCors("CorsPolicy")]
-//[Authorize(Policy = RoleConstants.Admin)]
-public abstract class BaseAdminApiController : ControllerBase
+[Authorize(Policy = RoleConstants.Admin)]
+public abstract class BaseAdminApiController : BaseApiController
 {
-    private IMediator _mediator;
-    protected IMediator Mediator => _mediator ??= HttpContext.RequestServices.GetService<IMediator>();
 }
 
-[ApiController]
-[EnableCors("CorsPolicy")]
 [Authorize(Policy = RoleConstants.BasicUser)]
-public abstract class BaseUserApiController : ControllerBase
+public abstract class BaseUserApiController : BaseApiController
 {
-    private IMediator _mediator;
-    protected IMediator Mediator => _mediator ??= HttpContext.RequestServices.GetService<IMediator>();
 }

@@ -19,7 +19,7 @@ public class AdminSliderController : BaseAdminApiController
     {
         var res = await Mediator.Send(new GetSlidersListQuery());
 
-        return JsonApiResult.Success(res);
+        return SuccessResult(res);
     }
 
     #endregion
@@ -36,7 +36,7 @@ public class AdminSliderController : BaseAdminApiController
     {
         var res = await Mediator.Send(new GetSliderDetailsQuery(id));
 
-        return JsonApiResult.Success(res);
+        return SuccessResult(res);
     }
 
     #endregion
@@ -53,7 +53,7 @@ public class AdminSliderController : BaseAdminApiController
     {
         var res = await Mediator.Send(new CreateSliderCommand(createRequest));
 
-        return JsonApiResult.Created(res);
+        return CreatedResult(res);
     }
 
     #endregion
@@ -70,7 +70,7 @@ public class AdminSliderController : BaseAdminApiController
     {
         var res = await Mediator.Send(new EditSliderCommand(editRequest));
 
-        return JsonApiResult.Success(res);
+        return SuccessResult(res);
     }
 
     #endregion
@@ -87,7 +87,7 @@ public class AdminSliderController : BaseAdminApiController
     {
         var res = await Mediator.Send(new RemoveSliderCommand(id));
 
-        return JsonApiResult.Success(res);
+        return SuccessResult(res);
     }
 
     #endregion
@@ -104,7 +104,7 @@ public class AdminSliderController : BaseAdminApiController
     {
         var res = await Mediator.Send(new RestoreSliderCommand(id));
 
-        return JsonApiResult.Success(res);
+        return SuccessResult(res);
     }
 
     #endregion

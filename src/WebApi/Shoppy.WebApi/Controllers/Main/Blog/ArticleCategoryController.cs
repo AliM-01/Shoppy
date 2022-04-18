@@ -16,7 +16,7 @@ public class ArticleCategoryController : BaseApiController
     {
         var res = await Mediator.Send(new GetArticleCategoryListQuery(), cancellationToken);
 
-        return JsonApiResult.Success(res);
+        return SuccessResult(res);
     }
 
     #endregion
@@ -33,7 +33,7 @@ public class ArticleCategoryController : BaseApiController
     {
         var res = await Mediator.Send(new GetArticleCategoryWithArticlesByQuery(filter), cancellationToken);
 
-        return JsonApiResult.Success(res);
+        return SuccessResult(res);
     }
 
     #endregion

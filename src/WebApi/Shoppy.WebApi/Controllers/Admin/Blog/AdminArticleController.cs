@@ -17,7 +17,7 @@ public class AdminArticleController : BaseAdminApiController
     {
         var res = await Mediator.Send(new FilterArticlesQuery(filter), cancellationToken);
 
-        return JsonApiResult.Success(res);
+        return SuccessResult(res);
     }
 
     #endregion
@@ -34,7 +34,7 @@ public class AdminArticleController : BaseAdminApiController
     {
         var res = await Mediator.Send(new GetArticleDetailsQuery(id), cancellationToken);
 
-        return JsonApiResult.Success(res);
+        return SuccessResult(res);
     }
 
     #endregion
@@ -51,7 +51,7 @@ public class AdminArticleController : BaseAdminApiController
     {
         var res = await Mediator.Send(new CreateArticleCommand(createRequest));
 
-        return JsonApiResult.Created(res);
+        return CreatedResult(res);
     }
 
     #endregion
@@ -70,7 +70,7 @@ public class AdminArticleController : BaseAdminApiController
     {
         var res = await Mediator.Send(new EditArticleCommand(editRequest));
 
-        return JsonApiResult.Success(res);
+        return SuccessResult(res);
     }
 
     #endregion
@@ -87,7 +87,7 @@ public class AdminArticleController : BaseAdminApiController
     {
         var res = await Mediator.Send(new DeleteArticleCommand(id));
 
-        return JsonApiResult.Success(res);
+        return SuccessResult(res);
     }
 
     #endregion

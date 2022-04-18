@@ -19,7 +19,7 @@ public class AdminProductCategoryController : BaseAdminApiController
     {
         var res = await Mediator.Send(new GetProductCategoriesListQuery());
 
-        return JsonApiResult.Success(res);
+        return SuccessResult(res);
     }
 
     #endregion
@@ -36,7 +36,7 @@ public class AdminProductCategoryController : BaseAdminApiController
     {
         var res = await Mediator.Send(new FilterProductCategoriesQuery(filter));
 
-        return JsonApiResult.Success(res);
+        return SuccessResult(res);
     }
 
     #endregion
@@ -53,7 +53,7 @@ public class AdminProductCategoryController : BaseAdminApiController
     {
         var res = await Mediator.Send(new GetProductCategoryDetailsQuery(id));
 
-        return JsonApiResult.Success(res);
+        return SuccessResult(res);
     }
 
     #endregion
@@ -70,7 +70,7 @@ public class AdminProductCategoryController : BaseAdminApiController
     {
         var res = await Mediator.Send(new CreateProductCategoryCommand(createRequest));
 
-        return JsonApiResult.Created(res);
+        return CreatedResult(res);
     }
 
     #endregion
@@ -89,7 +89,7 @@ public class AdminProductCategoryController : BaseAdminApiController
     {
         var res = await Mediator.Send(new EditProductCategoryCommand(editRequest));
 
-        return JsonApiResult.Success(res);
+        return SuccessResult(res);
     }
 
     #endregion
@@ -106,7 +106,7 @@ public class AdminProductCategoryController : BaseAdminApiController
     {
         var res = await Mediator.Send(new DeleteProductCategoryCommand(id));
 
-        return JsonApiResult.Success(res);
+        return SuccessResult(res);
     }
 
     #endregion

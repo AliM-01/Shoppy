@@ -20,7 +20,7 @@ public class AdminProductPictureController : BaseAdminApiController
     {
         var res = await Mediator.Send(new GetProductPicturesQuery(productId));
 
-        return JsonApiResult.Success(res);
+        return SuccessResult(res);
     }
 
     #endregion
@@ -47,7 +47,7 @@ public class AdminProductPictureController : BaseAdminApiController
 
         var res = await Mediator.Send(new CreateProductPictureCommand(createData));
 
-        return JsonApiResult.Created(res);
+        return CreatedResult(res);
     }
 
     #endregion
@@ -64,7 +64,7 @@ public class AdminProductPictureController : BaseAdminApiController
     {
         var res = await Mediator.Send(new RemoveProductPictureCommand(id));
 
-        return JsonApiResult.Success(res);
+        return SuccessResult(res);
     }
 
     #endregion

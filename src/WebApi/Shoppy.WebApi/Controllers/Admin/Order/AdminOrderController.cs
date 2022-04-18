@@ -19,7 +19,7 @@ public class AdminOrderController : BaseAdminApiController
     {
         var res = await Mediator.Send(new FilterOrdersQuery(filter));
 
-        return JsonApiResult.Success(res);
+        return SuccessResult(res);
     }
 
     #endregion
@@ -38,7 +38,7 @@ public class AdminOrderController : BaseAdminApiController
     {
         var res = await Mediator.Send(new GetUserOrdersQuery(userId));
 
-        return JsonApiResult.Success(res);
+        return SuccessResult(res);
     }
 
     #endregion
@@ -57,7 +57,7 @@ public class AdminOrderController : BaseAdminApiController
                                                                  User.GetUserId(),
                                                                  true));
 
-        return JsonApiResult.Success(res);
+        return SuccessResult(res);
     }
 
     #endregion
@@ -76,7 +76,7 @@ public class AdminOrderController : BaseAdminApiController
                                                              User.GetUserId(),
                                                              true));
 
-        return JsonApiResult.Success(res);
+        return SuccessResult(res);
     }
 
     #endregion
