@@ -22,7 +22,7 @@ public class ActivateAccountCommandHandler : IRequestHandler<ActivateAccountComm
 
     public async Task<ApiResult> Handle(ActivateAccountCommand request, CancellationToken cancellationToken)
     {
-        var user = await _userManager.FindByIdAsync(request.Account.UserId);
+        var user = await _userManager.FindByIdAsync(Encoding.UTF8.GetString(WebEncoders.Base64UrlDecode(request.Account.UserId)));
 
         if (user is null)
             throw new NotFoundApiException();

@@ -6,6 +6,7 @@ using AM.Domain.Account;
 using Ardalis.GuardClauses;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.WebUtilities;
 using Microsoft.Extensions.Logging;
 using System.Security.Claims;
 
@@ -52,13 +53,22 @@ public class AccountController : BaseApiController
 
         var res = await Mediator.Send(new RegisterAccountCommand(register), cancellationToken);
 
-        res.Data.CallBackUrl = $"https://localhost:5001/{MainAccountEndpoints.Account.ConfirmEmail}?tId={res.Data.Token}?uId{res.Data.UserId}";
+        #region send activation email
 
-        string emailBody = _viewRenderService.RenderToString("~/Shared/Views/_ActivateEmail.cshtml", res.Data.CallBackUrl);
+        var queryParams = new Dictionary<string, string>() {
+            { "tId", res.Data.Token },
+            { "uId", res.Data.UserId }
+        };
+
+        string callBackUrl = QueryHelpers.AddQueryString($"https://localhost:5001/{MainAccountEndpoints.Account.ConfirmEmail}", queryParams);
+
+        string emailBody = _viewRenderService.RenderToString("~/Shared/Views/_ActivateEmail.cshtml", callBackUrl);
 
         _emailSender.SendEmail(res.Data.UserEmail, res.Data.UserFullName, "فعالسازی حساب", emailBody);
 
-        return JsonApiResult.Success(res);
+        #endregion
+
+        return JsonApiResult.Success(ApiResponse.Success("ثبت نام شما با موفقیت انجام شد. لطفا ایمیل خود را تایید کنید"));
     }
 
     #endregion
@@ -86,7 +96,7 @@ public class AccountController : BaseApiController
     #region ConfirmEmail
 
     [AllowAnonymous]
-    [HttpPost(MainAccountEndpoints.Account.ConfirmEmail)]
+    [HttpGet(MainAccountEndpoints.Account.ConfirmEmail)]
     [SwaggerOperation(Summary = "فعالسازی حساب", Tags = new[] { "Account" })]
     [SwaggerResponse(200, "success")]
     [SwaggerResponse(400, "error")]
