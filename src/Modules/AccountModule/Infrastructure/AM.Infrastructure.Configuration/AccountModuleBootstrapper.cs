@@ -89,6 +89,8 @@ public class AccountModuleBootstrapper
 
         #region auth config
 
+        services.Configure<EmailSettings>(config.GetSection("EmailSettings"));
+
         var bearerTokenSettings = (BearerTokenSettings)config.GetSection("BearerTokenSettings").Get(typeof(BearerTokenSettings));
 
         services.Configure<BearerTokenSettings>(config.GetSection("BearerTokenSettings"));
