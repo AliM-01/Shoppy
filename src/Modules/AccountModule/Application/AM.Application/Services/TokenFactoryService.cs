@@ -1,6 +1,6 @@
 ﻿using AM.Application.Contracts.Common;
-using AM.Application.Contracts.Common.Settings;
 using AM.Application.Contracts.Services;
+using AM.Infrastructure.Persistence.Settings;
 using Microsoft.Extensions.Logging;
 using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;

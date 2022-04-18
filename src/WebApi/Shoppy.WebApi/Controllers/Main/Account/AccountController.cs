@@ -6,6 +6,7 @@ using AM.Domain.Account;
 using Ardalis.GuardClauses;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.WebUtilities;
 using Microsoft.Extensions.Logging;
 using System.Security.Claims;
 
@@ -17,14 +18,20 @@ public class AccountController : BaseApiController
     #region ctor
 
     private readonly ITokenStoreService _tokenStoreService;
+    private readonly IEmailSenderService _emailSender;
+    private readonly IViewRenderService _viewRenderService;
     private readonly RoleManager<AccountRole> _roleManager;
     private readonly ILogger<AccountController> _logger;
 
     public AccountController(ITokenStoreService tokenStoreService,
+                             IEmailSenderService emailSender,
+                             IViewRenderService viewRenderService,
                              ILogger<AccountController> logger,
                              RoleManager<AccountRole> roleManager)
     {
         _tokenStoreService = Guard.Against.Null(tokenStoreService, nameof(_tokenStoreService));
+        _emailSender = Guard.Against.Null(emailSender, nameof(_emailSender));
+        _viewRenderService = Guard.Against.Null(viewRenderService, nameof(_viewRenderService));
         _logger = Guard.Against.Null(logger, nameof(_logger));
         _roleManager = Guard.Against.Null(roleManager, nameof(_roleManager));
     }
@@ -40,13 +47,31 @@ public class AccountController : BaseApiController
     [SwaggerResponse(400, "duplicate email")]
     [ProducesResponseType(typeof(ApiResult), 201)]
     [ProducesResponseType(typeof(ApiResult), 400)]
-    public async Task<IActionResult> Register([FromForm] RegisterAccountDto register, CancellationToken cancellationToken)
+    public async Task<IActionResult> Register([FromForm] RegisterAccountRequestDto register, CancellationToken cancellationToken)
     {
         cancellationToken.ThrowIfCancellationRequested();
 
         var res = await Mediator.Send(new RegisterAccountCommand(register), cancellationToken);
 
-        return JsonApiResult.Success(res);
+        #region send activation email
+
+        var queryParams = new Dictionary<string, string>() {
+            { "tId", res.Data.Token },
+            { "uId", res.Data.UserId }
+        };
+
+        string callBackUrl = QueryHelpers.AddQueryString($"https://localhost:5001/{MainAccountEndpoints.Account.ConfirmEmail}", queryParams);
+
+        string emailBody = _viewRenderService.RenderToString("~/Shared/Views/_ActivateEmail.cshtml", callBackUrl);
+
+        bool emailRes = _emailSender.SendEmail(res.Data.UserEmail, res.Data.UserFullName, "فعالسازی حساب", emailBody);
+
+        if (!emailRes)
+            return JsonApiResult.Error();
+
+        #endregion
+
+        return JsonApiResult.Success(ApiResponse.Success("ثبت نام شما با موفقیت انجام شد. لطفا ایمیل خود را تایید کنید"));
     }
 
     #endregion
@@ -65,6 +90,28 @@ public class AccountController : BaseApiController
         cancellationToken.ThrowIfCancellationRequested();
 
         var res = await Mediator.Send(new AuthenticateUserCommand(login), cancellationToken);
+
+        return JsonApiResult.Success(res);
+    }
+
+    #endregion
+
+    #region ConfirmEmail
+
+    [AllowAnonymous]
+    [HttpGet(MainAccountEndpoints.Account.ConfirmEmail)]
+    [SwaggerOperation(Summary = "فعالسازی حساب", Tags = new[] { "Account" })]
+    [SwaggerResponse(200, "success")]
+    [SwaggerResponse(400, "error")]
+    [ProducesResponseType(typeof(ApiResult), 200)]
+    [ProducesResponseType(typeof(ApiResult), 400)]
+    public async Task<IActionResult> ConfirmEmail([FromQuery(Name = "uId")] string userId,
+                                                  [FromQuery(Name = "tId")] string activationToken,
+                                                  CancellationToken cancellationToken)
+    {
+        cancellationToken.ThrowIfCancellationRequested();
+        var res = await Mediator.Send(new ActivateAccountCommand(new ActivateAccountRequestDto(userId,
+                                                                                               activationToken)), cancellationToken);
 
         return JsonApiResult.Success(res);
     }

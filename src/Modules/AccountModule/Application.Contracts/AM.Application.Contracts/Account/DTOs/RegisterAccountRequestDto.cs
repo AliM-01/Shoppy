@@ -2,7 +2,7 @@
 
 namespace AM.Application.Contracts.Account.DTOs;
 
-public class RegisterAccountDto
+public class RegisterAccountRequestDto
 {
     [JsonProperty("firstName")]
     public string FirstName { get; set; }

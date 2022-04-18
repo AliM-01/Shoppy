@@ -10,6 +10,8 @@ public class MainAccountEndpoints
 
         public const string Login = Base + "/login";
 
+        public const string ConfirmEmail = Base + "/confirm-email";
+
         public const string RefreshToken = Base + "/refresh-token";
 
         public const string ForgotPassword = Base + "/forgot-password";

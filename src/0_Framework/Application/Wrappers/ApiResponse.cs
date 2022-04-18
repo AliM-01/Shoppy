@@ -3,19 +3,37 @@ using Newtonsoft.Json;
 
 namespace _0_Framework.Application.Wrappers;
 
-public record ApiResult<T>(
+public class ApiResult<T>
+{
+    public ApiResult(short status, string message, T data)
+    {
+        Status = status;
+        Message = message;
+        Data = data;
+    }
     [JsonProperty("status")]
-    short Status,
-    [JsonProperty("message")]
-    string Message,
-    [JsonProperty("data")]
-    T Data);
+    public short Status { get; set; }
 
-public record ApiResult(
-    [JsonProperty("status")]
-    short Status,
     [JsonProperty("message")]
-    string Message);
+    public string Message { get; set; }
+
+    [JsonProperty("data")]
+    public T Data { get; set; }
+}
+
+public class ApiResult
+{
+    public ApiResult(short status, string message)
+    {
+        Status = status;
+        Message = message;
+    }
+    [JsonProperty("status")]
+    public short Status { get; set; }
+
+    [JsonProperty("message")]
+    public string Message { get; set; }
+}
 
 public static class ApiResponse
 {

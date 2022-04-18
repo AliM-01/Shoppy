@@ -1,4 +1,4 @@
-﻿namespace AM.Application.Contracts.Common.Settings;
+﻿namespace AM.Infrastructure.Persistence.Settings;
 
 public class BearerTokenSettings
 {

@@ -1,7 +1,6 @@
 ﻿using _0_Framework.Api;
 using _0_Framework.Application.Wrappers;
 using _0_Framework.Infrastructure.IRepository;
-using AM.Application.Contracts.Common.Settings;
 using AM.Application.Contracts.Services;
 using AM.Application.Services;
 using AM.Domain.Account;
@@ -80,6 +79,8 @@ public class AccountModuleBootstrapper
 
         #endregion
 
+        services.AddScoped<IEmailSenderService, EmailSenderService>();
+        services.AddScoped<IViewRenderService, ViewRenderService>();
         services.AddScoped<ISecurityService, SecurityService>();
         services.AddScoped<ITokenFactoryService, TokenFactoryService>();
         services.AddScoped<ITokenStoreService, TokenStoreService>();
@@ -87,6 +88,8 @@ public class AccountModuleBootstrapper
 
 
         #region auth config
+
+        services.Configure<EmailSettings>(config.GetSection("EmailSettings"));
 
         var bearerTokenSettings = (BearerTokenSettings)config.GetSection("BearerTokenSettings").Get(typeof(BearerTokenSettings));
 
