@@ -53,15 +53,22 @@ public class FilterCommentDto : BasePaging
 
 public enum FilterCommentState
 {
+    [Display(Name = "همه")]
     All,
+    [Display(Name = "در حال بررسی")]
     UnderProgress,
+    [Display(Name = "رد شده")]
     Canceled,
+    [Display(Name = "تایید شده")]
     Confirmed
 }
 
 public enum FilterCommentType
 {
+    [Display(Name = "همه")]
     All,
+    [Display(Name = "فروشگاه")]
     Product,
+    [Display(Name = "مقالات")]
     Article
 }
