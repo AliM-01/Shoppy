@@ -25,10 +25,7 @@ public class ErrorHandlerMiddleware
         }
         catch (Exception error)
         {
-            ApiResult apiResult = ApiResponse.InternalServerError();
-
-            var response = context.Response;
-            response.ContentType = "application/json";
+            var apiResult = ApiResponse.InternalServerError();
 
             switch (error)
             {
@@ -68,9 +65,12 @@ public class ErrorHandlerMiddleware
                     break;
             }
 
-            var result = JsonSerializer.Serialize(apiResult);
+            var response = context.Response;
 
-            await response.WriteAsync(result);
+            response.ContentType = "application/json";
+            response.StatusCode = apiResult.Status;
+
+            await response.WriteAsync(JsonSerializer.Serialize(apiResult));
         }
     }
 }

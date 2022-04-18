@@ -1,6 +1,4 @@
-﻿using AM.Domain.Enums;
-using MediatR;
-using Microsoft.AspNetCore.Authorization;
+﻿using MediatR;
 using Microsoft.AspNetCore.Cors;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -77,12 +75,12 @@ public abstract class BaseApiController : ControllerBase
     #endregion
 }
 
-[Authorize(Policy = RoleConstants.Admin)]
+//[Authorize(Policy = RoleConstants.Admin)]
 public abstract class BaseAdminApiController : BaseApiController
 {
 }
 
-[Authorize(Policy = RoleConstants.BasicUser)]
+//[Authorize(Policy = RoleConstants.BasicUser)]
 public abstract class BaseUserApiController : BaseApiController
 {
 }

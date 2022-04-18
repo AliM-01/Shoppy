@@ -52,9 +52,9 @@ public class BasePaging
 
     public string GetCurrentPagingStatus()
     {
-        var startItem = 0;
+        int startItem = 0;
 
-        var endItem = AllPagesCount;
+        int endItem = AllPagesCount;
 
         if (EndPage > 0)
         {
