@@ -1,5 +1,4 @@
-﻿using _0_Framework.Application.ErrorMessages;
-using _0_Framework.Application.Exceptions;
+﻿using _0_Framework.Application.Exceptions;
 using _0_Framework.Application.Models.Paging;
 using _0_Framework.Infrastructure;
 using AM.Application.Contracts.Account.DTOs;
@@ -66,7 +65,7 @@ public class FilterAccountsQueryHandler : IRequestHandler<FilterAccountsQuery, A
 
         #region paging
 
-        var pager = request.Filter.BuildPager(query.Count());
+        var pager = request.Filter.BuildPager(query.Count(), cancellationToken);
 
         var allEntities = (await
             query
@@ -90,10 +89,10 @@ public class FilterAccountsQueryHandler : IRequestHandler<FilterAccountsQuery, A
         var returnData = request.Filter.SetData(allEntities).SetPaging(pager);
 
         if (returnData.Accounts is null)
-            throw new ApiException(ApplicationErrorMessage.FilteredRecordsNotFound);
+            throw new NoContentApiException();
 
         if (returnData.PageId > returnData.GetLastPage() && returnData.GetLastPage() != 0)
-            throw new NotFoundApiException();
+            throw new NoContentApiException();
 
         return ApiResponse.Success<FilterAccountDto>(returnData);
     }

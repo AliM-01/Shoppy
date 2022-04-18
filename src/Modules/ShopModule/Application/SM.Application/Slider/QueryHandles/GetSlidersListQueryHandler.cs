@@ -31,7 +31,7 @@ public class GetSlidersListQueryHandler : IRequestHandler<GetSlidersListQuery, A
             .ToList();
 
         if (sliders is null)
-            throw new NotFoundApiException();
+            throw new NoContentApiException();
 
         return ApiResponse.Success<List<SliderDto>>(sliders);
     }

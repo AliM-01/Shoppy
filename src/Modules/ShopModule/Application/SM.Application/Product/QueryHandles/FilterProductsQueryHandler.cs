@@ -77,10 +77,10 @@ public class FilterProductsQueryHandler : IRequestHandler<FilterProductsQuery, A
         var returnData = request.Filter.SetData(allEntities).SetPaging(pager);
 
         if (returnData.Products is null)
-            throw new ApiException(ApplicationErrorMessage.FilteredRecordsNotFound);
+            throw new NoContentApiException();
 
         if (returnData.PageId > returnData.GetLastPage() && returnData.GetLastPage() != 0)
-            throw new NotFoundApiException();
+            throw new NoContentApiException();
 
         return ApiResponse.Success<FilterProductDto>(returnData);
     }

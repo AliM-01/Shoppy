@@ -1,11 +1,10 @@
-﻿using _0_Framework.Infrastructure;
-using SM.Application.Contracts.ProductPicture.DTOs;
+﻿using SM.Application.Contracts.ProductPicture.DTOs;
 using SM.Application.Contracts.ProductPicture.Queries;
 using System.Collections.Generic;
 using System.Linq;
 
 namespace SM.Application.ProductPicture.QueryHandles;
-public class GetProductPicturesQueryHandler : IRequestHandler<GetProductPicturesQuery, ApiResult<List<ProductPictureDto>>>
+public class GetProductPicturesQueryHandler : IRequestHandler<GetProductPicturesQuery, ApiResult<IEnumerable<ProductPictureDto>>>
 {
     #region Ctor
 
@@ -23,7 +22,7 @@ public class GetProductPicturesQueryHandler : IRequestHandler<GetProductPictures
 
     #endregion
 
-    public async Task<ApiResult<List<ProductPictureDto>>> Handle(GetProductPicturesQuery request, CancellationToken cancellationToken)
+    public async Task<ApiResult<IEnumerable<ProductPictureDto>>> Handle(GetProductPicturesQuery request, CancellationToken cancellationToken)
     {
         var product = await _productRepository.GetByIdAsync(request.ProductId);
 
@@ -35,16 +34,15 @@ public class GetProductPicturesQueryHandler : IRequestHandler<GetProductPictures
         if (!anyProductPictures)
             throw new NoContentApiException();
 
-        var productPictures = (await
+        var productPictures =
             _productPictureRepository
             .AsQueryable()
             .Where(p => p.ProductId == request.ProductId)
             .OrderBy(p => p.CreationDate)
-            .ToListAsyncSafe())
+            .ToList()
             .Select(productPicture =>
-                _mapper.Map(productPicture, new ProductPictureDto()))
-            .ToList();
+                _mapper.Map(productPicture, new ProductPictureDto()));
 
-        return ApiResponse.Success<List<ProductPictureDto>>(productPictures);
+        return ApiResponse.Success<IEnumerable<ProductPictureDto>>(productPictures);
     }
 }

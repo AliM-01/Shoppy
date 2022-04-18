@@ -88,10 +88,10 @@ public class FilterCommentsQueryHandler : IRequestHandler<FilterCommentsQuery, A
         var returnData = request.Filter.SetData(allEntities).SetPaging(pager);
 
         if (returnData.Comments is null)
-            throw new ApiException(ApplicationErrorMessage.FilteredRecordsNotFound);
+            throw new NoContentApiException();
 
         if (returnData.PageId > returnData.GetLastPage() && returnData.GetLastPage() != 0)
-            throw new NotFoundApiException();
+            throw new NoContentApiException();
 
         return ApiResponse.Success<FilterCommentDto>(returnData);
     }
