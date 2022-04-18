@@ -66,6 +66,15 @@ public abstract class BaseApiController : ControllerBase
         return new BadRequestObjectResult(res);
     }
     #endregion
+
+    #region UnauthorizedResult
+
+    public static UnauthorizedObjectResult UnauthorizedResult(string msg = "لطفا به حساب کاربری خود وارد شوید")
+    {
+        return new UnauthorizedObjectResult(JsonSerializer.Serialize(ApiResponse.Unauthorized(msg)));
+    }
+
+    #endregion
 }
 
 [ApiController]
