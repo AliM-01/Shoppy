@@ -10,7 +10,7 @@ public static class Pager
         return new BasePaging
         {
             PageId = page.PageId,
-            AllPagesCount = allPagesCount,
+            DataCount = allPagesCount,
             TakePage = page.TakePage,
             SkipPage = (page.PageId - 1) * page.TakePage,
             StartPage = page.PageId - page.ShownPages <= 0 ? 1 : page.PageId - page.ShownPages,

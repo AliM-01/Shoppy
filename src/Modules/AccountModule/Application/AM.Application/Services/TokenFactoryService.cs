@@ -91,7 +91,7 @@ public class TokenFactoryService : ITokenFactoryService
 
     #region Get Refresh Token Serial
 
-    public string GetRefreshTokenSerial(string refreshTokenValue)
+    public string? GetRefreshTokenSerial(string refreshTokenValue)
     {
         if (string.IsNullOrWhiteSpace(refreshTokenValue))
             return "";
@@ -119,7 +119,7 @@ public class TokenFactoryService : ITokenFactoryService
             _logger.LogError(ex, $"Failed to validate refreshTokenValue: `{refreshTokenValue}`.");
         }
 
-        return decodedRefreshTokenPrincipal?.Claims?.FirstOrDefault(c => c.Type == ClaimTypes.SerialNumber)?.Value;
+        return decodedRefreshTokenPrincipal.Claims.FirstOrDefault(c => c.Type == ClaimTypes.SerialNumber)?.Value;
     }
 
     #endregion

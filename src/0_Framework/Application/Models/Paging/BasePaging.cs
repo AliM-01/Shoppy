@@ -19,9 +19,9 @@ public class BasePaging
     [BindNever]
     public int PageCount { get; set; }
 
-    [JsonProperty("allPagesCount")]
+    [JsonProperty("dataCount")]
     [BindNever]
-    public int AllPagesCount { get; set; }
+    public int DataCount { get; set; }
 
     [JsonProperty("startPage")]
     public int StartPage { get; set; }
@@ -47,22 +47,22 @@ public class BasePaging
 
     public int GetLastPage()
     {
-        return (int)Math.Ceiling(AllPagesCount / (double)TakePage);
+        return (int)Math.Ceiling(DataCount / (double)TakePage);
     }
 
     public string GetCurrentPagingStatus()
     {
         int startItem = 0;
 
-        int endItem = AllPagesCount;
+        int endItem = DataCount;
 
         if (EndPage > 0)
         {
             startItem = (PageId - 1) * TakePage + 1;
 
-            endItem = PageId * TakePage > AllPagesCount ? AllPagesCount : PageId * TakePage;
+            endItem = PageId * TakePage > DataCount ? DataCount : PageId * TakePage;
         }
-        return $"نمایش {startItem}-{endItem} از {AllPagesCount}";
+        return $"نمایش {startItem}-{endItem} از {DataCount}";
     }
 
     public BasePaging GetCurrentPaging()

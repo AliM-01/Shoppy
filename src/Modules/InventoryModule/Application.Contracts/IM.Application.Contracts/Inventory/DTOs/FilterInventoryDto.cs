@@ -36,7 +36,7 @@ public class FilterInventoryDto : BasePaging
     public FilterInventoryDto SetPaging(BasePaging paging)
     {
         this.PageId = paging.PageId;
-        this.AllPagesCount = paging.AllPagesCount;
+        this.DataCount = paging.DataCount;
         this.StartPage = paging.StartPage;
         this.EndPage = paging.EndPage;
         this.ShownPages = paging.ShownPages;
