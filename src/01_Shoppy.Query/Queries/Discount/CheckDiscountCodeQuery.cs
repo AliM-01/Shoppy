@@ -24,9 +24,6 @@ public class CheckDiscountCodeQueryHandler : IRequestHandler<CheckDiscountCodeQu
     {
         cancellationToken.ThrowIfCancellationRequested();
 
-        if (string.IsNullOrEmpty(request.Code))
-            throw new NotFoundApiException();
-
         var filter = Builders<DM.Domain.DiscountCode.DiscountCode>.Filter.Eq(x => x.Code, request.Code);
         var discount = await _discountCodeRepository.GetByFilter(filter);
 
