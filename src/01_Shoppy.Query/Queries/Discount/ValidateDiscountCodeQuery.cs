@@ -2,9 +2,9 @@
 
 namespace _01_Shoppy.Query.Queries.Discount;
 
-public record ValidateDiscountCodeQuery(string Code) : IRequest<ApiResult<CheckDiscountCodeResponseDto>>;
+public record ValidateDiscountCodeQuery(string Code) : IRequest<ApiResult<ValidateDiscountCodeResponseDto>>;
 
-public class ValidateDiscountCodeQueryHandler : IRequestHandler<ValidateDiscountCodeQuery, ApiResult<CheckDiscountCodeResponseDto>>
+public class ValidateDiscountCodeQueryHandler : IRequestHandler<ValidateDiscountCodeQuery, ApiResult<ValidateDiscountCodeResponseDto>>
 {
     #region Ctor
 
@@ -20,7 +20,7 @@ public class ValidateDiscountCodeQueryHandler : IRequestHandler<ValidateDiscount
 
     #endregion
 
-    public async Task<ApiResult<CheckDiscountCodeResponseDto>> Handle(ValidateDiscountCodeQuery request, CancellationToken cancellationToken)
+    public async Task<ApiResult<ValidateDiscountCodeResponseDto>> Handle(ValidateDiscountCodeQuery request, CancellationToken cancellationToken)
     {
         cancellationToken.ThrowIfCancellationRequested();
 
@@ -30,7 +30,7 @@ public class ValidateDiscountCodeQueryHandler : IRequestHandler<ValidateDiscount
         if (discount is null)
             throw new NotFoundApiException("تخفیفی با این کد پیدا نشد");
 
-        var mappedDiscount = _mapper.Map<CheckDiscountCodeResponseDto>(discount);
+        var mappedDiscount = _mapper.Map<ValidateDiscountCodeResponseDto>(discount);
 
         #region Untill Expiration
 
@@ -62,6 +62,6 @@ public class ValidateDiscountCodeQueryHandler : IRequestHandler<ValidateDiscount
 
         #endregion
 
-        return ApiResponse.Success<CheckDiscountCodeResponseDto>(mappedDiscount);
+        return ApiResponse.Success<ValidateDiscountCodeResponseDto>(mappedDiscount);
     }
 }

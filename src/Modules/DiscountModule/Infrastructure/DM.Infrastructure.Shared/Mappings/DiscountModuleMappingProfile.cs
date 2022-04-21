@@ -97,7 +97,7 @@ public class DiscountModuleMappingProfile : Profile
 
         #region Discount Code Dto
 
-        CreateMap<DiscountCode, CheckDiscountCodeResponseDto>();
+        CreateMap<DiscountCode, ValidateDiscountCodeResponseDto>();
 
         #endregion
 

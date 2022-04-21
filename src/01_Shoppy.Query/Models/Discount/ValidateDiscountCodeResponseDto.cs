@@ -1,5 +1,5 @@
 ﻿namespace _01_Shoppy.Query.Models.Discount;
-public class CheckDiscountCodeResponseDto
+public class ValidateDiscountCodeResponseDto
 {
     [JsonProperty("id")]
     public string Id { get; set; }
