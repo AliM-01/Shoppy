@@ -2,9 +2,9 @@
 
 namespace DM.Infrastructure.Shared.Validators.DiscountCode;
 
-public class CheckDiscountCodeQueryValidator : AbstractValidator<CheckDiscountCodeQuery>
+public class ValidateDiscountCodeQueryValidator : AbstractValidator<ValidateDiscountCodeQuery>
 {
-    public CheckDiscountCodeQueryValidator()
+    public ValidateDiscountCodeQueryValidator()
     {
         RuleFor(p => p.Code)
             .RequiredValidator("جستجو");

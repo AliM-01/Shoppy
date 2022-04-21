@@ -2,16 +2,16 @@
 
 namespace _01_Shoppy.Query.Queries.Discount;
 
-public record CheckDiscountCodeQuery(string Code) : IRequest<ApiResult<CheckDiscountCodeResponseDto>>;
+public record ValidateDiscountCodeQuery(string Code) : IRequest<ApiResult<CheckDiscountCodeResponseDto>>;
 
-public class CheckDiscountCodeQueryHandler : IRequestHandler<CheckDiscountCodeQuery, ApiResult<CheckDiscountCodeResponseDto>>
+public class ValidateDiscountCodeQueryHandler : IRequestHandler<ValidateDiscountCodeQuery, ApiResult<CheckDiscountCodeResponseDto>>
 {
     #region Ctor
 
     private readonly IRepository<DM.Domain.DiscountCode.DiscountCode> _discountCodeRepository;
     private readonly IMapper _mapper;
 
-    public CheckDiscountCodeQueryHandler(
+    public ValidateDiscountCodeQueryHandler(
         IRepository<DM.Domain.DiscountCode.DiscountCode> discountCodeRepository, IMapper mapper)
     {
         _discountCodeRepository = Guard.Against.Null(discountCodeRepository, nameof(_discountCodeRepository));
@@ -20,7 +20,7 @@ public class CheckDiscountCodeQueryHandler : IRequestHandler<CheckDiscountCodeQu
 
     #endregion
 
-    public async Task<ApiResult<CheckDiscountCodeResponseDto>> Handle(CheckDiscountCodeQuery request, CancellationToken cancellationToken)
+    public async Task<ApiResult<CheckDiscountCodeResponseDto>> Handle(ValidateDiscountCodeQuery request, CancellationToken cancellationToken)
     {
         cancellationToken.ThrowIfCancellationRequested();
 
