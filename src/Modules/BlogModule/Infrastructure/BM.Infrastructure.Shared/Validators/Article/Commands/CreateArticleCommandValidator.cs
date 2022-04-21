@@ -17,6 +17,6 @@ public class CreateArticleCommandValidator : AbstractValidator<CreateArticleComm
             .MaxLengthValidator("توضیحات کوتاه", 250);
 
         RuleFor(p => p.Article.ImageFile)
-            .MaxFileSizeValidator((3 * 1024));
+            .MaxFileSizeValidator((3 * 1024 * 1024));
     }
 }

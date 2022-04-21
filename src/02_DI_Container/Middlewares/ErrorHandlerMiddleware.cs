@@ -54,15 +54,19 @@ public class ErrorHandlerMiddleware
                     break;
 
                 default:
-                    if (env.IsDevelopment())
-                    {
-                        apiResult = ApiResponse.InternalServerError($"Internal Server Error : {error.Message}");
-                    }
-                    else
-                    {
-                        apiResult = ApiResponse.InternalServerError();
-                    }
                     break;
+            }
+
+            if (apiResult.Status == 500)
+            {
+                if (env.IsDevelopment())
+                {
+                    apiResult = ApiResponse.InternalServerError($"Internal Server Error : {error.Message}");
+                }
+                else
+                {
+                    apiResult = ApiResponse.InternalServerError();
+                }
             }
 
             var response = context.Response;

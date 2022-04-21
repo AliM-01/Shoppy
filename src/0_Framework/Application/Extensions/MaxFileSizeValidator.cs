@@ -8,14 +8,12 @@ public static class MaxFileSizeValidator
     {
         var file = value as IFormFile;
 
-        if (isRequired)
-        {
-            if (file is null)
-                return true;
+        if (!isRequired && file is null)
+            return true;
 
-            return file.Length <= maxFileSize;
-        }
+        if (file is null)
+            return false;
 
-        return false;
+        return file.Length <= maxFileSize;
     }
 }

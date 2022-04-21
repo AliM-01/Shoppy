@@ -1,8 +1,8 @@
-﻿using FluentValidation;
+﻿using _0_Framework.Application.Exceptions;
+using FluentValidation;
 using MediatR;
 using System.Collections.Generic;
 using System.Linq;
-using ValidationException = FluentValidation.ValidationException;
 
 namespace _0_Framework.Application.Behaviours;
 
@@ -23,7 +23,7 @@ public class ValidationBehavior<TRequest, TResponse> : IPipelineBehavior<TReques
             var failures = validationResults.SelectMany(r => r.Errors).Where(f => f != null).ToList();
             if (failures.Count != 0)
             {
-                throw new ValidationException(failures[0].ErrorMessage);
+                throw new ApiException(failures[0].ErrorMessage);
             }
         }
         return await next();
