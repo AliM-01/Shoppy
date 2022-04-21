@@ -1,4 +1,5 @@
 ﻿using _0_Framework.Application.Extensions;
+using _01_Shoppy.Query.Models.Discount;
 using AutoMapper;
 using DM.Application.Contracts.DiscountCode.DTOs;
 using DM.Application.Contracts.ProductDiscount.DTOs;
@@ -91,6 +92,12 @@ public class DiscountModuleMappingProfile : Profile
                 opt => opt.MapFrom(src => src.StartDate.ToMiladi()))
             .ForMember(dest => dest.EndDate,
                 opt => opt.MapFrom(src => src.EndDate.ToMiladi()));
+
+        #endregion
+
+        #region Discount Code Dto
+
+        CreateMap<DiscountCode, CheckDiscountCodeResponseDto>();
 
         #endregion
 

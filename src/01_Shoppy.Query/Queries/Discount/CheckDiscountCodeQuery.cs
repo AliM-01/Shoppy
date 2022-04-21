@@ -8,13 +8,13 @@ public class CheckDiscountCodeQueryHandler : IRequestHandler<CheckDiscountCodeQu
 {
     #region Ctor
 
-    private readonly IRepository<CM.Domain.Comment.Comment> _commentRepository;
+    private readonly IRepository<DM.Domain.DiscountCode.DiscountCode> _discountCodeRepository;
     private readonly IMapper _mapper;
 
     public CheckDiscountCodeQueryHandler(
-        IRepository<CM.Domain.Comment.Comment> commentRepository, IMapper mapper)
+        IRepository<DM.Domain.DiscountCode.DiscountCode> discountCodeRepository, IMapper mapper)
     {
-        _commentRepository = Guard.Against.Null(commentRepository, nameof(_commentRepository));
+        _discountCodeRepository = Guard.Against.Null(discountCodeRepository, nameof(_discountCodeRepository));
         _mapper = Guard.Against.Null(mapper, nameof(_mapper));
     }
 
@@ -22,6 +22,49 @@ public class CheckDiscountCodeQueryHandler : IRequestHandler<CheckDiscountCodeQu
 
     public async Task<ApiResult<CheckDiscountCodeResponseDto>> Handle(CheckDiscountCodeQuery request, CancellationToken cancellationToken)
     {
-        return ApiResponse.Success<CheckDiscountCodeResponseDto>();
+        cancellationToken.ThrowIfCancellationRequested();
+
+        if (string.IsNullOrEmpty(request.Code))
+            throw new NotFoundApiException();
+
+        var filter = Builders<DM.Domain.DiscountCode.DiscountCode>.Filter.Eq(x => x.Code, request.Code);
+        var discount = await _discountCodeRepository.GetByFilter(filter);
+
+        if (discount is null)
+            throw new NotFoundApiException("تخفیفی با این کد پیدا نشد");
+
+        var mappedDiscount = _mapper.Map<CheckDiscountCodeResponseDto>(discount);
+
+        #region Untill Expiration
+
+        var untillExpirationTimeSpan = (discount.StartDate - discount.EndDate);
+
+        if (untillExpirationTimeSpan <= TimeSpan.FromDays(7))
+        {
+            if (untillExpirationTimeSpan <= TimeSpan.FromHours(2))
+            {
+                mappedDiscount.UntillExpiration = untillExpirationTimeSpan.Hours;
+                mappedDiscount.UntillExpirationType = "ساعت";
+            }
+
+            if (untillExpirationTimeSpan <= TimeSpan.FromMinutes(59))
+            {
+                mappedDiscount.UntillExpiration = untillExpirationTimeSpan.Minutes;
+                mappedDiscount.UntillExpirationType = "دقیقه";
+            }
+
+            if (untillExpirationTimeSpan <= TimeSpan.FromSeconds(120))
+            {
+                mappedDiscount.UntillExpiration = untillExpirationTimeSpan.Minutes;
+                mappedDiscount.UntillExpirationType = "ثانیه";
+            }
+
+            mappedDiscount.UntillExpiration = untillExpirationTimeSpan.Days;
+            mappedDiscount.UntillExpirationType = "روز";
+        }
+
+        #endregion
+
+        return ApiResponse.Success<CheckDiscountCodeResponseDto>(mappedDiscount);
     }
 }
