@@ -26,6 +26,14 @@ public static class DiscountDbSeed
                 {
                     Description = description,
                     Code = Generator.Code(),
+                    Rate = 20,
+                    StartDate = DateTime.UtcNow,
+                    EndDate = DateTime.UtcNow.AddDays(2),
+                },
+                new DiscountCode
+                {
+                    Description = description,
+                    Code = Generator.Code(),
                     Rate = 10,
                     StartDate = DateTime.UtcNow,
                     EndDate = DateTime.UtcNow.AddDays(30),
@@ -44,7 +52,7 @@ public static class DiscountDbSeed
                     Code = Generator.Code(),
                     Rate = 50,
                     StartDate = DateTime.UtcNow,
-                    EndDate = DateTime.UtcNow.AddDays(30),
+                    EndDate = DateTime.UtcNow.AddDays(14),
                 },
                 new DiscountCode
                 {
@@ -52,7 +60,7 @@ public static class DiscountDbSeed
                     Code = Generator.Code(),
                     Rate = 99,
                     StartDate = DateTime.UtcNow,
-                    EndDate = DateTime.UtcNow.AddDays(30),
+                    EndDate = DateTime.UtcNow.AddDays(21),
                 }
             };
             collection.InsertManyAsync(discountToAdd);
