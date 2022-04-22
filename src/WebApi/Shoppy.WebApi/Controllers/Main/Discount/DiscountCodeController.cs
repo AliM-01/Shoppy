@@ -8,8 +8,8 @@ public class DiscountCodeController : BaseApiController
 {
     #region Compute Cart
 
-    [HttpPost(MainDiscountEndpoints.DiscountCode.ValidateCode)]
-    [SwaggerOperation(Summary = "اعتبار سنجی کد تخفیف", Tags = new[] { "Order" })]
+    [HttpGet(MainDiscountEndpoints.DiscountCode.ValidateCode)]
+    [SwaggerOperation(Summary = "اعتبار سنجی کد تخفیف", Tags = new[] { "DiscountCode" })]
     [SwaggerResponse(200, "success")]
     [SwaggerResponse(404, "not-fount")]
     [ProducesResponseType(typeof(ApiResult<ValidateDiscountCodeResponseDto>), 200)]

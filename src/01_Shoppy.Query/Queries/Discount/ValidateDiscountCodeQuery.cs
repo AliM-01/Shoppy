@@ -34,30 +34,31 @@ public class ValidateDiscountCodeQueryHandler : IRequestHandler<ValidateDiscount
 
         #region Untill Expiration
 
-        var untillExpirationTimeSpan = (discount.StartDate - discount.EndDate);
+        var untillExpirationTimeSpan = (discount.EndDate - discount.StartDate);
 
         if (untillExpirationTimeSpan <= TimeSpan.FromDays(7))
         {
-            if (untillExpirationTimeSpan <= TimeSpan.FromHours(2))
-            {
-                mappedDiscount.UntillExpiration = untillExpirationTimeSpan.Hours;
-                mappedDiscount.UntillExpirationType = "ساعت";
-            }
-
-            if (untillExpirationTimeSpan <= TimeSpan.FromMinutes(59))
-            {
-                mappedDiscount.UntillExpiration = untillExpirationTimeSpan.Minutes;
-                mappedDiscount.UntillExpirationType = "دقیقه";
-            }
-
             if (untillExpirationTimeSpan <= TimeSpan.FromSeconds(120))
             {
                 mappedDiscount.UntillExpiration = untillExpirationTimeSpan.Minutes;
                 mappedDiscount.UntillExpirationType = "ثانیه";
             }
+            else if (untillExpirationTimeSpan <= TimeSpan.FromMinutes(59))
+            {
+                mappedDiscount.UntillExpiration = untillExpirationTimeSpan.Minutes;
+                mappedDiscount.UntillExpirationType = "دقیقه";
+            }
+            else if (untillExpirationTimeSpan <= TimeSpan.FromHours(2))
+            {
+                mappedDiscount.UntillExpiration = untillExpirationTimeSpan.Hours;
+                mappedDiscount.UntillExpirationType = "ساعت";
+            }
+            else
+            {
+                mappedDiscount.UntillExpiration = untillExpirationTimeSpan.Days;
+                mappedDiscount.UntillExpirationType = "روز";
+            }
 
-            mappedDiscount.UntillExpiration = untillExpirationTimeSpan.Days;
-            mappedDiscount.UntillExpirationType = "روز";
         }
 
         #endregion
