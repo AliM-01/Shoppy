@@ -27,9 +27,9 @@ public class OrderController : BaseApiController
     [SwaggerOperation(Summary = "پردازش سفارش", Tags = new[] { "Order" })]
     [SwaggerResponse(200, "success")]
     [ProducesResponseType(typeof(ApiResult<CartDto>), 200)]
-    public async Task<IActionResult> Checkout([FromBody] List<CartItemInCookieDto> items)
+    public async Task<IActionResult> Checkout([FromBody] List<CartItemInCookieDto> items, [FromQuery] string? discountCodeId)
     {
-        var res = await Mediator.Send(new CheckoutCartQuery(items));
+        var res = await Mediator.Send(new CheckoutCartQuery(items, discountCodeId));
 
         return SuccessResult(res);
     }

@@ -1,4 +1,6 @@
 ﻿using _01_Shoppy.Query.Models.Discount;
+using Microsoft.AspNetCore.WebUtilities;
+using System.Text;
 
 namespace _01_Shoppy.Query.Queries.Discount;
 
@@ -31,6 +33,7 @@ public class ValidateDiscountCodeQueryHandler : IRequestHandler<ValidateDiscount
             throw new NotFoundApiException("تخفیفی با این کد پیدا نشد");
 
         var mappedDiscount = _mapper.Map<ValidateDiscountCodeResponseDto>(discount);
+        mappedDiscount.Id = WebEncoders.Base64UrlEncode(Encoding.UTF8.GetBytes(discount.Id));
 
         #region Untill Expiration
 
