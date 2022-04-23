@@ -43,7 +43,7 @@ public abstract class BaseApiController : ControllerBase
 
     protected CreatedResult CreatedResult(ApiResult response)
     {
-        var res = JsonSerializer.Serialize(response);
+        string res = JsonSerializer.Serialize(response);
 
         return new CreatedResult("", res);
     }

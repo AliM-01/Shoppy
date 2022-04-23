@@ -108,7 +108,7 @@ public static class ApiResponse
 
     #region Internal Server Error
 
-    public static ApiResult InternalServerError(string msg = "Internal Server Error")
+    public static ApiResult InternalServerError(string msg = "Internal Server Error :(")
     {
         return new(500, msg);
     }
