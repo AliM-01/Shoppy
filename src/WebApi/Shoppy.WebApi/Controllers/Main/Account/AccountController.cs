@@ -168,7 +168,7 @@ public class AccountController : BaseApiController
     public async Task<IActionResult> Logout([FromForm] RevokeRefreshTokenRequestDto token)
     {
         var claimsIdentity = this.User.Identity as ClaimsIdentity;
-        var userId = claimsIdentity.FindFirst(ClaimTypes.UserData)?.Value;
+        string? userId = claimsIdentity.FindFirst(ClaimTypes.UserData)?.Value;
 
         await _tokenStoreService.RevokeUserBearerTokens(userId, token.RefreshToken);
 
@@ -214,7 +214,7 @@ public class AccountController : BaseApiController
         if (!(this.User.Identity.IsAuthenticated))
             return UnauthorizedResult();
 
-        foreach (var role in roles)
+        foreach (string? role in roles)
         {
             if (!(await _roleManager.RoleExistsAsync(role)))
                 return ErrorResult("نقش مورد نظر وجود ندارد");

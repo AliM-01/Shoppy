@@ -1,4 +1,6 @@
-﻿using OM.Application.Contracts.Order.DTOs;
+﻿#nullable enable
+
+using OM.Application.Contracts.Order.DTOs;
 using OM.Application.Contracts.Order.Queries;
 
 namespace Shoppy.WebApi.Controllers.Main.Order;

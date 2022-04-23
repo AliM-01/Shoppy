@@ -30,7 +30,7 @@ public class InitializePaymentRequestCommandHandler : IRequestHandler<Initialize
         var paymentResponse = await _zarinPalFactory
                 .CreatePaymentRequest(request.Payment.CallBackUrl, request.Payment.Amount.ToString(CultureInfo.InvariantCulture), request.Payment.Email, order.Id);
 
-        var redirectUrl = "https://sandbox.zarinpal.com/pg/StartPay/" + paymentResponse.Authority;
+        string redirectUrl = "https://sandbox.zarinpal.com/pg/StartPay/" + paymentResponse.Authority;
 
         return ApiResponse.Success<InitializePaymentResponseDto>(new InitializePaymentResponseDto(redirectUrl));
     }
