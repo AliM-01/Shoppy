@@ -1,8 +1,11 @@
-﻿using DM.Domain.ProductDiscount;
+﻿using DM.Domain.DiscountCode;
+using DM.Domain.ProductDiscount;
 using IM.Application.Contracts.Inventory.Helpers;
 using IM.Domain.Inventory;
+using Microsoft.AspNetCore.WebUtilities;
 using MongoDB.Driver;
 using SM.Domain.Product;
+using System.Text;
 
 namespace OM.Application.Order.QueryHandles;
 
@@ -13,12 +16,14 @@ public class CheckoutCartQueryHandler : IRequestHandler<CheckoutCartQuery, ApiRe
     private readonly IRepository<Inventory> _inventoryRepository;
     private readonly IRepository<Product> _productRepository;
     private readonly IRepository<ProductDiscount> _productDiscountRepository;
+    private readonly IRepository<DiscountCode> _discountCodeRepository;
     private readonly IInventoryHelper _inventoryHelper;
     private readonly IMapper _mapper;
 
     public CheckoutCartQueryHandler(IRepository<Product> productRepository,
                                                     IRepository<Inventory> inventoryRepository,
                                                     IRepository<ProductDiscount> productDiscountRepository,
+                                                    IRepository<DiscountCode> discountCodeRepository,
                                                     IInventoryHelper inventoryHelper,
                                                     IMapper mapper)
     {
@@ -26,6 +31,7 @@ public class CheckoutCartQueryHandler : IRequestHandler<CheckoutCartQuery, ApiRe
         _productRepository = Guard.Against.Null(productRepository, nameof(_productRepository));
         _inventoryHelper = Guard.Against.Null(inventoryHelper, nameof(_inventoryHelper));
         _productDiscountRepository = Guard.Against.Null(productDiscountRepository, nameof(_productDiscountRepository));
+        _discountCodeRepository = Guard.Against.Null(discountCodeRepository, nameof(_discountCodeRepository));
         _mapper = Guard.Against.Null(mapper, nameof(_mapper));
     }
 
@@ -110,6 +116,28 @@ public class CheckoutCartQueryHandler : IRequestHandler<CheckoutCartQuery, ApiRe
             cart.PayAmount += cart.Items[i].ItemPayAmount;
             cart.DiscountAmount += cart.Items[i].DiscountAmount;
         }
+
+        #region discount
+
+        if (!string.IsNullOrEmpty(request.DiscountCodeId))
+        {
+            string decodedDiscountId = Encoding.UTF8.GetString(WebEncoders.Base64UrlDecode(request.DiscountCodeId));
+
+            var discountCode = await _discountCodeRepository.AsQueryable().FirstOrDefaultAsync(x => x.Id == decodedDiscountId);
+
+            if (discountCode is not null)
+            {
+                if (!discountCode.IsExpired)
+                {
+                    decimal discountAmount = (cart.PayAmount * discountCode.Rate) / 100;
+                    cart.PayAmount -= discountAmount;
+                    cart.DiscountAmount += discountAmount;
+                }
+
+            }
+        }
+
+        #endregion
 
         return ApiResponse.Success<CartDto>(cart);
     }
