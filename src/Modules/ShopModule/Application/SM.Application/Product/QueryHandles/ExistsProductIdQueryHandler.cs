@@ -19,7 +19,7 @@ public class ExistsProductIdQueryHandler : IRequestHandler<ExistsProductIdQuery,
 
     public async Task<ApiResult<ExistsProductIdResponseDto>> Handle(ExistsProductIdQuery request, CancellationToken cancellationToken)
     {
-        var product = await _productRepository.GetByIdAsync(request.ProductId);
+        var product = await _productRepository.FindByIdAsync(request.ProductId);
 
         var response = new ExistsProductIdResponseDto
         {

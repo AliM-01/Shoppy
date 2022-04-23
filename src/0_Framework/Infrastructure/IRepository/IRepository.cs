@@ -12,17 +12,19 @@ public interface IRepository<TDocument>
 {
     IMongoQueryable<TDocument> AsQueryable(bool isDeletedFilter = true, CancellationToken cancellationToken = default);
 
+    Task<IAsyncCursor<TDocument>> FindAsync(Expression<Func<TDocument, bool>> filter, CancellationToken cancellationToken = default);
+
     List<TDocument> ApplyPagination(IMongoQueryable<TDocument> query, BasePaging pager, CancellationToken cancellationToken = default);
 
     Task<bool> ExistsAsync(Expression<Func<TDocument, bool>> expression);
 
-    Task<TDocument> GetByFilter(FilterDefinition<TDocument> filter, CancellationToken cancellationToken = default);
+    Task<TDocument> FindOne(FilterDefinition<TDocument> filter, CancellationToken cancellationToken = default);
 
     Task<HashSet<string>> FullTextSearch(Expression<Func<TDocument, object>> field, string filter, CancellationToken cancellationToken = default);
 
     Task<List<TDocument>> GetManyByFilter(FilterDefinition<TDocument> filter, CancellationToken cancellationToken = default);
 
-    Task<TDocument> GetByIdAsync(string id, CancellationToken cancellationToken = default);
+    Task<TDocument> FindByIdAsync(string id, CancellationToken cancellationToken = default);
 
     Task InsertAsync(TDocument document);
 

@@ -19,7 +19,7 @@ public class GetProductDetailsQueryHandler : IRequestHandler<GetProductDetailsQu
 
     public async Task<ApiResult<EditProductDto>> Handle(GetProductDetailsQuery request, CancellationToken cancellationToken)
     {
-        var product = await _productRepository.GetByIdAsync(request.Id);
+        var product = await _productRepository.FindByIdAsync(request.Id);
 
         if (product is null)
             throw new NotFoundApiException();

@@ -23,7 +23,7 @@ public class CancelOrderCommandHandler : IRequestHandler<CancelOrderCommand, Api
 
     public async Task<ApiResult> Handle(CancelOrderCommand request, CancellationToken cancellationToken)
     {
-        var order = await _orderRepository.GetByIdAsync(request.OrderId);
+        var order = await _orderRepository.FindByIdAsync(request.OrderId);
 
         if (order is null)
             throw new NotFoundApiException();

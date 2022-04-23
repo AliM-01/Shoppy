@@ -16,7 +16,7 @@ public class DeleteArticleCommandHandler : IRequestHandler<DeleteArticleCommand,
 
     public async Task<ApiResult> Handle(DeleteArticleCommand request, CancellationToken cancellationToken)
     {
-        var article = await _articleRepository.GetByIdAsync(request.ArticleId);
+        var article = await _articleRepository.FindByIdAsync(request.ArticleId);
 
         if (article is null)
             throw new NotFoundApiException();

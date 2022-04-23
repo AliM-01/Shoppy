@@ -36,7 +36,7 @@ public class GetArticleCategoryWithArticlesByQueryHandler : IRequestHandler<GetA
 
         var filter = Builders<BM.Domain.ArticleCategory.ArticleCategory>.Filter.Eq(x => x.Slug, request.Filter.Slug);
 
-        var articleCategoryData = await _articleCategoryRepository.GetByFilter(filter, cancellationToken);
+        var articleCategoryData = await _articleCategoryRepository.FindOne(filter, cancellationToken);
 
         #endregion
 

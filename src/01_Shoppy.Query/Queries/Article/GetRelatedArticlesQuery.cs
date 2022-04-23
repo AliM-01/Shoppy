@@ -39,7 +39,7 @@ public class GetRelatedArticlesQueryHandler : IRequestHandler<GetRelatedArticles
 
         for (int i = 0; i < relatedArticles.Count; i++)
         {
-            relatedArticles[i].Category = (await _articleCategoryRepository.GetByIdAsync(relatedArticles[i].CategoryId)).Title;
+            relatedArticles[i].Category = (await _articleCategoryRepository.FindByIdAsync(relatedArticles[i].CategoryId)).Title;
         }
 
         return ApiResponse.Success<List<ArticleQueryModel>>(relatedArticles);

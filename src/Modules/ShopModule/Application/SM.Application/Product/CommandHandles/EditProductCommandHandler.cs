@@ -20,7 +20,7 @@ public class EditProductCommandHandler : IRequestHandler<EditProductCommand, Api
 
     public async Task<ApiResult> Handle(EditProductCommand request, CancellationToken cancellationToken)
     {
-        var product = await _productRepository.GetByIdAsync(request.Product.Id);
+        var product = await _productRepository.FindByIdAsync(request.Product.Id);
 
         if (product is null)
             throw new NotFoundApiException();

@@ -63,7 +63,7 @@ public class SearchQueryHandler : IRequestHandler<SearchQuery, ApiResult<SearchP
                 if (await _productCategoryRepository.ExistsAsync(x => x.Slug == categorySlug))
                 {
                     var filter = Builders<SM.Domain.ProductCategory.ProductCategory>.Filter.Eq(x => x.Slug, categorySlug);
-                    var category = await _productCategoryRepository.GetByFilter(filter);
+                    var category = await _productCategoryRepository.FindOne(filter);
                     selectedCategoriesId.Add(category.Id);
                 }
             }

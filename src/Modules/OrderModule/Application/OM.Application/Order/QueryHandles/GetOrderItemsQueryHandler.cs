@@ -28,7 +28,7 @@ public class GetOrderItemsQueryHandler : IRequestHandler<GetOrderItemsQuery, Api
 
     public async Task<ApiResult<List<OrderItemDto>>> Handle(GetOrderItemsQuery request, CancellationToken cancellationToken)
     {
-        var order = await _orderRepository.GetByIdAsync(request.OrderId);
+        var order = await _orderRepository.FindByIdAsync(request.OrderId);
 
         if (order is null)
             throw new NotFoundApiException();
@@ -47,7 +47,7 @@ public class GetOrderItemsQueryHandler : IRequestHandler<GetOrderItemsQuery, Api
 
         foreach (var item in items)
         {
-            item.ProductImage = (await _productRepository.GetByIdAsync(item.ProductId)).ImagePath;
+            item.ProductImage = (await _productRepository.FindByIdAsync(item.ProductId)).ImagePath;
         }
 
         return ApiResponse.Success<List<OrderItemDto>>(items);

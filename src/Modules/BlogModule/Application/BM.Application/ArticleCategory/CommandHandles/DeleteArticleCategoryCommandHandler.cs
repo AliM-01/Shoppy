@@ -17,7 +17,7 @@ public class DeleteArticleCategoryCommandHandler : IRequestHandler<DeleteArticle
 
     public async Task<ApiResult> Handle(DeleteArticleCategoryCommand request, CancellationToken cancellationToken)
     {
-        var articleCategory = await _articleCategoryRepository.GetByIdAsync(request.ArticleCategoryId);
+        var articleCategory = await _articleCategoryRepository.FindByIdAsync(request.ArticleCategoryId);
 
         if (articleCategory is null)
             throw new NotFoundApiException();

@@ -53,7 +53,7 @@ public class ComputeCartQueryHandler : IRequestHandler<ComputeCartQuery, ApiResu
 
             var filter = Builders<Inventory>.Filter.Eq(x => x.ProductId, cartItem.ProductId);
 
-            var itemInventory = await _inventoryRepository.GetByFilter(filter);
+            var itemInventory = await _inventoryRepository.FindOne(filter);
 
             if (itemInventory is null)
                 itemToReturn.IsNotInStock = true;
@@ -61,7 +61,7 @@ public class ComputeCartQueryHandler : IRequestHandler<ComputeCartQuery, ApiResu
             if (!(await _inventoryHelper.IsInStock(itemInventory?.Id)))
                 itemToReturn.IsNotInStock = true;
 
-            var product = await _productRepository.GetByIdAsync(itemInventory?.ProductId);
+            var product = await _productRepository.FindByIdAsync(itemInventory?.ProductId);
 
             itemToReturn.UnitPrice = itemInventory.UnitPrice;
 

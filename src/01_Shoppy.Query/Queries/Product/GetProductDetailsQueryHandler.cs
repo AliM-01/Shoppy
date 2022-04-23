@@ -50,7 +50,7 @@ public class GetProductDetailsQueryHandler : IRequestHandler<GetProductDetailsQu
         if (!existsProduct)
             throw new NotFoundApiException("محصولی با این مشخصات پیدا نشد");
 
-        var dbProduct = await _productRepository.GetByIdAsync(existsProductId);
+        var dbProduct = await _productRepository.FindByIdAsync(existsProductId);
 
         var product = await _productHelper.MapProducts<ProductDetailsQueryModel>(dbProduct);
 

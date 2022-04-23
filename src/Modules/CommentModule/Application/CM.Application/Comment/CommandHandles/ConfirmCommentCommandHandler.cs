@@ -19,7 +19,7 @@ public class ConfirmCommentCommandHandler : IRequestHandler<ConfirmCommentComman
 
     public async Task<ApiResult> Handle(ConfirmCommentCommand request, CancellationToken cancellationToken)
     {
-        var comment = await _commentRepository.GetByIdAsync(request.CommentId);
+        var comment = await _commentRepository.FindByIdAsync(request.CommentId);
 
         if (comment is null)
             throw new NotFoundApiException();

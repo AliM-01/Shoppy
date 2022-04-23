@@ -40,6 +40,15 @@ public class BaseRepository<TDocument, TSettings> : IRepository<TDocument>
         return _collection.AsQueryable().Where(x => x.IsDeleted == false);
     }
 
+    public async Task<IAsyncCursor<TDocument>> FindAsync(Expression<Func<TDocument, bool>> filter, CancellationToken cancellationToken = default)
+    {
+        cancellationToken.ThrowIfCancellationRequested();
+
+        var res = await _collection.FindAsync(filter, cancellationToken: cancellationToken);
+
+        return res;
+    }
+
     #endregion
 
     #region GetPagination
@@ -82,7 +91,7 @@ public class BaseRepository<TDocument, TSettings> : IRepository<TDocument>
 
     #region GetByFilter
 
-    public async Task<TDocument> GetByFilter(FilterDefinition<TDocument> filter, CancellationToken cancellationToken = default)
+    public async Task<TDocument> FindOne(FilterDefinition<TDocument> filter, CancellationToken cancellationToken = default)
     {
         cancellationToken.ThrowIfCancellationRequested();
 
@@ -107,9 +116,9 @@ public class BaseRepository<TDocument, TSettings> : IRepository<TDocument>
 
     #endregion
 
-    #region GetByIdAsync
+    #region FindByIdAsync
 
-    public async Task<TDocument> GetByIdAsync(string id, CancellationToken cancellationToken = default)
+    public async Task<TDocument> FindByIdAsync(string id, CancellationToken cancellationToken = default)
     {
         cancellationToken.ThrowIfCancellationRequested();
 
@@ -117,7 +126,7 @@ public class BaseRepository<TDocument, TSettings> : IRepository<TDocument>
 
         var res = await _collection.FindAsync(filter);
 
-        var document = await res.FirstOrDefaultAsync();
+        var document = await res.FirstOrDefaultAsync(cancellationToken: cancellationToken);
 
         if (document is null)
             throw new NotFoundApiException();
@@ -153,7 +162,7 @@ public class BaseRepository<TDocument, TSettings> : IRepository<TDocument>
 
     public async Task DeleteAsync(string id)
     {
-        var document = await GetByIdAsync(id);
+        var document = await FindByIdAsync(id);
 
         document.IsDeleted = true;
 
@@ -166,7 +175,7 @@ public class BaseRepository<TDocument, TSettings> : IRepository<TDocument>
 
     public async Task DeletePermanentAsync(string id)
     {
-        var document = await GetByIdAsync(id);
+        var document = await FindByIdAsync(id);
 
         var filter = MongoDbFilters<TDocument>.GetByIdFilter(document.Id);
 

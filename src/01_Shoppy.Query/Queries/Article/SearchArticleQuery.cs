@@ -39,7 +39,7 @@ public class SearchArticleQueryHandler : IRequestHandler<SearchArticleQuery, Api
                 if (await _articleCategoryRepository.ExistsAsync(x => x.Slug == categorySlug.Trim()))
                 {
                     var filter = Builders<BM.Domain.ArticleCategory.ArticleCategory>.Filter.Eq(x => x.Slug, categorySlug.Trim());
-                    var category = await _articleCategoryRepository.GetByFilter(filter);
+                    var category = await _articleCategoryRepository.FindOne(filter);
                     selectedCategoriesId.Add(category.Id);
                 }
             }

@@ -27,7 +27,7 @@ public class ValidateDiscountCodeQueryHandler : IRequestHandler<ValidateDiscount
         cancellationToken.ThrowIfCancellationRequested();
 
         var filter = Builders<DM.Domain.DiscountCode.DiscountCode>.Filter.Eq(x => x.Code, request.Code);
-        var discount = await _discountCodeRepository.GetByFilter(filter, cancellationToken);
+        var discount = await _discountCodeRepository.FindOne(filter, cancellationToken);
 
         if (discount is null)
             throw new NotFoundApiException("تخفیفی با این کد پیدا نشد");

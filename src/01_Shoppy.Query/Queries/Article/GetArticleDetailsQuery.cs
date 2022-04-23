@@ -32,11 +32,11 @@ public class GetArticleDetailsQueryHandler : IRequestHandler<GetArticleDetailsQu
 
         var filter = Builders<BM.Domain.Article.Article>.Filter.Eq(x => x.Slug, request.Slug);
 
-        var article = await _articleRepository.GetByFilter(filter, cancellationToken);
+        var article = await _articleRepository.FindOne(filter, cancellationToken);
 
         var meppedArticle = _mapper.Map(article, new ArticleDetailsQueryModel());
 
-        meppedArticle.Category = (await _articleCategoryRepository.GetByIdAsync(article.CategoryId)).Title;
+        meppedArticle.Category = (await _articleCategoryRepository.FindByIdAsync(article.CategoryId)).Title;
 
         return ApiResponse.Success<ArticleDetailsQueryModel>(meppedArticle);
     }

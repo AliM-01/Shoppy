@@ -21,7 +21,7 @@ public class EditProductCategoryCommandHandler : IRequestHandler<EditProductCate
 
     public async Task<ApiResult> Handle(EditProductCategoryCommand request, CancellationToken cancellationToken)
     {
-        var productCategory = await _productCategoryRepository.GetByIdAsync(request.ProductCategory.Id);
+        var productCategory = await _productCategoryRepository.FindByIdAsync(request.ProductCategory.Id);
 
         if (productCategory is null)
             throw new NotFoundApiException();

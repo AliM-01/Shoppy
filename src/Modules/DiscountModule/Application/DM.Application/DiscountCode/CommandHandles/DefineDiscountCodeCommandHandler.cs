@@ -22,7 +22,7 @@ public class DefineDiscountCodeCommandHandler : IRequestHandler<DefineDiscountCo
     public async Task<ApiResult> Handle(DefineDiscountCodeCommand request, CancellationToken cancellationToken)
     {
         var filter = Builders<Domain.DiscountCode.DiscountCode>.Filter.Eq(x => x.Code, request.DiscountCode.Code);
-        var existsDiscount = await _discountCodeRepository.GetByFilter(filter);
+        var existsDiscount = await _discountCodeRepository.FindOne(filter);
 
         if (existsDiscount is not null)
             throw new ApiException("برای کد قبلا تخفیف در نظر گرفته شده است");

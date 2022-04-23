@@ -19,7 +19,7 @@ public class GetArticleDetailsQueryHandler : IRequestHandler<GetArticleDetailsQu
 
     public async Task<ApiResult<EditArticleDto>> Handle(GetArticleDetailsQuery request, CancellationToken cancellationToken)
     {
-        var article = await _articleRepository.GetByIdAsync(request.Id, cancellationToken);
+        var article = await _articleRepository.FindByIdAsync(request.Id, cancellationToken);
 
         if (article is null)
             throw new NotFoundApiException();

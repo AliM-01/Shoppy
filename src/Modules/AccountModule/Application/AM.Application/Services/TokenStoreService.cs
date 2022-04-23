@@ -160,7 +160,7 @@ public class TokenStoreService : ITokenStoreService
 
         var filter = Builders<UserToken>.Filter.Eq(x => x.RefreshTokenIdHash, refreshTokenIdHash);
 
-        return await _userTokenRepository.GetByFilter(filter);
+        return await _userTokenRepository.FindOne(filter);
     }
 
     #endregion

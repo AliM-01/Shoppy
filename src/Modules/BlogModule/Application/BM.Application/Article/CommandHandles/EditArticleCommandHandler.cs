@@ -19,7 +19,7 @@ public class EditArticleCommandHandler : IRequestHandler<EditArticleCommand, Api
 
     public async Task<ApiResult> Handle(EditArticleCommand request, CancellationToken cancellationToken)
     {
-        var article = await _articleRepository.GetByIdAsync(request.Article.Id);
+        var article = await _articleRepository.FindByIdAsync(request.Article.Id);
 
         if (article is null)
             throw new NotFoundApiException();

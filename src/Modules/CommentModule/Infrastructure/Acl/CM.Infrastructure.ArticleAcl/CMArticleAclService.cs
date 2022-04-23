@@ -38,7 +38,7 @@ public class CMArticleAclService : ICMArticleAcl
         if (!(await ExistsArticle(articleId)))
             throw new NotFoundApiException("مقاله ای با این شناسه پیدا نشد");
 
-        return (await _articleRepository.GetByIdAsync(articleId)).Title;
+        return (await _articleRepository.FindByIdAsync(articleId)).Title;
     }
     #endregion
 }

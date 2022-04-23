@@ -21,13 +21,13 @@ public class EditDiscountCodeCommandHandler : IRequestHandler<EditDiscountCodeCo
 
     public async Task<ApiResult> Handle(EditDiscountCodeCommand request, CancellationToken cancellationToken)
     {
-        var discountCode = await _discountCodeRepository.GetByIdAsync(request.DiscountCode.Id);
+        var discountCode = await _discountCodeRepository.FindByIdAsync(request.DiscountCode.Id);
 
         if (discountCode is null)
             throw new NotFoundApiException();
 
         var filter = Builders<Domain.DiscountCode.DiscountCode>.Filter.Eq(x => x.Code, request.DiscountCode.Code);
-        var existsDiscount = await _discountCodeRepository.GetByFilter(filter);
+        var existsDiscount = await _discountCodeRepository.FindOne(filter);
 
         if (existsDiscount is not null && existsDiscount.Id != discountCode.Id)
             throw new ApiException("برای کد قبلا تخفیف در نظر گرفته شده است");

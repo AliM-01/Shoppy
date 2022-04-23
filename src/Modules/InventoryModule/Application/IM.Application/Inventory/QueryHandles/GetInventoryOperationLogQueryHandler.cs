@@ -32,7 +32,7 @@ public class GetInventoryOperationLogQueryHandler : IRequestHandler<GetInventory
 
     public async Task<ApiResult<InventoryLogsDto>> Handle(GetInventoryOperationLogQuery request, CancellationToken cancellationToken)
     {
-        var inventory = await _inventoryRepository.GetByIdAsync(request.Id);
+        var inventory = await _inventoryRepository.FindByIdAsync(request.Id);
 
         if (inventory is null)
             throw new NotFoundApiException();

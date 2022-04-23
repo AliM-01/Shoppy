@@ -19,7 +19,7 @@ public static class ProductRepositoryExtension
 
     public static async Task<string> GetProductTitle(this IRepository<Product> productRepository, string productId)
     {
-        return (await productRepository.GetByIdAsync(productId)).Title;
+        return (await productRepository.FindByIdAsync(productId)).Title;
     }
 
     #endregion

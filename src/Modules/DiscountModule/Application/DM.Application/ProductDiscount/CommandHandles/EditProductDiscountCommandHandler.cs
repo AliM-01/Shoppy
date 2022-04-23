@@ -27,7 +27,7 @@ public class EditProductDiscountCommandHandler : IRequestHandler<EditProductDisc
         if (!(await _productAcl.ExistsProduct(request.ProductDiscount.ProductId)))
             throw new NotFoundApiException("محصولی با این شناسه پیدا نشد");
 
-        var productDiscount = await _productDiscountRepository.GetByIdAsync(request.ProductDiscount.Id);
+        var productDiscount = await _productDiscountRepository.FindByIdAsync(request.ProductDiscount.Id);
 
         if (productDiscount is null)
             throw new NotFoundApiException();

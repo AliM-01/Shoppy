@@ -36,7 +36,7 @@ public class InventoryHelper : IInventoryHelper
 
     public async Task<long> CalculateCurrentCount(string inventoryId)
     {
-        var inventory = await _inventoryRepository.GetByIdAsync(inventoryId);
+        var inventory = await _inventoryRepository.FindByIdAsync(inventoryId);
 
 
         if (inventory is null)
@@ -55,7 +55,7 @@ public class InventoryHelper : IInventoryHelper
 
     public async Task Increase(string inventoryId, long count, string operatorId, string description)
     {
-        var inventory = await _inventoryRepository.GetByIdAsync(inventoryId);
+        var inventory = await _inventoryRepository.FindByIdAsync(inventoryId);
 
         if (inventory is null)
             throw new NotFoundApiException();
@@ -78,7 +78,7 @@ public class InventoryHelper : IInventoryHelper
 
     public async Task Reduce(string inventoryId, long count, string operatorId, string description, string orderId)
     {
-        var inventory = await _inventoryRepository.GetByIdAsync(inventoryId);
+        var inventory = await _inventoryRepository.FindByIdAsync(inventoryId);
 
         if (inventory is null)
             throw new NotFoundApiException();

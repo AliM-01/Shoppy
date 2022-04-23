@@ -19,7 +19,7 @@ public class GetSliderDetailsQueryHandler : IRequestHandler<GetSliderDetailsQuer
 
     public async Task<ApiResult<EditSliderDto>> Handle(GetSliderDetailsQuery request, CancellationToken cancellationToken)
     {
-        var slider = await _sliderRepository.GetByIdAsync(request.Id);
+        var slider = await _sliderRepository.FindByIdAsync(request.Id);
 
         if (slider is null)
             throw new NotFoundApiException();

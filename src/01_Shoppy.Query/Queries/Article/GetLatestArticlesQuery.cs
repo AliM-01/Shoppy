@@ -38,7 +38,7 @@ public class GetLatestArticlesQueryHandler : IRequestHandler<GetLatestArticlesQu
 
         for (int i = 0; i < latestArticles.Count; i++)
         {
-            latestArticles[i].Category = (await _articleCategoryRepository.GetByIdAsync(latestArticles[i].CategoryId)).Title;
+            latestArticles[i].Category = (await _articleCategoryRepository.FindByIdAsync(latestArticles[i].CategoryId)).Title;
         }
 
         return ApiResponse.Success<List<ArticleQueryModel>>(latestArticles);

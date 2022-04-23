@@ -17,7 +17,7 @@ public class RemoveDiscountCodeCommandHandler : IRequestHandler<RemoveDiscountCo
 
     public async Task<ApiResult> Handle(RemoveDiscountCodeCommand request, CancellationToken cancellationToken)
     {
-        var discountCode = await _discountCodeRepository.GetByIdAsync(request.DiscountCodeId);
+        var discountCode = await _discountCodeRepository.FindByIdAsync(request.DiscountCodeId);
 
         if (discountCode is null)
             throw new NotFoundApiException();

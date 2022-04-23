@@ -22,7 +22,7 @@ public class InitializePaymentRequestCommandHandler : IRequestHandler<Initialize
 
     public async Task<ApiResult<InitializePaymentResponseDto>> Handle(InitializePaymentRequestCommand request, CancellationToken cancellationToken)
     {
-        var order = await _orderRepository.GetByIdAsync(request.Payment.OrderId);
+        var order = await _orderRepository.FindByIdAsync(request.Payment.OrderId);
 
         if (order is null)
             throw new NotFoundApiException();

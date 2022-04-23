@@ -17,7 +17,7 @@ public class RestoreSliderCommandHandler : IRequestHandler<RestoreSliderCommand,
 
     public async Task<ApiResult> Handle(RestoreSliderCommand request, CancellationToken cancellationToken)
     {
-        var slider = await _sliderRepository.GetByIdAsync(request.SliderId);
+        var slider = await _sliderRepository.FindByIdAsync(request.SliderId);
 
         if (slider is null)
             throw new NotFoundApiException();

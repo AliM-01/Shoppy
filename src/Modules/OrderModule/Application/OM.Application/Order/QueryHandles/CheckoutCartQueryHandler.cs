@@ -1,5 +1,4 @@
-﻿using _0_Framework.Infrastructure;
-using DM.Domain.ProductDiscount;
+﻿using DM.Domain.ProductDiscount;
 using IM.Application.Contracts.Inventory.Helpers;
 using IM.Domain.Inventory;
 using MongoDB.Driver;
@@ -36,11 +35,11 @@ public class CheckoutCartQueryHandler : IRequestHandler<CheckoutCartQuery, ApiRe
     {
         var cart = new CartDto();
 
-        var productDiscounts = await _productDiscountRepository
-                            .AsQueryable()
-                            .Where(x => !x.IsExpired)
+        var productDiscounts = (await _productDiscountRepository
+                            .FindAsync(x => !x.IsExpired))
+                            .ToList()
                             .Select(x => new { x.Rate, x.ProductId })
-                            .ToListAsyncSafe();
+                            .ToList();
 
         foreach (var cartItem in request.Items)
         {
@@ -56,7 +55,10 @@ public class CheckoutCartQueryHandler : IRequestHandler<CheckoutCartQuery, ApiRe
 
             var filter = Builders<Inventory>.Filter.Eq(x => x.ProductId, cartItem.ProductId);
 
-            var itemInventory = await _inventoryRepository.GetByFilter(filter);
+            var itemInventory = await _inventoryRepository.FindOne(filter);
+
+            if (itemInventory is null)
+                continue;
 
             if (!(await _inventoryHelper.IsInStock(itemInventory?.Id)))
                 continue;
@@ -69,7 +71,7 @@ public class CheckoutCartQueryHandler : IRequestHandler<CheckoutCartQuery, ApiRe
             if ((inventoryCount < cartItem.Count))
                 continue;
 
-            var product = await _productRepository.GetByIdAsync(itemInventory?.ProductId);
+            var product = await _productRepository.FindByIdAsync(itemInventory?.ProductId);
 
             itemToReturn.UnitPrice = itemInventory.UnitPrice;
 

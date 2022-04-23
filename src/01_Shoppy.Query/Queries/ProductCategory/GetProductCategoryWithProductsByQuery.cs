@@ -56,7 +56,7 @@ public class GetProductCategoryWithProductsByQueryHandler : IRequestHandler<GetP
 
         #region paging
 
-        var productCategoryData = await _productCategoryRepository.GetByIdAsync(categoryId);
+        var productCategoryData = await _productCategoryRepository.FindByIdAsync(categoryId);
 
         var productsQuery = _productRepository.AsQueryable()
              .Where(x => x.CategoryId == productCategoryData.Id);

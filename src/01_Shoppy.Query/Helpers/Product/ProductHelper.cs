@@ -127,7 +127,7 @@ public class ProductHelper : IProductHelper
             return (false, default, default);
 
         var filter = Builders<Inventory>.Filter.Eq(x => x.ProductId, productId);
-        var inventory = (await _inventoryContext.GetByFilter(filter));
+        var inventory = (await _inventoryContext.FindOne(filter));
 
         var currentCount = await _inventoryHelper.CalculateCurrentCount(inventory.Id);
 

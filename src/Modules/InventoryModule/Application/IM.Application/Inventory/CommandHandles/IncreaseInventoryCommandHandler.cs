@@ -22,7 +22,7 @@ public class IncreaseInventoryCommandHandler : IRequestHandler<IncreaseInventory
 
     public async Task<ApiResult> Handle(IncreaseInventoryCommand request, CancellationToken cancellationToken)
     {
-        var inventory = await _inventoryRepository.GetByIdAsync(request.Inventory.InventoryId);
+        var inventory = await _inventoryRepository.FindByIdAsync(request.Inventory.InventoryId);
 
         if (inventory is null)
             throw new NotFoundApiException();

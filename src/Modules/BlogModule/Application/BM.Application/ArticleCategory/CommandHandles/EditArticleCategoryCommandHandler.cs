@@ -20,7 +20,7 @@ public class EditArticleCategoryCommandHandler : IRequestHandler<EditArticleCate
 
     public async Task<ApiResult> Handle(EditArticleCategoryCommand request, CancellationToken cancellationToken)
     {
-        var articleCategory = await _articleCategoryRepository.GetByIdAsync(request.ArticleCategory.Id);
+        var articleCategory = await _articleCategoryRepository.FindByIdAsync(request.ArticleCategory.Id);
 
         if (articleCategory is null)
             throw new NotFoundApiException();

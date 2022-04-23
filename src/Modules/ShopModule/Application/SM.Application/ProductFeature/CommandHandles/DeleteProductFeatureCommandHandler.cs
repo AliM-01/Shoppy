@@ -17,7 +17,7 @@ public class DeleteProductFeatureCommandHandler : IRequestHandler<DeleteProductF
 
     public async Task<ApiResult> Handle(DeleteProductFeatureCommand request, CancellationToken cancellationToken)
     {
-        var productFeature = await _productFeatureRepository.GetByIdAsync(request.ProductFeatureId);
+        var productFeature = await _productFeatureRepository.FindByIdAsync(request.ProductFeatureId);
 
         if (productFeature is null)
             throw new NotFoundApiException();
