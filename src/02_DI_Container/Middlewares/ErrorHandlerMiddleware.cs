@@ -71,8 +71,12 @@ public class ErrorHandlerMiddleware
 
             var response = context.Response;
 
-            response.ContentType = "application/json";
             response.StatusCode = apiResult.Status;
+
+            if (apiResult.Status == 204)
+                return;
+
+            response.ContentType = "application/json";
 
             await response.WriteAsync(JsonSerializer.Serialize(apiResult));
         }
