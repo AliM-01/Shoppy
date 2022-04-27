@@ -43,6 +43,14 @@ public class AccountModuleMappingProfile : Profile
 
         #endregion
 
+        #region MyRegion
+
+        CreateMap<Account, UserProfileDto>()
+            .ForMember(dest => dest.FullName,
+                opt => opt.MapFrom(src => $"{src.FirstName} {src.LastName}"));
+
+        #endregion
+
         #endregion
     }
 }
