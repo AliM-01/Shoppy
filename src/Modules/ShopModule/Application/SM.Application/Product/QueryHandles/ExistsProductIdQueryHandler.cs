@@ -23,9 +23,9 @@ public class ExistsProductIdQueryHandler : IRequestHandler<ExistsProductIdQuery,
 
         var response = new ExistsProductIdResponseDto
         {
-            Exists = (product is not null),
-            ProductId = (product is not null) ? product.Id : "0",
-            ProductTitle = (product is not null) ? product.Title : ""
+            Exists = product is not null,
+            ProductId = product is null ? "0" : product.Id,
+            ProductTitle = product is null ? "" : product.Title
         };
 
         return ApiResponse.Success<ExistsProductIdResponseDto>(response);
