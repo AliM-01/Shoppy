@@ -1,4 +1,5 @@
 ﻿using _0_Framework.Application.Exceptions;
+using _0_Framework.Application.Utilities.ImageRelated;
 using AM.Application.Contracts.Account.DTOs;
 using AM.Application.Contracts.Account.Queries;
 
@@ -28,6 +29,8 @@ public class GetUserProfileQueryHandler : IRequestHandler<GetUserProfileQuery, A
             throw new NotFoundApiException();
 
         var mappedAccount = _mapper.Map<UserProfileDto>(account);
+
+        mappedAccount.AvatarBase64 = ImageHelper.ConvertToBase64($"{PathExtension.Avatar200}/{account.Avatar}");
 
         return ApiResponse.Success<UserProfileDto>(mappedAccount);
     }

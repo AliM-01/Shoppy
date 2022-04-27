@@ -107,8 +107,9 @@ public static class ImageHelper
     {
         byte[] imageArray = File.ReadAllBytes(imgPath);
         string base64ImageRepresentation = Convert.ToBase64String(imageArray);
+        string contentType = FileHelper.GetMimeType(Path.GetExtension(imgPath));
 
-        return base64ImageRepresentation;
+        return $"data:{contentType};base64,{base64ImageRepresentation}";
     }
 
     #endregion
