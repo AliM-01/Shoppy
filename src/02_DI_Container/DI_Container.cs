@@ -31,7 +31,7 @@ namespace _02_DI_Container;
 
 public static class DI_Container
 {
-    public static async Task RegisterServicesAsync(this IServiceCollection services, Type assemblyMarker, IConfiguration config)
+    public async static Task RegisterServicesAsync(this IServiceCollection services, Type assemblyMarker, IConfiguration config)
     {
         DI_ContainerTools tools = new();
 
@@ -62,7 +62,6 @@ internal class DI_ContainerTools
 
     public void AddGeneralSettings(IServiceCollection services)
     {
-        services.AddOptions();
         services.AddControllersWithViews().AddNewtonsoftJson(options =>
         {
             options.SerializerSettings.NullValueHandling = NullValueHandling.Include;
@@ -70,6 +69,8 @@ internal class DI_ContainerTools
             options.SerializerSettings.Formatting = Formatting.Indented;
             options.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore;
         });
+        services.AddOptions();
+        services.AddHttpContextAccessor();
     }
 
     public void AddCors(IServiceCollection services)
