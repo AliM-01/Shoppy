@@ -3,7 +3,7 @@ using System.IO;
 
 namespace _0_Framework.Application.Utilities.ImageRelated;
 
-public static class SaveImageExtension
+public static class ImageHelper
 {
     #region AddImageToServer
 
@@ -68,7 +68,7 @@ public static class SaveImageExtension
                 image.CopyTo(stream);
             }
 
-            ImageOptimizer resizer = new ImageOptimizer();
+            var resizer = new ImageOptimizer();
 
             resizer.ImageResizer(tempPath, orginalPath + fileName, width, height);
 
@@ -101,4 +101,16 @@ public static class SaveImageExtension
 
     #endregion
 
+    #region ConvertToBase64
+
+    public static string ConvertToBase64(string imgPath)
+    {
+        byte[] imageArray = File.ReadAllBytes(imgPath);
+        string base64ImageRepresentation = Convert.ToBase64String(imageArray);
+        string contentType = FileHelper.GetMimeType(Path.GetExtension(imgPath));
+
+        return $"data:{contentType};base64,{base64ImageRepresentation}";
+    }
+
+    #endregion
 }

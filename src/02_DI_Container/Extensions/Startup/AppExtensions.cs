@@ -17,7 +17,6 @@ public static class AppExtensions
             c.DefaultModelExpandDepth(3);
             c.DefaultModelRendering(Swashbuckle.AspNetCore.SwaggerUI.ModelRendering.Example);
             c.DocExpansion(Swashbuckle.AspNetCore.SwaggerUI.DocExpansion.None);
-            c.EnablePersistAuthorization();
             c.EnableDeepLinking();
             c.DisplayOperationId();
         });
