@@ -2,7 +2,7 @@
 
 namespace OM.Application.Contracts.Order.DTOs;
 
-public class GetUserOrdersDto : BasePaging
+public class FilterUserOrdersDto : BasePaging
 {
     #region Properties
 
@@ -17,13 +17,13 @@ public class GetUserOrdersDto : BasePaging
 
     #region Methods
 
-    public GetUserOrdersDto SetData(List<UserOrderDto> orders)
+    public FilterUserOrdersDto SetData(List<UserOrderDto> orders)
     {
         this.Orders = orders;
         return this;
     }
 
-    public GetUserOrdersDto SetPaging(BasePaging paging)
+    public FilterUserOrdersDto SetPaging(BasePaging paging)
     {
         this.PageId = paging.PageId;
         this.DataCount = paging.DataCount;

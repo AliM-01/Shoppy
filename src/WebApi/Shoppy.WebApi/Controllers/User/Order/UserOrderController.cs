@@ -17,9 +17,9 @@ public class UserOrderController : BaseUserApiController
     [ProducesResponseType(typeof(ApiResult<List<OrderItemDto>>), 200)]
     [ProducesResponseType(typeof(ApiResult), 204)]
     [ProducesResponseType(typeof(ApiResult), 404)]
-    public async Task<IActionResult> GetMyOrders()
+    public async Task<IActionResult> GetMyOrders([FromQuery] FilterUserOrdersDto filter)
     {
-        var res = await Mediator.Send(new GetUserOrdersQuery(User.GetUserId()));
+        var res = await Mediator.Send(new GetUserOrdersQuery(User.GetUserId(), filter));
 
         return SuccessResult(res);
     }
