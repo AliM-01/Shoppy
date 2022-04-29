@@ -11,13 +11,13 @@ public class GetUserOrdersDto : BasePaging
 
     [JsonProperty("orders")]
     [Microsoft.AspNetCore.Mvc.ModelBinding.BindNever]
-    public List<OrderDto> Orders { get; set; }
+    public List<UserOrderDto> Orders { get; set; }
 
     #endregion
 
     #region Methods
 
-    public GetUserOrdersDto SetData(List<OrderDto> orders)
+    public GetUserOrdersDto SetData(List<UserOrderDto> orders)
     {
         this.Orders = orders;
         return this;

@@ -1,17 +1,8 @@
 ﻿namespace OM.Application.Contracts.Order.DTOs;
-
-public class OrderDto
+public class UserOrderDto
 {
     [JsonProperty("id")]
     public string Id { get; set; }
-
-    [Display(Name = "شناسه کاربر")]
-    [JsonProperty("accountId")]
-    public string AccountId { get; set; }
-
-    [Display(Name = "نام کاربر")]
-    [JsonProperty("userFullName")]
-    public string UserFullName { get; set; }
 
     [Display(Name = "حساب")]
     [JsonProperty("totalAmount")]
@@ -25,7 +16,7 @@ public class OrderDto
     [JsonProperty("paymentAmount")]
     public double PaymentAmount { get; set; }
 
-    [Display(Name = "وضعیت")]
+    [Display(Name = "حساب")]
     [JsonProperty("state")]
     public bool State { get; set; }
 

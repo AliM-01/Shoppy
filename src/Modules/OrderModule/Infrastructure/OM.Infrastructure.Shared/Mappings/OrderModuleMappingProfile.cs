@@ -17,8 +17,20 @@ public class OrderModuleMappingProfile : Profile
         CreateMap<Order, OrderDto>()
                 .ForMember(dest => dest.AccountId,
                     opt => opt.MapFrom(src => src.UserId.ToString()))
+                .ForMember(dest => dest.State,
+                    opt => opt.MapFrom(src => (src.IsPaid && !src.IsCanceled) ? true : (src.IsCanceled && !src.IsPaid)))
                 .ForMember(dest => dest.CreationDate,
-                    opt => opt.MapFrom(src => src.CreationDate.ToShamsi()));
+                    opt => opt.MapFrom(src => src.CreationDate.ToLongShamsi()));
+
+        #endregion
+
+        #region User Order Dto
+
+        CreateMap<Order, UserOrderDto>()
+                .ForMember(dest => dest.State,
+                    opt => opt.MapFrom(src => (src.IsPaid && !src.IsCanceled) ? true : (src.IsCanceled && !src.IsPaid)))
+                .ForMember(dest => dest.CreationDate,
+                    opt => opt.MapFrom(src => src.CreationDate.ToLongShamsi()));
 
         #endregion
 

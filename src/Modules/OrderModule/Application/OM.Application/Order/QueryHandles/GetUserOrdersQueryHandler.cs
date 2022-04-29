@@ -1,10 +1,11 @@
-﻿using AM.Domain.Account;
+﻿using _0_Framework.Application.Models.Paging;
+using AM.Domain.Account;
 using Microsoft.AspNetCore.Identity;
 using MongoDB.Driver;
 
 namespace OM.Application.Order.QueryHandles;
 
-public class GetUserOrdersQueryHandler : IRequestHandler<GetUserOrdersQuery, ApiResult<List<OrderDto>>>
+public class GetUserOrdersQueryHandler : IRequestHandler<GetUserOrdersQuery, ApiResult<GetUserOrdersDto>>
 {
     #region Ctor
 
@@ -23,23 +24,56 @@ public class GetUserOrdersQueryHandler : IRequestHandler<GetUserOrdersQuery, Api
 
     #endregion
 
-    public async Task<ApiResult<List<OrderDto>>> Handle(GetUserOrdersQuery request, CancellationToken cancellationToken)
+    public async Task<ApiResult<GetUserOrdersDto>> Handle(GetUserOrdersQuery request, CancellationToken cancellationToken)
     {
-        var user = _userManager.Users.Any(x => x.Id == Guid.Parse(request.UserId));
+        bool user = _userManager.Users.Any(x => x.Id == Guid.Parse(request.UserId));
 
         if (user is false)
             throw new NotFoundApiException("کاربری با این شناسه یافت نشد");
 
-        var filter = Builders<Domain.Order.Order>.Filter.Eq(x => x.UserId, request.UserId);
+        var query = _orderRepository.AsQueryable().Where(x => x.UserId == request.UserId);
 
-        var orders = await _orderRepository.GetManyByFilter(filter, cancellationToken);
+        #region filter
 
-        if (!orders.Any())
-            throw new NoContentApiException("کاربر سفارشی ندارد");
+        if (!string.IsNullOrEmpty(request.Filter.IssueTrackingNo))
+        {
+            query = query.Where(x => x.IssueTrackingNo.Contains(request.Filter.IssueTrackingNo));
+        }
 
-        return ApiResponse.Success<List<OrderDto>>(orders
-                                                  .Select(x =>
-                                                        _mapper.Map(x, new OrderDto()))
-                                                  .ToList());
+        switch (request.Filter.SortDateOrder)
+        {
+            case PagingDataSortCreationDateOrder.DES:
+                query = query.OrderByDescending(x => x.CreationDate);
+                break;
+
+            case PagingDataSortCreationDateOrder.ASC:
+                query = query.OrderBy(x => x.CreationDate);
+                break;
+        }
+
+        #endregion filter
+
+        #region paging
+
+        var pager = request.Filter.BuildPager((await query.CountAsync()), cancellationToken);
+
+        var allEntities =
+             _orderRepository
+             .ApplyPagination(query, pager, cancellationToken)
+             .Select(x =>
+                _mapper.Map(x, new UserOrderDto()))
+             .ToList();
+
+        #endregion paging
+
+        var returnData = request.Filter.SetData(allEntities).SetPaging(pager);
+
+        if (!returnData.Orders.Any())
+            throw new NoContentApiException();
+
+        if (returnData.PageId > returnData.GetLastPage() && returnData.GetLastPage() != 0)
+            throw new NoContentApiException();
+
+        return ApiResponse.Success<GetUserOrdersDto>(returnData);
     }
 }
