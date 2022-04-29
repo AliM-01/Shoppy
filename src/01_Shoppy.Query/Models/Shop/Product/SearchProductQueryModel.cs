@@ -10,7 +10,7 @@ public class SearchProductQueryModel : BasePaging
 
     [Display(Name = "دسته بندی های انتخاب شده")]
     [JsonProperty("selectedCategories")]
-    public HashSet<string> SelectedCategories { get; set; }
+    public IEnumerable<string> SelectedCategories { get; set; }
 
     [Display(Name = "متن جستجو")]
     [JsonProperty("phrase")]
@@ -41,6 +41,18 @@ public class SearchProductQueryModel : BasePaging
     [Display(Name = "حداکثر قیمت")]
     [JsonProperty("selectedMaxPrice")]
     public decimal SelectedMaxPrice { get; set; } = 0;
+
+    [JsonIgnore]
+    [BindNever]
+    public bool IsPriceMinMaxFilterSelected {
+        get {
+            if (SelectedMaxPrice == 0 && SelectedMinPrice == 0)
+            {
+                return false;
+            }
+            return true;
+        }
+    }
 
     #endregion
 

@@ -78,19 +78,7 @@ public class ProductHelper : IProductHelper
 
         #endregion
 
-        #region all categories query
-
-        var categories = await _productCategoryRepository
-            .AsQueryable()
-            .Select(x => new
-            {
-                x.Id,
-                x.Title
-            }).ToListAsyncSafe();
-
-        #endregion
-
-        product.Category = categories.FirstOrDefault(c => c.Id == product.CategoryId).Title.ToString();
+        product.Category = (await _productCategoryRepository.FindByIdAsync(product.CategoryId)).Title;
 
         (bool existsProductInventory, decimal productUnitPrice, long currentCount) = GetProductInventory(product.Id).Result;
 
@@ -108,7 +96,7 @@ public class ProductHelper : IProductHelper
                 product.HasDiscount = discountRate > 0;
 
                 // calculate PriceWithDiscount
-                var discountAmount = Math.Round((productUnitPrice * discountRate / 100));
+                decimal discountAmount = Math.Round((productUnitPrice * discountRate / 100));
                 product.PriceWithDiscount = (productUnitPrice - discountAmount).ToMoney();
             }
         }
@@ -129,7 +117,7 @@ public class ProductHelper : IProductHelper
         var filter = Builders<Inventory>.Filter.Eq(x => x.ProductId, productId);
         var inventory = (await _inventoryContext.FindOne(filter));
 
-        var currentCount = await _inventoryHelper.CalculateCurrentCount(inventory.Id);
+        long currentCount = await _inventoryHelper.CalculateCurrentCount(inventory.Id);
 
         return (true, inventory.UnitPrice, currentCount);
     }
@@ -184,7 +172,7 @@ public class ProductHelper : IProductHelper
                x.UnitPrice
            }).ToListSafe();
 
-        var price = inventories.FirstOrDefault(x => x.ProductId == id).UnitPrice;
+        decimal price = inventories.FirstOrDefault(x => x.ProductId == id).UnitPrice;
 
         return price;
     }

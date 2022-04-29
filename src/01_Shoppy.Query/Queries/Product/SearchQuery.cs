@@ -1,7 +1,7 @@
 ﻿using _0_Framework.Application.Models.Paging;
-using _0_Framework.Infrastructure;
 using _01_Shoppy.Query.Helpers.Product;
 using IM.Domain.Inventory;
+using System.Diagnostics;
 
 namespace _01_Shoppy.Query.Queries.Product;
 
@@ -14,19 +14,19 @@ public class SearchQueryHandler : IRequestHandler<SearchQuery, ApiResult<SearchP
     private readonly IRepository<SM.Domain.Product.Product> _productRepository;
     private readonly IRepository<SM.Domain.ProductCategory.ProductCategory> _productCategoryRepository;
     private readonly IProductHelper _productHelper;
-    private readonly IRepository<Inventory> _inventoryContext;
+    private readonly IRepository<Inventory> _inventoryRepository;
     private readonly IMapper _mapper;
 
     public SearchQueryHandler(IRepository<SM.Domain.Product.Product> productRepository,
                               IRepository<SM.Domain.ProductCategory.ProductCategory> productCategoryRepository,
-                              IRepository<Inventory> inventoryContext,
+                              IRepository<Inventory> inventoryRepository,
                               IProductHelper productHelper,
                               IMapper mapper)
     {
         _productRepository = Guard.Against.Null(productRepository, nameof(_productRepository));
         _productCategoryRepository = Guard.Against.Null(productCategoryRepository, nameof(_productCategoryRepository));
         _productHelper = Guard.Against.Null(productHelper, nameof(_productHelper));
-        _inventoryContext = Guard.Against.Null(inventoryContext, nameof(_inventoryContext));
+        _inventoryRepository = Guard.Against.Null(inventoryRepository, nameof(_inventoryRepository));
         _mapper = Guard.Against.Null(mapper, nameof(_mapper));
     }
 
@@ -34,37 +34,29 @@ public class SearchQueryHandler : IRequestHandler<SearchQuery, ApiResult<SearchP
 
     public async Task<ApiResult<SearchProductQueryModel>> Handle(SearchQuery request, CancellationToken cancellationToken)
     {
+        cancellationToken.ThrowIfCancellationRequested();
+
         var query = _productRepository.AsQueryable();
-
-        #region inventories query
-
-        var inventories = await _inventoryContext.AsQueryable()
-            .Select(x => new
-            {
-                x.ProductId,
-                x.InStock,
-                x.UnitPrice
-            }).ToListAsyncSafe();
-
-        var inventoryIds = inventories.Select(x => x.ProductId).ToArray();
-
-        query = query.Where(x => inventoryIds.Contains(x.Id));
-
-        #endregion
 
         #region filter selected categories slugs
 
         if (request.Search.SelectedCategories is not null && request.Search.SelectedCategories.Any())
         {
-            var selectedCategoriesId = new List<string>();
+            string[] selectedCategoriesId = default;
 
-            foreach (var categorySlug in request.Search.SelectedCategories)
+            foreach (string categorySlug in request.Search.SelectedCategories)
             {
                 if (await _productCategoryRepository.ExistsAsync(x => x.Slug == categorySlug))
                 {
+                    var st = new Stopwatch();
+
+                    st.Start();
+
                     var filter = Builders<SM.Domain.ProductCategory.ProductCategory>.Filter.Eq(x => x.Slug, categorySlug);
                     var category = await _productCategoryRepository.FindOne(filter);
-                    selectedCategoriesId.Add(category.Id);
+                    selectedCategoriesId.Append(category.Id);
+
+                    st.Stop();
                 }
             }
 
@@ -77,16 +69,13 @@ public class SearchQueryHandler : IRequestHandler<SearchQuery, ApiResult<SearchP
 
         #region filter price
 
-        var maxPrice = inventories?
-            .OrderByDescending(p => p.UnitPrice)
-            .FirstOrDefault();
+        decimal maxPrice = _inventoryRepository.AsQueryable().OrderByDescending(x => x.UnitPrice)
+            .Select(x => x.UnitPrice).FirstOrDefault();
 
-        request.Search.FilterMaxPrice = maxPrice != null ? maxPrice.UnitPrice : 0;
+        request.Search.FilterMaxPrice = maxPrice;
 
-        if (request.Search.SelectedMaxPrice == 0)
-        {
-            request.Search.SelectedMaxPrice = maxPrice != null ? maxPrice.UnitPrice : 0;
-        }
+        if (request.Search.IsPriceMinMaxFilterSelected && request.Search.SelectedMaxPrice == 0)
+            request.Search.SelectedMaxPrice = maxPrice;
 
         #endregion
 
@@ -136,35 +125,35 @@ public class SearchQueryHandler : IRequestHandler<SearchQuery, ApiResult<SearchP
 
         #endregion paging
 
-        var returnData = request.Search.SetData(mappedProducts).SetPaging(pager);
+        request.Search.SetData(mappedProducts).SetPaging(pager);
 
         #region Price Order
 
         switch (request.Search.SearchProductPriceOrder)
         {
+            case SearchProductPriceOrder.All:
+                break;
+
             case SearchProductPriceOrder.Price_Asc:
-                returnData.Products = returnData.Products.OrderBy(x => x.UnitPrice);
+                request.Search.Products = request.Search.Products.OrderBy(x => x.UnitPrice);
                 break;
 
             case SearchProductPriceOrder.Price_Des:
-                returnData.Products = returnData.Products.OrderByDescending(x => x.UnitPrice);
+                request.Search.Products = request.Search.Products.OrderByDescending(x => x.UnitPrice);
                 break;
         }
 
-
-        returnData.Products = returnData.Products.Where(p => _productHelper.GetProductPriceById(p.Id) >= request.Search.SelectedMinPrice);
-
-        returnData.Products = returnData.Products.Where(p => _productHelper.GetProductPriceById(p.Id) <= request.Search.SelectedMaxPrice);
-
+        if (request.Search.IsPriceMinMaxFilterSelected)
+            request.Search.Products = request.Search.Products.Where(p => p.UnitPrice >= request.Search.SelectedMinPrice && p.UnitPrice <= request.Search.SelectedMaxPrice);
 
         #endregion
 
-        if (returnData.Products is null)
-            throw new ApiException(ApplicationErrorMessage.FilteredRecordsNotFound);
+        if (request.Search.Products is null)
+            throw new NoContentApiException();
 
-        if (returnData.PageId > returnData.GetLastPage() && returnData.GetLastPage() != 0)
+        if (request.Search.PageId > request.Search.GetLastPage() && request.Search.GetLastPage() != 0)
             throw new NotFoundApiException();
 
-        return ApiResponse.Success<SearchProductQueryModel>(returnData);
+        return ApiResponse.Success<SearchProductQueryModel>(request.Search);
     }
 }
