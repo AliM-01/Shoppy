@@ -1,4 +1,7 @@
-﻿namespace _0_Framework.Application.Utilities.ImageRelated;
+﻿using Microsoft.AspNetCore.Http;
+using System.IO;
+
+namespace _0_Framework.Application.Utilities.ImageRelated;
 public static class FileHelper
 {
     public static string GetMimeType(string extension)
@@ -575,5 +578,10 @@ public static class FileHelper
             #endregion
             default: return "application/octet-stream";
         }
+    }
+
+    public static string GenerateImagePath(this IFormFile file)
+    {
+        return Guid.NewGuid().ToString("N") + Path.GetExtension(file.FileName);
     }
 }
