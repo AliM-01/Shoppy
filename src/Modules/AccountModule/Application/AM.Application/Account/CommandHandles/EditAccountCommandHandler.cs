@@ -1,5 +1,4 @@
 ﻿using _0_Framework.Application.Exceptions;
-using _0_Framework.Application.Extensions;
 using _0_Framework.Application.Utilities.ImageRelated;
 namespace AM.Application.Account.CommandHandles;
 
@@ -30,7 +29,7 @@ public class EditAccountCommandHandler : IRequestHandler<EditAccountCommand, Api
 
         if (request.Account.ImageFile is not null)
         {
-            var imagePath = DateTime.Now.ToFileName() + Path.GetExtension(request.Account.ImageFile.FileName);
+            string imagePath = request.Account.ImageFile.GenerateImagePath();
 
             request.Account.ImageFile.CropAndAddImageToServer(imagePath, PathExtension.Avatar200, 200, 200);
             request.Account.ImageFile.CropAndAddImageToServer(imagePath, PathExtension.Avatar60, 60, 60);

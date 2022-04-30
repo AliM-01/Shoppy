@@ -1,5 +1,4 @@
-﻿using _0_Framework.Application.Extensions;
-using BM.Application.Contracts.ArticleCategory.Commands;
+﻿using BM.Application.Contracts.ArticleCategory.Commands;
 
 namespace BM.Application.ArticleCategory.CommandHandles;
 
@@ -32,7 +31,7 @@ public class EditArticleCategoryCommandHandler : IRequestHandler<EditArticleCate
 
         if (request.ArticleCategory.ImageFile != null)
         {
-            var imagePath = DateTime.Now.ToFileName() + Path.GetExtension(request.ArticleCategory.ImageFile.FileName);
+            string imagePath = request.ArticleCategory.ImageFile.GenerateImagePath();
 
             request.ArticleCategory.ImageFile
             .CropAndAddImageToServer(imagePath, PathExtension.ArticleCategoryImage, 200, 200);

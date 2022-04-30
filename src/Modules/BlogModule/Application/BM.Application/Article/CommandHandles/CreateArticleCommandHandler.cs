@@ -1,7 +1,4 @@
-﻿
-using _0_Framework.Application.Extensions;
-
-namespace BM.Application.Article.CommandHandles;
+﻿namespace BM.Application.Article.CommandHandles;
 
 public class CreateArticleCommandHandler : IRequestHandler<CreateArticleCommand, ApiResult>
 {
@@ -25,7 +22,7 @@ public class CreateArticleCommandHandler : IRequestHandler<CreateArticleCommand,
 
         var article = _mapper.Map(request.Article, new Domain.Article.Article());
 
-        var imagePath = DateTime.Now.ToFileName() + Path.GetExtension(request.Article.ImageFile.FileName);
+        string imagePath = request.Article.ImageFile.GenerateImagePath();
 
         request.Article.ImageFile.AddImageToServer(imagePath, PathExtension.ArticleImage,
                     200, 200, PathExtension.ArticleThumbnailImage);

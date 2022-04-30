@@ -1,6 +1,4 @@
-﻿
-using _0_Framework.Application.Extensions;
-using BM.Application.Contracts.ArticleCategory.Commands;
+﻿using BM.Application.Contracts.ArticleCategory.Commands;
 
 namespace BM.Application.ArticleCategory.CommandHandles;
 
@@ -27,7 +25,7 @@ public class CreateArticleCategoryCommandHandler : IRequestHandler<CreateArticle
         var articleCategory =
             _mapper.Map(request.ArticleCategory, new Domain.ArticleCategory.ArticleCategory());
 
-        var imagePath = DateTime.Now.ToFileName() + Path.GetExtension(request.ArticleCategory.ImageFile.FileName);
+        string imagePath = request.ArticleCategory.ImageFile.GenerateImagePath();
 
         request.ArticleCategory.ImageFile
             .CropAndAddImageToServer(imagePath, PathExtension.ArticleCategoryImage, 200, 200);

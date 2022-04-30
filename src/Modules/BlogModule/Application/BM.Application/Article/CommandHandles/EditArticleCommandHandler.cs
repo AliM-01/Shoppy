@@ -1,6 +1,4 @@
-﻿using _0_Framework.Application.Extensions;
-
-namespace BM.Application.Article.CommandHandles;
+﻿namespace BM.Application.Article.CommandHandles;
 
 public class EditArticleCommandHandler : IRequestHandler<EditArticleCommand, ApiResult>
 {
@@ -31,7 +29,7 @@ public class EditArticleCommandHandler : IRequestHandler<EditArticleCommand, Api
 
         if (request.Article.ImageFile != null)
         {
-            var imagePath = DateTime.Now.ToFileName() + Path.GetExtension(request.Article.ImageFile.FileName);
+            string imagePath = request.Article.ImageFile.GenerateImagePath();
 
             request.Article.ImageFile.AddImageToServer(imagePath, PathExtension.ArticleImage,
                 200, 200, PathExtension.ArticleThumbnailImage, article.ImagePath);

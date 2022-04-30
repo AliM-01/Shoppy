@@ -1,7 +1,4 @@
-﻿
-using _0_Framework.Application.Extensions;
-using SM.Application.Contracts.ProductPicture.Commands;
-using System.IO;
+﻿using SM.Application.Contracts.ProductPicture.Commands;
 
 namespace SM.Application.ProductPicture.CommandHandles;
 
@@ -27,7 +24,7 @@ public class CreateProductPictureCommandHandler : IRequestHandler<CreateProductP
             var productPicture =
                 _mapper.Map(request.ProductPicture, new Domain.ProductPicture.ProductPicture());
 
-            var imagePath = DateTime.Now.ToFileName() + Path.GetExtension(request.ProductPicture.ImageFiles[i].FileName);
+            string imagePath = request.ProductPicture.ImageFiles[i].GenerateImagePath();
 
             request.ProductPicture.ImageFiles[i].AddImageToServer(imagePath, PathExtension.ProductPictureImage,
                 200, 200, PathExtension.ProductPictureThumbnailImage);

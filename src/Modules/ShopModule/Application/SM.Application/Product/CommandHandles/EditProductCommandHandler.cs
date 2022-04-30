@@ -1,5 +1,4 @@
 ﻿using SM.Application.Contracts.Product.Commands;
-using System.IO;
 
 namespace SM.Application.Product.CommandHandles;
 
@@ -32,7 +31,7 @@ public class EditProductCommandHandler : IRequestHandler<EditProductCommand, Api
 
         if (request.Product.ImageFile != null)
         {
-            var imagePath = Path.GetExtension(request.Product.ImageFile.FileName);
+            string imagePath = request.Product.ImageFile.GenerateImagePath();
 
             request.Product.ImageFile.AddImageToServer(imagePath, PathExtension.ProductImage, 200, 200, PathExtension.ProductThumbnailImage, product.ImagePath);
             product.ImagePath = imagePath;

@@ -1,6 +1,4 @@
-﻿using _0_Framework.Application.Extensions;
-using SM.Application.Contracts.Slider.Commands;
-using System.IO;
+﻿using SM.Application.Contracts.Slider.Commands;
 
 namespace SM.Application.Slider.CommandHandles;
 
@@ -24,7 +22,7 @@ public class CreateSliderCommandHandler : IRequestHandler<CreateSliderCommand, A
         var slider =
             _mapper.Map(request.Slider, new Domain.Slider.Slider());
 
-        var imagePath = DateTime.Now.ToFileName() + Path.GetExtension(request.Slider.ImageFile.FileName);
+        string imagePath = request.Slider.ImageFile.GenerateImagePath();
 
         request.Slider.ImageFile.AddImageToServer(imagePath, PathExtension.SliderImage,
             200, 200, PathExtension.SliderThumbnailImage);

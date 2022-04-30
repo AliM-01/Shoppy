@@ -1,6 +1,4 @@
-﻿using _0_Framework.Application.Extensions;
-using SM.Application.Contracts.ProductCategory.Commands;
-using System.IO;
+﻿using SM.Application.Contracts.ProductCategory.Commands;
 
 namespace SM.Application.ProductCategory.CommandHandles;
 
@@ -33,7 +31,7 @@ public class EditProductCategoryCommandHandler : IRequestHandler<EditProductCate
 
         if (request.ProductCategory.ImageFile != null)
         {
-            var imagePath = DateTime.Now.ToFileName() + Path.GetExtension(request.ProductCategory.ImageFile.FileName);
+            string imagePath = request.ProductCategory.ImageFile.GenerateImagePath();
 
             request.ProductCategory.ImageFile.AddImageToServer(imagePath, PathExtension.ProductCategoryImage,
                 200, 200, PathExtension.ProductCategoryThumbnailImage, productCategory.ImagePath);

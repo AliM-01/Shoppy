@@ -1,7 +1,4 @@
-﻿
-using _0_Framework.Application.Extensions;
-using SM.Application.Contracts.ProductCategory.Commands;
-using System.IO;
+﻿using SM.Application.Contracts.ProductCategory.Commands;
 
 namespace SM.Application.ProductCategory.CommandHandles;
 
@@ -28,7 +25,7 @@ public class CreateProductCategoryCommandHandler : IRequestHandler<CreateProduct
         var productCategory =
             _mapper.Map(request.ProductCategory, new Domain.ProductCategory.ProductCategory());
 
-        var imagePath = DateTime.Now.ToFileName() + Path.GetExtension(request.ProductCategory.ImageFile.FileName);
+        string imagePath = request.ProductCategory.ImageFile.GenerateImagePath();
 
         request.ProductCategory.ImageFile.AddImageToServer(imagePath, PathExtension.ProductCategoryImage,
                     200, 200, PathExtension.ProductCategoryThumbnailImage);

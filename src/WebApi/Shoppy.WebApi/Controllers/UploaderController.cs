@@ -1,8 +1,6 @@
-﻿using _0_Framework.Application.Extensions;
-using _0_Framework.Application.Utilities.ImageRelated;
+﻿using _0_Framework.Application.Utilities.ImageRelated;
 using Microsoft.AspNetCore.Http;
 using Newtonsoft.Json;
-using System.IO;
 
 namespace Shoppy.WebApi.Controllers;
 
@@ -16,15 +14,15 @@ public class UploaderController : ControllerBase
         if (upload.Length <= 0) return null;
         if (!upload.IsImage())
         {
-            var notImageMsg = "لطفا یک تصویر آپلود کنید";
-            var notImage = JsonConvert.DeserializeObject("{'uploaded':0, 'error': {'message': \" " + notImageMsg + " \"}}");
+            string notImageMsg = "لطفا یک تصویر آپلود کنید";
+            object notImage = JsonConvert.DeserializeObject("{'uploaded':0, 'error': {'message': \" " + notImageMsg + " \"}}");
 
             return new JsonResult(notImage);
         }
 
-        var day = DateTime.Now.ToString("yyyy/mm/dd").Replace("/", "-");
+        string day = DateTime.Now.ToString("yyyy/mm/dd").Replace("/", "-");
 
-        var imagePath = DateTime.Now.ToFileName() + Path.GetExtension(upload.FileName);
+        string imagePath = upload.GenerateImagePath();
 
         upload.AddImageToServer(imagePath, $"wwwroot/editor-upload/{day}/", 150, 150);
 
