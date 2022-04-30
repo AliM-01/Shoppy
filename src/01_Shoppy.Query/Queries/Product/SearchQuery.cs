@@ -1,7 +1,6 @@
 ﻿using _0_Framework.Application.Models.Paging;
 using _01_Shoppy.Query.Helpers.Product;
 using IM.Domain.Inventory;
-using System.Diagnostics;
 
 namespace _01_Shoppy.Query.Queries.Product;
 
@@ -38,34 +37,22 @@ public class SearchQueryHandler : IRequestHandler<SearchQuery, ApiResult<SearchP
 
         var query = _productRepository.AsQueryable();
 
-        #region filter selected categories slugs
+        #region filter
 
-        if (request.Search.SelectedCategories is not null && request.Search.SelectedCategories.Any())
+        #region filter sort date order
+
+        switch (request.Search.SortDateOrder)
         {
-            string[] selectedCategoriesId = default;
+            case PagingDataSortCreationDateOrder.DES:
+                query = query.OrderByDescending(x => x.CreationDate);
+                break;
 
-            foreach (string categorySlug in request.Search.SelectedCategories)
-            {
-                if (await _productCategoryRepository.ExistsAsync(x => x.Slug == categorySlug))
-                {
-                    var st = new Stopwatch();
-
-                    st.Start();
-
-                    var filter = Builders<SM.Domain.ProductCategory.ProductCategory>.Filter.Eq(x => x.Slug, categorySlug);
-                    var category = await _productCategoryRepository.FindOne(filter);
-                    selectedCategoriesId.Append(category.Id);
-
-                    st.Stop();
-                }
-            }
-
-            query = query.Where(x => selectedCategoriesId.Contains(x.CategoryId));
+            case PagingDataSortCreationDateOrder.ASC:
+                query = query.OrderBy(x => x.CreationDate);
+                break;
         }
 
         #endregion
-
-        #region filter
 
         #region filter price
 
@@ -91,17 +78,23 @@ public class SearchQueryHandler : IRequestHandler<SearchQuery, ApiResult<SearchP
 
         #endregion
 
-        #region filter sort date order
+        #region filter selected categories slugs
 
-        switch (request.Search.SortDateOrder)
+        if (request.Search.SelectedCategories is not null && request.Search.SelectedCategories.Any())
         {
-            case PagingDataSortCreationDateOrder.DES:
-                query = query.OrderByDescending(x => x.CreationDate);
-                break;
+            HashSet<string> selectedCategoriesId = default;
 
-            case PagingDataSortCreationDateOrder.ASC:
-                query = query.OrderBy(x => x.CreationDate);
-                break;
+            foreach (string categorySlug in request.Search.SelectedCategories)
+            {
+                if (await _productCategoryRepository.ExistsAsync(x => x.Slug == categorySlug))
+                {
+                    var filter = Builders<SM.Domain.ProductCategory.ProductCategory>.Filter.Eq(x => x.Slug, categorySlug);
+                    var category = await _productCategoryRepository.FindOne(filter);
+                    selectedCategoriesId.Add(category.Id);
+                }
+            }
+
+            query = query.Where(x => selectedCategoriesId.Contains(x.CategoryId));
         }
 
         #endregion
@@ -123,9 +116,10 @@ public class SearchQueryHandler : IRequestHandler<SearchQuery, ApiResult<SearchP
             mappedProducts.Add(await _productHelper.MapProducts<ProductQueryModel>(allEntities[i]));
         }
 
+        request.Search.SetData(mappedProducts).SetPaging(pager);
+
         #endregion paging
 
-        request.Search.SetData(mappedProducts).SetPaging(pager);
 
         #region Price Order
 
