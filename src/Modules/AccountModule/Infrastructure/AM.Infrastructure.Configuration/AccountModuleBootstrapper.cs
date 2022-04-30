@@ -23,7 +23,7 @@ namespace AM.Infrastructure.Configuration;
 
 public class AccountModuleBootstrapper
 {
-    public static async Task ConfigureAsync(IServiceCollection services, IConfiguration config)
+    public async static Task ConfigureAsync(IServiceCollection services, IConfiguration config)
     {
         #region db config
 
@@ -79,6 +79,8 @@ public class AccountModuleBootstrapper
 
         #endregion
 
+        #region services
+
         services.AddScoped<IEmailSenderService, EmailSenderService>();
         services.AddScoped<IViewRenderService, ViewRenderService>();
         services.AddScoped<ISecurityService, SecurityService>();
@@ -86,6 +88,7 @@ public class AccountModuleBootstrapper
         services.AddScoped<ITokenStoreService, TokenStoreService>();
         services.AddScoped<ITokenValidatorService, TokenValidatorService>();
 
+        #endregion
 
         #region auth config
 
@@ -95,11 +98,8 @@ public class AccountModuleBootstrapper
 
         services.Configure<BearerTokenSettings>(config.GetSection("BearerTokenSettings"));
 
-        services.AddAuthorization(options =>
-        {
-            options.AddPolicy(RoleConstants.Admin, policy => policy.RequireRole(RoleConstants.Admin));
-            options.AddPolicy(RoleConstants.BasicUser, policy => policy.RequireRole(RoleConstants.BasicUser));
-        });
+        #region Authentication
+
 
         services
                 .AddAuthentication(options =>
@@ -154,7 +154,26 @@ public class AccountModuleBootstrapper
                             return context.Response.WriteAsync(ProduceAccessDeniedResponse());
                         }
                     };
+                })
+                .AddGoogle(cfg =>
+                {
+                    cfg.ClientId = config["Google_OAuth:Client_Id"];
+                    cfg.ClientSecret = config["Google_OAuth:Client_Secret"];
                 });
+
+
+        #endregion
+
+        #region Authorization
+
+        services.AddAuthorization(options =>
+        {
+            options.AddPolicy(RoleConstants.Admin, policy => policy.RequireRole(RoleConstants.Admin));
+            options.AddPolicy(RoleConstants.BasicUser, policy => policy.RequireRole(RoleConstants.BasicUser));
+        });
+
+        #endregion
+
 
         #endregion
     }
