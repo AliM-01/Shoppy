@@ -55,7 +55,7 @@ public class TokenFactoryService : ITokenFactoryService
 
     private (string RefreshTokenValue, string RefreshTokenSerial) CreateRefreshToken()
     {
-        var refreshTokenSerial = _securityService.CreateCryptographicallySecureGuid().ToString().Replace("-", "");
+        string refreshTokenSerial = _securityService.CreateCryptographicallySecureGuid().ToString().Replace("-", "");
 
         var claims = new List<Claim>
             {
@@ -82,7 +82,7 @@ public class TokenFactoryService : ITokenFactoryService
             expires: now.AddHours(_tokentSettings.RefreshTokenExpirationHours),
             signingCredentials: creds);
 
-        var refreshTokenValue = new JwtSecurityTokenHandler().WriteToken(token);
+        string refreshTokenValue = new JwtSecurityTokenHandler().WriteToken(token);
 
         return (refreshTokenValue, refreshTokenSerial);
     }
@@ -91,7 +91,7 @@ public class TokenFactoryService : ITokenFactoryService
 
     #region Get Refresh Token Serial
 
-    public string? GetRefreshTokenSerial(string refreshTokenValue)
+    public string GetRefreshTokenSerial(string refreshTokenValue)
     {
         if (string.IsNullOrWhiteSpace(refreshTokenValue))
             return "";
@@ -146,7 +146,7 @@ public class TokenFactoryService : ITokenFactoryService
 
         // add roles
         var roles = await _userManager.GetRolesAsync(user);
-        foreach (var role in roles)
+        foreach (string? role in roles)
         {
             claims.Add(new Claim(ClaimTypes.Role, role, ClaimValueTypes.String, _tokentSettings.Issuer));
         }

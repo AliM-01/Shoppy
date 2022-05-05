@@ -119,10 +119,10 @@ public class VerifyPaymentRequestCommandHandler : IRequestHandler<VerifyPaymentR
             });
 
         }
-        catch (Exception)
+        catch (Exception ex)
         {
             await session.AbortTransactionAsync();
-            throw new ApiException("پرداخت با خطا مواجه شد");
+            throw new ApiException("پرداخت با خطا مواجه شد" + ex.Message);
         }
     }
 }
