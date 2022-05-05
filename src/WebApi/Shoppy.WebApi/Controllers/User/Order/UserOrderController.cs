@@ -98,7 +98,7 @@ public class UserOrderController : BaseUserApiController
     {
         oId = Encoding.UTF8.GetString(WebEncoders.Base64UrlDecode(oId));
 
-        var res = await Mediator.Send(new VerifyPaymentRequestCommand(new VerifyPaymentRequestDto(oId, authority),
+        var res = await Mediator.Send(new VerifyPaymentRequestCommand(new VerifyPaymentRequestDto(authority, oId),
                                                                       User.GetUserId()));
 
         return SuccessResult(res);
