@@ -4,6 +4,7 @@ using AM.Application.Contracts.Account.Queries;
 using AM.Application.Contracts.Services;
 using AM.Domain.Account;
 using Ardalis.GuardClauses;
+using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.WebUtilities;
@@ -90,6 +91,24 @@ public class AccountController : BaseApiController
         cancellationToken.ThrowIfCancellationRequested();
 
         var res = await Mediator.Send(new AuthenticateUserCommand(login), cancellationToken);
+
+        return SuccessResult(res);
+    }
+
+    #endregion
+
+    #region GetExternalLoginsQuery
+
+    [AllowAnonymous]
+    [HttpGet(MainAccountEndpoints.Account.GetExternalLogins)]
+    [SwaggerOperation(Summary = "Get ExternalLogins", Tags = new[] { "Account" })]
+    [SwaggerResponse(200, "success")]
+    [ProducesResponseType(typeof(IEnumerable<AuthenticationScheme>), 200)]
+    public async Task<IActionResult> GetExternalLogins(CancellationToken cancellationToken)
+    {
+        cancellationToken.ThrowIfCancellationRequested();
+
+        var res = await Mediator.Send(new GetExternalLoginsQuery());
 
         return SuccessResult(res);
     }
