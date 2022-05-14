@@ -16,8 +16,8 @@ public class AuthenticateUserCommandHandler : IRequestHandler<AuthenticateUserCo
     public AuthenticateUserCommandHandler(IMapper mapper,
                                          UserManager<Domain.Account.Account> userManager,
                                          SignInManager<Domain.Account.Account> signInManager,
-        ITokenFactoryService tokenFactoryService,
-ITokenStoreService tokenStoreService)
+                                        ITokenFactoryService tokenFactoryService,
+                                        ITokenStoreService tokenStoreService)
     {
         _mapper = Guard.Against.Null(mapper, nameof(_mapper));
         _userManager = Guard.Against.Null(userManager, nameof(_userManager));
