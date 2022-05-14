@@ -64,7 +64,7 @@ public class AccountController : BaseApiController
 
         string emailBody = _viewRenderService.RenderToString("~/Shared/Views/_ActivateEmail.cshtml", callBackUrl);
 
-        bool emailRes = _emailSender.SendEmail(res.Data.UserEmail, res.Data.UserFullName, "فعالسازی حساب", emailBody);
+        bool emailRes = await _emailSender.SendEmail(res.Data.UserEmail, "فعالسازی حساب", emailBody);
 
         if (!emailRes)
             return ErrorResult();
@@ -147,7 +147,7 @@ public class AccountController : BaseApiController
 
         string emailBody = _viewRenderService.RenderToString("~/Shared/Views/_Welcome.cshtml", "");
 
-        _emailSender.SendEmail(res.Data.Email, "", "خوش آمدید", emailBody);
+        await _emailSender.SendEmail(res.Data.Email, "خوش آمدید", emailBody);
 
         #endregion
 

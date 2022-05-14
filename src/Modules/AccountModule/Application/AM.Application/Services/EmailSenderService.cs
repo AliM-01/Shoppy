@@ -25,7 +25,7 @@ public class EmailSenderService : IEmailSenderService
     // Not-Encrypted 25
     // Secure Tls 587
     // Secure SSL 465
-    public bool SendEmail(string toId, string toName, string subject, string body)
+    public async Task<bool> SendEmail(string email, string subject, string body)
     {
         try
         {
@@ -37,13 +37,13 @@ public class EmailSenderService : IEmailSenderService
                 client.Credentials = new NetworkCredential(_emailSettings.EmailId, _emailSettings.Password);
 
                 MailMessage message = new();
-                message.To.Add(toId);
+                message.To.Add(email);
                 message.From = new MailAddress(_emailSettings.EmailId, _emailSettings.Name);
                 message.Subject = subject;
                 message.IsBodyHtml = true;
                 message.Body = body;
 
-                client.Send(message);
+                await client.SendMailAsync(message);
             }
             return true;
         }
