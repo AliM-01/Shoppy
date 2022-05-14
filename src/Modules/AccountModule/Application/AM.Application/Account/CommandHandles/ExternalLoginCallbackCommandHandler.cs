@@ -85,7 +85,8 @@ public class ExternalLoginCallbackCommandHandler : IRequestHandler<ExternalLogin
         var returnData = new ExternalLoginCallbackResponseDto
         {
             Type = ExternalLoginCallbackResult.Registered,
-            TokenResult = new AuthenticateUserResponseDto(token)
+            TokenResult = new AuthenticateUserResponseDto(token),
+            Email = email
         };
 
         return ApiResponse.Success(returnData);

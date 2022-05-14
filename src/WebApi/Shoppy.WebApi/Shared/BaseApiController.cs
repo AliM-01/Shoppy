@@ -23,6 +23,11 @@ public abstract class BaseApiController : ControllerBase
         return new OkObjectResult(JsonSerializer.Serialize(response));
     }
 
+    protected OkObjectResult SuccessResult(object obj)
+    {
+        return new OkObjectResult(JsonSerializer.Serialize(obj));
+    }
+
     protected OkObjectResult SuccessResult<TData>(ApiResult<TData> response)
     {
         string res = JsonSerializer.Serialize(response.Data);

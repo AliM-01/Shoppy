@@ -15,5 +15,7 @@ public class ExternalLoginCallbackResponseDto
 
     public ExternalLoginCallbackResult Type { get; set; }
 
+    public string Email { get; set; }
+
     public AuthenticateUserResponseDto? TokenResult { get; set; }
 }

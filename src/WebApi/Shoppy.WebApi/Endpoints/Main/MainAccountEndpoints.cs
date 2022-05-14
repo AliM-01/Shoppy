@@ -14,6 +14,8 @@ public class MainAccountEndpoints
 
         public const string GetExternalLogins = Base + "/external-logins-schema";
 
+        public const string ExternalLoginCallBack = Base + "/external-login-callback";
+
         public const string ConfirmEmail = Base + "/confirm-email";
 
         public const string RefreshToken = Base + "/refresh-token";

@@ -114,7 +114,7 @@ public class AccountController : BaseApiController
 
     #endregion
 
-    #region GetExternalLoginsQuery
+    #region ExternalLogin
 
     [AllowAnonymous]
     [HttpGet(MainAccountEndpoints.Account.ExternalLogin)]
@@ -131,6 +131,31 @@ public class AccountController : BaseApiController
     }
 
     #endregion
+
+    #region ExternalLogin
+
+    [AllowAnonymous]
+    [HttpGet(MainAccountEndpoints.Account.ExternalLoginCallBack)]
+    [SwaggerOperation(Summary = "ExternalLoginCallBack", Tags = new[] { "Account" })]
+    [SwaggerResponse(200, "success")]
+    [ProducesResponseType(typeof(ApiResult), 200)]
+    public async Task<IActionResult> ExternalLoginCallBack(CancellationToken cancellationToken)
+    {
+        var res = await Mediator.Send(new ExternalLoginCallbackCommand(), cancellationToken);
+
+        #region welcome email
+
+        string emailBody = _viewRenderService.RenderToString("~/Shared/Views/_Welcome.cshtml", "");
+
+        _emailSender.SendEmail(res.Data.Email, "", "خوش آمدید", emailBody);
+
+        #endregion
+
+        return SuccessResult(res.Data.TokenResult);
+    }
+
+    #endregion
+
     #region ConfirmEmail
 
     [AllowAnonymous]
