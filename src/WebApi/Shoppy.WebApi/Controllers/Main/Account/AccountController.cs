@@ -4,7 +4,6 @@ using AM.Application.Contracts.Account.Queries;
 using AM.Application.Contracts.Services;
 using AM.Domain.Account;
 using Ardalis.GuardClauses;
-using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.WebUtilities;
@@ -103,7 +102,7 @@ public class AccountController : BaseApiController
     [HttpGet(MainAccountEndpoints.Account.GetExternalLogins)]
     [SwaggerOperation(Summary = "Get ExternalLogins", Tags = new[] { "Account" })]
     [SwaggerResponse(200, "success")]
-    [ProducesResponseType(typeof(IEnumerable<AuthenticationScheme>), 200)]
+    [ProducesResponseType(typeof(ApiResult), 200)]
     public async Task<IActionResult> GetExternalLogins(CancellationToken cancellationToken)
     {
         cancellationToken.ThrowIfCancellationRequested();
@@ -115,6 +114,23 @@ public class AccountController : BaseApiController
 
     #endregion
 
+    #region GetExternalLoginsQuery
+
+    [AllowAnonymous]
+    [HttpGet(MainAccountEndpoints.Account.ExternalLogin)]
+    [SwaggerOperation(Summary = "ExternalLogin", Tags = new[] { "Account" })]
+    [SwaggerResponse(200, "success")]
+    [ProducesResponseType(typeof(ApiResult), 200)]
+    public async Task<IActionResult> ExternalLogin([FromQuery] string provider, [FromQuery] string returnUrl, CancellationToken cancellationToken)
+    {
+        cancellationToken.ThrowIfCancellationRequested();
+
+        var res = await Mediator.Send(new GetExternalLoginProviderPropertiesQuery(provider, returnUrl));
+
+        return new ChallengeResult(provider, res.Data);
+    }
+
+    #endregion
     #region ConfirmEmail
 
     [AllowAnonymous]

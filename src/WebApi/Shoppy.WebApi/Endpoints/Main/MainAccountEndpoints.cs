@@ -10,6 +10,8 @@ public class MainAccountEndpoints
 
         public const string Login = Base + "/login";
 
+        public const string ExternalLogin = Base + "/external-login";
+
         public const string GetExternalLogins = Base + "/external-logins-schema";
 
         public const string ConfirmEmail = Base + "/confirm-email";
