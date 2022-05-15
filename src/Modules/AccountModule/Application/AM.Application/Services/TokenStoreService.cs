@@ -77,7 +77,7 @@ public class TokenStoreService : ITokenStoreService
 
         for (int i = 0; i < expiredTokens.Count; i++)
         {
-            await _userTokenRepository.DeletePermanentAsync(expiredTokens[i].Id);
+            await _userTokenRepository.DeleteAsync(expiredTokens[i].Id);
         }
     }
 
@@ -90,7 +90,7 @@ public class TokenStoreService : ITokenStoreService
         var token = await FindToken(refreshTokenValue);
 
         if (token != null)
-            await _userTokenRepository.DeletePermanentAsync(token.Id);
+            await _userTokenRepository.DeleteAsync(token.Id);
     }
 
     #endregion
@@ -111,7 +111,7 @@ public class TokenStoreService : ITokenStoreService
 
         for (int i = 0; i < tokens.Count; i++)
         {
-            await _userTokenRepository.DeletePermanentAsync(tokens[i].Id);
+            await _userTokenRepository.DeleteAsync(tokens[i].Id);
         }
     }
 
@@ -131,10 +131,10 @@ public class TokenStoreService : ITokenStoreService
 
         if (!string.IsNullOrWhiteSpace(refreshTokenValue))
         {
-            var refreshTokenSerial = _tokenFactoryService.GetRefreshTokenSerial(refreshTokenValue);
+            string? refreshTokenSerial = _tokenFactoryService.GetRefreshTokenSerial(refreshTokenValue);
             if (!string.IsNullOrWhiteSpace(refreshTokenSerial))
             {
-                var refreshTokenIdHashSource = _securityService.GetSha256Hash(refreshTokenSerial);
+                string? refreshTokenIdHashSource = _securityService.GetSha256Hash(refreshTokenSerial);
                 await DeleteTokensWithSameRefreshTokenSource(refreshTokenIdHashSource);
             }
         }
@@ -151,12 +151,12 @@ public class TokenStoreService : ITokenStoreService
         if (string.IsNullOrWhiteSpace(refreshTokenValue))
             return null;
 
-        var refreshTokenSerial = _tokenFactoryService.GetRefreshTokenSerial(refreshTokenValue);
+        string? refreshTokenSerial = _tokenFactoryService.GetRefreshTokenSerial(refreshTokenValue);
 
         if (string.IsNullOrWhiteSpace(refreshTokenSerial))
             return null;
 
-        var refreshTokenIdHash = _securityService.GetSha256Hash(refreshTokenSerial);
+        string? refreshTokenIdHash = _securityService.GetSha256Hash(refreshTokenSerial);
 
         var filter = Builders<UserToken>.Filter.Eq(x => x.RefreshTokenIdHash, refreshTokenIdHash);
 
@@ -176,7 +176,7 @@ public class TokenStoreService : ITokenStoreService
 
         for (int i = 0; i < tokens.Count; i++)
         {
-            await _userTokenRepository.DeletePermanentAsync(tokens[i].Id);
+            await _userTokenRepository.DeleteAsync(tokens[i].Id);
         }
     }
 
@@ -186,7 +186,7 @@ public class TokenStoreService : ITokenStoreService
 
     public async Task<bool> IsValidToken(string accessToken, string userId)
     {
-        var accessTokenHash = _securityService.GetSha256Hash(accessToken);
+        string? accessTokenHash = _securityService.GetSha256Hash(accessToken);
 
         var userToken = await _userTokenRepository
             .AsQueryable()

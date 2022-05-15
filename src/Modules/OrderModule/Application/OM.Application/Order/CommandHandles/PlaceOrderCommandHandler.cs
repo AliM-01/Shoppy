@@ -1,5 +1,7 @@
-﻿using OM.Application.Contracts.Order.Commands;
+﻿using Microsoft.AspNetCore.WebUtilities;
+using OM.Application.Contracts.Order.Commands;
 using OM.Domain.Order;
+using System.Text;
 
 namespace OM.Application.Order.CommandHandles;
 
@@ -43,6 +45,8 @@ public class PlaceOrderCommandHandler : IRequestHandler<PlaceOrderCommand, ApiRe
             await _orderItemRepository.InsertAsync(orderItem);
         }
 
-        return ApiResponse.Success<PlaceOrderResponseDto>(new PlaceOrderResponseDto(order.Id));
+        string orderId = WebEncoders.Base64UrlEncode(Encoding.UTF8.GetBytes(order.Id));
+
+        return ApiResponse.Success<PlaceOrderResponseDto>(new PlaceOrderResponseDto(orderId));
     }
 }

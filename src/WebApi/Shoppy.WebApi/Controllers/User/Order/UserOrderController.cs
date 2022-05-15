@@ -1,6 +1,8 @@
-﻿using OM.Application.Contracts.Order.Commands;
+﻿using Microsoft.AspNetCore.WebUtilities;
+using OM.Application.Contracts.Order.Commands;
 using OM.Application.Contracts.Order.DTOs;
 using OM.Application.Contracts.Order.Queries;
+using System.Text;
 
 namespace Shoppy.WebApi.Controllers.User.Order;
 
@@ -70,6 +72,8 @@ public class UserOrderController : BaseUserApiController
     public async Task<IActionResult> InitializePayment([FromQuery] string oId,
             [FromQuery] decimal amount, [FromQuery] string callBack)
     {
+        oId = Encoding.UTF8.GetString(WebEncoders.Base64UrlDecode(oId));
+
         var payment = new InitializePaymentRequestDto(oId,
                                                       amount,
                                                       callBack,
@@ -92,7 +96,9 @@ public class UserOrderController : BaseUserApiController
     [ProducesResponseType(typeof(ApiResult), 404)]
     public async Task<IActionResult> VerifyPayment([FromQuery] string authority, [FromQuery] string oId)
     {
-        var res = await Mediator.Send(new VerifyPaymentRequestCommand(new VerifyPaymentRequestDto(oId, authority),
+        oId = Encoding.UTF8.GetString(WebEncoders.Base64UrlDecode(oId));
+
+        var res = await Mediator.Send(new VerifyPaymentRequestCommand(new VerifyPaymentRequestDto(authority, oId),
                                                                       User.GetUserId()));
 
         return SuccessResult(res);

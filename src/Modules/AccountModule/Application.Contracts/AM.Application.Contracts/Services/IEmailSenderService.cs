@@ -2,5 +2,5 @@
 
 public interface IEmailSenderService
 {
-    bool SendEmail(string toId, string toName, string subject, string body);
+    Task<bool> SendEmail(string email, string subject, string body);
 }

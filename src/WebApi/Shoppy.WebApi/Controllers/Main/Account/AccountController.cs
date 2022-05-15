@@ -64,7 +64,7 @@ public class AccountController : BaseApiController
 
         string emailBody = _viewRenderService.RenderToString("~/Shared/Views/_ActivateEmail.cshtml", callBackUrl);
 
-        bool emailRes = _emailSender.SendEmail(res.Data.UserEmail, res.Data.UserFullName, "فعالسازی حساب", emailBody);
+        bool emailRes = await _emailSender.SendEmail(res.Data.UserEmail, "فعالسازی حساب", emailBody);
 
         if (!emailRes)
             return ErrorResult();
@@ -92,6 +92,66 @@ public class AccountController : BaseApiController
         var res = await Mediator.Send(new AuthenticateUserCommand(login), cancellationToken);
 
         return SuccessResult(res);
+    }
+
+    #endregion
+
+    #region GetExternalLoginsQuery
+
+    [AllowAnonymous]
+    [HttpGet(MainAccountEndpoints.Account.GetExternalLogins)]
+    [SwaggerOperation(Summary = "Get ExternalLogins", Tags = new[] { "Account" })]
+    [SwaggerResponse(200, "success")]
+    [ProducesResponseType(typeof(ApiResult), 200)]
+    public async Task<IActionResult> GetExternalLogins(CancellationToken cancellationToken)
+    {
+        cancellationToken.ThrowIfCancellationRequested();
+
+        var res = await Mediator.Send(new GetExternalLoginsQuery());
+
+        return SuccessResult(res);
+    }
+
+    #endregion
+
+    #region ExternalLogin
+
+    [AllowAnonymous]
+    [HttpGet(MainAccountEndpoints.Account.ExternalLogin)]
+    [SwaggerOperation(Summary = "ExternalLogin", Tags = new[] { "Account" })]
+    [SwaggerResponse(200, "success")]
+    [ProducesResponseType(typeof(ApiResult), 200)]
+    public async Task<IActionResult> ExternalLogin([FromQuery] string provider, [FromQuery] string returnUrl, CancellationToken cancellationToken)
+    {
+        cancellationToken.ThrowIfCancellationRequested();
+
+        var res = await Mediator.Send(new GetExternalLoginProviderPropertiesQuery(provider, returnUrl));
+
+        return new ChallengeResult(provider, res.Data);
+    }
+
+    #endregion
+
+    #region ExternalLogin
+
+    [AllowAnonymous]
+    [HttpGet(MainAccountEndpoints.Account.ExternalLoginCallBack)]
+    [SwaggerOperation(Summary = "ExternalLoginCallBack", Tags = new[] { "Account" })]
+    [SwaggerResponse(200, "success")]
+    [ProducesResponseType(typeof(ApiResult), 200)]
+    public async Task<IActionResult> ExternalLoginCallBack(CancellationToken cancellationToken)
+    {
+        var res = await Mediator.Send(new ExternalLoginCallbackCommand(), cancellationToken);
+
+        #region welcome email
+
+        string emailBody = _viewRenderService.RenderToString("~/Shared/Views/_Welcome.cshtml", "");
+
+        await _emailSender.SendEmail(res.Data.Email, "خوش آمدید", emailBody);
+
+        #endregion
+
+        return SuccessResult(res.Data.TokenResult);
     }
 
     #endregion
