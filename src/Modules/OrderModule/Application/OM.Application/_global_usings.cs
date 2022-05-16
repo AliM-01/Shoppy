@@ -1,5 +1,4 @@
-﻿global using _0_Framework.Application.ErrorMessages;
-global using _0_Framework.Application.Exceptions;
+﻿global using _0_Framework.Application.Exceptions;
 global using _0_Framework.Application.Wrappers;
 global using _0_Framework.Infrastructure.IRepository;
 global using Ardalis.GuardClauses;

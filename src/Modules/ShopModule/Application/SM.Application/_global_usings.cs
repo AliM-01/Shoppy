@@ -6,7 +6,6 @@ global using _0_Framework.Infrastructure.IRepository;
 global using Ardalis.GuardClauses;
 global using AutoMapper;
 global using MediatR;
-global using System;
 global using System.Threading;
 global using System.Threading.Tasks;
 
