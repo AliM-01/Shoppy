@@ -31,13 +31,9 @@ var app = builder.Build();
 #region Configure
 
 if (environment.IsDevelopment())
-{
     app.UseDeveloperExceptionPage();
-}
 else
-{
     app.UseHsts();
-}
 
 app.UseErrorHandlingMiddleware();
 app.UseHttpsRedirection();
@@ -51,10 +47,7 @@ app.UseCors("CorsPolicy");
 app.UseAuthentication();
 app.UseAuthorization();
 
-app.UseEndpoints(endpoints =>
-{
-    endpoints.MapControllers();
-});
+app.MapControllers();
 
 app.UseSerilogRequestLogging();
 
