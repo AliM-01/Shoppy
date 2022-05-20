@@ -21,7 +21,7 @@ public class TokenFactoryService : ITokenFactoryService
     public TokenFactoryService(
         UserManager<Domain.Account.Account> userManager,
         ISecurityService securityService,
-        IOptionsSnapshot<BearerTokenSettings> tokentSettings,
+        IOptions<BearerTokenSettings> tokentSettings,
         ILogger<TokenFactoryService> logger)
     {
         _securityService = Guard.Against.Null(securityService, nameof(_securityService));

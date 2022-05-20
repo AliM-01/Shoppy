@@ -19,7 +19,7 @@ public class BaseRepository<TDocument, TSettings> : IRepository<TDocument>
     private readonly IMongoCollection<TDocument> _collection;
     private readonly TSettings _settings;
 
-    public BaseRepository(IOptionsSnapshot<TSettings> settings)
+    public BaseRepository(IOptions<TSettings> settings)
     {
         _settings = settings.Value;
 

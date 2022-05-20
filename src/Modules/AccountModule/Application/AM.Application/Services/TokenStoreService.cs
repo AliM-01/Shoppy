@@ -21,7 +21,7 @@ public class TokenStoreService : ITokenStoreService
         UserManager<Domain.Account.Account> userManager,
         IRepository<UserToken> userTokenRepository,
         ISecurityService securityService,
-        IOptionsSnapshot<BearerTokenSettings> tokenSettings,
+        IOptions<BearerTokenSettings> tokenSettings,
         ITokenFactoryService tokenFactoryService)
     {
         _securityService = Guard.Against.Null(securityService, nameof(_securityService));
