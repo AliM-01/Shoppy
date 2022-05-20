@@ -15,13 +15,13 @@ namespace CM.Infrastructure.Configuration;
 
 public class CommentModuleBootstrapper
 {
-    public static void Configure(IServiceCollection services, Microsoft.Extensions.Configuration.IConfiguration config)
+    public static void Configure(IServiceCollection services, IConfiguration config)
     {
         services.Configure<CommentDbSettings>(config.GetSection("CommentDbSettings"));
 
-        services.AddScoped<IRepository<Comment>, BaseRepository<Comment, CommentDbSettings>>();
-        services.AddScoped<ICMProductAcl, CMProuctAclService>();
-        services.AddScoped<ICMArticleAcl, CMArticleAclService>();
+        services.AddTransient<IRepository<Comment>, BaseRepository<Comment, CommentDbSettings>>();
+        services.AddTransient<ICMProductAcl, CMProuctAclService>();
+        services.AddTransient<ICMArticleAcl, CMArticleAclService>();
 
         services.AddMediatR(typeof(CommentModuleBootstrapper).Assembly);
 

@@ -49,7 +49,7 @@ public class AccountModuleBootstrapper
             .AddDefaultTokenProviders()
             .AddErrorDescriber<PersianIdentity.PersianIdentityErrorDescriber>();
 
-        services.AddScoped<IRepository<UserToken>, BaseRepository<UserToken, AccountDbSettings>>();
+        services.AddTransient<IRepository<UserToken>, BaseRepository<UserToken, AccountDbSettings>>();
 
         services.AddMediatR(typeof(AccountModuleBootstrapper).Assembly);
 
@@ -81,12 +81,12 @@ public class AccountModuleBootstrapper
 
         #region services
 
-        services.AddScoped<IEmailSenderService, EmailSenderService>();
-        services.AddScoped<IViewRenderService, ViewRenderService>();
-        services.AddScoped<ISecurityService, SecurityService>();
-        services.AddScoped<ITokenFactoryService, TokenFactoryService>();
-        services.AddScoped<ITokenStoreService, TokenStoreService>();
-        services.AddScoped<ITokenValidatorService, TokenValidatorService>();
+        services.AddTransient<IEmailSenderService, EmailSenderService>();
+        services.AddTransient<IViewRenderService, ViewRenderService>();
+        services.AddTransient<ISecurityService, SecurityService>();
+        services.AddTransient<ITokenFactoryService, TokenFactoryService>();
+        services.AddTransient<ITokenStoreService, TokenStoreService>();
+        services.AddTransient<ITokenValidatorService, TokenValidatorService>();
 
         #endregion
 

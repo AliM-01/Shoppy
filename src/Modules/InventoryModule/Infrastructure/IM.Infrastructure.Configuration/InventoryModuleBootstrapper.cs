@@ -17,16 +17,16 @@ namespace IM.Infrastructure.Configuration;
 
 public class InventoryModuleBootstrapper
 {
-    public static void Configure(IServiceCollection services, Microsoft.Extensions.Configuration.IConfiguration config)
+    public static void Configure(IServiceCollection services, IConfiguration config)
     {
         services.Configure<InventoryDbSettings>(config.GetSection("InventoryDbSettings"));
 
-        services.AddScoped<IRepository<Inventory>, BaseRepository<Inventory, InventoryDbSettings>>();
-        services.AddScoped<IRepository<InventoryOperation>, BaseRepository<InventoryOperation, InventoryDbSettings>>();
+        services.AddTransient<IRepository<Inventory>, BaseRepository<Inventory, InventoryDbSettings>>();
+        services.AddTransient<IRepository<InventoryOperation>, BaseRepository<InventoryOperation, InventoryDbSettings>>();
 
-        services.AddScoped<IInventoryHelper, InventoryHelper>();
-        services.AddScoped<IIMProuctAclService, IMProuctAclService>();
-        services.AddScoped<IIMAccountAclService, IMAccountAclService>();
+        services.AddTransient<IInventoryHelper, InventoryHelper>();
+        services.AddTransient<IIMProuctAclService, IMProuctAclService>();
+        services.AddTransient<IIMAccountAclService, IMAccountAclService>();
 
         services.AddMediatR(typeof(InventoryModuleBootstrapper).Assembly);
 

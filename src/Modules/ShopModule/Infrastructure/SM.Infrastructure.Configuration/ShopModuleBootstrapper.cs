@@ -17,9 +17,9 @@ namespace SM.Infrastructure.Configuration;
 
 public class ShopModuleBootstrapper
 {
-    public static void Configure(IServiceCollection services, Microsoft.Extensions.Configuration.IConfiguration config)
+    public static void Configure(IServiceCollection services, IConfiguration config)
     {
-        services.AddScoped<IRepository<Product>, BaseRepository<Product, ShopDbSettings>>();
+        services.AddTransient<IRepository<Product>, BaseRepository<Product, ShopDbSettings>>();
 
         services.Configure<ShopDbSettings>(config.GetSection("ShopDbSettings"));
 
@@ -28,7 +28,7 @@ public class ShopModuleBootstrapper
         services.AddTransient<IRepository<ProductFeature>, BaseRepository<ProductFeature, ShopDbSettings>>();
         services.AddTransient<IRepository<Slider>, BaseRepository<Slider, ShopDbSettings>>();
 
-        services.AddScoped<IProductHelper, ProductHelper>();
+        services.AddTransient<IProductHelper, ProductHelper>();
 
         services.AddMediatR(typeof(ShopModuleBootstrapper).Assembly);
 
