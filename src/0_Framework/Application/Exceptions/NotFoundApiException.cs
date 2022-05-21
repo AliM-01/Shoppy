@@ -11,4 +11,10 @@ public class NotFoundApiException : Exception
         : base(String.Format(CultureInfo.CurrentCulture, message, args))
     {
     }
+
+    public static void ThrowIfNull(object? data)
+    {
+        if (data is null)
+            throw new NotFoundApiException();
+    }
 }
