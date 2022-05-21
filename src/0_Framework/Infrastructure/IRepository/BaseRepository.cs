@@ -65,7 +65,7 @@ public class BaseRepository<TDocument, TSettings> : IRepository<TDocument>
 
     #region FullTextSearch
 
-    public async Task<HashSet<string>> FullTextSearch(Expression<Func<TDocument, object>> field, string filter, CancellationToken cancellationToken = default)
+    public async Task<HashSet<string>?> FullTextSearch(Expression<Func<TDocument, object>> field, string filter, CancellationToken cancellationToken = default)
     {
         cancellationToken.ThrowIfCancellationRequested();
 
@@ -90,7 +90,7 @@ public class BaseRepository<TDocument, TSettings> : IRepository<TDocument>
 
     #region GetByFilter
 
-    public async Task<TDocument> FindOne(FilterDefinition<TDocument> filter, CancellationToken cancellationToken = default)
+    public async Task<TDocument?> FindOne(FilterDefinition<TDocument> filter, CancellationToken cancellationToken = default)
     {
         cancellationToken.ThrowIfCancellationRequested();
 
@@ -99,7 +99,7 @@ public class BaseRepository<TDocument, TSettings> : IRepository<TDocument>
         return await res.FirstOrDefaultAsync();
     }
 
-    public async Task<List<TDocument>> GetManyByFilter(FilterDefinition<TDocument> filter, CancellationToken cancellationToken = default)
+    public async Task<List<TDocument>?> GetManyByFilter(FilterDefinition<TDocument> filter, CancellationToken cancellationToken = default)
     {
         cancellationToken.ThrowIfCancellationRequested();
 
@@ -112,7 +112,7 @@ public class BaseRepository<TDocument, TSettings> : IRepository<TDocument>
 
     #region FindByIdAsync
 
-    public async Task<TDocument> FindByIdAsync(string id, CancellationToken cancellationToken = default)
+    public async Task<TDocument?> FindByIdAsync(string id, CancellationToken cancellationToken = default)
     {
         cancellationToken.ThrowIfCancellationRequested();
 
