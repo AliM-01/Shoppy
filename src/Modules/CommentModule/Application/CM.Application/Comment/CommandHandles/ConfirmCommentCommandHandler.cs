@@ -21,10 +21,9 @@ public class ConfirmCommentCommandHandler : IRequestHandler<ConfirmCommentComman
     {
         var comment = await _commentRepository.FindByIdAsync(request.CommentId);
 
-        if (comment is null)
-            throw new NotFoundApiException();
+        NotFoundApiException.ThrowIfNull(comment);
 
-        comment.State = CommentState.Canceled;
+        comment.State = CommentState.Confirmed;
 
         await _commentRepository.UpdateAsync(comment);
 

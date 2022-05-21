@@ -21,8 +21,7 @@ public class GetArticleCategoryDetailsQueryHandler : IRequestHandler<GetArticleC
     {
         var articleCategory = await _articleCategoryRepository.FindByIdAsync(request.Id, cancellationToken);
 
-        if (articleCategory is null)
-            throw new NotFoundApiException();
+        NotFoundApiException.ThrowIfNull(articleCategory);
 
         return _mapper.Map<EditArticleCategoryDto>(articleCategory);
     }

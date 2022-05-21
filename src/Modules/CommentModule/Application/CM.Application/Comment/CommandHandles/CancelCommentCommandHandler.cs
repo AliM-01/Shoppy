@@ -21,8 +21,7 @@ public class CancelCommentCommandHandler : IRequestHandler<CancelCommentCommand,
     {
         var comment = await _commentRepository.FindByIdAsync(request.CommentId);
 
-        if (comment is null)
-            throw new NotFoundApiException();
+        NotFoundApiException.ThrowIfNull(comment);
 
         comment.State = CommentState.Canceled;
 

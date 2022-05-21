@@ -21,11 +21,11 @@ public class EditProductFeatureCommandHandler : IRequestHandler<EditProductFeatu
     {
         var productFeature = await _productFeatureRepository.FindByIdAsync(request.ProductFeature.Id);
 
-        if (productFeature is null)
-            throw new NotFoundApiException();
+        NotFoundApiException.ThrowIfNull(productFeature);
 
         if (await _productFeatureRepository.ExistsAsync(x => x.ProductId == request.ProductFeature.ProductId
-                && x.FeatureTitle == request.ProductFeature.FeatureTitle && x.Id != request.ProductFeature.Id))
+                                                             && x.FeatureTitle == request.ProductFeature.FeatureTitle
+                                                             && x.Id != request.ProductFeature.Id))
             throw new ApiException(ApplicationErrorMessage.DuplicatedRecordExists);
 
         _mapper.Map(request.ProductFeature, productFeature);

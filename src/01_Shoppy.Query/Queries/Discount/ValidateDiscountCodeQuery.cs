@@ -29,8 +29,7 @@ public class ValidateDiscountCodeQueryHandler : IRequestHandler<ValidateDiscount
         var filter = Builders<DM.Domain.DiscountCode.DiscountCode>.Filter.Eq(x => x.Code, request.Code);
         var discount = await _discountCodeRepository.FindOne(filter, cancellationToken);
 
-        if (discount is null)
-            throw new NotFoundApiException("تخفیفی با این کد پیدا نشد");
+        NotFoundApiException.ThrowIfNull(discount, "تخفیفی با این کد پیدا نشد");
 
         var mappedDiscount = _mapper.Map<ValidateDiscountCodeResponseDto>(discount);
         mappedDiscount.Id = WebEncoders.Base64UrlEncode(Encoding.UTF8.GetBytes(discount.Id));

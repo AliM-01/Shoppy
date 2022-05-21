@@ -22,8 +22,7 @@ public class DeActivateAccountCommandHandler : IRequestHandler<DeActivateAccount
     {
         var user = await _userManager.FindByIdAsync(request.AccountId);
 
-        if (user is null)
-            throw new NotFoundApiException();
+        NotFoundApiException.ThrowIfNull(user);
 
         user.EmailConfirmed = false;
 

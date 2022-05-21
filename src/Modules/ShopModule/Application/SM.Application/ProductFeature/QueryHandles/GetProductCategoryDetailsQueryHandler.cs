@@ -21,8 +21,7 @@ public class GetProductFeatureDetailsQueryHandler : IRequestHandler<GetProductFe
     {
         var productFeature = await _productFeatureRepository.FindByIdAsync(request.Id);
 
-        if (productFeature is null)
-            throw new NotFoundApiException();
+        NotFoundApiException.ThrowIfNull(productFeature);
 
         return _mapper.Map<EditProductFeatureDto>(productFeature);
     }

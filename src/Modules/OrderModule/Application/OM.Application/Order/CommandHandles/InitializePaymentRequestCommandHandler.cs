@@ -24,8 +24,7 @@ public class InitializePaymentRequestCommandHandler : IRequestHandler<Initialize
     {
         var order = await _orderRepository.FindByIdAsync(request.Payment.OrderId);
 
-        if (order is null)
-            throw new NotFoundApiException();
+        NotFoundApiException.ThrowIfNull(order);
 
         var paymentResponse = await _zarinPalFactory
                 .CreatePaymentRequest(request.Payment.CallBackUrl, request.Payment.Amount.ToString(CultureInfo.InvariantCulture), request.Payment.Email, order.Id);

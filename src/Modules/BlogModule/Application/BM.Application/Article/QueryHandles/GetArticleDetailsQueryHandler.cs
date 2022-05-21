@@ -21,8 +21,7 @@ public class GetArticleDetailsQueryHandler : IRequestHandler<GetArticleDetailsQu
     {
         var article = await _articleRepository.FindByIdAsync(request.Id, cancellationToken);
 
-        if (article is null)
-            throw new NotFoundApiException();
+        NotFoundApiException.ThrowIfNull(article);
 
         return _mapper.Map<EditArticleDto>(article);
     }

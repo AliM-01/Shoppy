@@ -19,8 +19,7 @@ public class DeleteProductFeatureCommandHandler : IRequestHandler<DeleteProductF
     {
         var productFeature = await _productFeatureRepository.FindByIdAsync(request.ProductFeatureId);
 
-        if (productFeature is null)
-            throw new NotFoundApiException();
+        NotFoundApiException.ThrowIfNull(productFeature);
 
         await _productFeatureRepository.DeletePermanentAsync(productFeature.Id);
 

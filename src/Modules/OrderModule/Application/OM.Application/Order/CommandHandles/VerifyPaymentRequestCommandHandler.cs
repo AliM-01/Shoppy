@@ -49,8 +49,7 @@ public class VerifyPaymentRequestCommandHandler : IRequestHandler<VerifyPaymentR
 
             var order = (await ordersInTransactions.FindAsync(x => x.Id == request.Payment.OrderId)).First();
 
-            if (order is null)
-                throw new NotFoundApiException();
+            NotFoundApiException.ThrowIfNull(order);
 
             var verificationResponse = await _zarinPalFactory
                 .CreateVerificationRequest(request.Payment.Authority,
@@ -83,8 +82,7 @@ public class VerifyPaymentRequestCommandHandler : IRequestHandler<VerifyPaymentR
                 var inventory = (await inventoriesInTransactions
                                             .FindAsync(x => x.ProductId == item.ProductId)).Single();
 
-                if (inventory is null)
-                    throw new NotFoundApiException();
+                NotFoundApiException.ThrowIfNull(inventory);
 
                 var plus = inventoryOperationsInTransactions.AsQueryable()
                         .Where(x => x.InventoryId == inventory.Id && x.OperationType).Sum(x => x.Count);

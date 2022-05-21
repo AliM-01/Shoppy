@@ -33,8 +33,7 @@ public class EditArticleCategoryCommandHandler : IRequestHandler<EditArticleCate
         {
             string imagePath = request.ArticleCategory.ImageFile.GenerateImagePath();
 
-            request.ArticleCategory.ImageFile
-            .CropAndAddImageToServer(imagePath, PathExtension.ArticleCategoryImage, 200, 200);
+            request.ArticleCategory.ImageFile.CropAndAddImageToServer(imagePath, PathExtension.ArticleCategoryImage, 200, 200);
 
             articleCategory.ImagePath = imagePath;
         }

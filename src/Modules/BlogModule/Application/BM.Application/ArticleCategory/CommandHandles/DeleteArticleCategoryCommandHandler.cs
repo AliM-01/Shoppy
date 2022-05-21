@@ -19,8 +19,7 @@ public class DeleteArticleCategoryCommandHandler : IRequestHandler<DeleteArticle
     {
         var articleCategory = await _articleCategoryRepository.FindByIdAsync(request.ArticleCategoryId);
 
-        if (articleCategory is null)
-            throw new NotFoundApiException();
+        NotFoundApiException.ThrowIfNull(articleCategory);
 
         File.Delete(PathExtension.ArticleCategoryImage + articleCategory.ImagePath);
 

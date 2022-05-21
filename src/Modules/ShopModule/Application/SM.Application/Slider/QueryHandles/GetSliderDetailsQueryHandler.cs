@@ -21,8 +21,7 @@ public class GetSliderDetailsQueryHandler : IRequestHandler<GetSliderDetailsQuer
     {
         var slider = await _sliderRepository.FindByIdAsync(request.Id);
 
-        if (slider is null)
-            throw new NotFoundApiException();
+        NotFoundApiException.ThrowIfNull(slider);
 
         return _mapper.Map<EditSliderDto>(slider);
     }

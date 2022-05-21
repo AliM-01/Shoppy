@@ -24,11 +24,13 @@ public class ReduceInventoryCommandHandler : IRequestHandler<ReduceInventoryComm
     {
         var inventory = await _inventoryRepository.FindByIdAsync(request.Inventory.InventoryId);
 
-        if (inventory is null)
-            throw new NotFoundApiException();
+        NotFoundApiException.ThrowIfNull(inventory);
 
-        await _inventoryHelper.Reduce(inventory.Id, request.Inventory.Count,
-            request.UserId, request.Inventory.Description, "0000-0000");
+        await _inventoryHelper.Reduce(inventory.Id,
+                                      request.Inventory.Count,
+                                      request.UserId,
+                                      request.Inventory.Description,
+                                      "0000-0000");
 
         return ApiResponse.Success();
     }

@@ -34,8 +34,7 @@ public class GetInventoryOperationLogQueryHandler : IRequestHandler<GetInventory
     {
         var inventory = await _inventoryRepository.FindByIdAsync(request.Id);
 
-        if (inventory is null)
-            throw new NotFoundApiException();
+        NotFoundApiException.ThrowIfNull(inventory);
 
         var logs = _inventoryOperationRepository.AsQueryable(cancellationToken: cancellationToken)
             .OrderByDescending(x => x.OperationDate)

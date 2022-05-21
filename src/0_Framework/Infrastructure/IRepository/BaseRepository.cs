@@ -1,5 +1,4 @@
-﻿using _0_Framework.Application.Exceptions;
-using _0_Framework.Application.Models.Paging;
+﻿using _0_Framework.Application.Models.Paging;
 using _0_Framework.Domain;
 using Microsoft.Extensions.Options;
 using MongoDB.Driver;
@@ -97,12 +96,7 @@ public class BaseRepository<TDocument, TSettings> : IRepository<TDocument>
 
         var res = await _collection.FindAsync(filter);
 
-        var document = await res.FirstOrDefaultAsync();
-
-        if (document is null)
-            throw new NotFoundApiException();
-
-        return document;
+        return await res.FirstOrDefaultAsync();
     }
 
     public async Task<List<TDocument>> GetManyByFilter(FilterDefinition<TDocument> filter, CancellationToken cancellationToken = default)
@@ -111,7 +105,7 @@ public class BaseRepository<TDocument, TSettings> : IRepository<TDocument>
 
         var res = await _collection.FindAsync(filter);
 
-        return await res.ToListAsync();
+        return await res.ToListAsync(cancellationToken: cancellationToken);
     }
 
     #endregion

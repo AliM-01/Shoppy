@@ -25,8 +25,7 @@ public class CancelOrderCommandHandler : IRequestHandler<CancelOrderCommand, Api
     {
         var order = await _orderRepository.FindByIdAsync(request.OrderId);
 
-        if (order is null)
-            throw new NotFoundApiException();
+        NotFoundApiException.ThrowIfNull(order);
 
         if (!request.IsAdmin)
         {

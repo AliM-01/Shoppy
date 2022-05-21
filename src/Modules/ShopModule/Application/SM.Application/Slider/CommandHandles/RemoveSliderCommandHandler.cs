@@ -19,8 +19,7 @@ public class RemoveSliderCommandHandler : IRequestHandler<RemoveSliderCommand, A
     {
         var slider = await _sliderRepository.FindByIdAsync(request.SliderId);
 
-        if (slider is null)
-            throw new NotFoundApiException();
+        NotFoundApiException.ThrowIfNull(slider);
 
         await _sliderRepository.DeleteAsync(slider.Id);
 

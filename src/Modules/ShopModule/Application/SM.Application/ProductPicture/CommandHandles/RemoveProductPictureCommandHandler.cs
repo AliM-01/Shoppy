@@ -20,8 +20,7 @@ public class RemoveProductPictureCommandHandler : IRequestHandler<RemoveProductP
     {
         var productPicture = await _productPictureRepository.FindByIdAsync(request.ProductPictureId);
 
-        if (productPicture is null)
-            throw new NotFoundApiException();
+        NotFoundApiException.ThrowIfNull(productPicture);
 
         File.Delete(PathExtension.ProductPictureImage + productPicture.ImagePath);
         File.Delete(PathExtension.ProductPictureThumbnailImage + productPicture.ImagePath);

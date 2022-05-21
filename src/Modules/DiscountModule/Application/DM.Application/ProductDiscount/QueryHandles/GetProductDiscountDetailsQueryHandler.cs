@@ -21,8 +21,7 @@ public class GetProductDiscountDetailsQueryHandler : IRequestHandler<GetProductD
     {
         var productDiscount = await _productDiscountRepository.FindByIdAsync(request.Id);
 
-        if (productDiscount is null)
-            throw new NotFoundApiException();
+        NotFoundApiException.ThrowIfNull(productDiscount);
 
         return _mapper.Map<EditProductDiscountDto>(productDiscount);
     }

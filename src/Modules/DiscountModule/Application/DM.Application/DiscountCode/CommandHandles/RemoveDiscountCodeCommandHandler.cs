@@ -19,8 +19,7 @@ public class RemoveDiscountCodeCommandHandler : IRequestHandler<RemoveDiscountCo
     {
         var discountCode = await _discountCodeRepository.FindByIdAsync(request.DiscountCodeId);
 
-        if (discountCode is null)
-            throw new NotFoundApiException();
+        NotFoundApiException.ThrowIfNull(discountCode);
 
         await _discountCodeRepository.DeletePermanentAsync(discountCode.Id);
 

@@ -21,8 +21,7 @@ public class GetDiscountCodeDetailsQueryHandler : IRequestHandler<GetDiscountCod
     {
         var discountCode = await _discountCodeRepository.FindByIdAsync(request.Id);
 
-        if (discountCode is null)
-            throw new NotFoundApiException();
+        NotFoundApiException.ThrowIfNull(discountCode);
 
         return _mapper.Map<EditDiscountCodeDto>(discountCode);
     }

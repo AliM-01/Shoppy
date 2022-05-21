@@ -21,8 +21,7 @@ public class EditSliderCommandHandler : IRequestHandler<EditSliderCommand, ApiRe
     {
         var slider = await _sliderRepository.FindByIdAsync(request.Slider.Id);
 
-        if (slider is null)
-            throw new NotFoundApiException();
+        NotFoundApiException.ThrowIfNull(slider);
 
         _mapper.Map(request.Slider, slider);
 

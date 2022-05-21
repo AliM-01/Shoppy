@@ -21,8 +21,7 @@ public class GetInventoryDetailsQueryHandler : IRequestHandler<GetInventoryDetai
     {
         var inventory = await _inventoryRepository.FindByIdAsync(request.Id);
 
-        if (inventory is null)
-            throw new NotFoundApiException();
+        NotFoundApiException.ThrowIfNull(inventory);
 
         return _mapper.Map<EditInventoryDto>(inventory);
     }

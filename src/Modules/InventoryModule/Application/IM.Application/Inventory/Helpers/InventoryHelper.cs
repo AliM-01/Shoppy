@@ -25,7 +25,7 @@ public class InventoryHelper : IInventoryHelper
 
     public async Task<bool> IsInStock(string inventoryId)
     {
-        var count = await CalculateCurrentCount(inventoryId);
+        long count = await CalculateCurrentCount(inventoryId);
 
         return count > 0;
     }
@@ -38,14 +38,16 @@ public class InventoryHelper : IInventoryHelper
     {
         var inventory = await _inventoryRepository.FindByIdAsync(inventoryId);
 
+        NotFoundApiException.ThrowIfNull(inventory);
 
-        if (inventory is null)
-            throw new NotFoundApiException();
+        long plus = _inventoryOperationHelper.AsQueryable()
+                                             .Where(x => x.InventoryId == inventoryId && x.OperationType)
+                                             .Sum(x => x.Count);
 
-        var plus = _inventoryOperationHelper.AsQueryable()
-            .Where(x => x.InventoryId == inventoryId && x.OperationType).Sum(x => x.Count);
-        var minus = _inventoryOperationHelper.AsQueryable()
-            .Where(x => x.InventoryId == inventoryId && !x.OperationType).Sum(x => x.Count);
+        long minus = _inventoryOperationHelper.AsQueryable()
+                                              .Where(x => x.InventoryId == inventoryId && !x.OperationType)
+                                              .Sum(x => x.Count);
+
         return (plus - minus);
     }
 
@@ -57,10 +59,9 @@ public class InventoryHelper : IInventoryHelper
     {
         var inventory = await _inventoryRepository.FindByIdAsync(inventoryId);
 
-        if (inventory is null)
-            throw new NotFoundApiException();
+        NotFoundApiException.ThrowIfNull(inventory);
 
-        var currentCount = (await CalculateCurrentCount(inventory.Id)) + count;
+        long currentCount = (await CalculateCurrentCount(inventory.Id)) + count;
 
         var operation = new InventoryOperation(true, count, operatorId, currentCount, description, "0000-0000", inventoryId);
 
@@ -80,10 +81,9 @@ public class InventoryHelper : IInventoryHelper
     {
         var inventory = await _inventoryRepository.FindByIdAsync(inventoryId);
 
-        if (inventory is null)
-            throw new NotFoundApiException();
+        NotFoundApiException.ThrowIfNull(inventory);
 
-        var currentCount = (await CalculateCurrentCount(inventory.Id)) - count;
+        long currentCount = (await CalculateCurrentCount(inventory.Id)) - count;
 
         var operation = new InventoryOperation(false, count, operatorId, currentCount, description, orderId, inventoryId);
 

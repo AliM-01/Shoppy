@@ -25,8 +25,7 @@ public class GetUserProfileQueryHandler : IRequestHandler<GetUserProfileQuery, U
     {
         var account = await _userManager.FindByIdAsync(request.UserId);
 
-        if (account is null)
-            throw new NotFoundApiException();
+        NotFoundApiException.ThrowIfNull(account);
 
         return _mapper.Map(account, new UserProfileDto
         {

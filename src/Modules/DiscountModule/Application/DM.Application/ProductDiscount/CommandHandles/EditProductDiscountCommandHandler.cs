@@ -29,8 +29,7 @@ public class EditProductDiscountCommandHandler : IRequestHandler<EditProductDisc
 
         var productDiscount = await _productDiscountRepository.FindByIdAsync(request.ProductDiscount.Id);
 
-        if (productDiscount is null)
-            throw new NotFoundApiException();
+        NotFoundApiException.ThrowIfNull(productDiscount);
 
         _mapper.Map(request.ProductDiscount, productDiscount);
 

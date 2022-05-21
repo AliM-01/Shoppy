@@ -18,8 +18,7 @@ public class DeleteArticleCommandHandler : IRequestHandler<DeleteArticleCommand,
     {
         var article = await _articleRepository.FindByIdAsync(request.ArticleId);
 
-        if (article is null)
-            throw new NotFoundApiException();
+        NotFoundApiException.ThrowIfNull(article);
 
         File.Delete(PathExtension.ArticleImage + article.ImagePath);
         File.Delete(PathExtension.ArticleThumbnailImage + article.ImagePath);

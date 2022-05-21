@@ -29,12 +29,10 @@ public class GetProductCategoriesListQueryHandler : IRequestHandler<GetProductCa
                 {
                     Id = product.Id,
                     Title = product.Title
-                })
-                .ToList();
+                });
 
-        if (categories is null)
-            throw new NotFoundApiException();
+        NotFoundApiException.ThrowIfNull(categories);
 
-        return Task.FromResult((IEnumerable<ProductCategoryForSelectListDto>)categories);
+        return Task.FromResult(categories);
     }
 }

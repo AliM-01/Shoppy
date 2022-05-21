@@ -23,8 +23,7 @@ public class EditDiscountCodeCommandHandler : IRequestHandler<EditDiscountCodeCo
     {
         var discountCode = await _discountCodeRepository.FindByIdAsync(request.DiscountCode.Id);
 
-        if (discountCode is null)
-            throw new NotFoundApiException();
+        NotFoundApiException.ThrowIfNull(discountCode);
 
         var filter = Builders<Domain.DiscountCode.DiscountCode>.Filter.Eq(x => x.Code, request.DiscountCode.Code);
         var existsDiscount = await _discountCodeRepository.FindOne(filter);

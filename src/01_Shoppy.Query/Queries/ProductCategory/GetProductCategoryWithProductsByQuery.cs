@@ -47,8 +47,7 @@ public class GetProductCategoryWithProductsByQueryHandler : IRequestHandler<GetP
 
         var category = categories.FirstOrDefault(x => x.Slug == request.Filter.Slug);
 
-        if (category is null)
-            throw new NotFoundApiException();
+        NotFoundApiException.ThrowIfNull(category);
 
         categoryId = category.Id;
 

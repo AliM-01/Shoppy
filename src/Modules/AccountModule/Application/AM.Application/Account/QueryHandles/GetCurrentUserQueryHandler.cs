@@ -26,13 +26,11 @@ public class GetCurrentUserQueryHandler : IRequestHandler<GetCurrentUserQuery, A
 
         var account = await _userManager.FindByIdAsync(request.UserId);
 
-        if (account is null)
-            throw new NotFoundApiException();
+        NotFoundApiException.ThrowIfNull(account);
 
-        var mappedAccount = _mapper.Map<AccountDto>(account);
-
-        mappedAccount.Roles = (await _userManager.GetRolesAsync(account)).ToHashSet<string>();
-
-        return mappedAccount;
+        return _mapper.Map(account, new AccountDto
+        {
+            Roles = (await _userManager.GetRolesAsync(account)).ToHashSet<string>()
+        });
     }
 }

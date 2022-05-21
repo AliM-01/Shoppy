@@ -43,8 +43,7 @@ ITokenStoreService tokenStoreService)
 
         var user = await _userManager.FindByIdAsync(token.UserId);
 
-        if (user is null)
-            throw new NotFoundApiException("کاربری با اطلاعات خواسته شده پیدا نشد");
+        NotFoundApiException.ThrowIfNull(user, "کاربری با اطلاعات خواسته شده پیدا نشد");
 
         var result = await _tokenFactoryService.CreateJwtTokenAsync(user);
         await _tokenStoreService.AddUserToken(user, result.RefreshTokenSerial, result.AccessToken,

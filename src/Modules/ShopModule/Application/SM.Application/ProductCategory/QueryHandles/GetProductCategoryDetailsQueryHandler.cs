@@ -21,8 +21,7 @@ public class GetProductCategoryDetailsQueryHandler : IRequestHandler<GetProductC
     {
         var productCategory = await _productCategoryRepository.FindByIdAsync(request.Id);
 
-        if (productCategory is null)
-            throw new NotFoundApiException();
+        NotFoundApiException.ThrowIfNull(productCategory);
 
         return _mapper.Map<EditProductCategoryDto>(productCategory);
     }

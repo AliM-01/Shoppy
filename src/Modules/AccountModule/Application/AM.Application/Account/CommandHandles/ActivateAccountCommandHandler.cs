@@ -24,8 +24,7 @@ public class ActivateAccountCommandHandler : IRequestHandler<ActivateAccountComm
     {
         var user = await _userManager.FindByIdAsync(Encoding.UTF8.GetString(WebEncoders.Base64UrlDecode(request.Account.UserId)));
 
-        if (user is null)
-            throw new NotFoundApiException();
+        NotFoundApiException.ThrowIfNull(user);
 
         string token = Encoding.UTF8.GetString(WebEncoders.Base64UrlDecode(request.Account.ActiveToken));
 

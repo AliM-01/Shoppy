@@ -24,11 +24,12 @@ public class IncreaseInventoryCommandHandler : IRequestHandler<IncreaseInventory
     {
         var inventory = await _inventoryRepository.FindByIdAsync(request.Inventory.InventoryId);
 
-        if (inventory is null)
-            throw new NotFoundApiException();
+        NotFoundApiException.ThrowIfNull(inventory);
 
-        await _inventoryHelper.Increase(inventory.Id, request.Inventory.Count,
-            request.UserId, request.Inventory.Description);
+        await _inventoryHelper.Increase(inventory.Id,
+                                        request.Inventory.Count,
+                                        request.UserId,
+                                        request.Inventory.Description);
 
         return ApiResponse.Success();
     }

@@ -22,8 +22,7 @@ public class ActivateAccountByAdminCommandHandler : IRequestHandler<ActivateAcco
     {
         var user = await _userManager.FindByIdAsync(request.UserId);
 
-        if (user is null)
-            throw new NotFoundApiException();
+        NotFoundApiException.ThrowIfNull(user);
 
         user.EmailConfirmed = true;
 

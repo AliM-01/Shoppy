@@ -30,8 +30,7 @@ public class GetArticleCategoriesSelectListQueryHandler : IRequestHandler<GetArt
                                                         })
                                                         .ToList();
 
-        if (categories is null)
-            throw new NotFoundApiException();
+        NotFoundApiException.ThrowIfNull(categories);
 
         return Task.FromResult((IEnumerable<ArticleCategoryForSelectListDto>)categories);
     }

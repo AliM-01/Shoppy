@@ -17,4 +17,10 @@ public class NotFoundApiException : Exception
         if (data is null)
             throw new NotFoundApiException();
     }
+
+    public static void ThrowIfNull(object? data, string msg)
+    {
+        if (data is null)
+            throw new NotFoundApiException(msg);
+    }
 }

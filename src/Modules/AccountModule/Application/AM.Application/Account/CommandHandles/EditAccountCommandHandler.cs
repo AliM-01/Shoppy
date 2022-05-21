@@ -22,8 +22,7 @@ public class EditAccountCommandHandler : IRequestHandler<EditAccountCommand, Api
     {
         var user = await _userManager.FindByIdAsync(request.Account.Id);
 
-        if (user is null)
-            throw new NotFoundApiException();
+        NotFoundApiException.ThrowIfNull(user);
 
         _mapper.Map(request.Account, user);
 

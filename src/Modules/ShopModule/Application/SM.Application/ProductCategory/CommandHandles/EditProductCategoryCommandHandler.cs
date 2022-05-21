@@ -21,8 +21,7 @@ public class EditProductCategoryCommandHandler : IRequestHandler<EditProductCate
     {
         var productCategory = await _productCategoryRepository.FindByIdAsync(request.ProductCategory.Id);
 
-        if (productCategory is null)
-            throw new NotFoundApiException();
+        NotFoundApiException.ThrowIfNull(productCategory);
 
         if (await _productCategoryRepository.ExistsAsync(x => x.Title == request.ProductCategory.Title && x.Id != request.ProductCategory.Id))
             throw new ApiException(ApplicationErrorMessage.DuplicatedRecordExists);

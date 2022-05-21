@@ -30,8 +30,7 @@ public class GetOrderItemsQueryHandler : IRequestHandler<GetOrderItemsQuery, IEn
     {
         var order = await _orderRepository.FindByIdAsync(request.OrderId);
 
-        if (order is null)
-            throw new NotFoundApiException();
+        NotFoundApiException.ThrowIfNull(order);
 
         if (!request.IsAdmin)
         {

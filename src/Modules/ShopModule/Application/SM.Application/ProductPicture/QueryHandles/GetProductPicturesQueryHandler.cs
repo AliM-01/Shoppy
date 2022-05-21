@@ -26,21 +26,18 @@ public class GetProductPicturesQueryHandler : IRequestHandler<GetProductPictures
     {
         var product = await _productRepository.FindByIdAsync(request.ProductId);
 
-        if (product is null)
-            throw new NotFoundApiException();
+        NotFoundApiException.ThrowIfNull(product);
 
         bool anyProductPictures = await _productPictureRepository.ExistsAsync(p => p.ProductId == request.ProductId);
 
         if (!anyProductPictures)
             throw new NoContentApiException();
 
-        var productPictures = _productPictureRepository
-                                                        .AsQueryable()
-                                                        .Where(p => p.ProductId == request.ProductId)
-                                                        .OrderBy(p => p.CreationDate)
-                                                        .ToList()
-                                                        .Select(productPicture =>
-                                                            _mapper.Map(productPicture, new ProductPictureDto()));
+        var productPictures = _productPictureRepository.AsQueryable()
+                                                       .Where(p => p.ProductId == request.ProductId)
+                                                       .OrderBy(p => p.CreationDate)
+                                                       .ToList()
+                                                       .Select(productPicture => _mapper.Map(productPicture, new ProductPictureDto()));
 
         return productPictures;
     }

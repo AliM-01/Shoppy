@@ -19,8 +19,7 @@ public class RestoreSliderCommandHandler : IRequestHandler<RestoreSliderCommand,
     {
         var slider = await _sliderRepository.FindByIdAsync(request.SliderId);
 
-        if (slider is null)
-            throw new NotFoundApiException();
+        NotFoundApiException.ThrowIfNull(slider);
 
         slider.IsDeleted = false;
 

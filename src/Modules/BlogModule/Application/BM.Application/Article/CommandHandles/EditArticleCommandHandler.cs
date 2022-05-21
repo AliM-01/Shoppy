@@ -19,8 +19,7 @@ public class EditArticleCommandHandler : IRequestHandler<EditArticleCommand, Api
     {
         var article = await _articleRepository.FindByIdAsync(request.Article.Id);
 
-        if (article is null)
-            throw new NotFoundApiException();
+        NotFoundApiException.ThrowIfNull(article);
 
         if (await _articleRepository.ExistsAsync(x => x.Title == request.Article.Title && x.Id != request.Article.Id))
             throw new ApiException(ApplicationErrorMessage.DuplicatedRecordExists);
