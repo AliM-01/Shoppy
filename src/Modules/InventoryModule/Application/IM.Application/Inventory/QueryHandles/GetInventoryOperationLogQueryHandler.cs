@@ -5,7 +5,7 @@ using IM.Domain.Inventory;
 using System.Linq;
 
 namespace IM.Application.Inventory.QueryHandles;
-public class GetInventoryOperationLogQueryHandler : IRequestHandler<GetInventoryOperationLogQuery, ApiResult<InventoryLogsDto>>
+public class GetInventoryOperationLogQueryHandler : IRequestHandler<GetInventoryOperationLogQuery, InventoryLogsDto>
 {
     #region Ctor
 
@@ -30,7 +30,7 @@ public class GetInventoryOperationLogQueryHandler : IRequestHandler<GetInventory
 
     #endregion
 
-    public async Task<ApiResult<InventoryLogsDto>> Handle(GetInventoryOperationLogQuery request, CancellationToken cancellationToken)
+    public async Task<InventoryLogsDto> Handle(GetInventoryOperationLogQuery request, CancellationToken cancellationToken)
     {
         var inventory = await _inventoryRepository.FindByIdAsync(request.Id);
 
@@ -48,10 +48,9 @@ public class GetInventoryOperationLogQueryHandler : IRequestHandler<GetInventory
         for (int i = 0; i < logs.Length; i++)
             logs[i].Operator = await _accountAcl.GetFullName(logs[i].OperatorId);
 
-        InventoryLogsDto returnData = new(inventory.Id, inventory.ProductId, logs);
-
-        returnData.ProductTitle = await _productAcl.GetProductTitle(inventory.ProductId);
-
-        return ApiResponse.Success<InventoryLogsDto>(returnData);
+        return new InventoryLogsDto(inventory.Id, inventory.ProductId, logs)
+        {
+            ProductTitle = await _productAcl.GetProductTitle(inventory.ProductId)
+        };
     }
 }

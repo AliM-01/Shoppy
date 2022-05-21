@@ -5,7 +5,7 @@ using AM.Application.Contracts.Account.Queries;
 
 namespace AM.Application.Account.QueryHandles;
 
-public class GetUserProfileQueryHandler : IRequestHandler<GetUserProfileQuery, ApiResult<UserProfileDto>>
+public class GetUserProfileQueryHandler : IRequestHandler<GetUserProfileQuery, UserProfileDto>
 {
     #region Ctor
 
@@ -21,17 +21,16 @@ public class GetUserProfileQueryHandler : IRequestHandler<GetUserProfileQuery, A
 
     #endregion Ctor
 
-    public async Task<ApiResult<UserProfileDto>> Handle(GetUserProfileQuery request, CancellationToken cancellationToken)
+    public async Task<UserProfileDto> Handle(GetUserProfileQuery request, CancellationToken cancellationToken)
     {
         var account = await _userManager.FindByIdAsync(request.UserId);
 
         if (account is null)
             throw new NotFoundApiException();
 
-        var mappedAccount = _mapper.Map<UserProfileDto>(account);
-
-        mappedAccount.AvatarBase64 = ImageHelper.ConvertToBase64($"{PathExtension.Avatar200}/{account.Avatar}");
-
-        return ApiResponse.Success<UserProfileDto>(mappedAccount);
+        return _mapper.Map(account, new UserProfileDto
+        {
+            AvatarBase64 = ImageHelper.ConvertToBase64($"{PathExtension.Avatar200}/{account.Avatar}")
+        });
     }
 }

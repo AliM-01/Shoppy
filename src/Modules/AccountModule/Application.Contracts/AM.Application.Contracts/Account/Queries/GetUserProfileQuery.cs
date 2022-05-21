@@ -2,5 +2,4 @@
 
 namespace AM.Application.Contracts.Account.Queries;
 
-public record GetUserProfileQuery
-    (string UserId) : IRequest<ApiResult<UserProfileDto>>;
+public record GetUserProfileQuery(string UserId) : IRequest<UserProfileDto>;

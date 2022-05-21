@@ -126,12 +126,7 @@ public class BaseRepository<TDocument, TSettings> : IRepository<TDocument>
 
         var res = await _collection.FindAsync(filter);
 
-        var document = await res.FirstOrDefaultAsync(cancellationToken: cancellationToken);
-
-        if (document is null)
-            throw new NotFoundApiException();
-
-        return document;
+        return await res.FirstOrDefaultAsync(cancellationToken: cancellationToken);
     }
 
     #endregion

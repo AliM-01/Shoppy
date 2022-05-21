@@ -2,7 +2,7 @@
 using SM.Application.Contracts.ProductFeature.Queries;
 
 namespace SM.Application.ProductFeature.QueryHandles;
-public class GetProductFeatureDetailsQueryHandler : IRequestHandler<GetProductFeatureDetailsQuery, ApiResult<EditProductFeatureDto>>
+public class GetProductFeatureDetailsQueryHandler : IRequestHandler<GetProductFeatureDetailsQuery, EditProductFeatureDto>
 {
     #region Ctor
 
@@ -17,15 +17,13 @@ public class GetProductFeatureDetailsQueryHandler : IRequestHandler<GetProductFe
 
     #endregion
 
-    public async Task<ApiResult<EditProductFeatureDto>> Handle(GetProductFeatureDetailsQuery request, CancellationToken cancellationToken)
+    public async Task<EditProductFeatureDto> Handle(GetProductFeatureDetailsQuery request, CancellationToken cancellationToken)
     {
-        var ProductFeature = await _productFeatureRepository.FindByIdAsync(request.Id);
+        var productFeature = await _productFeatureRepository.FindByIdAsync(request.Id);
 
-        if (ProductFeature is null)
+        if (productFeature is null)
             throw new NotFoundApiException();
 
-        var mappedProductFeature = _mapper.Map<EditProductFeatureDto>(ProductFeature);
-
-        return ApiResponse.Success<EditProductFeatureDto>(mappedProductFeature);
+        return _mapper.Map<EditProductFeatureDto>(productFeature);
     }
 }

@@ -1,11 +1,10 @@
-﻿using _0_Framework.Infrastructure;
-using SM.Application.Contracts.ProductCategory.DTOs;
+﻿using SM.Application.Contracts.ProductCategory.DTOs;
 using SM.Application.Contracts.ProductCategory.Queries;
 using System.Collections.Generic;
 using System.Linq;
 
 namespace SM.Application.ProductCategory.QueryHandles;
-public class GetProductCategoriesListQueryHandler : IRequestHandler<GetProductCategoriesListQuery, ApiResult<List<ProductCategoryForSelectListDto>>>
+public class GetProductCategoriesListQueryHandler : IRequestHandler<GetProductCategoriesListQuery, IEnumerable<ProductCategoryForSelectListDto>>
 {
     #region Ctor
 
@@ -20,23 +19,22 @@ public class GetProductCategoriesListQueryHandler : IRequestHandler<GetProductCa
 
     #endregion
 
-    public async Task<ApiResult<List<ProductCategoryForSelectListDto>>> Handle(GetProductCategoriesListQuery request, CancellationToken cancellationToken)
+    public Task<IEnumerable<ProductCategoryForSelectListDto>> Handle(GetProductCategoriesListQuery request, CancellationToken cancellationToken)
     {
-        var categories = (
-            await _productCategoryRepository
+        var categories = _productCategoryRepository
                 .AsQueryable()
                 .OrderByDescending(p => p.LastUpdateDate)
-                .ToListAsyncSafe())
-            .Select(product => new ProductCategoryForSelectListDto
-            {
-                Id = product.Id,
-                Title = product.Title
-            })
-            .ToList();
+                .ToList()
+                .Select(product => new ProductCategoryForSelectListDto
+                {
+                    Id = product.Id,
+                    Title = product.Title
+                })
+                .ToList();
 
         if (categories is null)
             throw new NotFoundApiException();
 
-        return ApiResponse.Success<List<ProductCategoryForSelectListDto>>(categories);
+        return Task.FromResult((IEnumerable<ProductCategoryForSelectListDto>)categories);
     }
 }

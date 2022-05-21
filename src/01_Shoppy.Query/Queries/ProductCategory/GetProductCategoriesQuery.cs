@@ -2,9 +2,9 @@
 
 namespace _01_Shoppy.Query.Queries.ProductCategory;
 
-public record GetProductCategoriesQuery() : IRequest<ApiResult<List<ProductCategoryQueryModel>>>;
+public record GetProductCategoriesQuery() : IRequest<IEnumerable<ProductCategoryQueryModel>>;
 
-public class GetProductCategoriesQueryHandler : IRequestHandler<GetProductCategoriesQuery, ApiResult<List<ProductCategoryQueryModel>>>
+public class GetProductCategoriesQueryHandler : IRequestHandler<GetProductCategoriesQuery, IEnumerable<ProductCategoryQueryModel>>
 {
     #region Ctor
 
@@ -19,7 +19,7 @@ public class GetProductCategoriesQueryHandler : IRequestHandler<GetProductCatego
 
     #endregion
 
-    public Task<ApiResult<List<ProductCategoryQueryModel>>> Handle(GetProductCategoriesQuery request, CancellationToken cancellationToken)
+    public Task<IEnumerable<ProductCategoryQueryModel>> Handle(GetProductCategoriesQuery request, CancellationToken cancellationToken)
     {
         var productCategories = _productCategoryRepository.AsQueryable()
                                                           .ToList()
@@ -27,6 +27,6 @@ public class GetProductCategoriesQueryHandler : IRequestHandler<GetProductCatego
                                                             _mapper.Map(c, new ProductCategoryQueryModel()))
                                                           .ToList();
 
-        return Task.FromResult(ApiResponse.Success<List<ProductCategoryQueryModel>>(productCategories));
+        return Task.FromResult((IEnumerable<ProductCategoryQueryModel>)productCategories);
     }
 }

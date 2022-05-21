@@ -2,5 +2,4 @@
 
 namespace AM.Application.Contracts.Account.Commands;
 
-public record RegisterAccountCommand
-    (RegisterAccountRequestDto Account) : IRequest<ApiResult<RegisterAccountResponseDto>>;
+public record RegisterAccountCommand(RegisterAccountRequestDto Account) : IRequest<RegisterAccountResponseDto>;

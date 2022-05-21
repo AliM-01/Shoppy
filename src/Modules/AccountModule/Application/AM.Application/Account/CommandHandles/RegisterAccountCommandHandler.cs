@@ -6,7 +6,7 @@ using System.Text;
 
 namespace AM.Application.Account.CommandHandles;
 
-public class RegisterAccountCommandHandler : IRequestHandler<RegisterAccountCommand, ApiResult<RegisterAccountResponseDto>>
+public class RegisterAccountCommandHandler : IRequestHandler<RegisterAccountCommand, RegisterAccountResponseDto>
 {
     #region Ctor
 
@@ -25,7 +25,7 @@ public class RegisterAccountCommandHandler : IRequestHandler<RegisterAccountComm
 
     #endregion Ctor
 
-    public async Task<ApiResult<RegisterAccountResponseDto>> Handle(RegisterAccountCommand request, CancellationToken cancellationToken)
+    public async Task<RegisterAccountResponseDto> Handle(RegisterAccountCommand request, CancellationToken cancellationToken)
     {
         cancellationToken.ThrowIfCancellationRequested();
 
@@ -53,9 +53,9 @@ public class RegisterAccountCommandHandler : IRequestHandler<RegisterAccountComm
 
         string userId = WebEncoders.Base64UrlEncode(Encoding.UTF8.GetBytes(user.Id.ToString()));
 
-        return ApiResponse.Success<RegisterAccountResponseDto>(new RegisterAccountResponseDto(token,
-                                                                                              userId,
-                                                                                              user.Email,
-                                                                                              $"{user.FirstName} {user.LastName}"));
+        return new RegisterAccountResponseDto(token,
+                                              userId,
+                                              user.Email,
+                                              $"{user.FirstName} {user.LastName}");
     }
 }

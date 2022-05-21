@@ -2,7 +2,7 @@
 using SM.Application.Contracts.ProductCategory.Queries;
 
 namespace SM.Application.ProductCategory.QueryHandles;
-public class GetProductCategoryDetailsQueryHandler : IRequestHandler<GetProductCategoryDetailsQuery, ApiResult<EditProductCategoryDto>>
+public class GetProductCategoryDetailsQueryHandler : IRequestHandler<GetProductCategoryDetailsQuery, EditProductCategoryDto>
 {
     #region Ctor
 
@@ -17,15 +17,13 @@ public class GetProductCategoryDetailsQueryHandler : IRequestHandler<GetProductC
 
     #endregion
 
-    public async Task<ApiResult<EditProductCategoryDto>> Handle(GetProductCategoryDetailsQuery request, CancellationToken cancellationToken)
+    public async Task<EditProductCategoryDto> Handle(GetProductCategoryDetailsQuery request, CancellationToken cancellationToken)
     {
         var productCategory = await _productCategoryRepository.FindByIdAsync(request.Id);
 
         if (productCategory is null)
             throw new NotFoundApiException();
 
-        var mappedProductCategory = _mapper.Map<EditProductCategoryDto>(productCategory);
-
-        return ApiResponse.Success<EditProductCategoryDto>(mappedProductCategory);
+        return _mapper.Map<EditProductCategoryDto>(productCategory);
     }
 }

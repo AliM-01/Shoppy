@@ -2,7 +2,7 @@
 using BM.Application.Contracts.ArticleCategory.Queries;
 
 namespace BM.Application.ArticleCategory.QueryHandles;
-public class GetArticleCategoriesSelectListQueryHandler : IRequestHandler<GetArticleCategoriesSelectListQuery, ApiResult<List<ArticleCategoryForSelectListDto>>>
+public class GetArticleCategoriesSelectListQueryHandler : IRequestHandler<GetArticleCategoriesSelectListQuery, IEnumerable<ArticleCategoryForSelectListDto>>
 {
     #region Ctor
 
@@ -17,24 +17,22 @@ public class GetArticleCategoriesSelectListQueryHandler : IRequestHandler<GetArt
 
     #endregion
 
-    public async Task<ApiResult<List<ArticleCategoryForSelectListDto>>> Handle(GetArticleCategoriesSelectListQuery request, CancellationToken cancellationToken)
+    public Task<IEnumerable<ArticleCategoryForSelectListDto>> Handle(GetArticleCategoriesSelectListQuery request, CancellationToken cancellationToken)
     {
-        var categories = (await
-            _articleCategoryRepository
-            .AsQueryable(cancellationToken: cancellationToken)
-            .OrderByDescending(p => p.LastUpdateDate)
-            .ToListAsyncSafe()
-            )
-            .Select(article => new ArticleCategoryForSelectListDto
-            {
-                Id = article.Id,
-                Title = article.Title
-            })
-            .ToList();
+        var categories = _articleCategoryRepository
+                                                        .AsQueryable(cancellationToken: cancellationToken)
+                                                        .OrderByDescending(p => p.LastUpdateDate)
+                                                        .ToList()
+                                                        .Select(article => new ArticleCategoryForSelectListDto
+                                                        {
+                                                            Id = article.Id,
+                                                            Title = article.Title
+                                                        })
+                                                        .ToList();
 
         if (categories is null)
             throw new NotFoundApiException();
 
-        return ApiResponse.Success<List<ArticleCategoryForSelectListDto>>(categories);
+        return Task.FromResult((IEnumerable<ArticleCategoryForSelectListDto>)categories);
     }
 }

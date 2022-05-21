@@ -56,22 +56,22 @@ public class AccountController : BaseApiController
         #region send activation email
 
         var queryParams = new Dictionary<string, string>() {
-            { "tId", res.Data.Token },
-            { "uId", res.Data.UserId }
+            { "tId", res.Token },
+            { "uId", res.UserId }
         };
 
         string callBackUrl = QueryHelpers.AddQueryString($"https://localhost:5001/{MainAccountEndpoints.Account.ConfirmEmail}", queryParams);
 
         string emailBody = _viewRenderService.RenderToString("~/Shared/Views/_ActivateEmail.cshtml", callBackUrl);
 
-        bool emailRes = await _emailSender.SendEmail(res.Data.UserEmail, "فعالسازی حساب", emailBody);
+        bool emailRes = await _emailSender.SendEmail(res.UserEmail, "فعالسازی حساب", emailBody);
 
         if (!emailRes)
             return ErrorResult();
 
         #endregion
 
-        return SuccessResult(ApiResponse.Success("ثبت نام شما با موفقیت انجام شد. لطفا ایمیل خود را تایید کنید"));
+        return SuccessResult("ثبت نام شما با موفقیت انجام شد. لطفا ایمیل خود را تایید کنید");
     }
 
     #endregion
@@ -127,7 +127,7 @@ public class AccountController : BaseApiController
 
         var res = await Mediator.Send(new GetExternalLoginProviderPropertiesQuery(provider, returnUrl));
 
-        return new ChallengeResult(provider, res.Data);
+        return new ChallengeResult(provider, res);
     }
 
     #endregion
@@ -147,11 +147,11 @@ public class AccountController : BaseApiController
 
         string emailBody = _viewRenderService.RenderToString("~/Shared/Views/_Welcome.cshtml", "");
 
-        await _emailSender.SendEmail(res.Data.Email, "خوش آمدید", emailBody);
+        await _emailSender.SendEmail(res.Email, "خوش آمدید", emailBody);
 
         #endregion
 
-        return SuccessResult(res.Data.TokenResult);
+        return SuccessResult(res.TokenResult);
     }
 
     #endregion

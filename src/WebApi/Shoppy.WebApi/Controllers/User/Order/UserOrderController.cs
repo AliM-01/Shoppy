@@ -16,7 +16,7 @@ public class UserOrderController : BaseUserApiController
     [SwaggerResponse(200, "success")]
     [SwaggerResponse(204, "no-content")]
     [SwaggerResponse(404, "not-found")]
-    [ProducesResponseType(typeof(ApiResult<List<OrderItemDto>>), 200)]
+    [ProducesResponseType(typeof(FilterUserOrdersDto), 200)]
     [ProducesResponseType(typeof(ApiResult), 204)]
     [ProducesResponseType(typeof(ApiResult), 404)]
     public async Task<IActionResult> GetMyOrders([FromQuery] FilterUserOrdersDto filter)
@@ -33,7 +33,7 @@ public class UserOrderController : BaseUserApiController
     [HttpPost(UserOrderEndpoints.Order.PlaceOrder)]
     [SwaggerOperation(Summary = "ثبت سفارش", Tags = new[] { "UserOrder" })]
     [SwaggerResponse(200, "success")]
-    [ProducesResponseType(typeof(ApiResult<PlaceOrderResponseDto>), 200)]
+    [ProducesResponseType(typeof(PlaceOrderResponseDto), 200)]
     public async Task<IActionResult> PlaceOrder([FromBody] CartDto cart)
     {
         var res = await Mediator.Send(new PlaceOrderCommand(cart,
@@ -68,9 +68,8 @@ public class UserOrderController : BaseUserApiController
     [HttpPost(UserOrderEndpoints.Payment.InitializePayment)]
     [SwaggerOperation(Summary = "ثبت پرداخت", Tags = new[] { "UserOrder" })]
     [SwaggerResponse(200, "success")]
-    [ProducesResponseType(typeof(ApiResult<InitializePaymentResponseDto>), 200)]
-    public async Task<IActionResult> InitializePayment([FromQuery] string oId,
-            [FromQuery] decimal amount, [FromQuery] string callBack)
+    [ProducesResponseType(typeof(InitializePaymentResponseDto), 200)]
+    public async Task<IActionResult> InitializePayment([FromQuery] string oId, [FromQuery] decimal amount, [FromQuery] string callBack)
     {
         oId = Encoding.UTF8.GetString(WebEncoders.Base64UrlDecode(oId));
 
@@ -92,7 +91,7 @@ public class UserOrderController : BaseUserApiController
     [SwaggerOperation(Summary = "تایید پرداخت", Tags = new[] { "UserOrder" })]
     [SwaggerResponse(200, "success")]
     [SwaggerResponse(404, "not-found")]
-    [ProducesResponseType(typeof(ApiResult<VerifyPaymentResponseDto>), 200)]
+    [ProducesResponseType(typeof(VerifyPaymentResponseDto), 200)]
     [ProducesResponseType(typeof(ApiResult), 404)]
     public async Task<IActionResult> VerifyPayment([FromQuery] string authority, [FromQuery] string oId)
     {

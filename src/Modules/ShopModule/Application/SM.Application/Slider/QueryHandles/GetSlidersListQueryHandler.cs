@@ -1,11 +1,10 @@
-﻿using _0_Framework.Infrastructure;
-using SM.Application.Contracts.Slider.DTOs;
+﻿using SM.Application.Contracts.Slider.DTOs;
 using SM.Application.Contracts.Slider.Queries;
 using System.Collections.Generic;
 using System.Linq;
 
 namespace SM.Application.Slider.QueryHandles;
-public class GetSlidersListQueryHandler : IRequestHandler<GetSlidersListQuery, ApiResult<List<SliderDto>>>
+public class GetSlidersListQueryHandler : IRequestHandler<GetSlidersListQuery, IEnumerable<SliderDto>>
 {
     #region Ctor
 
@@ -20,19 +19,19 @@ public class GetSlidersListQueryHandler : IRequestHandler<GetSlidersListQuery, A
 
     #endregion
 
-    public async Task<ApiResult<List<SliderDto>>> Handle(GetSlidersListQuery request, CancellationToken cancellationToken)
+    public Task<IEnumerable<SliderDto>> Handle(GetSlidersListQuery request, CancellationToken cancellationToken)
     {
         var query = _sliderRepository.AsQueryable(false, cancellationToken);
 
-        var sliders = (await query
+        var sliders = _sliderRepository
+            .AsQueryable(false, cancellationToken)
             .OrderByDescending(p => p.LastUpdateDate)
-            .ToListAsyncSafe())
-            .Select(product => _mapper.Map(product, new SliderDto()))
-            .ToList();
+            .ToList()
+            .Select(product => _mapper.Map(product, new SliderDto()));
 
         if (sliders is null)
             throw new NoContentApiException();
 
-        return ApiResponse.Success<List<SliderDto>>(sliders);
+        return Task.FromResult(sliders);
     }
 }

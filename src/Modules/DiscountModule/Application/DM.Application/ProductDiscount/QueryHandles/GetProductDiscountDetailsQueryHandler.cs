@@ -2,7 +2,7 @@
 using DM.Application.Contracts.ProductDiscount.Queries;
 
 namespace DM.Application.ProductDiscount.QueryHandles;
-public class GetProductDiscountDetailsQueryHandler : IRequestHandler<GetProductDiscountDetailsQuery, ApiResult<EditProductDiscountDto>>
+public class GetProductDiscountDetailsQueryHandler : IRequestHandler<GetProductDiscountDetailsQuery, EditProductDiscountDto>
 {
     #region Ctor
 
@@ -17,15 +17,13 @@ public class GetProductDiscountDetailsQueryHandler : IRequestHandler<GetProductD
 
     #endregion
 
-    public async Task<ApiResult<EditProductDiscountDto>> Handle(GetProductDiscountDetailsQuery request, CancellationToken cancellationToken)
+    public async Task<EditProductDiscountDto> Handle(GetProductDiscountDetailsQuery request, CancellationToken cancellationToken)
     {
         var productDiscount = await _productDiscountRepository.FindByIdAsync(request.Id);
 
         if (productDiscount is null)
             throw new NotFoundApiException();
 
-        var mappedProductDiscount = _mapper.Map<EditProductDiscountDto>(productDiscount);
-
-        return ApiResponse.Success<EditProductDiscountDto>(mappedProductDiscount);
+        return _mapper.Map<EditProductDiscountDto>(productDiscount);
     }
 }

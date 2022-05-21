@@ -5,7 +5,7 @@ using MongoDB.Driver;
 
 namespace OM.Application.Order.QueryHandles;
 
-public class GetUserOrdersQueryHandler : IRequestHandler<GetUserOrdersQuery, ApiResult<FilterUserOrdersDto>>
+public class GetUserOrdersQueryHandler : IRequestHandler<GetUserOrdersQuery, FilterUserOrdersDto>
 {
     #region Ctor
 
@@ -24,7 +24,7 @@ public class GetUserOrdersQueryHandler : IRequestHandler<GetUserOrdersQuery, Api
 
     #endregion
 
-    public async Task<ApiResult<FilterUserOrdersDto>> Handle(GetUserOrdersQuery request, CancellationToken cancellationToken)
+    public async Task<FilterUserOrdersDto> Handle(GetUserOrdersQuery request, CancellationToken cancellationToken)
     {
         bool user = _userManager.Users.Any(x => x.Id == Guid.Parse(request.UserId));
 
@@ -74,6 +74,6 @@ public class GetUserOrdersQueryHandler : IRequestHandler<GetUserOrdersQuery, Api
         if (returnData.PageId > returnData.GetLastPage() && returnData.GetLastPage() != 0)
             throw new NoContentApiException();
 
-        return ApiResponse.Success<FilterUserOrdersDto>(returnData);
+        return returnData;
     }
 }

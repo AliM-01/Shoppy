@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 
 namespace SM.Application.ProductPicture.QueryHandles;
-public class GetProductPicturesQueryHandler : IRequestHandler<GetProductPicturesQuery, ApiResult<IEnumerable<ProductPictureDto>>>
+public class GetProductPicturesQueryHandler : IRequestHandler<GetProductPicturesQuery, IEnumerable<ProductPictureDto>>
 {
     #region Ctor
 
@@ -22,7 +22,7 @@ public class GetProductPicturesQueryHandler : IRequestHandler<GetProductPictures
 
     #endregion
 
-    public async Task<ApiResult<IEnumerable<ProductPictureDto>>> Handle(GetProductPicturesQuery request, CancellationToken cancellationToken)
+    public async Task<IEnumerable<ProductPictureDto>> Handle(GetProductPicturesQuery request, CancellationToken cancellationToken)
     {
         var product = await _productRepository.FindByIdAsync(request.ProductId);
 
@@ -34,15 +34,14 @@ public class GetProductPicturesQueryHandler : IRequestHandler<GetProductPictures
         if (!anyProductPictures)
             throw new NoContentApiException();
 
-        var productPictures =
-            _productPictureRepository
-            .AsQueryable()
-            .Where(p => p.ProductId == request.ProductId)
-            .OrderBy(p => p.CreationDate)
-            .ToList()
-            .Select(productPicture =>
-                _mapper.Map(productPicture, new ProductPictureDto()));
+        var productPictures = _productPictureRepository
+                                                        .AsQueryable()
+                                                        .Where(p => p.ProductId == request.ProductId)
+                                                        .OrderBy(p => p.CreationDate)
+                                                        .ToList()
+                                                        .Select(productPicture =>
+                                                            _mapper.Map(productPicture, new ProductPictureDto()));
 
-        return ApiResponse.Success<IEnumerable<ProductPictureDto>>(productPictures);
+        return productPictures;
     }
 }

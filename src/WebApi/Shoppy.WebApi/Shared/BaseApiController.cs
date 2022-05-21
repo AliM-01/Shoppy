@@ -28,13 +28,6 @@ public abstract class BaseApiController : ControllerBase
         return new OkObjectResult(JsonSerializer.Serialize(obj));
     }
 
-    protected OkObjectResult SuccessResult<TData>(ApiResult<TData> response)
-    {
-        string res = JsonSerializer.Serialize(response.Data);
-
-        return new OkObjectResult(res);
-    }
-
     #endregion
 
     #region CreatedResult

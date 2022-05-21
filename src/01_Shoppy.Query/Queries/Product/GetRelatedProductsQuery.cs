@@ -1,11 +1,10 @@
-﻿using _0_Framework.Infrastructure;
-using _01_Shoppy.Query.Helpers.Product;
+﻿using _01_Shoppy.Query.Helpers.Product;
 
 namespace _01_Shoppy.Query.Queries.Product;
 
-public record GetRelatedProductsQuery(string CategoryId) : IRequest<ApiResult<List<ProductQueryModel>>>;
+public record GetRelatedProductsQuery(string CategoryId) : IRequest<IEnumerable<ProductQueryModel>>;
 
-public class GetRelatedProductsQueryHandler : IRequestHandler<GetRelatedProductsQuery, ApiResult<List<ProductQueryModel>>>
+public class GetRelatedProductsQueryHandler : IRequestHandler<GetRelatedProductsQuery, IEnumerable<ProductQueryModel>>
 {
     #region Ctor
 
@@ -23,18 +22,16 @@ public class GetRelatedProductsQueryHandler : IRequestHandler<GetRelatedProducts
 
     #endregion
 
-    public async Task<ApiResult<List<ProductQueryModel>>> Handle(GetRelatedProductsQuery request, CancellationToken cancellationToken)
+    public Task<IEnumerable<ProductQueryModel>> Handle(GetRelatedProductsQuery request, CancellationToken cancellationToken)
     {
-        var relatedArticles =
-            (await _productRepository
+        var relatedArticles = _productRepository
                .AsQueryable(cancellationToken: cancellationToken)
                .OrderByDescending(x => x.CreationDate)
                .Where(x => x.CategoryId == request.CategoryId)
                .Take(5)
-               .ToListAsyncSafe())
-               .Select(x => _productHelper.MapProducts<ProductQueryModel>(x).Result)
-               .ToList();
+               .ToList()
+               .Select(x => _productHelper.MapProducts<ProductQueryModel>(x).Result);
 
-        return ApiResponse.Success<List<ProductQueryModel>>(relatedArticles);
+        return Task.FromResult(relatedArticles);
     }
 }

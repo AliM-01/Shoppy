@@ -5,7 +5,7 @@ using System.Text;
 
 namespace OM.Application.Order.CommandHandles;
 
-public class PlaceOrderCommandHandler : IRequestHandler<PlaceOrderCommand, ApiResult<PlaceOrderResponseDto>>
+public class PlaceOrderCommandHandler : IRequestHandler<PlaceOrderCommand, PlaceOrderResponseDto>
 {
     #region Ctor
 
@@ -24,7 +24,7 @@ public class PlaceOrderCommandHandler : IRequestHandler<PlaceOrderCommand, ApiRe
 
     #endregion
 
-    public async Task<ApiResult<PlaceOrderResponseDto>> Handle(PlaceOrderCommand request, CancellationToken cancellationToken)
+    public async Task<PlaceOrderResponseDto> Handle(PlaceOrderCommand request, CancellationToken cancellationToken)
     {
         var order = _mapper.Map(request, new Domain.Order.Order
         {
@@ -47,6 +47,6 @@ public class PlaceOrderCommandHandler : IRequestHandler<PlaceOrderCommand, ApiRe
 
         string orderId = WebEncoders.Base64UrlEncode(Encoding.UTF8.GetBytes(order.Id));
 
-        return ApiResponse.Success<PlaceOrderResponseDto>(new PlaceOrderResponseDto(orderId));
+        return new PlaceOrderResponseDto(orderId);
     }
 }

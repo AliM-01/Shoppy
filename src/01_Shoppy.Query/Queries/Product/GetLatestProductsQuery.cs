@@ -2,9 +2,9 @@
 
 namespace _01_Shoppy.Query.Queries.Product;
 
-public record GetLatestProductsQuery() : IRequest<ApiResult<List<ProductQueryModel>>>;
+public record GetLatestProductsQuery() : IRequest<IEnumerable<ProductQueryModel>>;
 
-public class GetLatestProductsQueryHandler : IRequestHandler<GetLatestProductsQuery, ApiResult<List<ProductQueryModel>>>
+public class GetLatestProductsQueryHandler : IRequestHandler<GetLatestProductsQuery, IEnumerable<ProductQueryModel>>
 {
     #region Ctor
 
@@ -22,7 +22,7 @@ public class GetLatestProductsQueryHandler : IRequestHandler<GetLatestProductsQu
 
     #endregion
 
-    public Task<ApiResult<List<ProductQueryModel>>> Handle(GetLatestProductsQuery request, CancellationToken cancellationToken)
+    public Task<IEnumerable<ProductQueryModel>> Handle(GetLatestProductsQuery request, CancellationToken cancellationToken)
     {
         var latestProducts = _productRepository.AsQueryable(cancellationToken: cancellationToken)
                                                 .OrderByDescending(x => x.CreationDate)
@@ -31,6 +31,6 @@ public class GetLatestProductsQueryHandler : IRequestHandler<GetLatestProductsQu
                                                 .Select(x => _productHelper.MapProducts<ProductQueryModel>(x).Result)
                                                 .ToList();
 
-        return Task.FromResult(ApiResponse.Success<List<ProductQueryModel>>(latestProducts));
+        return Task.FromResult((IEnumerable<ProductQueryModel>)latestProducts);
     }
 }
