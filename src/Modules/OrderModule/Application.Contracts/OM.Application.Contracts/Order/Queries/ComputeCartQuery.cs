@@ -2,5 +2,4 @@
 
 namespace OM.Application.Contracts.Order.Queries;
 
-public record ComputeCartQuery
-    (List<CartItemInCookieDto> Items) : IRequest<ApiResult<CartDto>>;
+public record ComputeCartQuery(List<CartItemInCookieDto> Items) : IRequest<CartDto>;

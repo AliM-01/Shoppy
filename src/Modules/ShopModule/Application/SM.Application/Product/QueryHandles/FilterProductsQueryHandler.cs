@@ -6,7 +6,7 @@ using SM.Application.Contracts.Product.Queries;
 using System.Linq;
 
 namespace SM.Application.Product.QueryHandles;
-public class FilterProductsQueryHandler : IRequestHandler<FilterProductsQuery, ApiResult<FilterProductDto>>
+public class FilterProductsQueryHandler : IRequestHandler<FilterProductsQuery, FilterProductDto>
 {
     #region Ctor
 
@@ -21,7 +21,7 @@ public class FilterProductsQueryHandler : IRequestHandler<FilterProductsQuery, A
 
     #endregion
 
-    public async Task<ApiResult<FilterProductDto>> Handle(FilterProductsQuery request, CancellationToken cancellationToken)
+    public async Task<FilterProductDto> Handle(FilterProductsQuery request, CancellationToken cancellationToken)
     {
         var query = _productRepository.AsQueryable();
 
@@ -82,6 +82,6 @@ public class FilterProductsQueryHandler : IRequestHandler<FilterProductsQuery, A
         if (returnData.PageId > returnData.GetLastPage() && returnData.GetLastPage() != 0)
             throw new NoContentApiException();
 
-        return ApiResponse.Success<FilterProductDto>(returnData);
+        return returnData;
     }
 }

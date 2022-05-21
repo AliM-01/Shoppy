@@ -13,7 +13,7 @@ public class AdminInventoryController : BaseAdminApiController
     [SwaggerOperation(Summary = "فیلتر انبار", Tags = new[] { "AdminInventory" })]
     [SwaggerResponse(200, "success")]
     [SwaggerResponse(404, "not-found")]
-    [ProducesResponseType(typeof(ApiResult<FilterInventoryDto>), 200)]
+    [ProducesResponseType(typeof(FilterInventoryDto), 200)]
     [ProducesResponseType(typeof(ApiResult), 404)]
     public async Task<IActionResult> FilterInventories([FromQuery] FilterInventoryDto filter)
     {
@@ -30,7 +30,7 @@ public class AdminInventoryController : BaseAdminApiController
     [SwaggerOperation(Summary = "دریافت انبار", Tags = new[] { "AdminInventory" })]
     [SwaggerResponse(200, "success")]
     [SwaggerResponse(404, "not-found")]
-    [ProducesResponseType(typeof(ApiResult<EditInventoryDto>), 200)]
+    [ProducesResponseType(typeof(EditInventoryDto), 200)]
     [ProducesResponseType(typeof(ApiResult), 404)]
     public async Task<IActionResult> GetInventoryDetails([FromRoute] string id)
     {
@@ -100,7 +100,7 @@ public class AdminInventoryController : BaseAdminApiController
     [SwaggerOperation(Summary = "دریافت لاگ های انبار", Tags = new[] { "AdminInventory" })]
     [SwaggerResponse(200, "success")]
     [SwaggerResponse(404, "not-found")]
-    [ProducesResponseType(typeof(ApiResult<InventoryLogsDto>), 200)]
+    [ProducesResponseType(typeof(InventoryLogsDto), 200)]
     [ProducesResponseType(typeof(ApiResult), 404)]
     public async Task<IActionResult> GetInventoryOperationLog([FromRoute] string id)
     {

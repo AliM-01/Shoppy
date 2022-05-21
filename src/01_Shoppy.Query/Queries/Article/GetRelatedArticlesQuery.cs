@@ -3,9 +3,9 @@ using _01_Shoppy.Query.Models.Blog.Article;
 
 namespace _01_Shoppy.Query.Queries.Article;
 
-public record GetRelatedArticlesQuery(string CategoryId) : IRequest<ApiResult<List<ArticleQueryModel>>>;
+public record GetRelatedArticlesQuery(string CategoryId) : IRequest<IEnumerable<ArticleQueryModel>>;
 
-public class GetRelatedArticlesQueryHandler : IRequestHandler<GetRelatedArticlesQuery, ApiResult<List<ArticleQueryModel>>>
+public class GetRelatedArticlesQueryHandler : IRequestHandler<GetRelatedArticlesQuery, IEnumerable<ArticleQueryModel>>
 {
     #region Ctor
 
@@ -24,7 +24,7 @@ public class GetRelatedArticlesQueryHandler : IRequestHandler<GetRelatedArticles
 
     #endregion
 
-    public async Task<ApiResult<List<ArticleQueryModel>>> Handle(GetRelatedArticlesQuery request, CancellationToken cancellationToken)
+    public async Task<IEnumerable<ArticleQueryModel>> Handle(GetRelatedArticlesQuery request, CancellationToken cancellationToken)
     {
         var relatedArticles =
             (await _articleRepository
@@ -42,6 +42,6 @@ public class GetRelatedArticlesQueryHandler : IRequestHandler<GetRelatedArticles
             relatedArticles[i].Category = (await _articleCategoryRepository.FindByIdAsync(relatedArticles[i].CategoryId)).Title;
         }
 
-        return ApiResponse.Success<List<ArticleQueryModel>>(relatedArticles);
+        return relatedArticles;
     }
 }

@@ -14,7 +14,7 @@ public class CommentController : BaseApiController
     [SwaggerOperation(Summary = "دریافت کامنت های محصول/مقاله", Tags = new[] { "Comment" })]
     [SwaggerResponse(200, "success")]
     [SwaggerResponse(404, "not-found")]
-    [ProducesResponseType(typeof(ApiResult<List<CommentQueryModel>>), 404)]
+    [ProducesResponseType(typeof(IEnumerable<CommentQueryModel>), 404)]
     [ProducesResponseType(typeof(ApiResult), 404)]
     public async Task<IActionResult> GetRecordCommentsById([FromRoute] string recordId, CancellationToken cancellationToken)
     {

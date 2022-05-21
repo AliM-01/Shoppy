@@ -8,7 +8,7 @@ using System.Security.Claims;
 
 namespace AM.Application.Account.CommandHandles;
 
-public class ExternalLoginCallbackCommandHandler : IRequestHandler<ExternalLoginCallbackCommand, ApiResult<ExternalLoginCallbackResponseDto>>
+public class ExternalLoginCallbackCommandHandler : IRequestHandler<ExternalLoginCallbackCommand, ExternalLoginCallbackResponseDto>
 {
     #region Ctor
 
@@ -30,7 +30,7 @@ public class ExternalLoginCallbackCommandHandler : IRequestHandler<ExternalLogin
 
     #endregion Ctor
 
-    public async Task<ApiResult<ExternalLoginCallbackResponseDto>> Handle(ExternalLoginCallbackCommand request, CancellationToken cancellationToken)
+    public async Task<ExternalLoginCallbackResponseDto> Handle(ExternalLoginCallbackCommand request, CancellationToken cancellationToken)
     {
         var info = await _signInManager.GetExternalLoginInfoAsync();
 
@@ -53,7 +53,7 @@ public class ExternalLoginCallbackCommandHandler : IRequestHandler<ExternalLogin
         var user = await _userManager.FindByEmailAsync(email);
 
         if (user is not null)
-            return ApiResponse.Success(new ExternalLoginCallbackResponseDto(ExternalLoginCallbackResult.LoginRedirect));
+            return new ExternalLoginCallbackResponseDto(ExternalLoginCallbackResult.LoginRedirect);
 
         #region register
 
@@ -82,13 +82,11 @@ public class ExternalLoginCallbackCommandHandler : IRequestHandler<ExternalLogin
 
         #endregion
 
-        var returnData = new ExternalLoginCallbackResponseDto
+        return new ExternalLoginCallbackResponseDto
         {
             Type = ExternalLoginCallbackResult.Registered,
             TokenResult = new AuthenticateUserResponseDto(token),
             Email = email
         };
-
-        return ApiResponse.Success(returnData);
     }
 }

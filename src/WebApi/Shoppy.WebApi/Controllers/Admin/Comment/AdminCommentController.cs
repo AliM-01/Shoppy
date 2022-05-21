@@ -13,7 +13,7 @@ public class AdminCommentController : BaseAdminApiController
     [SwaggerOperation(Summary = "فیلتر کامنت ها", Tags = new[] { "AdminComment" })]
     [SwaggerResponse(200, "success")]
     [SwaggerResponse(404, "not-found")]
-    [ProducesResponseType(typeof(ApiResult<FilterCommentDto>), 200)]
+    [ProducesResponseType(typeof(FilterCommentDto), 200)]
     [ProducesResponseType(typeof(ApiResult), 404)]
     public async Task<IActionResult> FilterComments([FromQuery] FilterCommentDto filter, CancellationToken cancellationToken)
     {

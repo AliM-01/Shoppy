@@ -1,5 +1,4 @@
-﻿using _0_Framework.Infrastructure;
-using DM.Domain.ProductDiscount;
+﻿using DM.Domain.ProductDiscount;
 using IM.Application.Contracts.Inventory.Helpers;
 using IM.Domain.Inventory;
 using MongoDB.Driver;
@@ -7,7 +6,7 @@ using SM.Domain.Product;
 
 namespace OM.Application.Order.QueryHandles;
 
-public class ComputeCartQueryHandler : IRequestHandler<ComputeCartQuery, ApiResult<CartDto>>
+public class ComputeCartQueryHandler : IRequestHandler<ComputeCartQuery, CartDto>
 {
     #region Ctor
 
@@ -32,15 +31,15 @@ public class ComputeCartQueryHandler : IRequestHandler<ComputeCartQuery, ApiResu
 
     #endregion
 
-    public async Task<ApiResult<CartDto>> Handle(ComputeCartQuery request, CancellationToken cancellationToken)
+    public async Task<CartDto> Handle(ComputeCartQuery request, CancellationToken cancellationToken)
     {
         var cart = new CartDto();
 
-        var productDiscounts = await _productDiscountRepository
-                            .AsQueryable()
+        var productDiscounts = _productDiscountRepository
+                            .AsQueryable(cancellationToken: cancellationToken)
                             .Where(x => !x.IsExpired)
                             .Select(x => new { x.Rate, x.ProductId })
-                            .ToListAsyncSafe();
+                            .ToList();
 
         foreach (var cartItem in request.Items)
         {
@@ -106,6 +105,6 @@ public class ComputeCartQueryHandler : IRequestHandler<ComputeCartQuery, ApiResu
             cart.DiscountAmount += cart.Items[i].DiscountAmount;
         }
 
-        return ApiResponse.Success<CartDto>(cart);
+        return cart;
     }
 }

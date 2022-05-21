@@ -2,5 +2,4 @@
 
 namespace CM.Application.Contracts.Inventory.Queries;
 
-public record FilterCommentsQuery
-    (FilterCommentDto Filter) : IRequest<ApiResult<FilterCommentDto>>;
+public record FilterCommentsQuery(FilterCommentDto Filter) : IRequest<FilterCommentDto>;

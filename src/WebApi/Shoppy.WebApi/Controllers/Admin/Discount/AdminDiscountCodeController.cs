@@ -13,7 +13,7 @@ public class AdminDiscountCodeController : BaseAdminApiController
     [SwaggerOperation(Summary = "فیلتر کد های تخفیف", Tags = new[] { "AdminDiscountCode" })]
     [SwaggerResponse(200, "success")]
     [SwaggerResponse(404, "not-found")]
-    [ProducesResponseType(typeof(ApiResult<FilterDiscountCodeDto>), 200)]
+    [ProducesResponseType(typeof(FilterDiscountCodeDto), 200)]
     [ProducesResponseType(typeof(ApiResult), 404)]
     public async Task<IActionResult> FilterDiscountCodes([FromQuery] FilterDiscountCodeDto filter)
     {
@@ -30,7 +30,7 @@ public class AdminDiscountCodeController : BaseAdminApiController
     [SwaggerOperation(Summary = "دریافت کد تخفیف", Tags = new[] { "AdminDiscountCode" })]
     [SwaggerResponse(200, "success")]
     [SwaggerResponse(404, "not-found")]
-    [ProducesResponseType(typeof(ApiResult<EditDiscountCodeDto>), 200)]
+    [ProducesResponseType(typeof(EditDiscountCodeDto), 200)]
     [ProducesResponseType(typeof(ApiResult), 404)]
     public async Task<IActionResult> GetDiscountCodeDetails([FromRoute] string id)
     {

@@ -14,7 +14,7 @@ public class AdminProductPictureController : BaseAdminApiController
     [SwaggerOperation(Summary = "دریافت تصاویر محصولات", Tags = new[] { "AdminProductPicture" })]
     [SwaggerResponse(200, "success")]
     [SwaggerResponse(404, "not-found")]
-    [ProducesResponseType(typeof(ApiResult<List<ProductPictureDto>>), 200)]
+    [ProducesResponseType(typeof(IEnumerable<ProductPictureDto>), 200)]
     [ProducesResponseType(typeof(ApiResult), 404)]
     public async Task<IActionResult> GetProductPictures([FromRoute] string productId)
     {

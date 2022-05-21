@@ -2,5 +2,4 @@
 
 namespace SM.Application.Contracts.ProductFeature.Queries;
 
-public record GetProductFeatureDetailsQuery
-    (string Id) : IRequest<ApiResult<EditProductFeatureDto>>;
+public record GetProductFeatureDetailsQuery(string Id) : IRequest<EditProductFeatureDto>;

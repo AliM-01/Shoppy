@@ -2,7 +2,7 @@
 using SM.Application.Contracts.Product.Queries;
 
 namespace SM.Application.Product.QueryHandles;
-public class ExistsProductIdQueryHandler : IRequestHandler<ExistsProductIdQuery, ApiResult<ExistsProductIdResponseDto>>
+public class ExistsProductIdQueryHandler : IRequestHandler<ExistsProductIdQuery, ExistsProductIdResponseDto>
 {
     #region Ctor
 
@@ -17,7 +17,7 @@ public class ExistsProductIdQueryHandler : IRequestHandler<ExistsProductIdQuery,
 
     #endregion
 
-    public async Task<ApiResult<ExistsProductIdResponseDto>> Handle(ExistsProductIdQuery request, CancellationToken cancellationToken)
+    public async Task<ExistsProductIdResponseDto> Handle(ExistsProductIdQuery request, CancellationToken cancellationToken)
     {
         var product = await _productRepository.FindByIdAsync(request.ProductId);
 
@@ -28,6 +28,6 @@ public class ExistsProductIdQueryHandler : IRequestHandler<ExistsProductIdQuery,
             ProductTitle = product is null ? "" : product.Title
         };
 
-        return ApiResponse.Success<ExistsProductIdResponseDto>(response);
+        return response;
     }
 }

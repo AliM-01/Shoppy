@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Authentication;
 
 namespace AM.Application.Account.QueryHandles;
 
-public class GetExternalLoginsQueryHandler : IRequestHandler<GetExternalLoginsQuery, ApiResult<IEnumerable<AuthenticationScheme>>>
+public class GetExternalLoginsQueryHandler : IRequestHandler<GetExternalLoginsQuery, IEnumerable<AuthenticationScheme>>
 {
     #region Ctor
 
@@ -16,12 +16,8 @@ public class GetExternalLoginsQueryHandler : IRequestHandler<GetExternalLoginsQu
 
     #endregion Ctor
 
-    public async Task<ApiResult<IEnumerable<AuthenticationScheme>>> Handle(GetExternalLoginsQuery request, CancellationToken cancellationToken)
+    public async Task<IEnumerable<AuthenticationScheme>> Handle(GetExternalLoginsQuery request, CancellationToken cancellationToken)
     {
-        cancellationToken.ThrowIfCancellationRequested();
-
-        var externalLogins = await _signInManager.GetExternalAuthenticationSchemesAsync();
-
-        return ApiResponse.Success<IEnumerable<AuthenticationScheme>>(externalLogins);
+        return await _signInManager.GetExternalAuthenticationSchemesAsync();
     }
 }

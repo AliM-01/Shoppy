@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Authentication;
 
 namespace AM.Application.Account.QueryHandles;
 
-public class GetExternalLoginProviderPropertiesQueryHandler : IRequestHandler<GetExternalLoginProviderPropertiesQuery, ApiResult<AuthenticationProperties>>
+public class GetExternalLoginProviderPropertiesQueryHandler : IRequestHandler<GetExternalLoginProviderPropertiesQuery, AuthenticationProperties>
 {
     #region Ctor
 
@@ -19,10 +19,10 @@ public class GetExternalLoginProviderPropertiesQueryHandler : IRequestHandler<Ge
 
     #endregion Ctor
 
-    public Task<ApiResult<AuthenticationProperties>> Handle(GetExternalLoginProviderPropertiesQuery request, CancellationToken cancellationToken)
+    public Task<AuthenticationProperties> Handle(GetExternalLoginProviderPropertiesQuery request, CancellationToken cancellationToken)
     {
         var properties = _signInManager.ConfigureExternalAuthenticationProperties(request.Provider, request.ReturnUrl);
 
-        return Task.FromResult(ApiResponse.Success<AuthenticationProperties>(properties));
+        return Task.FromResult(properties);
     }
 }

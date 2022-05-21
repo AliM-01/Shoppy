@@ -13,7 +13,7 @@ public class AdminProductCategoryController : BaseAdminApiController
     [SwaggerOperation(Summary = "دریافت لیست دسته بندی محصولات", Tags = new[] { "AdminProductCategory" })]
     [SwaggerResponse(200, "success")]
     [SwaggerResponse(404, "not-found")]
-    [ProducesResponseType(typeof(ApiResult<List<ProductCategoryForSelectListDto>>), 200)]
+    [ProducesResponseType(typeof(IEnumerable<ProductCategoryForSelectListDto>), 200)]
     [ProducesResponseType(typeof(ApiResult), 404)]
     public async Task<IActionResult> GetProductCategoriesList()
     {
@@ -30,7 +30,7 @@ public class AdminProductCategoryController : BaseAdminApiController
     [SwaggerOperation(Summary = "فیلتر دسته بندی محصولات", Tags = new[] { "AdminProductCategory" })]
     [SwaggerResponse(200, "success")]
     [SwaggerResponse(404, "not-found")]
-    [ProducesResponseType(typeof(ApiResult<FilterProductCategoryDto>), 200)]
+    [ProducesResponseType(typeof(FilterProductCategoryDto), 200)]
     [ProducesResponseType(typeof(ApiResult), 404)]
     public async Task<IActionResult> FilterProductCategories([FromQuery] FilterProductCategoryDto filter)
     {
@@ -47,7 +47,7 @@ public class AdminProductCategoryController : BaseAdminApiController
     [SwaggerOperation(Summary = "دریافت جزییات دسته بندی محصول", Tags = new[] { "AdminProductCategory" })]
     [SwaggerResponse(200, "success")]
     [SwaggerResponse(404, "not-found")]
-    [ProducesResponseType(typeof(ApiResult<EditProductCategoryDto>), 200)]
+    [ProducesResponseType(typeof(EditProductCategoryDto), 200)]
     [ProducesResponseType(typeof(ApiResult), 404)]
     public async Task<IActionResult> GetProductCategoryDetails([FromRoute] string id)
     {

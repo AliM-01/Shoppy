@@ -2,5 +2,4 @@
 
 namespace BM.Application.Contracts.ArticleCategory.Queries;
 
-public record GetArticleCategoriesSelectListQuery
-    : IRequest<ApiResult<List<ArticleCategoryForSelectListDto>>>;
+public record GetArticleCategoriesSelectListQuery : IRequest<IEnumerable<ArticleCategoryForSelectListDto>>;

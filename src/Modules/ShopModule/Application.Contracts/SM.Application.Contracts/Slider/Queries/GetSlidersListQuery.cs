@@ -3,4 +3,4 @@ using System.Collections.Generic;
 
 namespace SM.Application.Contracts.Slider.Queries;
 
-public record GetSlidersListQuery : IRequest<ApiResult<List<SliderDto>>>;
+public record GetSlidersListQuery : IRequest<IEnumerable<SliderDto>>;

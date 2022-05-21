@@ -4,9 +4,9 @@ using _01_Shoppy.Query.Models.Blog.ArticleCategory;
 
 namespace _01_Shoppy.Query.Queries.ArticleCategory;
 
-public record GetArticleCategoryWithArticlesByQuery(FilterArticleCategoryDetailsModel Filter) : IRequest<ApiResult<ArticleCategoryDetailsQueryModel>>;
+public record GetArticleCategoryWithArticlesByQuery(FilterArticleCategoryDetailsModel Filter) : IRequest<ArticleCategoryDetailsQueryModel>;
 
-public class GetArticleCategoryWithArticlesByQueryHandler : IRequestHandler<GetArticleCategoryWithArticlesByQuery, ApiResult<ArticleCategoryDetailsQueryModel>>
+public class GetArticleCategoryWithArticlesByQueryHandler : IRequestHandler<GetArticleCategoryWithArticlesByQuery, ArticleCategoryDetailsQueryModel>
 {
     #region Ctor
 
@@ -25,7 +25,7 @@ public class GetArticleCategoryWithArticlesByQueryHandler : IRequestHandler<GetA
 
     #endregion
 
-    public async Task<ApiResult<ArticleCategoryDetailsQueryModel>> Handle(GetArticleCategoryWithArticlesByQuery request, CancellationToken cancellationToken)
+    public async Task<ArticleCategoryDetailsQueryModel> Handle(GetArticleCategoryWithArticlesByQuery request, CancellationToken cancellationToken)
     {
         cancellationToken.ThrowIfCancellationRequested();
 
@@ -62,12 +62,10 @@ public class GetArticleCategoryWithArticlesByQueryHandler : IRequestHandler<GetA
         if (filteredData.PageId > filteredData.GetLastPage() && filteredData.GetLastPage() != 0)
             throw new NotFoundApiException();
 
-        var returnData = new ArticleCategoryDetailsQueryModel
+        return new ArticleCategoryDetailsQueryModel
         {
             ArticleCategory = _mapper.Map(articleCategoryData, new ArticleCategoryQueryModel()),
             FilterData = filteredData
         };
-
-        return ApiResponse.Success<ArticleCategoryDetailsQueryModel>(returnData);
     }
 }

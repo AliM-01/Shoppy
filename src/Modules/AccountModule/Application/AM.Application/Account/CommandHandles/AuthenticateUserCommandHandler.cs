@@ -3,7 +3,7 @@ using AM.Application.Contracts.Account.DTOs;
 using AM.Application.Contracts.Services;
 namespace AM.Application.Account.CommandHandles;
 
-public class AuthenticateUserCommandHandler : IRequestHandler<AuthenticateUserCommand, ApiResult<AuthenticateUserResponseDto>>
+public class AuthenticateUserCommandHandler : IRequestHandler<AuthenticateUserCommand, AuthenticateUserResponseDto>
 {
     #region Ctor
 
@@ -28,7 +28,7 @@ public class AuthenticateUserCommandHandler : IRequestHandler<AuthenticateUserCo
 
     #endregion Ctor
 
-    public async Task<ApiResult<AuthenticateUserResponseDto>> Handle(AuthenticateUserCommand request, CancellationToken cancellationToken)
+    public async Task<AuthenticateUserResponseDto> Handle(AuthenticateUserCommand request, CancellationToken cancellationToken)
     {
         cancellationToken.ThrowIfCancellationRequested();
 
@@ -48,6 +48,6 @@ public class AuthenticateUserCommandHandler : IRequestHandler<AuthenticateUserCo
         var token = await _tokenFactoryService.CreateJwtTokenAsync(user);
         await _tokenStoreService.AddUserToken(user, token.RefreshTokenSerial, token.AccessToken, null);
 
-        return ApiResponse.Success<AuthenticateUserResponseDto>(new AuthenticateUserResponseDto(token));
+        return new AuthenticateUserResponseDto(token);
     }
 }

@@ -12,7 +12,7 @@ public class DiscountCodeController : BaseApiController
     [SwaggerOperation(Summary = "اعتبار سنجی کد تخفیف", Tags = new[] { "DiscountCode" })]
     [SwaggerResponse(200, "success")]
     [SwaggerResponse(404, "not-fount")]
-    [ProducesResponseType(typeof(ApiResult<ValidateDiscountCodeResponseDto>), 200)]
+    [ProducesResponseType(typeof(ValidateDiscountCodeResponseDto), 200)]
     [ProducesResponseType(typeof(ApiResult), 400)]
     public async Task<IActionResult> ValidateCode([FromRoute] string code)
     {

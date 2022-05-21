@@ -3,4 +3,4 @@
 namespace AM.Application.Contracts.Account.Queries;
 
 public record FilterAccountsQuery
-    (FilterAccountDto Filter) : IRequest<ApiResult<FilterAccountDto>>;
+    (FilterAccountDto Filter) : IRequest<FilterAccountDto>;

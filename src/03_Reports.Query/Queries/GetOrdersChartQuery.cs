@@ -1,8 +1,8 @@
 ﻿namespace _03_Reports.Query.Queries;
 
-public record GetOrdersChartQuery() : IRequest<ApiResult<List<ChartModel>>>;
+public record GetOrdersChartQuery() : IRequest<IEnumerable<ChartModel>>;
 
-public class GetOrdersChartQueryHandler : IRequestHandler<GetOrdersChartQuery, ApiResult<List<ChartModel>>>
+public class GetOrdersChartQueryHandler : IRequestHandler<GetOrdersChartQuery, IEnumerable<ChartModel>>
 {
     #region Ctor
 
@@ -15,7 +15,7 @@ public class GetOrdersChartQueryHandler : IRequestHandler<GetOrdersChartQuery, A
 
     #endregion
 
-    public async Task<ApiResult<List<ChartModel>>> Handle(GetOrdersChartQuery request, CancellationToken cancellationToken)
+    public async Task<IEnumerable<ChartModel>> Handle(GetOrdersChartQuery request, CancellationToken cancellationToken)
     {
         cancellationToken.ThrowIfCancellationRequested();
 
@@ -31,6 +31,6 @@ public class GetOrdersChartQueryHandler : IRequestHandler<GetOrdersChartQuery, A
             sales.Add(new ChartModel(i, count.Count));
         }
 
-        return ApiResponse.Success<List<ChartModel>>(sales.OrderMonth());
+        return sales.OrderMonth();
     }
 }

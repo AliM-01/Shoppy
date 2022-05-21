@@ -2,5 +2,4 @@
 
 namespace BM.Application.Contracts.ArticleCategory.Queries;
 
-public record FilterArticleCategoriesQuery
-    (FilterArticleCategoryDto Filter) : IRequest<ApiResult<FilterArticleCategoryDto>>;
+public record FilterArticleCategoriesQuery(FilterArticleCategoryDto Filter) : IRequest<FilterArticleCategoryDto>;

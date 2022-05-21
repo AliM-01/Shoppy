@@ -13,7 +13,7 @@ public class AdminSliderController : BaseAdminApiController
     [SwaggerOperation(Summary = "دریافت لیست اسلایدر ها", Tags = new[] { "AdminSlider" })]
     [SwaggerResponse(200, "success")]
     [SwaggerResponse(404, "not-found")]
-    [ProducesResponseType(typeof(ApiResult<List<SliderDto>>), 200)]
+    [ProducesResponseType(typeof(IEnumerable<SliderDto>), 200)]
     [ProducesResponseType(typeof(ApiResult), 404)]
     public async Task<IActionResult> GetSlidersList()
     {
@@ -30,7 +30,7 @@ public class AdminSliderController : BaseAdminApiController
     [SwaggerOperation(Summary = "دریافت جزییات اسلایدر", Tags = new[] { "AdminSlider" })]
     [SwaggerResponse(200, "success")]
     [SwaggerResponse(404, "not-found")]
-    [ProducesResponseType(typeof(ApiResult<EditSliderDto>), 200)]
+    [ProducesResponseType(typeof(EditSliderDto), 200)]
     [ProducesResponseType(typeof(ApiResult), 404)]
     public async Task<IActionResult> GetSliderDetails([FromRoute] string id)
     {

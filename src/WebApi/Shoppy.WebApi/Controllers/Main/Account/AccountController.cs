@@ -83,7 +83,7 @@ public class AccountController : BaseApiController
     [SwaggerOperation(Summary = "ورود به حساب", Tags = new[] { "Account" })]
     [SwaggerResponse(200, "success")]
     [SwaggerResponse(400, "not active")]
-    [ProducesResponseType(typeof(ApiResult<AuthenticateUserResponseDto>), 200)]
+    [ProducesResponseType(typeof(AuthenticateUserResponseDto), 200)]
     [ProducesResponseType(typeof(ApiResult), 400)]
     public async Task<IActionResult> Login([FromForm] AuthenticateUserRequestDto login, CancellationToken cancellationToken)
     {
@@ -185,7 +185,7 @@ public class AccountController : BaseApiController
     [SwaggerOperation(Summary = "refresh token", Tags = new[] { "Account" })]
     [SwaggerResponse(200, "success")]
     [SwaggerResponse(404, "not found")]
-    [ProducesResponseType(typeof(ApiResult<AuthenticateUserResponseDto>), 200)]
+    [ProducesResponseType(typeof(AuthenticateUserResponseDto), 200)]
     [ProducesResponseType(typeof(ApiResult), 404)]
     public async Task<IActionResult> RefreshToken([FromForm] RevokeRefreshTokenRequestDto token, CancellationToken cancellationToken)
     {

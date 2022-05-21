@@ -4,9 +4,9 @@ using System.Text;
 
 namespace _01_Shoppy.Query.Queries.Discount;
 
-public record ValidateDiscountCodeQuery(string Code) : IRequest<ApiResult<ValidateDiscountCodeResponseDto>>;
+public record ValidateDiscountCodeQuery(string Code) : IRequest<ValidateDiscountCodeResponseDto>;
 
-public class ValidateDiscountCodeQueryHandler : IRequestHandler<ValidateDiscountCodeQuery, ApiResult<ValidateDiscountCodeResponseDto>>
+public class ValidateDiscountCodeQueryHandler : IRequestHandler<ValidateDiscountCodeQuery, ValidateDiscountCodeResponseDto>
 {
     #region Ctor
 
@@ -22,7 +22,7 @@ public class ValidateDiscountCodeQueryHandler : IRequestHandler<ValidateDiscount
 
     #endregion
 
-    public async Task<ApiResult<ValidateDiscountCodeResponseDto>> Handle(ValidateDiscountCodeQuery request, CancellationToken cancellationToken)
+    public async Task<ValidateDiscountCodeResponseDto> Handle(ValidateDiscountCodeQuery request, CancellationToken cancellationToken)
     {
         cancellationToken.ThrowIfCancellationRequested();
 
@@ -66,6 +66,6 @@ public class ValidateDiscountCodeQueryHandler : IRequestHandler<ValidateDiscount
 
         #endregion
 
-        return ApiResponse.Success<ValidateDiscountCodeResponseDto>(mappedDiscount);
+        return mappedDiscount;
     }
 }

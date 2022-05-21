@@ -13,7 +13,7 @@ public class AdminArticleCategoryController : BaseAdminApiController
     [SwaggerOperation(Summary = "دریافت لیست دسته بندی مقالات", Tags = new[] { "AdminArticleCategory" })]
     [SwaggerResponse(200, "success")]
     [SwaggerResponse(404, "not-found")]
-    [ProducesResponseType(typeof(ApiResult<List<ArticleCategoryForSelectListDto>>), 200)]
+    [ProducesResponseType(typeof(IEnumerable<ArticleCategoryForSelectListDto>), 200)]
     [ProducesResponseType(typeof(ApiResult), 404)]
     public async Task<IActionResult> GetArticleCategoriesSelectList(CancellationToken cancellationToken)
     {
@@ -30,7 +30,7 @@ public class AdminArticleCategoryController : BaseAdminApiController
     [SwaggerOperation(Summary = "فیلتر دسته بندی مقالات", Tags = new[] { "AdminArticleCategory" })]
     [SwaggerResponse(200, "success")]
     [SwaggerResponse(404, "not-found")]
-    [ProducesResponseType(typeof(ApiResult<FilterArticleCategoryDto>), 200)]
+    [ProducesResponseType(typeof(FilterArticleCategoryDto), 200)]
     [ProducesResponseType(typeof(ApiResult), 404)]
     public async Task<IActionResult> FilterArticleCategories([FromQuery] FilterArticleCategoryDto filter, CancellationToken cancellationToken)
     {
@@ -47,7 +47,7 @@ public class AdminArticleCategoryController : BaseAdminApiController
     [SwaggerOperation(Summary = "دریافت جزییات دسته بندی مقاله", Tags = new[] { "AdminArticleCategory" })]
     [SwaggerResponse(200, "success")]
     [SwaggerResponse(404, "not-found")]
-    [ProducesResponseType(typeof(ApiResult<EditArticleCategoryDto>), 200)]
+    [ProducesResponseType(typeof(EditArticleCategoryDto), 200)]
     [ProducesResponseType(typeof(ApiResult), 404)]
     public async Task<IActionResult> GetArticleCategoryDetails([FromRoute] string id, CancellationToken cancellationToken)
     {

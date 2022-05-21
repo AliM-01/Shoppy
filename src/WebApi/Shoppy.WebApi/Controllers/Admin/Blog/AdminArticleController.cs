@@ -12,7 +12,7 @@ public class AdminArticleController : BaseAdminApiController
     [HttpGet(AdminBlogEndpoints.Article.FilterArticles)]
     [SwaggerOperation(Summary = "فیلتر  مقالات", Tags = new[] { "AdminArticle" })]
     [SwaggerResponse(200, "success")]
-    [ProducesResponseType(typeof(ApiResult<FilterArticleDto>), 200)]
+    [ProducesResponseType(typeof(FilterArticleDto), 200)]
     public async Task<IActionResult> FilterArticles([FromQuery] FilterArticleDto filter, CancellationToken cancellationToken)
     {
         var res = await Mediator.Send(new FilterArticlesQuery(filter), cancellationToken);
@@ -28,7 +28,7 @@ public class AdminArticleController : BaseAdminApiController
     [SwaggerOperation(Summary = "دریافت جزییات  مقاله", Tags = new[] { "AdminArticle" })]
     [SwaggerResponse(200, "success")]
     [SwaggerResponse(404, "not-found")]
-    [ProducesResponseType(typeof(ApiResult<EditArticleDto>), 200)]
+    [ProducesResponseType(typeof(EditArticleDto), 200)]
     [ProducesResponseType(typeof(ApiResult), 404)]
     public async Task<IActionResult> GetArticleDetails([FromRoute] string id, CancellationToken cancellationToken)
     {

@@ -15,7 +15,7 @@ public class AdminProductController : BaseAdminApiController
     [SwaggerOperation(Summary = "فیلتر محصولات", Tags = new[] { "AdminProduct" })]
     [SwaggerResponse(200, "success")]
     [SwaggerResponse(404, "not-found")]
-    [ProducesResponseType(typeof(ApiResult<FilterProductDto>), 200)]
+    [ProducesResponseType(typeof(FilterProductDto), 200)]
     [ProducesResponseType(typeof(ApiResult), 404)]
     public async Task<IActionResult> FilterProducts([FromQuery] FilterProductDto filter)
     {
@@ -32,7 +32,7 @@ public class AdminProductController : BaseAdminApiController
     [SwaggerOperation(Summary = "چک کردن وجود شناسه محصول", Tags = new[] { "AdminProduct" })]
     [SwaggerResponse(200, "success")]
     [SwaggerResponse(404, "not-found")]
-    [ProducesResponseType(typeof(ApiResult<ExistsProductIdResponseDto>), 200)]
+    [ProducesResponseType(typeof(ExistsProductIdResponseDto), 200)]
     [ProducesResponseType(typeof(ApiResult), 404)]
     public async Task<IActionResult> ExistsProductid([FromRoute] string id)
     {
@@ -49,7 +49,7 @@ public class AdminProductController : BaseAdminApiController
     [SwaggerOperation(Summary = "دریافت جزییات محصول", Tags = new[] { "AdminProduct" })]
     [SwaggerResponse(200, "success")]
     [SwaggerResponse(404, "not-found")]
-    [ProducesResponseType(typeof(ApiResult<EditProductDto>), 200)]
+    [ProducesResponseType(typeof(EditProductDto), 200)]
     [ProducesResponseType(typeof(ApiResult), 404)]
     public async Task<IActionResult> GetProductDetails([FromRoute] string id)
     {
@@ -66,7 +66,7 @@ public class AdminProductController : BaseAdminApiController
     [SwaggerOperation(Summary = "ایجاد محصول", Tags = new[] { "AdminProduct" })]
     [SwaggerResponse(201, "success : created")]
     [SwaggerResponse(400, "error : title is duplicated")]
-    [ProducesResponseType(typeof(ApiResult<CreateProductResponseDto>), 201)]
+    [ProducesResponseType(typeof(ApiResult), 201)]
     [ProducesResponseType(typeof(ApiResult), 404)]
     public async Task<IActionResult> CreateProduct([FromForm] CreateProductDto createRequest)
     {

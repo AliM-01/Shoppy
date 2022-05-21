@@ -13,7 +13,7 @@ public class AdminAccountController : BaseAdminApiController
     [SwaggerOperation(Summary = "فیلتر  کاربران", Tags = new[] { "AdminAccount" })]
     [SwaggerResponse(200, "success")]
     [SwaggerResponse(400, "error")]
-    [ProducesResponseType(typeof(ApiResult<FilterAccountDto>), 200)]
+    [ProducesResponseType(typeof(FilterAccountDto), 200)]
     [ProducesResponseType(typeof(ApiResult), 400)]
     public async Task<IActionResult> FilterAccounts([FromQuery] FilterAccountDto filter)
     {
@@ -30,7 +30,7 @@ public class AdminAccountController : BaseAdminApiController
     [SwaggerOperation(Summary = "دریافت جزییات  کاربر", Tags = new[] { "AdminAccount" })]
     [SwaggerResponse(200, "success")]
     [SwaggerResponse(404, "not-found")]
-    [ProducesResponseType(typeof(ApiResult<EditAccountDto>), 200)]
+    [ProducesResponseType(typeof(EditAccountDto), 200)]
     [ProducesResponseType(typeof(ApiResult), 404)]
     public async Task<IActionResult> GetAccountDetails([FromRoute] string id)
     {

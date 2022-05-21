@@ -1,14 +1,12 @@
-﻿using _0_Framework.Infrastructure;
-using _01_Shoppy.Query.Helpers.Comment;
+﻿using _01_Shoppy.Query.Helpers.Comment;
 using _01_Shoppy.Query.Models.Comment;
 using CM.Domain.Comment;
 
 namespace _01_Shoppy.Query.Queries.Comment;
 
-public record GetRecordCommentsByIdQuery
-    (string RecordId) : IRequest<ApiResult<List<CommentQueryModel>>>;
+public record GetRecordCommentsByIdQuery(string RecordId) : IRequest<IEnumerable<CommentQueryModel>>;
 
-public class GetRecordCommentsByIdQueryHandler : IRequestHandler<GetRecordCommentsByIdQuery, ApiResult<List<CommentQueryModel>>>
+public class GetRecordCommentsByIdQueryHandler : IRequestHandler<GetRecordCommentsByIdQuery, IEnumerable<CommentQueryModel>>
 {
     #region Ctor
 
@@ -24,14 +22,13 @@ public class GetRecordCommentsByIdQueryHandler : IRequestHandler<GetRecordCommen
 
     #endregion
 
-    public async Task<ApiResult<List<CommentQueryModel>>> Handle(GetRecordCommentsByIdQuery request, CancellationToken cancellationToken)
+    public Task<IEnumerable<CommentQueryModel>> Handle(GetRecordCommentsByIdQuery request, CancellationToken cancellationToken)
     {
-        var comments = (await
-            _commentRepository.AsQueryable(cancellationToken: cancellationToken)
+        var comments = _commentRepository
+            .AsQueryable(cancellationToken: cancellationToken)
             .Where(x => x.ParentId == null)
             .Where(x => x.OwnerRecordId == request.RecordId && x.State == CommentState.Confirmed)
-            .ToListAsyncSafe()
-            )
+            .ToList()
             .MapComments(_mapper);
 
         for (int i = 0; i < comments.Count; i++)
@@ -46,6 +43,6 @@ public class GetRecordCommentsByIdQueryHandler : IRequestHandler<GetRecordCommen
             comments[i].Replies = replies;
         }
 
-        return ApiResponse.Success<List<CommentQueryModel>>(comments);
+        return Task.FromResult((IEnumerable<CommentQueryModel>)comments);
     }
 }

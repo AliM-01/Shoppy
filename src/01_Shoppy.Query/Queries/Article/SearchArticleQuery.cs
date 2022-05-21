@@ -3,9 +3,9 @@ using _01_Shoppy.Query.Models.Blog.Article;
 
 namespace _01_Shoppy.Query.Queries.Article;
 
-public record SearchArticleQuery(SearchArticleQueryModel Search) : IRequest<ApiResult<SearchArticleQueryModel>>;
+public record SearchArticleQuery(SearchArticleQueryModel Search) : IRequest<SearchArticleQueryModel>;
 
-public class SearchArticleQueryHandler : IRequestHandler<SearchArticleQuery, ApiResult<SearchArticleQueryModel>>
+public class SearchArticleQueryHandler : IRequestHandler<SearchArticleQuery, SearchArticleQueryModel>
 {
     #region Ctor
 
@@ -24,7 +24,7 @@ public class SearchArticleQueryHandler : IRequestHandler<SearchArticleQuery, Api
 
     #endregion
 
-    public async Task<ApiResult<SearchArticleQueryModel>> Handle(SearchArticleQuery request, CancellationToken cancellationToken)
+    public async Task<SearchArticleQueryModel> Handle(SearchArticleQuery request, CancellationToken cancellationToken)
     {
         var query = _articleRepository.AsQueryable(cancellationToken: cancellationToken);
 
@@ -34,7 +34,7 @@ public class SearchArticleQueryHandler : IRequestHandler<SearchArticleQuery, Api
         {
             var selectedCategoriesId = new List<string>();
 
-            foreach (var categorySlug in request.Search.SelectedCategories)
+            foreach (string categorySlug in request.Search.SelectedCategories)
             {
                 if (await _articleCategoryRepository.ExistsAsync(x => x.Slug == categorySlug.Trim()))
                 {
@@ -82,7 +82,7 @@ public class SearchArticleQueryHandler : IRequestHandler<SearchArticleQuery, Api
         if (returnData.PageId > returnData.GetLastPage() && returnData.GetLastPage() != 0)
             throw new NotFoundApiException();
 
-        return ApiResponse.Success<SearchArticleQueryModel>(returnData);
+        return returnData;
 
     }
 

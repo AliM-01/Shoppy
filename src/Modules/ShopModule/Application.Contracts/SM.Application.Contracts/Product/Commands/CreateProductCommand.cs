@@ -2,5 +2,4 @@
 
 namespace SM.Application.Contracts.Product.Commands;
 
-public record CreateProductCommand
-    (CreateProductDto Product) : IRequest<ApiResult<CreateProductResponseDto>>;
+public record CreateProductCommand(CreateProductDto Product) : IRequest<CreateProductResponseDto>;

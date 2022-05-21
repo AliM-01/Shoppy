@@ -2,5 +2,4 @@
 
 namespace IM.Application.Contracts.Inventory.Queries;
 
-public record GetInventoryOperationLogQuery
-    (string Id) : IRequest<ApiResult<InventoryLogsDto>>;
+public record GetInventoryOperationLogQuery(string Id) : IRequest<InventoryLogsDto>;

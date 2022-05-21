@@ -2,5 +2,4 @@
 
 namespace BM.Application.Contracts.Article.Queries;
 
-public record GetArticleDetailsQuery
-    (string Id) : IRequest<ApiResult<EditArticleDto>>;
+public record GetArticleDetailsQuery(string Id) : IRequest<EditArticleDto>;

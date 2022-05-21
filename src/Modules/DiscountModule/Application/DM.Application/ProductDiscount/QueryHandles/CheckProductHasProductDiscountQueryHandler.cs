@@ -4,7 +4,7 @@ using DM.Application.Contracts.Sevices;
 
 namespace DM.Application.ProductDiscount.QueryHandles;
 
-public class CheckProductHasProductDiscountQueryHandler : IRequestHandler<CheckProductHasProductDiscountQuery, ApiResult<CheckProductHasProductDiscountResponseDto>>
+public class CheckProductHasProductDiscountQueryHandler : IRequestHandler<CheckProductHasProductDiscountQuery, CheckProductHasProductDiscountResponseDto>
 {
     #region Ctor
 
@@ -17,11 +17,10 @@ public class CheckProductHasProductDiscountQueryHandler : IRequestHandler<CheckP
 
     #endregion
 
-    public async Task<ApiResult<CheckProductHasProductDiscountResponseDto>> Handle(CheckProductHasProductDiscountQuery request, CancellationToken cancellationToken)
+    public async Task<CheckProductHasProductDiscountResponseDto> Handle(CheckProductHasProductDiscountQuery request, CancellationToken cancellationToken)
     {
         bool exists = await _productAcl.ExistsProductDiscount(request.ProductId);
 
-        return ApiResponse.Success<CheckProductHasProductDiscountResponseDto>
-            (new CheckProductHasProductDiscountResponseDto(exists));
+        return new CheckProductHasProductDiscountResponseDto(exists);
     }
 }

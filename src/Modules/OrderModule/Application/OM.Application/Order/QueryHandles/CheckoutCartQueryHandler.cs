@@ -9,7 +9,7 @@ using System.Text;
 
 namespace OM.Application.Order.QueryHandles;
 
-public class CheckoutCartQueryHandler : IRequestHandler<CheckoutCartQuery, ApiResult<CartDto>>
+public class CheckoutCartQueryHandler : IRequestHandler<CheckoutCartQuery, CartDto>
 {
     #region Ctor
 
@@ -37,7 +37,7 @@ public class CheckoutCartQueryHandler : IRequestHandler<CheckoutCartQuery, ApiRe
 
     #endregion
 
-    public async Task<ApiResult<CartDto>> Handle(CheckoutCartQuery request, CancellationToken cancellationToken)
+    public async Task<CartDto> Handle(CheckoutCartQuery request, CancellationToken cancellationToken)
     {
         var cart = new CartDto();
 
@@ -139,6 +139,6 @@ public class CheckoutCartQueryHandler : IRequestHandler<CheckoutCartQuery, ApiRe
 
         #endregion
 
-        return ApiResponse.Success<CartDto>(cart);
+        return cart;
     }
 }

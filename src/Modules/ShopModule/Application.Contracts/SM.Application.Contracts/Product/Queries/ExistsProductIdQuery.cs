@@ -2,5 +2,4 @@
 
 namespace SM.Application.Contracts.Product.Queries;
 
-public record ExistsProductIdQuery
-    (string ProductId) : IRequest<ApiResult<ExistsProductIdResponseDto>>;
+public record ExistsProductIdQuery(string ProductId) : IRequest<ExistsProductIdResponseDto>;

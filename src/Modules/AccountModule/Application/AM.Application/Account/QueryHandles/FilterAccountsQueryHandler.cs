@@ -7,7 +7,7 @@ using MongoDB.Driver.Linq;
 
 namespace AM.Application.Account.QueryHandles;
 
-public class FilterAccountsQueryHandler : IRequestHandler<FilterAccountsQuery, ApiResult<FilterAccountDto>>
+public class FilterAccountsQueryHandler : IRequestHandler<FilterAccountsQuery, FilterAccountDto>
 {
     #region Ctor
 
@@ -23,7 +23,7 @@ public class FilterAccountsQueryHandler : IRequestHandler<FilterAccountsQuery, A
 
     #endregion Ctor
 
-    public async Task<ApiResult<FilterAccountDto>> Handle(FilterAccountsQuery request, CancellationToken cancellationToken)
+    public async Task<FilterAccountDto> Handle(FilterAccountsQuery request, CancellationToken cancellationToken)
     {
         var query = _userManager.Users.AsQueryable();
 
@@ -94,6 +94,6 @@ public class FilterAccountsQueryHandler : IRequestHandler<FilterAccountsQuery, A
         if (returnData.PageId > returnData.GetLastPage() && returnData.GetLastPage() != 0)
             throw new NoContentApiException();
 
-        return ApiResponse.Success<FilterAccountDto>(returnData);
+        return returnData;
     }
 }

@@ -2,4 +2,4 @@
 
 namespace SM.Application.Contracts.Product.Queries;
 
-public record GetProductDetailsQuery(string Id) : IRequest<ApiResult<EditProductDto>>;
+public record GetProductDetailsQuery(string Id) : IRequest<EditProductDto>;

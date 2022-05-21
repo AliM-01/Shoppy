@@ -2,7 +2,7 @@
 using BM.Application.Contracts.ArticleCategory.Queries;
 
 namespace BM.Application.ArticleCategory.QueryHandles;
-public class GetArticleCategoryDetailsQueryHandler : IRequestHandler<GetArticleCategoryDetailsQuery, ApiResult<EditArticleCategoryDto>>
+public class GetArticleCategoryDetailsQueryHandler : IRequestHandler<GetArticleCategoryDetailsQuery, EditArticleCategoryDto>
 {
     #region Ctor
 
@@ -17,15 +17,13 @@ public class GetArticleCategoryDetailsQueryHandler : IRequestHandler<GetArticleC
 
     #endregion
 
-    public async Task<ApiResult<EditArticleCategoryDto>> Handle(GetArticleCategoryDetailsQuery request, CancellationToken cancellationToken)
+    public async Task<EditArticleCategoryDto> Handle(GetArticleCategoryDetailsQuery request, CancellationToken cancellationToken)
     {
         var articleCategory = await _articleCategoryRepository.FindByIdAsync(request.Id, cancellationToken);
 
         if (articleCategory is null)
             throw new NotFoundApiException();
 
-        var mappedArticleCategory = _mapper.Map<EditArticleCategoryDto>(articleCategory);
-
-        return ApiResponse.Success<EditArticleCategoryDto>(mappedArticleCategory);
+        return _mapper.Map<EditArticleCategoryDto>(articleCategory);
     }
 }

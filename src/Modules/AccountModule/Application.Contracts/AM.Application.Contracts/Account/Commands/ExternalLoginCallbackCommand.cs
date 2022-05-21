@@ -2,4 +2,4 @@
 
 namespace AM.Application.Contracts.Account.Commands;
 
-public record ExternalLoginCallbackCommand() : IRequest<ApiResult<ExternalLoginCallbackResponseDto>>;
+public record ExternalLoginCallbackCommand() : IRequest<ExternalLoginCallbackResponseDto>;

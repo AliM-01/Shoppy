@@ -2,5 +2,4 @@
 
 namespace AM.Application.Contracts.Account.Queries;
 
-public record GetCurrentUserQuery
-    (string UserId) : IRequest<ApiResult<AccountDto>>;
+public record GetCurrentUserQuery(string UserId) : IRequest<AccountDto>;

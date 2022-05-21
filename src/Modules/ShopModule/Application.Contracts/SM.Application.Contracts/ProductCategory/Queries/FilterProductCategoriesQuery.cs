@@ -2,5 +2,4 @@
 
 namespace SM.Application.Contracts.ProductCategory.Queries;
 
-public record FilterProductCategoriesQuery
-    (FilterProductCategoryDto Filter) : IRequest<ApiResult<FilterProductCategoryDto>>;
+public record FilterProductCategoriesQuery(FilterProductCategoryDto Filter) : IRequest<FilterProductCategoryDto>;

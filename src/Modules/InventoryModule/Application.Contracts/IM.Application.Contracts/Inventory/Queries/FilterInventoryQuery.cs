@@ -2,5 +2,4 @@
 
 namespace IM.Application.Contracts.Inventory.Queries;
 
-public record FilterInventoryQuery
-    (FilterInventoryDto Filter) : IRequest<ApiResult<FilterInventoryDto>>;
+public record FilterInventoryQuery(FilterInventoryDto Filter) : IRequest<FilterInventoryDto>;

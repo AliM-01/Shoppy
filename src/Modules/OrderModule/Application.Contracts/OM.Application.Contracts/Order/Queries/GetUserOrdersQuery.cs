@@ -2,4 +2,4 @@
 
 namespace OM.Application.Contracts.Order.Queries;
 
-public record GetUserOrdersQuery(string UserId, FilterUserOrdersDto Filter) : IRequest<ApiResult<FilterUserOrdersDto>>;
+public record GetUserOrdersQuery(string UserId, FilterUserOrdersDto Filter) : IRequest<FilterUserOrdersDto>;

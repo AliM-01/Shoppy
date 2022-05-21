@@ -3,9 +3,9 @@ using DM.Domain.ProductDiscount;
 
 namespace _01_Shoppy.Query.Queries.Product;
 
-public record GetHotestDiscountProductsQuery() : IRequest<ApiResult<List<ProductQueryModel>>>;
+public record GetHotestDiscountProductsQuery() : IRequest<IEnumerable<ProductQueryModel>>;
 
-public class GetHotestDiscountProductsQueryHandler : IRequestHandler<GetHotestDiscountProductsQuery, ApiResult<List<ProductQueryModel>>>
+public class GetHotestDiscountProductsQueryHandler : IRequestHandler<GetHotestDiscountProductsQuery, IEnumerable<ProductQueryModel>>
 {
     #region Ctor
 
@@ -26,9 +26,9 @@ public class GetHotestDiscountProductsQueryHandler : IRequestHandler<GetHotestDi
 
     #endregion
 
-    public Task<ApiResult<List<ProductQueryModel>>> Handle(GetHotestDiscountProductsQuery request, CancellationToken cancellationToken)
+    public Task<IEnumerable<ProductQueryModel>> Handle(GetHotestDiscountProductsQuery request, CancellationToken cancellationToken)
     {
-        List<string> hotDiscountRateIds = _productDiscount
+        var hotDiscountRateIds = _productDiscount
             .AsQueryable()
             .Where(x => x.StartDate < DateTime.Now && x.EndDate > DateTime.Now)
             .Where(x => x.Rate >= 25)
@@ -42,9 +42,8 @@ public class GetHotestDiscountProductsQueryHandler : IRequestHandler<GetHotestDi
                                          .OrderByDescending(x => x.LastUpdateDate)
                                          .Take(6)
                                          .ToList()
-                                         .Select(x => _productHelper.MapProducts<ProductQueryModel>(x, true).Result)
-                                         .ToList(); ;
+                                         .Select(x => _productHelper.MapProducts<ProductQueryModel>(x, true).Result);
 
-        return Task.FromResult(ApiResponse.Success<List<ProductQueryModel>>(products));
+        return Task.FromResult(products);
     }
 }

@@ -2,5 +2,4 @@
 
 namespace BM.Application.Contracts.ArticleCategory.Queries;
 
-public record GetArticleCategoryDetailsQuery
-    (string Id) : IRequest<ApiResult<EditArticleCategoryDto>>;
+public record GetArticleCategoryDetailsQuery(string Id) : IRequest<EditArticleCategoryDto>;

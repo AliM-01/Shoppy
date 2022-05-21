@@ -8,7 +8,7 @@ using MongoDB.Driver.Linq;
 using System.Linq;
 
 namespace IM.Application.Inventory.QueryHandles;
-public class FilterInventoryQueryHandler : IRequestHandler<FilterInventoryQuery, ApiResult<FilterInventoryDto>>
+public class FilterInventoryQueryHandler : IRequestHandler<FilterInventoryQuery, FilterInventoryDto>
 {
     #region Ctor
 
@@ -28,7 +28,7 @@ public class FilterInventoryQueryHandler : IRequestHandler<FilterInventoryQuery,
 
     #endregion
 
-    public async Task<ApiResult<FilterInventoryDto>> Handle(FilterInventoryQuery request, CancellationToken cancellationToken)
+    public async Task<FilterInventoryDto> Handle(FilterInventoryQuery request, CancellationToken cancellationToken)
     {
         var query = _inventoryRepository.AsQueryable();
 
@@ -111,6 +111,6 @@ public class FilterInventoryQueryHandler : IRequestHandler<FilterInventoryQuery,
         if (returnData.PageId > returnData.GetLastPage() && returnData.GetLastPage() != 0)
             throw new NoContentApiException();
 
-        return ApiResponse.Success<FilterInventoryDto>(returnData);
+        return returnData;
     }
 }

@@ -13,7 +13,7 @@ public class AdminOrderController : BaseAdminApiController
     [SwaggerOperation(Summary = "فیلتر سفارشات", Tags = new[] { "AdminOrder" })]
     [SwaggerResponse(200, "success")]
     [SwaggerResponse(404, "not-found")]
-    [ProducesResponseType(typeof(ApiResult<FilterOrderDto>), 200)]
+    [ProducesResponseType(typeof(FilterOrderDto), 200)]
     [ProducesResponseType(typeof(ApiResult), 404)]
     public async Task<IActionResult> FilterInventories([FromQuery] FilterOrderDto filter)
     {
@@ -31,7 +31,7 @@ public class AdminOrderController : BaseAdminApiController
     [SwaggerResponse(200, "success")]
     [SwaggerResponse(204, "no-content")]
     [SwaggerResponse(404, "not-found")]
-    [ProducesResponseType(typeof(ApiResult<List<OrderItemDto>>), 200)]
+    [ProducesResponseType(typeof(FilterUserOrdersDto), 200)]
     [ProducesResponseType(typeof(ApiResult), 204)]
     [ProducesResponseType(typeof(ApiResult), 404)]
     public async Task<IActionResult> GetUserOrders([FromRoute] string userId, [FromQuery] FilterUserOrdersDto filter)
@@ -49,7 +49,7 @@ public class AdminOrderController : BaseAdminApiController
     [SwaggerOperation(Summary = "دریافت آیتم های سفارش", Tags = new[] { "AdminOrder" })]
     [SwaggerResponse(200, "success")]
     [SwaggerResponse(404, "not-found")]
-    [ProducesResponseType(typeof(ApiResult<List<OrderItemDto>>), 200)]
+    [ProducesResponseType(typeof(IEnumerable<OrderItemDto>), 200)]
     [ProducesResponseType(typeof(ApiResult), 404)]
     public async Task<IActionResult> GetItems([FromRoute] string orderId)
     {

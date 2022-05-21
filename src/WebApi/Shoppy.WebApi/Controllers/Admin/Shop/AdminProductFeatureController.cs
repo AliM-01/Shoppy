@@ -13,7 +13,7 @@ public class AdminProductFeatureController : BaseAdminApiController
     [SwaggerOperation(Summary = "فیلتر ویژگی محصولات", Tags = new[] { "AdminProductFeature" })]
     [SwaggerResponse(200, "success")]
     [SwaggerResponse(404, "not-found")]
-    [ProducesResponseType(typeof(ApiResult<FilterProductFeatureDto>), 200)]
+    [ProducesResponseType(typeof(FilterProductFeatureDto), 200)]
     [ProducesResponseType(typeof(ApiResult), 404)]
     public async Task<IActionResult> FilterProductFeatures([FromQuery] FilterProductFeatureDto filter)
     {
@@ -30,7 +30,7 @@ public class AdminProductFeatureController : BaseAdminApiController
     [SwaggerOperation(Summary = "دریافت جزییات ویژگی محصول", Tags = new[] { "AdminProductFeature" })]
     [SwaggerResponse(200, "success")]
     [SwaggerResponse(404, "not-found")]
-    [ProducesResponseType(typeof(ApiResult<EditProductFeatureDto>), 200)]
+    [ProducesResponseType(typeof(EditProductFeatureDto), 200)]
     [ProducesResponseType(typeof(ApiResult), 404)]
     public async Task<IActionResult> GetProductFeatureDetails([FromRoute] string id)
     {

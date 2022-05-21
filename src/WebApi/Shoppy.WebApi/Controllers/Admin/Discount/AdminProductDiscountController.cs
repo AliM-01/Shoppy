@@ -13,7 +13,7 @@ public class AdminProductDiscountController : BaseAdminApiController
     [SwaggerOperation(Summary = "فیلتر تخفیفات محصول", Tags = new[] { "AdminProductDiscount" })]
     [SwaggerResponse(200, "success")]
     [SwaggerResponse(404, "not-found")]
-    [ProducesResponseType(typeof(ApiResult<FilterProductDiscountDto>), 200)]
+    [ProducesResponseType(typeof(FilterProductDiscountDto), 200)]
     [ProducesResponseType(typeof(ApiResult), 404)]
     public async Task<IActionResult> FilterProductDiscounts([FromQuery] FilterProductDiscountDto filter)
     {
@@ -30,7 +30,7 @@ public class AdminProductDiscountController : BaseAdminApiController
     [SwaggerOperation(Summary = "دریافت تخفیف محصول", Tags = new[] { "AdminProductDiscount" })]
     [SwaggerResponse(200, "success")]
     [SwaggerResponse(404, "not-found")]
-    [ProducesResponseType(typeof(ApiResult<EditProductDiscountDto>), 200)]
+    [ProducesResponseType(typeof(EditProductDiscountDto), 200)]
     [ProducesResponseType(typeof(ApiResult), 404)]
     public async Task<IActionResult> GetProductDiscountDetails([FromRoute] string id)
     {
@@ -100,7 +100,7 @@ public class AdminProductDiscountController : BaseAdminApiController
     [SwaggerOperation(Summary = "چک کردن وجود تخفیف محصول برای محصول", Tags = new[] { "AdminProductDiscount" })]
     [SwaggerResponse(200, "success")]
     [SwaggerResponse(404, "not-found")]
-    [ProducesResponseType(typeof(ApiResult<CheckProductHasProductDiscountResponseDto>), 200)]
+    [ProducesResponseType(typeof(CheckProductHasProductDiscountResponseDto), 200)]
     [ProducesResponseType(typeof(ApiResult), 404)]
     public async Task<IActionResult> CheckProductHasProductDiscount([FromRoute] string productId)
     {
