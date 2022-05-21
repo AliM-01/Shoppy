@@ -22,7 +22,7 @@ public class BaseRepository<TDocument, TSettings> : IRepository<TDocument>
     {
         _settings = settings.Value;
 
-        _collection = DbConnection.Conncet<TDocument>(_settings);
+        _collection = MongoDbConnection.Conncet<TDocument>(_settings);
     }
 
     #endregion

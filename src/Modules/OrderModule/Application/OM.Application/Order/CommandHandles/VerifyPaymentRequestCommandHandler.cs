@@ -32,7 +32,7 @@ public class VerifyPaymentRequestCommandHandler : IRequestHandler<VerifyPaymentR
 
     public async Task<VerifyPaymentResponseDto> Handle(VerifyPaymentRequestCommand request, CancellationToken cancellationToken)
     {
-        var client = DbConnection.Client(_orderDbSettings.ConnectionString);
+        var client = MongoDbConnection.Client(_orderDbSettings.ConnectionString);
 
         using var session = await client.StartSessionAsync();
 

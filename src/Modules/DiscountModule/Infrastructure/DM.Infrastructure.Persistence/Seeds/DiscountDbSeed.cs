@@ -12,7 +12,7 @@ public static class DiscountDbSeed
 {
     public static void SeedDiscountCodes(DiscountDbSettings dbSettings)
     {
-        var collection = DbConnection.Conncet<DiscountCode>(dbSettings);
+        var collection = MongoDbConnection.Conncet<DiscountCode>(dbSettings);
 
         bool existsDiscount = collection.Find(_ => true).Any();
 
@@ -69,7 +69,7 @@ public static class DiscountDbSeed
 
     public static void SeedProductDiscounts(DiscountDbSettings dbSettings)
     {
-        var collection = DbConnection.Conncet<ProductDiscount>(dbSettings);
+        var collection = MongoDbConnection.Conncet<ProductDiscount>(dbSettings);
 
         bool existsDiscount = collection.Find(_ => true).Any();
 

@@ -4,7 +4,7 @@ using System.Linq;
 
 namespace _0_Framework.Infrastructure;
 
-public static class DbConnection
+public static class MongoDbConnection
 {
     #region Conncet
 

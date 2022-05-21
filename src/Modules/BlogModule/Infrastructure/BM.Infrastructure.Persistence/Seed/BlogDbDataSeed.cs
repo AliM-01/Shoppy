@@ -11,7 +11,7 @@ public static class BlogDbDataSeed
 {
     public static ArticleCategory[] SeedArticleCategoryData(BlogDbSettings dbSettings)
     {
-        var collection = DbConnection.Conncet<ArticleCategory>(dbSettings);
+        var collection = MongoDbConnection.Conncet<ArticleCategory>(dbSettings);
 
         bool existsAny = collection.Find(_ => true).Any();
 
@@ -74,7 +74,7 @@ public static class BlogDbDataSeed
         if (categories is null)
             return;
 
-        var collection = DbConnection.Conncet<Article>(dbSettings);
+        var collection = MongoDbConnection.Conncet<Article>(dbSettings);
 
         bool existsAny = collection.Find(_ => true).Any();
 

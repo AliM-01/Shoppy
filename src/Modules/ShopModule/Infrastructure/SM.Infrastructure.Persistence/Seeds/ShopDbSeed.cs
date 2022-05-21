@@ -16,7 +16,7 @@ public static class ShopDbSeed
 {
     public static ProductCategory[] SeedProductCategories(ShopDbSettings dbSettings)
     {
-        var collection = DbConnection.Conncet<ProductCategory>(dbSettings);
+        var collection = MongoDbConnection.Conncet<ProductCategory>(dbSettings);
 
         bool existsCategories = collection.Find(_ => true).Any();
 
@@ -57,7 +57,7 @@ public static class ShopDbSeed
 
     public static void SeedProducts(ShopDbSettings dbSettings, ProductCategory[] categories)
     {
-        var collection = DbConnection.Conncet<Product>(dbSettings);
+        var collection = MongoDbConnection.Conncet<Product>(dbSettings);
 
         bool existsProducts = collection.Find(_ => true).Any();
 
@@ -252,7 +252,7 @@ public static class ShopDbSeed
 
     public static void SeedProductPictures(ShopDbSettings dbSettings)
     {
-        var collection = DbConnection.Conncet<ProductPicture>(dbSettings);
+        var collection = MongoDbConnection.Conncet<ProductPicture>(dbSettings);
 
         bool existsProductPictures = collection.Find(_ => true).Any();
 
@@ -472,7 +472,7 @@ public static class ShopDbSeed
 
     public static void SeedProductFeatures(ShopDbSettings dbSettings)
     {
-        var collection = DbConnection.Conncet<ProductFeature>(dbSettings);
+        var collection = MongoDbConnection.Conncet<ProductFeature>(dbSettings);
 
         bool existsProductFeatures = collection.Find(_ => true).Any();
 
@@ -559,7 +559,7 @@ public static class ShopDbSeed
 
     public static void SeedSliders(ShopDbSettings dbSettings)
     {
-        var collection = DbConnection.Conncet<Slider>(dbSettings);
+        var collection = MongoDbConnection.Conncet<Slider>(dbSettings);
 
         bool existsSliders = collection.Find(_ => true).Any();
 
