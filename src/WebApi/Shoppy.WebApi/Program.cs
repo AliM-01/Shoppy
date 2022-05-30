@@ -6,31 +6,17 @@ using Serilog;
 
 var builder = WebApplication.CreateBuilder(args);
 
-var configuration = builder.Configuration;
-var environment = builder.Environment;
+builder.Host.UseSerilog((context, lc) =>
+            lc.ReadFrom.Configuration(context.Configuration));
 
-#region logger
-
-builder.Host.UseSerilog();
-Log.Logger = new LoggerConfiguration()
-    .WriteTo.Console()
-    .CreateLogger();
-
-#endregion
-
-await builder.Services.RegisterServicesAsync(typeof(Program), configuration);
-
-#region swagger
-
+await builder.Services.RegisterServicesAsync(typeof(Program), builder.Configuration);
 builder.Services.AddSwaggerExtension("Shoppy.WebApi");
-
-#endregion
 
 var app = builder.Build();
 
 #region Configure
 
-if (environment.IsDevelopment())
+if (builder.Environment.IsDevelopment())
     app.UseDeveloperExceptionPage();
 else
     app.UseHsts();
@@ -53,6 +39,7 @@ app.UseSerilogRequestLogging();
 
 #endregion
 
+Log.Fatal("Fatal !!!.");
 try
 {
     await app.RunAsync();
