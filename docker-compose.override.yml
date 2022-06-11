@@ -13,7 +13,13 @@ services:
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
       - ASPNETCORE_URLS=https://+:443;http://+:80
-      - "ProductDbSettings:Host=shoppy_db"
+      - "AccountDbSettings:Host=shoppy_db"
+      - "CommentDbSettings:Host=shoppy_db"
+      - "BlogDbSettings:Host=shoppy_db"
+      - "DiscountDbSettings:Host=shoppy_db"
+      - "InventoryDbSettings:Host=shoppy_db"
+      - "OrderDbSettings:Host=shoppy_db"
+      - "ShopDbSettings:Host=shoppy_db"
     ports:
       - "6000:80"
       - "7000:443"
