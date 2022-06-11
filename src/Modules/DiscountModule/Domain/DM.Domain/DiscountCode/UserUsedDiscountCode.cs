@@ -1,8 +1,4 @@
-﻿using _0_Framework.Domain;
-using _0_Framework.Domain.Attributes;
-using MongoDB.Bson.Serialization.Attributes;
-
-namespace AM.Domain.Account;
+﻿namespace DM.Domain.DiscountCode;
 
 [BsonCollection("userUsedDiscountCodes")]
 public class UserUsedDiscountCode : EntityBase

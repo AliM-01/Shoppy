@@ -33,10 +33,6 @@ public class Account : MongoIdentityUser<Guid>
     [BsonElement("authenticationTokens")]
     public List<UserToken> AuthenticationTokens { get; set; }
 
-    //TODO : Remove this dependency
-    [BsonElement("userUsedDiscountCodes")]
-    public HashSet<UserUsedDiscountCode> UserUsedDiscountCodes { get; set; }
-
     #endregion Properties
 
 }
