@@ -198,6 +198,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CM.Infrastructure.ProductAc
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CM.Infrastructure.ArticleAcl", "src\Modules\CommentModule\Infrastructure\Acl\CM.Infrastructure.ArticleAcl\CM.Infrastructure.ArticleAcl.csproj", "{696691B5-282A-49F2-9758-FC74AD6656ED}"
 EndProject
+Project("{E53339B2-1760-4266-BCC7-CA923CBCF16C}") = "docker-compose", "docker-compose.dcproj", "{22B8DB2F-2FFB-4849-B908-D6E61A25E24B}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -412,6 +414,10 @@ Global
 		{696691B5-282A-49F2-9758-FC74AD6656ED}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{696691B5-282A-49F2-9758-FC74AD6656ED}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{696691B5-282A-49F2-9758-FC74AD6656ED}.Release|Any CPU.Build.0 = Release|Any CPU
+		{22B8DB2F-2FFB-4849-B908-D6E61A25E24B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{22B8DB2F-2FFB-4849-B908-D6E61A25E24B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{22B8DB2F-2FFB-4849-B908-D6E61A25E24B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{22B8DB2F-2FFB-4849-B908-D6E61A25E24B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
