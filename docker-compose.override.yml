@@ -1,13 +1,24 @@
 version: '3.4'
 
 services:
-  shoppy.webapi:
+  
+  shoppy_db:
+    container_name: shoppy_db
+    restart: always
+    ports:
+      - "27017:27017"
+  
+  shoppy_api:
+    container_name: shoppy_api
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
       - ASPNETCORE_URLS=https://+:443;http://+:80
+      - "ProductDbSettings:Host=shoppy_db"
     ports:
       - "6000:80"
       - "7000:443"
     volumes:
       - ${APPDATA}/Microsoft/UserSecrets:/root/.microsoft/usersecrets:ro
       - ${APPDATA}/ASP.NET/Https:/root/.aspnet/https:ro
+    depends_on:
+      - shoppy_db

@@ -1,8 +1,13 @@
 version: '3.4'
 
 services:
-  shoppy.webapi:
+  shoppy_api:
+    container_name: shoppy_api
     image: ${DOCKER_REGISTRY-}shoppywebapi
     build:
       context: .
       dockerfile: src/WebApi/Shoppy.WebApi/Dockerfile
+  
+  shoppy_db:
+    container_name: shoppy_db
+    image: mongo
