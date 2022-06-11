@@ -2,7 +2,7 @@
 using OM.Application.Contracts.Order.DTOs;
 using OM.Application.Contracts.Order.Queries;
 
-namespace Shoppy.WebApi.Controllers.Admin.Discount;
+namespace Shoppy.WebApi.Controllers.Admin.Order;
 
 [SwaggerTag("مدیریت سفارشات")]
 public class AdminOrderController : BaseAdminApiController

@@ -2,7 +2,7 @@
 using IM.Application.Contracts.Inventory.DTOs;
 using IM.Application.Contracts.Inventory.Queries;
 
-namespace Shoppy.WebApi.Controllers.Admin.Discount;
+namespace Shoppy.WebApi.Controllers.Admin.Inventory;
 
 [SwaggerTag("مدیریت انبار")]
 public class AdminInventoryController : BaseAdminApiController
