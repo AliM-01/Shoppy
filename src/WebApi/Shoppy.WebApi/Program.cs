@@ -39,7 +39,6 @@ app.UseSerilogRequestLogging();
 
 #endregion
 
-Log.Fatal("Fatal !!!.");
 try
 {
     await app.RunAsync();
