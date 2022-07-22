@@ -14,11 +14,11 @@ public class AdminBlogEndpoints
 
         public const string GetArticleCategoryDetails = BaseArticleCategory + "/{id}";
 
-        public const string CreateArticleCategory = BaseArticleCategory + "/create";
+        public const string CreateArticleCategory = BaseArticleCategory;
 
-        public const string EditArticleCategory = BaseArticleCategory + "/edit";
+        public const string EditArticleCategory = BaseArticleCategory;
 
-        public const string DeleteArticleCategory = BaseArticleCategory + "/delete/{id}";
+        public const string DeleteArticleCategory = BaseArticleCategory + "/{id}";
     }
 
     public static class Article
@@ -29,10 +29,10 @@ public class AdminBlogEndpoints
 
         public const string GetArticleDetails = BaseArticle + "/{id}";
 
-        public const string CreateArticle = BaseArticle + "/create";
+        public const string CreateArticle = BaseArticle;
 
-        public const string EditArticle = BaseArticle + "/edit";
+        public const string EditArticle = BaseArticle;
 
-        public const string DeleteArticle = BaseArticle + "/delete/{id}";
+        public const string DeleteArticle = BaseArticle + "/{id}";
     }
 }

@@ -12,11 +12,11 @@ public static class AdminDiscountEndpoints
 
         public const string GetProductDiscountDetails = BaseProductDiscount + "/{id}";
 
-        public const string DefineProductDiscount = BaseProductDiscount + "/define";
+        public const string DefineProductDiscount = BaseProductDiscount;
 
-        public const string EditProductDiscount = BaseProductDiscount + "/edit";
+        public const string EditProductDiscount = BaseProductDiscount;
 
-        public const string RemoveProductDiscount = BaseProductDiscount + "/remove/{id}";
+        public const string RemoveProductDiscount = BaseProductDiscount + "/{id}";
 
         public const string CheckProductHasProductDiscount = BaseProductDiscount + "/has-discount/{productId}";
 
@@ -30,10 +30,10 @@ public static class AdminDiscountEndpoints
 
         public const string GetDiscountCodeDetails = BaseDiscountCode + "/{id}";
 
-        public const string DefineDiscountCode = BaseDiscountCode + "/define";
+        public const string DefineDiscountCode = BaseDiscountCode;
 
-        public const string EditDiscountCode = BaseDiscountCode + "/edit";
+        public const string EditDiscountCode = BaseDiscountCode;
 
-        public const string RemoveDiscountCode = BaseDiscountCode + "/remove/{id}";
+        public const string RemoveDiscountCode = BaseDiscountCode + "/{id}";
     }
 }

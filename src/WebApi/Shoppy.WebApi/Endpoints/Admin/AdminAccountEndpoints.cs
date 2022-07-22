@@ -10,7 +10,7 @@ public class AdminAccountEndpoints
 
         public const string GetAccountDetails = Base + "/{id}";
 
-        public const string EditAccount = Base + "/edit";
+        public const string EditAccount = Base;
 
         public const string ActivateAccount = Base + "/activate/{id}";
 
