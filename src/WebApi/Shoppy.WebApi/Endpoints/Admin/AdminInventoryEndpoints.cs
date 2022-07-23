@@ -10,7 +10,7 @@ public static class AdminInventoryEndpoints
 
         public const string GetInventoryDetails = Base + "/{id}";
 
-        public const string EditInventory = Base + "/edit";
+        public const string EditInventory = Base;
 
         public const string IncreaseInventory = Base + "/increase";
 

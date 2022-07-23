@@ -14,11 +14,11 @@ public static class AdminShopEndpoints
 
         public const string GetProductCategoryDetails = BaseProductCategory + "/{id}";
 
-        public const string CreateProductCategory = BaseProductCategory + "/create";
+        public const string CreateProductCategory = BaseProductCategory;
 
-        public const string EditProductCategory = BaseProductCategory + "/edit";
+        public const string EditProductCategory = BaseProductCategory;
 
-        public const string DeleteProductCategory = BaseProductCategory + "/delete/{id}";
+        public const string DeleteProductCategory = BaseProductCategory + "/{id}";
     }
 
     public static class Product
@@ -31,11 +31,11 @@ public static class AdminShopEndpoints
 
         public const string ExistsProductId = BaseProduct + "/exists/{id}";
 
-        public const string CreateProduct = BaseProduct + "/create";
+        public const string CreateProduct = BaseProduct;
 
-        public const string EditProduct = BaseProduct + "/edit";
+        public const string EditProduct = BaseProduct;
 
-        public const string DeleteProduct = BaseProduct + "/delete/{id}";
+        public const string DeleteProduct = BaseProduct + "/{id}";
     }
 
     public static class ProductPicture
