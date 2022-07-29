@@ -4,6 +4,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Runtime.Serialization;
 
 namespace _0_Framework.Application.Models.Paging;
+
 public class BasePaging
 {
     public BasePaging()
@@ -12,8 +13,8 @@ public class BasePaging
         TakePage = 10;
         ShownPages = 0;
     }
-    [JsonProperty("pageId")]
-    public int PageId { get; set; }
+
+    [JsonProperty("pageId")] public int PageId { get; set; }
 
     [JsonProperty("pageCount")]
     [BindNever]
@@ -23,17 +24,13 @@ public class BasePaging
     [BindNever]
     public int DataCount { get; set; }
 
-    [JsonProperty("startPage")]
-    public int StartPage { get; set; }
+    [JsonProperty("startPage")] public int StartPage { get; set; }
 
-    [JsonProperty("endPage")]
-    public int EndPage { get; set; }
+    [JsonProperty("endPage")] public int EndPage { get; set; }
 
-    [JsonProperty("takePage")]
-    public int TakePage { get; set; }
+    [JsonProperty("takePage")] public int TakePage { get; set; }
 
-    [JsonProperty("skipPage")]
-    public int SkipPage { get; set; }
+    [JsonProperty("skipPage")] public int SkipPage { get; set; }
 
     [JsonProperty("shownPages")]
     [BindNever]
@@ -58,10 +55,11 @@ public class BasePaging
 
         if (EndPage > 0)
         {
-            startItem = (PageId - 1) * TakePage + 1;
+            startItem = ((PageId - 1) * TakePage) + 1;
 
             endItem = PageId * TakePage > DataCount ? DataCount : PageId * TakePage;
         }
+
         return $"نمایش {startItem}-{endItem} از {DataCount}";
     }
 
@@ -73,22 +71,21 @@ public class BasePaging
 
 public enum PagingDataSortIdOrder
 {
-    [Display(Name = "انتخاب نشده")]
-    [EnumMember(Value = "انتخاب نشده")]
+    [Display(Name = "انتخاب نشده")] [EnumMember(Value = "انتخاب نشده")]
     NotSelected,
-    [Display(Name = "جدید به قدیم")]
-    [EnumMember(Value = "جدید به قدیم")]
+
+    [Display(Name = "جدید به قدیم")] [EnumMember(Value = "جدید به قدیم")]
     DES,
-    [Display(Name = "قدیم به جدید")]
-    [EnumMember(Value = "قدیم به جدید")]
+
+    [Display(Name = "قدیم به جدید")] [EnumMember(Value = "قدیم به جدید")]
     ASC
 }
+
 public enum PagingDataSortCreationDateOrder
 {
-    [Display(Name = "جدید به قدیم")]
-    [EnumMember(Value = "جدید به قدیم")]
+    [Display(Name = "جدید به قدیم")] [EnumMember(Value = "جدید به قدیم")]
     DES,
-    [Display(Name = "قدیم به جدید")]
-    [EnumMember(Value = "قدیم به جدید")]
+
+    [Display(Name = "قدیم به جدید")] [EnumMember(Value = "قدیم به جدید")]
     ASC
 }

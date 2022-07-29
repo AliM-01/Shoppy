@@ -11,7 +11,8 @@ public static class Generator
 
     private readonly static char[] Numbers = "0123456789".ToCharArray();
 
-    private readonly static char[] Chars = "$%#@!*?;:abcdefghijklmnopqrstuvxxyzABCDEFGHIJKLMNOPQRSTUVWXYZ^&".ToCharArray();
+    private readonly static char[] Chars =
+        "$%#@!*?;:abcdefghijklmnopqrstuvxxyzABCDEFGHIJKLMNOPQRSTUVWXYZ^&".ToCharArray();
 
     #endregion
 
@@ -37,17 +38,13 @@ public static class Generator
 
         Random random = new();
 
-        for (int i = 0; i < 4; i++)
-        {
+        for (int i = 0; i < 4; i++) 
             sb.Append(Numbers[random.Next(0, Numbers.Length)]);
-        }
 
         sb.Append('-');
 
-        for (int i = 0; i < 4; i++)
-        {
+        for (int i = 0; i < 4; i++) 
             sb.Append(Numbers[random.Next(0, Numbers.Length)]);
-        }
 
         return sb.ToString().ToUpper();
     }
@@ -78,7 +75,7 @@ public static class Generator
     public static string Password()
     {
         var random = new Random();
-        var password = Guid.NewGuid().ToString().Substring(4, 9);
+        string password = Guid.NewGuid().ToString().Substring(4, 9);
 
         var regex = new Regex("^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{6,}$");
 

@@ -7,7 +7,8 @@ public static class ImageHelper
 {
     #region AddImageToServer
 
-    public static bool AddImageToServer(this IFormFile image, string fileName, string orginalPath, int? width, int? height, string thumbPath = null, string deletefileName = null)
+    public static bool AddImageToServer(this IFormFile image, string fileName, string orginalPath, int? width,
+        int? height, string thumbPath = null, string deletefileName = null)
     {
         if (image != null && image.IsImage())
         {
@@ -20,18 +21,15 @@ public static class ImageHelper
                     File.Delete(orginalPath + deletefileName);
 
                 if (!string.IsNullOrEmpty(thumbPath))
-                {
                     if (File.Exists(thumbPath + deletefileName))
                         File.Delete(thumbPath + deletefileName);
-                }
             }
 
             string OriginPath = orginalPath + fileName;
 
             using (var stream = new FileStream(OriginPath, FileMode.Create))
-            {
-                if (!Directory.Exists(OriginPath)) image.CopyTo(stream);
-            }
+                if (!Directory.Exists(OriginPath))
+                    image.CopyTo(stream);
 
             if (!string.IsNullOrEmpty(thumbPath))
             {
@@ -54,7 +52,8 @@ public static class ImageHelper
 
     #region CropAndAddImageToServer
 
-    public static void CropAndAddImageToServer(this IFormFile image, string fileName, string orginalPath, int width, int height)
+    public static void CropAndAddImageToServer(this IFormFile image, string fileName, string orginalPath, int width,
+        int height)
     {
         if (image != null && image.IsImage())
         {
@@ -63,10 +62,7 @@ public static class ImageHelper
 
             string tempPath = orginalPath + "temp" + fileName;
 
-            using (var stream = new FileStream(tempPath, FileMode.Create))
-            {
-                image.CopyTo(stream);
-            }
+            using (var stream = new FileStream(tempPath, FileMode.Create)) image.CopyTo(stream);
 
             var resizer = new ImageOptimizer();
 
@@ -76,8 +72,6 @@ public static class ImageHelper
 
             return;
         }
-
-        return;
     }
 
     #endregion
@@ -92,10 +86,8 @@ public static class ImageHelper
                 File.Delete(OriginPath + imageName);
 
             if (!string.IsNullOrEmpty(ThumbPath))
-            {
                 if (File.Exists(ThumbPath + imageName))
                     File.Delete(ThumbPath + imageName);
-            }
         }
     }
 

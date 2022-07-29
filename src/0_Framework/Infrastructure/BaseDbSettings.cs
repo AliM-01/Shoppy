@@ -1,6 +1,6 @@
 ﻿namespace _0_Framework.Infrastructure;
 
-public abstract class BaseDbSettings
+abstract public class BaseDbSettings
 {
     public string DbName { get; set; }
 
@@ -10,4 +10,3 @@ public abstract class BaseDbSettings
 
     public string ConnectionString => $@"mongodb://{Host}:{Port}";
 }
-

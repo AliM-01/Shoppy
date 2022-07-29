@@ -8,7 +8,7 @@ public class ZarinPalFactory : IZarinPalFactory
 {
     //private readonly IConfiguration _configuration;
 
-    private string Prefix { get; set; }
+    private string Prefix { get; }
     private string MerchantId { get; }
 
     //public ZarinPalFactory(IConfiguration configuration)
@@ -24,15 +24,15 @@ public class ZarinPalFactory : IZarinPalFactory
         MerchantId = "c632f574-bd37-15e7-99ca-000c295eb9d3";
     }
 
-    public async Task<PaymentResponse> CreatePaymentRequest(string callBackUrl, string amount, string email, string orderId)
+    public async Task<PaymentResponse> CreatePaymentRequest(string callBackUrl, string amount, string email,
+        string orderId)
     {
         amount = amount.Replace(",", "");
-        var finalAmount = int.Parse(amount);
+        int finalAmount = int.Parse(amount);
 
-        using (HttpClient httpClient = new HttpClient())
+        using (var httpClient = new HttpClient())
         {
-            string content = JsonConvert.SerializeObject(new PaymentRequest
-            {
+            string content = JsonConvert.SerializeObject(new PaymentRequest {
                 Email = email,
                 Mobile = "09123456789",
                 CallbackURL = $"{callBackUrl}",
@@ -41,32 +41,30 @@ public class ZarinPalFactory : IZarinPalFactory
                 MerchantID = MerchantId
             });
 
-            using (HttpResponseMessage httpResponseMessage = await httpClient.PostAsync($"https://{Prefix}.zarinpal.com/pg/rest/WebGate/PaymentRequest.json",
-                new StringContent(content, Encoding.UTF8, "application/json")))
-            {
-                return JsonConvert.DeserializeObject<PaymentResponse>(await httpResponseMessage.Content.ReadAsStringAsync());
-            }
+            using (var httpResponseMessage = await httpClient.PostAsync(
+                       $"https://{Prefix}.zarinpal.com/pg/rest/WebGate/PaymentRequest.json",
+                       new StringContent(content, Encoding.UTF8, "application/json")))
+                return JsonConvert.DeserializeObject<PaymentResponse>(await httpResponseMessage.Content
+                    .ReadAsStringAsync());
         }
     }
 
     public async Task<VerificationResponse> CreateVerificationRequest(string authority, string amount)
     {
         amount = amount.Replace(",", "");
-        var finalAmount = int.Parse(amount);
+        int finalAmount = int.Parse(amount);
 
-        using (HttpClient httpClient = new HttpClient())
+        using (var httpClient = new HttpClient())
         {
-            string content = JsonConvert.SerializeObject(new VerificationRequest
-            {
-                MerchantID = MerchantId,
-                Amount = finalAmount,
-                Authority = authority
+            string content = JsonConvert.SerializeObject(new VerificationRequest {
+                MerchantID = MerchantId, Amount = finalAmount, Authority = authority
             });
 
-            using (HttpResponseMessage httpResponseMessage = await httpClient.PostAsync($"https://{Prefix}.zarinpal.com/pg/rest/WebGate/PaymentVerification.json", new StringContent(content, Encoding.UTF8, "application/json")))
-            {
-                return JsonConvert.DeserializeObject<VerificationResponse>(await httpResponseMessage.Content.ReadAsStringAsync());
-            }
+            using (var httpResponseMessage = await httpClient.PostAsync(
+                       $"https://{Prefix}.zarinpal.com/pg/rest/WebGate/PaymentVerification.json",
+                       new StringContent(content, Encoding.UTF8, "application/json")))
+                return JsonConvert.DeserializeObject<VerificationResponse>(await httpResponseMessage.Content
+                    .ReadAsStringAsync());
         }
     }
 }

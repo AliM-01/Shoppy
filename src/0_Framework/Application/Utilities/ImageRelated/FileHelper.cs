@@ -2,6 +2,7 @@
 using System.IO;
 
 namespace _0_Framework.Application.Utilities.ImageRelated;
+
 public static class FileHelper
 {
     public static string GetMimeType(string extension)
@@ -16,6 +17,7 @@ public static class FileHelper
         switch (extension.ToLower())
         {
             #region Big freaking list of mime types
+
             case "323": return "text/h323";
             case "3g2": return "video/3gpp2";
             case "3gp": return "video/3gpp";
@@ -575,7 +577,9 @@ public static class FileHelper
             case "xwd": return "image/x-xwindowdump";
             case "z": return "application/x-compress";
             case "zip": return "application/x-zip-compressed";
+
             #endregion
+
             default: return "application/octet-stream";
         }
     }

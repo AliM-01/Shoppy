@@ -29,7 +29,8 @@ public class BaseRepository<TDocument, TSettings> : IRepository<TDocument>
 
     #region GetQuery
 
-    public IMongoQueryable<TDocument> AsQueryable(bool isDeletedFilter = true, CancellationToken cancellationToken = default)
+    public IMongoQueryable<TDocument> AsQueryable(bool isDeletedFilter = true,
+        CancellationToken cancellationToken = default)
     {
         cancellationToken.ThrowIfCancellationRequested();
 
@@ -39,7 +40,8 @@ public class BaseRepository<TDocument, TSettings> : IRepository<TDocument>
         return _collection.AsQueryable().Where(x => x.IsDeleted == false);
     }
 
-    public async Task<IAsyncCursor<TDocument>> FindAsync(Expression<Func<TDocument, bool>> filter, CancellationToken cancellationToken = default)
+    public async Task<IAsyncCursor<TDocument>> FindAsync(Expression<Func<TDocument, bool>> filter,
+        CancellationToken cancellationToken = default)
     {
         cancellationToken.ThrowIfCancellationRequested();
 
@@ -52,20 +54,22 @@ public class BaseRepository<TDocument, TSettings> : IRepository<TDocument>
 
     #region GetPagination
 
-    public List<TDocument> ApplyPagination(IMongoQueryable<TDocument> query, BasePaging pager, CancellationToken cancellationToken = default)
+    public List<TDocument> ApplyPagination(IMongoQueryable<TDocument> query, BasePaging pager,
+        CancellationToken cancellationToken = default)
     {
         cancellationToken.ThrowIfCancellationRequested();
 
         return query
-                .DocumentPaging(pager)
-                .ToListSafe();
+            .DocumentPaging(pager)
+            .ToListSafe();
     }
 
     #endregion
 
     #region FullTextSearch
 
-    public async Task<HashSet<string>?> FullTextSearch(Expression<Func<TDocument, object>> field, string filter, CancellationToken cancellationToken = default)
+    public async Task<HashSet<string>?> FullTextSearch(Expression<Func<TDocument, object>> field, string filter,
+        CancellationToken cancellationToken = default)
     {
         cancellationToken.ThrowIfCancellationRequested();
 
@@ -90,7 +94,8 @@ public class BaseRepository<TDocument, TSettings> : IRepository<TDocument>
 
     #region GetByFilter
 
-    public async Task<TDocument?> FindOne(FilterDefinition<TDocument> filter, CancellationToken cancellationToken = default)
+    public async Task<TDocument?> FindOne(FilterDefinition<TDocument> filter,
+        CancellationToken cancellationToken = default)
     {
         cancellationToken.ThrowIfCancellationRequested();
 
@@ -99,13 +104,14 @@ public class BaseRepository<TDocument, TSettings> : IRepository<TDocument>
         return await res.FirstOrDefaultAsync();
     }
 
-    public async Task<List<TDocument>?> GetManyByFilter(FilterDefinition<TDocument> filter, CancellationToken cancellationToken = default)
+    public async Task<List<TDocument>?> GetManyByFilter(FilterDefinition<TDocument> filter,
+        CancellationToken cancellationToken = default)
     {
         cancellationToken.ThrowIfCancellationRequested();
 
         var res = await _collection.FindAsync(filter);
 
-        return await res.ToListAsync(cancellationToken: cancellationToken);
+        return await res.ToListAsync(cancellationToken);
     }
 
     #endregion
@@ -120,7 +126,7 @@ public class BaseRepository<TDocument, TSettings> : IRepository<TDocument>
 
         var res = await _collection.FindAsync(filter);
 
-        return await res.FirstOrDefaultAsync(cancellationToken: cancellationToken);
+        return await res.FirstOrDefaultAsync(cancellationToken);
     }
 
     #endregion

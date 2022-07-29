@@ -24,8 +24,7 @@ public static class StringConventors
 
     public static string ToMoney(this decimal text)
     {
-        var result = text.ToString("N0", CultureInfo.CreateSpecificCulture("fa-ir"));
+        string result = text.ToString("N0", CultureInfo.CreateSpecificCulture("fa-ir"));
         return result;
     }
 }
-

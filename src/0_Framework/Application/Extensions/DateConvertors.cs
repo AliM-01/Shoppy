@@ -9,7 +9,8 @@ public static class DateConvertors
     public static string ToShamsi(this DateTime value)
     {
         var pd = new PersianDateShamsi();
-        return $"{pd.GetShamsiDayName(value)} {pd.GetShamsiDay(value)} {pd.GetShamsiMonthName(value)} {pd.GetShamsiYear(value)}";
+        return
+            $"{pd.GetShamsiDayName(value)} {pd.GetShamsiDay(value)} {pd.GetShamsiMonthName(value)} {pd.GetShamsiYear(value)}";
     }
 
     #endregion
@@ -20,7 +21,8 @@ public static class DateConvertors
     {
         var pc = new PersianCalendar();
         var pd = new PersianDateShamsi();
-        return $"{pc.GetHour(value)} {pd.GetShamsiDayName(value)} {pd.GetShamsiDay(value)} {pd.GetShamsiMonthName(value)} {pd.GetShamsiYear(value)}";
+        return
+            $"{pc.GetHour(value)} {pd.GetShamsiDayName(value)} {pd.GetShamsiDay(value)} {pd.GetShamsiMonthName(value)} {pd.GetShamsiYear(value)}";
     }
 
     #endregion
@@ -30,12 +32,12 @@ public static class DateConvertors
     public static DateTime ToMiladi(this string persianDate)
     {
         ReadOnlySpan<char> dateAsText = new PersianDateShamsi().ToEnglishNumber(persianDate);
-        var year = int.Parse(dateAsText.Slice(0, 4));
-        var month = int.Parse(dateAsText.Slice(5, 2));
-        var day = int.Parse(dateAsText.Slice(8, 2));
-        var hour = int.Parse(dateAsText.Slice(11, 2));
-        var minute = int.Parse(dateAsText.Slice(14, 2));
-        var seconds = int.Parse(dateAsText.Slice(17, 2));
+        int year = int.Parse(dateAsText.Slice(0, 4));
+        int month = int.Parse(dateAsText.Slice(5, 2));
+        int day = int.Parse(dateAsText.Slice(8, 2));
+        int hour = int.Parse(dateAsText.Slice(11, 2));
+        int minute = int.Parse(dateAsText.Slice(14, 2));
+        int seconds = int.Parse(dateAsText.Slice(17, 2));
 
         var miladyDateTime = new DateTime(year, month, day, hour, minute, seconds, new PersianCalendar());
 
@@ -49,7 +51,7 @@ public static class DateConvertors
     public static string ToFileName(this DateTime value)
     {
         return $"{value.Year:0000}_{value.Month:00}_{value.Day:00}_{value.Hour:00}-{value.Minute:00}_{value.Second:00}_"
-            + Guid.NewGuid().ToString("N").Substring(0, 4);
+               + Guid.NewGuid().ToString("N").Substring(0, 4);
     }
 
     #endregion
@@ -69,16 +71,19 @@ public class PersianDateShamsi
     public PersianDateShamsi()
     {
         persianCalendar = new PersianCalendar();
-        DaysOfWeek = new string[] { "شنبه", "يكشنبه", "دوشنبه", "سه شنبه", "چهارشنبه", "پنجشنبه", "جمعه" };
-        DaysOfWeekShort = new string[] { "ش", "ي", "د", "س", "چ", "پ", "ج" };
-        Months = new string[] { "فروردین", "اردیبهشت", "خرداد", "تیر", "مرداد", "شهریور", "مهر", "آبان", "آذر", "دی", "بهمن", "اسفند" };
-        Pn = new string[] { "۰", "۱", "۲", "۳", "۴", "۵", "۶", "۷", "۸", "۹" };
-        En = new string[] { "0", "1", "2", "3", "4", "5", "6", "7", "8", "9" };
+        DaysOfWeek = new[] { "شنبه", "يكشنبه", "دوشنبه", "سه شنبه", "چهارشنبه", "پنجشنبه", "جمعه" };
+        DaysOfWeekShort = new[] { "ش", "ي", "د", "س", "چ", "پ", "ج" };
+        Months = new[] {
+            "فروردین", "اردیبهشت", "خرداد", "تیر", "مرداد", "شهریور", "مهر", "آبان", "آذر", "دی", "بهمن", "اسفند"
+        };
+        Pn = new[] { "۰", "۱", "۲", "۳", "۴", "۵", "۶", "۷", "۸", "۹" };
+        En = new[] { "0", "1", "2", "3", "4", "5", "6", "7", "8", "9" };
     }
 
     #endregion
 
     #region Year
+
     /// <summary>
     /// Get Shamsi Year From Miladi Year
     /// </summary>
@@ -88,6 +93,7 @@ public class PersianDateShamsi
     {
         return persianCalendar.GetYear(dateTime);
     }
+
     /// <summary>
     /// Get Short Shamsi Year From Miladi Year In String
     /// </summary>
@@ -98,6 +104,7 @@ public class PersianDateShamsi
         var pc = new PersianCalendar();
         return pc.GetYear(dateTime).ToString().Substring(2, 2);
     }
+
     /// <summary>
     /// Get Shamsi Year From Miladi Year In String
     /// </summary>
@@ -107,9 +114,11 @@ public class PersianDateShamsi
     {
         return persianCalendar.GetYear(dateTime).ToString();
     }
+
     #endregion
 
     #region Month
+
     /// <summary>
     /// Get Shamsi Month From Miladi Month
     /// </summary>
@@ -119,6 +128,7 @@ public class PersianDateShamsi
     {
         return persianCalendar.GetMonth(dateTime);
     }
+
     /// <summary>
     /// Get Shamsi Month Number From Miladi Month In String
     /// </summary>
@@ -128,6 +138,7 @@ public class PersianDateShamsi
     {
         return persianCalendar.GetMonth(dateTime).ToString("00");
     }
+
     /// <summary>
     /// Get Shamsi Month From Miladi Month Number
     /// </summary>
@@ -137,6 +148,7 @@ public class PersianDateShamsi
     {
         return persianCalendar.GetMonth(dateTime);
     }
+
     /// <summary>
     /// Get Shamsi Month Name From Miladi Month
     /// </summary>
@@ -144,11 +156,13 @@ public class PersianDateShamsi
     /// <returns></returns>
     public string GetShamsiMonthName(DateTime dateTime)
     {
-        return Months[(persianCalendar.GetMonth(dateTime) - 1)];
+        return Months[persianCalendar.GetMonth(dateTime) - 1];
     }
+
     #endregion
 
     #region Day
+
     /// <summary>
     /// Get Shamsi Day From Miladi Month
     /// </summary>
@@ -158,6 +172,7 @@ public class PersianDateShamsi
     {
         return persianCalendar.GetDayOfMonth(dateTime);
     }
+
     /// <summary>
     /// Get Shamsi Day From Miladi Month In String
     /// </summary>
@@ -167,6 +182,7 @@ public class PersianDateShamsi
     {
         return persianCalendar.GetDayOfMonth(dateTime).ToString("00");
     }
+
     /// <summary>
     /// Get Shamsi Day Name From Miladi Month
     /// </summary>
@@ -176,6 +192,7 @@ public class PersianDateShamsi
     {
         return DaysOfWeek[(int)persianCalendar.GetDayOfWeek(dateTime) + 1];
     }
+
     /// <summary>
     /// Get Shamsi Day ShortName From Miladi Month
     /// </summary>
@@ -185,14 +202,15 @@ public class PersianDateShamsi
     {
         return DaysOfWeekShort[(int)persianCalendar.GetDayOfWeek(dateTime) + 1];
     }
+
     #endregion
 
     #region Numbers
 
     public string ToEnglishNumber(string stringNum)
     {
-        var cash = stringNum;
-        for (var i = 0; i < 10; i++)
+        string cash = stringNum;
+        for (int i = 0; i < 10; i++)
             cash = cash.Replace(Pn[i], En[i]);
 
         return cash;
@@ -200,8 +218,8 @@ public class PersianDateShamsi
 
     public string ToFarsiNumber(int intNum)
     {
-        var cash = intNum.ToString();
-        for (var i = 0; i < 10; i++)
+        string cash = intNum.ToString();
+        for (int i = 0; i < 10; i++)
             cash = cash.Replace(En[i], Pn[i]);
 
         return cash;

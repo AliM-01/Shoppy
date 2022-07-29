@@ -3,14 +3,13 @@ using MongoDB.Bson.Serialization.Attributes;
 
 namespace _0_Framework.Domain;
 
-public abstract class EntityBase
+abstract public class EntityBase
 {
     [BsonId]
     [BsonRepresentation(BsonType.ObjectId)]
     public string Id { get; set; }
 
-    [BsonElement("isDeleted")]
-    public bool IsDeleted { get; set; }
+    [BsonElement("isDeleted")] public bool IsDeleted { get; set; }
 
     [BsonElement("creationDate")]
     [BsonRepresentation(BsonType.DateTime)]

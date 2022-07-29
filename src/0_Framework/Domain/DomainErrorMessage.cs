@@ -1,4 +1,5 @@
 ﻿namespace _0_Framework.Domain;
+
 public class DomainErrorMessage
 {
     public const string Required = "لطفا {0} را وارد کنید";

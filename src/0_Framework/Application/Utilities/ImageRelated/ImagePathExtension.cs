@@ -29,7 +29,7 @@ public static class PathExtension
     #region Product
 
     public static string ProductImage =
-        Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/upload/product/original/").ToString();
+        Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/upload/product/original/");
 
     public static string ProductThumbnailImage =
         Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/upload/product/thumbnail/");

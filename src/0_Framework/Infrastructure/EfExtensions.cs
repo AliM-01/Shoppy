@@ -1,5 +1,4 @@
-﻿
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -8,7 +7,7 @@ namespace _0_Framework.Infrastructure;
 public static class EfExtensions
 {
     public static List<TSource> ToListSafe<TSource>(
-      this IQueryable<TSource> source)
+        this IQueryable<TSource> source)
     {
         if (source == null)
             throw new ArgumentNullException(nameof(source));
@@ -19,7 +18,7 @@ public static class EfExtensions
     }
 
     public static Task<List<TSource>> ToListAsyncSafe<TSource>(
-      this IQueryable<TSource> source)
+        this IQueryable<TSource> source)
     {
         if (source == null)
             throw new ArgumentNullException(nameof(source));

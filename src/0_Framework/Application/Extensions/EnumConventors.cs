@@ -11,10 +11,10 @@ public static class EnumConventors
         if (!typeof(T).IsEnum)
             throw new ArgumentException("Argument must be of type Enum");
 
-        DisplayAttribute displayAttribute = enumValue.GetType()
-                                                     .GetMember(enumValue.ToString())
-                                                     .First()
-                                                     .GetCustomAttribute<DisplayAttribute>();
+        var displayAttribute = enumValue.GetType()
+            .GetMember(enumValue.ToString())
+            .First()
+            .GetCustomAttribute<DisplayAttribute>();
 
         string displayName = displayAttribute?.GetName();
 

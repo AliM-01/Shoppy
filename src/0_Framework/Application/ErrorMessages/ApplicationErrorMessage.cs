@@ -1,4 +1,5 @@
 ﻿namespace _0_Framework.Application.ErrorMessages;
+
 public class ApplicationErrorMessage
 {
     public const string OperationSuccedded = "عملیات با موفقیت انجام شد";
