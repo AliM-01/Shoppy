@@ -19,7 +19,6 @@ public static class AdminDiscountEndpoints
         public const string RemoveProductDiscount = BaseProductDiscount + "/{id}";
 
         public const string CheckProductHasProductDiscount = BaseProductDiscount + "/has-discount/{productId}";
-
     }
 
     public static class DiscountCode

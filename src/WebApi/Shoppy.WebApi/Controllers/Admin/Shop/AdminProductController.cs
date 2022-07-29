@@ -72,11 +72,8 @@ public class AdminProductController : BaseAdminApiController
     {
         var res = await Mediator.Send(new CreateProductCommand(createRequest));
 
-        await Mediator.Send(new CreateInventoryCommand(new CreateInventoryDto
-        {
-            ProductId = res.ProductId,
-            UnitPrice = 0
-        }));
+        await Mediator.Send(
+            new CreateInventoryCommand(new CreateInventoryDto { ProductId = res.ProductId, UnitPrice = 0 }));
 
         return CreatedResult("محصول با موفقیت ساخته شد");
     }

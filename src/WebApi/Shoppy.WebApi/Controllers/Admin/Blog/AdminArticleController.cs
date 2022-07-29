@@ -13,7 +13,8 @@ public class AdminArticleController : BaseAdminApiController
     [SwaggerOperation(Summary = "فیلتر  مقالات", Tags = new[] { "AdminArticle" })]
     [SwaggerResponse(200, "success")]
     [ProducesResponseType(typeof(FilterArticleDto), 200)]
-    public async Task<IActionResult> FilterArticles([FromQuery] FilterArticleDto filter, CancellationToken cancellationToken)
+    public async Task<IActionResult> FilterArticles([FromQuery] FilterArticleDto filter,
+        CancellationToken cancellationToken)
     {
         var res = await Mediator.Send(new FilterArticlesQuery(filter), cancellationToken);
 
@@ -39,7 +40,7 @@ public class AdminArticleController : BaseAdminApiController
 
     #endregion
 
-    #region Create Article 
+    #region Create Article
 
     [HttpPost(AdminBlogEndpoints.Article.CreateArticle)]
     [SwaggerOperation(Summary = "ایجاد  مقاله", Tags = new[] { "AdminArticle" })]
@@ -56,7 +57,7 @@ public class AdminArticleController : BaseAdminApiController
 
     #endregion
 
-    #region Edit Article 
+    #region Edit Article
 
     [HttpPut(AdminBlogEndpoints.Article.EditArticle)]
     [SwaggerOperation(Summary = "ویرایش  مقاله", Tags = new[] { "AdminArticle" })]
@@ -75,7 +76,7 @@ public class AdminArticleController : BaseAdminApiController
 
     #endregion
 
-    #region Delete Article 
+    #region Delete Article
 
     [HttpDelete(AdminBlogEndpoints.Article.DeleteArticle)]
     [SwaggerOperation(Summary = "حذف  مقاله", Tags = new[] { "AdminArticle" })]

@@ -17,7 +17,8 @@ public class ArticleController : BaseApiController
     [ProducesResponseType(typeof(SearchArticleQueryModel), 200)]
     [ProducesResponseType(typeof(ApiResult), 400)]
     [ProducesResponseType(typeof(ApiResult), 404)]
-    public async Task<IActionResult> Search([FromQuery] SearchArticleQueryModel search, CancellationToken cancellationToken)
+    public async Task<IActionResult> Search([FromQuery] SearchArticleQueryModel search,
+        CancellationToken cancellationToken)
     {
         var res = await Mediator.Send(new SearchArticleQuery(search), cancellationToken);
 
@@ -64,7 +65,8 @@ public class ArticleController : BaseApiController
     [SwaggerOperation(Summary = "دریافت مقالات مرتبط", Tags = new[] { "Article" })]
     [SwaggerResponse(200, "success")]
     [ProducesResponseType(typeof(IEnumerable<ArticleQueryModel>), 200)]
-    public async Task<IActionResult> GetRelatedArticles([FromRoute] string categoryId, CancellationToken cancellationToken)
+    public async Task<IActionResult> GetRelatedArticles([FromRoute] string categoryId,
+        CancellationToken cancellationToken)
     {
         var res = await Mediator.Send(new GetRelatedArticlesQuery(categoryId), cancellationToken);
 

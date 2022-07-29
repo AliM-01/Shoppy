@@ -8,7 +8,7 @@ namespace Shoppy.WebApi.Shared;
 
 [ApiController]
 [EnableCors("CorsPolicy")]
-public abstract class BaseApiController : ControllerBase
+abstract public class BaseApiController : ControllerBase
 {
     private IMediator _mediator;
     protected IMediator Mediator => _mediator ??= HttpContext.RequestServices.GetService<IMediator>();
@@ -63,6 +63,7 @@ public abstract class BaseApiController : ControllerBase
 
         return new BadRequestObjectResult(res);
     }
+
     #endregion
 
     #region UnauthorizedResult
@@ -76,11 +77,11 @@ public abstract class BaseApiController : ControllerBase
 }
 
 [Authorize(Policy = RoleConstants.Admin)]
-public abstract class BaseAdminApiController : BaseApiController
+abstract public class BaseAdminApiController : BaseApiController
 {
 }
 
 [Authorize(Policy = RoleConstants.BasicUser)]
-public abstract class BaseUserApiController : BaseApiController
+abstract public class BaseUserApiController : BaseApiController
 {
 }

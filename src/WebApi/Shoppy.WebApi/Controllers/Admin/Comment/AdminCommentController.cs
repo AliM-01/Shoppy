@@ -15,7 +15,8 @@ public class AdminCommentController : BaseAdminApiController
     [SwaggerResponse(404, "not-found")]
     [ProducesResponseType(typeof(FilterCommentDto), 200)]
     [ProducesResponseType(typeof(ApiResult), 404)]
-    public async Task<IActionResult> FilterComments([FromQuery] FilterCommentDto filter, CancellationToken cancellationToken)
+    public async Task<IActionResult> FilterComments([FromQuery] FilterCommentDto filter,
+        CancellationToken cancellationToken)
     {
         var res = await Mediator.Send(new FilterCommentsQuery(filter), cancellationToken);
 
@@ -57,5 +58,4 @@ public class AdminCommentController : BaseAdminApiController
     }
 
     #endregion
-
 }

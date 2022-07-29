@@ -37,7 +37,7 @@ public class UserOrderController : BaseUserApiController
     public async Task<IActionResult> PlaceOrder([FromBody] CartDto cart)
     {
         var res = await Mediator.Send(new PlaceOrderCommand(cart,
-                                                            User.GetUserId()));
+            User.GetUserId()));
 
         return SuccessResult(res);
     }
@@ -55,8 +55,8 @@ public class UserOrderController : BaseUserApiController
     public async Task<IActionResult> CancelOrder([FromRoute] string orderId)
     {
         var res = await Mediator.Send(new CancelOrderCommand(orderId,
-                                                             User.GetUserId(),
-                                                             false));
+            User.GetUserId(),
+            false));
 
         return SuccessResult(res);
     }
@@ -69,14 +69,15 @@ public class UserOrderController : BaseUserApiController
     [SwaggerOperation(Summary = "ثبت پرداخت", Tags = new[] { "UserOrder" })]
     [SwaggerResponse(200, "success")]
     [ProducesResponseType(typeof(InitializePaymentResponseDto), 200)]
-    public async Task<IActionResult> InitializePayment([FromQuery] string oId, [FromQuery] decimal amount, [FromQuery] string callBack)
+    public async Task<IActionResult> InitializePayment([FromQuery] string oId, [FromQuery] decimal amount,
+        [FromQuery] string callBack)
     {
         oId = Encoding.UTF8.GetString(WebEncoders.Base64UrlDecode(oId));
 
         var payment = new InitializePaymentRequestDto(oId,
-                                                      amount,
-                                                      callBack,
-                                                      User.GetUserEmail());
+            amount,
+            callBack,
+            User.GetUserEmail());
 
         var res = await Mediator.Send(new InitializePaymentRequestCommand(payment));
 
@@ -98,11 +99,10 @@ public class UserOrderController : BaseUserApiController
         oId = Encoding.UTF8.GetString(WebEncoders.Base64UrlDecode(oId));
 
         var res = await Mediator.Send(new VerifyPaymentRequestCommand(new VerifyPaymentRequestDto(authority, oId),
-                                                                      User.GetUserId()));
+            User.GetUserId()));
 
         return SuccessResult(res);
     }
 
     #endregion
-
 }

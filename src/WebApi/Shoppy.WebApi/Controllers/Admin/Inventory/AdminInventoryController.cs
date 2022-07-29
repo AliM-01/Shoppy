@@ -69,7 +69,7 @@ public class AdminInventoryController : BaseAdminApiController
     public async Task<IActionResult> IncreaseInventory([FromForm] IncreaseInventoryDto increaseRequest)
     {
         var res = await Mediator.Send(new IncreaseInventoryCommand(increaseRequest,
-                                                                   User.GetUserId()));
+            User.GetUserId()));
 
         return SuccessResult(res);
     }
@@ -87,7 +87,7 @@ public class AdminInventoryController : BaseAdminApiController
     public async Task<IActionResult> ReduceInventory([FromForm] ReduceInventoryDto reduceRequest)
     {
         var res = await Mediator.Send(new ReduceInventoryCommand(reduceRequest,
-                                                                 User.GetUserId()));
+            User.GetUserId()));
 
         return SuccessResult(res);
     }
@@ -110,5 +110,4 @@ public class AdminInventoryController : BaseAdminApiController
     }
 
     #endregion
-
 }

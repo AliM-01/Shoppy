@@ -16,7 +16,8 @@ public class CommentController : BaseApiController
     [SwaggerResponse(404, "not-found")]
     [ProducesResponseType(typeof(IEnumerable<CommentQueryModel>), 404)]
     [ProducesResponseType(typeof(ApiResult), 404)]
-    public async Task<IActionResult> GetRecordCommentsById([FromRoute] string recordId, CancellationToken cancellationToken)
+    public async Task<IActionResult> GetRecordCommentsById([FromRoute] string recordId,
+        CancellationToken cancellationToken)
     {
         var res = await Mediator.Send(new GetRecordCommentsByIdQuery(recordId), cancellationToken);
 

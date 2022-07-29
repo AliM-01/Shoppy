@@ -32,7 +32,8 @@ public class AdminArticleCategoryController : BaseAdminApiController
     [SwaggerResponse(404, "not-found")]
     [ProducesResponseType(typeof(FilterArticleCategoryDto), 200)]
     [ProducesResponseType(typeof(ApiResult), 404)]
-    public async Task<IActionResult> FilterArticleCategories([FromQuery] FilterArticleCategoryDto filter, CancellationToken cancellationToken)
+    public async Task<IActionResult> FilterArticleCategories([FromQuery] FilterArticleCategoryDto filter,
+        CancellationToken cancellationToken)
     {
         var res = await Mediator.Send(new FilterArticleCategoriesQuery(filter), cancellationToken);
 
@@ -49,7 +50,8 @@ public class AdminArticleCategoryController : BaseAdminApiController
     [SwaggerResponse(404, "not-found")]
     [ProducesResponseType(typeof(EditArticleCategoryDto), 200)]
     [ProducesResponseType(typeof(ApiResult), 404)]
-    public async Task<IActionResult> GetArticleCategoryDetails([FromRoute] string id, CancellationToken cancellationToken)
+    public async Task<IActionResult> GetArticleCategoryDetails([FromRoute] string id,
+        CancellationToken cancellationToken)
     {
         var res = await Mediator.Send(new GetArticleCategoryDetailsQuery(id), cancellationToken);
 

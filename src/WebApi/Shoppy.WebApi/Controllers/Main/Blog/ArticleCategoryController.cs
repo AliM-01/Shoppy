@@ -29,7 +29,8 @@ public class ArticleCategoryController : BaseApiController
     [SwaggerResponse(404, "not-found")]
     [ProducesResponseType(typeof(ArticleCategoryDetailsQueryModel), 200)]
     [ProducesResponseType(typeof(ApiResult), 404)]
-    public async Task<IActionResult> GetArticleCategory([FromQuery] FilterArticleCategoryDetailsModel filter, CancellationToken cancellationToken)
+    public async Task<IActionResult> GetArticleCategory([FromQuery] FilterArticleCategoryDetailsModel filter,
+        CancellationToken cancellationToken)
     {
         var res = await Mediator.Send(new GetArticleCategoryWithArticlesByQuery(filter), cancellationToken);
 

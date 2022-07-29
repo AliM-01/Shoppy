@@ -8,14 +8,16 @@ namespace Shoppy.WebApi.Controllers;
 [Route("upload")]
 public class UploaderController : ControllerBase
 {
-    [Route("img-upload"), HttpPost]
+    [Route("img-upload")]
+    [HttpPost]
     public IActionResult UploadImage(IFormFile upload)
     {
         if (upload.Length <= 0) return null;
         if (!upload.IsImage())
         {
             string notImageMsg = "لطفا یک تصویر آپلود کنید";
-            object notImage = JsonConvert.DeserializeObject("{'uploaded':0, 'error': {'message': \" " + notImageMsg + " \"}}");
+            object notImage =
+                JsonConvert.DeserializeObject("{'uploaded':0, 'error': {'message': \" " + notImageMsg + " \"}}");
 
             return new JsonResult(notImage);
         }

@@ -47,8 +47,8 @@ public static class AdminShopEndpoints
         public const string CreateProductPicture = BaseProductPicture + "/create/{productId}";
 
         public const string RemoveProductPicture = BaseProductPicture + "/remove/{id}";
-
     }
+
     public static class ProductFeature
     {
         private const string BaseProductFeature = Base + "/product-feature";
@@ -62,7 +62,6 @@ public static class AdminShopEndpoints
         public const string EditProductFeature = BaseProductFeature + "/edit";
 
         public const string DeleteProductFeature = BaseProductFeature + "/delete/{id}";
-
     }
 
     public static class Slider

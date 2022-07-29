@@ -18,6 +18,4 @@ public static class AdminInventoryEndpoints
 
         public const string GetInventoryOperationLog = Base + "/{id}/logs";
     }
-
-
 }

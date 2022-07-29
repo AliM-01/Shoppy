@@ -11,6 +11,5 @@ public class AdminCommentEndpoints
         public const string ConfirmComment = Base + "/confirm/{id}";
 
         public const string CancelComment = Base + "/cancel/{id}";
-
     }
 }

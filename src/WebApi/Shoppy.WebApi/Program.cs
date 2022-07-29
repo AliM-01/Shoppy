@@ -7,7 +7,7 @@ using Serilog;
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Host.UseSerilog((context, lc) =>
-            lc.ReadFrom.Configuration(context.Configuration));
+    lc.ReadFrom.Configuration(context.Configuration));
 
 await builder.Services.RegisterServicesAsync(typeof(Program), builder.Configuration);
 builder.Services.AddSwaggerExtension("Shoppy.WebApi");

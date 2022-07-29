@@ -23,5 +23,4 @@ public class UserProfileController : BaseUserApiController
     }
 
     #endregion
-
 }

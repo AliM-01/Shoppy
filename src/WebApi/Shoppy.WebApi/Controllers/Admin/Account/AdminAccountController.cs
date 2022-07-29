@@ -41,7 +41,7 @@ public class AdminAccountController : BaseAdminApiController
 
     #endregion
 
-    #region Edit Account 
+    #region Edit Account
 
     [HttpPut(AdminAccountEndpoints.Account.EditAccount)]
     [SwaggerOperation(Summary = "ویرایش  کاربر", Tags = new[] { "AdminAccount" })]
@@ -60,7 +60,7 @@ public class AdminAccountController : BaseAdminApiController
 
     #endregion
 
-    #region Activate Account 
+    #region Activate Account
 
     [HttpPost(AdminAccountEndpoints.Account.ActivateAccount)]
     [SwaggerOperation(Summary = "فعال کردن حساب  کاربر", Tags = new[] { "AdminAccount" })]
@@ -77,7 +77,7 @@ public class AdminAccountController : BaseAdminApiController
 
     #endregion
 
-    #region DeActivate Account 
+    #region DeActivate Account
 
     [HttpDelete(AdminAccountEndpoints.Account.DeActivateAccount)]
     [SwaggerOperation(Summary = "غیر فعال کردن حساب  کاربر", Tags = new[] { "AdminAccount" })]

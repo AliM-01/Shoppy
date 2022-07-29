@@ -39,11 +39,7 @@ public class AdminProductPictureController : BaseAdminApiController
 
         var files = request.Files;
 
-        var createData = new CreateProductPictureDto
-        {
-            ImageFiles = (List<IFormFile>)files,
-            ProductId = productId
-        };
+        var createData = new CreateProductPictureDto { ImageFiles = (List<IFormFile>)files, ProductId = productId };
 
         var res = await Mediator.Send(new CreateProductPictureCommand(createData));
 

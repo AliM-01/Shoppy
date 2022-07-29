@@ -24,10 +24,10 @@ public class AccountController : BaseApiController
     private readonly ILogger<AccountController> _logger;
 
     public AccountController(ITokenStoreService tokenStoreService,
-                             IEmailSenderService emailSender,
-                             IViewRenderService viewRenderService,
-                             ILogger<AccountController> logger,
-                             RoleManager<AccountRole> roleManager)
+        IEmailSenderService emailSender,
+        IViewRenderService viewRenderService,
+        ILogger<AccountController> logger,
+        RoleManager<AccountRole> roleManager)
     {
         _tokenStoreService = Guard.Against.Null(tokenStoreService, nameof(_tokenStoreService));
         _emailSender = Guard.Against.Null(emailSender, nameof(_emailSender));
@@ -47,7 +47,8 @@ public class AccountController : BaseApiController
     [SwaggerResponse(400, "duplicate email")]
     [ProducesResponseType(typeof(ApiResult), 201)]
     [ProducesResponseType(typeof(ApiResult), 400)]
-    public async Task<IActionResult> Register([FromForm] RegisterAccountRequestDto register, CancellationToken cancellationToken)
+    public async Task<IActionResult> Register([FromForm] RegisterAccountRequestDto register,
+        CancellationToken cancellationToken)
     {
         cancellationToken.ThrowIfCancellationRequested();
 
@@ -55,12 +56,15 @@ public class AccountController : BaseApiController
 
         #region send activation email
 
-        var queryParams = new Dictionary<string, string>() {
+        var queryParams = new Dictionary<string, string>
+        {
             { "tId", res.Token },
             { "uId", res.UserId }
         };
 
-        string callBackUrl = QueryHelpers.AddQueryString($"https://localhost:5001/{MainAccountEndpoints.Account.ConfirmEmail}", queryParams);
+        string callBackUrl =
+            QueryHelpers.AddQueryString($"https://localhost:5001/{MainAccountEndpoints.Account.ConfirmEmail}",
+                queryParams);
 
         string emailBody = _viewRenderService.RenderToString("~/Shared/Views/_ActivateEmail.cshtml", callBackUrl);
 
@@ -85,7 +89,8 @@ public class AccountController : BaseApiController
     [SwaggerResponse(400, "not active")]
     [ProducesResponseType(typeof(AuthenticateUserResponseDto), 200)]
     [ProducesResponseType(typeof(ApiResult), 400)]
-    public async Task<IActionResult> Login([FromForm] AuthenticateUserRequestDto login, CancellationToken cancellationToken)
+    public async Task<IActionResult> Login([FromForm] AuthenticateUserRequestDto login,
+        CancellationToken cancellationToken)
     {
         cancellationToken.ThrowIfCancellationRequested();
 
@@ -121,7 +126,8 @@ public class AccountController : BaseApiController
     [SwaggerOperation(Summary = "ExternalLogin", Tags = new[] { "Account" })]
     [SwaggerResponse(200, "success")]
     [ProducesResponseType(typeof(ApiResult), 200)]
-    public async Task<IActionResult> ExternalLogin([FromQuery] string provider, [FromQuery] string returnUrl, CancellationToken cancellationToken)
+    public async Task<IActionResult> ExternalLogin([FromQuery] string provider, [FromQuery] string returnUrl,
+        CancellationToken cancellationToken)
     {
         cancellationToken.ThrowIfCancellationRequested();
 
@@ -166,12 +172,12 @@ public class AccountController : BaseApiController
     [ProducesResponseType(typeof(ApiResult), 200)]
     [ProducesResponseType(typeof(ApiResult), 400)]
     public async Task<IActionResult> ConfirmEmail([FromQuery(Name = "uId")] string userId,
-                                                  [FromQuery(Name = "tId")] string activationToken,
-                                                  CancellationToken cancellationToken)
+        [FromQuery(Name = "tId")] string activationToken,
+        CancellationToken cancellationToken)
     {
         cancellationToken.ThrowIfCancellationRequested();
         var res = await Mediator.Send(new ActivateAccountCommand(new ActivateAccountRequestDto(userId,
-                                                                                               activationToken)), cancellationToken);
+            activationToken)), cancellationToken);
 
         return SuccessResult(res);
     }
@@ -187,7 +193,8 @@ public class AccountController : BaseApiController
     [SwaggerResponse(404, "not found")]
     [ProducesResponseType(typeof(AuthenticateUserResponseDto), 200)]
     [ProducesResponseType(typeof(ApiResult), 404)]
-    public async Task<IActionResult> RefreshToken([FromForm] RevokeRefreshTokenRequestDto token, CancellationToken cancellationToken)
+    public async Task<IActionResult> RefreshToken([FromForm] RevokeRefreshTokenRequestDto token,
+        CancellationToken cancellationToken)
     {
         cancellationToken.ThrowIfCancellationRequested();
 
@@ -227,7 +234,7 @@ public class AccountController : BaseApiController
     [ProducesResponseType(typeof(ApiResult), 404)]
     public async Task<IActionResult> Logout([FromForm] RevokeRefreshTokenRequestDto token)
     {
-        var claimsIdentity = this.User.Identity as ClaimsIdentity;
+        var claimsIdentity = User.Identity as ClaimsIdentity;
         string? userId = claimsIdentity.FindFirst(ClaimTypes.UserData)?.Value;
 
         await _tokenStoreService.RevokeUserBearerTokens(userId, token.RefreshToken);
@@ -250,7 +257,7 @@ public class AccountController : BaseApiController
     {
         cancellationToken.ThrowIfCancellationRequested();
 
-        if (!(this.User.Identity.IsAuthenticated))
+        if (!User.Identity.IsAuthenticated)
             return UnauthorizedResult();
 
         return SuccessResult(ApiResponse.Success("احراز هویت با موفقیت انجام شد"));
@@ -271,15 +278,15 @@ public class AccountController : BaseApiController
     {
         cancellationToken.ThrowIfCancellationRequested();
 
-        if (!(this.User.Identity.IsAuthenticated))
+        if (!User.Identity.IsAuthenticated)
             return UnauthorizedResult();
 
         foreach (string? role in roles)
         {
-            if (!(await _roleManager.RoleExistsAsync(role)))
+            if (!await _roleManager.RoleExistsAsync(role))
                 return ErrorResult("نقش مورد نظر وجود ندارد");
 
-            if (!(this.User.IsInRole(role)))
+            if (!User.IsInRole(role))
                 return UnauthorizedResult();
         }
 
