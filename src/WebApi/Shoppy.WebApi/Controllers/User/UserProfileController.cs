@@ -1,13 +1,11 @@
-﻿using AM.Application.Contracts.Account.DTOs;
-using AM.Application.Contracts.Account.Queries;
+﻿using AM.Application.Account.DTOs;
+using AM.Application.Account.Queries;
 
 namespace Shoppy.WebApi.Controllers.User;
 
 [SwaggerTag("پروفایل کاربر")]
 public class UserProfileController : BaseUserApiController
 {
-    #region Get Profile
-
     [HttpGet(UserProfileEndpoints.Profile.GetProfile)]
     [SwaggerOperation(Summary = "دریافت پروفایل کاربر", Tags = new[] { "UserProfile" })]
     [SwaggerResponse(200, "success")]
@@ -21,6 +19,4 @@ public class UserProfileController : BaseUserApiController
 
         return SuccessResult(res);
     }
-
-    #endregion
 }

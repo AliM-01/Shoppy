@@ -1,5 +1,5 @@
 ﻿using _0_Framework.Application.Extensions;
-using AM.Application.Contracts.Account.DTOs;
+using AM.Application.Account.DTOs;
 using AM.Domain.Account;
 using AutoMapper;
 

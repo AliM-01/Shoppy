@@ -1,6 +1,6 @@
-﻿using AM.Application.Contracts.Account.Commands;
-using AM.Application.Contracts.Account.DTOs;
-using AM.Application.Contracts.Account.Queries;
+﻿using AM.Application.Account.Commands;
+using AM.Application.Account.DTOs;
+using AM.Application.Account.Queries;
 
 namespace Shoppy.WebApi.Controllers.Admin.Blog;
 

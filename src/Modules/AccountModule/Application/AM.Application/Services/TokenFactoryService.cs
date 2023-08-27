@@ -1,5 +1,4 @@
-﻿using AM.Application.Contracts.Common;
-using AM.Application.Contracts.Services;
+﻿using AM.Application.Models;
 using AM.Infrastructure.Persistence.Settings;
 using Microsoft.Extensions.Logging;
 using Microsoft.IdentityModel.Tokens;
@@ -9,10 +8,15 @@ using System.Text;
 
 namespace AM.Application.Services;
 
+public interface ITokenFactoryService
+{
+    Task<JwtTokenResponse> CreateJwtTokenAsync(Domain.Account.Account user);
+
+    string GetRefreshTokenSerial(string refreshTokenValue);
+}
+
 public class TokenFactoryService : ITokenFactoryService
 {
-    #region ctor
-
     private readonly ISecurityService _securityService;
     private readonly UserManager<Domain.Account.Account> _userManager;
     private readonly BearerTokenSettings _tokentSettings;
@@ -29,8 +33,6 @@ public class TokenFactoryService : ITokenFactoryService
         _tokentSettings = tokentSettings.Value;
         _logger = Guard.Against.Null(logger, nameof(_logger));
     }
-
-    #endregion
 
     #region Create JwtToken
 

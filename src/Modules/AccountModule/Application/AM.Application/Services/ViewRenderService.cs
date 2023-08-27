@@ -1,5 +1,4 @@
-﻿using AM.Application.Contracts.Services;
-using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Abstractions;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
@@ -9,6 +8,11 @@ using Microsoft.AspNetCore.Mvc.ViewFeatures;
 using Microsoft.AspNetCore.Routing;
 
 namespace AM.Application.Services;
+
+public interface IViewRenderService
+{
+    string RenderToString(string viewName, object model);
+}
 
 public class ViewRenderService : IViewRenderService
 {

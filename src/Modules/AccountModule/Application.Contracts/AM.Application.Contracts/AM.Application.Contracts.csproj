@@ -14,4 +14,8 @@
     <ProjectReference Include="..\..\Domain\AM.Domain\AM.Domain.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Account\" />
+  </ItemGroup>
+
 </Project>

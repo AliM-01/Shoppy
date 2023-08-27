@@ -1,16 +1,35 @@
 ﻿using _0_Framework.Infrastructure;
 using _0_Framework.Infrastructure.IRepository;
-using AM.Application.Contracts.Services;
+using AM.Application.Services;
 using AM.Domain.Account;
 using AM.Infrastructure.Persistence.Settings;
 using MongoDB.Driver;
 
 namespace AM.Application.Services;
 
+public interface ITokenStoreService
+{
+    Task AddUserToken(UserToken userToken);
+
+    Task AddUserToken(Domain.Account.Account user, string refreshTokenSerial, string accessToken, string refreshTokenSourceSerial);
+
+    Task<bool> IsValidToken(string accessToken, string userId);
+
+    Task DeleteExpiredTokens();
+
+    Task<UserToken> FindToken(string refreshTokenValue);
+
+    Task DeleteToken(string refreshTokenValue);
+
+    Task DeleteTokensWithSameRefreshTokenSource(string refreshTokenIdHashSource);
+
+    Task InvalidateUserTokens(string userId);
+
+    Task RevokeUserBearerTokens(string userIdValue, string refreshTokenValue);
+}
+
 public class TokenStoreService : ITokenStoreService
 {
-    #region ctor
-
     private readonly ISecurityService _securityService;
     private readonly IRepository<UserToken> _userTokenRepository;
     private readonly UserManager<Domain.Account.Account> _userManager;
@@ -30,8 +49,6 @@ public class TokenStoreService : ITokenStoreService
         _tokenSettings = tokenSettings.Value;
         _tokenFactoryService = Guard.Against.Null(tokenFactoryService, nameof(_tokenFactoryService));
     }
-
-    #endregion
 
     #region AddUserToken
 

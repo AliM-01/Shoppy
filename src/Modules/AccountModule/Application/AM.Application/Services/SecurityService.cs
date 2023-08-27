@@ -1,8 +1,13 @@
-﻿using AM.Application.Contracts.Services;
-using System.Security.Cryptography;
+﻿using System.Security.Cryptography;
 using System.Text;
 
 namespace AM.Application.Services;
+
+public interface ISecurityService
+{
+    string GetSha256Hash(string input);
+    Guid CreateCryptographicallySecureGuid();
+}
 
 public class SecurityService : ISecurityService
 {

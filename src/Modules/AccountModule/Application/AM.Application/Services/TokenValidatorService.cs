@@ -1,14 +1,16 @@
-﻿using AM.Application.Contracts.Services;
-using Microsoft.AspNetCore.Authentication.JwtBearer;
+﻿using Microsoft.AspNetCore.Authentication.JwtBearer;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 
 namespace AM.Application.Services;
 
+public interface ITokenValidatorService
+{
+    Task ValidateAsync(TokenValidatedContext context);
+}
+
 public class TokenValidatorService : ITokenValidatorService
 {
-    #region ctor
-
     private readonly UserManager<Domain.Account.Account> _userManager;
     private readonly ITokenStoreService _tokenStoreService;
 
@@ -17,10 +19,6 @@ public class TokenValidatorService : ITokenValidatorService
         _userManager = Guard.Against.Null(userManager, nameof(_userManager));
         _tokenStoreService = Guard.Against.Null(tokenStoreService, nameof(_tokenStoreService));
     }
-
-    #endregion
-
-    #region ValidateAsync
 
     public async Task ValidateAsync(TokenValidatedContext context)
     {
@@ -61,8 +59,4 @@ public class TokenValidatorService : ITokenValidatorService
             return;
         }
     }
-
-    #endregion
-
-
 }

@@ -1,5 +1,4 @@
-﻿using AM.Application.Contracts.Services;
-using AM.Infrastructure.Persistence.Settings;
+﻿using AM.Infrastructure.Persistence.Settings;
 using Microsoft.Extensions.Logging;
 using Polly;
 using Polly.Retry;
@@ -8,10 +7,13 @@ using System.Net.Mail;
 
 namespace AM.Application.Services;
 
+public interface IEmailSenderService
+{
+    Task<bool> SendEmail(string email, string subject, string body);
+}
+
 public class EmailSenderService : IEmailSenderService
 {
-    #region Ctor
-
     private readonly EmailSettings _emailSettings;
     private readonly ILogger<EmailSenderService> _logger;
     private const int MAX_RETRIES = 3;
@@ -30,8 +32,6 @@ public class EmailSenderService : IEmailSenderService
                                                logger.LogError("Email Sending Error. Retrying in {0}. {1}/{2}", sleepDuration, attemptNumber, MAX_RETRIES);
                                            });
     }
-
-    #endregion
 
     // Ports :
     // Not-Encrypted 25

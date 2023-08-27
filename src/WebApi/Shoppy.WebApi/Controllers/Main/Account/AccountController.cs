@@ -1,7 +1,7 @@
-﻿using AM.Application.Contracts.Account.Commands;
-using AM.Application.Contracts.Account.DTOs;
-using AM.Application.Contracts.Account.Queries;
-using AM.Application.Contracts.Services;
+﻿using AM.Application.Account.Commands;
+using AM.Application.Account.DTOs;
+using AM.Application.Account.Queries;
+using AM.Application.Services;
 using AM.Domain.Account;
 using Ardalis.GuardClauses;
 using Microsoft.AspNetCore.Authorization;

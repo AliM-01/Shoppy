@@ -16,7 +16,6 @@
 	<ItemGroup>
 		<ProjectReference Include="..\..\..\..\01_Shoppy.Query\01_Shoppy.Query.csproj" />
 		<ProjectReference Include="..\..\..\..\0_Framework\0_Framework.csproj" />
-		<ProjectReference Include="..\..\Application.Contracts\AM.Application.Contracts\AM.Application.Contracts.csproj" />
 		<ProjectReference Include="..\..\Application\AM.Application\AM.Application.csproj" />
 		<ProjectReference Include="..\..\Infrastructure\AM.Infrastructure.Persistence\AM.Infrastructure.Persistence.csproj" />
 	</ItemGroup>
