@@ -2,10 +2,10 @@
 using _0_Framework.Infrastructure;
 using BM.Domain.Article;
 using BM.Domain.ArticleCategory;
-using BM.Infrastructure.Persistence.Settings;
+using BM.Infrastructure.Domain.Settings;
 using MongoDB.Driver;
 
-namespace BM.Infrastructure.Persistence.Seed;
+namespace BM.Infrastructure.Seed;
 
 public static class BlogDbDataSeed
 {

@@ -1,15 +1,15 @@
 ﻿using _0_Framework.Infrastructure.IRepository;
 using BM.Domain.Article;
 using BM.Domain.ArticleCategory;
-using BM.Infrastructure.Persistence.Seed;
-using BM.Infrastructure.Persistence.Settings;
+using BM.Infrastructure.Seed;
+using BM.Infrastructure.Domain.Settings;
 using MediatR;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using System;
 
-namespace BM.Infrastructure.Configuration;
+namespace BM.Infrastructure;
 
 public class BlogModuleBootstrapper
 {

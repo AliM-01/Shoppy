@@ -21,8 +21,9 @@ COPY ["src/Modules/DiscountModule/Infrastructure/DM.Infrastructure.Persistence/D
 COPY ["src/Modules/ShopModule/Infrastructure/SM.Infrastructure.Persistence/SM.Infrastructure.Persistence.csproj", "src/Modules/ShopModule/Infrastructure/SM.Infrastructure.Persistence/"]
 COPY ["src/Modules/CommentModule/Infrastructure/CM.Infrastructure.Persistence/CM.Infrastructure.Persistence.csproj", "src/Modules/CommentModule/Infrastructure/CM.Infrastructure.Persistence/"]
 COPY ["src/Modules/CommentModule/Domain/CM.Domain/CM.Domain.csproj", "src/Modules/CommentModule/Domain/CM.Domain/"]
-COPY ["src/Modules/BlogModule/Infrastructure/BM.Infrastructure.Persistence/BM.Infrastructure.Persistence.csproj", "src/Modules/BlogModule/Infrastructure/BM.Infrastructure.Persistence/"]
+COPY ["src/Modules/BlogModule/Infrastructure/BM.Infrastructure/BM.Infrastructure.csproj", "src/Modules/BlogModule/Infrastructure/BM.Infrastructure/"]
 COPY ["src/Modules/BlogModule/Domain/BM.Domain/BM.Domain.csproj", "src/Modules/BlogModule/Domain/BM.Domain/"]
+COPY ["src/Modules/BlogModule/Application.Contracts/BM.Application/BM.Application.csproj", "src/Modules/BlogModule/Application.Contracts/BM.Application/"]
 COPY ["src/Modules/ShopModule/Application.Contracts/SM.Application.Contracts/SM.Application.Contracts.csproj", "src/Modules/ShopModule/Application.Contracts/SM.Application.Contracts/"]
 COPY ["src/Modules/InventoryModule/Infrastructure/IM.Infrastructure.Persistence/IM.Infrastructure.Persistence.csproj", "src/Modules/InventoryModule/Infrastructure/IM.Infrastructure.Persistence/"]
 COPY ["src/Modules/AccountModule/AM.Domain/AM.Domain.csproj", "src/Modules/AccountModule/AM.Domain/"]
@@ -41,8 +42,6 @@ COPY ["src/Modules/InventoryModule/Infrastructure/IM.Infrastructure.Shared/IM.In
 COPY ["src/Modules/CommentModule/Infrastructure/CM.Infrastructure.Configuration/CM.Infrastructure.Configuration.csproj", "src/Modules/CommentModule/Infrastructure/CM.Infrastructure.Configuration/"]
 COPY ["src/Modules/CommentModule/Application.Contracts/CM.Application.Contracts/CM.Application.Contracts.csproj", "src/Modules/CommentModule/Application.Contracts/CM.Application.Contracts/"]
 COPY ["src/Modules/CommentModule/Infrastructure/Acl/CM.Infrastructure.ArticleAcl/CM.Infrastructure.ArticleAcl.csproj", "src/Modules/CommentModule/Infrastructure/Acl/CM.Infrastructure.ArticleAcl/"]
-COPY ["src/Modules/BlogModule/Infrastructure/BM.Infrastructure.Shared/BM.Infrastructure.Shared.csproj", "src/Modules/BlogModule/Infrastructure/BM.Infrastructure.Shared/"]
-COPY ["src/Modules/BlogModule/Application.Contracts/BM.Application/BM.Application.csproj", "src/Modules/BlogModule/Application.Contracts/BM.Application/"]
 COPY ["src/Modules/CommentModule/Infrastructure/Acl/CM.Infrastructure.ProductAcl/CM.Infrastructure.ProductAcl.csproj", "src/Modules/CommentModule/Infrastructure/Acl/CM.Infrastructure.ProductAcl/"]
 COPY ["src/Modules/DiscountModule/Infrastructure/DM.Infrastructure.Configuration/DM.Infrastructure.Configuration.csproj", "src/Modules/DiscountModule/Infrastructure/DM.Infrastructure.Configuration/"]
 COPY ["src/Modules/DiscountModule/Application/DM.Application/DM.Application.csproj", "src/Modules/DiscountModule/Application/DM.Application/"]
@@ -54,8 +53,6 @@ COPY ["src/Modules/ShopModule/Infrastructure/SM.Infrastructure.Configuration/SM.
 COPY ["src/Modules/ShopModule/Application/SM.Application/SM.Application.csproj", "src/Modules/ShopModule/Application/SM.Application/"]
 COPY ["src/Modules/CommentModule/Infrastructure/CM.Infrastructure.Shared/CM.Infrastructure.Shared.csproj", "src/Modules/CommentModule/Infrastructure/CM.Infrastructure.Shared/"]
 COPY ["src/Modules/OrderModule/Infrastructure/OM.Infrastructure.Shared/OM.Infrastructure.Shared.csproj", "src/Modules/OrderModule/Infrastructure/OM.Infrastructure.Shared/"]
-COPY ["src/Modules/BlogModule/Infrastructure/BM.Infrastructure.Configuration/BM.Infrastructure.Configuration.csproj", "src/Modules/BlogModule/Infrastructure/BM.Infrastructure.Configuration/"]
-COPY ["src/Modules/BlogModule/Application/BM.Application/BM.Application.csproj", "src/Modules/BlogModule/Application/BM.Application/"]
 RUN dotnet restore "src/WebApi/Shoppy.WebApi/Shoppy.WebApi.csproj"
 COPY . .
 WORKDIR "/src/src/WebApi/Shoppy.WebApi"

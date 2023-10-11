@@ -1,6 +1,6 @@
 ﻿using _0_Framework.Infrastructure;
 
-namespace BM.Infrastructure.Persistence.Settings;
+namespace BM.Infrastructure.Domain.Settings;
 
 public class BlogDbSettings : BaseDbSettings
 {
