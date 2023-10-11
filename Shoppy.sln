@@ -144,9 +144,9 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Domain", "Domain", "{1C71E6
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Infrastructure", "Infrastructure", "{25AA0F10-AC4F-40BA-AD3D-0B59A98C42B0}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AM.Domain", "src\Modules\AccountModule\Domain\AM.Domain\AM.Domain.csproj", "{B8F0AAA1-4860-44AB-ACC0-2796EBEB409A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AM.Domain", "src\Modules\AccountModule\AM.Domain\AM.Domain.csproj", "{B8F0AAA1-4860-44AB-ACC0-2796EBEB409A}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AM.Application", "src\Modules\AccountModule\Application\AM.Application\AM.Application.csproj", "{3BBA7C0C-31C4-449A-9736-F3BC5F4BAF67}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AM.Application", "src\Modules\AccountModule\AM.Application\AM.Application.csproj", "{3BBA7C0C-31C4-449A-9736-F3BC5F4BAF67}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "OrderModule", "OrderModule", "{AC1ABFE8-BB02-471B-A627-40E0A500F2CA}"
 EndProject
