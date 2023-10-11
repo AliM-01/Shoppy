@@ -13,7 +13,7 @@
 	<ItemGroup>
 		<ProjectReference Include="..\..\..\..\01_Shoppy.Query\01_Shoppy.Query.csproj" />
 		<ProjectReference Include="..\..\..\..\0_Framework\0_Framework.csproj" />
-		<ProjectReference Include="..\..\Application.Contracts\BM.Application.Contracts\BM.Application.Contracts.csproj" />
+		<ProjectReference Include="..\..\Application\BM.Application\BM.Application.csproj" />
 		<ProjectReference Include="..\..\Application\BM.Application\BM.Application.csproj" />
 		<ProjectReference Include="..\..\Infrastructure\BM.Infrastructure.Persistence\BM.Infrastructure.Persistence.csproj" />
 		<ProjectReference Include="..\BM.Infrastructure.Shared\BM.Infrastructure.Shared.csproj" />

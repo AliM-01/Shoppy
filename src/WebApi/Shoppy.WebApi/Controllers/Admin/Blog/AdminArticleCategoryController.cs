@@ -1,6 +1,8 @@
-﻿using BM.Application.Contracts.ArticleCategory.Commands;
-using BM.Application.Contracts.ArticleCategory.DTOs;
-using BM.Application.Contracts.ArticleCategory.Queries;
+﻿using BM.Application.ArticleCategory.Commands;
+using BM.Application.ArticleCategory.Models;
+using BM.Application.ArticleCategory.Models.Admin;
+using BM.Application.ArticleCategory.Queries;
+using BM.Application.ArticleCategory.Queries.Admin;
 
 namespace Shoppy.WebApi.Controllers.Admin.Blog;
 
@@ -13,11 +15,11 @@ public class AdminArticleCategoryController : BaseAdminApiController
     [SwaggerOperation(Summary = "دریافت لیست دسته بندی مقالات", Tags = new[] { "AdminArticleCategory" })]
     [SwaggerResponse(200, "success")]
     [SwaggerResponse(404, "not-found")]
-    [ProducesResponseType(typeof(IEnumerable<ArticleCategoryForSelectListDto>), 200)]
+    [ProducesResponseType(typeof(IEnumerable<ArticleCategoryForSelectListAdminDto>), 200)]
     [ProducesResponseType(typeof(ApiResult), 404)]
     public async Task<IActionResult> GetArticleCategoriesSelectList(CancellationToken cancellationToken)
     {
-        var res = await Mediator.Send(new GetArticleCategoriesSelectListQuery(), cancellationToken);
+        var res = await Mediator.Send(new GetArticleCategoriesSelectListAdminQuery(), cancellationToken);
 
         return SuccessResult(res);
     }
@@ -30,12 +32,12 @@ public class AdminArticleCategoryController : BaseAdminApiController
     [SwaggerOperation(Summary = "فیلتر دسته بندی مقالات", Tags = new[] { "AdminArticleCategory" })]
     [SwaggerResponse(200, "success")]
     [SwaggerResponse(404, "not-found")]
-    [ProducesResponseType(typeof(FilterArticleCategoryDto), 200)]
+    [ProducesResponseType(typeof(FilterArticleCategoryAdminDto), 200)]
     [ProducesResponseType(typeof(ApiResult), 404)]
-    public async Task<IActionResult> FilterArticleCategories([FromQuery] FilterArticleCategoryDto filter,
+    public async Task<IActionResult> FilterArticleCategories([FromQuery] FilterArticleCategoryAdminDto filter,
         CancellationToken cancellationToken)
     {
-        var res = await Mediator.Send(new FilterArticleCategoriesQuery(filter), cancellationToken);
+        var res = await Mediator.Send(new FilterArticleCategoriesAdminQuery(filter), cancellationToken);
 
         return SuccessResult(res);
     }
@@ -48,12 +50,12 @@ public class AdminArticleCategoryController : BaseAdminApiController
     [SwaggerOperation(Summary = "دریافت جزییات دسته بندی مقاله", Tags = new[] { "AdminArticleCategory" })]
     [SwaggerResponse(200, "success")]
     [SwaggerResponse(404, "not-found")]
-    [ProducesResponseType(typeof(EditArticleCategoryDto), 200)]
+    [ProducesResponseType(typeof(EditArticleCategoryAdminDto), 200)]
     [ProducesResponseType(typeof(ApiResult), 404)]
     public async Task<IActionResult> GetArticleCategoryDetails([FromRoute] string id,
         CancellationToken cancellationToken)
     {
-        var res = await Mediator.Send(new GetArticleCategoryDetailsQuery(id), cancellationToken);
+        var res = await Mediator.Send(new GetArticleCategoryDetailsAdminQuery(id), cancellationToken);
 
         return SuccessResult(res);
     }
@@ -68,7 +70,7 @@ public class AdminArticleCategoryController : BaseAdminApiController
     [SwaggerResponse(400, "error : title is duplicated")]
     [ProducesResponseType(typeof(ApiResult), 201)]
     [ProducesResponseType(typeof(ApiResult), 404)]
-    public async Task<IActionResult> CreateArticleCategory([FromForm] CreateArticleCategoryDto createRequest)
+    public async Task<IActionResult> CreateArticleCategory([FromForm] CreateArticleCategoryAdminDto createRequest)
     {
         var res = await Mediator.Send(new CreateArticleCategoryCommand(createRequest));
 
@@ -87,7 +89,7 @@ public class AdminArticleCategoryController : BaseAdminApiController
     [ProducesResponseType(typeof(ApiResult), 201)]
     [ProducesResponseType(typeof(ApiResult), 400)]
     [ProducesResponseType(typeof(ApiResult), 404)]
-    public async Task<IActionResult> EditArticleCategory([FromForm] EditArticleCategoryDto editRequest)
+    public async Task<IActionResult> EditArticleCategory([FromForm] EditArticleCategoryAdminDto editRequest)
     {
         var res = await Mediator.Send(new EditArticleCategoryCommand(editRequest));
 

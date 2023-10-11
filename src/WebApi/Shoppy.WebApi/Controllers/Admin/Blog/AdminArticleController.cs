@@ -1,6 +1,7 @@
-﻿using BM.Application.Contracts.Article.Commands;
-using BM.Application.Contracts.Article.DTOs;
-using BM.Application.Contracts.Article.Queries;
+﻿using BM.Application.Article.Commands;
+using BM.Application.Article.DTOs;
+using BM.Application.Article.Queries;
+using BM.Application.Article.Queries.Admin;
 
 namespace Shoppy.WebApi.Controllers.Admin.Blog;
 
@@ -16,7 +17,7 @@ public class AdminArticleController : BaseAdminApiController
     public async Task<IActionResult> FilterArticles([FromQuery] FilterArticleDto filter,
         CancellationToken cancellationToken)
     {
-        var res = await Mediator.Send(new FilterArticlesQuery(filter), cancellationToken);
+        var res = await Mediator.Send(new FilterArticlesAdminQuery(filter), cancellationToken);
 
         return SuccessResult(res);
     }
@@ -33,7 +34,7 @@ public class AdminArticleController : BaseAdminApiController
     [ProducesResponseType(typeof(ApiResult), 404)]
     public async Task<IActionResult> GetArticleDetails([FromRoute] string id, CancellationToken cancellationToken)
     {
-        var res = await Mediator.Send(new GetArticleDetailsQuery(id), cancellationToken);
+        var res = await Mediator.Send(new GetArticleDetailsAdminQuery(id), cancellationToken);
 
         return SuccessResult(res);
     }
@@ -48,7 +49,7 @@ public class AdminArticleController : BaseAdminApiController
     [SwaggerResponse(400, "error : title is duplicated")]
     [ProducesResponseType(typeof(ApiResult), 201)]
     [ProducesResponseType(typeof(ApiResult), 400)]
-    public async Task<IActionResult> CreateArticle([FromForm] CreateArticleDto createRequest)
+    public async Task<IActionResult> CreateArticle([FromForm] CreateArticleRequest createRequest)
     {
         var res = await Mediator.Send(new CreateArticleCommand(createRequest));
 

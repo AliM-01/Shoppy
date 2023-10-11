@@ -42,7 +42,7 @@ COPY ["src/Modules/CommentModule/Infrastructure/CM.Infrastructure.Configuration/
 COPY ["src/Modules/CommentModule/Application.Contracts/CM.Application.Contracts/CM.Application.Contracts.csproj", "src/Modules/CommentModule/Application.Contracts/CM.Application.Contracts/"]
 COPY ["src/Modules/CommentModule/Infrastructure/Acl/CM.Infrastructure.ArticleAcl/CM.Infrastructure.ArticleAcl.csproj", "src/Modules/CommentModule/Infrastructure/Acl/CM.Infrastructure.ArticleAcl/"]
 COPY ["src/Modules/BlogModule/Infrastructure/BM.Infrastructure.Shared/BM.Infrastructure.Shared.csproj", "src/Modules/BlogModule/Infrastructure/BM.Infrastructure.Shared/"]
-COPY ["src/Modules/BlogModule/Application.Contracts/BM.Application.Contracts/BM.Application.Contracts.csproj", "src/Modules/BlogModule/Application.Contracts/BM.Application.Contracts/"]
+COPY ["src/Modules/BlogModule/Application.Contracts/BM.Application/BM.Application.csproj", "src/Modules/BlogModule/Application.Contracts/BM.Application/"]
 COPY ["src/Modules/CommentModule/Infrastructure/Acl/CM.Infrastructure.ProductAcl/CM.Infrastructure.ProductAcl.csproj", "src/Modules/CommentModule/Infrastructure/Acl/CM.Infrastructure.ProductAcl/"]
 COPY ["src/Modules/DiscountModule/Infrastructure/DM.Infrastructure.Configuration/DM.Infrastructure.Configuration.csproj", "src/Modules/DiscountModule/Infrastructure/DM.Infrastructure.Configuration/"]
 COPY ["src/Modules/DiscountModule/Application/DM.Application/DM.Application.csproj", "src/Modules/DiscountModule/Application/DM.Application/"]

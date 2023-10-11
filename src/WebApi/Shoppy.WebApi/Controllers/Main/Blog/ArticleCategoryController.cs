@@ -1,27 +1,22 @@
-﻿using _01_Shoppy.Query.Models.Blog.ArticleCategory;
-using _01_Shoppy.Query.Queries.ArticleCategory;
+﻿using BM.Application.ArticleCategory.Models;
+using BM.Application.ArticleCategory.Models.Site;
+using BM.Application.ArticleCategory.Queries.SiteCategory;
 
 namespace Shoppy.WebApi.Controllers.Main.Article;
 
 [SwaggerTag("مقاله ها")]
 public class ArticleCategoryController : BaseApiController
 {
-    #region Get ArticleCategory List
-
     [HttpGet(MainBlogEndpoints.ArticleCategory.GetArticleCategoryList)]
     [SwaggerOperation(Summary = "دریافت دسته بندی های مقالات", Tags = new[] { "ProductCategory" })]
     [SwaggerResponse(200, "success")]
-    [ProducesResponseType(typeof(IEnumerable<ArticleCategoryQueryModel>), 200)]
-    public async Task<IActionResult> GetArticleCategoryList(CancellationToken cancellationToken)
+    [ProducesResponseType(typeof(IEnumerable<ArticleCategorySiteDto>), 200)]
+    public async Task<ActionResult<IEnumerable<ArticleCategorySiteDto>>> GetArticleCategoryList(CancellationToken cancellationToken)
     {
-        var res = await Mediator.Send(new GetArticleCategoryListQuery(), cancellationToken);
+        var res = await Mediator.Send(new GetArticleCategorySiteListQuery(), cancellationToken);
 
         return SuccessResult(res);
     }
-
-    #endregion
-
-    #region Get Article Category
 
     [HttpGet(MainBlogEndpoints.ArticleCategory.GetArticleCategory)]
     [SwaggerOperation(Summary = "دریافت دسته بندی مقاله", Tags = new[] { "ArticleCategory" })]
@@ -29,13 +24,11 @@ public class ArticleCategoryController : BaseApiController
     [SwaggerResponse(404, "not-found")]
     [ProducesResponseType(typeof(ArticleCategoryDetailsQueryModel), 200)]
     [ProducesResponseType(typeof(ApiResult), 404)]
-    public async Task<IActionResult> GetArticleCategory([FromQuery] FilterArticleCategoryDetailsModel filter,
+    public async Task<ActionResult<ArticleCategoryDetailsQueryModel>> GetArticleCategory([FromQuery] FilterArticleCategorySiteDto filter,
         CancellationToken cancellationToken)
     {
-        var res = await Mediator.Send(new GetArticleCategoryWithArticlesByQuery(filter), cancellationToken);
+        var res = await Mediator.Send(new GetArticleCategoryWithArticlesSiteQuery(filter), cancellationToken);
 
         return SuccessResult(res);
     }
-
-    #endregion
 }

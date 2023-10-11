@@ -7,7 +7,7 @@ using AM.Infrastructure;
 using AM.Application.Mappings;
 using BM.Application;
 using BM.Infrastructure.Configuration;
-using BM.Infrastructure.Shared.Mappings;
+using BM.Application.Mappings;
 using CM.Application;
 using CM.Infrastructure.Configuration;
 using CM.Infrastructure.Shared.Mappings;
