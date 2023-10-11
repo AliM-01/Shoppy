@@ -50,4 +50,3 @@ public class RevokeRefreshTokenCommandHandler : IRequestHandler<RevokeRefreshTok
         return new AuthenticateUserResponseDto(result);
     }
 }
-

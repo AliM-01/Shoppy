@@ -3,7 +3,7 @@ using _01_Shoppy.Query;
 using _02_DI_Container.Extensions.Startup;
 using _03_Reports.Query;
 using AM.Application;
-using AM.Infrastructure.Configuration;
+using AM.Infrastructure;
 using AM.Infrastructure.Shared.Mappings;
 using BM.Application;
 using BM.Infrastructure.Configuration;

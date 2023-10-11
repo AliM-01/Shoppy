@@ -1,6 +1,7 @@
 ﻿using _0_Framework.Application.Exceptions;
 using AM.Application.Account.DTOs;
 using AM.Application.Services;
+
 namespace AM.Application.Account.Commands;
 
 public record AuthenticateUserCommand(AuthenticateUserRequestDto Account) : IRequest<AuthenticateUserResponseDto>;

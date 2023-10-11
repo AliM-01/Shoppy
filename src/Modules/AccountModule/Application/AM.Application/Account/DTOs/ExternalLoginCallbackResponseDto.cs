@@ -1,11 +1,11 @@
 ﻿using AM.Application.Account.Enums;
 
 namespace AM.Application.Account.DTOs;
+
 public class ExternalLoginCallbackResponseDto
 {
     public ExternalLoginCallbackResponseDto()
     {
-
     }
 
     public ExternalLoginCallbackResponseDto(ExternalLoginCallbackResult type)

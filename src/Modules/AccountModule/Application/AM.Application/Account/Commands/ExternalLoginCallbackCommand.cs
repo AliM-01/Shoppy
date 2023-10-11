@@ -78,7 +78,7 @@ public class ExternalLoginCallbackCommandHandler : IRequestHandler<ExternalLogin
         var token = await _tokenFactoryService.CreateJwtTokenAsync(user);
         await _tokenStoreService.AddUserToken(user, token.RefreshTokenSerial, token.AccessToken, null);
 
-        #endregion
+        #endregion register
 
         return new ExternalLoginCallbackResponseDto
         {

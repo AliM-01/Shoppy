@@ -1,4 +1,5 @@
 ﻿namespace AM.Application.Account.DTOs;
+
 public class CurrentUserDto
 {
     [JsonProperty("fullName")]

@@ -51,7 +51,7 @@ COPY ["src/Modules/DiscountModule/Infrastructure/Acl/DM.Infrastructure.ProductAc
 COPY ["src/Modules/CommentModule/Application/CM.Application/CM.Application.csproj", "src/Modules/CommentModule/Application/CM.Application/"]
 COPY ["src/03_Reports.Query/03_Reports.Query.csproj", "src/03_Reports.Query/"]
 COPY ["src/Modules/InventoryModule/Infrastructure/IM.Infrastructure.Configuration/IM.Infrastructure.Configuration.csproj", "src/Modules/InventoryModule/Infrastructure/IM.Infrastructure.Configuration/"]
-COPY ["src/Modules/AccountModule/Infrastructure/AM.Infrastructure.Configuration/AM.Infrastructure.Configuration.csproj", "src/Modules/AccountModule/Infrastructure/AM.Infrastructure.Configuration/"]
+COPY ["src/Modules/AccountModule/Infrastructure/AM.Infrastructure/AM.Infrastructure.csproj", "src/Modules/AccountModule/Infrastructure/AM.Infrastructure/"]
 COPY ["src/Modules/AccountModule/Application/AM.Application/AM.Application.csproj", "src/Modules/AccountModule/Application/AM.Application/"]
 COPY ["src/Modules/ShopModule/Infrastructure/SM.Infrastructure.Configuration/SM.Infrastructure.Configuration.csproj", "src/Modules/ShopModule/Infrastructure/SM.Infrastructure.Configuration/"]
 COPY ["src/Modules/ShopModule/Application/SM.Application/SM.Application.csproj", "src/Modules/ShopModule/Application/SM.Application/"]
