@@ -1,5 +1,5 @@
 ﻿using AM.Domain.Account;
-using AM.Infrastructure.Shared.RepositoryExtensions;
+using AM.Infrastructure.RepositoryExtensions;
 using Ardalis.GuardClauses;
 using IM.Application.Contracts.Sevices;
 using Microsoft.AspNetCore.Identity;

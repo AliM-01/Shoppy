@@ -1,6 +1,6 @@
 ﻿using _0_Framework.Application.Models.Paging;
 using AM.Domain.Account;
-using AM.Infrastructure.Shared.RepositoryExtensions;
+using AM.Infrastructure.RepositoryExtensions;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using OM.Application.Contracts.Order.Enums;

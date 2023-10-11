@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>net6.0</TargetFramework>
@@ -13,7 +13,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\Infrastructure\AM.Infrastructure.Persistence\AM.Infrastructure.Persistence.csproj" />
+    <ProjectReference Include="..\..\Domain\AM.Domain\AM.Domain.csproj" />
   </ItemGroup>
 
 </Project>

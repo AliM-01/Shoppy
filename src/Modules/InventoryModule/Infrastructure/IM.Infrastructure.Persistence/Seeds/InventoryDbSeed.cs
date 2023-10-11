@@ -1,5 +1,5 @@
 ﻿using _0_Framework.Infrastructure;
-using AM.Infrastructure.Persistence.Seed;
+using AM.Infrastructure.Seed;
 using IM.Domain.Inventory;
 using IM.Infrastructure.Persistence.Settings;
 using MongoDB.Driver;

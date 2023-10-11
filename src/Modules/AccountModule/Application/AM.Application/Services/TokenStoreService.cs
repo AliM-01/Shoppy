@@ -2,7 +2,7 @@
 using _0_Framework.Infrastructure.IRepository;
 using AM.Application.Services;
 using AM.Domain.Account;
-using AM.Infrastructure.Persistence.Settings;
+using AM.Domain.Settings;
 using MongoDB.Driver;
 
 namespace AM.Application.Services;

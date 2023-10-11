@@ -14,7 +14,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\..\..\0_Framework\0_Framework.csproj" />
-    <ProjectReference Include="..\..\..\AccountModule\Infrastructure\AM.Infrastructure.Shared\AM.Infrastructure.Shared.csproj" />
+    <ProjectReference Include="..\..\..\AccountModule\AM.Infrastructure\AM.Infrastructure.csproj" />
     <ProjectReference Include="..\..\..\DiscountModule\Domain\DM.Domain\DM.Domain.csproj" />
     <ProjectReference Include="..\..\..\InventoryModule\Application.Contracts\IM.Application.Contracts\IM.Application.Contracts.csproj" />
     <ProjectReference Include="..\..\..\InventoryModule\Domain\IM.Domain\IM.Domain.csproj" />

@@ -1,4 +1,4 @@
-﻿using AM.Infrastructure.Persistence.Settings;
+﻿using AM.Domain.Settings;
 using Microsoft.Extensions.Logging;
 using Polly;
 using Polly.Retry;

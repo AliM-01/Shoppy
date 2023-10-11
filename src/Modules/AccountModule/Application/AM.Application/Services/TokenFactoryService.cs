@@ -1,5 +1,5 @@
 ﻿using AM.Application.Models;
-using AM.Infrastructure.Persistence.Settings;
+using AM.Domain.Settings;
 using Microsoft.Extensions.Logging;
 using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;

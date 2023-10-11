@@ -1,19 +1,13 @@
 ﻿using _0_Framework.Application.Extensions;
 using AM.Application.Account.DTOs;
-using AM.Domain.Account;
-using AutoMapper;
 
-namespace AM.Infrastructure.Mappings;
+namespace AM.Application.Mappings;
 
 public class AccountModuleMappingProfile : Profile
 {
     public AccountModuleMappingProfile()
     {
-        #region Account
-
-        #region Account Dto
-
-        CreateMap<Account, AccountDto>()
+        CreateMap<Domain.Account.Account, AccountDto>()
             .ForMember(dest => dest.AvatarPath,
                 opt => opt.MapFrom(src => src.Avatar))
             .ForMember(dest => dest.FullName,
@@ -21,36 +15,20 @@ public class AccountModuleMappingProfile : Profile
             .ForMember(dest => dest.RegisterDate,
                 opt => opt.MapFrom(src => src.CreatedOn.ToShamsi()));
 
-        #endregion
-
-        #region Register Account
-
-        CreateMap<RegisterAccountRequestDto, Account>()
+        CreateMap<RegisterAccountRequestDto, Domain.Account.Account>()
                        .ForMember(dest => dest.Avatar,
                            opt => opt.MapFrom(src => "default-avatar.png"))
                        .ForMember(dest => dest.UserName,
                            opt => opt.MapFrom(src => Generator.UserName()));
 
-        #endregion
+        CreateMap<Domain.Account.Account, EditAccountDto>();
 
-        #region Edit Account
-
-        CreateMap<Account, EditAccountDto>();
-
-        CreateMap<EditAccountDto, Account>()
+        CreateMap<EditAccountDto, Domain.Account.Account>()
             .ForMember(dest => dest.Id,
                 opt => opt.Ignore());
 
-        #endregion
-
-        #region MyRegion
-
-        CreateMap<Account, UserProfileDto>()
+        CreateMap<Domain.Account.Account, UserProfileDto>()
             .ForMember(dest => dest.FullName,
                 opt => opt.MapFrom(src => $"{src.FirstName} {src.LastName}"));
-
-        #endregion
-
-        #endregion
     }
 }

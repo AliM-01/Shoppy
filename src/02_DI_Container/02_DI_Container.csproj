@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>net6.0</TargetFramework>
@@ -26,8 +26,7 @@
 	<ItemGroup>
 		<ProjectReference Include="..\03_Reports.Query\03_Reports.Query.csproj" />
 		<ProjectReference Include="..\0_Framework\0_Framework.csproj" />
-		<ProjectReference Include="..\Modules\AccountModule\Infrastructure\AM.Infrastructure\AM.Infrastructure.csproj" />
-		<ProjectReference Include="..\Modules\AccountModule\Infrastructure\AM.Infrastructure.Shared\AM.Infrastructure.Shared.csproj" />
+		<ProjectReference Include="..\Modules\AccountModule\AM.Infrastructure\AM.Infrastructure.csproj" />
 		<ProjectReference Include="..\Modules\BlogModule\Domain\BM.Domain\BM.Domain.csproj" />
 		<ProjectReference Include="..\Modules\BlogModule\Infrastructure\BM.Infrastructure.Configuration\BM.Infrastructure.Configuration.csproj" />
 		<ProjectReference Include="..\Modules\BlogModule\Infrastructure\BM.Infrastructure.Shared\BM.Infrastructure.Shared.csproj" />
