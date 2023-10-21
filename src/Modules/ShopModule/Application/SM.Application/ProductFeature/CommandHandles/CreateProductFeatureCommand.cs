@@ -1,11 +1,30 @@
-﻿using SM.Application.ProductFeature.Commands;
+﻿using _0_Framework.Domain.Validators;
+using FluentValidation;
+using SM.Application.ProductFeature.DTOs;
 
-namespace SM.Application.ProductFeature.CommandHandles;
+namespace SM.Application.ProductFeature.Commands;
+
+public record CreateProductFeatureCommand(CreateProductFeatureDto ProductFeature) : IRequest<ApiResult>;
+
+public class CreateProductFeatureCommandValidator : AbstractValidator<CreateProductFeatureCommand>
+{
+    public CreateProductFeatureCommandValidator()
+    {
+        RuleFor(p => p.ProductFeature.ProductId)
+            .RequiredValidator("شناسه محصول");
+
+        RuleFor(p => p.ProductFeature.FeatureTitle)
+            .RequiredValidator("عنوان")
+            .MaxLengthValidator("عنوان", 100);
+
+        RuleFor(p => p.ProductFeature.FeatureValue)
+            .RequiredValidator("توضیحات")
+            .MaxLengthValidator("توضیحات", 250);
+    }
+}
 
 public class CreateProductFeatureCommandHandler : IRequestHandler<CreateProductFeatureCommand, ApiResult>
 {
-    #region Ctor
-
     private readonly IRepository<Domain.ProductFeature.ProductFeature> _productFeatureRepository;
     private readonly IMapper _mapper;
 
@@ -14,8 +33,6 @@ public class CreateProductFeatureCommandHandler : IRequestHandler<CreateProductF
         _productFeatureRepository = Guard.Against.Null(productFeatureRepository, nameof(_productFeatureRepository));
         _mapper = Guard.Against.Null(mapper, nameof(_mapper));
     }
-
-    #endregion
 
     public async Task<ApiResult> Handle(CreateProductFeatureCommand request, CancellationToken cancellationToken)
     {

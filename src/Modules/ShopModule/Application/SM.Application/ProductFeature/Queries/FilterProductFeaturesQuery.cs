@@ -1,14 +1,25 @@
 ﻿using _0_Framework.Application.Models.Paging;
+using FluentValidation;
 using MongoDB.Driver.Linq;
 using SM.Application.ProductFeature.DTOs;
 using SM.Application.ProductFeature.Queries;
 using System.Linq;
 
-namespace SM.Application.ProductFeature.QueryHandles;
+namespace SM.Application.ProductFeature.Queries;
+
+public record FilterProductFeaturesQuery(FilterProductFeatureDto Filter) : IRequest<FilterProductFeatureDto>;
+
+public class FilterProductFeatureQueryValidator : AbstractValidator<FilterProductFeaturesQuery>
+{
+    public FilterProductFeatureQueryValidator()
+    {
+        RuleFor(p => p.Filter.ProductId)
+            .RequiredValidator("شناسه محصول");
+    }
+}
+
 public class FilterProductFeaturesQueryHandler : IRequestHandler<FilterProductFeaturesQuery, FilterProductFeatureDto>
 {
-    #region Ctor
-
     private readonly IRepository<Domain.ProductFeature.ProductFeature> _productFeatureRepository;
     private readonly IMapper _mapper;
 
@@ -17,8 +28,6 @@ public class FilterProductFeaturesQueryHandler : IRequestHandler<FilterProductFe
         _productFeatureRepository = Guard.Against.Null(productFeatureRepository, nameof(_productFeatureRepository));
         _mapper = Guard.Against.Null(mapper, nameof(_mapper));
     }
-
-    #endregion
 
     public async Task<FilterProductFeatureDto> Handle(FilterProductFeaturesQuery request, CancellationToken cancellationToken)
     {

@@ -1,19 +1,27 @@
-﻿using SM.Application.ProductFeature.Commands;
+﻿using FluentValidation;
+using SM.Application.ProductFeature.Commands;
 
-namespace SM.Application.ProductFeature.CommandHandles;
+namespace SM.Application.ProductFeature.Commands;
+
+public record DeleteProductFeatureCommand(string ProductFeatureId) : IRequest<ApiResult>;
+
+public class DeleteProductFeatureCommandValidator : AbstractValidator<DeleteProductFeatureCommand>
+{
+    public DeleteProductFeatureCommandValidator()
+    {
+        RuleFor(p => p.ProductFeatureId)
+            .RequiredValidator("شناسه دسته بندی");
+    }
+}
 
 public class DeleteProductFeatureCommandHandler : IRequestHandler<DeleteProductFeatureCommand, ApiResult>
 {
-    #region Ctor
-
     private readonly IRepository<Domain.ProductFeature.ProductFeature> _productFeatureRepository;
 
     public DeleteProductFeatureCommandHandler(IRepository<Domain.ProductFeature.ProductFeature> productFeatureRepository)
     {
         _productFeatureRepository = Guard.Against.Null(productFeatureRepository, nameof(_productFeatureRepository));
     }
-
-    #endregion
 
     public async Task<ApiResult> Handle(DeleteProductFeatureCommand request, CancellationToken cancellationToken)
     {

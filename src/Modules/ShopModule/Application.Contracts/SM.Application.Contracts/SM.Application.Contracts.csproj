@@ -13,8 +13,4 @@
 		<ProjectReference Include="..\..\Domain\SM.Domin\SM.Domain.csproj" />
 	</ItemGroup>
 
-	<ItemGroup>
-	  <Folder Include="ProductCategory\Queries\" />
-	</ItemGroup>
-
 </Project>

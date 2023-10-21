@@ -1,11 +1,22 @@
-﻿using SM.Application.ProductFeature.DTOs;
-using SM.Application.ProductFeature.Queries;
+﻿using FluentValidation;
+using SM.Application.ProductFeature.DTOs;
 
-namespace SM.Application.ProductFeature.QueryHandles;
+namespace SM.Application.ProductFeature.Queries;
+
+public record GetProductFeatureDetailsQuery(string Id) : IRequest<EditProductFeatureDto>;
+
+public class GetProductFeatureDetailsQueryValidator : AbstractValidator<GetProductFeatureDetailsQuery>
+{
+    public GetProductFeatureDetailsQueryValidator()
+    {
+        RuleFor(p => p.Id)
+            .RequiredValidator("شناسه");
+    }
+}
+
+
 public class GetProductFeatureDetailsQueryHandler : IRequestHandler<GetProductFeatureDetailsQuery, EditProductFeatureDto>
 {
-    #region Ctor
-
     private readonly IRepository<Domain.ProductFeature.ProductFeature> _productFeatureRepository;
     private readonly IMapper _mapper;
 
@@ -14,8 +25,6 @@ public class GetProductFeatureDetailsQueryHandler : IRequestHandler<GetProductFe
         _productFeatureRepository = Guard.Against.Null(productFeatureRepository, nameof(_productFeatureRepository));
         _mapper = Guard.Against.Null(mapper, nameof(_mapper));
     }
-
-    #endregion
 
     public async Task<EditProductFeatureDto> Handle(GetProductFeatureDetailsQuery request, CancellationToken cancellationToken)
     {
