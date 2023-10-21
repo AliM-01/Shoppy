@@ -1,13 +1,21 @@
-﻿using SM.Application.ProductPicture.DTOs;
-using SM.Application.ProductPicture.Queries;
-using System.Collections.Generic;
-using System.Linq;
+﻿using FluentValidation;
+using SM.Application.ProductPicture.DTOs;
 
-namespace SM.Application.ProductPicture.QueryHandles;
+namespace SM.Application.ProductPicture.Queries;
+
+public record GetProductPicturesQuery(string ProductId) : IRequest<IEnumerable<ProductPictureDto>>;
+
+public class GetProductPicturesQueryValidator : AbstractValidator<GetProductPicturesQuery>
+{
+    public GetProductPicturesQueryValidator()
+    {
+        RuleFor(p => p.ProductId)
+            .RequiredValidator("شناسه محصول");
+    }
+}
+
 public class GetProductPicturesQueryHandler : IRequestHandler<GetProductPicturesQuery, IEnumerable<ProductPictureDto>>
 {
-    #region Ctor
-
     private readonly IRepository<Domain.ProductPicture.ProductPicture> _productPictureRepository;
     private readonly IRepository<Domain.Product.Product> _productRepository;
     private readonly IMapper _mapper;
@@ -19,8 +27,6 @@ public class GetProductPicturesQueryHandler : IRequestHandler<GetProductPictures
         _productRepository = Guard.Against.Null(productRepository, nameof(_productPictureRepository));
         _mapper = Guard.Against.Null(mapper, nameof(_mapper));
     }
-
-    #endregion
 
     public async Task<IEnumerable<ProductPictureDto>> Handle(GetProductPicturesQuery request, CancellationToken cancellationToken)
     {

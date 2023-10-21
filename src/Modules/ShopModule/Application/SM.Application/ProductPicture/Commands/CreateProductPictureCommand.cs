@@ -1,11 +1,21 @@
-﻿using SM.Application.ProductPicture.Commands;
+﻿using FluentValidation;
+using SM.Application.ProductPicture.DTOs;
 
-namespace SM.Application.ProductPicture.CommandHandles;
+namespace SM.Application.ProductPicture.Commands;
+
+public record CreateProductPictureCommand(CreateProductPictureDto ProductPicture) : IRequest<ApiResult>;
+
+public class CreateProductPictureCommandValidator : AbstractValidator<CreateProductPictureCommand>
+{
+    public CreateProductPictureCommandValidator()
+    {
+        RuleFor(p => p.ProductPicture.ProductId)
+             .RequiredValidator("شناسه محصول");
+    }
+}
 
 public class CreateProductPictureCommandHandler : IRequestHandler<CreateProductPictureCommand, ApiResult>
 {
-    #region Ctor
-
     private readonly IRepository<Domain.ProductPicture.ProductPicture> _productPictureRepository;
     private readonly IMapper _mapper;
 
@@ -14,8 +24,6 @@ public class CreateProductPictureCommandHandler : IRequestHandler<CreateProductP
         _productPictureRepository = Guard.Against.Null(productPictureRepository, nameof(_productPictureRepository));
         _mapper = Guard.Against.Null(mapper, nameof(_mapper));
     }
-
-    #endregion
 
     public async Task<ApiResult> Handle(CreateProductPictureCommand request, CancellationToken cancellationToken)
     {

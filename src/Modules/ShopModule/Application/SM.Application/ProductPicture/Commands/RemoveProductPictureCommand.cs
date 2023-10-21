@@ -1,20 +1,26 @@
-﻿using SM.Application.ProductPicture.Commands;
-using System.IO;
+﻿using FluentValidation;
 
-namespace SM.Application.ProductPicture.CommandHandles;
+namespace SM.Application.ProductPicture.Commands;
+
+public record RemoveProductPictureCommand(string ProductPictureId) : IRequest<ApiResult>;
+
+public class RemoveProductPictureCommandValidator : AbstractValidator<RemoveProductPictureCommand>
+{
+    public RemoveProductPictureCommandValidator()
+    {
+        RuleFor(p => p.ProductPictureId)
+            .RequiredValidator("شناسه");
+    }
+}
 
 public class RemoveProductPictureCommandHandler : IRequestHandler<RemoveProductPictureCommand, ApiResult>
 {
-    #region Ctor
-
     private readonly IRepository<Domain.ProductPicture.ProductPicture> _productPictureRepository;
 
     public RemoveProductPictureCommandHandler(IRepository<Domain.ProductPicture.ProductPicture> productPictureRepository)
     {
         _productPictureRepository = Guard.Against.Null(productPictureRepository, nameof(_productPictureRepository));
     }
-
-    #endregion
 
     public async Task<ApiResult> Handle(RemoveProductPictureCommand request, CancellationToken cancellationToken)
     {
