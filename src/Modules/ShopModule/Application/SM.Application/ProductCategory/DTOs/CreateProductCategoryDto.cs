@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using _0_Framework.Application.Models.Seo;
+using Microsoft.AspNetCore.Http;
 
 namespace SM.Application.ProductCategory.DTOs;
 public class CreateProductCategoryDto : SeoPropertiesForApplicationModels

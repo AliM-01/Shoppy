@@ -1,11 +1,22 @@
-﻿using SM.Application.Slider.DTOs;
+﻿using FluentValidation;
+using SM.Application.Slider.DTOs;
 using SM.Application.Slider.Queries;
 
-namespace SM.Application.Slider.QueryHandles;
+namespace SM.Application.Slider.Queries;
+
+public record GetSliderDetailsQuery(string Id) : IRequest<EditSliderDto>;
+
+public class GetSliderDetailsQueryValidator : AbstractValidator<GetSliderDetailsQuery>
+{
+    public GetSliderDetailsQueryValidator()
+    {
+        RuleFor(p => p.Id)
+            .RequiredValidator("شناسه");
+    }
+}
+
 public class GetSliderDetailsQueryHandler : IRequestHandler<GetSliderDetailsQuery, EditSliderDto>
 {
-    #region Ctor
-
     private readonly IRepository<Domain.Slider.Slider> _sliderRepository;
     private readonly IMapper _mapper;
 
@@ -14,8 +25,6 @@ public class GetSliderDetailsQueryHandler : IRequestHandler<GetSliderDetailsQuer
         _sliderRepository = Guard.Against.Null(sliderRepository, nameof(_sliderRepository));
         _mapper = Guard.Against.Null(mapper, nameof(_mapper));
     }
-
-    #endregion
 
     public async Task<EditSliderDto> Handle(GetSliderDetailsQuery request, CancellationToken cancellationToken)
     {

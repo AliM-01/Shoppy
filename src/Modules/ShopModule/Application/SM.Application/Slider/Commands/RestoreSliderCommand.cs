@@ -1,19 +1,17 @@
 ﻿using SM.Application.Slider.Commands;
 
-namespace SM.Application.Slider.CommandHandles;
+namespace SM.Application.Slider.Commands;
+
+public record RestoreSliderCommand(string SliderId) : IRequest<ApiResult>;
 
 public class RestoreSliderCommandHandler : IRequestHandler<RestoreSliderCommand, ApiResult>
 {
-    #region Ctor
-
     private readonly IRepository<Domain.Slider.Slider> _sliderRepository;
 
     public RestoreSliderCommandHandler(IRepository<Domain.Slider.Slider> sliderRepository)
     {
         _sliderRepository = Guard.Against.Null(sliderRepository, nameof(_sliderRepository));
     }
-
-    #endregion
 
     public async Task<ApiResult> Handle(RestoreSliderCommand request, CancellationToken cancellationToken)
     {

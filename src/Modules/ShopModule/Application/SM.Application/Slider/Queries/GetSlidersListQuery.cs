@@ -3,11 +3,11 @@ using SM.Application.Slider.Queries;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace SM.Application.Slider.QueryHandles;
+namespace SM.Application.Slider.Queries;
+public record GetSlidersListQuery : IRequest<IEnumerable<SliderDto>>;
+
 public class GetSlidersListQueryHandler : IRequestHandler<GetSlidersListQuery, IEnumerable<SliderDto>>
 {
-    #region Ctor
-
     private readonly IRepository<Domain.Slider.Slider> _sliderRepository;
     private readonly IMapper _mapper;
 
@@ -16,8 +16,6 @@ public class GetSlidersListQueryHandler : IRequestHandler<GetSlidersListQuery, I
         _sliderRepository = Guard.Against.Null(sliderRepository, nameof(_sliderRepository));
         _mapper = Guard.Against.Null(mapper, nameof(_mapper));
     }
-
-    #endregion
 
     public Task<IEnumerable<SliderDto>> Handle(GetSlidersListQuery request, CancellationToken cancellationToken)
     {
