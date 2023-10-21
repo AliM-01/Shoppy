@@ -1,13 +1,14 @@
-﻿using SM.Application.ProductCategory.DTOs;
+﻿using FluentValidation;
+using SM.Application.ProductCategory.DTOs;
 using SM.Application.ProductCategory.Queries;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace SM.Application.ProductCategory.QueryHandles;
+namespace SM.Application.ProductCategory.Queries;
+public record GetProductCategoriesListQuery : IRequest<IEnumerable<ProductCategoryForSelectListDto>>;
+
 public class GetProductCategoriesListQueryHandler : IRequestHandler<GetProductCategoriesListQuery, IEnumerable<ProductCategoryForSelectListDto>>
 {
-    #region Ctor
-
     private readonly IRepository<Domain.ProductCategory.ProductCategory> _productCategoryRepository;
     private readonly IMapper _mapper;
 
@@ -16,8 +17,6 @@ public class GetProductCategoriesListQueryHandler : IRequestHandler<GetProductCa
         _productCategoryRepository = Guard.Against.Null(productCategoryRepository, nameof(_productCategoryRepository));
         _mapper = Guard.Against.Null(mapper, nameof(_mapper));
     }
-
-    #endregion
 
     public Task<IEnumerable<ProductCategoryForSelectListDto>> Handle(GetProductCategoriesListQuery request, CancellationToken cancellationToken)
     {

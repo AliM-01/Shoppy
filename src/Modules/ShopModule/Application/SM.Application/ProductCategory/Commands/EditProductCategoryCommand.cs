@@ -1,11 +1,33 @@
-﻿using SM.Application.ProductCategory.Commands;
+﻿using _0_Framework.Domain.Validators;
+using FluentValidation;
+using SM.Application.ProductCategory.DTOs;
 
-namespace SM.Application.ProductCategory.CommandHandles;
+namespace SM.Application.ProductCategory.Commands;
+
+public record EditProductCategoryCommand(EditProductCategoryDto ProductCategory) : IRequest<ApiResult>;
+
+public class EditProductCategoryCommandValidator : AbstractValidator<EditProductCategoryCommand>
+{
+    public EditProductCategoryCommandValidator()
+    {
+        RuleFor(p => p.ProductCategory.Id)
+            .RequiredValidator("شناسه");
+
+        RuleFor(p => p.ProductCategory.Title)
+            .RequiredValidator("عنوان")
+            .MaxLengthValidator("عنوان", 100);
+
+        RuleFor(p => p.ProductCategory.Description)
+            .RequiredValidator("توضیحات")
+            .MaxLengthValidator("توضیحات", 250);
+
+        RuleFor(p => p.ProductCategory.ImageFile)
+            .MaxFileSizeValidator((3 * 1024 * 1024), false);
+    }
+}
 
 public class EditProductCategoryCommandHandler : IRequestHandler<EditProductCategoryCommand, ApiResult>
 {
-    #region Ctor
-
     private readonly IRepository<Domain.ProductCategory.ProductCategory> _productCategoryRepository;
     private readonly IMapper _mapper;
 
@@ -14,8 +36,6 @@ public class EditProductCategoryCommandHandler : IRequestHandler<EditProductCate
         _productCategoryRepository = Guard.Against.Null(productCategoryRepository, nameof(_productCategoryRepository));
         _mapper = Guard.Against.Null(mapper, nameof(_mapper));
     }
-
-    #endregion
 
     public async Task<ApiResult> Handle(EditProductCategoryCommand request, CancellationToken cancellationToken)
     {

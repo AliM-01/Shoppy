@@ -1,7 +1,7 @@
 ﻿using _0_Framework.Domain.Validators;
 using FluentValidation;
 
-namespace SM.Application.ProductCategory.CommandHandles;
+namespace SM.Application.ProductCategory.Commands;
 
 public record DeleteProductCommand(string ProductId) : IRequest<ApiResult>;
 

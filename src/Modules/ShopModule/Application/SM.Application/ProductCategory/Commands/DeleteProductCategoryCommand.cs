@@ -1,19 +1,28 @@
-﻿using SM.Application.ProductCategory.Commands;
+﻿using _0_Framework.Domain.Validators;
+using FluentValidation;
 
-namespace SM.Application.ProductCategory.CommandHandles;
+namespace SM.Application.ProductCategory.Commands;
+
+public record DeleteProductCategoryCommand(string ProductCategoryId) : IRequest<ApiResult>;
+
+public class DeleteProductCategoryCommandValidator : AbstractValidator<DeleteProductCategoryCommand>
+{
+    public DeleteProductCategoryCommandValidator()
+    {
+        RuleFor(p => p.ProductCategoryId)
+            .RequiredValidator("شناسه دسته بندی");
+    }
+}
+
 
 public class DeleteProductCategoryCommandHandler : IRequestHandler<DeleteProductCategoryCommand, ApiResult>
 {
-    #region Ctor
-
     private readonly IRepository<Domain.ProductCategory.ProductCategory> _productCategoryRepository;
 
     public DeleteProductCategoryCommandHandler(IRepository<Domain.ProductCategory.ProductCategory> productCategoryRepository)
     {
         _productCategoryRepository = Guard.Against.Null(productCategoryRepository, nameof(_productCategoryRepository));
     }
-
-    #endregion
 
     public async Task<ApiResult> Handle(DeleteProductCategoryCommand request, CancellationToken cancellationToken)
     {
