@@ -1,5 +1,5 @@
-﻿using SM.Application.Contracts.ProductFeature.DTOs;
+﻿using SM.Application.ProductFeature.DTOs;
 
-namespace SM.Application.Contracts.ProductFeature.Queries;
+namespace SM.Application.ProductFeature.Queries;
 
 public record GetProductFeatureDetailsQuery(string Id) : IRequest<EditProductFeatureDto>;

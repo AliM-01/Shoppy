@@ -1,6 +1,6 @@
-﻿using SM.Application.Contracts.Slider.Commands;
-using SM.Application.Contracts.Slider.DTOs;
-using SM.Application.Contracts.Slider.Queries;
+﻿using SM.Application.Slider.Commands;
+using SM.Application.Slider.DTOs;
+using SM.Application.Slider.Queries;
 
 namespace Shoppy.WebApi.Controllers.Admin.Shop;
 

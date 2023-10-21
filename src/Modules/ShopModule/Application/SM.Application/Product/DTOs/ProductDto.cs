@@ -1,4 +1,4 @@
-﻿namespace SM.Application.Contracts.Product.DTOs;
+﻿namespace SM.Application.Product.DTOs;
 
 public class ProductDto
 {

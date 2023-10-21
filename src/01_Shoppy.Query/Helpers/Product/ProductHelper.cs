@@ -4,7 +4,7 @@ using _01_Shoppy.Query.Models.ProductPicture;
 using DM.Domain.ProductDiscount;
 using IM.Application.Contracts.Inventory.Helpers;
 using IM.Domain.Inventory;
-using SM.Application.Contracts.ProductFeature.DTOs;
+using SM.Application.ProductFeature.DTOs;
 
 namespace _01_Shoppy.Query.Helpers.Product;
 

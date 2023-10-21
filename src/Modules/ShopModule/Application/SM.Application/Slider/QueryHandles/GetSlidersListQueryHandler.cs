@@ -1,5 +1,5 @@
-﻿using SM.Application.Contracts.Slider.DTOs;
-using SM.Application.Contracts.Slider.Queries;
+﻿using SM.Application.Slider.DTOs;
+using SM.Application.Slider.Queries;
 using System.Collections.Generic;
 using System.Linq;
 

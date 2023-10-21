@@ -1,6 +1,6 @@
-﻿using SM.Application.Contracts.ProductCategory.DTOs;
+﻿using SM.Application.ProductCategory.DTOs;
 using System.Collections.Generic;
 
-namespace SM.Application.Contracts.ProductCategory.Queries;
+namespace SM.Application.ProductCategory.Queries;
 
 public record GetProductCategoriesListQuery : IRequest<IEnumerable<ProductCategoryForSelectListDto>>;

@@ -1,4 +1,4 @@
-﻿namespace SM.Application.Contracts.Slider.Commands;
+﻿namespace SM.Application.Slider.Commands;
 
 public record RestoreSliderCommand
     (string SliderId) : IRequest<ApiResult>;

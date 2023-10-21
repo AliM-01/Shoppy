@@ -1,5 +1,5 @@
 ﻿using _01_Shoppy.Query.Models.ProductPicture;
-using SM.Application.Contracts.ProductFeature.DTOs;
+using SM.Application.ProductFeature.DTOs;
 
 namespace _01_Shoppy.Query.Helpers.Product;
 

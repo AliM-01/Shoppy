@@ -1,4 +1,4 @@
-﻿using SM.Application.Contracts.Slider.Commands;
+﻿using SM.Application.Slider.Commands;
 
 namespace SM.Application.Slider.CommandHandles;
 

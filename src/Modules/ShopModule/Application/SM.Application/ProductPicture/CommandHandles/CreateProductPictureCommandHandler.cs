@@ -1,4 +1,4 @@
-﻿using SM.Application.Contracts.ProductPicture.Commands;
+﻿using SM.Application.ProductPicture.Commands;
 
 namespace SM.Application.ProductPicture.CommandHandles;
 

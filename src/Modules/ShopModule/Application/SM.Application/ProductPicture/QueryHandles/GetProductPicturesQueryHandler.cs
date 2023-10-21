@@ -1,5 +1,5 @@
-﻿using SM.Application.Contracts.ProductPicture.DTOs;
-using SM.Application.Contracts.ProductPicture.Queries;
+﻿using SM.Application.ProductPicture.DTOs;
+using SM.Application.ProductPicture.Queries;
 using System.Collections.Generic;
 using System.Linq;
 

@@ -1,4 +1,4 @@
-﻿using SM.Application.Contracts.Slider.Queries;
+﻿using SM.Application.Slider.Queries;
 
 namespace SM.Infrastructure.Shared.Validators.Slider.Queries;
 

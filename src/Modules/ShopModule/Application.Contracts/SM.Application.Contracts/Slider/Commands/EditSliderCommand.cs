@@ -1,6 +1,6 @@
-﻿using SM.Application.Contracts.Slider.DTOs;
+﻿using SM.Application.Slider.DTOs;
 
-namespace SM.Application.Contracts.Slider.Commands;
+namespace SM.Application.Slider.Commands;
 
 public record EditSliderCommand
     (EditSliderDto Slider) : IRequest<ApiResult>;

@@ -1,4 +1,4 @@
-﻿using SM.Application.Contracts.ProductPicture.Queries;
+﻿using SM.Application.ProductPicture.Queries;
 
 namespace SM.Infrastructure.Shared.Validators.ProductPicture.Queries;
 

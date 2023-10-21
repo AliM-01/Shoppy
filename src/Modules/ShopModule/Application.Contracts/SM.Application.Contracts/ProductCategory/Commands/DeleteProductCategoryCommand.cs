@@ -1,4 +1,4 @@
-﻿namespace SM.Application.Contracts.ProductCategory.Commands;
+﻿namespace SM.Application.ProductCategory.Commands;
 
 public record DeleteProductCategoryCommand
     (string ProductCategoryId) : IRequest<ApiResult>;

@@ -1,12 +1,36 @@
-﻿using SM.Application.Contracts.Product.Commands;
-using SM.Application.Contracts.Product.DTOs;
+﻿using _0_Framework.Domain.Validators;
+using FluentValidation;
+using SM.Application.Product.DTOs;
 
-namespace SM.Application.Product.CommandHandles;
+namespace SM.Application.Product.Commands;
+
+public record CreateProductCommand(CreateProductDto Product) : IRequest<CreateProductResponseDto>;
+
+public class CreateProductCommandValidator : AbstractValidator<CreateProductCommand>
+{
+    public CreateProductCommandValidator()
+    {
+        RuleFor(p => p.Product.CategoryId)
+            .RequiredValidator("شناسه دسته بندی");
+
+        RuleFor(p => p.Product.Title)
+            .RequiredValidator("عنوان")
+            .MaxLengthValidator("عنوان", 100);
+
+        RuleFor(p => p.Product.ShortDescription)
+            .RequiredValidator("توضیحات کوتاه")
+            .MaxLengthValidator("توضیحات کوتاه", 250);
+
+        RuleFor(p => p.Product.Description)
+            .RequiredValidator("توضیحات");
+
+        RuleFor(p => p.Product.ImageFile)
+            .MaxFileSizeValidator((3 * 1024 * 1024));
+    }
+}
 
 public class CreateProductCommandHandler : IRequestHandler<CreateProductCommand, CreateProductResponseDto>
 {
-    #region Ctor
-
     private readonly IRepository<Domain.Product.Product> _productRepository;
     private readonly IRepository<Domain.ProductPicture.ProductPicture> _productPictureRepository;
 
@@ -19,8 +43,6 @@ public class CreateProductCommandHandler : IRequestHandler<CreateProductCommand,
         _productPictureRepository = Guard.Against.Null(productPictureRepository, nameof(_productPictureRepository));
         _mapper = Guard.Against.Null(mapper, nameof(_mapper));
     }
-
-    #endregion
 
     public async Task<CreateProductResponseDto> Handle(CreateProductCommand request, CancellationToken cancellationToken)
     {

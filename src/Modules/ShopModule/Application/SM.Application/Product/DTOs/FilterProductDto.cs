@@ -2,7 +2,7 @@
 using Microsoft.AspNetCore.Mvc.ModelBinding;
 using System.Collections.Generic;
 
-namespace SM.Application.Contracts.Product.DTOs;
+namespace SM.Application.Product.DTOs;
 
 public class FilterProductDto : BasePaging
 {

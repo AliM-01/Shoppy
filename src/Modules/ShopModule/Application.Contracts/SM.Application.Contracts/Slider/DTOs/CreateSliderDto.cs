@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Http;
 
-namespace SM.Application.Contracts.Slider.DTOs;
+namespace SM.Application.Slider.DTOs;
 public class CreateSliderDto : ImagePropertiesForApplicationModels
 {
     [Display(Name = "عنوان")]

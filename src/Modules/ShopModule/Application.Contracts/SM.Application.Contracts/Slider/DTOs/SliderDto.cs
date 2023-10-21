@@ -1,4 +1,4 @@
-﻿namespace SM.Application.Contracts.Slider.DTOs;
+﻿namespace SM.Application.Slider.DTOs;
 public class SliderDto
 {
     [JsonProperty("id")]

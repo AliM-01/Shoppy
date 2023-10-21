@@ -1,7 +1,7 @@
 ﻿using _0_Framework.Application.Models.Paging;
 using MongoDB.Driver.Linq;
-using SM.Application.Contracts.ProductFeature.DTOs;
-using SM.Application.Contracts.ProductFeature.Queries;
+using SM.Application.ProductFeature.DTOs;
+using SM.Application.ProductFeature.Queries;
 using System.Linq;
 
 namespace SM.Application.ProductFeature.QueryHandles;

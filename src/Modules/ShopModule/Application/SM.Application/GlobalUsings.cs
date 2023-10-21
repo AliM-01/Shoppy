@@ -8,5 +8,7 @@ global using AutoMapper;
 global using MediatR;
 global using System.Threading;
 global using System.Threading.Tasks;
+global using Newtonsoft.Json;
+global using System.ComponentModel.DataAnnotations;
 
 namespace SM.Application;

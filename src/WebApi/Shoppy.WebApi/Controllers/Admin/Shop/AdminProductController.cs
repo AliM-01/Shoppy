@@ -1,8 +1,8 @@
 ﻿using IM.Application.Contracts.Inventory.Commands;
 using IM.Application.Contracts.Inventory.DTOs;
-using SM.Application.Contracts.Product.Commands;
-using SM.Application.Contracts.Product.DTOs;
-using SM.Application.Contracts.Product.Queries;
+using SM.Application.Product.Commands;
+using SM.Application.Product.DTOs;
+using SM.Application.Product.Queries;
 
 namespace Shoppy.WebApi.Controllers.Admin.Shop;
 

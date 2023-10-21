@@ -1,4 +1,4 @@
-﻿using SM.Application.Contracts.ProductCategory.Commands;
+﻿using SM.Application.ProductCategory.Commands;
 
 namespace SM.Infrastructure.Shared.Validators.ProductCategory.Commands;
 

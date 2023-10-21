@@ -24,7 +24,7 @@ COPY ["src/Modules/CommentModule/Domain/CM.Domain/CM.Domain.csproj", "src/Module
 COPY ["src/Modules/BlogModule/Infrastructure/BM.Infrastructure/BM.Infrastructure.csproj", "src/Modules/BlogModule/Infrastructure/BM.Infrastructure/"]
 COPY ["src/Modules/BlogModule/Domain/BM.Domain/BM.Domain.csproj", "src/Modules/BlogModule/Domain/BM.Domain/"]
 COPY ["src/Modules/BlogModule/Application.Contracts/BM.Application/BM.Application.csproj", "src/Modules/BlogModule/Application.Contracts/BM.Application/"]
-COPY ["src/Modules/ShopModule/Application.Contracts/SM.Application.Contracts/SM.Application.Contracts.csproj", "src/Modules/ShopModule/Application.Contracts/SM.Application.Contracts/"]
+COPY ["src/Modules/ShopModule/Application.Contracts/SM.Application/SM.Application.csproj", "src/Modules/ShopModule/Application.Contracts/SM.Application/"]
 COPY ["src/Modules/InventoryModule/Infrastructure/IM.Infrastructure.Persistence/IM.Infrastructure.Persistence.csproj", "src/Modules/InventoryModule/Infrastructure/IM.Infrastructure.Persistence/"]
 COPY ["src/Modules/AccountModule/AM.Domain/AM.Domain.csproj", "src/Modules/AccountModule/AM.Domain/"]
 COPY ["src/Modules/AccountModule/AM.Application/AM.Application.csproj", "src/Modules/AccountModule/AM.Application/"]

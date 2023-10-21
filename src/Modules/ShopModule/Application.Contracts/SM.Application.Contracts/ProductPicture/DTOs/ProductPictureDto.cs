@@ -1,4 +1,4 @@
-﻿namespace SM.Application.Contracts.ProductPicture.DTOs;
+﻿namespace SM.Application.ProductPicture.DTOs;
 
 public class ProductPictureDto
 {

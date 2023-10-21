@@ -1,6 +1,6 @@
-﻿using SM.Application.Contracts.ProductPicture.DTOs;
+﻿using SM.Application.ProductPicture.DTOs;
 
-namespace SM.Application.Contracts.ProductPicture.Commands;
+namespace SM.Application.ProductPicture.Commands;
 
 public record CreateProductPictureCommand
     (CreateProductPictureDto ProductPicture) : IRequest<ApiResult>;

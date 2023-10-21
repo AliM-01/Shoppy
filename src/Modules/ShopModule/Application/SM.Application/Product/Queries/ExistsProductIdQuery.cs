@@ -1,11 +1,23 @@
-﻿using SM.Application.Contracts.Product.DTOs;
-using SM.Application.Contracts.Product.Queries;
+﻿using _0_Framework.Domain.Validators;
+using FluentValidation;
+using SM.Application.Product.DTOs;
 
-namespace SM.Application.Product.QueryHandles;
+namespace SM.Application.Product.Queries;
+
+public record ExistsProductIdQuery(string ProductId) : IRequest<ExistsProductIdResponseDto>;
+
+public class ExistsProductIdQueryValidator : AbstractValidator<ExistsProductIdQuery>
+{
+    public ExistsProductIdQueryValidator()
+    {
+        RuleFor(p => p.ProductId)
+            .RequiredValidator("شناسه");
+    }
+}
+
+
 public class ExistsProductIdQueryHandler : IRequestHandler<ExistsProductIdQuery, ExistsProductIdResponseDto>
 {
-    #region Ctor
-
     private readonly IRepository<Domain.Product.Product> _productRepository;
     private readonly IMapper _mapper;
 
@@ -14,8 +26,6 @@ public class ExistsProductIdQueryHandler : IRequestHandler<ExistsProductIdQuery,
         _productRepository = Guard.Against.Null(productRepository, nameof(_productRepository));
         _mapper = Guard.Against.Null(mapper, nameof(_mapper));
     }
-
-    #endregion
 
     public async Task<ExistsProductIdResponseDto> Handle(ExistsProductIdQuery request, CancellationToken cancellationToken)
     {

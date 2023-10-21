@@ -1,4 +1,4 @@
-﻿using SM.Application.Contracts.ProductCategory.Queries;
+﻿using SM.Application.ProductCategory.Queries;
 
 namespace SM.Infrastructure.Shared.Validators.ProductCategory.Queries;
 

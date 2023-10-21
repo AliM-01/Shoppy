@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Http;
-using SM.Application.Contracts.ProductPicture.Commands;
-using SM.Application.Contracts.ProductPicture.DTOs;
-using SM.Application.Contracts.ProductPicture.Queries;
+using SM.Application.ProductPicture.Commands;
+using SM.Application.ProductPicture.DTOs;
+using SM.Application.ProductPicture.Queries;
 
 namespace Shoppy.WebApi.Controllers.Admin.Shop;
 

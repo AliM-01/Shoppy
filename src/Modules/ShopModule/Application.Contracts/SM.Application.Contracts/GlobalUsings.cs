@@ -4,4 +4,4 @@ global using MediatR;
 global using Newtonsoft.Json;
 global using System.ComponentModel.DataAnnotations;
 
-namespace SM.Application.Contracts;
+namespace SM.Application;

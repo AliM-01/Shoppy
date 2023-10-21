@@ -1,4 +1,4 @@
-﻿using SM.Application.Contracts.ProductFeature.Queries;
+﻿using SM.Application.ProductFeature.Queries;
 
 namespace SM.Infrastructure.Shared.Validators.ProductFeature.Queries;
 

@@ -1,6 +1,6 @@
-﻿using SM.Application.Contracts.ProductCategory.DTOs;
+﻿using SM.Application.ProductCategory.DTOs;
 
-namespace SM.Application.Contracts.ProductCategory.Commands;
+namespace SM.Application.ProductCategory.Commands;
 
 public record CreateProductCategoryCommand
     (CreateProductCategoryDto ProductCategory) : IRequest<ApiResult>;

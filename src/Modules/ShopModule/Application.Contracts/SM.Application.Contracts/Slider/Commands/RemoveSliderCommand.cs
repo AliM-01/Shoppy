@@ -1,4 +1,4 @@
-﻿namespace SM.Application.Contracts.Slider.Commands;
+﻿namespace SM.Application.Slider.Commands;
 
 public record RemoveSliderCommand
     (string SliderId) : IRequest<ApiResult>;

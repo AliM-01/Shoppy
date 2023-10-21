@@ -1,5 +1,5 @@
-﻿using SM.Application.Contracts.ProductCategory.DTOs;
-using SM.Application.Contracts.ProductCategory.Queries;
+﻿using SM.Application.ProductCategory.DTOs;
+using SM.Application.ProductCategory.Queries;
 using System.Collections.Generic;
 using System.Linq;
 

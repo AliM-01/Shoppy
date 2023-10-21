@@ -1,6 +1,7 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using _0_Framework.Application.Models.Seo;
+using Microsoft.AspNetCore.Http;
 
-namespace SM.Application.Contracts.Product.DTOs;
+namespace SM.Application.Product.DTOs;
 
 public class CreateProductDto : SeoPropertiesForApplicationModels
 {

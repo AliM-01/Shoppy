@@ -1,6 +1,6 @@
-﻿using SM.Application.Contracts.ProductFeature.DTOs;
+﻿using SM.Application.ProductFeature.DTOs;
 
-namespace SM.Application.Contracts.ProductFeature.Commands;
+namespace SM.Application.ProductFeature.Commands;
 
 public record CreateProductFeatureCommand
     (CreateProductFeatureDto ProductFeature) : IRequest<ApiResult>;

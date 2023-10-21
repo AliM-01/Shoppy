@@ -1,6 +1,6 @@
-﻿using SM.Application.Contracts.ProductCategory.Commands;
-using SM.Application.Contracts.ProductCategory.DTOs;
-using SM.Application.Contracts.ProductCategory.Queries;
+﻿using SM.Application.ProductCategory.Commands;
+using SM.Application.ProductCategory.DTOs;
+using SM.Application.ProductCategory.Queries;
 
 namespace Shoppy.WebApi.Controllers.Admin.Shop;
 

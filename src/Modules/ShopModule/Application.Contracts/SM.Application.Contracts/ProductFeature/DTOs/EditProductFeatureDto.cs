@@ -1,4 +1,4 @@
-﻿namespace SM.Application.Contracts.ProductFeature.DTOs;
+﻿namespace SM.Application.ProductFeature.DTOs;
 
 public class EditProductFeatureDto : CreateProductFeatureDto
 {

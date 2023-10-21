@@ -1,5 +1,5 @@
-﻿using SM.Application.Contracts.Slider.DTOs;
+﻿using SM.Application.Slider.DTOs;
 
-namespace SM.Application.Contracts.Slider.Queries;
+namespace SM.Application.Slider.Queries;
 
 public record GetSliderDetailsQuery(string Id) : IRequest<EditSliderDto>;

@@ -1,15 +1,31 @@
 ﻿using _0_Framework.Application.Models.Paging;
+using _0_Framework.Domain.Validators;
+using FluentValidation;
 using Microsoft.EntityFrameworkCore;
 using MongoDB.Driver.Linq;
-using SM.Application.Contracts.Product.DTOs;
-using SM.Application.Contracts.Product.Queries;
+using SM.Application.Product.DTOs;
+using SM.Application.Product.Queries;
 using System.Linq;
 
-namespace SM.Application.Product.QueryHandles;
+namespace SM.Application.Product.Queries;
+
+public record FilterProductsQuery(FilterProductDto Filter) : IRequest<FilterProductDto>;
+
+public class FilterProductsQueryValidator : AbstractValidator<FilterProductsQuery>
+{
+    public FilterProductsQueryValidator()
+    {
+        RuleFor(p => p.Filter.Search)
+            .MaxLengthValidator("عنوان", 100);
+
+        RuleFor(p => p.Filter.CategoryId)
+            .RequiredValidator("شناسه دسته بندی");
+    }
+}
+
+
 public class FilterProductsQueryHandler : IRequestHandler<FilterProductsQuery, FilterProductDto>
 {
-    #region Ctor
-
     private readonly IRepository<Domain.Product.Product> _productRepository;
     private readonly IMapper _mapper;
 
@@ -18,8 +34,6 @@ public class FilterProductsQueryHandler : IRequestHandler<FilterProductsQuery, F
         _productRepository = Guard.Against.Null(productRepository, nameof(_productRepository));
         _mapper = Guard.Against.Null(mapper, nameof(_mapper));
     }
-
-    #endregion
 
     public async Task<FilterProductDto> Handle(FilterProductsQuery request, CancellationToken cancellationToken)
     {

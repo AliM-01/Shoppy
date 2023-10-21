@@ -1,11 +1,39 @@
-﻿using SM.Application.Contracts.Product.Commands;
+﻿using _0_Framework.Domain.Validators;
+using FluentValidation;
+using SM.Application.Product.DTOs;
 
-namespace SM.Application.Product.CommandHandles;
+namespace SM.Application.Product.Commands;
+
+public record EditProductCommand(EditProductDto Product) : IRequest<ApiResult>;
+
+public class EditProductCommandValidator : AbstractValidator<EditProductCommand>
+{
+    public EditProductCommandValidator()
+    {
+        RuleFor(p => p.Product.Id)
+            .RequiredValidator("شناسه");
+
+        RuleFor(p => p.Product.CategoryId)
+            .RequiredValidator("شناسه دسته بندی");
+
+        RuleFor(p => p.Product.Title)
+            .RequiredValidator("عنوان")
+            .MaxLengthValidator("عنوان", 100);
+
+        RuleFor(p => p.Product.ShortDescription)
+            .RequiredValidator("توضیحات کوتاه")
+            .MaxLengthValidator("توضیحات کوتاه", 250);
+
+        RuleFor(p => p.Product.Description)
+            .RequiredValidator("توضیحات");
+
+        RuleFor(p => p.Product.ImageFile)
+            .MaxFileSizeValidator((3 * 1024 * 1024), false);
+    }
+}
 
 public class EditProductCommandHandler : IRequestHandler<EditProductCommand, ApiResult>
 {
-    #region Ctor
-
     private readonly IRepository<Domain.Product.Product> _productRepository;
     private readonly IMapper _mapper;
 
@@ -14,8 +42,6 @@ public class EditProductCommandHandler : IRequestHandler<EditProductCommand, Api
         _productRepository = Guard.Against.Null(productRepository, nameof(_productRepository));
         _mapper = Guard.Against.Null(mapper, nameof(_mapper));
     }
-
-    #endregion
 
     public async Task<ApiResult> Handle(EditProductCommand request, CancellationToken cancellationToken)
     {

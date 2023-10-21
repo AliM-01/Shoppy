@@ -1,8 +1,8 @@
 ﻿using _0_Framework.Application.Models.Paging;
 using Microsoft.EntityFrameworkCore;
 using MongoDB.Driver.Linq;
-using SM.Application.Contracts.ProductCategory.DTOs;
-using SM.Application.Contracts.ProductCategory.Queries;
+using SM.Application.ProductCategory.DTOs;
+using SM.Application.ProductCategory.Queries;
 using System.Linq;
 
 namespace SM.Application.ProductCategory.QueryHandles;
