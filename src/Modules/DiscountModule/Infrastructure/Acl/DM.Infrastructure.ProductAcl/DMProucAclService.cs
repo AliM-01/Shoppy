@@ -8,8 +8,6 @@ using SM.Infrastructure.RepositoryExtensions;
 namespace DM.Infrastructure.ProductAcl;
 public class DMProucAclService : IDMProucAclService
 {
-    #region ctor
-
     private readonly IRepository<Domain.ProductDiscount.ProductDiscount> _productDiscountRepository;
     private readonly IRepository<Product> _productRepository;
 
@@ -21,18 +19,10 @@ public class DMProucAclService : IDMProucAclService
 
     }
 
-    #endregion
-
-    #region ExistsProduct
-
     public async Task<bool> ExistsProduct(string productId)
     {
         return await _productRepository.ExistsProduct(productId);
     }
-
-    #endregion
-
-    #region ExistsProductDiscount
 
     public async Task<bool> ExistsProductDiscount(string productId)
     {
@@ -42,10 +32,6 @@ public class DMProucAclService : IDMProucAclService
         return await _productDiscountRepository.ExistsAsync(x => x.ProductId == productId);
     }
 
-    #endregion
-
-    #region GetProductTitle
-
     public async Task<string> GetProductTitle(string productId)
     {
         if (!(await ExistsProduct(productId)))
@@ -54,14 +40,8 @@ public class DMProucAclService : IDMProucAclService
         return await _productRepository.GetProductTitle(productId);
     }
 
-    #endregion
-
-    #region Filter Title
-
     public async Task<HashSet<string>> FilterTitle(string filter)
     {
         return await _productRepository.FullTextSearch(x => x.Title, filter);
     }
-
-    #endregion
 }

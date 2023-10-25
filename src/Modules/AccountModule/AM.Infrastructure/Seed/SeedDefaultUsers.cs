@@ -1,4 +1,5 @@
 ﻿using _0_Framework.Application.Extensions;
+using _0_Framework.Infrastructure;
 using AM.Domain.Enums;
 using Microsoft.AspNetCore.Identity;
 
@@ -47,11 +48,4 @@ public static class SeedDefaultUsers
             await userManager.AddToRoleAsync(defaultUser, Roles.BasicUser.ToString());
         }
     }
-}
-
-public class SeedUserIdConstants
-{
-    public const string AdminUser = "f949495a-d5a5-426b-8abc-1ad49426134d";
-
-    public const string BasicUser = "0a0f7fa5-98ee-4080-af6c-c46da295e5e1";
 }
