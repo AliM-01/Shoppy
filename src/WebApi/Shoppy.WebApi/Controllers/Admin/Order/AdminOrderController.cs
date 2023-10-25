@@ -1,6 +1,6 @@
-﻿using OM.Application.Contracts.Order.Commands;
-using OM.Application.Contracts.Order.DTOs;
-using OM.Application.Contracts.Order.Queries;
+﻿using OM.Application.Order.Commands;
+using OM.Application.Order.DTOs;
+using OM.Application.Order.Queries;
 
 namespace Shoppy.WebApi.Controllers.Admin.Order;
 

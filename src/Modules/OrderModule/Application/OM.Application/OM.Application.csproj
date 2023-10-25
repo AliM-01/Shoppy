@@ -20,7 +20,6 @@
     <ProjectReference Include="..\..\..\InventoryModule\Domain\IM.Domain\IM.Domain.csproj" />
     <ProjectReference Include="..\..\..\InventoryModule\Infrastructure\IM.Infrastructure.Persistence\IM.Infrastructure.Persistence.csproj" />
     <ProjectReference Include="..\..\..\ShopModule\Domain\SM.Domin\SM.Domain.csproj" />
-    <ProjectReference Include="..\..\Application.Contracts\OM.Application.Contracts\OM.Application.Contracts.csproj" />
     <ProjectReference Include="..\..\Domain\OM.Domain\OM.Domain.csproj" />
     <ProjectReference Include="..\..\Infrastructure\OM.Infrastructure.Persistence\OM.Infrastructure.Persistence.csproj" />
   </ItemGroup>

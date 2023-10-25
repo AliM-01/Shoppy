@@ -1,7 +1,7 @@
 ﻿using _0_Framework.Application.Extensions;
 using AutoMapper;
-using OM.Application.Contracts.Order.Commands;
-using OM.Application.Contracts.Order.DTOs;
+using OM.Application.Order.Commands;
+using OM.Application.Order.DTOs;
 using OM.Domain.Order;
 
 namespace OM.Infrastructure.Shared.Mappings;
