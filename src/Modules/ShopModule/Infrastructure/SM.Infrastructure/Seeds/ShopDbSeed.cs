@@ -7,10 +7,9 @@ using SM.Domain.ProductCategory;
 using SM.Domain.ProductFeature;
 using SM.Domain.ProductPicture;
 using SM.Domain.Slider;
-using SM.Infrastructure.Persistence.Settings;
 using System.Collections.Generic;
 
-namespace SM.Infrastructure.Persistence.Seeds;
+namespace SM.Infrastructure;
 
 public static class ShopDbSeed
 {

@@ -49,7 +49,7 @@ COPY ["src/Modules/DiscountModule/Infrastructure/Acl/DM.Infrastructure.ProductAc
 COPY ["src/Modules/CommentModule/Application/CM.Application/CM.Application.csproj", "src/Modules/CommentModule/Application/CM.Application/"]
 COPY ["src/03_Reports.Query/03_Reports.Query.csproj", "src/03_Reports.Query/"]
 COPY ["src/Modules/InventoryModule/Infrastructure/IM.Infrastructure.Configuration/IM.Infrastructure.Configuration.csproj", "src/Modules/InventoryModule/Infrastructure/IM.Infrastructure.Configuration/"]
-COPY ["src/Modules/ShopModule/Infrastructure/SM.Infrastructure.Configuration/SM.Infrastructure.Configuration.csproj", "src/Modules/ShopModule/Infrastructure/SM.Infrastructure.Configuration/"]
+COPY ["src/Modules/ShopModule/Infrastructure/SM.Infrastructure/SM.Infrastructure.csproj", "src/Modules/ShopModule/Infrastructure/SM.Infrastructure/"]
 COPY ["src/Modules/ShopModule/Application/SM.Application/SM.Application.csproj", "src/Modules/ShopModule/Application/SM.Application/"]
 COPY ["src/Modules/CommentModule/Infrastructure/CM.Infrastructure.Shared/CM.Infrastructure.Shared.csproj", "src/Modules/CommentModule/Infrastructure/CM.Infrastructure.Shared/"]
 COPY ["src/Modules/OrderModule/Infrastructure/OM.Infrastructure.Shared/OM.Infrastructure.Shared.csproj", "src/Modules/OrderModule/Infrastructure/OM.Infrastructure.Shared/"]

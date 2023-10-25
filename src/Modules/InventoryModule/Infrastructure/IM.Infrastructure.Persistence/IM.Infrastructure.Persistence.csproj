@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
 	<PropertyGroup>
 		<TargetFramework>net6.0</TargetFramework>
@@ -7,7 +7,7 @@
 	<ItemGroup>
 	  <ProjectReference Include="..\..\..\..\0_Framework\0_Framework.csproj" />
 	  <ProjectReference Include="..\..\..\AccountModule\AM.Infrastructure\AM.Infrastructure.csproj" />
-	  <ProjectReference Include="..\..\..\ShopModule\Infrastructure\SM.Infrastructure.Persistence\SM.Infrastructure.Persistence.csproj" />
+	  <ProjectReference Include="..\..\..\ShopModule\Infrastructure\SM.Infrastructure\SM.Infrastructure.csproj" />
 	  <ProjectReference Include="..\..\Domain\IM.Domain\IM.Domain.csproj" />
 	</ItemGroup>
 

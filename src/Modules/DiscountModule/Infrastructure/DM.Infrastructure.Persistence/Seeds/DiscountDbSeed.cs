@@ -4,7 +4,6 @@ using DM.Domain.DiscountCode;
 using DM.Domain.ProductDiscount;
 using DM.Infrastructure.Persistence.Settings;
 using MongoDB.Driver;
-using SM.Infrastructure.Persistence.Seeds;
 
 namespace DM.Infrastructure.Persistence.Seeds;
 

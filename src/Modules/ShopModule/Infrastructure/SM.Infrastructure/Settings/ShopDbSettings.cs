@@ -1,6 +1,6 @@
 ﻿using _0_Framework.Infrastructure;
 
-namespace SM.Infrastructure.Persistence.Settings;
+namespace SM.Infrastructure;
 
 public class ShopDbSettings : BaseDbSettings
 {

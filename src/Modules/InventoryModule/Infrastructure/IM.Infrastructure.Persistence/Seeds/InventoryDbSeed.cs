@@ -3,7 +3,6 @@ using AM.Infrastructure.Seed;
 using IM.Domain.Inventory;
 using IM.Infrastructure.Persistence.Settings;
 using MongoDB.Driver;
-using SM.Infrastructure.Persistence.Seeds;
 using System.Collections.Generic;
 
 namespace IM.Infrastructure.Persistence.Seeds;

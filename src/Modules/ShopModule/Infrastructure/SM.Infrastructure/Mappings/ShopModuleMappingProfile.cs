@@ -15,7 +15,7 @@ using SM.Domain.ProductFeature;
 using SM.Domain.ProductPicture;
 using SM.Domain.Slider;
 
-namespace SM.Infrastructure.Shared.Mappings;
+namespace SM.Infrastructure.Mappings;
 public class ShopModuleMappingProfile : Profile
 {
     public ShopModuleMappingProfile()

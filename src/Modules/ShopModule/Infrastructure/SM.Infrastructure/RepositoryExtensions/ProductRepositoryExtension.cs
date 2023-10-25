@@ -2,7 +2,7 @@
 using SM.Domain.Product;
 using System.Threading.Tasks;
 
-namespace SM.Infrastructure.Shared.RepositoryExtensions;
+namespace SM.Infrastructure.RepositoryExtensions;
 
 public static class ProductRepositoryExtension
 {

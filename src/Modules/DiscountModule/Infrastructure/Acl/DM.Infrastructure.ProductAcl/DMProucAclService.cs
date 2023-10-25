@@ -3,7 +3,7 @@ using _0_Framework.Infrastructure.IRepository;
 using Ardalis.GuardClauses;
 using DM.Application.Contracts.Sevices;
 using SM.Domain.Product;
-using SM.Infrastructure.Shared.RepositoryExtensions;
+using SM.Infrastructure.RepositoryExtensions;
 
 namespace DM.Infrastructure.ProductAcl;
 public class DMProucAclService : IDMProucAclService

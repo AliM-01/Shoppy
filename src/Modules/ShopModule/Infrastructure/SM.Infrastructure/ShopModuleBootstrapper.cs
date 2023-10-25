@@ -9,8 +9,8 @@ using SM.Domain.ProductCategory;
 using SM.Domain.ProductFeature;
 using SM.Domain.ProductPicture;
 using SM.Domain.Slider;
-using SM.Infrastructure.Persistence.Seeds;
-using SM.Infrastructure.Persistence.Settings;
+using SM.Infrastructure;
+using SM.Infrastructure;
 using System;
 
 namespace SM.Infrastructure;

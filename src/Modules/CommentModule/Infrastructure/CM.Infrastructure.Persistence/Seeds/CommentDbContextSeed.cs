@@ -2,7 +2,7 @@
 using CM.Domain.Comment;
 using CM.Infrastructure.Persistence.Settings;
 using MongoDB.Driver;
-using SM.Infrastructure.Persistence.Seeds;
+using SM.Infrastructure;
 using System.Collections.Generic;
 
 namespace CM.Infrastructure.Persistence.Context;
