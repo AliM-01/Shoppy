@@ -10,7 +10,7 @@
 
 	<ItemGroup>
 		<ProjectReference Include="..\..\..\..\01_Shoppy.Query\01_Shoppy.Query.csproj" />
-		<ProjectReference Include="..\..\Application.Contracts\IM.Application.Contracts\IM.Application.Contracts.csproj" />
+		<ProjectReference Include="..\..\Application.Contracts\IM.Application\IM.Application.csproj" />
 		<ProjectReference Include="..\..\Domain\IM.Domain\IM.Domain.csproj" />
 		
 	</ItemGroup>

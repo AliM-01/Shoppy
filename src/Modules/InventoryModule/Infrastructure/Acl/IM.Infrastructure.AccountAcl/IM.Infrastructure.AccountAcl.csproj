@@ -13,8 +13,6 @@
 		<ProjectReference Include="..\..\..\..\..\0_Framework\0_Framework.csproj" />
 		<ProjectReference Include="..\..\..\..\AccountModule\AM.Domain\AM.Domain.csproj" />
 		<ProjectReference Include="..\..\..\..\AccountModule\AM.Infrastructure\AM.Infrastructure.csproj" />
-		<ProjectReference Include="..\..\..\Domain\IM.Domain\IM.Domain.csproj" />
-		<ProjectReference Include="..\..\IM.Infrastructure.Shared\IM.Infrastructure.Shared.csproj" />
 	</ItemGroup>
 
 </Project>

@@ -1,7 +1,7 @@
 ﻿using AM.Domain.Account;
 using AM.Infrastructure.RepositoryExtensions;
 using Ardalis.GuardClauses;
-using IM.Application.Contracts.Sevices;
+using IM.Application.Sevices;
 using Microsoft.AspNetCore.Identity;
 
 namespace IM.Infrastructure.AccountAcl;

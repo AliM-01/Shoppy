@@ -1,5 +1,5 @@
 ﻿using DM.Domain.ProductDiscount;
-using IM.Application.Contracts.Inventory.Helpers;
+using IM.Application.Inventory.Helpers;
 using IM.Domain.Inventory;
 using MongoDB.Driver;
 using SM.Domain.Product;

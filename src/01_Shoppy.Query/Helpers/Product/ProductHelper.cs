@@ -2,7 +2,7 @@
 using _0_Framework.Infrastructure;
 using _01_Shoppy.Query.Models.ProductPicture;
 using DM.Domain.ProductDiscount;
-using IM.Application.Contracts.Inventory.Helpers;
+using IM.Application.Inventory.Helpers;
 using IM.Domain.Inventory;
 using SM.Application.ProductFeature.DTOs;
 

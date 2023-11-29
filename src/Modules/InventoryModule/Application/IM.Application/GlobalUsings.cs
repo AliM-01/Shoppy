@@ -8,5 +8,8 @@ global using MediatR;
 global using Microsoft.EntityFrameworkCore;
 global using System.Threading;
 global using System.Threading.Tasks;
-
+global using IM.Application.Inventory.DTOs;
+global using _0_Framework.Domain.Validators;
+global using Newtonsoft.Json;
+global using System.ComponentModel.DataAnnotations;
 namespace IM.Application;

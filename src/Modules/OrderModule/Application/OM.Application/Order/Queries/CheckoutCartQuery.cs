@@ -1,6 +1,6 @@
 ﻿using DM.Domain.DiscountCode;
 using DM.Domain.ProductDiscount;
-using IM.Application.Contracts.Inventory.Helpers;
+using IM.Application.Inventory.Helpers;
 using IM.Domain.Inventory;
 using Microsoft.AspNetCore.WebUtilities;
 using MongoDB.Driver;

@@ -1,13 +1,22 @@
-﻿using IM.Application.Contracts.Inventory.Helpers;
+﻿using IM.Application.Inventory.Helpers;
 using IM.Domain.Inventory;
 using System.Linq;
 
 namespace IM.Application.Inventory.Helpers;
 
+public interface IInventoryHelper
+{
+    Task<bool> IsInStock(string inventoryId);
+
+    Task<long> CalculateCurrentCount(string inventoryId);
+
+    Task Increase(string inventoryId, long count, string operatorId, string description);
+
+    Task Reduce(string inventoryId, long count, string operatorId, string description, string orderId);
+}
+
 public class InventoryHelper : IInventoryHelper
 {
-    #region Ctor
-
     private readonly IRepository<Domain.Inventory.Inventory> _inventoryRepository;
     private readonly IRepository<InventoryOperation> _inventoryOperationHelper;
 
@@ -18,21 +27,12 @@ public class InventoryHelper : IInventoryHelper
         _inventoryOperationHelper = Guard.Against.Null(inventoryOperationHelper, nameof(_inventoryOperationHelper));
     }
 
-
-    #endregion
-
-    #region IsInStock
-
     public async Task<bool> IsInStock(string inventoryId)
     {
         long count = await CalculateCurrentCount(inventoryId);
 
         return count > 0;
     }
-
-    #endregion
-
-    #region CalculateCurrentCount
 
     public async Task<long> CalculateCurrentCount(string inventoryId)
     {
@@ -50,10 +50,6 @@ public class InventoryHelper : IInventoryHelper
 
         return (plus - minus);
     }
-
-    #endregion
-
-    #region Increase
 
     public async Task Increase(string inventoryId, long count, string operatorId, string description)
     {
@@ -73,10 +69,6 @@ public class InventoryHelper : IInventoryHelper
         await _inventoryRepository.UpdateAsync(inventory);
     }
 
-    #endregion
-
-    #region Reduce
-
     public async Task Reduce(string inventoryId, long count, string operatorId, string description, string orderId)
     {
         var inventory = await _inventoryRepository.FindByIdAsync(inventoryId);
@@ -94,6 +86,4 @@ public class InventoryHelper : IInventoryHelper
 
         await _inventoryRepository.UpdateAsync(inventory);
     }
-
-    #endregion
 }

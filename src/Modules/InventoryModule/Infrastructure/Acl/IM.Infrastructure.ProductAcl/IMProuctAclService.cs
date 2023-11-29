@@ -1,7 +1,7 @@
 ﻿using _0_Framework.Application.Exceptions;
 using _0_Framework.Infrastructure.IRepository;
 using Ardalis.GuardClauses;
-using IM.Application.Contracts.Sevices;
+using IM.Application.Sevices;
 using SM.Domain.Product;
 using SM.Infrastructure.RepositoryExtensions;
 

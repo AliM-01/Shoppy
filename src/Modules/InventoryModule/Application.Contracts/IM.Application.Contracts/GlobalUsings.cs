@@ -2,4 +2,6 @@
 global using MediatR;
 global using Newtonsoft.Json;
 global using System.ComponentModel.DataAnnotations;
-namespace IM.Application.Contracts;
+global using _0_Framework.Domain.Validators;
+
+namespace IM.Application;

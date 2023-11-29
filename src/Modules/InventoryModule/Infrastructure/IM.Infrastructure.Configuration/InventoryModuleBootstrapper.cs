@@ -1,6 +1,6 @@
 ﻿using _0_Framework.Infrastructure.IRepository;
-using IM.Application.Contracts.Inventory.Helpers;
-using IM.Application.Contracts.Sevices;
+using IM.Application.Inventory.Helpers;
+using IM.Application.Sevices;
 using IM.Application.Inventory.Helpers;
 using IM.Domain.Inventory;
 using IM.Infrastructure.AccountAcl;
@@ -13,7 +13,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using System;
 
-namespace IM.Infrastructure.Configuration;
+namespace IM.Infrastructure;
 
 public class InventoryModuleBootstrapper
 {

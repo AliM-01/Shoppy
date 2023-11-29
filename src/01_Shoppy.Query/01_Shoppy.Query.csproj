@@ -16,7 +16,7 @@
     <ProjectReference Include="..\0_Framework\0_Framework.csproj" />
     <ProjectReference Include="..\Modules\CommentModule\Infrastructure\CM.Infrastructure.Persistence\CM.Infrastructure.Persistence.csproj" />
     <ProjectReference Include="..\Modules\DiscountModule\Infrastructure\DM.Infrastructure.Persistence\DM.Infrastructure.Persistence.csproj" />
-    <ProjectReference Include="..\Modules\InventoryModule\Application.Contracts\IM.Application.Contracts\IM.Application.Contracts.csproj" />
+    <ProjectReference Include="..\Modules\InventoryModule\Application\IM.Application\IM.Application.csproj" />
     <ProjectReference Include="..\Modules\InventoryModule\Infrastructure\IM.Infrastructure.Persistence\IM.Infrastructure.Persistence.csproj" />
     <ProjectReference Include="..\Modules\ShopModule\Application\SM.Application\SM.Application.csproj" />
   </ItemGroup>

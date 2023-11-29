@@ -1,5 +1,5 @@
-﻿using IM.Application.Contracts.Inventory.Commands;
-using IM.Application.Contracts.Inventory.DTOs;
+﻿using IM.Application.Inventory.Commands;
+using IM.Application.Inventory.DTOs;
 using SM.Application.Product.Commands;
 using SM.Application.Product.DTOs;
 using SM.Application.Product.Queries;

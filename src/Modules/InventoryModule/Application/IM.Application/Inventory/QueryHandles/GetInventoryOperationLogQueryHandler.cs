@@ -1,14 +1,25 @@
-﻿using IM.Application.Contracts.Inventory.DTOs;
-using IM.Application.Contracts.Inventory.Queries;
-using IM.Application.Contracts.Sevices;
+﻿using FluentValidation;
+using IM.Application.Inventory.DTOs;
+using IM.Application.Inventory.Queries;
+using IM.Application.Sevices;
 using IM.Domain.Inventory;
 using System.Linq;
 
-namespace IM.Application.Inventory.QueryHandles;
+namespace IM.Application.Inventory.Queries;
+
+public record GetInventoryOperationLogQuery(string Id) : IRequest<InventoryLogsDto>;
+
+public class GetInventoryOperationLogQueryValidator : AbstractValidator<GetInventoryOperationLogQuery>
+{
+    public GetInventoryOperationLogQueryValidator()
+    {
+        RuleFor(p => p.Id)
+            .RequiredValidator("شناسه");
+    }
+}
+
 public class GetInventoryOperationLogQueryHandler : IRequestHandler<GetInventoryOperationLogQuery, InventoryLogsDto>
 {
-    #region Ctor
-
     private readonly IRepository<Domain.Inventory.Inventory> _inventoryRepository;
     private readonly IRepository<InventoryOperation> _inventoryOperationRepository;
     private readonly IIMProuctAclService _productAcl;
@@ -27,8 +38,6 @@ public class GetInventoryOperationLogQueryHandler : IRequestHandler<GetInventory
         _accountAcl = Guard.Against.Null(accountAcl, nameof(_accountAcl));
         _mapper = Guard.Against.Null(mapper, nameof(_mapper));
     }
-
-    #endregion
 
     public async Task<InventoryLogsDto> Handle(GetInventoryOperationLogQuery request, CancellationToken cancellationToken)
     {
