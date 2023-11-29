@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
 	<PropertyGroup>
 		<TargetFramework>net6.0</TargetFramework>
@@ -13,10 +13,9 @@
 	<ItemGroup>
 		<ProjectReference Include="..\..\..\..\01_Shoppy.Query\01_Shoppy.Query.csproj" />
 		<ProjectReference Include="..\..\..\..\0_Framework\0_Framework.csproj" />
+		<ProjectReference Include="..\..\..\ShopModule\Infrastructure\SM.Infrastructure\SM.Infrastructure.csproj" />
 		<ProjectReference Include="..\..\Application\IM.Application\IM.Application.csproj" />
-		<ProjectReference Include="..\..\Infrastructure\IM.Infrastructure.Persistence\IM.Infrastructure.Persistence.csproj" />
-		<ProjectReference Include="..\Acl\IM.Infrastructure.ProductAcl\IM.Infrastructure.ProductAcl.csproj" />
-		<ProjectReference Include="..\Acl\IM.Infrastructure.AccountAcl\IM.Infrastructure.AccountAcl.csproj" />
+		<ProjectReference Include="..\..\..\AccountModule\AM.Infrastructure\AM.Infrastructure.csproj" />
 	</ItemGroup>
 
 </Project>

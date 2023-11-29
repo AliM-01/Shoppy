@@ -1,11 +1,11 @@
 ﻿using _0_Framework.Infrastructure;
 using AM.Infrastructure.Seed;
 using IM.Domain.Inventory;
-using IM.Infrastructure.Persistence.Settings;
+using IM.Domain.Settings;
 using MongoDB.Driver;
 using System.Collections.Generic;
 
-namespace IM.Infrastructure.Persistence.Seeds;
+namespace IM.Infrastructure.Seeds;
 
 public static class InventoryDbSeed
 {

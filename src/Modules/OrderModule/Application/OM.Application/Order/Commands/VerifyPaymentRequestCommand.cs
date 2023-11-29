@@ -1,7 +1,7 @@
 ﻿using _0_Framework.Application.Extensions;
 using _0_Framework.Application.ZarinPal;
 using _0_Framework.Infrastructure;
-using IM.Infrastructure.Persistence.Settings;
+using IM.Domain.Settings;
 using Microsoft.Extensions.Options;
 using MongoDB.Driver;
 using OM.Application.Order.Commands;

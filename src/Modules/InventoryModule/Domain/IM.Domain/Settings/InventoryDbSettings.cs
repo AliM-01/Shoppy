@@ -1,6 +1,6 @@
 ﻿using _0_Framework.Infrastructure;
 
-namespace IM.Infrastructure.Persistence.Settings;
+namespace IM.Domain.Settings;
 
 public class InventoryDbSettings : BaseDbSettings
 {
