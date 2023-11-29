@@ -1,6 +1,6 @@
 ﻿using System.Threading.Tasks;
 
-namespace CM.Application.Contracts.Sevices;
+namespace CM.Application.Sevices;
 
 public interface ICMArticleAcl
 {

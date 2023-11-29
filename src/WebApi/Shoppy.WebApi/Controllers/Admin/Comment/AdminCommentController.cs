@@ -1,5 +1,5 @@
 ﻿using CM.Application.Contracts.Comment.Commands;
-using CM.Application.Contracts.Comment.DTOs;
+using CM.Application.Comment.DTOs;
 using CM.Application.Contracts.Inventory.Queries;
 
 namespace Shoppy.WebApi.Controllers.Admin.Comment;

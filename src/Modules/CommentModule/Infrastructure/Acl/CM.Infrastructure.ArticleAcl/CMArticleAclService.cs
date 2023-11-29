@@ -2,7 +2,7 @@
 using _0_Framework.Infrastructure.IRepository;
 using Ardalis.GuardClauses;
 using BM.Domain.Article;
-using CM.Application.Contracts.Sevices;
+using CM.Application.Sevices;
 
 namespace CM.Infrastructure.ArticleAcl;
 

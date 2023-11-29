@@ -1,5 +1,5 @@
 ﻿using _0_Framework.Infrastructure.IRepository;
-using CM.Application.Contracts.Sevices;
+using CM.Application.Sevices;
 using CM.Domain.Comment;
 using CM.Infrastructure.ArticleAcl;
 using CM.Infrastructure.Persistence.Context;

@@ -1,11 +1,21 @@
 ﻿using CM.Domain.Comment;
+using FluentValidation;
 
-namespace CM.Application.Comment.CommandHandles;
+namespace CM.Application.Comment.Commands;
+
+public record ConfirmCommentCommand(string CommentId) : IRequest<ApiResult>;
+
+public class ConfirmCommentCommandValidator : AbstractValidator<ConfirmCommentCommand>
+{
+    public ConfirmCommentCommandValidator()
+    {
+        RuleFor(p => p.CommentId)
+            .RequiredValidator("شناسه کامنت");
+    }
+}
 
 public class ConfirmCommentCommandHandler : IRequestHandler<ConfirmCommentCommand, ApiResult>
 {
-    #region Ctor
-
     private readonly IRepository<Domain.Comment.Comment> _commentRepository;
     private readonly IMapper _mapper;
 
@@ -14,8 +24,6 @@ public class ConfirmCommentCommandHandler : IRequestHandler<ConfirmCommentComman
         _commentRepository = Guard.Against.Null(commentRepository, nameof(_commentRepository));
         _mapper = Guard.Against.Null(mapper, nameof(_mapper));
     }
-
-    #endregion
 
     public async Task<ApiResult> Handle(ConfirmCommentCommand request, CancellationToken cancellationToken)
     {

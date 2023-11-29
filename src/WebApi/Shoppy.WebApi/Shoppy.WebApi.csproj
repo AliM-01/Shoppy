@@ -51,7 +51,6 @@
 		<ProjectReference Include="..\..\03_Reports.Query\03_Reports.Query.csproj" />
 		<ProjectReference Include="..\..\0_Framework\0_Framework.csproj" />
 		<ProjectReference Include="..\..\Modules\BlogModule\Application\BM.Application\BM.Application.csproj" />
-		<ProjectReference Include="..\..\Modules\CommentModule\Application.Contracts\CM.Application.Contracts\CM.Application.Contracts.csproj" />
 		<ProjectReference Include="..\..\Modules\CommentModule\Application\CM.Application\CM.Application.csproj" />
 		<ProjectReference Include="..\..\Modules\DiscountModule\Application.Contracts\DM.Application.Contracts\DM.Application.Contracts.csproj" />
 		<ProjectReference Include="..\..\Modules\DiscountModule\Application\DM.Application\DM.Application.csproj" />

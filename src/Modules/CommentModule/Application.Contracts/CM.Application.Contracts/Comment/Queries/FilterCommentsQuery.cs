@@ -1,5 +1,4 @@
-﻿using CM.Application.Contracts.Comment.DTOs;
+﻿using CM.Application.Comment.DTOs;
 
 namespace CM.Application.Contracts.Inventory.Queries;
 
-public record FilterCommentsQuery(FilterCommentDto Filter) : IRequest<FilterCommentDto>;

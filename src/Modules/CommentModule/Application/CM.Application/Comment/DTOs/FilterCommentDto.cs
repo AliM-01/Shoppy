@@ -1,9 +1,11 @@
 ﻿using _0_Framework.Application.Models.Paging;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
+using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
-namespace CM.Application.Contracts.Comment.DTOs;
+namespace CM.Application.Comment.DTOs;
 
 public class FilterCommentDto : BasePaging
 {

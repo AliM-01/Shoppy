@@ -1,4 +1,8 @@
-﻿namespace CM.Application.Contracts.Comment.DTOs;
+﻿using CM.Domain.Comment;
+using Newtonsoft.Json;
+using System.ComponentModel.DataAnnotations;
+
+namespace CM.Application.Comment.DTOs;
 
 public class CommentDto
 {

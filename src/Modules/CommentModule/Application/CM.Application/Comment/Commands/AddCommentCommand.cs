@@ -1,11 +1,34 @@
-﻿
+﻿using CM.Application.Comment.DTOs;
+using FluentValidation;
 
-namespace CM.Application.Comment.CommandHandles;
+namespace CM.Application.Comment.Commands;
+
+public record AddCommentCommand(AddCommentDto Comment) : IRequest<ApiResult>;
+
+public class AddCommentCommandValidator : AbstractValidator<AddCommentCommand>
+{
+    public AddCommentCommandValidator()
+    {
+        RuleFor(p => p.Comment.Name)
+            .RequiredValidator("نام");
+
+        RuleFor(p => p.Comment.Email)
+            .CustomEmailAddressValidator();
+
+        RuleFor(p => p.Comment.Text)
+            .RequiredValidator("نام")
+            .MaxLengthValidator("متن نظر", 500);
+
+        RuleFor(p => p.Comment.OwnerRecordId)
+            .RequiredValidator("شناسه محصول/مقاله");
+
+        RuleFor(p => p.Comment.ParentId)
+            .RequiredValidator("شناسه والد");
+    }
+}
 
 public class AddCommentCommandHandler : IRequestHandler<AddCommentCommand, ApiResult>
 {
-    #region Ctor
-
     private readonly IRepository<Domain.Comment.Comment> _commentRepository;
     private readonly IMapper _mapper;
 
@@ -14,8 +37,6 @@ public class AddCommentCommandHandler : IRequestHandler<AddCommentCommand, ApiRe
         _commentRepository = Guard.Against.Null(commentRepository, nameof(_commentRepository));
         _mapper = Guard.Against.Null(mapper, nameof(_mapper));
     }
-
-    #endregion
 
     public async Task<ApiResult> Handle(AddCommentCommand request, CancellationToken cancellationToken)
     {

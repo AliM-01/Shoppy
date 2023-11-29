@@ -1,7 +1,7 @@
 ﻿using _01_Shoppy.Query.Models.Comment;
 using _01_Shoppy.Query.Queries.Comment;
 using CM.Application.Contracts.Comment.Commands;
-using CM.Application.Contracts.Comment.DTOs;
+using CM.Application.Comment.DTOs;
 
 namespace Shoppy.WebApi.Controllers.Main.Comment;
 

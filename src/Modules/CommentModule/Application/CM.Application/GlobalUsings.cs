@@ -8,4 +8,6 @@ global using MediatR;
 global using MongoDB.Driver;
 global using System.Threading;
 global using System.Threading.Tasks;
+global using _0_Framework.Domain.Validators;
+
 namespace CM.Application;

@@ -1,6 +1,9 @@
-﻿using Newtonsoft.Json.Converters;
+﻿using CM.Domain.Comment;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Converters;
+using System.ComponentModel.DataAnnotations;
 
-namespace CM.Application.Contracts.Comment.DTOs;
+namespace CM.Application.Comment.DTOs;
 
 public class AddCommentDto
 {

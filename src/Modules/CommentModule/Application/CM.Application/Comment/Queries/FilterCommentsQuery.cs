@@ -1,17 +1,16 @@
 ﻿using _0_Framework.Application.Models.Paging;
-using CM.Application.Contracts.Comment.DTOs;
-using CM.Application.Contracts.Inventory.Queries;
-using CM.Application.Contracts.Sevices;
+using CM.Application.Comment.DTOs;
+using CM.Application.Sevices;
 using CM.Domain.Comment;
 using MongoDB.Driver.Linq;
 using System.Linq;
 
-namespace CM.Application.Comment.QueryHandles;
+namespace CM.Application.Comment.Queries;
+
+public record FilterCommentsQuery(FilterCommentDto Filter) : IRequest<FilterCommentDto>;
 
 public class FilterCommentsQueryHandler : IRequestHandler<FilterCommentsQuery, FilterCommentDto>
 {
-    #region Ctor
-
     private readonly IRepository<CM.Domain.Comment.Comment> _commentRepository;
     private readonly IMapper _mapper;
     private readonly ICMProductAcl _productAcl;
@@ -27,8 +26,6 @@ public class FilterCommentsQueryHandler : IRequestHandler<FilterCommentsQuery, F
         _productAcl = Guard.Against.Null(productAcl, nameof(_productAcl));
         _articleAcl = Guard.Against.Null(articleAcl, nameof(_articleAcl));
     }
-
-    #endregion
 
     public async Task<FilterCommentDto> Handle(FilterCommentsQuery request, CancellationToken cancellationToken)
     {
