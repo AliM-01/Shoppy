@@ -59,7 +59,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IM.Domain", "src\Modules\In
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IM.Application", "src\Modules\InventoryModule\Application\IM.Application\IM.Application.csproj", "{3519183F-DCB9-443A-9C0E-8BE4E2EF1656}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IM.Infrastructure", "src\Modules\InventoryModule\Infrastructure\IM.Infrastructure.Configuration\IM.Infrastructure.csproj", "{385CDC4C-CDC7-499E-9087-689F24C000A9}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IM.Infrastructure", "src\Modules\InventoryModule\Infrastructure\IM.Infrastructure\IM.Infrastructure.csproj", "{385CDC4C-CDC7-499E-9087-689F24C000A9}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{6F0BD421-4C02-43C5-A106-3F7EDE3B6076}"
 EndProject

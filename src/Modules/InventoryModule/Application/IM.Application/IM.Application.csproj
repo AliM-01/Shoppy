@@ -12,7 +12,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\..\..\0_Framework\0_Framework.csproj" />
-    <ProjectReference Include="..\..\Application.Contracts\IM.Application\IM.Application.csproj" />
     <ProjectReference Include="..\..\Domain\IM.Domain\IM.Domain.csproj" />
   </ItemGroup>
 

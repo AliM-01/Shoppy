@@ -25,6 +25,7 @@ using OM.Infrastructure.Shared.Mappings;
 using SM.Application;
 using SM.Infrastructure;
 using SM.Infrastructure.Mappings;
+using IM.Application.Mappings;
 
 namespace _02_DI_Container;
 

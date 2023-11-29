@@ -16,8 +16,7 @@
     <ProjectReference Include="..\..\..\..\0_Framework\0_Framework.csproj" />
     <ProjectReference Include="..\..\..\AccountModule\AM.Infrastructure\AM.Infrastructure.csproj" />
     <ProjectReference Include="..\..\..\DiscountModule\Domain\DM.Domain\DM.Domain.csproj" />
-    <ProjectReference Include="..\..\..\InventoryModule\Application.Contracts\IM.Application\IM.Application.csproj" />
-    <ProjectReference Include="..\..\..\InventoryModule\Domain\IM.Domain\IM.Domain.csproj" />
+    <ProjectReference Include="..\..\..\InventoryModule\Application\IM.Application\IM.Application.csproj" />
     <ProjectReference Include="..\..\..\ShopModule\Domain\SM.Domin\SM.Domain.csproj" />
     <ProjectReference Include="..\..\Domain\OM.Domain\OM.Domain.csproj" />
     <ProjectReference Include="..\..\Infrastructure\OM.Infrastructure.Persistence\OM.Infrastructure.Persistence.csproj" />
