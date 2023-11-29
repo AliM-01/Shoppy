@@ -5,7 +5,7 @@ using IM.Domain.Settings;
 using Microsoft.Extensions.Options;
 using MongoDB.Driver;
 using OM.Application.Order.Commands;
-using OM.Infrastructure.Persistence.Settings;
+using OM.Domain.Settings;
 using System.Globalization;
 
 namespace OM.Application.Order.Commands;

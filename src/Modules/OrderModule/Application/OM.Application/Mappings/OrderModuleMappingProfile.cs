@@ -4,7 +4,7 @@ using OM.Application.Order.Commands;
 using OM.Application.Order.DTOs;
 using OM.Domain.Order;
 
-namespace OM.Infrastructure.Shared.Mappings;
+namespace OM.Application.Mappings;
 
 public class OrderModuleMappingProfile : Profile
 {
@@ -14,7 +14,7 @@ public class OrderModuleMappingProfile : Profile
 
         #region Order Dto
 
-        CreateMap<Order, OrderDto>()
+        CreateMap<Domain.Order.Order, OrderDto>()
                 .ForMember(dest => dest.AccountId,
                     opt => opt.MapFrom(src => src.UserId.ToString()))
                 .ForMember(dest => dest.State,
@@ -26,7 +26,7 @@ public class OrderModuleMappingProfile : Profile
 
         #region User Order Dto
 
-        CreateMap<Order, UserOrderDto>()
+        CreateMap<Domain.Order.Order, UserOrderDto>()
                 .ForMember(dest => dest.State,
                     opt => opt.MapFrom(src => ((src.IsPaid && !src.IsCanceled) || (src.IsCanceled && !src.IsPaid))))
                 .ForMember(dest => dest.CreationDate,

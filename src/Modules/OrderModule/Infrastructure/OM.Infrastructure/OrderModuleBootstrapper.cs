@@ -2,9 +2,9 @@
 using MediatR;
 using Microsoft.Extensions.DependencyInjection;
 using OM.Domain.Order;
-using OM.Infrastructure.Persistence.Settings;
+using OM.Domain.Settings;
 
-namespace OM.Infrastructure.Configuration;
+namespace OM.Infrastructure;
 
 public static class OrderModuleBootstrapper
 {

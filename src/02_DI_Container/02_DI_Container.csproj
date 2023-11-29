@@ -36,9 +36,7 @@
 		<ProjectReference Include="..\Modules\DiscountModule\Infrastructure\DM.Infrastructure.Shared\DM.Infrastructure.Shared.csproj" />
 		<ProjectReference Include="..\Modules\InventoryModule\Application\IM.Application\IM.Application.csproj" />
 		<ProjectReference Include="..\Modules\InventoryModule\Infrastructure\IM.Infrastructure\IM.Infrastructure.csproj" />
-		<ProjectReference Include="..\Modules\OrderModule\Application\OM.Application\OM.Application.csproj" />
-		<ProjectReference Include="..\Modules\OrderModule\Infrastructure\OM.Infrastructure.Configuration\OM.Infrastructure.Configuration.csproj" />
-		<ProjectReference Include="..\Modules\OrderModule\Infrastructure\OM.Infrastructure.Shared\OM.Infrastructure.Shared.csproj" />
+		<ProjectReference Include="..\Modules\OrderModule\Infrastructure\OM.Infrastructure\OM.Infrastructure.csproj" />
 		<ProjectReference Include="..\Modules\ShopModule\Infrastructure\SM.Infrastructure\SM.Infrastructure.csproj" />
 	</ItemGroup>
 </Project>

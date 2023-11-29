@@ -28,7 +28,7 @@ COPY ["src/Modules/InventoryModule/Infrastructure/IM.Infrastructure/IM.Infrastru
 COPY ["src/Modules/AccountModule/AM.Domain/AM.Domain.csproj", "src/Modules/AccountModule/AM.Domain/"]
 COPY ["src/Modules/AccountModule/AM.Application/AM.Application.csproj", "src/Modules/AccountModule/AM.Application/"]
 COPY ["src/Modules/AccountModule/AM.Infrastructure/AM.Infrastructure.csproj", "src/Modules/AccountModule/AM.Infrastructure/"]
-COPY ["src/Modules/OrderModule/Infrastructure/OM.Infrastructure.Configuration/OM.Infrastructure.Configuration.csproj", "src/Modules/OrderModule/Infrastructure/OM.Infrastructure.Configuration/"]
+COPY ["src/Modules/OrderModule/Infrastructure/OM.Infrastructure/OM.Infrastructure.csproj", "src/Modules/OrderModule/Infrastructure/OM.Infrastructure/"]
 COPY ["src/Modules/OrderModule/Application.Contracts/OM.Application/OM.Application.csproj", "src/Modules/OrderModule/Application.Contracts/OM.Application/"]
 COPY ["src/Modules/OrderModule/Infrastructure/OM.Infrastructure.Persistence/OM.Infrastructure.Persistence.csproj", "src/Modules/OrderModule/Infrastructure/OM.Infrastructure.Persistence/"]
 COPY ["src/Modules/OrderModule/Domain/OM.Domain/OM.Domain.csproj", "src/Modules/OrderModule/Domain/OM.Domain/"]

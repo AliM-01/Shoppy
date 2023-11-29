@@ -1,6 +1,6 @@
 ﻿using _0_Framework.Infrastructure;
 
-namespace OM.Infrastructure.Persistence.Settings;
+namespace OM.Domain.Settings;
 
 public class OrderDbSettings : BaseDbSettings
 {

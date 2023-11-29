@@ -19,7 +19,6 @@
     <ProjectReference Include="..\..\..\InventoryModule\Application\IM.Application\IM.Application.csproj" />
     <ProjectReference Include="..\..\..\ShopModule\Domain\SM.Domin\SM.Domain.csproj" />
     <ProjectReference Include="..\..\Domain\OM.Domain\OM.Domain.csproj" />
-    <ProjectReference Include="..\..\Infrastructure\OM.Infrastructure.Persistence\OM.Infrastructure.Persistence.csproj" />
   </ItemGroup>
 
 </Project>
