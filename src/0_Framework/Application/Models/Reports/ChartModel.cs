@@ -1,8 +1,34 @@
-﻿namespace _03_Reports.Query.Extensions;
+﻿using Newtonsoft.Json;
+using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.Linq;
 
-public static class OrderChartMonth
+namespace _0_Framework.Application.Models.Reports;
+public class ChartModel
 {
-    public static List<ChartModel> OrderMonth(this List<ChartModel> value)
+    public ChartModel(int month, int count)
+    {
+        Month = month;
+        Count = count;
+    }
+
+    [Display(Name = "ماه")]
+    [JsonProperty("monthOrder")]
+    public int MonthOrder { get; set; } = 0;
+
+    [Display(Name = "ماه")]
+    [JsonProperty("month")]
+    [JsonIgnore]
+    public int Month { get; set; }
+
+    [Display(Name = "تعداد")]
+    [JsonProperty("count")]
+    public int Count { get; set; }
+}
+
+public static class SortChartMonth
+{
+    public static List<ChartModel> SortMonths(this List<ChartModel> value)
     {
         foreach (var item in value)
         {

@@ -1,5 +1,6 @@
-﻿using _03_Reports.Query.Models;
-using _03_Reports.Query.Queries;
+﻿using _0_Framework.Application.Models.Reports;
+using OM.Application.Reports;
+using SM.Application.Reports;
 
 namespace Shoppy.WebApi.Controllers.Admin.Discount;
 
@@ -29,7 +30,7 @@ public class AdminReportController : BaseAdminApiController
     [ProducesResponseType(typeof(IEnumerable<ChartModel>), 200)]
     public async Task<IActionResult> ProductSales()
     {
-        var res = await Mediator.Send(new GetProductsSoldChartQuery());
+        var res = await Mediator.Send(new GetSoldProductsChartQuery());
 
         return SuccessResult(res);
     }
