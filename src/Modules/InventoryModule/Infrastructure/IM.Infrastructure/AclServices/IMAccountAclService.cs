@@ -5,7 +5,7 @@ using IM.Application.Sevices;
 using Microsoft.AspNetCore.Identity;
 using System.Threading.Tasks;
 
-namespace IM.Infrastructure.AccountAcl;
+namespace IM.Infrastructure.AclServices;
 
 public class IMAccountAclService : IIMAccountAclService
 {

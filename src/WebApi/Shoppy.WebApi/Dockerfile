@@ -37,7 +37,7 @@ COPY ["src/Modules/InventoryModule/Application/IM.Application/IM.Application.csp
 COPY ["src/Modules/InventoryModule/Infrastructure/Acl/IM.Infrastructure.ProductAcl/IM.Infrastructure.ProductAcl.csproj", "src/Modules/InventoryModule/Infrastructure/Acl/IM.Infrastructure.ProductAcl/"]
 COPY ["src/Modules/ShopModule/Infrastructure/SM.Infrastructure.Shared/SM.Infrastructure.Shared.csproj", "src/Modules/ShopModule/Infrastructure/SM.Infrastructure.Shared/"]
 COPY ["src/Modules/InventoryModule/Infrastructure/Acl/IM.Infrastructure.AccountAcl/IM.Infrastructure.AccountAcl.csproj", "src/Modules/InventoryModule/Infrastructure/Acl/IM.Infrastructure.AccountAcl/"]
-COPY ["src/Modules/CommentModule/Infrastructure/CM.Infrastructure.Configuration/CM.Infrastructure.Configuration.csproj", "src/Modules/CommentModule/Infrastructure/CM.Infrastructure.Configuration/"]
+COPY ["src/Modules/CommentModule/Infrastructure/CM.Infrastructure/CM.Infrastructure.csproj", "src/Modules/CommentModule/Infrastructure/CM.Infrastructure/"]
 COPY ["src/Modules/CommentModule/Application.Contracts/CM.Application.Contracts/CM.Application.Contracts.csproj", "src/Modules/CommentModule/Application.Contracts/CM.Application.Contracts/"]
 COPY ["src/Modules/CommentModule/Infrastructure/Acl/CM.Infrastructure.ArticleAcl/CM.Infrastructure.ArticleAcl.csproj", "src/Modules/CommentModule/Infrastructure/Acl/CM.Infrastructure.ArticleAcl/"]
 COPY ["src/Modules/CommentModule/Infrastructure/Acl/CM.Infrastructure.ProductAcl/CM.Infrastructure.ProductAcl.csproj", "src/Modules/CommentModule/Infrastructure/Acl/CM.Infrastructure.ProductAcl/"]

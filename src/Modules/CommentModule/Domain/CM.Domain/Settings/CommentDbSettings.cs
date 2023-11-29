@@ -1,6 +1,6 @@
 ﻿using _0_Framework.Infrastructure;
 
-namespace CM.Infrastructure.Persistence.Settings;
+namespace CM.Domain.Persistence.Settings;
 
 public class CommentDbSettings : BaseDbSettings
 {

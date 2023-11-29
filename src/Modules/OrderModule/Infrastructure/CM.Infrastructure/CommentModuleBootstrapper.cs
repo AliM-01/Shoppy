@@ -1,17 +1,16 @@
 ﻿using _0_Framework.Infrastructure.IRepository;
 using CM.Application.Sevices;
 using CM.Domain.Comment;
-using CM.Infrastructure.ArticleAcl;
-using CM.Infrastructure.Persistence.Context;
-using CM.Infrastructure.Persistence.Settings;
-using CM.Infrastructure.ProductAcl;
+using CM.Domain.Persistence.Settings;
 using MediatR;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using System;
+using CM.Infrastructure.AclServices;
+using CM.Infrastructure.Seeds;
 
-namespace CM.Infrastructure.Configuration;
+namespace CM.Infrastructure;
 
 public class CommentModuleBootstrapper
 {

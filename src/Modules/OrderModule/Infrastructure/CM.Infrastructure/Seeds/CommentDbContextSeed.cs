@@ -1,10 +1,10 @@
 ﻿using _0_Framework.Infrastructure;
 using CM.Domain.Comment;
-using CM.Infrastructure.Persistence.Settings;
+using CM.Domain.Persistence.Settings;
 using MongoDB.Driver;
 using System.Collections.Generic;
 
-namespace CM.Infrastructure.Persistence.Context;
+namespace CM.Infrastructure.Seeds;
 
 public static class CommentDbContextSeed
 {

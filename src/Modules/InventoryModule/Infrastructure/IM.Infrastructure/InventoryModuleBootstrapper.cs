@@ -3,15 +3,14 @@ using IM.Application.Inventory.Helpers;
 using IM.Application.Sevices;
 using IM.Application.Inventory.Helpers;
 using IM.Domain.Inventory;
-using IM.Infrastructure.AccountAcl;
 using IM.Infrastructure.Seeds;
 using IM.Domain.Settings;
-using IM.Infrastructure.ProductAcl;
 using MediatR;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using System;
+using IM.Infrastructure.AclServices;
 
 namespace IM.Infrastructure;
 

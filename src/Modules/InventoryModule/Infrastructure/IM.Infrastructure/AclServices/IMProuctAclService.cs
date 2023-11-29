@@ -7,7 +7,7 @@ using SM.Infrastructure.RepositoryExtensions;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace IM.Infrastructure.ProductAcl;
+namespace IM.Infrastructure.AclServices;
 
 public class IMProuctAclService : IIMProuctAclService
 {
@@ -28,7 +28,7 @@ public class IMProuctAclService : IIMProuctAclService
     }
     public async Task<bool> ExistsInventory(string productId)
     {
-        if (!(await ExistsProduct(productId)))
+        if (!await ExistsProduct(productId))
             throw new NotFoundApiException("محصولی با این شناسه پیدا نشد");
 
         return await _inventoryRepository.ExistsAsync(x => x.ProductId == productId);
@@ -36,7 +36,7 @@ public class IMProuctAclService : IIMProuctAclService
 
     public async Task<string> GetProductTitle(string productId)
     {
-        if (!(await ExistsProduct(productId)))
+        if (!await ExistsProduct(productId))
             throw new NotFoundApiException("محصولی با این شناسه پیدا نشد");
 
         return await _productRepository.GetProductTitle(productId);

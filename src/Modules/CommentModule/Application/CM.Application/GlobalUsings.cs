@@ -3,7 +3,6 @@ global using _0_Framework.Application.Wrappers;
 global using _0_Framework.Infrastructure.IRepository;
 global using Ardalis.GuardClauses;
 global using AutoMapper;
-global using CM.Application.Contracts.Comment.Commands;
 global using MediatR;
 global using MongoDB.Driver;
 global using System.Threading;

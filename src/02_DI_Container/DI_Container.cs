@@ -9,8 +9,7 @@ using BM.Application;
 using BM.Infrastructure;
 using BM.Application.Mappings;
 using CM.Application;
-using CM.Infrastructure.Configuration;
-using CM.Infrastructure.Shared.Mappings;
+using CM.Infrastructure;
 using DM.Application;
 using DM.Infrastructure.Configuration;
 using DM.Infrastructure.Shared.Mappings;
@@ -26,6 +25,7 @@ using SM.Application;
 using SM.Infrastructure;
 using SM.Infrastructure.Mappings;
 using IM.Application.Mappings;
+using CM.Application.Mappings;
 
 namespace _02_DI_Container;
 

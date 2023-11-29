@@ -30,12 +30,11 @@
 		<ProjectReference Include="..\Modules\BlogModule\Domain\BM.Domain\BM.Domain.csproj" />
 		<ProjectReference Include="..\Modules\BlogModule\Infrastructure\BM.Infrastructure\BM.Infrastructure.csproj" />
 		<ProjectReference Include="..\Modules\CommentModule\Application\CM.Application\CM.Application.csproj" />
-		<ProjectReference Include="..\Modules\CommentModule\Infrastructure\CM.Infrastructure.Configuration\CM.Infrastructure.Configuration.csproj" />
-		<ProjectReference Include="..\Modules\CommentModule\Infrastructure\CM.Infrastructure.Shared\CM.Infrastructure.Shared.csproj" />
 		<ProjectReference Include="..\Modules\DiscountModule\Infrastructure\DM.Infrastructure.Configuration\DM.Infrastructure.Configuration.csproj" />
 		<ProjectReference Include="..\Modules\DiscountModule\Infrastructure\DM.Infrastructure.Shared\DM.Infrastructure.Shared.csproj" />
 		<ProjectReference Include="..\Modules\InventoryModule\Application\IM.Application\IM.Application.csproj" />
 		<ProjectReference Include="..\Modules\InventoryModule\Infrastructure\IM.Infrastructure\IM.Infrastructure.csproj" />
+		<ProjectReference Include="..\Modules\OrderModule\Infrastructure\CM.Infrastructure\CM.Infrastructure.csproj" />
 		<ProjectReference Include="..\Modules\OrderModule\Infrastructure\OM.Infrastructure\OM.Infrastructure.csproj" />
 		<ProjectReference Include="..\Modules\ShopModule\Infrastructure\SM.Infrastructure\SM.Infrastructure.csproj" />
 	</ItemGroup>
