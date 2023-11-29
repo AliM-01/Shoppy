@@ -1,5 +1,5 @@
 ﻿using DM.Application.Contracts.ProductDiscount.Commands;
-using DM.Application.Contracts.ProductDiscount.DTOs;
+using DM.Application.ProductDiscount.DTOs;
 using DM.Application.Contracts.ProductDiscount.Queries;
 
 namespace Shoppy.WebApi.Controllers.Admin.Discount;

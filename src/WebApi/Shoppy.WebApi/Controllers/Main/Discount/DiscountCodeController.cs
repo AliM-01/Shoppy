@@ -1,5 +1,5 @@
-﻿using _01_Shoppy.Query.Models.Discount;
-using _01_Shoppy.Query.Queries.Discount;
+﻿using _01_Shoppy.Query.Queries.Discount;
+using DM.Application.DiscountCode.DTOs;
 
 namespace Shoppy.WebApi.Controllers.Main.Discount;
 

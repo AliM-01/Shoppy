@@ -52,7 +52,6 @@
 		<ProjectReference Include="..\..\0_Framework\0_Framework.csproj" />
 		<ProjectReference Include="..\..\Modules\BlogModule\Application\BM.Application\BM.Application.csproj" />
 		<ProjectReference Include="..\..\Modules\CommentModule\Application\CM.Application\CM.Application.csproj" />
-		<ProjectReference Include="..\..\Modules\DiscountModule\Application.Contracts\DM.Application.Contracts\DM.Application.Contracts.csproj" />
 		<ProjectReference Include="..\..\Modules\DiscountModule\Application\DM.Application\DM.Application.csproj" />
 		<ProjectReference Include="..\..\Modules\InventoryModule\Application\IM.Application\IM.Application.csproj" />
 		<ProjectReference Include="..\..\Modules\ShopModule\Application\SM.Application\SM.Application.csproj" />

@@ -1,5 +1,5 @@
 ﻿using _0_Framework.Infrastructure.IRepository;
-using DM.Application.Contracts.Sevices;
+using DM.Application.Sevices;
 using DM.Domain.DiscountCode;
 using DM.Domain.ProductDiscount;
 using DM.Infrastructure.Persistence.Seeds;
