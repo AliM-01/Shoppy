@@ -1,13 +1,11 @@
-﻿using _01_Shoppy.Query.Queries.Discount;
-using DM.Application.DiscountCode.DTOs;
+﻿using DM.Application.DiscountCode.DTOs;
+using DM.Application.DiscountCode.Queries;
 
 namespace Shoppy.WebApi.Controllers.Main.Discount;
 
 [SwaggerTag("تخفیفات")]
 public class DiscountCodeController : BaseApiController
 {
-    #region Compute Cart
-
     [HttpGet(MainDiscountEndpoints.DiscountCode.ValidateCode)]
     [SwaggerOperation(Summary = "اعتبار سنجی کد تخفیف", Tags = new[] { "DiscountCode" })]
     [SwaggerResponse(200, "success")]
@@ -20,6 +18,4 @@ public class DiscountCodeController : BaseApiController
 
         return SuccessResult(res);
     }
-
-    #endregion
 }

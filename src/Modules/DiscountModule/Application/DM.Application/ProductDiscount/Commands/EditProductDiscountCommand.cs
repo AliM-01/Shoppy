@@ -1,5 +1,4 @@
-﻿using DM.Application.Contracts.ProductDiscount.Commands;
-using DM.Application.ProductDiscount.DTOs;
+﻿using DM.Application.ProductDiscount.DTOs;
 using DM.Application.Sevices;
 using FluentValidation;
 

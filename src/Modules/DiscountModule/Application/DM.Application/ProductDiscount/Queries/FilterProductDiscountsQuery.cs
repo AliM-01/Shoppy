@@ -1,6 +1,6 @@
 ﻿using _0_Framework.Application.Models.Paging;
 using DM.Application.ProductDiscount.DTOs;
-using DM.Application.Contracts.ProductDiscount.Queries;
+using DM.Application.ProductDiscount.Queries;
 using MongoDB.Driver.Linq;
 using FluentValidation;
 using DM.Application.Sevices;

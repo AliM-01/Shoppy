@@ -2,15 +2,15 @@
 using DM.Application.Sevices;
 using DM.Domain.DiscountCode;
 using DM.Domain.ProductDiscount;
+using DM.Domain.Settings;
+using DM.Infrastructure.AclServices;
 using DM.Infrastructure.Persistence.Seeds;
-using DM.Infrastructure.Persistence.Settings;
-using DM.Infrastructure.ProductAcl;
 using MediatR;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 
-namespace DM.Infrastructure.Configuration;
+namespace DM.Infrastructure;
 
 public class DiscountModuleBootstrapper
 {

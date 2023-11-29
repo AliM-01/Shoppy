@@ -1,6 +1,7 @@
-﻿using DM.Application.Contracts.ProductDiscount.Commands;
+﻿using DM.Application.ProductDiscount.CommandHandles;
 using DM.Application.ProductDiscount.DTOs;
-using DM.Application.Contracts.ProductDiscount.Queries;
+using DM.Application.ProductDiscount.Queries;
+using DM.Application.ProductDiscount.QueryHandles;
 
 namespace Shoppy.WebApi.Controllers.Admin.Discount;
 

@@ -2,7 +2,7 @@
 using _0_Framework.Infrastructure;
 using DM.Domain.DiscountCode;
 using DM.Domain.ProductDiscount;
-using DM.Infrastructure.Persistence.Settings;
+using DM.Domain.Settings;
 using MongoDB.Driver;
 
 namespace DM.Infrastructure.Persistence.Seeds;

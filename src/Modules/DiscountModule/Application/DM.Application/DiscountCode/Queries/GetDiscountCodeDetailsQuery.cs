@@ -1,5 +1,5 @@
 ﻿using DM.Application.DiscountCode.DTOs;
-using DM.Application.Contracts.DiscountCode.Queries;
+using DM.Application.DiscountCode.Queries;
 using FluentValidation;
 
 namespace DM.Application.DiscountCode.Queries;

@@ -1,4 +1,4 @@
-﻿using DM.Application.Contracts.DiscountCode.Commands;
+﻿using DM.Application.DiscountCode.Commands;
 using DM.Application.DiscountCode.DTOs;
 using FluentValidation;
 using MongoDB.Driver;

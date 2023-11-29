@@ -8,7 +8,7 @@ EXPOSE 443
 FROM mcr.microsoft.com/dotnet/sdk:6.0 AS build
 WORKDIR /src
 COPY ["src/WebApi/Shoppy.WebApi/Shoppy.WebApi.csproj", "src/WebApi/Shoppy.WebApi/"]
-COPY ["src/Modules/DiscountModule/Application.Contracts/DM.Application.Contracts/DM.Application.Contracts.csproj", "src/Modules/DiscountModule/Application.Contracts/DM.Application.Contracts/"]
+COPY ["src/Modules/DiscountModule/Application.Contracts/DM.Application/DM.Application.csproj", "src/Modules/DiscountModule/Application.Contracts/DM.Application/"]
 COPY ["src/Modules/DiscountModule/Domain/DM.Domain/DM.Domain.csproj", "src/Modules/DiscountModule/Domain/DM.Domain/"]
 COPY ["src/Modules/ShopModule/Domain/SM.Domin/SM.Domain.csproj", "src/Modules/ShopModule/Domain/SM.Domin/"]
 COPY ["src/0_Framework/0_Framework.csproj", "src/0_Framework/"]

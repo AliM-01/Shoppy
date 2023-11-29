@@ -1,6 +1,6 @@
 ﻿using _0_Framework.Infrastructure;
 
-namespace DM.Infrastructure.Persistence.Settings;
+namespace DM.Domain.Settings;
 
 public class DiscountDbSettings : BaseDbSettings
 {

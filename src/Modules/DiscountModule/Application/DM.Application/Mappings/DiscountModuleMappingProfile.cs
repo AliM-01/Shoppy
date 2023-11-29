@@ -14,7 +14,7 @@ public class DiscountModuleMappingProfile : Profile
 
         #region Product Discount Dto
 
-        CreateMap<ProductDiscount, ProductDiscountDto>()
+        CreateMap<Domain.ProductDiscount.ProductDiscount, ProductDiscountDto>()
           .ForMember(dest => dest.CreationDate,
               opt => opt.MapFrom(src => src.CreationDate.ToShamsi()))
           .ForMember(dest => dest.StartDate,
@@ -26,7 +26,7 @@ public class DiscountModuleMappingProfile : Profile
 
         #region Create Product Discount
 
-        CreateMap<DefineProductDiscountDto, ProductDiscount>()
+        CreateMap<DefineProductDiscountDto, Domain.ProductDiscount.ProductDiscount>()
             .ForMember(dest => dest.StartDate,
                 opt => opt.MapFrom(src => src.StartDate.ToMiladi()))
             .ForMember(dest => dest.EndDate,
@@ -36,13 +36,13 @@ public class DiscountModuleMappingProfile : Profile
 
         #region Edit Product Discount
 
-        CreateMap<ProductDiscount, EditProductDiscountDto>()
+        CreateMap<Domain.ProductDiscount.ProductDiscount, EditProductDiscountDto>()
             .ForMember(dest => dest.StartDate,
                 opt => opt.MapFrom(src => src.StartDate.ToLongShamsi()))
             .ForMember(dest => dest.EndDate,
                 opt => opt.MapFrom(src => src.EndDate.ToLongShamsi()));
 
-        CreateMap<EditProductDiscountDto, ProductDiscount>()
+        CreateMap<EditProductDiscountDto, Domain.ProductDiscount.ProductDiscount>()
             .ForMember(dest => dest.Id,
                 opt => opt.Ignore())
             .ForMember(dest => dest.StartDate,
@@ -58,7 +58,7 @@ public class DiscountModuleMappingProfile : Profile
 
         #region Discount Code Dto
 
-        CreateMap<DiscountCode, DiscountCodeDto>()
+        CreateMap<Domain.DiscountCode.DiscountCode, DiscountCodeDto>()
           .ForMember(dest => dest.StartDate,
               opt => opt.MapFrom(src => src.StartDate.ToLongShamsi()))
           .ForMember(dest => dest.EndDate,
@@ -68,7 +68,7 @@ public class DiscountModuleMappingProfile : Profile
 
         #region Create Discount Code
 
-        CreateMap<DefineDiscountCodeDto, DiscountCode>()
+        CreateMap<DefineDiscountCodeDto, Domain.DiscountCode.DiscountCode>()
             .ForMember(dest => dest.StartDate,
                 opt => opt.MapFrom(src => src.StartDate.ToMiladi()))
             .ForMember(dest => dest.EndDate,
@@ -78,13 +78,13 @@ public class DiscountModuleMappingProfile : Profile
 
         #region Edit Discount Code
 
-        CreateMap<DiscountCode, EditDiscountCodeDto>()
+        CreateMap<Domain.DiscountCode.DiscountCode, EditDiscountCodeDto>()
             .ForMember(dest => dest.StartDate,
                 opt => opt.MapFrom(src => src.StartDate.ToLongShamsi()))
             .ForMember(dest => dest.EndDate,
                 opt => opt.MapFrom(src => src.EndDate.ToLongShamsi()));
 
-        CreateMap<EditDiscountCodeDto, DiscountCode>()
+        CreateMap<EditDiscountCodeDto, Domain.DiscountCode.DiscountCode>()
             .ForMember(dest => dest.Id,
                 opt => opt.Ignore())
             .ForMember(dest => dest.StartDate,
@@ -96,7 +96,7 @@ public class DiscountModuleMappingProfile : Profile
 
         #region Validate DiscountCode Response Dto
 
-        CreateMap<DiscountCode, ValidateDiscountCodeResponseDto>();
+        CreateMap<Domain.DiscountCode.DiscountCode, ValidateDiscountCodeResponseDto>();
 
         #endregion
 

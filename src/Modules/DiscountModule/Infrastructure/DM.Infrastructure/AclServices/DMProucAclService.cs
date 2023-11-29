@@ -1,11 +1,11 @@
 ﻿using _0_Framework.Application.Exceptions;
 using _0_Framework.Infrastructure.IRepository;
 using Ardalis.GuardClauses;
-using DM.Application.Contracts.Sevices;
+using DM.Application.Sevices;
 using SM.Domain.Product;
 using SM.Infrastructure.RepositoryExtensions;
 
-namespace DM.Infrastructure.ProductAcl;
+namespace DM.Infrastructure.AclServices;
 public class DMProucAclService : IDMProucAclService
 {
     private readonly IRepository<Domain.ProductDiscount.ProductDiscount> _productDiscountRepository;
@@ -26,7 +26,7 @@ public class DMProucAclService : IDMProucAclService
 
     public async Task<bool> ExistsProductDiscount(string productId)
     {
-        if (!(await ExistsProduct(productId)))
+        if (!await ExistsProduct(productId))
             throw new NotFoundApiException("محصولی با این شناسه پیدا نشد");
 
         return await _productDiscountRepository.ExistsAsync(x => x.ProductId == productId);
@@ -34,7 +34,7 @@ public class DMProucAclService : IDMProucAclService
 
     public async Task<string> GetProductTitle(string productId)
     {
-        if (!(await ExistsProduct(productId)))
+        if (!await ExistsProduct(productId))
             throw new NotFoundApiException("محصولی با این شناسه پیدا نشد");
 
         return await _productRepository.GetProductTitle(productId);
