@@ -1,5 +1,4 @@
 ﻿using _0_Framework.Application.ZarinPal;
-using _01_Shoppy.Query;
 using _02_DI_Container.Extensions.Startup;
 using _03_Reports.Query;
 using AM.Application;
@@ -99,7 +98,6 @@ internal class DI_ContainerTools
             typeof(IBMAssemblyMarker),
             typeof(IAMAssemblyMarker),
             typeof(IOMAssemblyMarker),
-            typeof(IShoppyQueryAsseblyMarker),
             typeof(IReportAssemblyMarker),
         });
     }

@@ -1,5 +1,5 @@
-﻿using _01_Shoppy.Query.Models.Slider;
-using _01_Shoppy.Query.Queries.Slider;
+﻿using SM.Application.Slider.DTOs;
+using SM.Application.Slider.Queries;
 
 namespace Shoppy.WebApi.Controllers.Main.Shop;
 
@@ -11,10 +11,10 @@ public class SliderController : BaseApiController
     [HttpGet(MainShopEndpoints.Slider.GetSliders)]
     [SwaggerOperation(Summary = "دریافت اسلایدر ها", Tags = new[] { "Slider" })]
     [SwaggerResponse(200, "success")]
-    [ProducesResponseType(typeof(IEnumerable<SliderQueryModel>), 200)]
+    [ProducesResponseType(typeof(IEnumerable<SiteSliderDto>), 200)]
     public async Task<IActionResult> GetSliders()
     {
-        var res = await Mediator.Send(new GetSlidersQuery());
+        var res = await Mediator.Send(new GetSlidersForSiteQuery());
 
         return SuccessResult(res);
     }

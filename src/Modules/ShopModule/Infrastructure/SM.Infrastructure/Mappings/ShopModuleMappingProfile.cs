@@ -1,10 +1,7 @@
 ﻿using _0_Framework.Application.Extensions;
-using _01_Shoppy.Query.Models.Product;
-using _01_Shoppy.Query.Models.ProductCategory;
-using _01_Shoppy.Query.Models.ProductPicture;
-using _01_Shoppy.Query.Models.Slider;
 using AutoMapper;
-using SM.Application.Product.DTOs;
+using SM.Application.Product.DTOs.Admin;
+using SM.Application.Product.DTOs.Site;
 using SM.Application.ProductCategory.DTOs;
 using SM.Application.ProductFeature.DTOs;
 using SM.Application.ProductPicture.DTOs;
@@ -54,7 +51,7 @@ public class ShopModuleMappingProfile : Profile
 
         #region Product Category Query Model
 
-        CreateMap<ProductCategory, ProductCategoryQueryModel>();
+        CreateMap<ProductCategory, SiteProductCategoryDto>();
 
         #endregion
 
@@ -100,7 +97,7 @@ public class ShopModuleMappingProfile : Profile
 
         #region Product Query Model
 
-        CreateMap<Product, ProductQueryModel>()
+        CreateMap<Product, ProductSiteDto>()
             .ForMember(dest => dest.CategorySlug,
                 opt => opt.MapFrom(src => src.Category.Slug.ToSlug()));
 
@@ -108,7 +105,7 @@ public class ShopModuleMappingProfile : Profile
 
         #region ProductDetails Query Model
 
-        CreateMap<Product, ProductDetailsQueryModel>()
+        CreateMap<Product, ProductDetailsSiteDto>()
             .ForMember(dest => dest.CategorySlug,
                 opt => opt.MapFrom(src => src.Category.Slug.ToSlug()))
             .ForMember(dest => dest.ProductPictures,
@@ -136,7 +133,7 @@ public class ShopModuleMappingProfile : Profile
 
         #region ProductPicture Query Model
 
-        CreateMap<ProductPicture, ProductPictureQueryModel>();
+        CreateMap<ProductPicture, ProductPictureSiteDto>();
 
         #endregion
 
@@ -202,7 +199,7 @@ public class ShopModuleMappingProfile : Profile
 
         #region Slider Query Model
 
-        CreateMap<Slider, SliderQueryModel>();
+        CreateMap<Slider, SiteSliderDto>();
 
         #endregion
 

@@ -1,6 +1,6 @@
 ﻿using _0_Framework.Domain.Validators;
 using FluentValidation;
-using SM.Application.Product.DTOs;
+using SM.Application.Product.DTOs.Admin;
 
 namespace SM.Application.Product.Commands;
 

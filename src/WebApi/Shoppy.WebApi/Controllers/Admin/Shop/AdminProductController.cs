@@ -1,8 +1,10 @@
 ﻿using IM.Application.Inventory.Commands;
 using IM.Application.Inventory.DTOs;
 using SM.Application.Product.Commands;
-using SM.Application.Product.DTOs;
+using SM.Application.Product.DTOs.Admin;
 using SM.Application.Product.Queries;
+using SM.Application.Product.Queries.Admin;
+using SM.Application.Product.Queries.Site;
 
 namespace Shoppy.WebApi.Controllers.Admin.Shop;
 
@@ -53,7 +55,7 @@ public class AdminProductController : BaseAdminApiController
     [ProducesResponseType(typeof(ApiResult), 404)]
     public async Task<IActionResult> GetProductDetails([FromRoute] string id)
     {
-        var res = await Mediator.Send(new GetProductDetailsQuery(id));
+        var res = await Mediator.Send(new GetProductDetailsSiteQuery(id));
 
         return SuccessResult(res);
     }

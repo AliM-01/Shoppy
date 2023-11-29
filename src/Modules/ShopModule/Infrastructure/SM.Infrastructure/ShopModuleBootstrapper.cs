@@ -1,17 +1,16 @@
 ﻿using _0_Framework.Infrastructure.IRepository;
-using _01_Shoppy.Query.Helpers.Product;
 using MediatR;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
+using SM.Application.Services;
 using SM.Domain.Product;
 using SM.Domain.ProductCategory;
 using SM.Domain.ProductFeature;
 using SM.Domain.ProductPicture;
 using SM.Domain.Slider;
-using SM.Infrastructure;
-using SM.Infrastructure;
-using System;
+using SM.Infrastructure.AclServices;
+using SM.Infrastructure.Services;
 
 namespace SM.Infrastructure;
 
@@ -29,6 +28,8 @@ public class ShopModuleBootstrapper
         services.AddTransient<IRepository<Slider>, BaseRepository<Slider, ShopDbSettings>>();
 
         services.AddTransient<IProductHelper, ProductHelper>();
+        services.AddTransient<IInventoryAclService, InventoryAclService>();
+        services.AddTransient<IProductDiscountAclService, ProductDiscountAclService>();
 
         services.AddMediatR(typeof(ShopModuleBootstrapper).Assembly);
 
