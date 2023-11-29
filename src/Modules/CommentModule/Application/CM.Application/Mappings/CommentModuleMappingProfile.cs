@@ -18,7 +18,7 @@ public class CommentModuleMappingProfile : Profile
 
         CreateMap<AddCommentDto, Domain.Comment.Comment>();
 
-        CreateMap<Domain.Comment.Comment, CommentQueryModel>()
+        CreateMap<Domain.Comment.Comment, SiteCommentDto>()
             .ForMember(dest => dest.CreationDate,
                 opt => opt.MapFrom(src => src.CreationDate.ToLongShamsi()));
     }

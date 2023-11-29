@@ -1,7 +1,6 @@
-﻿using _01_Shoppy.Query.Models.Comment;
-using _01_Shoppy.Query.Queries.Comment;
-using CM.Application.Contracts.Comment.Commands;
-using CM.Application.Comment.DTOs;
+﻿using CM.Application.Comment.DTOs;
+using CM.Application.Comment.Commands;
+using CM.Application.Comment.Queries;
 
 namespace Shoppy.WebApi.Controllers.Main.Comment;
 
@@ -14,7 +13,7 @@ public class CommentController : BaseApiController
     [SwaggerOperation(Summary = "دریافت کامنت های محصول/مقاله", Tags = new[] { "Comment" })]
     [SwaggerResponse(200, "success")]
     [SwaggerResponse(404, "not-found")]
-    [ProducesResponseType(typeof(IEnumerable<CommentQueryModel>), 404)]
+    [ProducesResponseType(typeof(IEnumerable<SiteCommentDto>), 404)]
     [ProducesResponseType(typeof(ApiResult), 404)]
     public async Task<IActionResult> GetRecordCommentsById([FromRoute] string recordId,
         CancellationToken cancellationToken)

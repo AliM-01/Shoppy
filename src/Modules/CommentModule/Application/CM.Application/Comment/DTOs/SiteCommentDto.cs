@@ -1,6 +1,9 @@
-﻿namespace _01_Shoppy.Query.Models.Comment;
+﻿using Newtonsoft.Json;
+using System.ComponentModel.DataAnnotations;
 
-public class CommentQueryModel
+namespace CM.Application.Comment.DTOs;
+
+public class SiteCommentDto
 {
     [JsonProperty("id")]
     public string Id { get; set; }
@@ -30,7 +33,7 @@ public class CommentQueryModel
     public string ParentId { get; set; } = null;
 
     [JsonProperty("replies")]
-    public CommentQueryModel[] Replies { get; set; }
+    public SiteCommentDto[] Replies { get; set; }
 
     [Display(Name = "تاریخ ثبت")]
     [JsonProperty("creationDate")]
