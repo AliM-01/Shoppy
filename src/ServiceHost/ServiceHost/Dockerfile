@@ -36,9 +36,9 @@ COPY ["src/Modules/ShopModule/Domain/SM.Domain/SM.Domain.csproj", "src/Modules/S
 COPY ["src/Modules/ShopModule/Application/SM.Application/SM.Application.csproj", "src/Modules/ShopModule/Application/SM.Application/"]
 COPY ["src/Modules/ShopModule/Infrastructure/SM.Infrastructure/SM.Infrastructure.csproj", "src/Modules/ShopModule/Infrastructure/SM.Infrastructure/"]
 
-RUN dotnet restore "src/WebApi/ServiceHost/ServiceHost.csproj"
+RUN dotnet restore "src/ServiceHost/ServiceHost/ServiceHost.csproj"
 COPY . .
-WORKDIR "/src/src/WebApi/ServiceHost"
+WORKDIR "/src/src/ServiceHost/ServiceHost"
 RUN dotnet build "ServiceHost.csproj" -c Release -o /app/build
 
 FROM build AS publish
