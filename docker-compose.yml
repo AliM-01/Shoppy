@@ -6,7 +6,7 @@ services:
     image: ${DOCKER_REGISTRY-}shoppywebapi
     build:
       context: .
-      dockerfile: src/WebApi/ServiceHost/Dockerfile
+      dockerfile: src/ServiceHost/ServiceHost/Dockerfile
   
   shoppy_db:
     container_name: shoppy_db
