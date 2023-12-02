@@ -1,0 +1,12 @@
+﻿global using _0_Framework.Api;
+global using _0_Framework.Application.Wrappers;
+global using Microsoft.AspNetCore.Mvc;
+global using ServiceHost.Endpoints.Admin;
+global using ServiceHost.Endpoints.Main;
+global using ServiceHost.Endpoints.User;
+global using ServiceHost.Shared;
+global using Swashbuckle.AspNetCore.Annotations;
+global using System;
+global using System.Collections.Generic;
+global using System.Threading;
+global using System.Threading.Tasks;
