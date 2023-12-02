@@ -1,7 +1,7 @@
-﻿using _02_DI_Container.Middlewares;
-using Microsoft.AspNetCore.Builder;
+﻿using Microsoft.AspNetCore.Builder;
+using Shoppy.WebApi.ServiceRegistery.Middlewares;
 
-namespace _02_DI_Container.Extensions.Startup;
+namespace Shoppy.WebApi.ServiceRegistery.Extensions.Startup;
 
 public static class AppExtensions
 {

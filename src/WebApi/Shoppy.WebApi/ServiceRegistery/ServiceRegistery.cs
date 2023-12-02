@@ -1,53 +1,37 @@
 ﻿using _0_Framework.Application.ZarinPal;
-using _02_DI_Container.Extensions.Startup;
-using _03_Reports.Query;
-using AM.Application;
 using AM.Infrastructure;
-using AM.Application.Mappings;
-using BM.Application;
-using BM.Infrastructure;
-using BM.Application.Mappings;
-using CM.Application;
 using CM.Infrastructure;
-using IM.Application;
+using DM.Infrastructure;
 using IM.Infrastructure;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Newtonsoft.Json;
-using OM.Application;
 using OM.Infrastructure;
-using OM.Application.Mappings;
-using SM.Application;
 using SM.Infrastructure;
-using SM.Infrastructure.Mappings;
-using IM.Application.Mappings;
+using BM.Infrastructure;
+using Newtonsoft.Json;
+using AM.Application.Mappings;
+using BM.Application.Mappings;
 using CM.Application.Mappings;
-using DM.Infrastructure;
-using DM.Application;
 using DM.Application.Mappings;
+using IM.Application.Mappings;
+using OM.Application.Mappings;
+using SM.Infrastructure.Mappings;
+using Shoppy.WebApi.ServiceRegistery.Extensions.Startup;
+using AM.Application;
+using BM.Application;
+using CM.Application;
+using DM.Application;
+using IM.Application;
+using OM.Application;
+using SM.Application;
 
-namespace _02_DI_Container;
+namespace Shoppy.WebApi.ServiceRegistery;
 
-public static class DI_Container
+public static class ServiceRegistery
 {
     public async static Task RegisterServicesAsync(this IServiceCollection services, Type assemblyMarker, IConfiguration config)
     {
-        DI_ContainerTools tools = new();
-
-        await tools.ConfigureModules(services, config);
-        tools.AddCors(services);
-        tools.AddGeneralSettings(services);
-        tools.AddFluentValidation(services);
-        tools.AddAutoMapper(services, assemblyMarker);
-        tools.AddMediator(services, assemblyMarker);
-    }
-}
-
-
-internal class DI_ContainerTools
-{
-    public async Task ConfigureModules(IServiceCollection services, IConfiguration config)
-    {
+        //================================== Modules
         await AccountModuleBootstrapper.ConfigureAsync(services, config);
         ShopModuleBootstrapper.Configure(services, config);
         DiscountModuleBootstrapper.Configure(services, config);
@@ -57,23 +41,10 @@ internal class DI_ContainerTools
         OrderModuleBootstrapper.Configure(services, config);
 
         services.AddTransient<IZarinPalFactory, ZarinPalFactory>();
-    }
 
-    public void AddGeneralSettings(IServiceCollection services)
-    {
-        services.AddControllersWithViews().AddNewtonsoftJson(options =>
-        {
-            options.SerializerSettings.NullValueHandling = NullValueHandling.Include;
-            options.SerializerSettings.MaxDepth = int.MaxValue;
-            options.SerializerSettings.Formatting = Formatting.Indented;
-            options.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore;
-        });
-        services.AddOptions();
-        services.AddHttpContextAccessor();
-    }
 
-    public void AddCors(IServiceCollection services)
-    {
+
+        //================================== CORS
         services.AddCors(options =>
         {
             options.AddPolicy("CorsPolicy",
@@ -84,25 +55,24 @@ internal class DI_ContainerTools
                     .SetIsOriginAllowed((host) => true)
                     .AllowCredentials());
         });
-    }
 
-    public void AddMediator(IServiceCollection services, Type assemblyMarker)
-    {
-        services.AddMediatorExtension(new List<Type>
+
+
+        //================================== General Settings
+        services.AddControllersWithViews().AddNewtonsoftJson(options =>
         {
-            assemblyMarker,
-            typeof(ISMAssemblyMarker),
-            typeof(IDMAssemblyMarker),
-            typeof(IIMAssemblyMarker),
-            typeof(ICMAssemblyMarker),
-            typeof(IBMAssemblyMarker),
-            typeof(IAMAssemblyMarker),
-            typeof(IOMAssemblyMarker)
+            options.SerializerSettings.NullValueHandling = NullValueHandling.Include;
+            options.SerializerSettings.MaxDepth = int.MaxValue;
+            options.SerializerSettings.Formatting = Formatting.Indented;
+            options.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore;
         });
-    }
+        services.AddOptions();
+        services.AddHttpContextAccessor();
 
-    public void AddFluentValidation(IServiceCollection services)
-    {
+
+
+
+        //================================== Fluent Validation
         var assemblyTypes = new List<Type>
         {
             typeof(ShopModuleMappingProfile),
@@ -114,10 +84,10 @@ internal class DI_ContainerTools
             typeof(OrderModuleMappingProfile),
         };
         services.AddFluentValidationExtension(assemblyTypes);
-    }
 
-    public void AddAutoMapper(IServiceCollection services, Type assemblyMarker)
-    {
+
+
+        //================================== AutoMapper
         services.AddAutoMapperExtension(assemblyMarker, new List<Type>
         {
             typeof(ShopModuleMappingProfile),
@@ -127,6 +97,21 @@ internal class DI_ContainerTools
             typeof(BlogModuleMappingProfile),
             typeof(AccountModuleMappingProfile),
             typeof(OrderModuleMappingProfile),
+        });
+
+
+
+        //================================== Mediator
+        services.AddMediatorExtension(new List<Type>
+        {
+            assemblyMarker,
+            typeof(ISMAssemblyMarker),
+            typeof(IDMAssemblyMarker),
+            typeof(IIMAssemblyMarker),
+            typeof(ICMAssemblyMarker),
+            typeof(IBMAssemblyMarker),
+            typeof(IAMAssemblyMarker),
+            typeof(IOMAssemblyMarker)
         });
     }
 }

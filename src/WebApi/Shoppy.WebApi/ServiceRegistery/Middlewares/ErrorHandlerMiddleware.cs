@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Hosting;
 using Microsoft.IdentityModel.Tokens;
 
-namespace _02_DI_Container.Middlewares;
+namespace Shoppy.WebApi.ServiceRegistery.Middlewares;
 
 public class ErrorHandlerMiddleware
 {
@@ -58,16 +58,10 @@ public class ErrorHandlerMiddleware
             }
 
             if (apiResult.Status == 500)
-            {
                 if (env.IsDevelopment())
-                {
                     apiResult = ApiResponse.InternalServerError($"Internal Server Error : {error.Message}");
-                }
                 else
-                {
                     apiResult = ApiResponse.InternalServerError();
-                }
-            }
 
             var response = context.Response;
 

@@ -1,8 +1,8 @@
-using _02_DI_Container;
-using _02_DI_Container.Extensions.Startup;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.Hosting;
 using Serilog;
+using Shoppy.WebApi.ServiceRegistery;
+using Shoppy.WebApi.ServiceRegistery.Extensions.Startup;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -13,8 +13,6 @@ await builder.Services.RegisterServicesAsync(typeof(Program), builder.Configurat
 builder.Services.AddSwaggerExtension("Shoppy.WebApi");
 
 var app = builder.Build();
-
-#region Configure
 
 if (builder.Environment.IsDevelopment())
     app.UseDeveloperExceptionPage();
@@ -36,8 +34,6 @@ app.UseAuthorization();
 app.MapControllers();
 
 app.UseSerilogRequestLogging();
-
-#endregion
 
 try
 {

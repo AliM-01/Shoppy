@@ -5,8 +5,9 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.OpenApi.Any;
 using Microsoft.OpenApi.Models;
 using Swashbuckle.AspNetCore.SwaggerGen;
+using System.Linq;
 
-namespace _02_DI_Container.Extensions.Startup;
+namespace Shoppy.WebApi.ServiceRegistery.Extensions.Startup;
 
 public static class ServiceExtensions
 {
@@ -29,9 +30,7 @@ public static class ServiceExtensions
         services.AddAutoMapper((serviceProvider, autoMapper) =>
         {
             foreach (var profile in mappingProfiles)
-            {
                 autoMapper.AddProfile(profile);
-            }
         }, mainAssembly.Assembly);
     }
 
